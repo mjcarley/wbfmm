@@ -1,0 +1,9 @@
+2019-05-28  Michael Carley  <ensmjc@rpc-ensmjc.bath.ac.uk>
+
+	* tests/wbfmm-tests.c.in (shift_test): strided data tests added
+	prepatory to implementing bulk child-parent shift operations
+
+2019-04-24  Michael Carley  <ensmjc@rpc-ensmjc.bath.ac.uk>
+
+	* src/expansions.c: put the header in.
+

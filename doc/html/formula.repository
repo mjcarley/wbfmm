@@ -1,0 +1,39 @@
+\form#0:$(\theta,\phi,\chi)$
+\form#1:$(\mathbf{i}_{x}, \mathbf{i}_{y}, \mathbf{i}_{z})$
+\form#2:$(\mathbf{j}_{x}, \mathbf{j}_{y}, \mathbf{j}_{z})$
+\form#3:$x$
+\form#4:$y$
+\form#5:$z$
+\form#6:$\theta$
+\form#7:$\phi$
+\form#8:$\chi$
+\form#9:$(\theta,\phi\,\chi)$
+\form#10:$[\Re(C_{00})\quad \Im{C_{00}} \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1}) \Im(C_{0,-1})]$
+\form#11:$r$
+\form#12:$k$
+\form#13:$(i,j,k)$
+\form#14:$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
+\form#15:$(r,\theta,\phi)$
+\form#16:$P_{n-1}^{m}(\cos\theta)$
+\form#17:$0\leq m\leq n-1$
+\form#18:$P_{n}^{m}(\cos\theta)$
+\form#19:$0\leq m \leq n$
+\form#20:$n$
+\form#21:$n-1$
+\form#22:$\cos\theta$
+\form#23:$\sin\theta$
+\form#24:$P_{0}^{0}(\cos\theta)$
+\form#25:$P_{1}^{0}(\cos\theta)$
+\form#26:$P_{1}^{1}(\cos\theta)$
+\form#27:$j_{n}(x)$
+\form#28:$j_{n-1}(x)$
+\form#29:$j_{0}(x)$
+\form#30:$j_{1}(x)$
+\form#31:$h_{n}(x)$
+\form#32:$h_{0}(x)$
+\form#33:$h_{1}(x)$
+\form#34:$h_{n-1}(x)$
+\form#35:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\form#36:$\mathbf{x}$
+\form#37:$\mathbf{x}_{n}$
+\form#38:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$

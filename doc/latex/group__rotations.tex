@@ -1,0 +1,230 @@
+\section{Rotation operators}
+\label{group__rotations}\index{Rotation operators@{Rotation operators}}
+
+
+Rotation of expansions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gint \textbf{ wbfmm\+\_\+rotation\+\_\+angles} (gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$jx, gdouble $\ast$jy, gdouble $\ast$jz, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch)
+\begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint N, gdouble th, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+rotate\+\_\+H} (gdouble $\ast$Co, gint cstro, gint N, gdouble $\ast$Ci, gint cstri, gdouble $\ast$H, gdouble ph, gdouble ch)
+\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+rotation\+\_\+angles\+\_\+f} (gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$jx, gfloat $\ast$jy, gfloat $\ast$jz, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch)
+\begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f} (gfloat $\ast$H, gint N, gfloat th, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gint N, gfloat $\ast$Ci, gint cstri, gfloat $\ast$H, gfloat ph, gfloat ch)
+\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rotation of expansions. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\label{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}}
+\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{H,  }\item[{gint}]{N,  }\item[{gdouble}]{th,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Compute rotation coefficients for angle $\theta$. 
+
+Generate the coefficients required to rotate one multipole expansion to a new orientation, using Gumerov and Duraiswami, Section 5, equation (5.\+48) and recursion (5.\+55). Coefficients {\itshape H} are real and densely packed on output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em H} & on output rotation coefficients; \\
+\hline
+{\em N} & maximum order of coefficients to compute; \\
+\hline
+{\em th} & rotation angle $\theta$, from \doxyref{wbfmm\+\_\+rotation\+\_\+angles}{p.}{group__rotations_ga37773f36d6609f618a982e0a67446354}(...); \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}}
+\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{H,  }\item[{gint}]{N,  }\item[{gfloat}]{th,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Compute rotation coefficients for angle $\theta$. 
+
+Generate the coefficients required to rotate one multipole expansion to a new orientation, using Gumerov and Duraiswami, Section 5, equation (5.\+48) and recursion (5.\+55). Coefficients {\itshape H} are real and densely packed on output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em H} & on output rotation coefficients; \\
+\hline
+{\em N} & maximum order of coefficients to compute; \\
+\hline
+{\em th} & rotation angle $\theta$, from \doxyref{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}{p.}{group__rotations_gada5ed4dbfcf5876240f68bba12c0a529}(...); \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__rotations_ga72a6d08321a44f170caf0ee102c3b0ab}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotate\+\_\+H@{wbfmm\+\_\+rotate\+\_\+H}}
+\index{wbfmm\+\_\+rotate\+\_\+H@{wbfmm\+\_\+rotate\+\_\+H}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+rotate\+\_\+\+H()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+rotate\+\_\+H (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{N,  }\item[{gdouble $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gdouble $\ast$}]{H,  }\item[{gdouble}]{ph,  }\item[{gdouble}]{ch }\end{DoxyParamCaption})}
+
+
+
+Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
+
+Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}(...), rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
+
+$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
+
+This stride system allows for packing data more conveniently for upward and downward passes in the F\+MM proper.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output contains rotated coefficients; \\
+\hline
+{\em cstro} & stride in {\itshape Co}, in number of complex elements; \\
+\hline
+{\em N} & maximum order of coefficients; \\
+\hline
+{\em Ci} & input coefficients, to be rotated; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}, in number of complex elements; \\
+\hline
+{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}(...); \\
+\hline
+{\em ph} & angle $\phi$ for rotation; \\
+\hline
+{\em ch} & angle $\chi$ for rotation.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__rotations_ga0339a5bb82e4b0bda9a6b3c3274a2c2b}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}}
+\index{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{N,  }\item[{gfloat $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gfloat $\ast$}]{H,  }\item[{gfloat}]{ph,  }\item[{gfloat}]{ch }\end{DoxyParamCaption})}
+
+
+
+Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
+
+Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}(...), rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
+
+$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
+
+This stride system allows for packing data more conveniently for upward and downward passes in the F\+MM proper.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output contains rotated coefficients; \\
+\hline
+{\em cstro} & stride in {\itshape Co}, in number of complex elements; \\
+\hline
+{\em N} & maximum order of coefficients; \\
+\hline
+{\em Ci} & input coefficients, to be rotated; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}, in number of complex elements; \\
+\hline
+{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}(...); \\
+\hline
+{\em ph} & angle $\phi$ for rotation; \\
+\hline
+{\em ch} & angle $\chi$ for rotation.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__rotations_ga37773f36d6609f618a982e0a67446354}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}}
+\index{wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+rotation\+\_\+angles()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+rotation\+\_\+angles (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{ix,  }\item[{gdouble $\ast$}]{iy,  }\item[{gdouble $\ast$}]{iz,  }\item[{gdouble $\ast$}]{jx,  }\item[{gdouble $\ast$}]{jy,  }\item[{gdouble $\ast$}]{jz,  }\item[{gdouble $\ast$}]{th,  }\item[{gdouble $\ast$}]{ph,  }\item[{gdouble $\ast$}]{ch }\end{DoxyParamCaption})}
+
+
+
+Compute the rotation angles $(\theta,\phi,\chi)$ between axes. 
+
+Compute the angles for rotation between two systems of axes $(\mathbf{i}_{x}, \mathbf{i}_{y}, \mathbf{i}_{z})$ and $(\mathbf{j}_{x}, \mathbf{j}_{y}, \mathbf{j}_{z})$, as defined in Section 5 of Gumerov and Duraiswami. All vectors should be unit length and form a right-\/handed coordinate system (no check is performed).
+
+
+\begin{DoxyParams}{Parameters}
+{\em ix} & initial coordinate system $x$ axis; \\
+\hline
+{\em iy} & initial coordinate system $y$ axis; \\
+\hline
+{\em iz} & initial coordinate system $z$ axis; \\
+\hline
+{\em jx} & rotated coordinate system $x$ axis; \\
+\hline
+{\em jy} & rotated coordinate system $y$ axis; \\
+\hline
+{\em jz} & rotated coordinate system $z$ axis; \\
+\hline
+{\em th} & on exit, $\theta$ for rotation; \\
+\hline
+{\em ph} & on exit, $\phi$ for rotation; \\
+\hline
+{\em ch} & on exit, $\chi$ for rotation.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__rotations_gada5ed4dbfcf5876240f68bba12c0a529}} 
+\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}}
+\index{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}!Rotation operators@{Rotation operators}}
+\subsubsection{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+rotation\+\_\+angles\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{ix,  }\item[{gfloat $\ast$}]{iy,  }\item[{gfloat $\ast$}]{iz,  }\item[{gfloat $\ast$}]{jx,  }\item[{gfloat $\ast$}]{jy,  }\item[{gfloat $\ast$}]{jz,  }\item[{gfloat $\ast$}]{th,  }\item[{gfloat $\ast$}]{ph,  }\item[{gfloat $\ast$}]{ch }\end{DoxyParamCaption})}
+
+
+
+Compute the rotation angles $(\theta,\phi,\chi)$ between axes. 
+
+Compute the angles for rotation between two systems of axes $(\mathbf{i}_{x}, \mathbf{i}_{y}, \mathbf{i}_{z})$ and $(\mathbf{j}_{x}, \mathbf{j}_{y}, \mathbf{j}_{z})$, as defined in Section 5 of Gumerov and Duraiswami. All vectors should be unit length and form a right-\/handed coordinate system (no check is performed).
+
+
+\begin{DoxyParams}{Parameters}
+{\em ix} & initial coordinate system $x$ axis; \\
+\hline
+{\em iy} & initial coordinate system $y$ axis; \\
+\hline
+{\em iz} & initial coordinate system $z$ axis; \\
+\hline
+{\em jx} & rotated coordinate system $x$ axis; \\
+\hline
+{\em jy} & rotated coordinate system $y$ axis; \\
+\hline
+{\em jz} & rotated coordinate system $z$ axis; \\
+\hline
+{\em th} & on exit, $\theta$ for rotation; \\
+\hline
+{\em ph} & on exit, $\phi$ for rotation; \\
+\hline
+{\em ch} & on exit, $\chi$ for rotation.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
