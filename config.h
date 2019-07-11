@@ -7,19 +7,19 @@
 
 /* Define to a macro mangling the given C identifier (in lower and upper
    case), which must not contain underscores, for linking with Fortran. */
-#define F77_FUNC(name,NAME) name ## _
+/* #undef F77_FUNC */
 
 /* As F77_FUNC, but for C identifiers containing underscores. */
-#define F77_FUNC_(name,NAME) name ## _
+/* #undef F77_FUNC_ */
 
 /* Define if F77 and FC dummy `main' functions are identical. */
 /* #undef FC_DUMMY_MAIN_EQ_F77 */
 
 /* Define if you have an ATLAS BLAS library. */
-#define HAVE_ATLAS_BLAS 1
+/* #undef HAVE_ATLAS_BLAS */
 
 /* Define if you have a BLAS library. */
-#define HAVE_BLAS 1
+/* #undef HAVE_BLAS */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
@@ -28,7 +28,7 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define if you have LAPACK library. */
-#define HAVE_LAPACK 1
+/* #undef HAVE_LAPACK */
 
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1

@@ -25,12 +25,14 @@
 
 #define FUNCTION_NAME(_func) _func##_f
 
-#define SQRT(_x) sqrtf(_x)
-#define SIN(_x) sinf(_x)
-#define COS(_x) cosf(_x)
-#define ACOS(_x) acosf(_x)
-#define ATAN(_x) atanf(_x)
+#define SQRT(_x) sqrtf((_x))
+#define CBRT(_x) cbrtf((_x))
+#define SIN(_x) sinf((_x))
+#define COS(_x) cosf((_x))
+#define ACOS(_x) acosf((_x))
+#define ATAN(_x) atanf((_x))
 #define ATAN2(_y,_x) atan2f((_y),(_x))
+#define LOG(_x) logf((_x))
 
 #else
 
@@ -38,12 +40,14 @@
 
 #define FUNCTION_NAME(_func) _func
 
-#define SQRT(_x) sqrt(_x)
-#define SIN(_x) sin(_x)
-#define COS(_x) cos(_x)
-#define ACOS(_x) acos(_x)
-#define ATAN(_x) atan(_x)
+#define SQRT(_x) sqrt((_x))
+#define CBRT(_x) cbrt((_x))
+#define SIN(_x) sin((_x))
+#define COS(_x) cos((_x))
+#define ACOS(_x) acos((_x))
+#define ATAN(_x) atan((_x))
 #define ATAN2(_y,_x) atan2((_y),(_x))
+#define LOG(_x) log((_x))
 
 #endif /*WBFMM_SINGLE_PRECISION*/
 

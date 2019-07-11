@@ -49,6 +49,7 @@ gchar *tests[] = {"legendre",
 		  "parent_child",
 		  "expansion_dipole",
 		  "rotations_write",
+		  "expansion_normal",
 		  ""} ;
 
 gint legendre_test(gint N, WBFMM_REAL C) ;
@@ -317,8 +318,9 @@ gint expansion_test(WBFMM_REAL k, gint N,
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, &(xf[i*xstride]),
-			   work) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride,
+			   NULL, 0, NULL, 0,			   
+			   nsrc, &(xf[i*xstride]), work) ;
 
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT (%FLOATFMT)\n", work[0], work[1], 
 	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
@@ -375,6 +377,78 @@ gint expansion_dipole_test(WBFMM_REAL k, gint N,
     work[0] = work[1] = 0.0 ;
     wbfmm_total_dipole_field_PREC(k, xs, xstride, dipole, sstride, nsrc,
 				  &(xf[i*xstride]), work) ;
+
+    fprintf(stdout, "%FLOATFMT+j%FLOATFMT (%FLOATFMT)\n", work[0], work[1], 
+	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
+		 (field[1]-work[1])*(field[1]-work[1]))) ;
+  }
+
+  fprintf(stderr, "%s end: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  return 0 ;
+}
+
+gint expansion_normal_test(WBFMM_REAL k, gint N, 
+			   WBFMM_REAL *x0,
+			   WBFMM_REAL *xs, gint xstride,
+			   WBFMM_REAL *src, gint sstride,
+			   gint nsrc,
+			   WBFMM_REAL *xf, gint nfld)
+
+{
+  WBFMM_REAL cfft[16384] = {0}, work[16384], field[2], dipole[6] ;
+  WBFMM_REAL n[3], q[2] ;
+  WBFMM_REAL *fx, *fy, *fz ;
+  gint i, cstr ;
+  gdouble t0 ;
+
+  nsrc = 1 ;
+
+  /* n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.5 ; */
+  n[0] = 0.1 ; n[1] = -0.3 ; n[2] = 1.0 ;
+  q[0] = 1.7 ; q[1] = -0.3 ;
+  
+  /* fx = &(dipole[0]) ; fy = &(dipole[2]) ; fz = &(dipole[4]) ; */
+  /* fx[0] = 1.3 ; fx[1] = -0.9 ; */
+  /* fy[0] = 0.3 ; fy[1] =  0.9 ; */
+  /* fz[0] = 0.4 ; fz[1] =  0.1 ; */
+
+  
+  fx = &(dipole[0]) ; fy = &(dipole[2]) ; fz = &(dipole[4]) ;
+  fx[0] = n[0]*q[0] ; fx[1] = n[0]*q[1] ;
+  fy[0] = n[1]*q[0] ; fy[1] = n[1]*q[1] ;
+  fz[0] = n[2]*q[0] ; fz[1] = n[2]*q[1] ;
+  
+  cstr = 8 ; 
+  t0 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "%s start: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  for ( i = 0 ; i < nsrc ; i ++ ) {
+    wbfmm_expansion_normal_h_cfft_PREC(k, N, x0,
+    				       &(xs[i*xstride]), n, q,
+    				       cfft, cstr, work) ;
+    /* wbfmm_expansion_dipole_h_cfft_PREC(k, N, x0, */
+    /* 				       &(xs[i*xstride]), fx, fy, fz, */
+    /* 				       cfft, cstr, work) ; */
+  }
+
+  fprintf(stderr, "%s expansion generated: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  for ( i = 0 ; i < nfld ; i ++ ) {
+    field[0] = field[1] = 0.0 ;
+    wbfmm_expansion_h_evaluate_PREC(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
+				    field, work) ;
+
+    fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", field[0], field[1]) ;
+
+    work[0] = work[1] = 0.0 ;
+    wbfmm_total_normal_field_PREC(k, xs, xstride, n, 1, q, 1, nsrc,
+    				  &(xf[i*xstride]), work) ;
+    /* wbfmm_total_dipole_field_PREC(k, xs, xstride, dipole, 1, nsrc, */
+    /* 				  &(xf[i*xstride]), work) ; */
 
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT (%FLOATFMT)\n", work[0], work[1], 
 	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
@@ -460,8 +534,9 @@ gint translation_test(WBFMM_REAL k, gint N,
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, &(xf[i*fstride]),
-			   work) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride,
+			   NULL, 0, NULL, 0,			   
+			   nsrc, &(xf[i*fstride]), work) ;
 
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", work[0], work[1]) ;
 
@@ -549,7 +624,9 @@ gint translation_local_test(WBFMM_REAL k, gint N,
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, xr, work) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride,
+			   NULL, 0, NULL, 0,
+			   nsrc, xr, work) ;
 
     fprintf(stdout, "%FLOATFMT+j%FLOATFMT ", work[0], work[1]) ;
 
@@ -606,8 +683,9 @@ gint rotation_test(WBFMM_REAL k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     ref[0] = ref[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, 
-			   &(xf[i*xstride]), ref) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride,
+			   NULL, 0, NULL, 0,
+			   nsrc, &(xf[i*xstride]), ref) ;
     /*computed field on unrotated coefficients*/
     furot[0] = furot[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_PREC(k, xc, Ci, cstri, N, &(xf[i*xstride]), 
@@ -730,8 +808,9 @@ gint shift_test(WBFMM_REAL k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     ref[0] = ref[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, &(xf[i*xstride]),
-			   ref) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride,
+			   NULL, 0, NULL, 0, nsrc,
+			   &(xf[i*xstride]), ref) ;
     /*computed field on unshifted coefficients*/
     f0[0] = f0[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N, 
@@ -1038,7 +1117,7 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
 				  xf, fc, work) ;
   wbfmm_expansion_h_evaluate_PREC(k, xc, &(parent[0]), 8, Np, 
 				  xf, fp, work) ;
-  wbfmm_total_field_PREC(k, xsrc, 3, src, 2, 1, xf, fe) ;
+  wbfmm_total_field_PREC(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, 1, xf, fe) ;
 
   fprintf(stderr, "%FLOATFMT+j%FLOATFMT ", fc[0], fc[1]) ;
   fprintf(stderr, "%FLOATFMT+j%FLOATFMT ", fp[0], fp[1]) ;
@@ -1156,7 +1235,7 @@ gint parent_child_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
     xf[1] = xb[3*i+1] - wb*0.05 ; 
     xf[2] = xb[3*i+2] + wb*0.1 ; 
 
-    wbfmm_total_field_PREC(k, xsrc, 3, src, 2, 1, xf, fe) ;
+    wbfmm_total_field_PREC(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, 1, xf, fe) ;
     wbfmm_expansion_j_evaluate_PREC(k, xc, &(parent[2*pq]), 8, Np,
 			       xf, fp, work) ;
     wbfmm_expansion_j_evaluate_PREC(k, &(xb[3*i]), &(child[2*i]), 8, Nc,
@@ -1270,7 +1349,8 @@ gint shift_local_test(WBFMM_REAL k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     ref[0] = ref[1] = 0.0 ;
-    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, nsrc, xr, ref) ;
+    wbfmm_total_field_PREC(k, xs, xstride, src, sstride, NULL, 0, NULL, 0,
+			   nsrc, xr, ref) ;
     /*computed field on unshifted coefficients*/
     f0[0] = f0[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N0, xr, f0, work) ;
@@ -1508,7 +1588,7 @@ gint main(gint argc, gchar **argv)
   gchar ch, *ipfile ;
   guint level ;
 
-  k = 1.0 ; N = 16 ; 
+  k = 2.0 ; N = 16 ; 
   sstride = 2 ; xstride = 3 ; 
   r = 0.25 ;
   nsrc = 1 ;
@@ -1563,7 +1643,8 @@ gint main(gint argc, gchar **argv)
 	      &xf, &fstride, &nfld, ix, iy, iz) ;
   }
 
-  if ( test == 3 || test == 4 || test == 5 || test == 6 || test == 19 ) {
+  if ( test == 3 || test == 4 || test == 5 || test == 6 ||
+       test == 19 || test == 21 ) {
 
     if ( xs == NULL ) {
       src = (WBFMM_REAL *)g_malloc(nsrc*sstride*sizeof(WBFMM_REAL)) ;
@@ -1686,6 +1767,7 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( test == 19 ) {
+    xf[0] = 2.0 ;
     expansion_dipole_test(k, N, x0, xs, xstride, src, sstride, nsrc,
 			  xf, nfld) ;
     return 0 ;
@@ -1694,6 +1776,13 @@ gint main(gint argc, gchar **argv)
   if ( test == 20 ) {
     rotations_write(N, ix, iy, iz) ;
     
+    return 0 ;
+  }
+
+  if ( test == 21 ) {
+    xf[0] = 2.0 ; xf[1] = 1.0 ; xf[2] = 3.0 ;
+    expansion_normal_test(k, N, x0, xs, xstride, src, sstride, nsrc,
+			  xf, nfld) ;
     return 0 ;
   }
 

@@ -437,7 +437,7 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
 	  buf[3] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
 	}
 	sgnm = -sgnm ;
-	offp = 2*cstro*wbfmm_coefficient_index_nm(n, m) ;
+	offp = 2*cstro*wbfmm_coefficient_index_nm(n,  m) ;
 	offm = 2*cstro*wbfmm_coefficient_index_nm(n, -m) ;
 	Co[offp+0] += buf[0] ; Co[offp+1] += buf[1] ;
 	Co[offm+0] += buf[2] ; Co[offm+1] += buf[3] ;

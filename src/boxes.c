@@ -91,6 +91,7 @@ gint FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 
 {
   guint i ;
+  WBFMM_REAL *x, *xt, D ;
 
   if ( npts > wbfmm_tree_point_number_max(t) ) 
     g_error("%s: too many points (%u) for tree (%u)",
@@ -99,7 +100,21 @@ gint FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
   wbfmm_tree_point_number(t) = npts ;
   t->points = (gchar *)pts ; t->pstr = pstr ;
 
-  for ( i = 0 ; i < npts ; i ++ ) t->ip[i] = i ;
+  xt = wbfmm_tree_origin(t) ;
+  D = wbfmm_tree_width(t) ;
+
+  for ( i = 0 ; i < npts ; i ++ ) {
+    x = wbfmm_tree_point_index(t, i) ;
+    if ( x[0] <= xt[0] || x[0] >= xt[0] + D ||
+	 x[1] <= xt[1] || x[1] >= xt[1] + D ||
+	 x[2] <= xt[2] || x[2] >= xt[2] + D )
+      g_error("%s: point (%g,%g,%g) does not lie in box of width %g at "
+	      "(%g,%g,%g)",
+	      __FUNCTION__, x[0], x[1], x[2], D, xt[0], xt[1], xt[2]) ;
+	 
+    t->ip[i] = i ;
+  }
+  
 
   /*sort points on the Morton index*/
   g_qsort_with_data(t->ip, npts, sizeof(guint), compare_morton_indexed, 
@@ -226,13 +241,16 @@ guint64 FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x, WBFMM_REAL *c,
 
 gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 					       WBFMM_REAL *src, gint sstr,
+					       WBFMM_REAL *normals, gint nstr,
+					       WBFMM_REAL *dipoles, gint dstr,
+					       gboolean zero_expansions,
 					       WBFMM_REAL *work)
 
 {
   guint32 nb, nc, i, j, ns, d, idx ;
   guint64 im ;
   wbfmm_box_t *boxes ;
-  WBFMM_REAL *xs, *q, xb[3], wb ;
+  WBFMM_REAL *xs, *q, *fd, *n, xb[3], wb ;
 
   /*depth of leaves*/
   d = wbfmm_tree_depth(t) ;
@@ -244,30 +262,66 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
   nc = wbfmm_coefficient_index_nm(ns+1,0) ;
 
   /*zero the coefficients before accumulating*/
-  memset(t->mps[d], 0, nb*nc*2*sizeof(WBFMM_REAL)) ;
+  if ( zero_expansions )
+    memset(t->mps[d], 0, nb*nc*2*sizeof(WBFMM_REAL)) ;
 
   boxes = t->boxes[d] ;
 
-  for ( i = 0 ; i < nb ; i ++ ) {
-    im = (guint64)i ;
-    FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
-						 wbfmm_tree_origin(t), 
-						 wbfmm_tree_width(t), xb, 
-						 &wb) ;
-    xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ; 
+  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
-    for ( j = 0 ; j < boxes[i].n ; j ++ ) {
-      idx = t->ip[boxes[i].i+j] ;
-      /* fprintf(stderr, "%u %u %u %u\n", boxes[i].i, boxes[i].n, j, idx) ; */
-      xs = wbfmm_tree_point_index(t,idx) ;
-      q = &(src[idx*sstr]) ;
-      FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q, 
-					    boxes[i].mps, 8, work) ;
-    }
+  if ( normals != NULL && dipoles == NULL ) {
+    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
+	    __FUNCTION__) ;
   }
 
+  if ( normals == NULL && dipoles == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nb ; i ++ ) {
+      im = (guint64)i ;
+      FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+						   wbfmm_tree_origin(t), 
+						   wbfmm_tree_width(t), xb, 
+						   &wb) ;
+      xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ; 
+
+      for ( j = 0 ; j < boxes[i].n ; j ++ ) {
+	idx = t->ip[boxes[i].i+j] ;
+	xs = wbfmm_tree_point_index(t,idx) ;
+	q = &(src[idx*sstr]) ;
+	FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q,
+					      boxes[i].mps, 8, work) ;
+      }
+    }
+
+    return 0 ;
+  }
+
+  if ( src == NULL && normals != NULL ) {
+    /*dipoles only, specified as normals and strengths*/
+    for ( i = 0 ; i < nb ; i ++ ) {
+      im = (guint64)i ;
+      FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+						   wbfmm_tree_origin(t), 
+						   wbfmm_tree_width(t), xb, 
+						   &wb) ;
+      xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ; 
+
+      for ( j = 0 ; j < boxes[i].n ; j ++ ) {
+	idx = t->ip[boxes[i].i+j] ;
+	xs = wbfmm_tree_point_index(t,idx) ;
+	fd = &(dipoles[idx*dstr]) ;
+	n  = &(normals[idx*nstr]) ;
+	FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, n, fd,
+						     boxes[i].mps, 8, work) ;
+      }
+    }
+
+    return 0 ;
+  }
+  
   return 0 ;
 }
+
 
 gint FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
 					 guint b, WBFMM_REAL k,
@@ -293,11 +347,13 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 					       guint b, WBFMM_REAL k,
 					       WBFMM_REAL *x, WBFMM_REAL *f,
 					       WBFMM_REAL *src, gint sstr,
+					       WBFMM_REAL *normals, gint nstr,
+					       WBFMM_REAL *d, gint dstr,
 					       gboolean eval_neighbours,
 					       WBFMM_REAL *work)
 
 {
-  WBFMM_REAL xb[3], wb, *C, *xs, r, h0[2], h1[2] ;
+  WBFMM_REAL xb[3], wb, *C, *xs, r, h0[2], h1[2], q[6], *n, *fd, fR[2] ;
   wbfmm_box_t *boxes, box ;
   guint64 neighbours[27] ;
   gint nnbr, i, j, idx ;
@@ -312,29 +368,76 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 
   if ( !eval_neighbours ) return 0 ;
 
+  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
+  
+  if ( normals != NULL && d == NULL ) {
+    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+	    __FUNCTION__) ;
+  }
+
   /*add the contribution from sources in neighbour boxes*/
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
 
-  for ( i = 0 ; i < nnbr ; i ++ ) {
-    box = boxes[neighbours[i]] ;
-    for ( j = 0 ; j < box.n ; j ++ ) {
-      idx = t->ip[box.i+j] ;
-      xs = wbfmm_tree_point_index(t, idx) ;
-      r = 
-	(xs[0]-x[0])*(xs[0]-x[0]) + 
-	(xs[1]-x[1])*(xs[1]-x[1]) +
-	(xs[2]-x[2])*(xs[2]-x[2]) ;
-      if ( r > 1e-12 ) {
-	r = SQRT(r) ;
-	FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-	h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
-	f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
-	f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
+  if ( normals == NULL && d == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > 1e-12 ) {
+	  r = SQRT(r) ;
+	  FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
+	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
+	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
+	}
       }
     }
+
+    return 0 ;
   }
 
+  /* return 0 ; */
+  if ( src == NULL && normals != NULL ) {
+    /* dipoles only, specified as normals and strengths */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > 1e-12 ) {
+	  r = SQRT(r) ;
+	  FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  /* h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;  */
+	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
+	  n = &(normals[idx*nstr]) ;
+	  fd = &(d[idx*dstr]) ;
+	  q[0] = n[0]*fd[0] ; q[1] = n[0]*fd[1] ;
+	  q[2] = n[1]*fd[0] ; q[3] = n[1]*fd[1] ;
+	  q[4] = n[2]*fd[0] ; q[5] = n[2]*fd[1] ;
+	  fR[0]  = q[0]*(x[0] - xs[0]) ; fR[1]  = q[1]*(x[0] - xs[0]) ;
+	  fR[0] += q[2]*(x[1] - xs[1]) ; fR[1] += q[3]*(x[1] - xs[1]) ;
+	  fR[0] += q[4]*(x[2] - xs[2]) ; fR[1] += q[5]*(x[2] - xs[2]) ;
+
+	  fR[0] /= r ; fR[1] /= r ;
+	  
+	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
+	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+	}
+      }
+    }
+    
+    return 0 ;
+  }
+
+  g_assert_not_reached() ; 
+  
   return 0 ;
 }
 
@@ -358,6 +461,7 @@ gint FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   /*number of coefficients in singular expansions*/
   if ( ns != 0 ) {
     nc = wbfmm_coefficient_index_nm(ns+1,0) ;
+    /* nc = wbfmm_coefficient_index_nm(ns+2,0) ; */
     t->mps[l] = g_malloc0(nb*2*nc*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mps[l]) ;
     /*
@@ -374,6 +478,7 @@ gint FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
 
   if ( nr != 0 ) {
     nc = wbfmm_coefficient_index_nm(nr+1,0) ;
+    /* nc = wbfmm_coefficient_index_nm(nr+2,0) ; */
     t->mpr[l] = g_malloc0(nb*2*nc*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mpr[l]) ;
     /*
@@ -397,15 +502,36 @@ guint64 FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
 {
   guint64 b ;
   guint nb, i, j, k ;
-  WBFMM_REAL wb, *x0 ;
+  WBFMM_REAL wb, *x0, dx ;
 
   nb = 1 << level ;
   wb = t->D/nb ;
 
   x0 = wbfmm_tree_origin(t) ;
-  i = (guint32)floor((x[0] - x0[0])/wb) ;
-  j = (guint32)floor((x[1] - x0[1])/wb) ;
-  k = (guint32)floor((x[2] - x0[2])/wb) ;
+  dx = (x[0] - x0[0])/wb ;
+  if ( dx < 0.0 || dx > nb )
+    g_error("%s: point (%g,%g,%g) not in octree",
+	    __FUNCTION__, x[0], x[1], x[2]) ;
+  else
+    i = (guint32)floor(dx) ;
+
+  dx = (x[1] - x0[1])/wb ;
+  if ( dx < 0.0 || dx > nb )
+    g_error("%s: point (%g,%g,%g) not in octree",
+	    __FUNCTION__, x[0], x[1], x[2]) ;
+  else
+    j = (guint32)floor(dx) ;
+
+  dx = (x[2] - x0[2])/wb ;
+  if ( dx < 0.0 || dx > nb )
+    g_error("%s: point (%g,%g,%g) not in octree",
+	    __FUNCTION__, x[0], x[1], x[2]) ;
+  else
+    k = (guint32)floor(dx) ;
+
+  /* i = (guint32)floor((x[0] - x0[0])/wb) ; */
+  /* j = (guint32)floor((x[1] - x0[1])/wb) ; */
+  /* k = (guint32)floor((x[2] - x0[2])/wb) ; */
 
   b = wbfmm_box_index(i, j, k) ;
 

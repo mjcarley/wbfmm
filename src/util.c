@@ -195,26 +195,70 @@ gint FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1, WBFMM_REAL *hn,
 gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 				      WBFMM_REAL *xs, gint xstride,
 				      WBFMM_REAL *src, gint sstride,
+				      WBFMM_REAL *normals, gint nstr,
+				      WBFMM_REAL *dipoles, gint dstr,
 				      gint nsrc,
 				      WBFMM_REAL *xf, WBFMM_REAL *field)
 
 {
   gint i ;
-  WBFMM_REAL r, th, ph, h0[2], h1[2] ;
+  WBFMM_REAL r, th, ph, h0[2], h1[2], fR[2], fd[6] ;
 
-  field[0] = field[1] = 0.0 ;
+  /* field[0] = field[1] = 0.0 ; */
 
-  for ( i = 0 ; i < nsrc ; i ++ ) {
-    FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
-						&r, &th, &ph) ;
-    FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-    field[0] += h0[0]*src[i*sstride+0] - h0[1]*src[i*sstride+1] ;
-    field[1] += h0[1]*src[i*sstride+0] + h0[0]*src[i*sstride+1] ;
+  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
+
+  if ( normals != NULL && dipoles == NULL )
+    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
+	    __FUNCTION__) ;
+
+  if ( normals == NULL && dipoles == NULL ) {
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+						  &r, &th, &ph) ;
+      FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+      field[0] += h0[0]*src[i*sstride+0] - h0[1]*src[i*sstride+1] ;
+      field[1] += h0[1]*src[i*sstride+0] + h0[0]*src[i*sstride+1] ;
+    }
+    
+    /*G&D normalization of Legendre polynomials*/
+    field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
+
+    return 0 ;
   }
 
-  /*G&D normalization of Legendre polynomials*/
-  field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
+  if ( src == NULL && dipoles != NULL ) {
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+						  &r, &th, &ph) ;
+      FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 
+      fd[0] = normals[i*nstr+0]*dipoles[i*dstr+0] ;
+      fd[1] = normals[i*nstr+0]*dipoles[i*dstr+1] ;
+      fd[2] = normals[i*nstr+1]*dipoles[i*dstr+0] ;
+      fd[3] = normals[i*nstr+1]*dipoles[i*dstr+1] ;
+      fd[4] = normals[i*nstr+2]*dipoles[i*dstr+0] ;
+      fd[5] = normals[i*nstr+2]*dipoles[i*dstr+1] ;
+
+      fR[0]  = fd[0]*(xf[0] - xs[i*xstride+0]) ;
+      fR[1]  = fd[1]*(xf[0] - xs[i*xstride+0]) ;
+      fR[0] += fd[2]*(xf[1] - xs[i*xstride+1]) ;
+      fR[1] += fd[3]*(xf[1] - xs[i*xstride+1]) ;
+      fR[0] += fd[4]*(xf[2] - xs[i*xstride+2]) ;
+      fR[1] += fd[5]*(xf[2] - xs[i*xstride+2]) ;
+      
+      fR[0] /= r ; fR[1] /= r ;
+      
+      field[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
+      field[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+    }
+
+    /*G&D normalization of Legendre polynomials*/
+    field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
+
+    return 0 ;
+  }
+  
   return 0 ;
 }
 
@@ -228,7 +272,7 @@ gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
   gint i ;
   WBFMM_REAL r, th, ph, h0[2], h1[2], fR[2] ;
 
-  field[0] = field[1] = 0.0 ;
+  /* field[0] = field[1] = 0.0 ; */
 
   for ( i = 0 ; i < nsrc ; i ++ ) {
     FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
@@ -250,6 +294,35 @@ gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
   /*G&D normalization of Legendre polynomials*/
   field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
 
+  return 0 ;
+}
+
+gint FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
+					     WBFMM_REAL *xs, gint xstride,
+					     WBFMM_REAL *ns, gint nstride,
+					     WBFMM_REAL *src, gint sstride,
+					     gint nsrc,
+					     WBFMM_REAL *xf, WBFMM_REAL *field)
+
+{
+  gint i ;
+  WBFMM_REAL q[6], f[2] = {0.0} ;
+
+  /* field[0] = field[1] = 0.0 ; */
+  for ( i = 0 ; i < nsrc ; i ++ ) {
+    q[0] = ns[i*nstride+0]*src[i*sstride+0] ;
+    q[1] = ns[i*nstride+0]*src[i*sstride+1] ;
+    q[2] = ns[i*nstride+1]*src[i*sstride+0] ;
+    q[3] = ns[i*nstride+1]*src[i*sstride+1] ;
+    q[4] = ns[i*nstride+2]*src[i*sstride+0] ;
+    q[5] = ns[i*nstride+2]*src[i*sstride+1] ;
+
+    f[0] = f[1] = 0.0 ;
+    FUNCTION_NAME(wbfmm_total_dipole_field)(k, &(xs[i*xstride]), 0,
+					    q, 0, 1, xf, f) ;
+    field[0] += f[0] ; field[1] += f[1] ;
+  }
+  
   return 0 ;
 }
 
@@ -426,16 +499,21 @@ gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level,
 }
 
 gint FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
-					     gint str, gint n,
-					     WBFMM_REAL *xmin,
-					     WBFMM_REAL *D)
+					      gint str, gint n,
+					      WBFMM_REAL *xmin,
+					      WBFMM_REAL *xmax,
+					      WBFMM_REAL *D,
+					      gboolean init_limits)
 
 {
   /* WBFMM_REAL xmin[3] = {G_MAXFLOAT, G_MAXFLOAT, G_MAXFLOAT} ; */
-  WBFMM_REAL xmax[3] = {-G_MAXFLOAT, -G_MAXFLOAT, -G_MAXFLOAT} ;
   gint i ;
 
-  xmin[0] = G_MAXFLOAT ; xmin[1] = G_MAXFLOAT ; xmin[2] = G_MAXFLOAT ;
+  if ( init_limits ) {
+    xmin[0] =  G_MAXFLOAT ; xmin[1] =  G_MAXFLOAT ; xmin[2] =  G_MAXFLOAT ;
+    xmax[0] = -G_MAXFLOAT ; xmax[0] = -G_MAXFLOAT ; xmax[0] = -G_MAXFLOAT ;
+  }
+  
   for ( i = 0 ; i < n ; i ++ ) {
     xmin[0] = MIN(xmin[0], x[str*i+0]) ;
     xmin[1] = MIN(xmin[1], x[str*i+1]) ;
@@ -517,4 +595,35 @@ gint FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
   }
   
   return 0 ;
+}
+
+gint FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
+					    WBFMM_REAL k, guint level,
+					    WBFMM_REAL tol)
+
+/* Gumerov and Duraiswami, J. Acoust. Soc. Am. 2009, p191 */
+  
+{
+  gint p ;
+  WBFMM_REAL D, ka, phi, plo, del ;
+  guint nb ;
+
+  del = 2.0 ;
+  nb = 1 << level ;
+
+  D = wbfmm_tree_width(t) ;
+  ka = D/nb ;
+
+  /*radius of circumsphere at level `level'*/
+  ka *= 0.5*SQRT(3.0)*k ;
+
+  plo = 1.0 - LOG(tol*(1.0-1.0/del)*SQRT(1.0-1.0/del))/LOG(del) ;
+
+  phi = CBRT(3.0*LOG(1.0/tol)) ;
+  phi *= phi ;
+  phi = ka + 0.5*phi*CBRT(ka) ;
+
+  p = (gint)ceil(SQRT(SQRT(plo*plo*plo*plo + phi*phi*phi*phi))) ;
+  
+  return p ;
 }

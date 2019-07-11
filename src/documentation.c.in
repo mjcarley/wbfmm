@@ -178,7 +178,8 @@
 
 /**
  * @fn gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
- * WBFMM_REAL k, WBFMM_REAL *src, gint sstr, WBFMM_REAL *work)
+ * WBFMM_REAL k, WBFMM_REAL *src, gint sstr, gboolean zero_expansions,
+ * WBFMM_REAL *work)
  *
  * @ingroup boxes
  *
@@ -188,6 +189,8 @@
  * @param k wavenumber;
  * @param src source strengths;
  * @param sstr stride of data in \a src;
+ * @param zero_expansions if TRUE, set local expansions to zero before
+ * adding source terms;
  * @param work workspace.
  *
  * @return 0 on success
@@ -814,6 +817,7 @@
  * evaluation of the sum over sources at \f$\mathbf{x}_{n}\f$
  * \f$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla 
  * h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi\f$.
+ * 
  *
  * @param k wavenumber;
  * @param xs array of source positions;
@@ -944,7 +948,8 @@
  * @fn gint FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
 					     gint str, gint n,
 					     WBFMM_REAL *xmin,
-					     WBFMM_REAL *D)
+					     WBFMM_REAL *D,
+					     gboolean init_limits)
  *
  * @ingroup util
  *
@@ -954,7 +959,8 @@
  * @param str stride of points in \a x;
  * @param n number of points in \a x;
  * @param xmin origin of cube containing all points in \a x;
- * @param D width of cube containing all points in \a x
+ * @param D width of cube containing all points in \a x;
+ * @param init_limits if TRUE initialize limits overwriting any data in xmin
  *
  * @return 0 on success
  *

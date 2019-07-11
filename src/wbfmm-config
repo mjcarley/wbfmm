@@ -1,13 +1,15 @@
 #!/bin/sh
 # src/wbfmm-config.  Generated from wbfmm-config.in by configure.
 
-blas_libs="-lcblas -lf77blas -latlas"
+blas_libs="@blas_libs@"
 wbfmm_cppflags=""
 openmp_cflags="-fopenmp"
 
 prefix=/home/ensmjc/Codes
 exec_prefix=${prefix}
 includedir=${prefix}/include
+
+single_precision=no
 
 usage()
 {
@@ -20,6 +22,7 @@ Options:
 	[--libs]
 	[--cflags]
 	[--check]
+	[--single-precision]
 Libraries:
 	wbfmm
 EOF
@@ -77,6 +80,9 @@ while test $# -gt 0; do
     --libs)
       echo_libs=yes
       ;;
+    --single-precision)
+      single_precision=yes
+      ;;
     --check)
       echo_check=yes
       ;;
@@ -97,12 +103,16 @@ if test "$echo_exec_prefix" = "yes"; then
 	echo $exec_prefix
 fi
 if test "$echo_cflags" = "yes"; then
-	wbfmm_cflags="$openmp_cflags -I${prefix}/include"
-	wbfmm_cflags=`uniquify "$wbfmm_cflags"`
-	echo $wbfmm_cppflags $wbfmm_cflags
+    wbfmm_cflags="$openmp_cflags -I${prefix}/include"
+    wbfmm_cflags=`uniquify "$wbfmm_cflags"`
+    echo $wbfmm_cppflags $wbfmm_cflags
 fi
 if test "$echo_libs" = "yes"; then
-	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm  -lglib-2.0  -lm $wmpi_libs"
-	wbfmm_libs=`uniquify "$wbfmm_libs"`
-	echo -L${exec_prefix}/lib -lwbfmm -lglib-2.0 -llapack -lcblas -lf77blas -latlas -lfftw3 -llapack -lcblas -lf77blas -latlas -lm   -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../.. -lgfortran -lm -lquadmath
+    if test "$single_precision" = "yes"; then
+	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm_base -lwbfmm_f  -lglib-2.0 -lm $wbfmm_libs"
+    else
+	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm_base -lwbfmm  -lglib-2.0  -lm $wbfmm_libs"
+    fi
+    wbfmm_libs=`uniquify "$wbfmm_libs"`
+    echo ${wbfmm_libs}
 fi

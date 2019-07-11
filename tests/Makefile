@@ -96,7 +96,6 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/acx_blas.m4 $(top_srcdir)/acx_lapack.m4 \
 	$(top_srcdir)/ax_check_compile_flag.m4 $(top_srcdir)/ax_ext.m4 \
 	$(top_srcdir)/ax_gcc_x86_cpuid.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -217,7 +216,6 @@ AUTOCONF = autoconf
 AUTOHEADER = autoheader
 AUTOMAKE = automake-1.16
 AWK = gawk
-BLAS_LIBS = -lcblas -lf77blas -latlas
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
@@ -234,12 +232,7 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 EXEEXT = 
-F77 = g77
-FFLAGS = -g -O2
-FFTW3_CFLAGS = 
-FFTW3_LIBS = -lfftw3
 FGREP = /usr/bin/grep -F
-FLIBS =  -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../.. -lgfortran -lm -lquadmath
 GLIB_CFLAGS = -pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 GLIB_COMPILE_RESOURCES = glib-compile-resources
 GLIB_CONFIG = 
@@ -253,11 +246,10 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LAPACK_LIBS = -llapack
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS =  -lglib-2.0
 LIBOBJS = 
-LIBS = -lglib-2.0 -llapack -lcblas -lf77blas -latlas -lfftw3 -llapack -lcblas -lf77blas -latlas -lm   -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/../../.. -lgfortran -lm -lquadmath
+LIBS = -lglib-2.0   -lm  
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
@@ -306,14 +298,12 @@ abs_top_srcdir = /home/ensmjc/Codes/C/WBFMM
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
-ac_ct_F77 = g77
 am__include = include
 am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-blas_libs = -lcblas -lf77blas -latlas
 build = x86_64-unknown-linux-gnu
 build_alias = 
 build_cpu = x86_64

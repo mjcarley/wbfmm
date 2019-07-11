@@ -158,6 +158,13 @@ gint wbfmm_expansion_dipole_h_cfft(gdouble k, gint N,
 				   gdouble *fz,
 				   gdouble *cfft, gint cstr,
 				   gdouble *work) ;
+gint wbfmm_expansion_normal_h_cfft(gdouble k, gint N, 
+				   gdouble *x0,
+				   gdouble *xs,
+				   gdouble *normal,
+				   gdouble *q,
+				   gdouble *cfft, gint cstr,
+				   gdouble *work) ;
 
 gint wbfmm_expansion_h_evaluate(gdouble k, gdouble *x0,
 				gdouble *cfft, 
@@ -175,6 +182,8 @@ gint wbfmm_expansion_j_evaluate(gdouble k, gdouble *x0,
 gint wbfmm_total_field(gdouble k,
 		       gdouble *xs, gint xstride,
 		       gdouble *src, gint sstride,
+		       gdouble *normals, gint nstr,
+		       gdouble *dipoles, gint dstr,
 		       gint nsrc,
 		       gdouble *xf, gdouble *field) ;
 gint wbfmm_total_dipole_field(gdouble k,
@@ -182,6 +191,13 @@ gint wbfmm_total_dipole_field(gdouble k,
 			      gdouble *src, gint sstride,
 			      gint nsrc,
 			      gdouble *xf, gdouble *field) ;
+gint wbfmm_total_normal_field(gdouble k,
+			      gdouble *xs, gint xstride,
+			      gdouble *ns, gint nstride,
+			      gdouble *src, gint sstride,
+			      gint nsrc,
+			      gdouble *xf, gdouble *field) ;
+
 gint wbfmm_coordinate_transform(gdouble *x, 
 				gdouble *ix, gdouble *iy, gdouble *iz,
 				gdouble *y) ;
@@ -240,6 +256,8 @@ gint wbfmm_tree_box_local_field(wbfmm_tree_t *t, guint level,
 				guint b, gdouble k,
 				gdouble *x, gdouble *f, 
 				gdouble *src, gint sstr,
+				gdouble *normals, gint nstr,
+				gdouble *d, gint dstr,
 				gboolean eval_neighbours,
 				gdouble *work) ;
 guint64 wbfmm_point_box(wbfmm_tree_t *t, guint level, gdouble *x) ;
@@ -257,7 +275,13 @@ gint wbfmm_tree_coefficient_init(wbfmm_tree_t *t,
 				 guint l, guint nr, guint ns) ;
 gint wbfmm_tree_leaf_expansions(wbfmm_tree_t *t, gdouble k,
 				gdouble *src, gint sstr,
+				gdouble *normals, gint nstr,
+				gdouble *dipoles, gint dstr,
+				gboolean zero_expansions,
 				gdouble *work) ;
+
+gint wbfmm_truncation_number(wbfmm_tree_t *t, gdouble k, guint level,
+			     gdouble tol) ;
 
 /*assorted utilities, handy for debugging*/
 gint wbfmm_box_location_from_index(guint64 i, guint32 level,
@@ -267,7 +291,11 @@ gint wbfmm_tree_box_centre(wbfmm_tree_t *t, guint level,
 			   guint64 b, gdouble *xb,
 			   gdouble *wb) ;
 gint wbfmm_points_origin_width(gdouble *x, gint str, gint n,
-			      gdouble *xmin, gdouble *D) ;
+			       gdouble *xmin,
+			       gdouble *xmax,
+			       gdouble *D,
+			       gboolean init_limits) ;
+			       
 gint wbfmm_shift_angles(gdouble *xi, gdouble *xj,
 			gdouble *th, gdouble *ph,
 			gdouble *ch, gdouble *r) ;
@@ -307,6 +335,13 @@ gint wbfmm_expansion_dipole_h_cfft_f(gfloat k, gint N,
 				     gfloat *fz,
 				     gfloat *cfft, gint cstr,
 				     gfloat *work) ;
+gint wbfmm_expansion_normal_h_cfft_f(gfloat k, gint N, 
+				     gfloat *x0,
+				     gfloat *xs,
+				     gfloat *normal,
+				     gfloat *q,
+				     gfloat *cfft, gint cstr,
+				     gfloat *work) ;
 
 gint wbfmm_expansion_h_evaluate_f(gfloat k, gfloat *x0,
 				  gfloat *cfft, 
@@ -324,10 +359,18 @@ gint wbfmm_expansion_j_evaluate_f(gfloat k, gfloat *x0,
 gint wbfmm_total_field_f(gfloat k,
 			 gfloat *xs, gint xstride,
 			 gfloat *src, gint sstride,
+			 gfloat *normals, gint nstr,
+			 gfloat *dipoles, gint dstr,
 			 gint nsrc,
 			 gfloat *xf, gfloat *field) ;
 gint wbfmm_total_dipole_field_f(gfloat k,
 				gfloat *xs, gint xstride,
+				gfloat *src, gint sstride,
+				gint nsrc,
+				gfloat *xf, gfloat *field) ;
+gint wbfmm_total_normal_field_f(gfloat k,
+				gfloat *xs, gint xstride,
+				gfloat *ns, gint nstride,
 				gfloat *src, gint sstride,
 				gint nsrc,
 				gfloat *xf, gfloat *field) ;
@@ -361,10 +404,16 @@ gint wbfmm_tree_coefficient_init_f(wbfmm_tree_t *t,
 				   guint l, guint nr, guint ns) ;
 gint wbfmm_tree_leaf_expansions_f(wbfmm_tree_t *t, gfloat k,
 				  gfloat *src, gint sstr,
+				  gfloat *normals, gint nstr,
+				  gfloat *dipoles, gint dstr,
+				  gboolean zero_expansions,
 				  gfloat *work) ;
+
 gint wbfmm_tree_refine_f(wbfmm_tree_t *t) ;
 gint wbfmm_tree_add_points_f(wbfmm_tree_t *t, 
 			     gpointer pts, guint npts, gsize stride) ;
+gint wbfmm_truncation_number_f(wbfmm_tree_t *t, gfloat k, guint level,
+			       gfloat tol) ;
 
 /*assorted utilities, handy for debugging*/
 gint wbfmm_box_location_from_index_f(guint64 i, guint32 level,
@@ -386,7 +435,8 @@ gint wbfmm_parent_child_shift_f(gfloat *Cc, gint Nc,
 				gfloat *shift, gint Ls,
 				gfloat *work) ;
 gint wbfmm_points_origin_width_f(gfloat *x, gint str, gint n,
-				gfloat *xmin, gfloat *D) ;
+				 gfloat *xmin, gfloat *xmax, gfloat *D,
+				 gboolean init_limits) ;
 
 gint wbfmm_shift_angles_list4_f(gint i, gint j, gint k,
 				gfloat *th, gfloat *ph,
@@ -423,6 +473,8 @@ gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  guint b, gfloat k,
 				  gfloat *x, gfloat *f, 
 				  gfloat *src, gint sstr,
+				  gfloat *normals, gint nstr,
+				  gfloat *d, gint dstr,
 				  gboolean eval_neighbours,
 				  gfloat *work) ;
 guint64 wbfmm_point_box_f(wbfmm_tree_t *t, guint level, gfloat *x) ;

@@ -1,3 +1,8 @@
+2019-07-08    <ensmjc@aerialist-1.bath.ac.uk>
+
+	* src/boxes.c: added check for point in bounds before returning
+	index of enclosing box
+
 2019-05-28  Michael Carley  <ensmjc@rpc-ensmjc.bath.ac.uk>
 
 	* tests/wbfmm-tests.c.in (shift_test): strided data tests added
