@@ -1,4 +1,25 @@
 /** 
+ * @fn FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, gpointer pts,
+ *  guint npts, gsize pstr)
+ *
+ * @ingroup boxes
+ *
+ * @brief Add points to an octree
+ *
+ * Add a set of source points to an octree. The points are assumed to
+ * be in an array of real values with components in a packed triple,
+ * indexed using a stride of pstr bytes (this allows for quite general
+ * handling of different source formats). 
+ * 
+ * @param t an existing ::wbfmm_tree_t;
+ * @param pts an array containing point coordinates;
+ * @param npts the number of points in \a pts;
+ * @param pstr stride between points in bytes.
+ * 
+ * @return 0 on success.
+ */
+
+/** 
  * @fn gint FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix,
  * WBFMM_REAL *iy, WBFMM_REAL *iz, WBFMM_REAL *jx, WBFMM_REAL *jy,
  * WBFMM_REAL *jz, WBFMM_REAL *th, WBFMM_REAL *ph, WBFMM_REAL *ch)
@@ -178,19 +199,53 @@
 
 /**
  * @fn gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
- * WBFMM_REAL k, WBFMM_REAL *src, gint sstr, gboolean zero_expansions,
+ * WBFMM_REAL k, WBFMM_REAL *src, gint sstr, 
+ * WBFMM_REAL *normals, gint nstr,
+ * WBFMM_REAL *dipoles, gint dstr,
+ * gboolean zero_expansions,
  * WBFMM_REAL *work)
  *
  * @ingroup boxes
  *
  * @brief Generate leaf expansions for a tree
  *
+ * Generate leaf expansions for a tree given some combination of
+ * monopole and dipole sources. Source positions are those in the
+ * point list attached to the tree using
+ * ::FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in the
+ * array must correspond to that in the point list. Input arrays may
+ * be NULL: if \a src is not NULL, it is interpreted as a list of
+ * complex monopole strengths; if \a normals is not NULL, \a dipoles
+ * may not be NULL and they are interpreted respectively as a vector
+ * (`normal') at each source position and a scalar complex amplitude
+ * (this corresponds to surface normal and a normal velocity amplitude
+ * in a boundary element method calculation); if \a normals is NULL
+ * and \a dipoles is not NULL, \a dipoles is interpreted as a
+ * three-element complex vector specifying the dipole strength. The
+ * strides \a sstr, \a nstr, and \a dstr are the number of scalar
+ * elements between successive entries in the arrays, with the
+ * elements of each entry densely packed. For example, a list of
+ * normals might read:
+ *
+ * \f$[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2}
+ * \ldots]\f$
+ *
+ * where \f$(n_{x1},n_{y1},n_{z1})\f$ is the first normal vector and
+ * \f$a_{1}\f$ and \f$b_{1}\f$ are arbitrary entries in the array. In
+ * this case, the stride \a nstr would be 5, the number of elements
+ * between successive values of \f$n_{xi}\f$. 
+ *
  * @param t octree for problem;
  * @param k wavenumber;
- * @param src source strengths;
+ * @param src monopole source strengths;
  * @param sstr stride of data in \a src;
- * @param zero_expansions if TRUE, set local expansions to zero before
- * adding source terms;
+ * @param normals dipole normals;
+ * @param nstr stride of data in \a normals;
+ * @param dipoles dipole source strengths (if \a normals is not NULL), or 
+ * moment vectors (if \a normals is NULL);
+ * @param dstr stride of data in \a dipoles;
+ * @param zero_expansions if TRUE, set expansion coefficients to zero
+ * before adding source terms;
  * @param work workspace.
  *
  * @return 0 on success
@@ -272,26 +327,6 @@
  * @return 0 on success
  */
 
-/** 
- * @fn FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, gpointer
- * pts, guint npts, gsize pstr)
- *
- * @ingroup boxes
- *
- * @brief Add points to an octree
- *
- * Add a set of source points to an octree. The points are assumed to
- * be in an array of real values with components in a packed triple,
- * indexed using a stride of pstr bytes (this allows for quite general
- * handling of different source formats). 
- * 
- * @param t an existing ::wbfmm_tree_t;
- * @param pts an array containing point coordinates;
- * @param npts the number of points in \a pts;
- * @param pstr stride between points in bytes.
- * 
- * @return 0 on success.
- */
 
 /** 
  * @fn gint FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)

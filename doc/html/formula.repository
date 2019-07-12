@@ -37,3 +37,9 @@
 \form#36:$\mathbf{x}$
 \form#37:$\mathbf{x}_{n}$
 \form#38:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\form#39:$[n_{x1} n_{y1} n_{z1} a_{1} b_{1} n_{x2} \ldots]$
+\form#40:$(n_{x1},n_{y1},n_{z1})$
+\form#41:$a_{1}$
+\form#42:$b_{1}$
+\form#43:$n_{xi}$
+\form#44:$[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$

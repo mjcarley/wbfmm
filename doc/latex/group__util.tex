@@ -14,6 +14,10 @@ gint \textbf{ wbfmm\+\_\+legendre\+\_\+init} (gdouble C, gdouble S, gdouble $\as
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion} (gdouble $\ast$jnm1, gdouble $\ast$jn, gdouble x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init} (gdouble x, gdouble $\ast$j0, gdouble $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init} (gdouble x, gdouble $\ast$h0, gdouble $\ast$h1)
+\begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble $\ast$hn, gdouble x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
@@ -24,8 +28,6 @@ gint \textbf{ wbfmm\+\_\+shift\+\_\+coordinates} (gdouble $\ast$x, gdouble $\ast
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 i, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+points\+\_\+origin\+\_\+width} (gdouble $\ast$x, gint str, gint n, gdouble $\ast$xmin, gdouble $\ast$D)
-\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+write\+\_\+sources} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+LE $\ast$f)
@@ -36,6 +38,10 @@ gint \textbf{ wbfmm\+\_\+legendre\+\_\+init\+\_\+f} (gfloat C, gfloat S, gfloat 
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f} (gfloat $\ast$jnm1, gfloat $\ast$jn, gfloat x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$j0, gfloat $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$h0, gfloat $\ast$h1)
+\begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gfloat $\ast$hn, gfloat x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
@@ -46,8 +52,6 @@ gint \textbf{ wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f} (gfloat $\ast$x, gfloat 
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f} (gfloat $\ast$x, gint str, gint n, gfloat $\ast$xmin, gfloat $\ast$D)
-\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+f} (gfloat $\ast$xi, gfloat $\ast$xj, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$q, gint stride, F\+I\+LE $\ast$f)
@@ -60,6 +64,50 @@ Various functions of use in debugging or underlying utilities.
 
 
 \subsection{Function Documentation}
+\mbox{\label{group__util_ga5131dd2bf4e6cac0776e8a395b4cb580}} 
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}}
+\index{wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+init()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init (\begin{DoxyParamCaption}\item[{gdouble}]{x,  }\item[{gdouble $\ast$}]{h0,  }\item[{gdouble $\ast$}]{h1 }\end{DoxyParamCaption})}
+
+
+
+Initialize spherical Hankel function recursion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & argument of $h_{n}(x)$; \\
+\hline
+{\em h0} & on exit $h_{0}(x)$; \\
+\hline
+{\em h1} & on exit $h_{1}(x)$\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__util_gaf74338e3e21540953ed71f07a01a3915}} 
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}}
+\index{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{x,  }\item[{gfloat $\ast$}]{h0,  }\item[{gfloat $\ast$}]{h1 }\end{DoxyParamCaption})}
+
+
+
+Initialize spherical Hankel function recursion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & argument of $h_{n}(x)$; \\
+\hline
+{\em h0} & on exit $h_{0}(x)$; \\
+\hline
+{\em h1} & on exit $h_{1}(x)$\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
 \mbox{\label{group__util_ga8518f148a22a13875c7a21bd15c1d6fc}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}}
 \index{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}
@@ -107,6 +155,50 @@ Perform one step of the spherical Hankel function recursion. On entry {\itshape 
 {\em x} & argument of spherical Hankel function; \\
 \hline
 {\em n} & order of spherical Hankel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__util_ga85a1d8464e958530fb4348d3a9f3ef0e}} 
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}}
+\index{wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+init()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init (\begin{DoxyParamCaption}\item[{gdouble}]{x,  }\item[{gdouble $\ast$}]{j0,  }\item[{gdouble $\ast$}]{j1 }\end{DoxyParamCaption})}
+
+
+
+Initialize the spherical Bessel function recursion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & argument of $j_{n}(x)$; \\
+\hline
+{\em j0} & on exit $j_{0}(x)$; \\
+\hline
+{\em j1} & on exit $j_{1}(x)$\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__util_ga4a440d7cd040b7cbdcd5093de685ea0d}} 
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}}
+\index{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{x,  }\item[{gfloat $\ast$}]{j0,  }\item[{gfloat $\ast$}]{j1 }\end{DoxyParamCaption})}
+
+
+
+Initialize the spherical Bessel function recursion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & argument of $j_{n}(x)$; \\
+\hline
+{\em j0} & on exit $j_{0}(x)$; \\
+\hline
+{\em j1} & on exit $j_{1}(x)$\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -380,58 +472,6 @@ Perform recursion on normalized associated Legendre functions with input $P_{n-1
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga0fd16ff79fbec6f5daaa935d92b606d7}} 
-\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}}
-\index{wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+points\+\_\+origin\+\_\+width()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+points\+\_\+origin\+\_\+width (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gint}]{str,  }\item[{gint}]{n,  }\item[{gdouble $\ast$}]{xmin,  }\item[{gdouble $\ast$}]{D }\end{DoxyParamCaption})}
-
-
-
-Find limits of a cube containing a set of points. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x} & array of points coordinates; \\
-\hline
-{\em str} & stride of points in {\itshape x}; \\
-\hline
-{\em n} & number of points in {\itshape x}; \\
-\hline
-{\em xmin} & origin of cube containing all points in {\itshape x}; \\
-\hline
-{\em D} & width of cube containing all points in {\itshape x} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\mbox{\label{group__util_gab961a84af7cc6110c916ab7fc08f9a5e}} 
-\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}}
-\index{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gint}]{str,  }\item[{gint}]{n,  }\item[{gfloat $\ast$}]{xmin,  }\item[{gfloat $\ast$}]{D }\end{DoxyParamCaption})}
-
-
-
-Find limits of a cube containing a set of points. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x} & array of points coordinates; \\
-\hline
-{\em str} & stride of points in {\itshape x}; \\
-\hline
-{\em n} & number of points in {\itshape x}; \\
-\hline
-{\em xmin} & origin of cube containing all points in {\itshape x}; \\
-\hline
-{\em D} & width of cube containing all points in {\itshape x} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
 \mbox{\label{group__util_gada7ba898e9ece32acf9235b4bc7da5cd}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}}
 \index{wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}!Utility and convenience functions@{Utility and convenience functions}}
@@ -568,7 +608,7 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \hline
 {\em xstride} & stride in {\itshape xs} between source positions; \\
 \hline
-{\em src} & array of source strengths \\
+{\em src} & array of complex vector source strengths; \\
 \hline
 {\em sstride} & stride in {\itshape src}; \\
 \hline
@@ -602,7 +642,7 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \hline
 {\em xstride} & stride in {\itshape xs} between source positions; \\
 \hline
-{\em src} & array of source strengths \\
+{\em src} & array of complex vector source strengths; \\
 \hline
 {\em sstride} & stride in {\itshape src}; \\
 \hline

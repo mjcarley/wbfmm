@@ -271,6 +271,11 @@ gint main(gint argc, gchar **argv)
     normals = &(sources[3]) ; nstr = str ;
     dipoles = &(sources[6]) ; dstr = str ;
     break ;
+  case 10:
+    q = &(sources[3]) ; qstr = str ;
+    normals = &(sources[5]) ; nstr = str ;
+    dipoles = &(sources[8]) ; dstr = str ;
+    break ;
   }
   
   wbfmm_tree_leaf_expansions_PREC(tree, k,

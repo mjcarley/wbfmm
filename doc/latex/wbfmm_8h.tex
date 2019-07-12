@@ -25,6 +25,10 @@ gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion} (gdouble $\ast$jnm1, gdou
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble $\ast$hn, gdouble x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init} (gdouble x, gdouble $\ast$j0, gdouble $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init} (gdouble x, gdouble $\ast$h0, gdouble $\ast$h1)
+\begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+legendre\+\_\+init} (gdouble C, gdouble S, gdouble $\ast$P0, gdouble $\ast$P10, gdouble $\ast$P11)
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
@@ -65,13 +69,11 @@ gint \textbf{ wbfmm\+\_\+upward\+\_\+pass} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\a
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+downward\+\_\+pass} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gdouble $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Evaluate local field from regular expansion in box. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+refine} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+level} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$tree)
 \item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer $\ast$pts, guint npts, gsize stride)
+gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 guint64 \textbf{ wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble $\ast$c, gdouble D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
@@ -79,12 +81,10 @@ guint64 \textbf{ wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble 
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
 \begin{DoxyCompactList}\small\item\em Initialize expansion coefficient data in an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble k, gdouble $\ast$src, gint sstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble k, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 i, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+points\+\_\+origin\+\_\+width} (gdouble $\ast$x, gint str, gint n, gdouble $\ast$xmin, gdouble $\ast$D)
-\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+write\+\_\+sources} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+LE $\ast$f)
@@ -97,6 +97,10 @@ gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f} (gfloat $\ast$jnm1
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gfloat $\ast$hn, gfloat x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$j0, gfloat $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$h0, gfloat $\ast$h1)
+\begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+legendre\+\_\+init\+\_\+f} (gfloat C, gfloat S, gfloat $\ast$P0, gfloat $\ast$P10, gfloat $\ast$P11)
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
@@ -129,11 +133,11 @@ guint64 \textbf{ wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f} (gfloat $\ast$x, gf
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
 \begin{DoxyCompactList}\small\item\em Initialize expansion coefficient data in an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat k, gfloat $\ast$src, gint sstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat k, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+tree\+\_\+refine\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer $\ast$pts, guint npts, gsize stride)
+gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
@@ -141,8 +145,6 @@ gint \textbf{ wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, 
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$shift, gint Ls, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of parent expansion to child box centres. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f} (gfloat $\ast$x, gint str, gint n, gfloat $\ast$xmin, gfloat $\ast$D)
-\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f} (gint i, gint j, gint k, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$rs)
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+f} (gfloat $\ast$xi, gfloat $\ast$xj, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$r)
@@ -157,8 +159,6 @@ gint \textbf{ wbfmm\+\_\+upward\+\_\+pass\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint \textbf{ wbfmm\+\_\+downward\+\_\+pass\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Evaluate local field from regular expansion in box. \end{DoxyCompactList}\item 
 guint64 \textbf{ wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
 \item 
 gint \textbf{ wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)

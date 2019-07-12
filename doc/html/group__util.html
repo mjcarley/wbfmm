@@ -59,6 +59,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa5316c151f2c3d259ad189c5dc42c6fe"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#gaa5316c151f2c3d259ad189c5dc42c6fe">wbfmm_bessel_j_recursion</a> (gdouble *jnm1, gdouble *jn, gdouble x, gint n)</td></tr>
 <tr class="memdesc:gaa5316c151f2c3d259ad189c5dc42c6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform recursion on spherical Bessel function <img class="formulaInl" alt="$j_{n}(x)$" src="form_27.png"/>.  <a href="#gaa5316c151f2c3d259ad189c5dc42c6fe">More...</a><br /></td></tr>
 <tr class="separator:gaa5316c151f2c3d259ad189c5dc42c6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85a1d8464e958530fb4348d3a9f3ef0e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga85a1d8464e958530fb4348d3a9f3ef0e">wbfmm_bessel_j_init</a> (gdouble x, gdouble *j0, gdouble *j1)</td></tr>
+<tr class="memdesc:ga85a1d8464e958530fb4348d3a9f3ef0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the spherical Bessel function recursion.  <a href="#ga85a1d8464e958530fb4348d3a9f3ef0e">More...</a><br /></td></tr>
+<tr class="separator:ga85a1d8464e958530fb4348d3a9f3ef0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5131dd2bf4e6cac0776e8a395b4cb580"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga5131dd2bf4e6cac0776e8a395b4cb580">wbfmm_bessel_h_init</a> (gdouble x, gdouble *h0, gdouble *h1)</td></tr>
+<tr class="memdesc:ga5131dd2bf4e6cac0776e8a395b4cb580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize spherical Hankel function recursion.  <a href="#ga5131dd2bf4e6cac0776e8a395b4cb580">More...</a><br /></td></tr>
+<tr class="separator:ga5131dd2bf4e6cac0776e8a395b4cb580"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8518f148a22a13875c7a21bd15c1d6fc"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga8518f148a22a13875c7a21bd15c1d6fc">wbfmm_bessel_h_recursion</a> (gdouble *hnm1, gdouble *hn, gdouble x, gint n)</td></tr>
 <tr class="memdesc:ga8518f148a22a13875c7a21bd15c1d6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one step of spherical Hankel recursion.  <a href="#ga8518f148a22a13875c7a21bd15c1d6fc">More...</a><br /></td></tr>
 <tr class="separator:ga8518f148a22a13875c7a21bd15c1d6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -74,9 +80,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3b532ad6b4efc211761864098df57beb"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga3b532ad6b4efc211761864098df57beb">wbfmm_box_location_from_index</a> (guint64 i, guint32 level, gdouble *x0, gdouble D, gdouble *x, gdouble *wb)</td></tr>
 <tr class="memdesc:ga3b532ad6b4efc211761864098df57beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the coordinates of a box from its Morton index.  <a href="#ga3b532ad6b4efc211761864098df57beb">More...</a><br /></td></tr>
 <tr class="separator:ga3b532ad6b4efc211761864098df57beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0fd16ff79fbec6f5daaa935d92b606d7"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga0fd16ff79fbec6f5daaa935d92b606d7">wbfmm_points_origin_width</a> (gdouble *x, gint str, gint n, gdouble *xmin, gdouble *D)</td></tr>
-<tr class="memdesc:ga0fd16ff79fbec6f5daaa935d92b606d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find limits of a cube containing a set of points.  <a href="#ga0fd16ff79fbec6f5daaa935d92b606d7">More...</a><br /></td></tr>
-<tr class="separator:ga0fd16ff79fbec6f5daaa935d92b606d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada7ba898e9ece32acf9235b4bc7da5cd"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#gada7ba898e9ece32acf9235b4bc7da5cd">wbfmm_shift_angles</a> (gdouble *xi, gdouble *xj, gdouble *th, gdouble *ph, gdouble *ch, gdouble *r)</td></tr>
 <tr class="memdesc:gada7ba898e9ece32acf9235b4bc7da5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute angles and distance to shift expansion between two points.  <a href="#gada7ba898e9ece32acf9235b4bc7da5cd">More...</a><br /></td></tr>
 <tr class="separator:gada7ba898e9ece32acf9235b4bc7da5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -92,6 +95,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8ef3a3514c59cdd91c89dc8cd608d17f"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga8ef3a3514c59cdd91c89dc8cd608d17f">wbfmm_bessel_j_recursion_f</a> (gfloat *jnm1, gfloat *jn, gfloat x, gint n)</td></tr>
 <tr class="memdesc:ga8ef3a3514c59cdd91c89dc8cd608d17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform recursion on spherical Bessel function <img class="formulaInl" alt="$j_{n}(x)$" src="form_27.png"/>.  <a href="#ga8ef3a3514c59cdd91c89dc8cd608d17f">More...</a><br /></td></tr>
 <tr class="separator:ga8ef3a3514c59cdd91c89dc8cd608d17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a440d7cd040b7cbdcd5093de685ea0d"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga4a440d7cd040b7cbdcd5093de685ea0d">wbfmm_bessel_j_init_f</a> (gfloat x, gfloat *j0, gfloat *j1)</td></tr>
+<tr class="memdesc:ga4a440d7cd040b7cbdcd5093de685ea0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the spherical Bessel function recursion.  <a href="#ga4a440d7cd040b7cbdcd5093de685ea0d">More...</a><br /></td></tr>
+<tr class="separator:ga4a440d7cd040b7cbdcd5093de685ea0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf74338e3e21540953ed71f07a01a3915"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#gaf74338e3e21540953ed71f07a01a3915">wbfmm_bessel_h_init_f</a> (gfloat x, gfloat *h0, gfloat *h1)</td></tr>
+<tr class="memdesc:gaf74338e3e21540953ed71f07a01a3915"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize spherical Hankel function recursion.  <a href="#gaf74338e3e21540953ed71f07a01a3915">More...</a><br /></td></tr>
+<tr class="separator:gaf74338e3e21540953ed71f07a01a3915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad7da6548d4f943fd19c61661aafec92"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#gaad7da6548d4f943fd19c61661aafec92">wbfmm_bessel_h_recursion_f</a> (gfloat *hnm1, gfloat *hn, gfloat x, gint n)</td></tr>
 <tr class="memdesc:gaad7da6548d4f943fd19c61661aafec92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one step of spherical Hankel recursion.  <a href="#gaad7da6548d4f943fd19c61661aafec92">More...</a><br /></td></tr>
 <tr class="separator:gaad7da6548d4f943fd19c61661aafec92"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,9 +116,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8c5afbf565b9c8f40668104bd0681768"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga8c5afbf565b9c8f40668104bd0681768">wbfmm_box_location_from_index_f</a> (guint64 i, guint32 level, gfloat *x0, gfloat D, gfloat *x, gfloat *wb)</td></tr>
 <tr class="memdesc:ga8c5afbf565b9c8f40668104bd0681768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the coordinates of a box from its Morton index.  <a href="#ga8c5afbf565b9c8f40668104bd0681768">More...</a><br /></td></tr>
 <tr class="separator:ga8c5afbf565b9c8f40668104bd0681768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab961a84af7cc6110c916ab7fc08f9a5e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#gab961a84af7cc6110c916ab7fc08f9a5e">wbfmm_points_origin_width_f</a> (gfloat *x, gint str, gint n, gfloat *xmin, gfloat *D)</td></tr>
-<tr class="memdesc:gab961a84af7cc6110c916ab7fc08f9a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find limits of a cube containing a set of points.  <a href="#gab961a84af7cc6110c916ab7fc08f9a5e">More...</a><br /></td></tr>
-<tr class="separator:gab961a84af7cc6110c916ab7fc08f9a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga54a0dbcb240ac2de8899c70a1110614a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util.html#ga54a0dbcb240ac2de8899c70a1110614a">wbfmm_shift_angles_f</a> (gfloat *xi, gfloat *xj, gfloat *th, gfloat *ph, gfloat *ch, gfloat *r)</td></tr>
 <tr class="memdesc:ga54a0dbcb240ac2de8899c70a1110614a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute angles and distance to shift expansion between two points.  <a href="#ga54a0dbcb240ac2de8899c70a1110614a">More...</a><br /></td></tr>
 <tr class="separator:ga54a0dbcb240ac2de8899c70a1110614a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,6 +126,96 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Various functions of use in debugging or underlying utilities. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga5131dd2bf4e6cac0776e8a395b4cb580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5131dd2bf4e6cac0776e8a395b4cb580">&#9670;&nbsp;</a></span>wbfmm_bessel_h_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_bessel_h_init </td>
+          <td>(</td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>h0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>h1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize spherical Hankel function recursion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>argument of <img class="formulaInl" alt="$h_{n}(x)$" src="form_31.png"/>; </td></tr>
+    <tr><td class="paramname">h0</td><td>on exit <img class="formulaInl" alt="$h_{0}(x)$" src="form_32.png"/>; </td></tr>
+    <tr><td class="paramname">h1</td><td>on exit <img class="formulaInl" alt="$h_{1}(x)$" src="form_33.png"/></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a id="gaf74338e3e21540953ed71f07a01a3915"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf74338e3e21540953ed71f07a01a3915">&#9670;&nbsp;</a></span>wbfmm_bessel_h_init_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_bessel_h_init_f </td>
+          <td>(</td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>h0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>h1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize spherical Hankel function recursion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>argument of <img class="formulaInl" alt="$h_{n}(x)$" src="form_31.png"/>; </td></tr>
+    <tr><td class="paramname">h0</td><td>on exit <img class="formulaInl" alt="$h_{0}(x)$" src="form_32.png"/>; </td></tr>
+    <tr><td class="paramname">h1</td><td>on exit <img class="formulaInl" alt="$h_{1}(x)$" src="form_33.png"/></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
 <a id="ga8518f148a22a13875c7a21bd15c1d6fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8518f148a22a13875c7a21bd15c1d6fc">&#9670;&nbsp;</a></span>wbfmm_bessel_h_recursion()</h2>
 
@@ -219,6 +315,96 @@ Functions</h2></td></tr>
     <tr><td class="paramname">hn</td><td><img class="formulaInl" alt="$h_{n}(x)$" src="form_31.png"/>; </td></tr>
     <tr><td class="paramname">x</td><td>argument of spherical Hankel function; </td></tr>
     <tr><td class="paramname">n</td><td>order of spherical Hankel function</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a id="ga85a1d8464e958530fb4348d3a9f3ef0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85a1d8464e958530fb4348d3a9f3ef0e">&#9670;&nbsp;</a></span>wbfmm_bessel_j_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_bessel_j_init </td>
+          <td>(</td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>j0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>j1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the spherical Bessel function recursion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>argument of <img class="formulaInl" alt="$j_{n}(x)$" src="form_27.png"/>; </td></tr>
+    <tr><td class="paramname">j0</td><td>on exit <img class="formulaInl" alt="$j_{0}(x)$" src="form_29.png"/>; </td></tr>
+    <tr><td class="paramname">j1</td><td>on exit <img class="formulaInl" alt="$j_{1}(x)$" src="form_30.png"/></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a id="ga4a440d7cd040b7cbdcd5093de685ea0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a440d7cd040b7cbdcd5093de685ea0d">&#9670;&nbsp;</a></span>wbfmm_bessel_j_init_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_bessel_j_init_f </td>
+          <td>(</td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>j0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>j1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the spherical Bessel function recursion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>argument of <img class="formulaInl" alt="$j_{n}(x)$" src="form_27.png"/>; </td></tr>
+    <tr><td class="paramname">j0</td><td>on exit <img class="formulaInl" alt="$j_{0}(x)$" src="form_29.png"/>; </td></tr>
+    <tr><td class="paramname">j1</td><td>on exit <img class="formulaInl" alt="$j_{1}(x)$" src="form_30.png"/></td></tr>
   </table>
   </dd>
 </dl>
@@ -820,124 +1006,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga0fd16ff79fbec6f5daaa935d92b606d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0fd16ff79fbec6f5daaa935d92b606d7">&#9670;&nbsp;</a></span>wbfmm_points_origin_width()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">gint wbfmm_points_origin_width </td>
-          <td>(</td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>n</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>xmin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>D</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Find limits of a cube containing a set of points. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>array of points coordinates; </td></tr>
-    <tr><td class="paramname">str</td><td>stride of points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">n</td><td>number of points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">xmin</td><td>origin of cube containing all points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">D</td><td>width of cube containing all points in <em>x</em> </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
-
-</div>
-</div>
-<a id="gab961a84af7cc6110c916ab7fc08f9a5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab961a84af7cc6110c916ab7fc08f9a5e">&#9670;&nbsp;</a></span>wbfmm_points_origin_width_f()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">gint wbfmm_points_origin_width_f </td>
-          <td>(</td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>n</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>xmin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>D</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Find limits of a cube containing a set of points. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>array of points coordinates; </td></tr>
-    <tr><td class="paramname">str</td><td>stride of points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">n</td><td>number of points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">xmin</td><td>origin of cube containing all points in <em>x</em>; </td></tr>
-    <tr><td class="paramname">D</td><td>width of cube containing all points in <em>x</em> </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
-
-</div>
-</div>
 <a id="gada7ba898e9ece32acf9235b4bc7da5cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gada7ba898e9ece32acf9235b4bc7da5cd">&#9670;&nbsp;</a></span>wbfmm_shift_angles()</h2>
 
@@ -1273,7 +1341,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">xs</td><td>array of source positions; </td></tr>
     <tr><td class="paramname">xstride</td><td>stride in <em>xs</em> between source positions; </td></tr>
-    <tr><td class="paramname">src</td><td>array of source strengths </td></tr>
+    <tr><td class="paramname">src</td><td>array of complex vector source strengths; </td></tr>
     <tr><td class="paramname">sstride</td><td>stride in <em>src</em>; </td></tr>
     <tr><td class="paramname">nsrc</td><td>number of sources; </td></tr>
     <tr><td class="paramname">xf</td><td>point for field evaluation; </td></tr>
@@ -1354,7 +1422,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">xs</td><td>array of source positions; </td></tr>
     <tr><td class="paramname">xstride</td><td>stride in <em>xs</em> between source positions; </td></tr>
-    <tr><td class="paramname">src</td><td>array of source strengths </td></tr>
+    <tr><td class="paramname">src</td><td>array of complex vector source strengths; </td></tr>
     <tr><td class="paramname">sstride</td><td>stride in <em>src</em>; </td></tr>
     <tr><td class="paramname">nsrc</td><td>number of sources; </td></tr>
     <tr><td class="paramname">xf</td><td>point for field evaluation; </td></tr>
@@ -1475,7 +1543,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 1 2019 16:26:28 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 11 2019 16:39:00 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
