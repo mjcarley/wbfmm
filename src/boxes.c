@@ -14,9 +14,9 @@
  * along with WBFMM.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <glib.h>
@@ -591,3 +591,32 @@ guint64 FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
 
   return b ;
 }
+
+gint FUNCTION_NAME(wbfmm_tree_coefficient_clear)(wbfmm_tree_t *t,
+						 guint l)
+
+{
+  guint nb, nc, ns, nr ;
+
+  g_assert(l <= wbfmm_tree_depth(t)) ;
+
+  /*number of boxes at level l*/
+  nb = 1 << (3*l) ;
+
+  ns = t->order_s[l] ; nr = t->order_r[l] ; 
+
+  /*number of coefficients in singular expansions*/
+  if ( ns != 0 ) {
+    nc = wbfmm_coefficient_index_nm(ns+1,0) ;
+    memset(t->mps[l], 0, nb*2*nc*sizeof(WBFMM_REAL)) ;
+  }
+
+  /*number of coefficients in regular expansions*/
+  if ( nr != 0 ) {
+    nc = wbfmm_coefficient_index_nm(nr+1,0) ;
+    memset(t->mpr[l], 0, nb*2*nc*sizeof(WBFMM_REAL)) ;
+  }
+
+  return 0 ;
+}
+

@@ -1,4 +1,4 @@
-AC_INIT
+AC_INIT([wbfmm], 0.1)
 AC_CONFIG_SRCDIR([src/wbfmm.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -28,7 +28,12 @@ AC_SUBST(LT_AGE)
 VERSION=$WBFMM_VERSION
 PACKAGE=wbfmm
 
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
+AC_SUBST(PACKAGE)
+AC_SUBST(VERSION)
+
+AM_INIT_AUTOMAKE(subdir-objects)
+
+##$PACKAGE, $VERSION, no-define)
 
 # Specify a configuration file
 AM_CONFIG_HEADER(config.h)
@@ -43,9 +48,10 @@ dnl Initialize libtool
 AM_PROG_LIBTOOL
 
 dnl Initialize maintainer mode
-AM_MAINTAINER_MODE
+#AM_MAINTAINER_MODE
 
 AC_PROG_CC
+AM_PROG_CC_C_O
 
 if test x$GCC = xyes ; then
   CFLAGS="$CFLAGS -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
@@ -128,26 +134,19 @@ else
   fi
 fi
 
-AX_EXT
+AX_GCC_X86_CPU_SUPPORTS(avx, hasavx=yes) 
+AX_GCC_X86_CPU_SUPPORTS(fma, hasfma=yes) 
+
+if test x$hasavx = xyes; then
+   SIMD_FLAGS="$SIMD_FLAGS -mavx"
+fi
+if test x$hasfma = xyes; then
+   SIMD_FLAGS="$SIMD_FLAGS -mfma"
+fi
 
 AC_CHECK_LIB(m, cos)
 AC_OPENMP
 
-##AC_PROG_F77
-##AC_F77_LIBRARY_LDFLAGS
-##AC_F77_DUMMY_MAIN
-##AC_F77_WRAPPERS
-##ACX_BLAS
-##ACX_LAPACK
-##lapack_libs="$LAPACK_LIBS"
-##blas_libs="$BLAS_LIBS"
-
-##PKG_CHECK_MODULES([FFTW3], [fftw3]) 
-##LIBS="$FFTW3_LIBS $LAPACK_LIBS $BLAS_LIBS $LIBS"
-
-##AC_CHECK_LIB(shtns, nlm_calc)
-
-##AC_SUBST(blas_libs)
 
 CFLAGS="$CFLAGS $OPENMP_CFLAGS $SIMD_FLAGS $glib_cflags"
 LDFLAGS="$LDFLAGS $glib_libs"
@@ -162,7 +161,8 @@ Makefile
 src/Makefile
 src/wbfmm-config
 tests/Makefile
-])
+doc/Makefile
+doc/html/Makefile])
 
 AC_OUTPUT
 

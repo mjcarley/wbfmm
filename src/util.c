@@ -14,9 +14,9 @@
  * along with WBFMM.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <glib.h>
@@ -455,7 +455,10 @@ gint FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 level,
   guint32 i, j, k ;
 
   nb = 1 << level ;
-  g_assert(idx < (1 << 3*level)) ;
+  if ( !(idx < (1 << 3*level)) ) {
+    g_error("%s: box %lu is not at level %u", __FUNCTION__, idx, level) ;
+  }
+
   *wb = D/nb ;
 
   wbfmm_box_location(idx, &i, &j, &k) ;

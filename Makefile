@@ -94,8 +94,8 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/ax_check_compile_flag.m4 $(top_srcdir)/ax_ext.m4 \
-	$(top_srcdir)/ax_gcc_x86_cpuid.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/ax_gcc_x86_cpu_supports.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -217,7 +217,7 @@ AUTOMAKE = automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O3 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O3 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -257,7 +257,7 @@ LT_AGE = 0
 LT_CURRENT = 1
 LT_RELEASE = 0.1
 LT_REVISION = 0
-MAINT = #
+LT_SYS_LIBRARY_PATH = 
 MAKEINFO = makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
@@ -270,11 +270,11 @@ OTOOL =
 OTOOL64 = 
 PACKAGE = wbfmm
 PACKAGE_BUGREPORT = 
-PACKAGE_NAME = 
-PACKAGE_STRING = 
-PACKAGE_TARNAME = 
+PACKAGE_NAME = wbfmm
+PACKAGE_STRING = wbfmm 0.1
+PACKAGE_TARNAME = wbfmm
 PACKAGE_URL = 
-PACKAGE_VERSION = 
+PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
@@ -283,9 +283,8 @@ RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
-SIMD_FLAGS =  -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx
 STRIP = strip
-VERSION = 0.1.1
+VERSION = 0.1
 WBFMM_MAJOR_VERSION = 0
 WBFMM_MICRO_VERSION = 1
 WBFMM_MINOR_VERSION = 1
@@ -311,7 +310,7 @@ build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
-docdir = ${datarootdir}/doc/${PACKAGE}
+docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
 host = x86_64-unknown-linux-gnu
@@ -342,15 +341,15 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-DIST_SUBDIRS = src tests
-SUBDIRS = src tests
+DIST_SUBDIRS = src tests doc
+SUBDIRS = src tests doc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
 am--refresh: Makefile
 	@:
-$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -376,9 +375,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck
 
-$(top_srcdir)/configure: # $(am__configure_deps)
+$(top_srcdir)/configure:  $(am__configure_deps)
 	$(am__cd) $(srcdir) && $(AUTOCONF)
-$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
+$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
 
@@ -389,7 +388,7 @@ config.h: stamp-h1
 stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
 	cd $(top_builddir) && $(SHELL) ./config.status config.h
-$(srcdir)/config.h.in: # $(am__configure_deps) 
+$(srcdir)/config.h.in:  $(am__configure_deps) 
 	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
 	rm -f stamp-h1
 	touch $@

@@ -1,34 +1,17 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to dummy `main' function (if any) required to link to the Fortran
-   libraries. */
-/* #undef F77_DUMMY_MAIN */
-
-/* Define to a macro mangling the given C identifier (in lower and upper
-   case), which must not contain underscores, for linking with Fortran. */
-/* #undef F77_FUNC */
-
-/* As F77_FUNC, but for C identifiers containing underscores. */
-/* #undef F77_FUNC_ */
-
-/* Define if F77 and FC dummy `main' functions are identical. */
-/* #undef FC_DUMMY_MAIN_EQ_F77 */
-
-/* Define if you have an ATLAS BLAS library. */
-/* #undef HAVE_ATLAS_BLAS */
-
-/* Define if you have a BLAS library. */
-/* #undef HAVE_BLAS */
+/* Define if avx instructions are supported */
+#define HAVE_AVX_INSTRUCTIONS 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
+/* Define if fma instructions are supported */
+#define HAVE_FMA_INSTRUCTIONS 1
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
-
-/* Define if you have LAPACK library. */
-/* #undef HAVE_LAPACK */
 
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1
@@ -57,30 +40,35 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
+
+/* Name of package */
+#define PACKAGE "wbfmm"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME ""
+#define PACKAGE_NAME "wbfmm"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING ""
+#define PACKAGE_STRING "wbfmm 0.1"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME ""
+#define PACKAGE_TARNAME "wbfmm"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION ""
+#define PACKAGE_VERSION "0.1"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Version number of package */
+#define VERSION "0.1"
 
 /* Binary age */
 #define WBFMM_BINARY_AGE 0

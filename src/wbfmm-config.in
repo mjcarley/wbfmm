@@ -109,9 +109,9 @@ if test "$echo_cflags" = "yes"; then
 fi
 if test "$echo_libs" = "yes"; then
     if test "$single_precision" = "yes"; then
-	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm_base -lwbfmm_f @LDFLAGS@ -lm $wbfmm_libs"
+	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm-base -lwbfmm_f @LDFLAGS@ -lm $wbfmm_libs"
     else
-	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm_base -lwbfmm @LDFLAGS@  -lm $wbfmm_libs"
+	wbfmm_libs="-L${exec_prefix}/lib -lwbfmm-base -lwbfmm @LDFLAGS@  -lm $wbfmm_libs"
     fi
     wbfmm_libs=`uniquify "$wbfmm_libs"`
     echo ${wbfmm_libs}

@@ -25,9 +25,9 @@
  */
 
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <string.h>

@@ -273,6 +273,7 @@ guint64 wbfmm_point_index_3d(gdouble *x, gdouble *c, gdouble D) ;
 wbfmm_tree_t *wbfmm_tree_new(gdouble *x, gdouble D, guint maxpoints) ;
 gint wbfmm_tree_coefficient_init(wbfmm_tree_t *t,
 				 guint l, guint nr, guint ns) ;
+gint wbfmm_tree_coefficient_clear(wbfmm_tree_t *t, guint l) ;
 gint wbfmm_tree_leaf_expansions(wbfmm_tree_t *t, gdouble k,
 				gdouble *src, gint sstr,
 				gdouble *normals, gint nstr,
@@ -402,6 +403,7 @@ guint64 wbfmm_point_index_3d_f(gfloat *x, gfloat *c, gfloat D) ;
 wbfmm_tree_t *wbfmm_tree_new_f(gfloat *x, gfloat D, guint maxpoints) ;
 gint wbfmm_tree_coefficient_init_f(wbfmm_tree_t *t,
 				   guint l, guint nr, guint ns) ;
+gint wbfmm_tree_coefficient_clear_f(wbfmm_tree_t *t, guint l) ;
 gint wbfmm_tree_leaf_expansions_f(wbfmm_tree_t *t, gfloat k,
 				  gfloat *src, gint sstr,
 				  gfloat *normals, gint nstr,

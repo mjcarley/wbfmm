@@ -39,9 +39,9 @@
   ((ABSDIFF((_i),(_i0))<=1) && (ABSDIFF((_j),(_j0))<=1) && \
    (ABSDIFF((_k),(_k0))<=1))
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <string.h>

@@ -17,9 +17,9 @@
 /*rotation operations using Gumerov and Duraiswami,
   http://dx.doi.org/10.1137/S1064827501399705 */
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <string.h>
@@ -31,6 +31,17 @@
 #include "wbfmm-private.h"
 
 /* #define CHECK_COEFFICIENTS */
+
+#ifndef WBFMM_SINGLE_PRECISION
+
+/*AVX optimization for double precision calculations*/
+
+#ifdef HAVE_AVX_INSTRUCTIONS
+#include <immintrin.h>
+#define WBFMM_USE_AVX
+#endif
+
+#endif /*WBFMM_SINGLE_PRECISION*/
 
 #ifdef CHECK_COEFFICIENTS
 #include <stdio.h>
@@ -196,6 +207,260 @@ gint FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H, gint N,
   return 0 ;
 }
 
+#ifdef WBFMM_USE_AVX
+gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro, 
+				   gint N, WBFMM_REAL *Ci, gint cstri,
+				   WBFMM_REAL *H,
+				   WBFMM_REAL ph, WBFMM_REAL ch)
+
+/*
+  apply rotation (matrix H from wbfmm_coefficients_H_rotation) to
+  rotate input coefficients Ci into output Co, through angles
+  (th,ph,ch), G&D, section 6, and (2.27)
+*/
+
+{
+  gsize nu, n, m, offp, offm ;
+  WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
+  WBFMM_REAL tmp, Hp, Hm, CC, SS, CS, SC ;
+
+  /*initialize recursions*/
+  Cph = COS(ph) ; Sph = SIN(ph) ;
+  Cch = COS(ch) ; Sch = SIN(ch) ;
+
+  /* inside loops, trigonmetric quantities are calculated using
+   * recursions and take the following values:
+   *
+   * Smch = SIN(m*ch) ; Cmch = COS(m*ch) ;
+   * Cnph = COS(nu*ph) ; Snph = SIN(nu*ph) ;
+   * 
+   * Er + j Ei = \exp(j(\pm m\chi - \pm \nu\phi))
+   * Er = COS(m*ch-nu*ph) ; Ei = SIN(m*ch-nu*ph)
+   *
+   * CC = COS(m*ch)*COS(nu*ph) 
+   * SC = SIN(m*ch)*COS(nu*ph) 
+   * CS = COS(m*ch)*SIN(nu*ph) 
+   * SS = SIN(m*ch)*SIN(nu*ph) 
+   *
+   * offX (X = `p', `m') = offset into array, `p' for `plus' indices,
+   * `m' for `minus'
+   */
+
+  for ( n = 0 ; n <= N ; n ++ ) {
+    {
+      __attribute__ ((aligned (32))) WBFMM_REAL tmul[10]={0.0} ;
+      __m256d ECp0, ECp1, ECm0, ECm1, op1, En ;
+      
+      /* ECp0 = _mm256_set1_pd(0.0) ; ECp1 = _mm256_set1_pd(0.0) ; */
+      ECm0 = _mm256_set1_pd(0.0) ; ECm1 = _mm256_set1_pd(0.0) ;
+
+      nu = 0 ; Cnph = 1.0 ; Snph = 0.0 ;
+
+      m = 0 ; Cmch = 1.0 ; Smch = 0.0 ;
+
+      offm = offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ;
+
+      Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
+      
+      CC = 1.0 ; SS = 0.0 ; CS = 0.0 ; SC = 0.0 ;
+
+      En = _mm256_set_pd(0.0, 0.0, 0.0, Hp) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      ECp0 = _mm256_mul_pd(op1, En) ;
+      /* ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ; */
+      
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+      /* ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ; */
+#else /*HAVE_FMA_INSTRUCTIONS*/
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      /* op1 = _mm256_mul_pd(op1, En) ; */
+      /* ECp0 = _mm256_add_pd(op1, ECp0) ; */
+      ECp0 = _mm256_mul_pd(op1, En) ;
+
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+      /* op1 = _mm256_mul_pd(op1, En) ; */
+      /* ECp1 = _mm256_add_pd(op1, ECp1) ; */
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+
+      for ( m = 1 ; m <= n ; m ++ ) {
+	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+	/* offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ; */
+	/* offm = 2*cstri*wbfmm_coefficient_index_nm(n,-m) ; */
+	offp += 2*cstri ; offm -= 2*cstri ;
+	
+	tmp = Cmch ; 
+	Cmch = Cmch*Cch - Smch*Sch ;
+	Smch = Smch*Cch + tmp*Sch ;
+	
+	CC = Cmch*Cnph ; SS = Smch*Snph ;
+	CS = Cmch*Snph ; SC = Smch*Cnph ;
+	
+	En = _mm256_set_pd(Hm*(SC + CS), Hm*(CC - SS),
+			   Hp*(SC - CS), Hp*(CC + SS)) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	ECm0 = _mm256_fmadd_pd(op1, En, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	ECm1 = _mm256_fmadd_pd(op1, En, ECm1) ;	
+#else /*HAVE_FMA_INSTRUCTIONS*/
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp0 = _mm256_add_pd(op1, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp1 = _mm256_add_pd(op1, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm0 = _mm256_add_pd(op1, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm1 = _mm256_add_pd(op1, ECm1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+      }
+      
+      offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
+      _mm256_store_pd(&(tmul[0]), ECp0) ;
+      _mm256_store_pd(&(tmul[2]), ECp1) ;
+      _mm256_store_pd(&(tmul[4]), ECm0) ;
+      _mm256_store_pd(&(tmul[6]), ECm1) ;
+      Co[offp+0] += tmul[ 0] - tmul[ 3] + tmul[ 4] + tmul[ 7] ;
+      Co[offp+1] += tmul[ 2] + tmul[ 1] + tmul[ 6] - tmul[ 5] ;
+    }
+    
+    for ( nu = 1 ; nu <= n ; nu ++ ) {
+      __attribute__ ((aligned (32))) WBFMM_REAL tmul[16]={0.0} ;
+      __m256d ECp0, ECp1, ECm0, ECm1, op1, En ;
+      
+      /* ECp0 = _mm256_set1_pd(0.0) ; ECp1 = _mm256_set1_pd(0.0) ; */
+      ECm0 = _mm256_set1_pd(0.0) ; ECm1 = _mm256_set1_pd(0.0) ;
+
+      tmp = Cnph ; 
+      Cnph = Cnph*Cph - Snph*Sph ;
+      Snph = Snph*Cph + tmp*Sph ;
+
+      m = 0 ; Cmch = 1.0 ; Smch = 0.0 ;
+
+      offm = offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ;
+
+      Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+      Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+      /* CC = Cmch*Cnph ; SS = Smch*Snph ; */
+      /* CS = Cmch*Snph ; SC = Smch*Cnph ; */
+      CC =      Cnph ; SS = 0.0 ;
+      CS =      Snph ; SC = 0.0 ;
+
+      En = _mm256_set_pd(Hm*CS, Hm*CC, -Hp*CS, Hp*CC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      ECp0 = _mm256_mul_pd(op1, En) ;
+      /* ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ; */
+      
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+      /* ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ; */
+#else /*HAVE_FMA_INSTRUCTIONS*/
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      ECp0 = _mm256_mul_pd(op1, En) ;
+      /* op1 = _mm256_mul_pd(op1, En) ; */
+      /* ECp0 = _mm256_add_pd(op1, ECp0) ; */
+
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+      /* op1 = _mm256_mul_pd(op1, En) ; */
+      /* ECp1 = _mm256_add_pd(op1, ECp1) ; */
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+      
+      for ( m = 1 ; m <= n ; m ++ ) {
+	/*rotation coefficients for \pm\nu*/
+	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+	/* g_assert(wbfmm_rotation_index_numn( nu,m,n) - */
+	/* 	 wbfmm_rotation_index_numn(-nu,m,n) == 2*nu*(n+1)) ; */
+	
+	/* offp = 2*cstri*wbfmm_coefficient_index_nm(n, m) ; */
+	/* offm = 2*cstri*wbfmm_coefficient_index_nm(n,-m) ; */
+	offp += 2*cstri ; offm -= 2*cstri ;
+
+	tmp = Cmch ; 
+	Cmch = Cmch*Cch - Smch*Sch ;
+	Smch = Smch*Cch + tmp*Sch ;
+
+	CC = Cmch*Cnph ; SS = Smch*Snph ;
+	CS = Cmch*Snph ; SC = Smch*Cnph ;
+
+	En = _mm256_set_pd(Hm*(SC + CS), Hm*(CC - SS),
+			   Hp*(SC - CS), Hp*(CC + SS)) ;
+
+#ifdef HAVE_FMA_INSTRUCTIONS
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	ECm0 = _mm256_fmadd_pd(op1, En, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	ECm1 = _mm256_fmadd_pd(op1, En, ECm1) ;	
+#else /*HAVE_FMA_INSTRUCTIONS*/
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp0 = _mm256_add_pd(op1, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp1 = _mm256_add_pd(op1, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm0 = _mm256_add_pd(op1, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm1 = _mm256_add_pd(op1, ECm1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+      }
+
+      /*put the accumulated results back into tmul*/
+      _mm256_store_pd(&(tmul[0]), ECp0) ;
+      _mm256_store_pd(&(tmul[4]), ECp1) ;
+      _mm256_store_pd(&(tmul[8]), ECm0) ;
+      _mm256_store_pd(&(tmul[12]), ECm1) ;
+      
+      /*output indices for \pm\nu*/
+      offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
+      offm = offp - 4*cstro*nu ;
+      /* offm = 2*cstro*wbfmm_coefficient_index_nm(n,-nu) ; */
+      Co[offp+0] += tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15] ;
+      Co[offp+1] += tmul[ 4] + tmul[ 1] + tmul[14] - tmul[11] ;
+      Co[offm+0] += tmul[ 8] + tmul[13] + tmul[ 2] - tmul[ 7] ;
+      Co[offm+1] += tmul[12] - tmul[ 9] + tmul[ 6] + tmul[ 3] ;
+    }
+  }
+
+  return 0 ;
+}
+
+#else /*WBFMM_USE_AVX*/
+
 gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro, 
 				   gint N, WBFMM_REAL *Ci, gint cstri,
 				   WBFMM_REAL *H,
@@ -210,7 +475,7 @@ gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
 {
   gint nu, n, m, offp, offm ;
   WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
-  WBFMM_REAL tmp, Hp, Hm, CC, SS, CS, SC, E[4] ;
+  WBFMM_REAL tmp, Hp, Hm, CC, SS, CS, SC, E[4], tmul[16] ;
 
   /*initialize recursions*/
   Cph = COS(ph) ; Sph = SIN(ph) ;
@@ -271,16 +536,15 @@ gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
       E[2] = Hm*CC - Hm*SS ; 
       E[3] = Hm*SC + Hm*CS ; 
 
-      buf[0] += E[0]*Ci[offp+0] - E[1]*Ci[offp+1] ;
-      buf[1] += E[0]*Ci[offp+1] + E[1]*Ci[offp+0] ;
-      
-      buf[0] += E[2]*Ci[offm+0] + E[3]*Ci[offm+1] ;
-      buf[1] += E[2]*Ci[offm+1] - E[3]*Ci[offm+0] ;
+      buf[0] += E[0]*Ci[offp+0] - E[1]*Ci[offp+1] +
+	E[2]*Ci[offm+0] + E[3]*Ci[offm+1] ;
+      buf[1] += E[0]*Ci[offp+1] + E[1]*Ci[offp+0] +
+	E[2]*Ci[offm+1] - E[3]*Ci[offm+0] ;
     }
 
     offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
     Co[offp+0] += buf[0] ; Co[offp+1] += buf[1] ;
-    
+
     for ( nu = 1 ; nu <= n ; nu ++ ) {
       tmp = Cnph ; 
       Cnph = Cnph*Cph - Snph*Sph ;
@@ -301,11 +565,17 @@ gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
       E[2] = Hm*CC - Hm*SS ; 
       E[3] = Hm*SC + Hm*CS ; 
 
-      buf[0] = E[0]*Ci[offp+0] - E[1]*Ci[offp+1] ;
-      buf[1] = E[0]*Ci[offp+1] + E[1]*Ci[offp+0] ;
-      buf[2] = E[2]*Ci[offp+0] - E[3]*Ci[offp+1] ;
-      buf[3] = E[2]*Ci[offp+1] + E[3]*Ci[offp+0] ;
-
+      tmul[ 0] = E[0]*Ci[offp+0] ;
+      tmul[ 1] = E[1]*Ci[offp+0] ;
+      tmul[ 2] = E[2]*Ci[offp+0] ;
+      tmul[ 3] = E[3]*Ci[offp+0] ;
+      tmul[ 4] = E[0]*Ci[offp+1] ;
+      tmul[ 5] = E[1]*Ci[offp+1] ;
+      tmul[ 6] = E[2]*Ci[offp+1] ;
+      tmul[ 7] = E[3]*Ci[offp+1] ;
+      tmul[8] = tmul[9] = tmul[10] = tmul[11] =
+      	tmul[12] = tmul[13] = tmul[14] = tmul[15] = 0.0 ;
+	
       for ( m = 1 ; m <= n ; m ++ ) {
 	/*rotation coefficients for \pm\nu*/
 	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
@@ -325,28 +595,37 @@ gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
 	E[1] = Hp*SC - Hp*CS ; 
 	E[2] = Hm*CC - Hm*SS ; 
 	E[3] = Hm*SC + Hm*CS ; 
-	buf[0] +=
-	  E[0]*Ci[offp+0] - E[1]*Ci[offp+1] +
-	  E[2]*Ci[offm+0] + E[3]*Ci[offm+1] ;
-	buf[1] +=
-	  E[0]*Ci[offp+1] + E[1]*Ci[offp+0] +
-	  E[2]*Ci[offm+1] - E[3]*Ci[offm+0] ;
-	buf[2] +=
-	  E[2]*Ci[offp+0] - E[3]*Ci[offp+1] +
-	  E[0]*Ci[offm+0] + E[1]*Ci[offm+1] ;
-	buf[3] +=
-	  E[2]*Ci[offp+1] + E[3]*Ci[offp+0] +
-	  E[0]*Ci[offm+1] - E[1]*Ci[offm+0] ;
+
+	tmul[ 0] += E[0]*Ci[offp+0] ;
+	tmul[ 1] += E[1]*Ci[offp+0] ;
+	tmul[ 2] += E[2]*Ci[offp+0] ;
+	tmul[ 3] += E[3]*Ci[offp+0] ;
+	tmul[ 4] += E[0]*Ci[offp+1] ;
+	tmul[ 5] += E[1]*Ci[offp+1] ;
+	tmul[ 6] += E[2]*Ci[offp+1] ;
+	tmul[ 7] += E[3]*Ci[offp+1] ;
+	tmul[ 8] += E[0]*Ci[offm+0] ;
+	tmul[ 9] += E[1]*Ci[offm+0] ;
+	tmul[10] += E[2]*Ci[offm+0] ;
+	tmul[11] += E[3]*Ci[offm+0] ;
+	tmul[12] += E[0]*Ci[offm+1] ;
+	tmul[13] += E[1]*Ci[offm+1] ;
+	tmul[14] += E[2]*Ci[offm+1] ;
+	tmul[15] += E[3]*Ci[offm+1] ;
       }
       /*output indices for \pm\nu*/
       offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
       offm = 2*cstro*wbfmm_coefficient_index_nm(n,-nu) ;
-      Co[offp+0] += buf[0] ; Co[offp+1] += buf[1] ;
-      Co[offm+0] += buf[2] ; Co[offm+1] += buf[3] ;
+      Co[offp+0] += tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15] ;
+      Co[offp+1] += tmul[ 4] + tmul[ 1] + tmul[14] - tmul[11] ;
+      Co[offm+0] += tmul[ 8] + tmul[13] + tmul[ 2] - tmul[ 7] ;
+      Co[offm+1] += tmul[12] - tmul[ 9] + tmul[ 6] + tmul[ 3] ;
     }
   }
 
   return 0 ;
 }
+
+#endif /*WBFMM_USE_AVX*/
 
 /* @} */

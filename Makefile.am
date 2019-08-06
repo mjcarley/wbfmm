@@ -2,6 +2,6 @@
 
 # AUTOMAKE_OPTIONS = readme-alpha
 
-DIST_SUBDIRS = src tests
+DIST_SUBDIRS = src tests doc
 
-SUBDIRS = src tests
+SUBDIRS = src tests doc

@@ -191,6 +191,9 @@ gint FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
   H47 = &(rotations[12*(op->nerot)]) ;
   trans = (WBFMM_REAL *)(op->SS[level]) ;
 
+  g_assert(H03 != NULL) ;
+  g_assert(H47 != NULL) ;
+  g_assert(trans != NULL) ;
   for ( ip = 0 ; ip < np ; ip ++ ) {
     /*locate first child of parent box*/
     ic = wbfmm_box_first_child(ip) ;

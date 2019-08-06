@@ -8,17 +8,17 @@ Translation of expansions.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial} (gdouble $\ast$cfft\+RR, gint L, gdouble kr, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial} (gdouble $\ast$cfft\+R\+R, gint L, gdouble kr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial regular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial} (gdouble $\ast$cfft\+SR, gint L, gdouble kr, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial} (gdouble $\ast$cfft\+S\+R, gint L, gdouble kr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coaxial\+\_\+translate} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gdouble $\ast$cfft, gint L, gboolean complex)
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gdouble $\ast$cfft, gint L, gboolean complex)
 \begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+RR, gint L, gfloat kr, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+R\+R, gint L, gfloat kr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial regular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+SR, gint L, gfloat kr, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+S\+R, gint L, gfloat kr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gfloat $\ast$cfft, gint L, gboolean complex)
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gfloat $\ast$cfft, gint L, gboolean complex)
 \begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -28,17 +28,26 @@ Translation of expansions.
 
 
 \subsection{Function Documentation}
-\mbox{\label{group__translations_ga714821929cf569e85730a8bd5cd9656b}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}}
 \index{wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coaxial\+\_\+translate()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coaxial\+\_\+translate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gdouble $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{L,  }\item[{gboolean}]{complex }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coaxial\+\_\+translate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coaxial\+\_\+translate (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{Co, }
+\item[{gint}]{cstro, }
+\item[{gint}]{No, }
+\item[{gdouble $\ast$}]{Ci, }
+\item[{gint}]{cstri, }
+\item[{gint}]{Ni, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gint}]{L, }
+\item[{gboolean}]{complex}
+\end{DoxyParamCaption}
+)}\label{group__translations_ga714821929cf569e85730a8bd5cd9656b}
 
 
 Perform coaxial translation of multipole expansion. 
 
-Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}{p.}{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}{p.}{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+H}{p.}{group__rotations_ga72a6d08321a44f170caf0ee102c3b0ab}(...).
+Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}{p.}{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}{p.}{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+\+H}{p.}{group__rotations_ga72a6d08321a44f170caf0ee102c3b0ab}(...).
 
 
 \begin{DoxyParams}{Parameters}
@@ -58,18 +67,27 @@ Compute the coaxial translation of a multipole expansion along its $z$ axis, usi
 \hline
 {\em L} & maximum order of translation coefficients; \\
 \hline
-{\em complex} & if T\+R\+UE treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+SE treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
+{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__translations_gaff03948aae90f52273ef2fed4a89811a}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}}
 \index{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gfloat $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{L,  }\item[{gboolean}]{complex }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{Co, }
+\item[{gint}]{cstro, }
+\item[{gint}]{No, }
+\item[{gfloat $\ast$}]{Ci, }
+\item[{gint}]{cstri, }
+\item[{gint}]{Ni, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gint}]{L, }
+\item[{gboolean}]{complex}
+\end{DoxyParamCaption}
+)}\label{group__translations_gaff03948aae90f52273ef2fed4a89811a}
 
 
 Perform coaxial translation of multipole expansion. 
@@ -94,18 +112,22 @@ Compute the coaxial translation of a multipole expansion along its $z$ axis, usi
 \hline
 {\em L} & maximum order of translation coefficients; \\
 \hline
-{\em complex} & if T\+R\+UE treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+SE treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
+{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}}
 \index{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{cfft\+RR,  }\item[{gint}]{L,  }\item[{gdouble}]{kr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{cfft\+R\+R, }
+\item[{gint}]{L, }
+\item[{gdouble}]{kr, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}
 
 
 Generate coefficients for coaxial regular-\/to-\/regular translation. 
@@ -114,7 +136,7 @@ Generate translation coefficients for a regular-\/to-\/regular coaxial shift alo
 
 
 \begin{DoxyParams}{Parameters}
-{\em cfft\+RR} & on output contains (real) translation coefficients; \\
+{\em cfft\+R\+R} & on output contains (real) translation coefficients; \\
 \hline
 {\em L} & maximum order of multipole expansion to be translated; \\
 \hline
@@ -126,12 +148,16 @@ Generate translation coefficients for a regular-\/to-\/regular coaxial shift alo
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__translations_gaffed55e0e62ccae0503030842675344a}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}}
 \index{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{cfft\+RR,  }\item[{gint}]{L,  }\item[{gfloat}]{kr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{cfft\+R\+R, }
+\item[{gint}]{L, }
+\item[{gfloat}]{kr, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__translations_gaffed55e0e62ccae0503030842675344a}
 
 
 Generate coefficients for coaxial regular-\/to-\/regular translation. 
@@ -140,7 +166,7 @@ Generate translation coefficients for a regular-\/to-\/regular coaxial shift alo
 
 
 \begin{DoxyParams}{Parameters}
-{\em cfft\+RR} & on output contains (real) translation coefficients; \\
+{\em cfft\+R\+R} & on output contains (real) translation coefficients; \\
 \hline
 {\em L} & maximum order of multipole expansion to be translated; \\
 \hline
@@ -152,12 +178,16 @@ Generate translation coefficients for a regular-\/to-\/regular coaxial shift alo
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}}
 \index{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{cfft\+SR,  }\item[{gint}]{L,  }\item[{gdouble}]{kr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{cfft\+S\+R, }
+\item[{gint}]{L, }
+\item[{gdouble}]{kr, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}
 
 
 Generate coefficients for coaxial singular-\/to-\/regular translation. 
@@ -166,7 +196,7 @@ Generate translation coefficients for a singular-\/to-\/regular coaxial shift al
 
 
 \begin{DoxyParams}{Parameters}
-{\em cfft\+SR} & on output contains (complex) translation coefficients; \\
+{\em cfft\+S\+R} & on output contains (complex) translation coefficients; \\
 \hline
 {\em L} & maximum order of multipole expansion to be translated; \\
 \hline
@@ -178,12 +208,16 @@ Generate translation coefficients for a singular-\/to-\/regular coaxial shift al
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__translations_ga458eb964fd44c38ac246f33c08e6c21c}} 
 \index{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}}
 \index{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}
-\subsubsection{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{cfft\+SR,  }\item[{gint}]{L,  }\item[{gfloat}]{kr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{cfft\+S\+R, }
+\item[{gint}]{L, }
+\item[{gfloat}]{kr, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__translations_ga458eb964fd44c38ac246f33c08e6c21c}
 
 
 Generate coefficients for coaxial singular-\/to-\/regular translation. 
@@ -192,7 +226,7 @@ Generate translation coefficients for a singular-\/to-\/regular coaxial shift al
 
 
 \begin{DoxyParams}{Parameters}
-{\em cfft\+SR} & on output contains (complex) translation coefficients; \\
+{\em cfft\+S\+R} & on output contains (complex) translation coefficients; \\
 \hline
 {\em L} & maximum order of multipole expansion to be translated; \\
 \hline

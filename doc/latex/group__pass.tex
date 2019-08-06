@@ -8,13 +8,13 @@ Upward and downward pass operations in octrees.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint \textbf{ wbfmm\+\_\+downward\+\_\+pass} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+upward\+\_\+pass} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+downward\+\_\+pass\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+upward\+\_\+pass\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -24,12 +24,16 @@ Upward and downward pass operations in octrees.
 
 
 \subsection{Function Documentation}
-\mbox{\label{group__pass_gaef953124e3919459a1e8be0d150328d0}} 
 \index{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}}
 \index{wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}
-\subsubsection{wbfmm\+\_\+downward\+\_\+pass()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+downward\+\_\+pass (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op,  }\item[{guint}]{level,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+downward\+\_\+pass}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+downward\+\_\+pass (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
+\item[{guint}]{level, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__pass_gaef953124e3919459a1e8be0d150328d0}
 
 
 Perform downward pass at one level of an octree. 
@@ -50,12 +54,16 @@ Perform one stage of a downward pass for tree levels greater than or equal to tw
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__pass_ga151c7dea1801328f7bdd19926b2d3bb4}} 
 \index{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}}
 \index{wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}
-\subsubsection{wbfmm\+\_\+downward\+\_\+pass\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+downward\+\_\+pass\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op,  }\item[{guint}]{level,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+downward\+\_\+pass\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
+\item[{guint}]{level, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__pass_ga151c7dea1801328f7bdd19926b2d3bb4}
 
 
 Perform downward pass at one level of an octree. 
@@ -76,12 +84,16 @@ Perform one stage of a downward pass for tree levels greater than or equal to tw
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__pass_gaefed1f9a0489ee5a32f05adc6a57453d}} 
 \index{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}}
 \index{wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}
-\subsubsection{wbfmm\+\_\+upward\+\_\+pass()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+upward\+\_\+pass (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op,  }\item[{guint}]{level,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+upward\+\_\+pass}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+upward\+\_\+pass (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
+\item[{guint}]{level, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__pass_gaefed1f9a0489ee5a32f05adc6a57453d}
 
 
 Perform upward pass at one level of an octree. 
@@ -102,12 +114,16 @@ Perform one stage of the upward pass in an octree. The action performed is the u
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__pass_ga0eacf17e4a9f839a9322ef4facddc599}} 
 \index{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}}
 \index{wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}
-\subsubsection{wbfmm\+\_\+upward\+\_\+pass\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+upward\+\_\+pass\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op,  }\item[{guint}]{level,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+upward\+\_\+pass\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
+\item[{guint}]{level, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__pass_ga0eacf17e4a9f839a9322ef4facddc599}
 
 
 Perform upward pass at one level of an octree. 

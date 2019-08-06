@@ -8,40 +8,40 @@ Operations on octree boxes and trees.
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-struct \textbf{ wbfmm\+\_\+box\+\_\+t}
+struct {\bf wbfmm\+\_\+box\+\_\+t}
 \item 
-struct \textbf{ wbfmm\+\_\+tree\+\_\+t}
+struct {\bf wbfmm\+\_\+tree\+\_\+t}
 \item 
-struct \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t}
+struct {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+level} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+level} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
-\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$ \textbf{ wbfmm\+\_\+tree\+\_\+new} (gdouble $\ast$x, gdouble D, guint maxpoints)
+{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new} (gdouble $\ast$x, gdouble D, guint maxpoints)
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble k, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble k, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
-guint64 \textbf{ wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble $\ast$c, gdouble D)
+guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble $\ast$c, gdouble D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
+gint {\bf wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
 \begin{DoxyCompactList}\small\item\em Initialize expansion coefficient data in an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+refine} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t)
+gint {\bf wbfmm\+\_\+tree\+\_\+refine} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
-\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$ \textbf{ wbfmm\+\_\+tree\+\_\+new\+\_\+f} (gfloat $\ast$x, gfloat D, guint maxpoints)
+{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new\+\_\+f} (gfloat $\ast$x, gfloat D, guint maxpoints)
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat k, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat k, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
-guint64 \textbf{ wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f} (gfloat $\ast$x, gfloat $\ast$c, gfloat D)
+guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f} (gfloat $\ast$x, gfloat $\ast$c, gfloat D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
+gint {\bf wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint l, guint nr, guint ns)
 \begin{DoxyCompactList}\small\item\em Initialize expansion coefficient data in an octree. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+refine\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t)
+gint {\bf wbfmm\+\_\+tree\+\_\+refine\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -51,12 +51,15 @@ Operations on octree boxes and trees.
 
 
 \subsection{Function Documentation}
-\mbox{\label{group__boxes_gaf4fe54ab8180ef3460bc9283a6a5ef87}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+point\+\_\+index\+\_\+3d@{wbfmm\+\_\+point\+\_\+index\+\_\+3d}}
 \index{wbfmm\+\_\+point\+\_\+index\+\_\+3d@{wbfmm\+\_\+point\+\_\+index\+\_\+3d}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+point\+\_\+index\+\_\+3d()}
-{\footnotesize\ttfamily guint64 wbfmm\+\_\+point\+\_\+index\+\_\+3d (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gdouble $\ast$}]{c,  }\item[{gdouble}]{D }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+point\+\_\+index\+\_\+3d}]{\setlength{\rightskip}{0pt plus 5cm}guint64 wbfmm\+\_\+point\+\_\+index\+\_\+3d (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble $\ast$}]{c, }
+\item[{gdouble}]{D}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gaf4fe54ab8180ef3460bc9283a6a5ef87}
 
 
 Find Morton index for point in a cubic domain. 
@@ -73,12 +76,15 @@ Find Morton index for point in a cubic domain.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_gaed9d494a72a7a808860cd38da5f3c47b}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f@{wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f}}
 \index{wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f@{wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f()}
-{\footnotesize\ttfamily guint64 wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gfloat $\ast$}]{c,  }\item[{gfloat}]{D }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}guint64 wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat $\ast$}]{c, }
+\item[{gfloat}]{D}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gaed9d494a72a7a808860cd38da5f3c47b}
 
 
 Find Morton index for point in a cubic domain. 
@@ -95,12 +101,13 @@ Find Morton index for point in a cubic domain.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_gadd47ecc4ffa77feb9313661010541c3e}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+add\+\_\+level@{wbfmm\+\_\+tree\+\_\+add\+\_\+level}}
 \index{wbfmm\+\_\+tree\+\_\+add\+\_\+level@{wbfmm\+\_\+tree\+\_\+add\+\_\+level}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+add\+\_\+level()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+add\+\_\+level (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+add\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+add\+\_\+level (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gadd47ecc4ffa77feb9313661010541c3e}
 Add a new level to an existing octree. The function assigns memory for, and initializes, a new layer of boxes of type \doxyref{wbfmm\+\_\+box\+\_\+t}{p.}{structwbfmm__box__t}
 
 
@@ -113,14 +120,18 @@ Add a new level to an existing octree. The function assigns memory for, and init
 \end{DoxyReturn}
 
 
-References wbfmm\+\_\+tree\+\_\+t\+::depth.
+References wbfmm\+\_\+tree\+\_\+t\+::boxes, and wbfmm\+\_\+tree\+\_\+t\+::depth.
 
-\mbox{\label{group__boxes_gaf8f2b0a9f281511271d76efa1dd588fe}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+add\+\_\+points@{wbfmm\+\_\+tree\+\_\+add\+\_\+points}}
 \index{wbfmm\+\_\+tree\+\_\+add\+\_\+points@{wbfmm\+\_\+tree\+\_\+add\+\_\+points}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+add\+\_\+points()}
-{\footnotesize\ttfamily wbfmm\+\_\+tree\+\_\+add\+\_\+points (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gpointer}]{pts,  }\item[{guint}]{npts,  }\item[{gsize}]{pstr }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+add\+\_\+points}]{\setlength{\rightskip}{0pt plus 5cm}wbfmm\+\_\+tree\+\_\+add\+\_\+points (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gpointer}]{pts, }
+\item[{guint}]{npts, }
+\item[{gsize}]{pstr}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gaf8f2b0a9f281511271d76efa1dd588fe}
 
 
 Add points to an octree. 
@@ -141,12 +152,16 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \begin{DoxyReturn}{Returns}
 0 on success. 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga1f187ed49384e6be12b495eff87a117f}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f@{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f@{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f()}
-{\footnotesize\ttfamily wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gpointer}]{pts,  }\item[{guint}]{npts,  }\item[{gsize}]{pstr }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gpointer}]{pts, }
+\item[{guint}]{npts, }
+\item[{gsize}]{pstr}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga1f187ed49384e6be12b495eff87a117f}
 
 
 Add points to an octree. 
@@ -167,12 +182,16 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \begin{DoxyReturn}{Returns}
 0 on success. 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga091c6f775fa64cd58db004fbb18995c8}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init@{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init}}
 \index{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init@{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{guint}]{l,  }\item[{guint}]{nr,  }\item[{guint}]{ns }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint}]{l, }
+\item[{guint}]{nr, }
+\item[{guint}]{ns}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga091c6f775fa64cd58db004fbb18995c8}
 
 
 Initialize expansion coefficient data in an octree. 
@@ -191,12 +210,16 @@ Initialize expansion coefficient data in an octree.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga4332e5e154107afd81e9810465975460}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f@{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f@{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{guint}]{l,  }\item[{guint}]{nr,  }\item[{guint}]{ns }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+coefficient\+\_\+init\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint}]{l, }
+\item[{guint}]{nr, }
+\item[{guint}]{ns}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga4332e5e154107afd81e9810465975460}
 
 
 Initialize expansion coefficient data in an octree. 
@@ -215,17 +238,27 @@ Initialize expansion coefficient data in an octree.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_gacff456ef3d99c08c93be852ec781aa2a}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions@{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions}}
 \index{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions@{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{src,  }\item[{gint}]{sstr,  }\item[{gdouble $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gdouble $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gboolean}]{zero\+\_\+expansions,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gdouble}]{k, }
+\item[{gdouble $\ast$}]{src, }
+\item[{gint}]{sstr, }
+\item[{gdouble $\ast$}]{normals, }
+\item[{gint}]{nstr, }
+\item[{gdouble $\ast$}]{dipoles, }
+\item[{gint}]{dstr, }
+\item[{gboolean}]{zero\+\_\+expansions, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gacff456ef3d99c08c93be852ec781aa2a}
 
 
 Generate leaf expansions for a tree. 
 
-Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_gaf8f2b0a9f281511271d76efa1dd588fe}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+LL\+: if {\itshape src} is not N\+U\+LL, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+LL, {\itshape dipoles} may not be N\+U\+LL and they are interpreted respectively as a vector (`normal') at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+LL and {\itshape dipoles} is not N\+U\+LL, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_gaf8f2b0a9f281511271d76efa1dd588fe}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 
@@ -237,7 +270,7 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \hline
 {\em k} & wavenumber; \\
 \hline
-{\em src} & source strengths; \\
+{\em src} & monopole source strengths; \\
 \hline
 {\em sstr} & stride of data in {\itshape src}; \\
 \hline
@@ -245,11 +278,11 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \hline
 {\em nstr} & stride of data in {\itshape normals}; \\
 \hline
-{\em dipoles} & dipole source strengths, or moments; \\
+{\em dipoles} & dipole source strengths (if {\itshape normals} is not N\+U\+L\+L), or moment vectors (if {\itshape normals} is N\+U\+L\+L); \\
 \hline
 {\em dstr} & stride of data in {\itshape dipoles}; \\
 \hline
-{\em zero\+\_\+expansions} & if T\+R\+UE, set local expansions to zero before adding source terms; \\
+{\em zero\+\_\+expansions} & if T\+R\+U\+E, set expansion coefficients to zero before adding source terms; \\
 \hline
 {\em work} & workspace.\\
 \hline
@@ -257,17 +290,27 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga0fe2ee1d112ae2f61ebf75f36f4e0698}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f@{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f@{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{src,  }\item[{gint}]{sstr,  }\item[{gfloat $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gfloat $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gboolean}]{zero\+\_\+expansions,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gfloat}]{k, }
+\item[{gfloat $\ast$}]{src, }
+\item[{gint}]{sstr, }
+\item[{gfloat $\ast$}]{normals, }
+\item[{gint}]{nstr, }
+\item[{gfloat $\ast$}]{dipoles, }
+\item[{gint}]{dstr, }
+\item[{gboolean}]{zero\+\_\+expansions, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga0fe2ee1d112ae2f61ebf75f36f4e0698}
 
 
 Generate leaf expansions for a tree. 
 
-Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_ga1f187ed49384e6be12b495eff87a117f}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+LL\+: if {\itshape src} is not N\+U\+LL, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+LL, {\itshape dipoles} may not be N\+U\+LL and they are interpreted respectively as a vector (`normal') at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+LL and {\itshape dipoles} is not N\+U\+LL, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_ga1f187ed49384e6be12b495eff87a117f}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 
@@ -279,7 +322,7 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \hline
 {\em k} & wavenumber; \\
 \hline
-{\em src} & source strengths; \\
+{\em src} & monopole source strengths; \\
 \hline
 {\em sstr} & stride of data in {\itshape src}; \\
 \hline
@@ -287,11 +330,11 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \hline
 {\em nstr} & stride of data in {\itshape normals}; \\
 \hline
-{\em dipoles} & dipole source strengths, or moments; \\
+{\em dipoles} & dipole source strengths (if {\itshape normals} is not N\+U\+L\+L), or moment vectors (if {\itshape normals} is N\+U\+L\+L); \\
 \hline
 {\em dstr} & stride of data in {\itshape dipoles}; \\
 \hline
-{\em zero\+\_\+expansions} & if T\+R\+UE, set local expansions to zero before adding source terms; \\
+{\em zero\+\_\+expansions} & if T\+R\+U\+E, set expansion coefficients to zero before adding source terms; \\
 \hline
 {\em work} & workspace.\\
 \hline
@@ -299,12 +342,15 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga2fa5e9e3c7b142bb2712144252f7a71c}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+new@{wbfmm\+\_\+tree\+\_\+new}}
 \index{wbfmm\+\_\+tree\+\_\+new@{wbfmm\+\_\+tree\+\_\+new}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+new()}
-{\footnotesize\ttfamily \textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$ wbfmm\+\_\+tree\+\_\+new (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gdouble}]{D,  }\item[{guint}]{maxpoints }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+new}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ wbfmm\+\_\+tree\+\_\+new (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble}]{D, }
+\item[{guint}]{maxpoints}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga2fa5e9e3c7b142bb2712144252f7a71c}
 
 
 Allocate a new octree. 
@@ -321,12 +367,15 @@ Allocate a new octree.
 \begin{DoxyReturn}{Returns}
 pointer to newly allocated tree. 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga3903bb9b8e5c7054c8b3cff356b48eb9}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+new\+\_\+f@{wbfmm\+\_\+tree\+\_\+new\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+new\+\_\+f@{wbfmm\+\_\+tree\+\_\+new\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+new\+\_\+f()}
-{\footnotesize\ttfamily \textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$ wbfmm\+\_\+tree\+\_\+new\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gfloat}]{D,  }\item[{guint}]{maxpoints }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+new\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ wbfmm\+\_\+tree\+\_\+new\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat}]{D, }
+\item[{guint}]{maxpoints}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga3903bb9b8e5c7054c8b3cff356b48eb9}
 
 
 Allocate a new octree. 
@@ -343,12 +392,13 @@ Allocate a new octree.
 \begin{DoxyReturn}{Returns}
 pointer to newly allocated tree. 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_ga6662da7d3ec452d58201d0a6464286e4}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+refine@{wbfmm\+\_\+tree\+\_\+refine}}
 \index{wbfmm\+\_\+tree\+\_\+refine@{wbfmm\+\_\+tree\+\_\+refine}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+refine()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+refine (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+refine}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+refine (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga6662da7d3ec452d58201d0a6464286e4}
 
 
 Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. 
@@ -361,12 +411,13 @@ Refine an existing octree by adding a level and redistributing points attached t
 \begin{DoxyReturn}{Returns}
 0 on success. 
 \end{DoxyReturn}
-\mbox{\label{group__boxes_gac6bccb17227a1d01d8aa1d38c09223c3}} 
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+refine\+\_\+f@{wbfmm\+\_\+tree\+\_\+refine\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+refine\+\_\+f@{wbfmm\+\_\+tree\+\_\+refine\+\_\+f}!Boxes and octrees@{Boxes and octrees}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+refine\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+refine\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+refine\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+refine\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{group__boxes_gac6bccb17227a1d01d8aa1d38c09223c3}
 
 
 Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. 

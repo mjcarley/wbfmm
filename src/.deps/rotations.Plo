@@ -1,12 +1,13 @@
-rotations.lo: rotations.c /usr/include/stdc-predef.h /usr/include/math.h \
- /usr/include/bits/libc-header-start.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
- /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
- /usr/include/gnu/stubs-64.h /usr/include/bits/types.h \
- /usr/include/bits/typesizes.h /usr/include/bits/math-vector.h \
- /usr/include/bits/libm-simd-decl-stubs.h /usr/include/bits/floatn.h \
- /usr/include/bits/floatn-common.h /usr/include/bits/flt-eval-method.h \
- /usr/include/bits/fp-logb.h /usr/include/bits/fp-fast.h \
+rotations.lo: rotations.c /usr/include/stdc-predef.h ../config.h \
+ /usr/include/math.h /usr/include/bits/libc-header-start.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
  /usr/include/bits/mathcalls-helper-functions.h \
  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
  /usr/include/string.h \
@@ -116,9 +117,58 @@ rotations.lo: rotations.c /usr/include/stdc-predef.h /usr/include/math.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/libio.h \
  /usr/include/bits/_G_config.h /usr/include/bits/types/__mbstate_t.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h wbfmm-private.h
+ /usr/include/bits/stdio.h wbfmm-private.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/immintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/mmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/xmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/mm_malloc.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/emmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/pmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/tmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/smmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/popcntintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/wmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avxintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512fintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512erintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512pfintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512cdintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512bwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512dqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vlbwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vldqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512ifmaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512ifmavlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmiintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmivlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx5124fmapsintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx5124vnniwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vpopcntdqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmi2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmi2vlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vnniintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vnnivlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vpopcntdqvlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512bitalgintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/shaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/lzcntintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/bmiintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/bmi2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/fmaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/f16cintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/rtmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/xtestintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/cetintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/gfniintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/vaesintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/vpclmulqdqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/movdirintrin.h
 
 /usr/include/stdc-predef.h:
+
+../config.h:
 
 /usr/include/math.h:
 
@@ -481,3 +531,97 @@ wbfmm.h:
 /usr/include/bits/stdio.h:
 
 wbfmm-private.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/immintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/mmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/xmmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/mm_malloc.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/emmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/pmmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/tmmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/smmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/popcntintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/wmmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avxintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx2intrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512fintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512erintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512pfintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512cdintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512bwintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512dqintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vlbwintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vldqintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512ifmaintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512ifmavlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmiintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmivlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx5124fmapsintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx5124vnniwintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vpopcntdqintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmi2intrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vbmi2vlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vnniintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vnnivlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512vpopcntdqvlintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/avx512bitalgintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/shaintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/lzcntintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/bmiintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/bmi2intrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/fmaintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/f16cintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/rtmintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/xtestintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/cetintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/gfniintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/vaesintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/vpclmulqdqintrin.h:
+
+/usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/movdirintrin.h:

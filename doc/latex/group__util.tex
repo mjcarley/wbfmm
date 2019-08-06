@@ -8,53 +8,53 @@ Various functions of use in debugging or underlying utilities.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint \textbf{ wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array} (gdouble $\ast$$\ast$Pnm1, gdouble $\ast$$\ast$Pn, gint n, gdouble C, gdouble S)
+gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array} (gdouble $\ast$$\ast$Pnm1, gdouble $\ast$$\ast$Pn, gint n, gdouble C, gdouble S)
 \begin{DoxyCompactList}\small\item\em Perform recursion on normalized associated Legendre functions. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+legendre\+\_\+init} (gdouble C, gdouble S, gdouble $\ast$P0, gdouble $\ast$P10, gdouble $\ast$P11)
+gint {\bf wbfmm\+\_\+legendre\+\_\+init} (gdouble C, gdouble S, gdouble $\ast$P0, gdouble $\ast$P10, gdouble $\ast$P11)
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion} (gdouble $\ast$jnm1, gdouble $\ast$jn, gdouble x, gint n)
+gint {\bf wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion} (gdouble $\ast$jnm1, gdouble $\ast$jn, gdouble x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init} (gdouble x, gdouble $\ast$j0, gdouble $\ast$j1)
+gint {\bf wbfmm\+\_\+bessel\+\_\+j\+\_\+init} (gdouble x, gdouble $\ast$j0, gdouble $\ast$j1)
 \begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init} (gdouble x, gdouble $\ast$h0, gdouble $\ast$h1)
+gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+init} (gdouble x, gdouble $\ast$h0, gdouble $\ast$h1)
 \begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble $\ast$hn, gdouble x, gint n)
+gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble $\ast$hn, gdouble x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coordinate\+\_\+transform} (gdouble $\ast$x, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$y)
+gint {\bf wbfmm\+\_\+coordinate\+\_\+transform} (gdouble $\ast$x, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+shift\+\_\+coordinates} (gdouble $\ast$x, gdouble $\ast$y, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$r)
+gint {\bf wbfmm\+\_\+shift\+\_\+coordinates} (gdouble $\ast$x, gdouble $\ast$y, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 i, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
+gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 i, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$r)
+gint {\bf wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+write\+\_\+sources} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+LE $\ast$f)
+gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+L\+E $\ast$f)
 \begin{DoxyCompactList}\small\item\em Write a tree source list to file. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f} (gfloat $\ast$$\ast$Pnm1, gfloat $\ast$$\ast$Pn, gint n, gfloat C, gfloat S)
+gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f} (gfloat $\ast$$\ast$Pnm1, gfloat $\ast$$\ast$Pn, gint n, gfloat C, gfloat S)
 \begin{DoxyCompactList}\small\item\em Perform recursion on normalized associated Legendre functions. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+legendre\+\_\+init\+\_\+f} (gfloat C, gfloat S, gfloat $\ast$P0, gfloat $\ast$P10, gfloat $\ast$P11)
+gint {\bf wbfmm\+\_\+legendre\+\_\+init\+\_\+f} (gfloat C, gfloat S, gfloat $\ast$P0, gfloat $\ast$P10, gfloat $\ast$P11)
 \begin{DoxyCompactList}\small\item\em Initialize normalized associated Legendre functions. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f} (gfloat $\ast$jnm1, gfloat $\ast$jn, gfloat x, gint n)
+gint {\bf wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f} (gfloat $\ast$jnm1, gfloat $\ast$jn, gfloat x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform recursion on spherical Bessel function $j_{n}(x)$. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$j0, gfloat $\ast$j1)
+gint {\bf wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$j0, gfloat $\ast$j1)
 \begin{DoxyCompactList}\small\item\em Initialize the spherical Bessel function recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$h0, gfloat $\ast$h1)
+gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f} (gfloat x, gfloat $\ast$h0, gfloat $\ast$h1)
 \begin{DoxyCompactList}\small\item\em Initialize spherical Hankel function recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gfloat $\ast$hn, gfloat x, gint n)
+gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gfloat $\ast$hn, gfloat x, gint n)
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f} (gfloat $\ast$x, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$y)
+gint {\bf wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f} (gfloat $\ast$x, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f} (gfloat $\ast$x, gfloat $\ast$y, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$r)
+gint {\bf wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f} (gfloat $\ast$x, gfloat $\ast$y, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
+gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+f} (gfloat $\ast$xi, gfloat $\ast$xj, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$r)
+gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+f} (gfloat $\ast$xi, gfloat $\ast$xj, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
-gint \textbf{ wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$q, gint stride, F\+I\+LE $\ast$f)
+gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$q, gint stride, F\+I\+L\+E $\ast$f)
 \begin{DoxyCompactList}\small\item\em Write a tree source list to file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -64,12 +64,15 @@ Various functions of use in debugging or underlying utilities.
 
 
 \subsection{Function Documentation}
-\mbox{\label{group__util_ga5131dd2bf4e6cac0776e8a395b4cb580}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}}
 \index{wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+init()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init (\begin{DoxyParamCaption}\item[{gdouble}]{x,  }\item[{gdouble $\ast$}]{h0,  }\item[{gdouble $\ast$}]{h1 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{x, }
+\item[{gdouble $\ast$}]{h0, }
+\item[{gdouble $\ast$}]{h1}
+\end{DoxyParamCaption}
+)}\label{group__util_ga5131dd2bf4e6cac0776e8a395b4cb580}
 
 
 Initialize spherical Hankel function recursion. 
@@ -86,12 +89,15 @@ Initialize spherical Hankel function recursion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gaf74338e3e21540953ed71f07a01a3915}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}}
 \index{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{x,  }\item[{gfloat $\ast$}]{h0,  }\item[{gfloat $\ast$}]{h1 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{x, }
+\item[{gfloat $\ast$}]{h0, }
+\item[{gfloat $\ast$}]{h1}
+\end{DoxyParamCaption}
+)}\label{group__util_gaf74338e3e21540953ed71f07a01a3915}
 
 
 Initialize spherical Hankel function recursion. 
@@ -108,12 +114,16 @@ Initialize spherical Hankel function recursion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga8518f148a22a13875c7a21bd15c1d6fc}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}}
 \index{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{hnm1,  }\item[{gdouble $\ast$}]{hn,  }\item[{gdouble}]{x,  }\item[{gint}]{n }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{hnm1, }
+\item[{gdouble $\ast$}]{hn, }
+\item[{gdouble}]{x, }
+\item[{gint}]{n}
+\end{DoxyParamCaption}
+)}\label{group__util_ga8518f148a22a13875c7a21bd15c1d6fc}
 
 
 Perform one step of spherical Hankel recursion. 
@@ -134,12 +144,16 @@ Perform one step of the spherical Hankel function recursion. On entry {\itshape 
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gaad7da6548d4f943fd19c61661aafec92}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}}
 \index{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{hnm1,  }\item[{gfloat $\ast$}]{hn,  }\item[{gfloat}]{x,  }\item[{gint}]{n }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{hnm1, }
+\item[{gfloat $\ast$}]{hn, }
+\item[{gfloat}]{x, }
+\item[{gint}]{n}
+\end{DoxyParamCaption}
+)}\label{group__util_gaad7da6548d4f943fd19c61661aafec92}
 
 
 Perform one step of spherical Hankel recursion. 
@@ -160,12 +174,15 @@ Perform one step of the spherical Hankel function recursion. On entry {\itshape 
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga85a1d8464e958530fb4348d3a9f3ef0e}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}}
 \index{wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+init()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init (\begin{DoxyParamCaption}\item[{gdouble}]{x,  }\item[{gdouble $\ast$}]{j0,  }\item[{gdouble $\ast$}]{j1 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{x, }
+\item[{gdouble $\ast$}]{j0, }
+\item[{gdouble $\ast$}]{j1}
+\end{DoxyParamCaption}
+)}\label{group__util_ga85a1d8464e958530fb4348d3a9f3ef0e}
 
 
 Initialize the spherical Bessel function recursion. 
@@ -182,12 +199,15 @@ Initialize the spherical Bessel function recursion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga4a440d7cd040b7cbdcd5093de685ea0d}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}}
 \index{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{x,  }\item[{gfloat $\ast$}]{j0,  }\item[{gfloat $\ast$}]{j1 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{x, }
+\item[{gfloat $\ast$}]{j0, }
+\item[{gfloat $\ast$}]{j1}
+\end{DoxyParamCaption}
+)}\label{group__util_ga4a440d7cd040b7cbdcd5093de685ea0d}
 
 
 Initialize the spherical Bessel function recursion. 
@@ -204,12 +224,16 @@ Initialize the spherical Bessel function recursion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gaa5316c151f2c3d259ad189c5dc42c6fe}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}}
 \index{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{jnm1,  }\item[{gdouble $\ast$}]{jn,  }\item[{gdouble}]{x,  }\item[{gint}]{n }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{jnm1, }
+\item[{gdouble $\ast$}]{jn, }
+\item[{gdouble}]{x, }
+\item[{gint}]{n}
+\end{DoxyParamCaption}
+)}\label{group__util_gaa5316c151f2c3d259ad189c5dc42c6fe}
 
 
 Perform recursion on spherical Bessel function $j_{n}(x)$. 
@@ -230,12 +254,16 @@ Perform one step of the spherical Bessel function recursion. On entry {\itshape 
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga8ef3a3514c59cdd91c89dc8cd608d17f}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}}
 \index{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{jnm1,  }\item[{gfloat $\ast$}]{jn,  }\item[{gfloat}]{x,  }\item[{gint}]{n }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{jnm1, }
+\item[{gfloat $\ast$}]{jn, }
+\item[{gfloat}]{x, }
+\item[{gint}]{n}
+\end{DoxyParamCaption}
+)}\label{group__util_ga8ef3a3514c59cdd91c89dc8cd608d17f}
 
 
 Perform recursion on spherical Bessel function $j_{n}(x)$. 
@@ -256,12 +284,18 @@ Perform one step of the spherical Bessel function recursion. On entry {\itshape 
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga3b532ad6b4efc211761864098df57beb}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}}
 \index{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index (\begin{DoxyParamCaption}\item[{guint64}]{idx,  }\item[{guint32}]{level,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble}]{D,  }\item[{gdouble $\ast$}]{x,  }\item[{gdouble $\ast$}]{wb }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index (
+\begin{DoxyParamCaption}
+\item[{guint64}]{idx, }
+\item[{guint32}]{level, }
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble}]{D, }
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble $\ast$}]{wb}
+\end{DoxyParamCaption}
+)}\label{group__util_ga3b532ad6b4efc211761864098df57beb}
 
 
 Find the coordinates of a box from its Morton index. 
@@ -284,12 +318,18 @@ Find the coordinates of a box from its Morton index.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga8c5afbf565b9c8f40668104bd0681768}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}}
 \index{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f (\begin{DoxyParamCaption}\item[{guint64}]{idx,  }\item[{guint32}]{level,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat}]{D,  }\item[{gfloat $\ast$}]{x,  }\item[{gfloat $\ast$}]{wb }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{guint64}]{idx, }
+\item[{guint32}]{level, }
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat}]{D, }
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat $\ast$}]{wb}
+\end{DoxyParamCaption}
+)}\label{group__util_ga8c5afbf565b9c8f40668104bd0681768}
 
 
 Find the coordinates of a box from its Morton index. 
@@ -312,12 +352,17 @@ Find the coordinates of a box from its Morton index.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga7ecc6ba469d53c16ec8830aba8992c90}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}}
 \index{wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+coordinate\+\_\+transform()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coordinate\+\_\+transform (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gdouble $\ast$}]{ix,  }\item[{gdouble $\ast$}]{iy,  }\item[{gdouble $\ast$}]{iz,  }\item[{gdouble $\ast$}]{y }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coordinate\+\_\+transform}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coordinate\+\_\+transform (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble $\ast$}]{ix, }
+\item[{gdouble $\ast$}]{iy, }
+\item[{gdouble $\ast$}]{iz, }
+\item[{gdouble $\ast$}]{y}
+\end{DoxyParamCaption}
+)}\label{group__util_ga7ecc6ba469d53c16ec8830aba8992c90}
 
 
 Transform coordinates to rotated axes. 
@@ -338,12 +383,17 @@ Transform coordinates to rotated axes.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga18c92e292152fe38088188204556089a}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}}
 \index{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gfloat $\ast$}]{ix,  }\item[{gfloat $\ast$}]{iy,  }\item[{gfloat $\ast$}]{iz,  }\item[{gfloat $\ast$}]{y }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat $\ast$}]{ix, }
+\item[{gfloat $\ast$}]{iy, }
+\item[{gfloat $\ast$}]{iz, }
+\item[{gfloat $\ast$}]{y}
+\end{DoxyParamCaption}
+)}\label{group__util_ga18c92e292152fe38088188204556089a}
 
 
 Transform coordinates to rotated axes. 
@@ -364,12 +414,17 @@ Transform coordinates to rotated axes.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga51a6d37dda64872d7e85b8a6c53b135e}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}}
 \index{wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+legendre\+\_\+init()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+legendre\+\_\+init (\begin{DoxyParamCaption}\item[{gdouble}]{C,  }\item[{gdouble}]{S,  }\item[{gdouble $\ast$}]{P0,  }\item[{gdouble $\ast$}]{P10,  }\item[{gdouble $\ast$}]{P11 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+legendre\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+legendre\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{C, }
+\item[{gdouble}]{S, }
+\item[{gdouble $\ast$}]{P0, }
+\item[{gdouble $\ast$}]{P10, }
+\item[{gdouble $\ast$}]{P11}
+\end{DoxyParamCaption}
+)}\label{group__util_ga51a6d37dda64872d7e85b8a6c53b135e}
 
 
 Initialize normalized associated Legendre functions. 
@@ -390,12 +445,17 @@ Initialize normalized associated Legendre functions.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga1ad41cb8a6e454dd83061c32763bc9ce}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}}
 \index{wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+legendre\+\_\+init\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+legendre\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{C,  }\item[{gfloat}]{S,  }\item[{gfloat $\ast$}]{P0,  }\item[{gfloat $\ast$}]{P10,  }\item[{gfloat $\ast$}]{P11 }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+legendre\+\_\+init\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{C, }
+\item[{gfloat}]{S, }
+\item[{gfloat $\ast$}]{P0, }
+\item[{gfloat $\ast$}]{P10, }
+\item[{gfloat $\ast$}]{P11}
+\end{DoxyParamCaption}
+)}\label{group__util_ga1ad41cb8a6e454dd83061c32763bc9ce}
 
 
 Initialize normalized associated Legendre functions. 
@@ -416,12 +476,17 @@ Initialize normalized associated Legendre functions.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga6e42c928a216fcca40e7b150e4b9161d}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}}
 \index{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array (\begin{DoxyParamCaption}\item[{gdouble $\ast$$\ast$}]{Pnm1,  }\item[{gdouble $\ast$$\ast$}]{Pn,  }\item[{gint}]{n,  }\item[{gdouble}]{C,  }\item[{gdouble}]{S }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$$\ast$}]{Pnm1, }
+\item[{gdouble $\ast$$\ast$}]{Pn, }
+\item[{gint}]{n, }
+\item[{gdouble}]{C, }
+\item[{gdouble}]{S}
+\end{DoxyParamCaption}
+)}\label{group__util_ga6e42c928a216fcca40e7b150e4b9161d}
 
 
 Perform recursion on normalized associated Legendre functions. 
@@ -444,12 +509,17 @@ Perform recursion on normalized associated Legendre functions with input $P_{n-1
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gad477d3ee1cb9a8e00fe76c3eb043e137}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}}
 \index{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$$\ast$}]{Pnm1,  }\item[{gfloat $\ast$$\ast$}]{Pn,  }\item[{gint}]{n,  }\item[{gfloat}]{C,  }\item[{gfloat}]{S }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$$\ast$}]{Pnm1, }
+\item[{gfloat $\ast$$\ast$}]{Pn, }
+\item[{gint}]{n, }
+\item[{gfloat}]{C, }
+\item[{gfloat}]{S}
+\end{DoxyParamCaption}
+)}\label{group__util_gad477d3ee1cb9a8e00fe76c3eb043e137}
 
 
 Perform recursion on normalized associated Legendre functions. 
@@ -472,12 +542,18 @@ Perform recursion on normalized associated Legendre functions with input $P_{n-1
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gada7ba898e9ece32acf9235b4bc7da5cd}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}}
 \index{wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+shift\+\_\+angles()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angles (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{xi,  }\item[{gdouble $\ast$}]{xj,  }\item[{gdouble $\ast$}]{th,  }\item[{gdouble $\ast$}]{ph,  }\item[{gdouble $\ast$}]{ch,  }\item[{gdouble $\ast$}]{r }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+shift\+\_\+angles}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angles (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{xi, }
+\item[{gdouble $\ast$}]{xj, }
+\item[{gdouble $\ast$}]{th, }
+\item[{gdouble $\ast$}]{ph, }
+\item[{gdouble $\ast$}]{ch, }
+\item[{gdouble $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\label{group__util_gada7ba898e9ece32acf9235b4bc7da5cd}
 
 
 Compute angles and distance to shift expansion between two points. 
@@ -502,12 +578,18 @@ This is a combination of a call to \doxyref{wbfmm\+\_\+shift\+\_\+coordinates}{p
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga54a0dbcb240ac2de8899c70a1110614a}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}}
 \index{wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+shift\+\_\+angles\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angles\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{xi,  }\item[{gfloat $\ast$}]{xj,  }\item[{gfloat $\ast$}]{th,  }\item[{gfloat $\ast$}]{ph,  }\item[{gfloat $\ast$}]{ch,  }\item[{gfloat $\ast$}]{r }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angles\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{xi, }
+\item[{gfloat $\ast$}]{xj, }
+\item[{gfloat $\ast$}]{th, }
+\item[{gfloat $\ast$}]{ph, }
+\item[{gfloat $\ast$}]{ch, }
+\item[{gfloat $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\label{group__util_ga54a0dbcb240ac2de8899c70a1110614a}
 
 
 Compute angles and distance to shift expansion between two points. 
@@ -532,12 +614,18 @@ This is a combination of a call to \doxyref{wbfmm\+\_\+shift\+\_\+coordinates\+\
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gae41bfd3f13dc28e4438c1cc1d011f7ff}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}}
 \index{wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+shift\+\_\+coordinates()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+coordinates (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gdouble $\ast$}]{y,  }\item[{gdouble $\ast$}]{ix,  }\item[{gdouble $\ast$}]{iy,  }\item[{gdouble $\ast$}]{iz,  }\item[{gdouble $\ast$}]{r }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+shift\+\_\+coordinates}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+coordinates (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble $\ast$}]{y, }
+\item[{gdouble $\ast$}]{ix, }
+\item[{gdouble $\ast$}]{iy, }
+\item[{gdouble $\ast$}]{iz, }
+\item[{gdouble $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\label{group__util_gae41bfd3f13dc28e4438c1cc1d011f7ff}
 
 
 Find system of axes for coordinate shift. 
@@ -560,12 +648,18 @@ Find system of axes for coordinate shift.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gae0bad9f93d0aca22d6af28731fbdbee2}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}}
 \index{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gfloat $\ast$}]{y,  }\item[{gfloat $\ast$}]{ix,  }\item[{gfloat $\ast$}]{iy,  }\item[{gfloat $\ast$}]{iz,  }\item[{gfloat $\ast$}]{r }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat $\ast$}]{y, }
+\item[{gfloat $\ast$}]{ix, }
+\item[{gfloat $\ast$}]{iy, }
+\item[{gfloat $\ast$}]{iz, }
+\item[{gfloat $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\label{group__util_gae0bad9f93d0aca22d6af28731fbdbee2}
 
 
 Find system of axes for coordinate shift. 
@@ -588,12 +682,20 @@ Find system of axes for coordinate shift.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_gaa5da143192acf9cd3b82e7600ae017c4}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}}
 \index{wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+total\+\_\+dipole\+\_\+field()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+total\+\_\+dipole\+\_\+field (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gdouble $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nsrc,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+total\+\_\+dipole\+\_\+field (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{k, }
+\item[{gdouble $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gdouble $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nsrc, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field}
+\end{DoxyParamCaption}
+)}\label{group__util_gaa5da143192acf9cd3b82e7600ae017c4}
 
 
 Compute total field from dipole sources by direct evaluation. 
@@ -622,12 +724,20 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga2272a4de0efc28a2f587b9e30dc65502}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}}
 \index{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gfloat $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nsrc,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{k, }
+\item[{gfloat $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gfloat $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nsrc, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field}
+\end{DoxyParamCaption}
+)}\label{group__util_ga2272a4de0efc28a2f587b9e30dc65502}
 
 
 Compute total field from dipole sources by direct evaluation. 
@@ -656,23 +766,27 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga821214839e0eadd1cb764094272a2e96}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}}
 \index{wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+write\+\_\+sources()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+write\+\_\+sources (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gdouble $\ast$}]{q,  }\item[{gint}]{stride,  }\item[{F\+I\+LE $\ast$}]{f }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+write\+\_\+sources (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gdouble $\ast$}]{q, }
+\item[{gint}]{stride, }
+\item[{F\+I\+L\+E $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\label{group__util_ga821214839e0eadd1cb764094272a2e96}
 
 
 Write a tree source list to file. 
 
-Write to file a list of source positions attached to an octree, in order of Morton index by which they are attached to leaf boxes. If source strengths are supplied ({\itshape q} not N\+U\+LL) these are also written to file.
+Write to file a list of source positions attached to an octree, in order of Morton index by which they are attached to leaf boxes. If source strengths are supplied ({\itshape q} not N\+U\+L\+L) these are also written to file.
 
 
 \begin{DoxyParams}{Parameters}
 {\em t} & an octree with a list of sources attached; \\
 \hline
-{\em q} & source strengths (if N\+U\+LL, source strengths are not written); \\
+{\em q} & source strengths (if N\+U\+L\+L, source strengths are not written); \\
 \hline
 {\em stride} & source strength stride in {\itshape q}; \\
 \hline
@@ -682,23 +796,27 @@ Write to file a list of source positions attached to an octree, in order of Mort
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\mbox{\label{group__util_ga2cf7845b911013d463c88f62a4a8c7fa}} 
 \index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}}
 \index{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
-\subsubsection{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f()}
-{\footnotesize\ttfamily gint wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gfloat $\ast$}]{q,  }\item[{gint}]{stride,  }\item[{F\+I\+LE $\ast$}]{f }\end{DoxyParamCaption})}
-
+\subsubsection[{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{gfloat $\ast$}]{q, }
+\item[{gint}]{stride, }
+\item[{F\+I\+L\+E $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\label{group__util_ga2cf7845b911013d463c88f62a4a8c7fa}
 
 
 Write a tree source list to file. 
 
-Write to file a list of source positions attached to an octree, in order of Morton index by which they are attached to leaf boxes. If source strengths are supplied ({\itshape q} not N\+U\+LL) these are also written to file.
+Write to file a list of source positions attached to an octree, in order of Morton index by which they are attached to leaf boxes. If source strengths are supplied ({\itshape q} not N\+U\+L\+L) these are also written to file.
 
 
 \begin{DoxyParams}{Parameters}
 {\em t} & an octree with a list of sources attached; \\
 \hline
-{\em q} & source strengths (if N\+U\+LL, source strengths are not written); \\
+{\em q} & source strengths (if N\+U\+L\+L, source strengths are not written); \\
 \hline
 {\em stride} & source strength stride in {\itshape q}; \\
 \hline

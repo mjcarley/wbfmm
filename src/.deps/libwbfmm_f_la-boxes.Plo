@@ -1,4 +1,4 @@
-libwbfmm_f_la-boxes.lo: boxes.c /usr/include/stdc-predef.h \
+libwbfmm_f_la-boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/math.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
@@ -122,6 +122,8 @@ libwbfmm_f_la-boxes.lo: boxes.c /usr/include/stdc-predef.h \
  /usr/include/bits/stdint-uintn.h wbfmm.h wbfmm-private.h
 
 /usr/include/stdc-predef.h:
+
+../config.h:
 
 /usr/include/math.h:
 
