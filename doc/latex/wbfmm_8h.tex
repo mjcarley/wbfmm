@@ -47,14 +47,18 @@ gint {\bf wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial} (gdouble $\ast$cfft\
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial regular-\/to-\/regular translation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial} (gdouble $\ast$cfft\+S\+R, gint L, gdouble kr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+coaxial\+\_\+translate} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gdouble $\ast$cfft, gint L, gboolean complex)
-\begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+rotation\+\_\+angles} (gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$jx, gdouble $\ast$jy, gdouble $\ast$jz, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch)
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint N, gdouble th, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gint N, gdouble $\ast$Ci, gint cstri, gdouble $\ast$H, gdouble ph, gdouble ch)
-\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
@@ -119,14 +123,10 @@ gint {\bf wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial regular-\/to-\/regular translation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+S\+R, gint L, gfloat kr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gfloat $\ast$cfft, gint L, gboolean complex)
-\begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+rotation\+\_\+angles\+\_\+f} (gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$jx, gfloat $\ast$jy, gfloat $\ast$jz, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch)
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f} (gfloat $\ast$H, gint N, gfloat th, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gint N, gfloat $\ast$Ci, gint cstri, gfloat $\ast$H, gfloat ph, gfloat ch)
-\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
 guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f} (gfloat $\ast$x, gfloat $\ast$c, gfloat D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
 {\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new\+\_\+f} (gfloat $\ast$x, gfloat D, guint maxpoints)

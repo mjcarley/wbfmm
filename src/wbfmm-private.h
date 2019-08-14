@@ -23,7 +23,7 @@
 
 #define WBFMM_REAL gfloat
 
-#define FUNCTION_NAME(_func) _func##_f
+#define WBFMM_FUNCTION_NAME(_func) _func##_f
 
 #define SQRT(_x) sqrtf((_x))
 #define CBRT(_x) cbrtf((_x))
@@ -38,7 +38,7 @@
 
 #define WBFMM_REAL gdouble
 
-#define FUNCTION_NAME(_func) _func
+#define WBFMM_FUNCTION_NAME(_func) _func
 
 #define SQRT(_x) sqrt((_x))
 #define CBRT(_x) cbrt((_x))

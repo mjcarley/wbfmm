@@ -82,4 +82,12 @@
  *
  */
 
+/**
+ * @defgroup laplace Evaluation of the Laplace potential
+ *
+ * @brief Variants on standard functions to allow WBFMM to be used for
+ * the Laplace equation
+ *
+ */
+
 

@@ -88,9 +88,11 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
-bin_PROGRAMS = wbfmm-tests$(EXEEXT) wbfmm-tree-calc$(EXEEXT) \
-	wbfmm-tests-float$(EXEEXT) wbfmm-tree-calc-float$(EXEEXT) \
-	wbfmm-direct-calc$(EXEEXT) wbfmm-direct-calc-float$(EXEEXT)
+bin_PROGRAMS = wbfmm-tests$(EXEEXT) wbfmm-tests-avx$(EXEEXT) \
+	wbfmm-tree-calc$(EXEEXT) wbfmm-tests-float$(EXEEXT) \
+	wbfmm-tree-calc-float$(EXEEXT) wbfmm-direct-calc$(EXEEXT) \
+	wbfmm-direct-calc-float$(EXEEXT) wbfmm-laplace-tests$(EXEEXT) \
+	wbfmm-laplace-tests-float$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -120,10 +122,29 @@ wbfmm_direct_calc_float_OBJECTS = wbfmm-direct-calc-float.$(OBJEXT)
 wbfmm_direct_calc_float_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tests_SOURCES = wbfmm-laplace-tests.c
+wbfmm_laplace_tests_OBJECTS = wbfmm-laplace-tests.$(OBJEXT)
+wbfmm_laplace_tests_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tests_float_SOURCES = wbfmm-laplace-tests-float.c
+wbfmm_laplace_tests_float_OBJECTS =  \
+	wbfmm-laplace-tests-float.$(OBJEXT)
+wbfmm_laplace_tests_float_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
 wbfmm_tests_SOURCES = wbfmm-tests.c
 wbfmm_tests_OBJECTS = wbfmm-tests.$(OBJEXT)
 wbfmm_tests_DEPENDENCIES = $(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+am_wbfmm_tests_avx_OBJECTS = wbfmm_tests_avx-wbfmm-tests.$(OBJEXT)
+wbfmm_tests_avx_OBJECTS = $(am_wbfmm_tests_avx_OBJECTS)
+wbfmm_tests_avx_DEPENDENCIES = $(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_tests_avx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(wbfmm_tests_avx_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
 wbfmm_tests_float_SOURCES = wbfmm-tests-float.c
 wbfmm_tests_float_OBJECTS = wbfmm-tests-float.$(OBJEXT)
 wbfmm_tests_float_DEPENDENCIES =  \
@@ -155,9 +176,12 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/wbfmm-direct-calc-float.Po \
 	./$(DEPDIR)/wbfmm-direct-calc.Po \
+	./$(DEPDIR)/wbfmm-laplace-tests-float.Po \
+	./$(DEPDIR)/wbfmm-laplace-tests.Po \
 	./$(DEPDIR)/wbfmm-tests-float.Po ./$(DEPDIR)/wbfmm-tests.Po \
 	./$(DEPDIR)/wbfmm-tree-calc-float.Po \
-	./$(DEPDIR)/wbfmm-tree-calc.Po
+	./$(DEPDIR)/wbfmm-tree-calc.Po \
+	./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -177,11 +201,14 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c wbfmm-tests.c \
-	wbfmm-tests-float.c wbfmm-tree-calc.c wbfmm-tree-calc-float.c
+SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
+	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
+	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
+	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
 DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
-	wbfmm-tests.c wbfmm-tests-float.c wbfmm-tree-calc.c \
-	wbfmm-tree-calc-float.c
+	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
+	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
+	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -218,7 +245,7 @@ AUTOMAKE = automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O3 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -350,16 +377,26 @@ BUILT_SOURCES = \
 	wbfmm-tree-calc.c \
 	wbfmm-direct-calc.c \
 	wbfmm-tests-float.c \
-	wbfmm-tree-calc-float.c
+	wbfmm-tree-calc-float.c \
+	wbfmm-direct-calc-float.c \
+	wbfmm-laplace-tests.c \
+	wbfmm-laplace-tests-float.c
 
 CLEANFILES = wbfmm-tests.c wbfmm-tests-float.c \
 	wbfmm-tree-calc.c wbfmm-tree-calc-float.c \
-	wbfmm-direct-calc.c wbfmm-direct-calc-float.c
+	wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
+	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c
 
 wbfmm_tests_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_tests_avx_SOURCES = wbfmm-tests.c
+wbfmm_tests_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tests_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 wbfmm_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
@@ -377,6 +414,14 @@ wbfmm_direct_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
 wbfmm_direct_calc_float_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tests_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
@@ -472,9 +517,21 @@ wbfmm-direct-calc-float$(EXEEXT): $(wbfmm_direct_calc_float_OBJECTS) $(wbfmm_dir
 	@rm -f wbfmm-direct-calc-float$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_direct_calc_float_OBJECTS) $(wbfmm_direct_calc_float_LDADD) $(LIBS)
 
+wbfmm-laplace-tests$(EXEEXT): $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tests_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tests$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tests_LDADD) $(LIBS)
+
+wbfmm-laplace-tests-float$(EXEEXT): $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_float_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tests-float$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_LDADD) $(LIBS)
+
 wbfmm-tests$(EXEEXT): $(wbfmm_tests_OBJECTS) $(wbfmm_tests_DEPENDENCIES) $(EXTRA_wbfmm_tests_DEPENDENCIES) 
 	@rm -f wbfmm-tests$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_tests_OBJECTS) $(wbfmm_tests_LDADD) $(LIBS)
+
+wbfmm-tests-avx$(EXEEXT): $(wbfmm_tests_avx_OBJECTS) $(wbfmm_tests_avx_DEPENDENCIES) $(EXTRA_wbfmm_tests_avx_DEPENDENCIES) 
+	@rm -f wbfmm-tests-avx$(EXEEXT)
+	$(AM_V_CCLD)$(wbfmm_tests_avx_LINK) $(wbfmm_tests_avx_OBJECTS) $(wbfmm_tests_avx_LDADD) $(LIBS)
 
 wbfmm-tests-float$(EXEEXT): $(wbfmm_tests_float_OBJECTS) $(wbfmm_tests_float_DEPENDENCIES) $(EXTRA_wbfmm_tests_float_DEPENDENCIES) 
 	@rm -f wbfmm-tests-float$(EXEEXT)
@@ -496,10 +553,13 @@ distclean-compile:
 
 include ./$(DEPDIR)/wbfmm-direct-calc-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-direct-calc.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-tests-float.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-tests.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tests-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tests.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tree-calc-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tree-calc.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -530,6 +590,20 @@ am--depfiles: $(am__depfiles_remade)
 #	$(AM_V_CC)source='$<' object='$@' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LTCOMPILE) -c -o $@ $<
+
+wbfmm_tests_avx-wbfmm-tests.o: wbfmm-tests.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -MT wbfmm_tests_avx-wbfmm-tests.o -MD -MP -MF $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Tpo -c -o wbfmm_tests_avx-wbfmm-tests.o `test -f 'wbfmm-tests.c' || echo '$(srcdir)/'`wbfmm-tests.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Tpo $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
+#	$(AM_V_CC)source='wbfmm-tests.c' object='wbfmm_tests_avx-wbfmm-tests.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_tests_avx-wbfmm-tests.o `test -f 'wbfmm-tests.c' || echo '$(srcdir)/'`wbfmm-tests.c
+
+wbfmm_tests_avx-wbfmm-tests.obj: wbfmm-tests.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -MT wbfmm_tests_avx-wbfmm-tests.obj -MD -MP -MF $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Tpo -c -o wbfmm_tests_avx-wbfmm-tests.obj `if test -f 'wbfmm-tests.c'; then $(CYGPATH_W) 'wbfmm-tests.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-tests.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Tpo $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
+#	$(AM_V_CC)source='wbfmm-tests.c' object='wbfmm_tests_avx-wbfmm-tests.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_tests_avx-wbfmm-tests.obj `if test -f 'wbfmm-tests.c'; then $(CYGPATH_W) 'wbfmm-tests.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-tests.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -670,10 +744,13 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/wbfmm-direct-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-direct-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -721,10 +798,13 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/wbfmm-direct-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-direct-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -761,7 +841,6 @@ uninstall-am: uninstall-binPROGRAMS
 
 .PRECIOUS: Makefile
 
-	wbfmm-direct-calc-float.c
 
 wbfmm-tests.c: wbfmm-tests.c.in
 	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
@@ -792,6 +871,16 @@ wbfmm-direct-calc-float.c: wbfmm-direct-calc.c.in
 	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
 	-e s/FLOATEXP/1.16e/g \
 	wbfmm-direct-calc.c.in > wbfmm-direct-calc-float.c
+
+wbfmm-laplace-tests.c: wbfmm-laplace-tests.c.in
+	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
+	-e s/FLOATEXP/1.16e/g \
+	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests.c
+
+wbfmm-laplace-tests-float.c: wbfmm-laplace-tests.c.in
+	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
+	-e s/FLOATEXP/1.16e/g \
+	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests-float.c
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

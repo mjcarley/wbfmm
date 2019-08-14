@@ -8,23 +8,29 @@ EXTRA_DIST = wbfmm-test.c.in wbfmm-tree-calc.c.in
 
 bin_PROGRAMS = \
 	wbfmm-tests \
+	wbfmm-tests-avx \
 	wbfmm-tree-calc \
 	wbfmm-tests-float \
 	wbfmm-tree-calc-float \
 	wbfmm-direct-calc \
-	wbfmm-direct-calc-float
+	wbfmm-direct-calc-float \
+	wbfmm-laplace-tests \
+	wbfmm-laplace-tests-float 
 
 BUILT_SOURCES = \
 	wbfmm-tests.c \
 	wbfmm-tree-calc.c \
 	wbfmm-direct-calc.c \
 	wbfmm-tests-float.c \
-	wbfmm-tree-calc-float.c
-	wbfmm-direct-calc-float.c
+	wbfmm-tree-calc-float.c \
+	wbfmm-direct-calc-float.c \
+	wbfmm-laplace-tests.c \
+	wbfmm-laplace-tests-float.c
 
 CLEANFILES = wbfmm-tests.c wbfmm-tests-float.c \
 	wbfmm-tree-calc.c wbfmm-tree-calc-float.c \
-	wbfmm-direct-calc.c wbfmm-direct-calc-float.c
+	wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
+	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c
 
 wbfmm-tests.c: wbfmm-tests.c.in
 	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
@@ -56,9 +62,27 @@ wbfmm-direct-calc-float.c: wbfmm-direct-calc.c.in
 	-e s/FLOATEXP/1.16e/g \
 	wbfmm-direct-calc.c.in > wbfmm-direct-calc-float.c
 
+wbfmm-laplace-tests.c: wbfmm-laplace-tests.c.in
+	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
+	-e s/FLOATEXP/1.16e/g \
+	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests.c
+
+wbfmm-laplace-tests-float.c: wbfmm-laplace-tests.c.in
+	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
+	-e s/FLOATEXP/1.16e/g \
+	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests-float.c
+
+
 wbfmm_tests_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tests_avx_SOURCES = wbfmm-tests.c
+wbfmm_tests_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tests_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 
 wbfmm_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
@@ -77,5 +101,12 @@ wbfmm_direct_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
 wbfmm_direct_calc_float_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tests_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a

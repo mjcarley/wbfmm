@@ -27,7 +27,7 @@
 
 #include "wbfmm-private.h"
 
-gint FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REAL *x,
+gint WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REAL *x,
 						 WBFMM_REAL *r, WBFMM_REAL *th,
 						 WBFMM_REAL *ph)
 
@@ -49,7 +49,8 @@ gint FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REAL *x,
 /*
   inputs: Pnm1, Pn, normalized Legendre functions for n-1, and n
 
-  \bar{P}_{n}^{m} = (-1)^m sqrt((n-m)!/(n+m)!*(2n+1))*P_n^|m|(\cos\theta) 
+  \bar{P}_{n}^{m} = (-1)^m 
+  \sqrt((n-m)!/(n+m)!\times (2n+1)/4\pi)*P_n^|m|(\cos\theta) 
 
   C = \cos\theta, S = \sin\theta
 
@@ -61,7 +62,7 @@ gint FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REAL *x,
   there is no check on array bounds
 */
 
-gint FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
+gint WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
 						   WBFMM_REAL **Pn, gint n,
 						   WBFMM_REAL C, WBFMM_REAL S)
 
@@ -87,7 +88,7 @@ gint FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_legendre_init)(WBFMM_REAL C, WBFMM_REAL S, 
+gint WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(WBFMM_REAL C, WBFMM_REAL S, 
 					WBFMM_REAL *P0, WBFMM_REAL *P10,
 					WBFMM_REAL *P11)
 
@@ -133,7 +134,7 @@ static WBFMM_REAL wbfmm_bessel_j_n_series(gint n, WBFMM_REAL x)
   return jn ;
 }
 
-gint FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x, WBFMM_REAL *j0,
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x, WBFMM_REAL *j0,
 					WBFMM_REAL *j1)
 
 {
@@ -147,7 +148,7 @@ gint FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x, WBFMM_REAL *j0,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1, WBFMM_REAL *jn, 
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1, WBFMM_REAL *jn, 
 					     WBFMM_REAL x, gint n)
 
 {
@@ -166,7 +167,7 @@ gint FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1, WBFMM_REAL *jn,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x, WBFMM_REAL *h0,
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x, WBFMM_REAL *h0,
 					WBFMM_REAL *h1)
 
 {
@@ -177,7 +178,7 @@ gint FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x, WBFMM_REAL *h0,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1, WBFMM_REAL *hn, 
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1, WBFMM_REAL *hn, 
 					     WBFMM_REAL x, gint n)
 
 {
@@ -192,13 +193,13 @@ gint FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1, WBFMM_REAL *hn,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
-				      WBFMM_REAL *xs, gint xstride,
-				      WBFMM_REAL *src, gint sstride,
-				      WBFMM_REAL *normals, gint nstr,
-				      WBFMM_REAL *dipoles, gint dstr,
-				      gint nsrc,
-				      WBFMM_REAL *xf, WBFMM_REAL *field)
+gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
+					    WBFMM_REAL *xs, gint xstride,
+					    WBFMM_REAL *src, gint sstride,
+					    WBFMM_REAL *normals, gint nstr,
+					    WBFMM_REAL *dipoles, gint dstr,
+					    gint nsrc,
+					    WBFMM_REAL *xf, WBFMM_REAL *field)
 
 {
   gint i ;
@@ -214,9 +215,9 @@ gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 
   if ( normals == NULL && dipoles == NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
-      FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 						  &r, &th, &ph) ;
-      FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
       field[0] += h0[0]*src[i*sstride+0] - h0[1]*src[i*sstride+1] ;
       field[1] += h0[1]*src[i*sstride+0] + h0[0]*src[i*sstride+1] ;
     }
@@ -229,9 +230,9 @@ gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 
   if ( src == NULL && dipoles != NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
-      FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 						  &r, &th, &ph) ;
-      FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 
       fd[0] = normals[i*nstr+0]*dipoles[i*dstr+0] ;
       fd[1] = normals[i*nstr+0]*dipoles[i*dstr+1] ;
@@ -261,9 +262,9 @@ gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 
   if ( src != NULL && normals != NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
-      FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 						  &r, &th, &ph) ;
-      FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 
       fd[0] = normals[i*nstr+0]*dipoles[i*dstr+0] ;
       fd[1] = normals[i*nstr+0]*dipoles[i*dstr+1] ;
@@ -298,7 +299,7 @@ gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 }
 
 
-gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
+gint WBFMM_FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
 					     WBFMM_REAL *xs, gint xstride,
 					     WBFMM_REAL *src, gint sstride,
 					     gint nsrc,
@@ -311,9 +312,9 @@ gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
   /* field[0] = field[1] = 0.0 ; */
 
   for ( i = 0 ; i < nsrc ; i ++ ) {
-    FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+    WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 						&r, &th, &ph) ;
-    FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
     fR[0]  = src[i*sstride+0]*(xf[0] - xs[i*xstride+0]) ;
     fR[1]  = src[i*sstride+1]*(xf[0] - xs[i*xstride+0]) ;
     fR[0] += src[i*sstride+2]*(xf[1] - xs[i*xstride+1]) ;
@@ -333,7 +334,7 @@ gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
+gint WBFMM_FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
 					     WBFMM_REAL *xs, gint xstride,
 					     WBFMM_REAL *ns, gint nstride,
 					     WBFMM_REAL *src, gint sstride,
@@ -354,7 +355,7 @@ gint FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
     q[5] = ns[i*nstride+2]*src[i*sstride+1] ;
 
     f[0] = f[1] = 0.0 ;
-    FUNCTION_NAME(wbfmm_total_dipole_field)(k, &(xs[i*xstride]), 0,
+    WBFMM_FUNCTION_NAME(wbfmm_total_dipole_field)(k, &(xs[i*xstride]), 0,
 					    q, 0, 1, xf, f) ;
     field[0] += f[0] ; field[1] += f[1] ;
   }
@@ -362,7 +363,7 @@ gint FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x, 
+gint WBFMM_FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x, 
 					       WBFMM_REAL *ix, WBFMM_REAL *iy,
 					       WBFMM_REAL *iz,
 					       WBFMM_REAL *y)
@@ -380,7 +381,7 @@ gint FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
+gint WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
 					    WBFMM_REAL *ix, WBFMM_REAL *iy,
 					    WBFMM_REAL *iz,
 					    WBFMM_REAL *r)
@@ -446,7 +447,7 @@ gint print_bits_uint(FILE *f, guint x)
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 level,
+gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 level,
 						  WBFMM_REAL *x0, WBFMM_REAL D,
 						  WBFMM_REAL *x, WBFMM_REAL *wb)
 
@@ -470,12 +471,12 @@ gint FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 level,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_box_centre)(wbfmm_tree_t *t, guint32 level,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(wbfmm_tree_t *t, guint32 level,
 					  guint64 b, WBFMM_REAL *xb,
 					  WBFMM_REAL *wb)
 
 {
-  FUNCTION_NAME(wbfmm_box_location_from_index)(b, level, 
+  WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(b, level, 
 					       wbfmm_tree_origin(t), 
 					       wbfmm_tree_width(t), xb, 
 					       wb) ;
@@ -495,7 +496,7 @@ static gint print_box(FILE *f, wbfmm_tree_t *t, guint64 idx,
     if ( b.n == 0 ) return 0 ;
   }
 
-  FUNCTION_NAME(wbfmm_box_location_from_index)(idx, level, 
+  WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(idx, level, 
 					       wbfmm_tree_origin(t),
 					       wbfmm_tree_width(t),
 					       x, &w) ;
@@ -537,7 +538,7 @@ gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
+gint WBFMM_FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
 					      gint str, gint n,
 					      WBFMM_REAL *xmin,
 					      WBFMM_REAL *xmax,
@@ -569,7 +570,7 @@ gint FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
+gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
 				       WBFMM_REAL *th, WBFMM_REAL *ph,
 				       WBFMM_REAL *ch, WBFMM_REAL *r)
 
@@ -580,14 +581,14 @@ gint FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
   
-  FUNCTION_NAME(wbfmm_shift_coordinates)(xi, xj, ix, iy, iz, r) ;
-  FUNCTION_NAME(wbfmm_rotation_angles)(ix0, iy0, iz0, ix, iy, iz, 
+  WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(xi, xj, ix, iy, iz, r) ;
+  WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(ix0, iy0, iz0, ix, iy, iz, 
 				       th, ph, ch) ;
 
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
 					     WBFMM_REAL *q, gint stride,
 					     FILE *f)
 
@@ -614,7 +615,7 @@ gint FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
+gint WBFMM_FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
 						      gint N, FILE *f)
 
 {
@@ -636,7 +637,7 @@ gint FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
 					    WBFMM_REAL k, guint level,
 					    WBFMM_REAL tol)
 

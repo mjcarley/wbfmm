@@ -164,7 +164,7 @@ static gint coaxial_coefficient_recursion_check(WBFMM_REAL *cfft, gint L)
 
 #endif /*CHECK_COEFFICIENTS*/
 
-WBFMM_REAL FUNCTION_NAME(recursion_anm)(gint n, gint m)
+WBFMM_REAL WBFMM_FUNCTION_NAME(recursion_anm)(gint n, gint m)
 
 {
   m = ABS(m) ;
@@ -174,7 +174,7 @@ WBFMM_REAL FUNCTION_NAME(recursion_anm)(gint n, gint m)
   return SQRT((WBFMM_REAL)(n+1+m)*(n+1-m)/(2*n+1)/(2*n+3)) ;
 }
 
-WBFMM_REAL FUNCTION_NAME(recursion_bnm)(gint n, gint m)
+WBFMM_REAL WBFMM_FUNCTION_NAME(recursion_bnm)(gint n, gint m)
 
 {
   /* g_assert(n >= 0) ; */
@@ -208,10 +208,10 @@ static void coefficient_recursions_coaxial(WBFMM_REAL *cfft, gint L, gint nc)
       i2 = wbfmm_coaxial_index_lmn(l,   m, n+1) ;
       i3 = wbfmm_coaxial_index_lmn(l+1, m, n  ) ;
       i4 = wbfmm_coaxial_index_lmn(l-1, m, n  ) ;
-      a1 = FUNCTION_NAME(recursion_anm)(n-1, m) ;
-      a2 = FUNCTION_NAME(recursion_anm)(n  , m) ;
-      a3 = FUNCTION_NAME(recursion_anm)(l  , m) ;
-      a4 = FUNCTION_NAME(recursion_anm)(l-1, m) ;
+      a1 = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, m) ;
+      a2 = WBFMM_FUNCTION_NAME(recursion_anm)(n  , m) ;
+      a3 = WBFMM_FUNCTION_NAME(recursion_anm)(l  , m) ;
+      a4 = WBFMM_FUNCTION_NAME(recursion_anm)(l-1, m) ;
       for ( i = 0 ; i < nc ; i ++ ) 
 	cfft[nc*i2+i] = 
 	  (a1*cfft[nc*i1+i] - a3*cfft[nc*i3+i] + a4*cfft[nc*i4+i])/a2 ;
@@ -222,9 +222,9 @@ static void coefficient_recursions_coaxial(WBFMM_REAL *cfft, gint L, gint nc)
   /*fill (E|F)_{l,m+1}^{m+1}*/
   for ( m = 0 ; m <= L ; m ++ ) {
     for ( l = m+1 ; l <= 2*L-m ; l ++ ) {
-      a1 = FUNCTION_NAME(recursion_bnm)(m+1, -m-1) ;
-      a2 = FUNCTION_NAME(recursion_bnm)(l  , -m-1) ;
-      a3 = FUNCTION_NAME(recursion_bnm)(l+1,  m  ) ;
+      a1 = WBFMM_FUNCTION_NAME(recursion_bnm)(m+1, -m-1) ;
+      a2 = WBFMM_FUNCTION_NAME(recursion_bnm)(l  , -m-1) ;
+      a3 = WBFMM_FUNCTION_NAME(recursion_bnm)(l+1,  m  ) ;
       i1 = wbfmm_coaxial_index_lmn(l  , m+1, m+1) ;
       i2 = wbfmm_coaxial_index_lmn(l-1, m  , m  ) ;
       i3 = wbfmm_coaxial_index_lmn(l+1, m  , m  ) ;
@@ -240,10 +240,10 @@ static void coefficient_recursions_coaxial(WBFMM_REAL *cfft, gint L, gint nc)
 	i2 = wbfmm_coaxial_index_lmn(l  , m, n+1) ;
 	i3 = wbfmm_coaxial_index_lmn(l+1, m, n  ) ;
 	i4 = wbfmm_coaxial_index_lmn(l-1, m, n  ) ;
-	a1 = FUNCTION_NAME(recursion_anm)(n-1, m) ;
-	a2 = FUNCTION_NAME(recursion_anm)(n  , m) ;
-	a3 = FUNCTION_NAME(recursion_anm)(l  , m) ;
-	a4 = FUNCTION_NAME(recursion_anm)(l-1, m) ;
+	a1 = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, m) ;
+	a2 = WBFMM_FUNCTION_NAME(recursion_anm)(n  , m) ;
+	a3 = WBFMM_FUNCTION_NAME(recursion_anm)(l  , m) ;
+	a4 = WBFMM_FUNCTION_NAME(recursion_anm)(l-1, m) ;
 	for ( i = 0 ; i < nc ; i ++ ) 
 	  cfft[nc*i2+i] = 
 	    (a1*cfft[nc*i1+i] - a3*cfft[nc*i3+i] + a4*cfft[nc*i4+i])/a2 ;
@@ -254,7 +254,7 @@ static void coefficient_recursions_coaxial(WBFMM_REAL *cfft, gint L, gint nc)
   return ;
 }
 
-gint FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR, gint L,
+gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR, gint L,
 						  WBFMM_REAL kr, 
 						  WBFMM_REAL *work)
 
@@ -273,7 +273,7 @@ gint FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR, gint L,
   gint l, m, n, idx, sgnl ;
   WBFMM_REAL jlm1, jl, *cfft ;
 
-  FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jlm1, &jl) ; 
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jlm1, &jl) ; 
   cfft = work ;
 
   /*G&D section 4.8.1*/
@@ -288,7 +288,7 @@ gint FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR, gint L,
   cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
 
   for ( l = 2 ; l <= 2*L ; l ++ ) {
-    FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jlm1, &jl, kr, l-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jlm1, &jl, kr, l-1) ;
     /* sgnl = -sgnl ; */
     idx = wbfmm_coaxial_index_lmn(l, m, n) ;
     cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
@@ -306,7 +306,7 @@ gint FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR, gint L,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, gint L,
+gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, gint L,
 						  WBFMM_REAL kr, 
 						  WBFMM_REAL *work)
 
@@ -325,7 +325,7 @@ gint FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, gint L,
   gint l, m, n, idx, sgnl ;
   WBFMM_REAL hlm1[2], hl[2], *cfft ;
 
-  FUNCTION_NAME(wbfmm_bessel_h_init)(kr, hlm1, hl) ; 
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(kr, hlm1, hl) ; 
   cfft = work ;
 
   /*G&D section 4.8.1*/
@@ -342,7 +342,7 @@ gint FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, gint L,
   cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hl[1] ;
 
   for ( l = 2 ; l <= 2*L ; l ++ ) {
-    FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
     /* sgnl = -sgnl ; */
     idx = wbfmm_coaxial_index_lmn(l, m, n) ;
     cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;
@@ -361,12 +361,12 @@ gint FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, gint L,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro, 
-					    gint No,
-					    WBFMM_REAL *Ci, gint cstri,
-					    gint Ni,
-					    WBFMM_REAL *cfft, gint L,
-					    gboolean complex)
+gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co, gint cstro, 
+						gint No,
+						WBFMM_REAL *Ci, gint cstri,
+						gint Ni,
+						WBFMM_REAL *cfft, gint L,
+						gboolean complex)
 
 /*
   apply coaxial translation cfft to input coefficients Ci, up to order
@@ -392,12 +392,12 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
       m = 0 ;
       offp = 2*wbfmm_coefficient_index_nm(n, m)*cstro ;
       sgn = sgnn ;
-      for ( l = m ; l < n ; l ++ ) {
+      for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
 	idxi = wbfmm_coefficient_index_nm(l, m) ;
 	idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
 	Co[offp+0] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ;
 	Co[offp+1] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
-	sgn = -sgn ;
+	/* sgn = -sgn ; */
       }
       sgn = 1 ;
       for ( l = n ; l <= Ni ; l ++ ) {
@@ -412,17 +412,17 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
 	WBFMM_REAL buf[4] = {0.0} ;
 	sgn = sgnm ;
 	/*loop on input and coefficients*/
-	for ( l = m ; l < n ; l ++ ) {
+	for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
 	  idxi = wbfmm_coefficient_index_nm(l, m) ;
 	  idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
 	  buf[0] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ;
 	  buf[1] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
 
-	  idxi = wbfmm_coefficient_index_nm(l, -m) ;
-	  idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
+	  /* idxi = wbfmm_coefficient_index_nm(l, -m) ; */
+	  /* idxc = wbfmm_coaxial_index_lmn(n,m,l) ; */
+	  idxi -= 2*m ;
 	  buf[2] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ;
-	  buf[3] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
-	  sgn = -sgn ;
+	  buf[3] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;	  
 	}
 	sgn = 1 ;
 	for ( l = n ; l <= Ni ; l ++ ) {
@@ -431,14 +431,16 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
 	  buf[0] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ;
 	  buf[1] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
 
-	  idxi = wbfmm_coefficient_index_nm(l, -m) ;
-	  idxc = wbfmm_coaxial_index_lmn(l,m,n) ;
+	  /* idxi = wbfmm_coefficient_index_nm(l, -m) ; */
+	  /* idxc = wbfmm_coaxial_index_lmn(l,m,n) ; */
+	  idxi -= 2*m ;
 	  buf[2] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ;
 	  buf[3] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ;
 	}
 	sgnm = -sgnm ;
 	offp = 2*cstro*wbfmm_coefficient_index_nm(n,  m) ;
-	offm = 2*cstro*wbfmm_coefficient_index_nm(n, -m) ;
+	/* offm = 2*cstro*wbfmm_coefficient_index_nm(n, -m) ; */
+	offm = offp - 4*cstro*m ;
 	Co[offp+0] += buf[0] ; Co[offp+1] += buf[1] ;
 	Co[offm+0] += buf[2] ; Co[offm+1] += buf[3] ;
       }
@@ -449,9 +451,9 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
   
   sgnn = 1 ;
   for ( n = 0 ; n <= No ; n ++ ) {
-    m = 0 ; offp = 2*wbfmm_coefficient_index_nm(n, m)*cstro ;
+    m = 0 ; offp = 2*cstro*wbfmm_coefficient_index_nm(n, m) ;
     sgn = sgnn ;
-    for ( l = m ; l < n ; l ++ ) {
+    for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
       idxi = wbfmm_coefficient_index_nm(l, m) ;
       idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
       Co[offp+0] += sgn*
@@ -460,16 +462,16 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
       Co[offp+1] += sgn*
 	(cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	 cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
-      sgn = -sgn ;
+      /* sgn = -sgn ; */
     }
-    sgn = 1 ;
+    /* sgn = 1 ; */
     for ( l = n ; l <= Ni ; l ++ ) {
       idxi = wbfmm_coefficient_index_nm(l, m) ;
       idxc = wbfmm_coaxial_index_lmn(l,m,n) ;
-      Co[offp+0] += sgn*
+      Co[offp+0] += 
 	(cfft[2*idxc+0]*Ci[2*idxi*cstri+0] -
 	 cfft[2*idxc+1]*Ci[2*idxi*cstri+1]) ;
-      Co[offp+1] += sgn*
+      Co[offp+1] += 
 	(cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	 cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
     }
@@ -479,7 +481,7 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
       WBFMM_REAL buf[4] = {0.0} ;
       sgn = sgnm ;
       /*loop on input and coefficients*/
-      for ( l = m ; l < n ; l ++ ) {
+      for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
 	idxi = wbfmm_coefficient_index_nm(l, m) ;
 	idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
 	buf[0] += sgn*
@@ -489,81 +491,47 @@ gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co, gint cstro,
 	  (cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	   cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
 	
-	idxi = wbfmm_coefficient_index_nm(l, -m) ;
-	idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
+	/* idxi = wbfmm_coefficient_index_nm(l, -m) ; */
+	/* idxc = wbfmm_coaxial_index_lmn(n,m,l) ; */
+	idxi -= 2*m ;
 	buf[2] += sgn*
 	  (cfft[2*idxc+0]*Ci[2*idxi*cstri+0] -
 	   cfft[2*idxc+1]*Ci[2*idxi*cstri+1]) ;
 	buf[3] += sgn*
 	  (cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	   cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
-	sgn = -sgn ;
+	/* sgn = -sgn ; */
       }
-      sgn = 1 ;
+      /* sgn = 1 ; */
       for ( l = n ; l <= Ni ; l ++ ) {
 	idxi = wbfmm_coefficient_index_nm(l, m) ;
 	idxc = wbfmm_coaxial_index_lmn(l,m,n) ;
-	buf[0] += sgn*
+	buf[0] +=
 	  (cfft[2*idxc+0]*Ci[2*idxi*cstri+0] -
 	   cfft[2*idxc+1]*Ci[2*idxi*cstri+1]) ;
-	buf[1] += sgn*
+	buf[1] +=
 	  (cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	   cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
 	
-	idxi = wbfmm_coefficient_index_nm(l, -m) ;
-	idxc = wbfmm_coaxial_index_lmn(l,m,n) ;
-	buf[2] += sgn*
+	/* idxi = wbfmm_coefficient_index_nm(l, -m) ; */
+	/* idxc = wbfmm_coaxial_index_lmn(l,m,n) ; */
+	idxi -= 2*m ;
+	buf[2] +=
 	  (cfft[2*idxc+0]*Ci[2*idxi*cstri+0] -
 	   cfft[2*idxc+1]*Ci[2*idxi*cstri+1]) ;
-	buf[3] += sgn*
+	buf[3] +=
 	  (cfft[2*idxc+1]*Ci[2*idxi*cstri+0] +
 	   cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ;
       }
       offp = 2*cstro*wbfmm_coefficient_index_nm(n,  m) ;
-      offm = 2*cstro*wbfmm_coefficient_index_nm(n, -m) ;
+      /* offm = 2*cstro*wbfmm_coefficient_index_nm(n, -m) ; */
+      offm = offp - 4*cstro*m ;
       Co[offp+0] += buf[0] ; Co[offp+1] += buf[1] ;
       Co[offm+0] += buf[2] ; Co[offm+1] += buf[3] ;
       sgnm = -sgnm ;
     }
     sgnn = -sgnn ;
   }
-
-  /* if ( !complex ) { */
-  /*loop on output*/
-  /* for ( n = 0 ; n <= No ; n ++ ) { */
-  /*   for ( m = -n ; m <= n ; m ++ ) { */
-  /* 	idxo = wbfmm_coefficient_index_nm(n, m) ; */
-  /* 	/\* idxo = n*(n+1) + m ; *\/ */
-  /* 	/\*loop on input and coefficients*\/ */
-  /* 	for ( l = ABS(m) ; l <= Ni ; l ++ ) { */
-  /* 	  /\* idxi = l*(l+1) + m ; *\/ */
-  /* 	  idxi = wbfmm_coefficient_index_nm(l, m) ; */
-  /* 	  idxc = wbfmm_coaxial_index(l, m, n) ; */
-  /* 	  sgn  = wbfmm_coaxial_index_sgn(l, m, n) ; */
-  /* 	  Co[2*idxo*cstro+0] += sgn*cfft[idxc]*Ci[2*idxi*cstri+0] ; */
-  /* 	  Co[2*idxo*cstro+1] += sgn*cfft[idxc]*Ci[2*idxi*cstri+1] ; */
-  /* 	} */
-  /*   } */
-  /* } */
-
-  /* return 0 ;  } */
-
-  /* for ( n = 0 ; n <= No ; n ++ ) { */
-  /*   for ( m = -n ; m <= n ; m ++ ) { */
-  /*     idxo = wbfmm_coefficient_index_nm(n, m) ; */
-  /*     /\*loop on input and coefficients*\/ */
-  /*     for ( l = ABS(m) ; l <= Ni ; l ++ ) { */
-  /* 	idxi = wbfmm_coefficient_index_nm(l, m) ; */
-  /* 	idxc = wbfmm_coaxial_index(l, m, n) ; */
-  /* 	sgn  = wbfmm_coaxial_index_sgn(l, m, n) ; */
-  /* 	Co[2*idxo*cstro+0] += sgn* */
-  /* 	  (cfft[2*idxc+0]*Ci[2*idxi*cstri+0] - */
-  /* 	   cfft[2*idxc+1]*Ci[2*idxi*cstri+1]) ; */
-  /* 	Co[2*idxo*cstro+1] += sgn* */
-  /* 	  (cfft[2*idxc+1]*Ci[2*idxi*cstri+0] + */
-  /* 	   cfft[2*idxc+0]*Ci[2*idxi*cstri+1]) ; */
-  /*     } */
-  /*   } */
 
   return 0 ;
 }

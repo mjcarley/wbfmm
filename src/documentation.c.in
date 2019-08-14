@@ -1,5 +1,6 @@
 /** 
- * @fn FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, gpointer pts,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
+ * gpointer pts,
  *  guint npts, gsize pstr)
  *
  * @ingroup boxes
@@ -20,7 +21,7 @@
  */
 
 /** 
- * @fn gint FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix,
  * WBFMM_REAL *iy, WBFMM_REAL *iz, WBFMM_REAL *jx, WBFMM_REAL *jy,
  * WBFMM_REAL *jz, WBFMM_REAL *th, WBFMM_REAL *ph, WBFMM_REAL *ch)
  *
@@ -48,7 +49,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL
  * *H, gint N, WBFMM_REAL th, WBFMM_REAL *work)
  *
  * @ingroup rotations
@@ -62,14 +63,14 @@
  * @param H on output rotation coefficients;
  * @param N maximum order of coefficients to compute;
  * @param th rotation angle \f$\theta\f$, from 
- * ::FUNCTION_NAME(wbfmm_rotation_angles)(...);
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(...);
  * @param work workspace
  *
  * @return 0 on success
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
  * gint N, WBFMM_REAL *Ci, gint cstri, WBFMM_REAL *H, WBFMM_REAL ph,
  * WBFMM_REAL ch)
  *
@@ -78,7 +79,7 @@
  * coefficients
  * 
  * Given the rotation coefficients \a H for angle \f$\theta\f$ from 
- * ::FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...), rotate input
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...), rotate input
  * coefficients to new system of axes, using \a H and angles
  * \f$\phi\f$ and \f$\chi\f$. Input and output are strided arrays of
  * dense complex data with spacing between adjacent complex values
@@ -97,7 +98,7 @@
  * @param Ci input coefficients, to be rotated;
  * @param cstri stride in \a Ci, in number of complex elements;
  * @param H rotation coefficients for angle \f$\theta\f$, from
- * ::FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
  * @param ph angle \f$\phi\f$ for rotation;
  * @param ch angle \f$\chi\f$ for rotation.
  *
@@ -105,7 +106,7 @@
  */
 
 /**     
- * @fn gint FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL
  * *cfftRR, gint L, WBFMM_REAL kr, WBFMM_REAL *work)
  *
  * @ingroup translations
@@ -129,7 +130,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, 
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR, 
  * gint L, WBFMM_REAL kr,  WBFMM_REAL *work)
  *
  * @ingroup translations
@@ -152,7 +153,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co,
  * gint cstro, gint No, WBFMM_REAL *Ci, gint cstri, gint Ni,
  * WBFMM_REAL *cfft, gint L, gboolean complex)
  *
@@ -162,10 +163,10 @@
  *
  * Compute the coaxial translation of a multipole expansion along its
  * \f$z\f$ axis, using coefficients from
- * ::FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(...) (complex) or
- * ::FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(...) (real). Input
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(...) (complex) or
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(...) (real). Input
  * and output coefficients are strided data as described for
- * ::FUNCTION_NAME(wbfmm_rotate_H)(...).
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(...).
  *
  * @param Co on output contains translated multipole expansion;
  * @param cstro stride for output data in number of complex elements;
@@ -183,7 +184,7 @@
  */
 
 /**
- * @fn wbfmm_tree_t *FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x,
+ * @fn wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x,
  * WBFMM_REAL D, guint maxpoints)
  *
  * @ingroup boxes
@@ -198,7 +199,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
  * WBFMM_REAL k, WBFMM_REAL *src, gint sstr, 
  * WBFMM_REAL *normals, gint nstr,
  * WBFMM_REAL *dipoles, gint dstr,
@@ -212,7 +213,7 @@
  * Generate leaf expansions for a tree given some combination of
  * monopole and dipole sources. Source positions are those in the
  * point list attached to the tree using
- * ::FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in the
+ * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in the
  * array must correspond to that in the point list. Input arrays may
  * be NULL: if \a src is not NULL, it is interpreted as a list of
  * complex monopole strengths; if \a normals is not NULL, \a dipoles
@@ -252,7 +253,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint
  * level, guint b, WBFMM_REAL k, WBFMM_REAL *x, WBFMM_REAL *f,
  * WBFMM_REAL *work)
  *
@@ -272,7 +273,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
  * guint level, guint b, WBFMM_REAL k, WBFMM_REAL *x, WBFMM_REAL *f,
  * WBFMM_REAL *src, gint sstr, gboolean eval_neighbours, WBFMM_REAL
  * *work)
@@ -297,7 +298,7 @@
  */
 
 /**
- * @fn guint64 FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x,
+ * @fn guint64 WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x,
  * WBFMM_REAL *c, WBFMM_REAL D)
  *
  * @ingroup boxes
@@ -312,7 +313,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t
  * *t, guint l, guint nr, guint ns)
  *
  * @ingroup boxes 
@@ -329,7 +330,7 @@
 
 
 /** 
- * @fn gint FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
  *
  * @ingroup boxes
  *
@@ -344,7 +345,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 					     WBFMM_REAL *Cc, gint Nc,
 					     WBFMM_REAL *H03, 
 					     WBFMM_REAL *H47, gint Lh,
@@ -379,7 +380,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 					     WBFMM_REAL *Cp, gint Np,
 					     WBFMM_REAL *H03, 
 					     WBFMM_REAL *H47, gint Lh,
@@ -393,10 +394,10 @@
  *
  * Shift the (regular) expansion data from a parent box to each of its
  * child boxes, assuming the same packing as in
- * ::FUNCTION_NAME(wbfmm_child_parent_shift)(...). Note that the
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(...). Note that the
  * rotation matrices for this function are switched relative to the
  * rotations of the same name in
- * ::FUNCTION_NAME(wbfmm_child_parent_shift)(...), because the `upper'
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(...), because the `upper'
  * children rotate `down' to be shifted to the parent centre but the
  * rotation is `up' to shift from the parent to those children, and
  * similarly for the `lower' children.
@@ -419,7 +420,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_angles_list4)(gint i, gint j, gint k,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles_list4)(gint i, gint j, gint k,
 					     WBFMM_REAL *th, WBFMM_REAL *ph,
 					     WBFMM_REAL *ch, WBFMM_REAL *rs)
  *
@@ -430,7 +431,7 @@
  * Find the rotation angles \f$(\theta,\phi\,\chi)\f$ between a box at
  * integer coordinates \f$(i,j,k)\f$, using a look-up table which
  * should be initialized with
- * ::FUNCTION_NAME(wbfmm_shift_angle_table_init)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(...)
  *
  * @param i integer \f$x\f$ coordinate of box on interaction list;
  * @param j integer \f$y\f$ coordinate of box on interaction list;
@@ -447,7 +448,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_angle_table_init)(void)
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(void)
  *
  * @ingroup shift
  *
@@ -455,7 +456,7 @@
  *
  * This function must be called before any interaction calculations
  * are performed, in particular before any call to
- * ::FUNCTION_NAME(wbfmm_shift_operators_new)(...), in order to
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...), in order to
  * initialize the look-up table of orientations between boxes in
  * interaction lists.
  *
@@ -466,7 +467,7 @@
 
 
 /**
- * @fn wbfmm_shift_operators_t FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L, WBFMM_REAL *work)
+ * @fn wbfmm_shift_operators_t WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L, WBFMM_REAL *work)
 
  *
  * @ingroup shift 
@@ -486,7 +487,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
      (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, guint L,
       WBFMM_REAL k, WBFMM_REAL *work)
 
@@ -496,7 +497,7 @@
  * @brief Initialize singular-to-regular translation operators
  *
  * @param w a ::wbfmm_shift_operators_t allocated with 
- * FUNCTION_NAME(wbfmm_shift_operators_new)(...);
+ * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...);
  * @param D width of the problem domain;
  * @param level level for which to generate translations;
  * @param L order of translations;
@@ -509,7 +510,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_operators_coaxial_SS_init)
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SS_init)
      (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, 
       guint L, WBFMM_REAL k, WBFMM_REAL *work)
 
@@ -520,7 +521,7 @@
  * translation operators
  *
  * @param w a ::wbfmm_shift_operators_t allocated with 
- * FUNCTION_NAME(wbfmm_shift_operators_new)(...);
+ * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...);
  * @param D width of the problem domain;
  * @param level level for which to generate translations;
  * @param L order of translations;
@@ -532,7 +533,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
                                                   WBFMM_REAL *x0,
 						  WBFMM_REAL *xs,
 						  WBFMM_REAL *q, 
@@ -557,7 +558,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N, 
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N, 
 						  WBFMM_REAL *x0,
 						  WBFMM_REAL *xs,
 						  WBFMM_REAL *fx,
@@ -587,7 +588,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, 
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, 
                                                       WBFMM_REAL *x0,
 						      WBFMM_REAL *cfft,
 						      gint cstr,
@@ -614,7 +615,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
                                                       WBFMM_REAL *x0,
 						      WBFMM_REAL *cfft,
 						      gint cstr,
@@ -641,7 +642,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 					wbfmm_shift_operators_t *op,
 					guint level, WBFMM_REAL *work)
  *
@@ -665,7 +666,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 				      wbfmm_shift_operators_t *op,
 				      guint level, WBFMM_REAL *work)
  *
@@ -687,7 +688,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL
 						 *x0, WBFMM_REAL *x,
 						 WBFMM_REAL *r,
 						 WBFMM_REAL *th,
@@ -708,7 +709,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
 						   WBFMM_REAL **Pn, gint n,
 						   WBFMM_REAL C, WBFMM_REAL S)
  *
@@ -736,7 +737,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_legendre_init)(WBFMM_REAL C, WBFMM_REAL S, 
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(WBFMM_REAL C, WBFMM_REAL S, 
 					WBFMM_REAL *P0, WBFMM_REAL *P10,
 					WBFMM_REAL *P11)
  *
@@ -755,7 +756,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1,
 					     WBFMM_REAL *jn,
 					     WBFMM_REAL x, gint n)
  *
@@ -780,7 +781,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x,
 					WBFMM_REAL *j0, WBFMM_REAL *j1)
  *
  * @ingroup util
@@ -796,7 +797,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x,
 					WBFMM_REAL *h0, WBFMM_REAL *h1)
  *
  * @ingroup util
@@ -812,7 +813,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1,
 					     WBFMM_REAL *hn,
 					     WBFMM_REAL x, gint n)
  *
@@ -838,7 +839,7 @@
 
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
 					     WBFMM_REAL *xs, gint xstride,
 					     WBFMM_REAL *src, gint sstride,
 					     gint nsrc,
@@ -868,7 +869,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k, WBFMM_REAL
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k, WBFMM_REAL
 				      *xs, gint xstride, WBFMM_REAL
 				      *src, gint sstride, gint nsrc,
 				      WBFMM_REAL *xf, WBFMM_REAL
@@ -896,7 +897,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x,
 					       WBFMM_REAL *ix,
 					       WBFMM_REAL *iy,
 					       WBFMM_REAL *iz,
@@ -917,7 +918,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
 					    WBFMM_REAL *ix, WBFMM_REAL *iy,
 					    WBFMM_REAL *iz,
 					    WBFMM_REAL *r)
@@ -938,7 +939,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx,
 						  guint32 level,
 						  WBFMM_REAL *x0,
 						  WBFMM_REAL D,
@@ -961,7 +962,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_box_centre)(wbfmm_tree_t *t, guint32 level,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(wbfmm_tree_t *t, guint32 level,
 					  guint64 b, WBFMM_REAL *xb,
 					  WBFMM_REAL *wb)
  *
@@ -980,7 +981,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
 					     gint str, gint n,
 					     WBFMM_REAL *xmin,
 					     WBFMM_REAL *D,
@@ -1002,7 +1003,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
 				       WBFMM_REAL *th, WBFMM_REAL *ph,
 				       WBFMM_REAL *ch, WBFMM_REAL *r)
 
@@ -1012,8 +1013,8 @@
  * @brief Compute angles and distance to shift expansion between two points
  *
  * This is a combination of a call to
- * ::FUNCTION_NAME(wbfmm_shift_coordinates)(...) and 
- * ::FUNCTION_NAME(wbfmm_rotation_angles)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(...) and 
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(...)
  *
  * @param xi origin of shift;
  * @param xj destination of shift;
@@ -1027,7 +1028,7 @@
  */
 
 /**
- * @fn gint FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
 					     WBFMM_REAL *q, gint stride,
 					     FILE *f)
  *
@@ -1049,4 +1050,51 @@
  *
  */
 
+/**
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
+						       WBFMM_REAL *x0,
+						       WBFMM_REAL *xs,
+						       WBFMM_REAL *q, gint nq,
+						       WBFMM_REAL *cfft,
+						       gint cstr,
+						       WBFMM_REAL *work)
+ *
+ * @ingroup laplace
+ *
+ * @brief Generation of singular expansion coefficients for point
+ * source in Laplace problem
+ *
+ * @param N order of expansion;
+ * @param x0 origin of expansion;
+ * @param xs source position;
+ * @param q  source strength(s);
+ * @param nq number of components in \a q;
+ * @param cfft on output, incremented with coefficients of expansion;
+ * @param cstr stride in \a cfft (must be at least equal to \a nq);
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+ */
 
+/**
+ * @fn gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
+  WBFMM_REAL *cfft, gint cstr, gint nq, gint N, WBFMM_REAL *xf,
+  WBFMM_REAL *field, WBFMM_REAL *work)
+ *
+ * @ingroup laplace
+ *
+ * @brief Evaluate a singular expansion for Laplace problem
+ *
+ * @param x0 origin of expansion;
+ * @param cfft on output, incremented with coefficients of expansion;
+ * @param cstr stride in \a cfft (must be at least equal to \a nq);
+ * @param nq number of components in \a q;
+ * @param N order of expansion;
+ * @param xf field point;
+ * @param field computed potential for each of the \a nq components;
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+ */

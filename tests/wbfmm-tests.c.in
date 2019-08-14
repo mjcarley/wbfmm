@@ -722,8 +722,7 @@ gint shift_test(WBFMM_REAL k, gint N,
   WBFMM_REAL *work ;    
   WBFMM_REAL th0, ph0, ch0, th1, ph1, ch1, kr ;
   WBFMM_REAL ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
-  __attribute__ ((aligned (32))) WBFMM_REAL
-     *C0, *C1, *Ca, *Cb, *shift, *H0, *H1 ;
+  WBFMM_REAL *C0, *C1, *Ca, *Cb, *shift, *H0, *H1 ;
   WBFMM_REAL f0[2], f1[2], ref[2] ;
   gint i, cstr0, cstr1 ;
   gdouble t0 ;

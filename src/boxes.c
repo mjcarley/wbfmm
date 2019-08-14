@@ -32,7 +32,7 @@
 #define _DATA_TREE        0
 /* #define _DATA_ */
 
-wbfmm_tree_t *FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
+wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
 					     guint maxpoints)
 
 {
@@ -74,9 +74,9 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
   xi = wbfmm_tree_point_index(t, i) ; 
   xj = wbfmm_tree_point_index(t, j) ;
   /*Morton codes*/
-  mi = FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
+  mi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
 					   wbfmm_tree_width(t)) ;
-  mj = FUNCTION_NAME(wbfmm_point_index_3d)(xj, wbfmm_tree_origin(t), 
+  mj = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xj, wbfmm_tree_origin(t), 
 					   wbfmm_tree_width(t)) ;
 
   if ( mi < mj ) return -1 ;
@@ -85,7 +85,7 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
 					  gpointer pts, guint npts, 
 					  gsize pstr)
 
@@ -127,7 +127,7 @@ gint FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 }
 
 
-gint FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 
 {
   guint level = wbfmm_tree_depth(t) ;
@@ -155,7 +155,7 @@ gint FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
     while ( parents[idx].n != 0 ) {
       /*check if current point is in box*/
       x = wbfmm_tree_point_index(t, t->ip[j]) ;
-      xi = FUNCTION_NAME(wbfmm_point_index_3d)(x, wbfmm_tree_origin(t), 
+      xi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(x, wbfmm_tree_origin(t), 
 					       wbfmm_tree_width(t)) ;
       box = wbfmm_point_locate_box(xi, level+1) ;
       /* g_assert(box >= child && box < child+8) ; */
@@ -222,7 +222,7 @@ static inline guint64 morton_encode(guint32 xsrc, guint32 ysrc, guint32 zsrc)
     return x | (y << 1) | (z << 2) ;
 }
 
-guint64 FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x, WBFMM_REAL *c,
+guint64 WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x, WBFMM_REAL *c,
 					    WBFMM_REAL D)
 
 {
@@ -239,7 +239,7 @@ guint64 FUNCTION_NAME(wbfmm_point_index_3d)(WBFMM_REAL *x, WBFMM_REAL *c,
   return i ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 					       WBFMM_REAL *src, gint sstr,
 					       WBFMM_REAL *normals, gint nstr,
 					       WBFMM_REAL *dipoles, gint dstr,
@@ -278,7 +278,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
     /* monopoles only */
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
-      FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+      WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
 						   wbfmm_tree_origin(t), 
 						   wbfmm_tree_width(t), xb, 
 						   &wb) ;
@@ -288,7 +288,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 	idx = t->ip[boxes[i].i+j] ;
 	xs = wbfmm_tree_point_index(t,idx) ;
 	q = &(src[idx*sstr]) ;
-	FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q,
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q,
 					      boxes[i].mps, 8, work) ;
       }
     }
@@ -300,7 +300,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
     /*dipoles only, specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
-      FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+      WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
 						   wbfmm_tree_origin(t), 
 						   wbfmm_tree_width(t), xb, 
 						   &wb) ;
@@ -311,7 +311,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 	xs = wbfmm_tree_point_index(t,idx) ;
 	fd = &(dipoles[idx*dstr]) ;
 	n  = &(normals[idx*nstr]) ;
-	FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, n, fd,
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, n, fd,
 						     boxes[i].mps, 8, work) ;
       }
     }
@@ -323,7 +323,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
     /*mixed sources, dipoles specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
-      FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+      WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
 						   wbfmm_tree_origin(t), 
 						   wbfmm_tree_width(t), xb, 
 						   &wb) ;
@@ -335,9 +335,9 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 	q = &(src[idx*sstr]) ;
 	fd = &(dipoles[idx*dstr]) ;
 	n  = &(normals[idx*nstr]) ;
-	FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, n, fd,
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, n, fd,
 						     boxes[i].mps, 8, work) ;
-	FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q,
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q,
 					      boxes[i].mps, 8, work) ;
       }
     }
@@ -351,7 +351,7 @@ gint FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t, WBFMM_REAL k,
 }
 
 
-gint FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
 					 guint b, WBFMM_REAL k,
 					 WBFMM_REAL *x, WBFMM_REAL *f,
 					 WBFMM_REAL *work)
@@ -363,15 +363,15 @@ gint FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
   boxes = t->boxes[level] ;
   C = boxes[b].mps ;
 
-  FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
-  FUNCTION_NAME(wbfmm_expansion_h_evaluate)(k, xb, C, 8,
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(k, xb, C, 8,
 					    t->order_s[level], x, f, work) ;
 
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 					       guint b, WBFMM_REAL k,
 					       WBFMM_REAL *x, WBFMM_REAL *f,
 					       WBFMM_REAL *src, gint sstr,
@@ -389,9 +389,9 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
   boxes = t->boxes[level] ;
   C = boxes[b].mpr ;
 
-  FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
-  FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,
 					    t->order_r[level], x, f, work) ;
 
   if ( !eval_neighbours ) return 0 ;
@@ -418,7 +418,7 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
-	  FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
 	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
 	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
@@ -441,7 +441,7 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
-	  FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
 	  fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) +
@@ -469,7 +469,7 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
-	  FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
@@ -495,7 +495,7 @@ gint FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t, guint level,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
 						guint l, 
 						guint nr, guint ns)
 
@@ -550,7 +550,7 @@ gint FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-guint64 FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
+guint64 WBFMM_FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
 				       WBFMM_REAL *x)
 
 {
@@ -592,7 +592,7 @@ guint64 FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
   return b ;
 }
 
-gint FUNCTION_NAME(wbfmm_tree_coefficient_clear)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_clear)(wbfmm_tree_t *t,
 						 guint l)
 
 {

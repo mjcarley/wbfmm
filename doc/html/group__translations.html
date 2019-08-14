@@ -54,194 +54,16 @@ Functions</h2></td></tr>
 <tr class="memitem:gad75c944a2c9d97a0c1ddb1f499302182"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__translations.html#gad75c944a2c9d97a0c1ddb1f499302182">wbfmm_coefficients_SR_coaxial</a> (gdouble *cfftSR, gint L, gdouble kr, gdouble *work)</td></tr>
 <tr class="memdesc:gad75c944a2c9d97a0c1ddb1f499302182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for coaxial singular-to-regular translation.  <a href="#gad75c944a2c9d97a0c1ddb1f499302182">More...</a><br /></td></tr>
 <tr class="separator:gad75c944a2c9d97a0c1ddb1f499302182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga714821929cf569e85730a8bd5cd9656b"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__translations.html#ga714821929cf569e85730a8bd5cd9656b">wbfmm_coaxial_translate</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gdouble *cfft, gint L, gboolean complex)</td></tr>
-<tr class="memdesc:ga714821929cf569e85730a8bd5cd9656b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform coaxial translation of multipole expansion.  <a href="#ga714821929cf569e85730a8bd5cd9656b">More...</a><br /></td></tr>
-<tr class="separator:ga714821929cf569e85730a8bd5cd9656b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaffed55e0e62ccae0503030842675344a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__translations.html#gaffed55e0e62ccae0503030842675344a">wbfmm_coefficients_RR_coaxial_f</a> (gfloat *cfftRR, gint L, gfloat kr, gfloat *work)</td></tr>
 <tr class="memdesc:gaffed55e0e62ccae0503030842675344a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for coaxial regular-to-regular translation.  <a href="#gaffed55e0e62ccae0503030842675344a">More...</a><br /></td></tr>
 <tr class="separator:gaffed55e0e62ccae0503030842675344a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga458eb964fd44c38ac246f33c08e6c21c"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__translations.html#ga458eb964fd44c38ac246f33c08e6c21c">wbfmm_coefficients_SR_coaxial_f</a> (gfloat *cfftSR, gint L, gfloat kr, gfloat *work)</td></tr>
 <tr class="memdesc:ga458eb964fd44c38ac246f33c08e6c21c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for coaxial singular-to-regular translation.  <a href="#ga458eb964fd44c38ac246f33c08e6c21c">More...</a><br /></td></tr>
 <tr class="separator:ga458eb964fd44c38ac246f33c08e6c21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaff03948aae90f52273ef2fed4a89811a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__translations.html#gaff03948aae90f52273ef2fed4a89811a">wbfmm_coaxial_translate_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gfloat *cfft, gint L, gboolean complex)</td></tr>
-<tr class="memdesc:gaff03948aae90f52273ef2fed4a89811a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform coaxial translation of multipole expansion.  <a href="#gaff03948aae90f52273ef2fed4a89811a">More...</a><br /></td></tr>
-<tr class="separator:gaff03948aae90f52273ef2fed4a89811a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Translation of expansions. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga714821929cf569e85730a8bd5cd9656b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">gint wbfmm_coaxial_translate </td>
-          <td>(</td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>Co</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>cstro</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>No</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>Ci</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>cstri</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>Ni</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>cfft</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>L</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gboolean&#160;</td>
-          <td class="paramname"><em>complex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Perform coaxial translation of multipole expansion. </p>
-<p>Compute the coaxial translation of a multipole expansion along its <img class="formulaInl" alt="$z$" src="form_5.png"/> axis, using coefficients from <a class="el" href="group__translations.html#gad75c944a2c9d97a0c1ddb1f499302182" title="Generate coefficients for coaxial singular-to-regular translation. ">wbfmm_coefficients_SR_coaxial</a>(...) (complex) or <a class="el" href="group__translations.html#ga44b2720cdfc5da7a1eaefa7c57385142" title="Generate coefficients for coaxial regular-to-regular translation. ">wbfmm_coefficients_RR_coaxial</a>(...) (real). Input and output coefficients are strided data as described for <a class="el" href="group__rotations.html#ga72a6d08321a44f170caf0ee102c3b0ab" title="Apply rotation  to multipole coefficients. ">wbfmm_rotate_H</a>(...).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Co</td><td>on output contains translated multipole expansion; </td></tr>
-    <tr><td class="paramname">cstro</td><td>stride for output data in number of complex elements; </td></tr>
-    <tr><td class="paramname">No</td><td>order of output expansion; </td></tr>
-    <tr><td class="paramname">Ci</td><td>input multipole expansion; </td></tr>
-    <tr><td class="paramname">cstri</td><td>stride for input data in number of complex elements; </td></tr>
-    <tr><td class="paramname">Ni</td><td>order of input expansion; </td></tr>
-    <tr><td class="paramname">cfft</td><td>translation coefficients; </td></tr>
-    <tr><td class="paramname">L</td><td>maximum order of translation coefficients; </td></tr>
-    <tr><td class="paramname">complex</td><td>if TRUE treat <em>cfft</em> as complex (e.g. for singular-to-regular translation); if FALSE treat as real (e.g. regular-to-regular or singular-to-singular).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="gaff03948aae90f52273ef2fed4a89811a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">gint wbfmm_coaxial_translate_f </td>
-          <td>(</td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>Co</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>cstro</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>No</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>Ci</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>cstri</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>Ni</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>cfft</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gint&#160;</td>
-          <td class="paramname"><em>L</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">gboolean&#160;</td>
-          <td class="paramname"><em>complex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Perform coaxial translation of multipole expansion. </p>
-<p>Compute the coaxial translation of a multipole expansion along its <img class="formulaInl" alt="$z$" src="form_5.png"/> axis, using coefficients from <a class="el" href="group__translations.html#ga458eb964fd44c38ac246f33c08e6c21c" title="Generate coefficients for coaxial singular-to-regular translation. ">wbfmm_coefficients_SR_coaxial_f</a>(...) (complex) or <a class="el" href="group__translations.html#gaffed55e0e62ccae0503030842675344a" title="Generate coefficients for coaxial regular-to-regular translation. ">wbfmm_coefficients_RR_coaxial_f</a>(...) (real). Input and output coefficients are strided data as described for <a class="el" href="group__rotations.html#ga0339a5bb82e4b0bda9a6b3c3274a2c2b" title="Apply rotation  to multipole coefficients. ">wbfmm_rotate_H_f</a>(...).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Co</td><td>on output contains translated multipole expansion; </td></tr>
-    <tr><td class="paramname">cstro</td><td>stride for output data in number of complex elements; </td></tr>
-    <tr><td class="paramname">No</td><td>order of output expansion; </td></tr>
-    <tr><td class="paramname">Ci</td><td>input multipole expansion; </td></tr>
-    <tr><td class="paramname">cstri</td><td>stride for input data in number of complex elements; </td></tr>
-    <tr><td class="paramname">Ni</td><td>order of input expansion; </td></tr>
-    <tr><td class="paramname">cfft</td><td>translation coefficients; </td></tr>
-    <tr><td class="paramname">L</td><td>maximum order of translation coefficients; </td></tr>
-    <tr><td class="paramname">complex</td><td>if TRUE treat <em>cfft</em> as complex (e.g. for singular-to-regular translation); if FALSE treat as real (e.g. regular-to-regular or singular-to-singular).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ga44b2720cdfc5da7a1eaefa7c57385142"></a>
 <div class="memitem">
 <div class="memproto">
@@ -449,7 +271,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 15 2019 14:49:08 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 13 2019 14:12:10 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

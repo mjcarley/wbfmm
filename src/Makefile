@@ -149,7 +149,7 @@ libwbfmm_base_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	-o $@
 libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
-	util.lo factorial.lo boxes.lo shift.lo pass.lo
+	util.lo factorial.lo boxes.lo shift.lo pass.lo laplace.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -159,7 +159,7 @@ am_libwbfmm_f_la_OBJECTS = libwbfmm_f_la-expansions.lo \
 	libwbfmm_f_la-translations.lo libwbfmm_f_la-rotations.lo \
 	libwbfmm_f_la-util.lo libwbfmm_f_la-factorial.lo \
 	libwbfmm_f_la-boxes.lo libwbfmm_f_la-shift.lo \
-	libwbfmm_f_la-pass.lo
+	libwbfmm_f_la-pass.lo libwbfmm_f_la-laplace.lo
 libwbfmm_f_la_OBJECTS = $(am_libwbfmm_f_la_OBJECTS)
 libwbfmm_f_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libwbfmm_f_la_CFLAGS) \
@@ -183,9 +183,10 @@ am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/boxes.Plo \
 	./$(DEPDIR)/documentation.Plo ./$(DEPDIR)/expansions.Plo \
 	./$(DEPDIR)/factorial.Plo ./$(DEPDIR)/indexing.Plo \
-	./$(DEPDIR)/libwbfmm_f_la-boxes.Plo \
+	./$(DEPDIR)/laplace.Plo ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-expansions.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-factorial.Plo \
+	./$(DEPDIR)/libwbfmm_f_la-laplace.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-pass.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-rotations.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-shift.Plo \
@@ -256,7 +257,7 @@ AUTOMAKE = automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O3 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -413,7 +414,8 @@ libwbfmm_la_SOURCES = \
 	factorial.c \
 	boxes.c \
 	shift.c \
-	pass.c
+	pass.c \
+	laplace.c
 
 libwbfmm_f_la_SOURCES = \
 	wbfmm-private.h \
@@ -424,7 +426,8 @@ libwbfmm_f_la_SOURCES = \
 	factorial.c \
 	boxes.c \
 	shift.c \
-	pass.c
+	pass.c \
+	laplace.c
 
 libwbfmm_f_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
 include_HEADERS = \
@@ -558,9 +561,11 @@ include ./$(DEPDIR)/documentation.Plo # am--include-marker
 include ./$(DEPDIR)/expansions.Plo # am--include-marker
 include ./$(DEPDIR)/factorial.Plo # am--include-marker
 include ./$(DEPDIR)/indexing.Plo # am--include-marker
+include ./$(DEPDIR)/laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-expansions.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo # am--include-marker
+include ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-pass.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-shift.Plo # am--include-marker
@@ -660,6 +665,13 @@ libwbfmm_f_la-pass.lo: pass.c
 #	$(AM_V_CC)source='pass.c' object='libwbfmm_f_la-pass.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-pass.lo `test -f 'pass.c' || echo '$(srcdir)/'`pass.c
+
+libwbfmm_f_la-laplace.lo: laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-laplace.Tpo -c -o libwbfmm_f_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-laplace.Plo
+#	$(AM_V_CC)source='laplace.c' object='libwbfmm_f_la-laplace.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -825,9 +837,11 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo
+	-rm -f ./$(DEPDIR)/laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-expansions.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift.Plo
@@ -891,9 +905,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo
+	-rm -f ./$(DEPDIR)/laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-expansions.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift.Plo
@@ -955,9 +971,9 @@ documentation.c: documentation.c.in
 	date >> documentation.c ; \
 	echo -e " * -------------------------------\\n */\\n\\n" \
 	>> documentation.c ; \
-	sed -e s/WBFMM_REAL/gdouble/g -e s/FUNCTION_NAME\(//g \
+	sed -e s/WBFMM_REAL/gdouble/g -e s/WBFMM_FUNCTION_NAME\(//g \
 	  -e s/\)\(/\(/ documentation.c.in >> documentation.c ; \
-	sed -e s/WBFMM_REAL/gfloat/g -e s/FUNCTION_NAME\(//g \
+	sed -e s/WBFMM_REAL/gfloat/g -e s/WBFMM_FUNCTION_NAME\(//g \
 	  -e s/\)\(/_f\(/ documentation.c.in >> documentation.c
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

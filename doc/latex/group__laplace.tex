@@ -1,0 +1,186 @@
+\section{Evaluation of the Laplace potential}
+\label{group__laplace}\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+
+
+Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace equation.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace equation. 
+
+
+
+\subsection{Function Documentation}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}}
+\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft (
+\begin{DoxyParamCaption}
+\item[{gint}]{N, }
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble $\ast$}]{xs, }
+\item[{gdouble $\ast$}]{q, }
+\item[{gint}]{nq, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gacfaf3d71cf4e2cec987ef6b4e2f293f8}
+
+
+Generation of singular expansion coefficients for point source in Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & order of expansion; \\
+\hline
+{\em x0} & origin of expansion; \\
+\hline
+{\em xs} & source position; \\
+\hline
+{\em q} & source strength(s); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f}}
+\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gint}]{N, }
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat $\ast$}]{xs, }
+\item[{gfloat $\ast$}]{q, }
+\item[{gint}]{nq, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gacc60c917ff9b67fd5e24140fcc05e60d}
+
+
+Generation of singular expansion coefficients for point source in Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & order of expansion; \\
+\hline
+{\em x0} & origin of expansion; \\
+\hline
+{\em xs} & source position; \\
+\hline
+{\em q} & source strength(s); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}}
+\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{nq, }
+\item[{gint}]{N, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gab4e08ab849b9c13ac3616eaa722676b6}
+
+
+Evaluate a singular expansion for Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & origin of expansion; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & computed potential for each of the {\itshape nq} components; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}}
+\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{nq, }
+\item[{gint}]{N, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga112fae1f3f54d4643151e8ce5ee59340}
+
+
+Evaluate a singular expansion for Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & origin of expansion; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & computed potential for each of the {\itshape nq} components; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}

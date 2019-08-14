@@ -69,7 +69,7 @@ static guint ilist4_orientation(guint64 i, guint64 j)
 /*      (_wbfmm_shift_angles[4*i+2] == _wbfmm_shift_angles[4*j+2])) ;     */
 /* } */
 
-gint FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 					wbfmm_shift_operators_t *op,
 					guint level,
 					WBFMM_REAL *work)
@@ -129,13 +129,13 @@ gint FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
       /*clear workspace*/
       memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
       /*rotate singular coefficients into wks*/
-      FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, Ns, bp[ilist[2*j+0]].mps, 8, 
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, Ns, bp[ilist[2*j+0]].mps, 8, 
 				    H, ph, ch) ;
       /*translate into wkr*/
-      FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
 					     Cx, Nr, TRUE) ;
       /*rotate regular coefficients into mpr*/
-      FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, Nr, wkr, 1,
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, Nr, wkr, 1,
 				    H, ch, ph) ;
     }
   }
@@ -152,7 +152,7 @@ gint FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   trans = (WBFMM_REAL *)(op->SS[level+1]) ;
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     ic = wbfmm_box_first_child(ip) ;
-    FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr), Nc,
+    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr), Nc,
     					    (WBFMM_REAL *)(bp[ip].mpr), Np,
     					    H03, H47, Np,
     					    trans, Np, work) ;
@@ -162,7 +162,7 @@ gint FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 				      wbfmm_shift_operators_t *op,
 				      guint level, WBFMM_REAL *work)
 
@@ -197,7 +197,7 @@ gint FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
   for ( ip = 0 ; ip < np ; ip ++ ) {
     /*locate first child of parent box*/
     ic = wbfmm_box_first_child(ip) ;
-    FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps), Np,
+    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps), Np,
 					    (WBFMM_REAL *)(bc[ic].mps), Nc,
 					    H03, H47, Np, 
 					    trans, Np, work) ;

@@ -43,11 +43,11 @@ static gint expansion_h_increment_cfft(gint n, gint m, gint sgn,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
-					   WBFMM_REAL *x0, WBFMM_REAL *xs,
-					   WBFMM_REAL *q, 
-					   WBFMM_REAL *cfft, gint cstr,
-					   WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
+						 WBFMM_REAL *x0, WBFMM_REAL *xs,
+						 WBFMM_REAL *q, 
+						 WBFMM_REAL *cfft, gint cstr,
+						 WBFMM_REAL *work)
 
 /*
   workspace size: 4*(2*N+1)
@@ -62,13 +62,14 @@ gint FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N,
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
-  FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; kr = k*r ;
   Cph = COS(ph) ; Sph = SIN(ph) ; 
 
   /*initialize recursions*/
-  FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
-  FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
   
@@ -86,8 +87,9 @@ gint FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N,
   expansion_h_increment_cfft(n, m, -1, jn, cfft, cstr, Pn, Cmph, Smph, q) ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
-    FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1, Cth, Sth) ;
-    FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
     Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
     Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
     
@@ -123,12 +125,14 @@ static gint expansion_h_increment(gint n, gint m, gint sgn,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
-						WBFMM_REAL *cfft, gint cstr,
-						gint N, 
-						WBFMM_REAL *xf, 
-						WBFMM_REAL *field,
-						WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
+						     WBFMM_REAL *x0,
+						     WBFMM_REAL *cfft,
+						     gint cstr,
+						     gint N, 
+						     WBFMM_REAL *xf, 
+						     WBFMM_REAL *field,
+						     WBFMM_REAL *work)
 
 /*
   cstr stride by element (multiply by two to get to complex entry)
@@ -141,14 +145,15 @@ gint FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
-  FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
   Cph = COS(ph) ; Sph = SIN(ph) ; 
   kr = k*r ;
 
   /*initialize recursions*/
-  FUNCTION_NAME(wbfmm_bessel_h_init)(kr, hnm1, hn) ;
-  FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(kr, hnm1, hn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
 
@@ -167,8 +172,9 @@ gint FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
   expansion_h_increment(n, m, -1, hn, cfft, cstr, Pn, Cmph[m], Smph[m], field) ;
 
   for ( n = 2 ; n <= N ; n ++ ) {
-    FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1, Cth, Sth) ;
-    FUNCTION_NAME(wbfmm_bessel_h_recursion)(hnm1, hn, kr, n-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hnm1, hn, kr, n-1) ;
     Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
     Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
 
@@ -210,12 +216,14 @@ static gint expansion_j_increment(gint n, gint m, gint sgn,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
-						WBFMM_REAL *cfft, gint cstr,
-						gint N, 
-						WBFMM_REAL *xf, 
-						WBFMM_REAL *field,
-						WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
+						     WBFMM_REAL *x0,
+						     WBFMM_REAL *cfft,
+						     gint cstr,
+						     gint N, 
+						     WBFMM_REAL *xf, 
+						     WBFMM_REAL *field,
+						     WBFMM_REAL *work)
 
 /*
   cstr stride by element (multiply by two to get to complex entry)
@@ -228,14 +236,15 @@ gint FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
-  FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
   Cph = COS(ph) ; Sph = SIN(ph) ; 
   kr = k*r ;
 
   /*initialize recursions*/
-  FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
-  FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
 
@@ -254,8 +263,9 @@ gint FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k, WBFMM_REAL *x0,
   expansion_j_increment(n, m, -1, jn, cfft, cstr, Pn, Cmph[m], Smph[m], field) ;
 
   for ( n = 2 ; n <= N ; n ++ ) {
-    FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1, Cth, Sth) ;
-    FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
     Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
     Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
 
@@ -294,51 +304,52 @@ static gint expansion_dipole_h_increment_cfft(gint N, gint n, gint m, gint sgn,
 
   /*S_{n-1}^{m+1}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m+1) ;
-  ab = FUNCTION_NAME(recursion_bnm)(n, sgn*m) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, sgn*m) ;
   cfft[2*idx*cstr+0] -= ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] -= ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ;
 
   /*S_{n-1}^{m-1}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m-1) ;
-  ab = FUNCTION_NAME(recursion_bnm)(n, -sgn*m) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, -sgn*m) ;
   cfft[2*idx*cstr+0] -= ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] -= ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ;
 
   /*S_{n-1}^{m}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m) ;
-  ab = FUNCTION_NAME(recursion_anm)(n-1, sgn*m) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, sgn*m) ;
   cfft[2*idx*cstr+0] += ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] += ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ;
 
   /*S_{n+1}^{m+1}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m+1) ;
-  ab = FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1) ;
   cfft[2*idx*cstr+0] += ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] += ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ;
 
   /*S_{n+1}^{m-1}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m-1) ;
-  ab = FUNCTION_NAME(recursion_bnm)(n+1, sgn*m-1) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, sgn*m-1) ;
   cfft[2*idx*cstr+0] += ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] += ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ;
 
   /*S_{n+1}^{m}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m) ;
-  ab = FUNCTION_NAME(recursion_anm)(n, sgn*m) ;
+  ab = WBFMM_FUNCTION_NAME(recursion_anm)(n, sgn*m) ;
   cfft[2*idx*cstr+0] -= ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ;
   cfft[2*idx*cstr+1] -= ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ;
   
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N, 
-						  WBFMM_REAL *x0,
-						  WBFMM_REAL *xs,
-						  WBFMM_REAL *fxi,
-						  WBFMM_REAL *fyi,
-						  WBFMM_REAL *fzi,
-						  WBFMM_REAL *cfft, gint cstr,
-						  WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N, 
+							WBFMM_REAL *x0,
+							WBFMM_REAL *xs,
+							WBFMM_REAL *fxi,
+							WBFMM_REAL *fyi,
+							WBFMM_REAL *fzi,
+							WBFMM_REAL *cfft,
+							gint cstr,
+							WBFMM_REAL *work)
 
 /*
   workspace size: 4*(2*N+1)
@@ -358,13 +369,14 @@ gint FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
   
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
-  FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; kr = k*r ;
   Cph = COS(ph) ; Sph = SIN(ph) ; 
 
   /*initialize recursions*/
-  FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
-  FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
   
@@ -386,8 +398,9 @@ gint FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
 				    Cmph, Smph, fm, fp, fz) ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
-    FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1, Cth, Sth) ;
-    FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
     Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
     Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
     
@@ -406,13 +419,14 @@ gint FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
   return 0 ;
 }
 
-gint FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N, 
-						  WBFMM_REAL *x0,
-						  WBFMM_REAL *xs,
-						  WBFMM_REAL *normal,
-						  WBFMM_REAL *q,
-						  WBFMM_REAL *cfft, gint cstr,
-						  WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N, 
+							WBFMM_REAL *x0,
+							WBFMM_REAL *xs,
+							WBFMM_REAL *normal,
+							WBFMM_REAL *q,
+							WBFMM_REAL *cfft,
+							gint cstr,
+							WBFMM_REAL *work)
 
 /*
   workspace size: 4*(2*N+1)
@@ -434,13 +448,14 @@ gint FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
     
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
-  FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; kr = k*r ;
   Cph = COS(ph) ; Sph = SIN(ph) ; 
 
   /*initialize recursions*/
-  FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
-  FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
   
@@ -462,8 +477,9 @@ gint FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
 				    Cmph, Smph, fm, fp, fz) ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
-    FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1, Cth, Sth) ;
-    FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1,
+							Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
     Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
     Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
     
