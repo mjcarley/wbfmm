@@ -1,0 +1,189 @@
+  gsize nu, n, m, offp, offm ;
+  WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
+  WBFMM_REAL Hp, Hm, CC, SS, CS, SC ;
+
+  /*initialize recursions*/
+  Cph = COS(ph) ; Sph = SIN(ph) ;
+  Cch = COS(ch) ; Sch = SIN(ch) ;
+
+  /* inside loops, trigonmetric quantities are calculated using
+   * recursions and take the following values:
+   *
+   * Smch = SIN(m*ch) ; Cmch = COS(m*ch) ;
+   * Cnph = COS(nu*ph) ; Snph = SIN(nu*ph) ;
+   * 
+   * Er + j Ei = \exp(j(\pm m\chi - \pm \nu\phi))
+   * Er = COS(m*ch-nu*ph) ; Ei = SIN(m*ch-nu*ph)
+   *
+   * CC = COS(m*ch)*COS(nu*ph) 
+   * SC = SIN(m*ch)*COS(nu*ph) 
+   * CS = COS(m*ch)*SIN(nu*ph) 
+   * SS = SIN(m*ch)*SIN(nu*ph) 
+   *
+   * offX (X = `p', `m') = offset into array, `p' for `plus' indices,
+   * `m' for `minus'
+   */
+
+  for ( n = 0 ; n <= N ; n ++ ) {
+    {
+      __attribute__ ((aligned (32))) WBFMM_REAL tmul[10]={0.0} ;
+      __m256d ECp0, ECp1, ECm0, ECm1, op1, En ;
+      
+      ECm0 = _mm256_set1_pd(0.0) ; ECm1 = _mm256_set1_pd(0.0) ;
+
+      nu = 0 ; Cnph = 1.0 ; Snph = 0.0 ;
+
+      m = 0 ; Cmch = 1.0 ; Smch = 0.0 ;
+
+      offm = offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ;
+
+      Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
+
+      En = _mm256_set_pd(0.0, 0.0, 0.0, Hp) ;
+
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      ECp0 = _mm256_mul_pd(op1, En) ;
+      
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+
+      for ( m = 1 ; m <= n ; m ++ ) {
+	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+	offp += 2*cstri ; offm -= 2*cstri ;
+	
+	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
+	
+	CC = Cmch*Cnph ; SS = Smch*Snph ;
+	CS = Cmch*Snph ; SC = Smch*Cnph ;
+	
+	En = _mm256_set_pd(Hm*(SC + CS), Hm*(CC - SS),
+			   Hp*(SC - CS), Hp*(CC + SS)) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	ECm0 = _mm256_fmadd_pd(op1, En, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	ECm1 = _mm256_fmadd_pd(op1, En, ECm1) ;	
+#else /*HAVE_FMA_INSTRUCTIONS*/
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp0 = _mm256_add_pd(op1, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp1 = _mm256_add_pd(op1, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm0 = _mm256_add_pd(op1, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm1 = _mm256_add_pd(op1, ECm1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+      }
+      
+      offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
+      _mm256_store_pd(&(tmul[0]), ECp0) ;
+      _mm256_store_pd(&(tmul[2]), ECp1) ;
+      _mm256_store_pd(&(tmul[4]), ECm0) ;
+      _mm256_store_pd(&(tmul[6]), ECm1) ;
+      Co[offp+0] += tmul[ 0] - tmul[ 3] + tmul[ 4] + tmul[ 7] ;
+      Co[offp+1] += tmul[ 2] + tmul[ 1] + tmul[ 6] - tmul[ 5] ;
+    }
+    
+    for ( nu = 1 ; nu <= n ; nu ++ ) {
+      __attribute__ ((aligned (32))) WBFMM_REAL tmul[16]={0.0} ;
+      __m256d ECp0, ECp1, ECm0, ECm1, op1, En ;
+      
+      ECm0 = _mm256_set1_pd(0.0) ; ECm1 = _mm256_set1_pd(0.0) ;
+
+      wbfmm_cos_sin_recursion(Cnph,Snph,Cph,Sph) ;
+
+      m = 0 ; Cmch = 1.0 ; Smch = 0.0 ;
+
+      offm = offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ;
+
+      Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+      Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+      CC =      Cnph ; SS = 0.0 ;
+      CS =      Snph ; SC = 0.0 ;
+
+      En = _mm256_set_pd(Hm*CS, Hm*CC, -Hp*CS, Hp*CC) ;
+
+      op1 = _mm256_set1_pd(Ci[offp+0]) ;
+      ECp0 = _mm256_mul_pd(op1, En) ;
+      
+      op1 = _mm256_set1_pd(Ci[offp+1]) ;
+      ECp1 = _mm256_mul_pd(op1, En) ;
+      
+      for ( m = 1 ; m <= n ; m ++ ) {
+	/*rotation coefficients for \pm\nu*/
+	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+
+	offp += 2*cstri ; offm -= 2*cstri ;
+
+	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
+
+	CC = Cmch*Cnph ; SS = Smch*Snph ;
+	CS = Cmch*Snph ; SC = Smch*Cnph ;
+
+	En = _mm256_set_pd(Hm*(SC + CS), Hm*(CC - SS),
+			   Hp*(SC - CS), Hp*(CC + SS)) ;
+
+#ifdef HAVE_FMA_INSTRUCTIONS
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	ECp0 = _mm256_fmadd_pd(op1, En, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	ECp1 = _mm256_fmadd_pd(op1, En, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	ECm0 = _mm256_fmadd_pd(op1, En, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	ECm1 = _mm256_fmadd_pd(op1, En, ECm1) ;	
+#else /*HAVE_FMA_INSTRUCTIONS*/
+	op1 = _mm256_set1_pd(Ci[offp+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp0 = _mm256_add_pd(op1, ECp0) ;
+
+	op1 = _mm256_set1_pd(Ci[offp+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECp1 = _mm256_add_pd(op1, ECp1) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+0]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm0 = _mm256_add_pd(op1, ECm0) ;
+
+	op1 = _mm256_set1_pd(Ci[offm+1]) ;
+	op1 = _mm256_mul_pd(op1, En) ;
+	ECm1 = _mm256_add_pd(op1, ECm1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+      }
+
+      /*put the accumulated results back into tmul*/
+      _mm256_store_pd(&(tmul[ 0]), ECp0) ;
+      _mm256_store_pd(&(tmul[ 4]), ECp1) ;
+      _mm256_store_pd(&(tmul[ 8]), ECm0) ;
+      _mm256_store_pd(&(tmul[12]), ECm1) ;
+      
+      /*output indices for \pm\nu*/
+      offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
+      offm = offp - 4*cstro*nu ;
+      Co[offp+0] += tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15] ;
+      Co[offp+1] += tmul[ 4] + tmul[ 1] + tmul[14] - tmul[11] ;
+      Co[offm+0] += tmul[ 8] + tmul[13] + tmul[ 2] - tmul[ 7] ;
+      Co[offm+1] += tmul[12] - tmul[ 9] + tmul[ 6] + tmul[ 3] ;
+    }
+  }

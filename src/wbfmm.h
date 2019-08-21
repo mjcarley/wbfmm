@@ -52,6 +52,18 @@ typedef struct {
 /*maximum depth of an octree*/
 #define WBFMM_TREE_MAX_DEPTH 16
 
+/** 
+ * Selection of physical problem to be handled by a ::wbfmm_tree_t
+ *
+ * @ingroup boxes
+ *
+ */
+
+typedef enum {
+	      WBFMM_PROBLEM_LAPLACE = 1, /**< Laplace equation */
+	      WBFMM_PROBLEM_HELMHOLTZ = 2 /**< Helmholtz equation */	      
+} wbfmm_problem_t ; 
+
 /**
  * @struct wbfmm_tree_t
  * @ingroup boxes
@@ -61,6 +73,7 @@ typedef struct {
  */
 
 typedef struct {
+  wbfmm_problem_t problem ;
   wbfmm_box_t *boxes[WBFMM_TREE_MAX_DEPTH+1] ; 
   /**< arrays of boxes at each level */
   guint 
@@ -113,6 +126,7 @@ typedef struct {
 #define wbfmm_tree_boxes_level(_t,_l) ((_t)->boxes[(_l)])
 #define wbfmm_tree_width(_t)  ((_t)->D)
 #define wbfmm_tree_origin(_t) ((gpointer)(&((_t)->x[0]))) 
+#define wbfmm_tree_problem(_t) ((_t)->problem)
 
 #define wbfmm_element_number_coaxial(_N)			\
   ( ((_N)+1)*((_N)+2)*((_N)+3)/6 + ((_N)+1)*((_N)+2)/2 + (_N)+1)
@@ -217,12 +231,12 @@ gint wbfmm_rotation_angles(gdouble *ix, gdouble *iy, gdouble *iz,
 gint wbfmm_coefficients_H_rotation(gdouble *H, gint N, gdouble th,
 				   gdouble *work) ;
 gint wbfmm_rotate_H_ref(gdouble *Co, gint cstro, 
-			gint N, gdouble *Ci, gint cstri,
-			gdouble *H,
+			gdouble *Ci, gint cstri,
+			gint N, gdouble *H,
 			gdouble ph, gdouble ch) ;
 gint wbfmm_rotate_H_avx(gdouble *Co, gint cstro, 
-			gint N, gdouble *Ci, gint cstri,
-			gdouble *H,
+			gdouble *Ci, gint cstri,
+			gint N, gdouble *H,
 			gdouble ph, gdouble ch) ;
 
 gint wbfmm_expansion_laplace_cfft(gint N, gdouble *x0,
@@ -237,13 +251,21 @@ gint wbfmm_laplace_field(gdouble *xs, gint xstride,
 			 gint nsrc,
 			 gdouble *xf, gdouble *field) ;
 gint wbfmm_expansion_laplace_evaluate(gdouble *x0, gdouble *cfft,
-				      gint cstr, gint nq, gint N,
+				      gint cstr, gint N, gint nq,
 				      gdouble *xf, gdouble *field,
 				      gdouble *work) ;
 gint wbfmm_expansion_laplace_evaluate_f(gfloat *x0, gfloat *cfft,
-					gint cstr, gint nq, gint N,
+					gint cstr, gint N, gint nq,
 					gfloat *xf, gfloat *field,
 					gfloat *work) ;
+gint wbfmm_expansion_laplace_local_evaluate(gdouble *x0, gdouble *cfft,
+					    gint cstr, gint N, gint nq,
+					    gdouble *xf, gdouble *field,
+					    gdouble *work) ;
+gint wbfmm_expansion_laplace_local_evaluate_f(gfloat *x0, gfloat *cfft,
+					      gint cstr, gint N, gint nq,
+					      gfloat *xf, gfloat *field,
+					      gfloat *work) ;
 
 gint wbfmm_expansion_laplace_cfft_f(gint N, gfloat *x0,
 				    gfloat *xs, gfloat *q, gint nq,
@@ -256,12 +278,34 @@ gint wbfmm_laplace_field_f(gfloat *xs, gint xstride,
 			   gfloat *dipoles, gint dstr,
 			   gint nsrc,
 			   gfloat *xf, gfloat *field) ;
-gint wbfmm_coaxial_translate_laplace(gdouble *Co, gint cstro, gint No,
-				     gdouble *Ci, gint cstri, gint Ni,
-				     gdouble t, gint nq) ;
-gint wbfmm_coaxial_translate_laplace_f(gfloat *Co, gint cstro, gint No,
-				       gfloat *Ci, gint cstri, gint Ni,
-				       gfloat t, gint nq) ;
+gint wbfmm_coaxial_translate_SS_laplace(gdouble *Co, gint cstro, gint No,
+					gdouble *Ci, gint cstri, gint Ni,
+					gint nq, gdouble t) ;
+gint wbfmm_coaxial_translate_SS_laplace_f(gfloat *Co, gint cstro, gint No,
+					  gfloat *Ci, gint cstri, gint Ni,
+					  gint nq, gfloat t) ;
+gint wbfmm_coaxial_translate_RR_laplace(gdouble *Co, gint cstro, gint No,
+					gdouble *Ci, gint cstri, gint Ni,
+					gint nq, gdouble t) ;
+gint wbfmm_coaxial_translate_RR_laplace_f(gfloat *Co, gint cstro, gint No,
+					  gfloat *Ci, gint cstri, gint Ni,
+					  gint nq, gfloat t) ;
+gint wbfmm_coaxial_translate_SR_laplace(gdouble *Co, gint cstro, gint No,
+					gdouble *Ci, gint cstri, gint Ni,
+					gint nq, gdouble t) ;
+gint wbfmm_coaxial_translate_SR_laplace_f(gfloat *Co, gint cstro, gint No,
+					  gfloat *Ci, gint cstri, gint Ni,
+					  gint nq, gfloat t) ;
+gint wbfmm_rotate_H_laplace(gdouble *Co, gint cstro,
+			    gdouble *Ci, gint cstri,
+			    gint N, gint nq,
+			    gdouble *H,
+			    gdouble ph, gdouble ch) ;
+gint wbfmm_rotate_H_laplace_f(gfloat *Co, gint cstro,
+			      gfloat *Ci, gint cstri,
+			      gint N, gint nq,
+			      gfloat *H,
+			      gfloat ph, gfloat ch) ;
 
 /* gint wbfmm_rotate_H(gdouble *Co, gint cstro, gint N, gdouble *Ci,  */
 /* 		    gint cstri, gdouble *H, */
@@ -441,15 +485,14 @@ gint wbfmm_rotation_angles_f(gfloat *ix, gfloat *iy, gfloat *iz,
 			   gfloat *th, gfloat *ph, gfloat *ch) ;
 gint wbfmm_coefficients_H_rotation_f(gfloat *H, gint N, gfloat th,
 				     gfloat *work) ;
-/* gint wbfmm_rotate_H_f(gfloat *Co, gint cstro, gint N, gfloat *Ci, gint cstri, */
-/* 		      gfloat *H, gfloat ph, gfloat ch) ; */
+
 gint wbfmm_rotate_H_ref_f(gfloat *Co, gint cstro, 
-			  gint N, gfloat *Ci, gint cstri,
-			  gfloat *H,
+			  gfloat *Ci, gint cstri,
+			  gint N, gfloat *H,
 			  gfloat ph, gfloat ch) ;
 gint wbfmm_rotate_H_avx_f(gfloat *Co, gint cstro, 
-			  gint N, gfloat *Ci, gint cstri,
-			  gfloat *H,
+			  gfloat *Ci, gint cstri,
+			  gint N, gfloat *H,
 			  gfloat ph, gfloat ch) ;
 
 /*indexing and octrees*/
@@ -556,11 +599,11 @@ gint wbfmm_box_interaction_index(gint i, gint j, gint k) ;
 /*compile time switches for compiler options*/
 #ifdef WBFMM_USE_AVX
 
-#define wbfmm_rotate_H(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)	\
-  wbfmm_rotate_H_avx(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
+  wbfmm_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
 
-#define wbfmm_rotate_H_f(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
 
 #define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
   wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)
@@ -569,10 +612,11 @@ gint wbfmm_box_interaction_index(gint i, gint j, gint k) ;
 
 #else
 
-#define wbfmm_rotate_H(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)
-#define wbfmm_rotate_H_f(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_N,_Ci,_cstri,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
+
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
 
 #define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
   wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)

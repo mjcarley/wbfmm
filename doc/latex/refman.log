@@ -1,0 +1,1276 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018 on Slackware) (preloaded format=latex 2018.12.13)  20 AUG 2019 09:16
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**refman.tex
+(./refman.tex
+LaTeX2e <2018-04-01> patch level 5
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
+) (/usr/share/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count89
+\calc@Bcount=\count90
+\calc@Adimen=\dimen103
+\calc@Bdimen=\dimen104
+\calc@Askip=\skip43
+\calc@Bskip=\skip44
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count91
+\calc@Cskip=\skip45
+) (./doxygen.sty
+Package: doxygen 
+
+(/usr/share/texmf-dist/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(/usr/share/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
+\col@sep=\dimen105
+\ar@mcellbox=\box26
+\extrarowheight=\dimen106
+\NC@list=\toks14
+\extratabsurround=\skip46
+\backup@length=\skip47
+\ar@cellbox=\box27
+)
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count92
+\float@exts=\toks15
+\float@box=\box28
+\@float@everytoks=\toks16
+\@floatcapt=\box29
+)
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks17
+\verbatim@line=\toks18
+\verbatim@in@stream=\read1
+)
+(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: dvips.def on input line 225.
+
+(/usr/share/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
+)
+(/usr/share/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2018/05/02 v1.0c Color table columns (DPC)
+\everycr=\toks19
+\minrowclearance=\skip48
+)
+\rownum=\count93
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texmf-dist/tex/latex/xtab/xtab.sty
+Package: xtab 2011/07/31 v2.3f Extended supertabular package
+\c@tracingst=\count94
+\PWSTcapht=\dimen107
+\ST@wd=\dimen108
+\ST@rightskip=\skip49
+\ST@leftskip=\skip50
+\ST@parfillskip=\skip51
+\c@PWSTtable=\count95
+\PWSTlastpage=\count96
+\PWSTpenultimate=\count97
+\PWSTcurpage=\count98
+\PWSTtempc=\count99
+\PWSTlines=\count100
+\PWST@lastht=\dimen109
+\PWST@generalht=\dimen110
+\PWST@ht=\dimen111
+\ST@pageleft=\dimen112
+\ST@headht=\dimen113
+\ST@tailht=\dimen114
+\ST@pagesofar=\dimen115
+\ST@pboxht=\dimen116
+\ST@lineht=\dimen117
+\ST@stretchht=\dimen118
+\ST@prevht=\dimen119
+\ST@toadd=\dimen120
+\ST@dimen=\dimen121
+\ST@pbox=\box30
+)
+\xrefbox=\box31
+\xreflength=\skip52
+\tmplength=\skip53
+)
+(/usr/share/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2018/04/08 v1.1 Adjusting TeX boxes (trim, clip, ...)
+
+(/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/usr/share/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks20
+\XKV@tempa@toks=\toks21
+
+(/usr/share/texmf-dist/tex/generic/xkeyval/keyval.tex))
+\XKV@depth=\count101
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/share/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/share/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
+
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: dvips.def on input line 99.
+)
+\Gin@req@height=\dimen122
+\Gin@req@width=\dimen123
+)
+(/usr/share/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box32
+)
+\tc@llx=\dimen124
+\tc@lly=\dimen125
+\tc@urx=\dimen126
+\tc@ury=\dimen127
+Package trimclip Info: Using driver 'tc-dvips.def'.
+
+(/usr/share/texmf-dist/tex/latex/adjustbox/tc-dvips.def
+File: tc-dvips.def 2018/04/08 v2.1 Clipping driver for dvips
+))
+\adjbox@Width=\dimen128
+\adjbox@Height=\dimen129
+\adjbox@Depth=\dimen130
+\adjbox@Totalheight=\dimen131
+\adjbox@pwidth=\dimen132
+\adjbox@pheight=\dimen133
+\adjbox@pdepth=\dimen134
+\adjbox@ptotalheight=\dimen135
+
+(/usr/share/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count102
+)
+(/usr/share/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box33
+\sift@deathcycles=\count103
+\@vwid@loff=\dimen136
+\@vwid@roff=\dimen137
+))
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/04/06 v1.3b Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+)
+(/usr/share/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
+)
+(/usr/share/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2018/04/20 v1.8s multicolumn formatting (FMi)
+\c@tracingmulticols=\count104
+\mult@box=\box34
+\multicol@leftmargin=\dimen138
+\c@unbalance=\count105
+\c@collectmore=\count106
+\doublecol@number=\count107
+\multicoltolerance=\count108
+\multicolpretolerance=\count109
+\full@width=\dimen139
+\page@free=\dimen140
+\premulticols=\dimen141
+\postmulticols=\dimen142
+\multicolsep=\skip54
+\multicolbaselineskip=\skip55
+\partial@page=\box35
+\last@line=\box36
+\maxbalancingoverflow=\dimen143
+\mult@rightbox=\box37
+\mult@grightbox=\box38
+\mult@gfirstbox=\box39
+\mult@firstbox=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\c@columnbadness=\count110
+\c@finalcolumnbadness=\count111
+\last@try=\dimen144
+\multicolovershoot=\dimen145
+\multicolundershoot=\dimen146
+\mult@nat@firstbox=\box58
+\colbreak@box=\box59
+\mc@col@check@num=\count112
+)
+(/usr/share/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2018/08/03 v2.3 Span multiple rows of a table
+\multirow@colwidth=\skip56
+\multirow@cntb=\count113
+\multirow@dima=\skip57
+\bigstrutjot=\dimen147
+)
+(/usr/share/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+
+(/usr/share/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/usr/share/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2018/04/05 v1.2c UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+   defining Unicode char U+FEFF (decimal 65279)
+))
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+)
+(/usr/share/texmf-dist/tex/latex/wasysym/wasysym.sty
+Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
+\symwasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
+)
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(/usr/share/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/usr/share/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/share/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks24
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/share/texmf-dist/tex/latex/sectsty/sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+)
+(/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2018/04/16 v5.8 Page Geometry
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count114
+\Gm@cntv=\count115
+\c@Gm@tempcnt=\count116
+\Gm@bindingoffset=\dimen148
+\Gm@wd@mp=\dimen149
+\Gm@odd@mp=\dimen150
+\Gm@even@mp=\dimen151
+\Gm@layoutwidth=\dimen152
+\Gm@layoutheight=\dimen153
+\Gm@layouthoffset=\dimen154
+\Gm@layoutvoffset=\dimen155
+\Gm@dimlist=\toks25
+)
+(/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip58
+\f@nch@O@elh=\skip59
+\f@nch@O@erh=\skip60
+\f@nch@O@olh=\skip61
+\f@nch@O@orh=\skip62
+\f@nch@O@elf=\skip63
+\f@nch@O@erf=\skip64
+\f@nch@O@olf=\skip65
+\f@nch@O@orf=\skip66
+)
+(/usr/share/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip67
+\bibsep=\skip68
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count117
+)
+(/usr/share/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip69
+\cftbeforetoctitleskip=\skip70
+\cftaftertoctitleskip=\skip71
+\cftbeforepartskip=\skip72
+\cftpartnumwidth=\skip73
+\cftpartindent=\skip74
+\cftbeforechapskip=\skip75
+\cftchapindent=\skip76
+\cftchapnumwidth=\skip77
+\cftbeforesecskip=\skip78
+\cftsecindent=\skip79
+\cftsecnumwidth=\skip80
+\cftbeforesubsecskip=\skip81
+\cftsubsecindent=\skip82
+\cftsubsecnumwidth=\skip83
+\cftbeforesubsubsecskip=\skip84
+\cftsubsubsecindent=\skip85
+\cftsubsubsecnumwidth=\skip86
+\cftbeforeparaskip=\skip87
+\cftparaindent=\skip88
+\cftparanumwidth=\skip89
+\cftbeforesubparaskip=\skip90
+\cftsubparaindent=\skip91
+\cftsubparanumwidth=\skip92
+\cftbeforeloftitleskip=\skip93
+\cftafterloftitleskip=\skip94
+\cftbeforefigskip=\skip95
+\cftfigindent=\skip96
+\cftfignumwidth=\skip97
+\c@lofdepth=\count118
+\c@lotdepth=\count119
+\cftbeforelottitleskip=\skip98
+\cftafterlottitleskip=\skip99
+\cftbeforetabskip=\skip100
+\cfttabindent=\skip101
+\cfttabnumwidth=\skip102
+)
+\@indexfile=\write3
+\openout3 = `refman.idx'.
+
+
+Writing index file refman.idx
+(./refman.aux (./group__shift.aux) (./group__expansions.aux) (./group__pass.aux
+) (./group__rotations.aux) (./group__translations.aux) (./group__util.aux)
+(./group__laplace.aux) (./group__indexing.aux))
+\openout1 = `refman.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 101.
+
+
+(/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 101.
+
+(/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 101.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: dvips
+*geometry* verbose mode - [ preamble ] result:
+* driver: dvips
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=702.78308pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-31.2056pt
+* \headheight=12.0pt
+* \headsep=18.06749pt
+* \topskip=10.0pt
+* \footskip=25.29494pt
+* \marginparwidth=125.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 12.9599pt on input line 108.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 6.29996pt on input line 108.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 108.
+(/usr/share/texmf-dist/tex/latex/wasysym/uwasy.fd
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 108.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 108.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 110.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.09995pt on input line 112.
+ [1
+
+
+] [2
+
+]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 22.39185pt on input line 116.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 116.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 22.39185pt on input line 116.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 22.39185pt on input line 116.
+ (./refman.toc
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 8.99994pt on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 6.29996pt on input line 1.
+
+[3
+
+] [4] [5] [6])
+\tf@toc=\write4
+\openout4 = `refman.toc'.
+
+ [7] [8
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 18.66588pt on input line 121.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 121.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 18.66588pt on input line 121.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 18.66588pt on input line 121.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 6.29996pt on input line 121.
+(./index.tex
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 12.9599pt on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 12.9599pt on input line 1.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 8.
+ (/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Underfull \hbox (badness 977) in paragraph at lines 11--12
+\T1/phv/m/n/10 in the fast mul-ti-pole method for the 3[]D Laplace equa-tion, 2
+005, \T1/pcr/m/n/10 http[]://www.[]umiacs.[]umd.[]
+ []
+
+) [1
+
+] [2
+
+]
+Chapter 2.
+(./modules.tex) [3] [4
+
+]
+Chapter 3.
+(./annotated.tex) [5] [6
+
+]
+Chapter 4.
+(./files.tex) [7] [8
+
+]
+Chapter 5.
+(./group__boxes.tex
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 8.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 8.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 10.79993pt on input line 8.
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 11.
+ (/usr/share/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+)
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 11.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 30.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 30.
+
+Underfull \hbox (badness 1033) in paragraph at lines 33--34
+[]\T1/phv/m/n/10 gint \T1/phv/b/n/10 wbfmm[]_[]tree[]_[]leaf[]_[]expansions \T1
+/phv/m/n/10 (\T1/phv/b/n/10 wbfmm[]_[]tree[]_[]t $\OMS/cmsy/m/n/10 ^^C$\T1/phv/
+m/n/10 t, gdou-ble k, gdou-ble $\OMS/cmsy/m/n/10 ^^C$\T1/phv/m/n/10 src, gint s
+str, gdou-ble
+ []
+
+[9]
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 8.99994pt on input line 63.
+
+Underfull \hbox (badness 10000) detected at line 65
+[][][]
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
+(Font)              scaled to size 8.99994pt on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
+(Font)              scaled to size 6.29996pt on input line 69.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 84.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 8.99994pt on input line 84.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 91.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.99994pt on input line 91.
+
+Underfull \hbox (badness 10000) detected at line 98
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 123
+[][][]
+ []
+
+[10] [11]
+Underfull \hbox (badness 10000) detected at line 140
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 174
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 204
+[][][]
+ []
+
+[12]
+Underfull \hbox (badness 10000) detected at line 232
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 260
+[][][]
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 278.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 6.29996pt on input line 278.
+[13]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 307.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 307.
+
+Underfull \hbox (badness 10000) detected at line 312
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 364
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 389
+[][][]
+ []
+
+[14] [15]
+Underfull \hbox (badness 10000) detected at line 414
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 433
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 452
+[][][]
+ []
+
+) [16]
+\openout2 = `group__shift.aux'.
+
+ (./group__shift.tex [17
+
+]
+Underfull \hbox (badness 10000) detected at line 84
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 132
+[][][]
+ []
+
+[18]
+Underfull \hbox (badness 10000) detected at line 180
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 228
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 244
+[][][]
+ []
+
+[19]
+Underfull \hbox (badness 10000) detected at line 260
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 299
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 338
+[][][]
+ []
+
+[20]
+Underfull \hbox (badness 10000) detected at line 362
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 386
+[][][]
+ []
+
+) [21]
+\openout2 = `group__expansions.aux'.
+
+ (./group__expansions.tex [22
+
+
+]
+Underfull \hbox (badness 10000) detected at line 78
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 124
+[][][]
+ []
+
+[23]
+Underfull \hbox (badness 10000) detected at line 164
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 204
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 244
+[][][]
+ []
+
+[24]
+Underfull \hbox (badness 10000) detected at line 284
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 324
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 364
+[][][]
+ []
+
+) [25]
+\openout2 = `group__pass.aux'.
+
+ (./group__pass.tex
+Underfull \hbox (badness 10000) detected at line 54
+[][][]
+ []
+
+[26
+
+
+]
+Underfull \hbox (badness 10000) detected at line 84
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 114
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 144
+[][][]
+ []
+
+) [27]
+\openout2 = `group__rotations.aux'.
+
+ (./group__rotations.tex
+Underfull \hbox (badness 10000) detected at line 54
+[][][]
+ []
+
+[28
+
+
+]
+Underfull \hbox (badness 10000) detected at line 84
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 129
+[][][]
+ []
+
+[29]
+Underfull \hbox (badness 10000) detected at line 174
+[][][]
+ []
+
+) [30]
+\openout2 = `group__translations.aux'.
+
+ (./group__translations.tex
+Underfull \hbox (badness 10000) detected at line 54
+[][][]
+ []
+
+[31
+
+
+]
+Underfull \hbox (badness 10000) detected at line 84
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 114
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 144
+[][][]
+ []
+
+) [32]
+\openout2 = `group__util.aux'.
+
+ (./group__util.tex [33
+
+
+]
+Underfull \hbox (badness 10000) detected at line 89
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 114
+[][][]
+ []
+
+[34]
+Underfull \hbox (badness 10000) detected at line 144
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 174
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 199
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 224
+[][][]
+ []
+
+[35]
+Underfull \hbox (badness 10000) detected at line 254
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 284
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 318
+[][][]
+ []
+
+[36]
+Underfull \hbox (badness 10000) detected at line 352
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 383
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 414
+[][][]
+ []
+
+[37]
+Underfull \hbox (badness 10000) detected at line 445
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 476
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 509
+[][][]
+ []
+
+[38]
+Underfull \hbox (badness 10000) detected at line 542
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 578
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 614
+[][][]
+ []
+
+[39]
+Underfull \hbox (badness 10000) detected at line 648
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 682
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 724
+[][][]
+ []
+
+[40]
+Underfull \hbox (badness 10000) detected at line 766
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 796
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 826
+[][][]
+ []
+
+) [41]
+\openout2 = `group__laplace.aux'.
+
+ (./group__laplace.tex
+Underfull \hbox (badness 10000) detected at line 68
+[][][]
+ []
+
+[42
+
+
+] [43]
+Underfull \hbox (badness 10000) detected at line 108
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 148
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 188
+[][][]
+ []
+
+[44] [45]
+Underfull \hbox (badness 10000) detected at line 228
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 268
+[][][]
+ []
+
+) [46]
+\openout2 = `group__indexing.aux'.
+
+ (./group__indexing.tex
+Overfull \hbox (351.02908pt too wide) in paragraph at lines 24--25
+[]\T1/phv/m/n/10 Code for Mor-ton in-dex-ing op-er-a-tions is taken from[]: \T1
+/pcr/m/n/10 https[]://www.[]forceflow.[]be/2013/10/07/morton-encodingdecoding-t
+hrough-bit-interleaving-implementations/ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 47
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 73
+[][][]
+ []
+
+) [47
+
+
+] [48
+
+
+]
+Chapter 6.
+(./structwbfmm__box__t.tex) (./structwbfmm__shift__operators__t.tex [49])
+(./structwbfmm__tree__t.tex [50] [51]) [52]
+Chapter 7.
+(./tree_8c.tex
+Underfull \hbox (badness 10000) detected at line 11
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 14
+[][][]
+ []
+
+) (./wbfmm_8h.tex [53
+
+] [54]
+Underfull \hbox (badness 1033) in paragraph at lines 99--100
+[]\T1/phv/m/n/10 gint \T1/phv/b/n/10 wbfmm[]_[]tree[]_[]leaf[]_[]expansions \T1
+/phv/m/n/10 (\T1/phv/b/n/10 wbfmm[]_[]tree[]_[]t $\OMS/cmsy/m/n/10 ^^C$\T1/phv/
+m/n/10 t, gdou-ble k, gdou-ble $\OMS/cmsy/m/n/10 ^^C$\T1/phv/m/n/10 src, gint s
+str, gdou-ble
+ []
+
+[55] [56]
+Underfull \hbox (badness 10000) detected at line 182
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 185
+[][][]
+ []
+
+) [57] [58
+
+] (./refman.ind [59
+
+
+] [60] [61]) (./refman.aux (./group__shift.aux)
+(./group__expansions.aux) (./group__pass.aux) (./group__rotations.aux)
+(./group__translations.aux) (./group__util.aux) (./group__laplace.aux)
+(./group__indexing.aux))
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5740 strings out of 492643
+ 79972 string characters out of 6135556
+ 180897 words of memory out of 5000000
+ 9399 multiletter control sequences out of 15000+600000
+ 56715 words of font info for 74 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 48i,15n,43p,1534b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on refman.dvi (69 pages, 269052 bytes).

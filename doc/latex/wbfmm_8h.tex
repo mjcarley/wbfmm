@@ -14,9 +14,18 @@ struct {\bf wbfmm\+\_\+tree\+\_\+t}
 \item 
 struct {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf wbfmm\+\_\+problem\+\_\+t} \{ {\bf W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+L\+A\+P\+L\+A\+C\+E} = 1, 
+{\bf W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+H\+E\+L\+M\+H\+O\+L\+T\+Z} = 2
+ \}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+gint {\bf wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical} (gdouble $\ast$x0, gdouble $\ast$x, gdouble $\ast$r, gdouble $\ast$th, gdouble $\ast$ph)
+\begin{DoxyCompactList}\small\item\em Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+coordinates} (gdouble $\ast$x, gdouble $\ast$y, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array} (gdouble $\ast$$\ast$Pnm1, gdouble $\ast$$\ast$Pn, gint n, gdouble C, gdouble S)
@@ -53,12 +62,16 @@ gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
+\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
+\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
@@ -69,10 +82,16 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
 {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+refine} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+level} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$tree)
@@ -93,6 +112,8 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdo
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+L\+E $\ast$f)
 \begin{DoxyCompactList}\small\item\em Write a tree source list to file. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$x, gfloat $\ast$r, gfloat $\ast$th, gfloat $\ast$ph)
+\begin{DoxyCompactList}\small\item\em Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f} (gfloat $\ast$x, gfloat $\ast$y, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f} (gfloat $\ast$$\ast$Pnm1, gfloat $\ast$$\ast$Pn, gint n, gfloat C, gfloat S)
@@ -159,6 +180,8 @@ gint {\bf wbfmm\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\as
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
 guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
 \item 
 gint {\bf wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)

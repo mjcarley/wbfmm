@@ -678,7 +678,7 @@ gint rotation_test(WBFMM_REAL k, gint N,
   wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_PREC(Co, cstro, N, Ci, cstri, H, ph, ch) ;
+  wbfmm_rotate_H_PREC(Co, cstro, Ci, cstri, N, H, ph, ch) ;
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     ref[0] = ref[1] = 0.0 ;
@@ -783,8 +783,10 @@ gint shift_test(WBFMM_REAL k, gint N,
   fprintf(stderr, "%s inverse rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th0, ph0, ch0) ;
-  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th1, ph1, ch1) ;
+  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n",
+	  th0, ph0, ch0) ;
+  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n",
+	  th1, ph1, ch1) ;
 
   /*expand about x0*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
@@ -795,13 +797,13 @@ gint shift_test(WBFMM_REAL k, gint N,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_PREC(Ca, cstr0, N, C0, cstr0, H0, ph0, ch0) ;
+  wbfmm_rotate_H_PREC(Ca, cstr0, C0, cstr0, N, H0, ph0, ch0) ;
   /*translate by kr*/
   wbfmm_coaxial_translate_PREC(Cb, cstr1, N, Ca, cstr0, N, shift, N,
 			       FALSE) ;
   /*rotate back*/
   /* wbfmm_rotate_H_PREC(C1, cstr1, N, Cb, cstr1, H1, ph1, ch1) ; */
-  wbfmm_rotate_H_PREC(C1, cstr1, N, Cb, cstr1, H0, ch0, ph0) ;
+  wbfmm_rotate_H_PREC(C1, cstr1, Cb, cstr1, N, H0, ch0, ph0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1312,6 +1314,9 @@ gint shift_local_test(WBFMM_REAL k, gint N,
 
   /*generate rotation coefficients in each direction and translation*/
   wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th0, &ph0, &ch0) ;
+
+  wbfmm_shift_angles_PREC(x0, x1, &th0, &ph0, &ch0, &kr) ;
+  kr *= k ;
   wbfmm_coefficients_H_rotation_PREC(H0, N0, th0, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -1320,13 +1325,15 @@ gint shift_local_test(WBFMM_REAL k, gint N,
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_rotation_angles_PREC(ix, iy, iz, ix0, iy0, iz0, &th1, &ph1, &ch1) ;
-  wbfmm_coefficients_H_rotation_PREC(H1, N1, th1, work) ;
+  /* wbfmm_rotation_angles_PREC(ix, iy, iz, ix0, iy0, iz0, &th1, &ph1, &ch1) ; */
+  /* wbfmm_coefficients_H_rotation_PREC(H1, N1, th1, work) ; */
   fprintf(stderr, "%s inverse rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th0, ph0, ch0) ;
-  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th1, ph1, ch1) ;
+  fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n",
+	  th0, ph0, ch0) ;
+  /* fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", */
+  /* 	  th1, ph1, ch1) ; */
 
   /*expand about x0*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
@@ -1337,12 +1344,12 @@ gint shift_local_test(WBFMM_REAL k, gint N,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_PREC(Ca, cstr0, N0, C0, cstr0, H0, ph0, ch0) ;
+  wbfmm_rotate_H_PREC(Ca, cstr0, C0, cstr0, N0, H0, ph0, ch0) ;
   /*translate by kr*/
   wbfmm_coaxial_translate_PREC(Cb, cstr1, N1, Ca, cstr0, N0, shift, N1,
 			       TRUE) ;
   /*rotate back*/
-  wbfmm_rotate_H_PREC(C1, cstr1, N1, Cb, cstr1, H1, ch0, ph0) ;
+  wbfmm_rotate_H_PREC(C1, cstr1, Cb, cstr1, N1, H0, ch0, ph0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1729,7 +1736,7 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( test == 13 ) {
-    shift_local_test(k, N, xc, x0, xs, xstride, src, sstride, nsrc,
+    shift_local_test(k, N, x0, xc, xs, xstride, src, sstride, nsrc,
 		     xf, fstride, nfld) ;
     return 0 ;
   }

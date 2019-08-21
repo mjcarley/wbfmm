@@ -103,20 +103,6 @@ static inline void increment_buf_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
   buf[2*7+0] += H47*(Er[1]*Cc[2*7+0] + Ei[1]*Cc[2*7+1]) ;
   buf[2*7+1] += H47*(Er[1]*Cc[2*7+1] - Ei[1]*Cc[2*7+0]) ;
 
-  /* gint i, j ; */
-  /* for ( i = 0 ; i < 2 ; i ++ ) { */
-  /*   j = i + 4 ; */
-  /*   buf[2*i+0] += H03*(Er[i]*Cc[2*i+0] - Ei[i]*Cc[2*i+1]) ; */
-  /*   buf[2*i+1] += H03*(Er[i]*Cc[2*i+1] + Ei[i]*Cc[2*i+0]) ; */
-  /*   buf[2*i+4] += H03*(Er[i]*Cc[2*i+4] + Ei[i]*Cc[2*i+5]) ; */
-  /*   buf[2*i+5] += H03*(Er[i]*Cc[2*i+5] - Ei[i]*Cc[2*i+4]) ; */
-    
-  /*   buf[2*j+0] += H47*(Er[i]*Cc[2*j+0] - Ei[i]*Cc[2*j+1]) ; */
-  /*   buf[2*j+1] += H47*(Er[i]*Cc[2*j+1] + Ei[i]*Cc[2*j+0]) ; */
-  /*   buf[2*j+4] += H47*(Er[i]*Cc[2*j+4] + Ei[i]*Cc[2*j+5]) ; */
-  /*   buf[2*j+5] += H47*(Er[i]*Cc[2*j+5] - Ei[i]*Cc[2*j+4]) ; */
-  /* } */
-
   return ;
 }
 
@@ -217,11 +203,11 @@ static inline void increment_cfft_pc(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
-					     WBFMM_REAL *Cc, gint Nc,
-					     WBFMM_REAL *H03, 
-					     WBFMM_REAL *H47, gint Lh,
-					     WBFMM_REAL *trans, gint Ls,
-					     WBFMM_REAL *work)
+						   WBFMM_REAL *Cc, gint Nc,
+						   WBFMM_REAL *H03, 
+						   WBFMM_REAL *H47, gint Lh,
+						   WBFMM_REAL *trans, gint Ls,
+						   WBFMM_REAL *work)
 
 /*
   03: "lower" boxes (think of Morton index)
@@ -365,11 +351,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
-					     WBFMM_REAL *Cp, gint Np,
-					     WBFMM_REAL *H03, 
-					     WBFMM_REAL *H47, gint Lh,
-					     WBFMM_REAL *trans, gint Ls,
-					     WBFMM_REAL *work)
+						   WBFMM_REAL *Cp, gint Np,
+						   WBFMM_REAL *H03, 
+						   WBFMM_REAL *H47, gint Lh,
+						   WBFMM_REAL *trans, gint Ls,
+						   WBFMM_REAL *work)
 
 /*
   03: "lower" boxes (think of Morton index)
@@ -443,9 +429,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
     translation to all coefficients to shift to centre of child boxes*/
   for ( n = 0 ; n <= Nc ; n ++ ) {
     for ( m = -n ; m <= n ; m ++ ) {
-      /* WBFMM_REAL buf[16] = {0.0} ; */
       ic = wbfmm_coefficient_index_nm(n,m) ; offc = 2*str*ic ;
-      /* for ( i = 0 ; i < 16 ; i ++ ) work[offc+i] = buf[i] ; */
       WBFMM_REAL *buf = &(work[offc]) ;
       memset(buf, 0, 16*sizeof(WBFMM_REAL)) ;
       /*loop on input and coefficients*/
@@ -455,9 +439,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 	sgn = wbfmm_coaxial_index_sgn(l, m, n) ;
 	for ( i = 0 ; i < 16 ; i ++ ) buf[i] += trans[ih]*sgn*Cr[offp+i] ;
       }
-
-      /* ic = wbfmm_coefficient_index_nm(n,m) ; offc = 2*str*ic ; */
-      /* for ( i = 0 ; i < 16 ; i ++ ) work[offc+i] = buf[i] ; */
     }
   }
 
@@ -518,8 +499,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles_list4)(gint i, gint j, gint k,
-					     WBFMM_REAL *th, WBFMM_REAL *ph,
-					     WBFMM_REAL *ch, WBFMM_REAL *rs)
+						   WBFMM_REAL *th,
+						   WBFMM_REAL *ph,
+						   WBFMM_REAL *ch,
+						   WBFMM_REAL *rs)
 
 {
   gint idx = (i+3)*49+(j+3)*7+k+3 ;
@@ -540,7 +523,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles_list4)(gint i, gint j, gint k,
   /*64 used as placeholder for i==j==k==0, to keep indexing consistent*/
   g_assert(ip < 49) ; 
   *th = _shifts_th[ip] ;
-  /* *th = (ip >= 0 ? _shifts_th[ip-1] : M_PI - _shifts_th[-1-ip]) ; */
 
   ip = _wbfmm_shift_angles[str*idx+1] ;
   g_assert(ip != 64) ;

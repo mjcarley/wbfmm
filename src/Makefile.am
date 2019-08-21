@@ -24,8 +24,7 @@ libwbfmm_base_la_SOURCES = \
 	wbfmm-private.h \
 	indexing.c \
 	shifts.c \
-	tree.c \
-	documentation.c
+	tree.c 
 
 libwbfmm_la_SOURCES = \
 	wbfmm-private.h \

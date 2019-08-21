@@ -206,8 +206,6 @@ static gint expansion_j_increment(gint n, gint m, gint sgn,
   WBFMM_REAL ar, ai, tr, ti ;
 
   idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
-  /* field[0] += jn*Pn[m]*cfft[2*idx*cstr+0]*Cmph ;  */
-  /* field[1] += jn*Pn[m]*cfft[2*idx*cstr+1]*Smph*sgn ;  */
   ar = cfft[2*idx*cstr+0] ; ai = cfft[2*idx*cstr+1] ; 
   tr = ar*jn ; ti = ai*jn ;
   field[0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ;

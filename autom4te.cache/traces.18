@@ -3340,28 +3340,36 @@ m4trace:configure.ac:137: -1- _m4_warn([cross], [AC_RUN_IFELSE called without de
 ax_gcc_x86_cpu_supports.m4:76: AX_GCC_X86_CPU_SUPPORTS is expanded from...
 configure.ac:137: the top level])
 m4trace:configure.ac:137: -1- m4_pattern_allow([^HAVE_AVX_INSTRUCTIONS$])
-m4trace:configure.ac:138: -1- AX_GCC_X86_CPU_SUPPORTS([fma], [hasfma=yes])
+m4trace:configure.ac:138: -1- AX_GCC_X86_CPU_SUPPORTS([avx2], [hasavx2=yes])
 m4trace:configure.ac:138: -1- _m4_warn([cross], [AC_RUN_IFELSE called without default to allow cross compiling], [../../lib/autoconf/general.m4:2748: AC_RUN_IFELSE is expanded from...
 ../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
 ../../lib/autoconf/general.m4:2031: AC_CACHE_VAL is expanded from...
 ../../lib/autoconf/general.m4:2052: AC_CACHE_CHECK is expanded from...
 ax_gcc_x86_cpu_supports.m4:76: AX_GCC_X86_CPU_SUPPORTS is expanded from...
 configure.ac:138: the top level])
-m4trace:configure.ac:138: -1- m4_pattern_allow([^HAVE_FMA_INSTRUCTIONS$])
-m4trace:configure.ac:147: -1- m4_pattern_allow([^HAVE_LIBM$])
-m4trace:configure.ac:148: -1- m4_pattern_allow([^OPENMP_CFLAGS$])
-m4trace:configure.ac:154: -1- m4_pattern_allow([^CFLAGS$])
-m4trace:configure.ac:155: -1- m4_pattern_allow([^LDFLAGS$])
-m4trace:configure.ac:167: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:167: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:167: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:167: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:167: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:167: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:167: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:167: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
-m4trace:configure.ac:167: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
-m4trace:configure.ac:167: -1- AM_RUN_LOG([cd "$am_dirpart" \
+m4trace:configure.ac:138: -1- m4_pattern_allow([^HAVE_AVX2_INSTRUCTIONS$])
+m4trace:configure.ac:139: -1- AX_GCC_X86_CPU_SUPPORTS([fma], [hasfma=yes])
+m4trace:configure.ac:139: -1- _m4_warn([cross], [AC_RUN_IFELSE called without default to allow cross compiling], [../../lib/autoconf/general.m4:2748: AC_RUN_IFELSE is expanded from...
+../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
+../../lib/autoconf/general.m4:2031: AC_CACHE_VAL is expanded from...
+../../lib/autoconf/general.m4:2052: AC_CACHE_CHECK is expanded from...
+ax_gcc_x86_cpu_supports.m4:76: AX_GCC_X86_CPU_SUPPORTS is expanded from...
+configure.ac:139: the top level])
+m4trace:configure.ac:139: -1- m4_pattern_allow([^HAVE_FMA_INSTRUCTIONS$])
+m4trace:configure.ac:148: -1- m4_pattern_allow([^HAVE_LIBM$])
+m4trace:configure.ac:149: -1- m4_pattern_allow([^OPENMP_CFLAGS$])
+m4trace:configure.ac:155: -1- m4_pattern_allow([^CFLAGS$])
+m4trace:configure.ac:156: -1- m4_pattern_allow([^LDFLAGS$])
+m4trace:configure.ac:168: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:168: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:168: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:168: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:168: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:168: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:168: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:168: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
+m4trace:configure.ac:168: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:168: -1- AM_RUN_LOG([cd "$am_dirpart" \
       && sed -e '/# am--include-marker/d' "$am_filepart" \
         | $MAKE -f - am--depfiles])
-m4trace:configure.ac:167: -1- _LT_PROG_LTMAIN
+m4trace:configure.ac:168: -1- _LT_PROG_LTMAIN

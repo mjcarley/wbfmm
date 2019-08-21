@@ -28,6 +28,11 @@
  *      accelerated boundary element method for the three dimensional
  *      Helmholtz equation, J. Acoust. Soc. Am., 125(1),
  *      http://dx.doi.org/10.1121/1.3021297
+ *
+ *   -# Nail A. Gumerov and Ramani Duraiswami, Comparison of the
+ *      efficiency of translation operators used in
+ *      the fast multipole method for the 3D Laplace equation, 2005,
+ * 	http://www.umiacs.umd.edu/~ramani/pubs/comparisontranslationmethods_041205.pdf
  * 
  */
 
@@ -52,6 +57,18 @@
  * @brief Generation of regular and singular expansions and evaluation
  * of them at field points
  *
+ * The functions described here handle spherical harmonic expansions
+ * of complex variables, solutions of the Helmholtz
+ * equations. Expansions of real variables are dealt with in a
+ * separate set of functions, for the Laplace equation (@ref
+ * laplace). The expansion coefficients are packed in single- or
+ * double-precision arrays with the index of coefficient
+ * \f$C_{n}^{m}\f$, \f$-n\leq m \leq n\f$ given by
+ * \f$i=n(n+1)+m\f$. Coefficients are represented as real and imaginary
+ * parts, so that the coefficient is given by array entries
+ * \f$C_{si+0}+jC_{si+1}\f$ where \f$i\f$ is the index, \f$s\f$ is a
+ * stride allowing interleaved packing of data, and \f$C_{n}\f$ is an
+ * array entry.  
  */
 
 /**
@@ -61,11 +78,13 @@
  *
  */
 
-/**
- * @defgroup rotations Rotation operators
+/** 
+ * @defgroup rotations Rotation coefficients and operations
  *
- * @brief Rotation of expansions
+ * @brief Computation and application of rotation operators
  *
+ * Recursive computation of rotation coefficients using the methods of
+ * Gumerov and Duraiswami, http://dx.doi.org/10.1137/S1064827501399705
  */
 
 /**

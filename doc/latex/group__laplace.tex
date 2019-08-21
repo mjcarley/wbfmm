@@ -10,12 +10,16 @@ Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace
 \item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
+\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
+\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -24,6 +28,86 @@ Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace
 
 
 \subsection{Function Documentation}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}}
+\index{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{Co, }
+\item[{gint}]{cstro, }
+\item[{gint}]{No, }
+\item[{gdouble $\ast$}]{Ci, }
+\item[{gint}]{cstri, }
+\item[{gint}]{Ni, }
+\item[{gint}]{nq, }
+\item[{gdouble}]{t}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga4fb0fde01596e08307e1875089cd78dc}
+
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f}}
+\index{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{Co, }
+\item[{gint}]{cstro, }
+\item[{gint}]{No, }
+\item[{gfloat $\ast$}]{Ci, }
+\item[{gint}]{cstri, }
+\item[{gint}]{Ni, }
+\item[{gint}]{nq, }
+\item[{gfloat}]{t}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gae48ab9b48a54d25577a463de1a0e2661}
+
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
 \index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}}
 \index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
 \subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft (
@@ -111,13 +195,13 @@ Generation of singular expansion coefficients for point source in Laplace proble
 \item[{gdouble $\ast$}]{x0, }
 \item[{gdouble $\ast$}]{cfft, }
 \item[{gint}]{cstr, }
-\item[{gint}]{nq, }
 \item[{gint}]{N, }
+\item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{xf, }
 \item[{gdouble $\ast$}]{field, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__laplace_gab4e08ab849b9c13ac3616eaa722676b6}
+)}\label{group__laplace_gaaf9b6ffb511b748e4001ad8556dd3dc2}
 
 
 Evaluate a singular expansion for Laplace problem. 
@@ -130,9 +214,9 @@ Evaluate a singular expansion for Laplace problem.
 \hline
 {\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
 \hline
-{\em nq} & number of components in {\itshape q}; \\
-\hline
 {\em N} & order of expansion; \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
 \hline
 {\em xf} & field point; \\
 \hline
@@ -151,13 +235,13 @@ Evaluate a singular expansion for Laplace problem.
 \item[{gfloat $\ast$}]{x0, }
 \item[{gfloat $\ast$}]{cfft, }
 \item[{gint}]{cstr, }
-\item[{gint}]{nq, }
 \item[{gint}]{N, }
+\item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{xf, }
 \item[{gfloat $\ast$}]{field, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__laplace_ga112fae1f3f54d4643151e8ce5ee59340}
+)}\label{group__laplace_ga5bbfd64e1e3c623eca03de88005f9298}
 
 
 Evaluate a singular expansion for Laplace problem. 
@@ -170,9 +254,9 @@ Evaluate a singular expansion for Laplace problem.
 \hline
 {\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
 \hline
-{\em nq} & number of components in {\itshape q}; \\
-\hline
 {\em N} & order of expansion; \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
 \hline
 {\em xf} & field point; \\
 \hline

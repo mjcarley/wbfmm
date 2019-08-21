@@ -35,44 +35,10 @@
 extern gint _wbfmm_shift_angles[] ;
 extern WBFMM_REAL _shifts_ph[], _shifts_ch[] ;
 
-#if 0
-/*no longer used as the list 4 interaction function now returns the
- required information*/
-static guint ilist4_orientation(guint64 i, guint64 j)
-
-{
-  guint idx ;
-  guint32 xi, yi, zi, xj, yj, zj ;
-  gint dx, dy, dz ;
-
-  wbfmm_point_from_index(i, &xi, &yi, &zi) ;
-  wbfmm_point_from_index(j, &xj, &yj, &zj) ;
-
-  dx = (gint)xi - (gint)xj ;
-  dy = (gint)yi - (gint)yj ;
-  dz = (gint)zi - (gint)zj ;
-
-  idx = (dx+3)*49+(dy+3)*7+dz+3 ;
-
-  g_assert(idx >= 0 && idx < 343) ;
-
-  return idx ;
-}
-#endif
-
-/* gboolean same_angles(guint64 i, guint64 j) */
-
-/* { */
-/*   return  */
-/*     ((_wbfmm_shift_angles[4*i+0] == _wbfmm_shift_angles[4*j+0]) && */
-/*      (_wbfmm_shift_angles[4*i+1] == _wbfmm_shift_angles[4*j+1]) && */
-/*      (_wbfmm_shift_angles[4*i+2] == _wbfmm_shift_angles[4*j+2])) ;     */
-/* } */
-
 gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
-					wbfmm_shift_operators_t *op,
-					guint level,
-					WBFMM_REAL *work)
+					      wbfmm_shift_operators_t *op,
+					      guint level,
+					      WBFMM_REAL *work)
 
 {
   guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ;
@@ -129,14 +95,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
       /*clear workspace*/
       memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
       /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, Ns, bp[ilist[2*j+0]].mps, 8, 
-				    H, ph, ch) ;
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ilist[2*j+0]].mps, 8,
+					  Ns, H, ph, ch) ;
       /*translate into wkr*/
       WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
-					     Cx, Nr, TRUE) ;
+						   Cx, Nr, TRUE) ;
       /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, Nr, wkr, 1,
-				    H, ch, ph) ;
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, wkr, 1, Nr, 
+					  H, ch, ph) ;
     }
   }
 
@@ -152,10 +118,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   trans = (WBFMM_REAL *)(op->SS[level+1]) ;
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr), Nc,
-    					    (WBFMM_REAL *)(bp[ip].mpr), Np,
-    					    H03, H47, Np,
-    					    trans, Np, work) ;
+    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr),
+						  Nc,
+						  (WBFMM_REAL *)(bp[ip].mpr),
+						  Np,
+						  H03, H47, Np,
+						  trans, Np, work) ;
     
   }
 
@@ -197,10 +165,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
   for ( ip = 0 ; ip < np ; ip ++ ) {
     /*locate first child of parent box*/
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps), Np,
-					    (WBFMM_REAL *)(bc[ic].mps), Nc,
-					    H03, H47, Np, 
-					    trans, Np, work) ;
+    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps),
+						  Np,
+						  (WBFMM_REAL *)(bc[ic].mps),
+						  Nc,
+						  H03, H47, Np, 
+						  trans, Np, work) ;
   }
 
   return 0 ;

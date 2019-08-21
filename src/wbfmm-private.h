@@ -51,6 +51,12 @@
 
 #endif /*WBFMM_SINGLE_PRECISION*/
 
+#define wbfmm_cos_sin_recursion(_Cn,_Sn,_C,_S)	\
+  do { WBFMM_REAL _tmp = (_Cn) ;		\
+  (_Cn) = (_Cn)*(_C) - (_Sn)*(_S) ;		\
+  (_Sn) = (_Sn)*(_C) + (_tmp)*(_S) ;		\
+  } while (0)
+
 #define wbfmm_tree_point_index(_t,_i)		\
   ((WBFMM_REAL *)(&((_t)->points[(_i)*((_t)->pstr)])))
 /* #define wbfmm_tree_origin(_t) ((WBFMM_REAL *)(&((_t)->x[0])))  */

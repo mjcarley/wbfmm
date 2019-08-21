@@ -137,7 +137,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libwbfmm_base_la_LIBADD =
 am_libwbfmm_base_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
-	tree.lo documentation.lo
+	tree.lo
 libwbfmm_base_la_OBJECTS = $(am_libwbfmm_base_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -180,8 +180,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/boxes.Plo \
-	./$(DEPDIR)/documentation.Plo ./$(DEPDIR)/expansions.Plo \
+am__depfiles_remade = ./$(DEPDIR)/boxes.Plo ./$(DEPDIR)/expansions.Plo \
 	./$(DEPDIR)/factorial.Plo ./$(DEPDIR)/indexing.Plo \
 	./$(DEPDIR)/laplace.Plo ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-expansions.Plo \
@@ -257,7 +256,7 @@ AUTOMAKE = automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O3 -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -402,8 +401,7 @@ libwbfmm_base_la_SOURCES = \
 	wbfmm-private.h \
 	indexing.c \
 	shifts.c \
-	tree.c \
-	documentation.c
+	tree.c 
 
 libwbfmm_la_SOURCES = \
 	wbfmm-private.h \
@@ -557,7 +555,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/boxes.Plo # am--include-marker
-include ./$(DEPDIR)/documentation.Plo # am--include-marker
 include ./$(DEPDIR)/expansions.Plo # am--include-marker
 include ./$(DEPDIR)/factorial.Plo # am--include-marker
 include ./$(DEPDIR)/indexing.Plo # am--include-marker
@@ -833,7 +830,6 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
-	-rm -f ./$(DEPDIR)/documentation.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo
@@ -901,7 +897,6 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
-	-rm -f ./$(DEPDIR)/documentation.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo

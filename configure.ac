@@ -135,6 +135,7 @@ else
 fi
 
 AX_GCC_X86_CPU_SUPPORTS(avx, hasavx=yes) 
+AX_GCC_X86_CPU_SUPPORTS(avx2, hasavx2=yes) 
 AX_GCC_X86_CPU_SUPPORTS(fma, hasfma=yes) 
 
 if test x$hasavx = xyes; then

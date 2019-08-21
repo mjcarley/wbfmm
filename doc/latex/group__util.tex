@@ -8,6 +8,8 @@ Various functions of use in debugging or underlying utilities.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+gint {\bf wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical} (gdouble $\ast$x0, gdouble $\ast$x, gdouble $\ast$r, gdouble $\ast$th, gdouble $\ast$ph)
+\begin{DoxyCompactList}\small\item\em Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array} (gdouble $\ast$$\ast$Pnm1, gdouble $\ast$$\ast$Pn, gint n, gdouble C, gdouble S)
 \begin{DoxyCompactList}\small\item\em Perform recursion on normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+init} (gdouble C, gdouble S, gdouble $\ast$P0, gdouble $\ast$P10, gdouble $\ast$P11)
@@ -22,16 +24,24 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble 
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+total\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+\begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform} (gdouble $\ast$x, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+coordinates} (gdouble $\ast$x, gdouble $\ast$y, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 i, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
+gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index} (guint64 idx, guint32 level, gdouble $\ast$x0, gdouble D, gdouble $\ast$x, gdouble $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+centre} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint32 level, guint64 b, gdouble $\ast$xb, gdouble $\ast$wb)
+\begin{DoxyCompactList}\small\item\em Find centre and width of box in an octree. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+points\+\_\+origin\+\_\+width} (gdouble $\ast$x, gint str, gint n, gdouble $\ast$xmin, gdouble $\ast$D, gboolean init\+\_\+limits)
+\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angles} (gdouble $\ast$xi, gdouble $\ast$xj, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$q, gint stride, F\+I\+L\+E $\ast$f)
 \begin{DoxyCompactList}\small\item\em Write a tree source list to file. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$x, gfloat $\ast$r, gfloat $\ast$th, gfloat $\ast$ph)
+\begin{DoxyCompactList}\small\item\em Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f} (gfloat $\ast$$\ast$Pnm1, gfloat $\ast$$\ast$Pn, gint n, gfloat C, gfloat S)
 \begin{DoxyCompactList}\small\item\em Perform recursion on normalized associated Legendre functions. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+legendre\+\_\+init\+\_\+f} (gfloat C, gfloat S, gfloat $\ast$P0, gfloat $\ast$P10, gfloat $\ast$P11)
@@ -46,12 +56,18 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gf
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+total\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+\begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f} (gfloat $\ast$x, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f} (gfloat $\ast$x, gfloat $\ast$y, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Find system of axes for coordinate shift. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
+gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 idx, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint32 level, guint64 b, gfloat $\ast$xb, gfloat $\ast$wb)
+\begin{DoxyCompactList}\small\item\em Find centre and width of box in an octree. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f} (gfloat $\ast$x, gint str, gint n, gfloat $\ast$xmin, gfloat $\ast$D, gboolean init\+\_\+limits)
+\begin{DoxyCompactList}\small\item\em Find limits of a cube containing a set of points. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+f} (gfloat $\ast$xi, gfloat $\ast$xj, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$r)
 \begin{DoxyCompactList}\small\item\em Compute angles and distance to shift expansion between two points. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$q, gint stride, F\+I\+L\+E $\ast$f)
@@ -295,7 +311,7 @@ Perform one step of the spherical Bessel function recursion. On entry {\itshape 
 \item[{gdouble $\ast$}]{x, }
 \item[{gdouble $\ast$}]{wb}
 \end{DoxyParamCaption}
-)}\label{group__util_ga3b532ad6b4efc211761864098df57beb}
+)}\label{group__util_ga1c0ed6621a323335f41fd6d36ef85012}
 
 
 Find the coordinates of a box from its Morton index. 
@@ -329,7 +345,7 @@ Find the coordinates of a box from its Morton index.
 \item[{gfloat $\ast$}]{x, }
 \item[{gfloat $\ast$}]{wb}
 \end{DoxyParamCaption}
-)}\label{group__util_ga8c5afbf565b9c8f40668104bd0681768}
+)}\label{group__util_ga1679d3cd7c5e843d557705ae4a937c54}
 
 
 Find the coordinates of a box from its Morton index. 
@@ -347,6 +363,68 @@ Find the coordinates of a box from its Morton index.
 {\em x} & coordinates of box {\itshape idx} at level {\itshape level}; \\
 \hline
 {\em wb} & width of box at level {\itshape level} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}}
+\index{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble $\ast$}]{x, }
+\item[{gdouble $\ast$}]{r, }
+\item[{gdouble $\ast$}]{th, }
+\item[{gdouble $\ast$}]{ph}
+\end{DoxyParamCaption}
+)}\label{group__util_ga9d1295292204be6d9b3a27da092d2da6}
+
+
+Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of coordinate system; \\
+\hline
+{\em x} & point whose coordinates are to be found; \\
+\hline
+{\em r} & $r$; \\
+\hline
+{\em th} & $\theta$; \\
+\hline
+{\em ph} & $\phi$\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}}
+\index{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat $\ast$}]{x, }
+\item[{gfloat $\ast$}]{r, }
+\item[{gfloat $\ast$}]{th, }
+\item[{gfloat $\ast$}]{ph}
+\end{DoxyParamCaption}
+)}\label{group__util_gac4d5172c244d7af272ee8d79b977263d}
+
+
+Convert Cartesian to spherical coordinates $(r,\theta,\phi)$. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of coordinate system; \\
+\hline
+{\em x} & point whose coordinates are to be found; \\
+\hline
+{\em r} & $r$; \\
+\hline
+{\em th} & $\theta$; \\
+\hline
+{\em ph} & $\phi$\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -537,6 +615,74 @@ Perform recursion on normalized associated Legendre functions with input $P_{n-1
 {\em C} & $\cos\theta$; \\
 \hline
 {\em S} & $\sin\theta$;\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}}
+\index{wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+points\+\_\+origin\+\_\+width}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+points\+\_\+origin\+\_\+width (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x, }
+\item[{gint}]{str, }
+\item[{gint}]{n, }
+\item[{gdouble $\ast$}]{xmin, }
+\item[{gdouble $\ast$}]{D, }
+\item[{gboolean}]{init\+\_\+limits}
+\end{DoxyParamCaption}
+)}\label{group__util_ga38653b82e8325fd489117afe3bd21b7a}
+
+
+Find limits of a cube containing a set of points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & array of points coordinates; \\
+\hline
+{\em str} & stride of points in {\itshape x}; \\
+\hline
+{\em n} & number of points in {\itshape x}; \\
+\hline
+{\em xmin} & origin of cube containing all points in {\itshape x}; \\
+\hline
+{\em D} & width of cube containing all points in {\itshape x}; \\
+\hline
+{\em init\+\_\+limits} & if T\+R\+U\+E initialize limits overwriting any data in xmin\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}}
+\index{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x, }
+\item[{gint}]{str, }
+\item[{gint}]{n, }
+\item[{gfloat $\ast$}]{xmin, }
+\item[{gfloat $\ast$}]{D, }
+\item[{gboolean}]{init\+\_\+limits}
+\end{DoxyParamCaption}
+)}\label{group__util_gae55dbe2fd85dd2b351c4f9f8cc90bef2}
+
+
+Find limits of a cube containing a set of points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & array of points coordinates; \\
+\hline
+{\em str} & stride of points in {\itshape x}; \\
+\hline
+{\em n} & number of points in {\itshape x}; \\
+\hline
+{\em xmin} & origin of cube containing all points in {\itshape x}; \\
+\hline
+{\em D} & width of cube containing all points in {\itshape x}; \\
+\hline
+{\em init\+\_\+limits} & if T\+R\+U\+E initialize limits overwriting any data in xmin\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -761,6 +907,152 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 {\em xf} & point for field evaluation; \\
 \hline
 {\em field} & incremented with computed field\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}}
+\index{wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+total\+\_\+field}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+total\+\_\+field (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{k, }
+\item[{gdouble $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gdouble $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nsrc, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field}
+\end{DoxyParamCaption}
+)}\label{group__util_ga38c6f8b3e11ae55f9e555937eff8c7f6}
+
+
+Compute total field by direct evaluation. 
+
+Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum over sources at $\mathbf{x}_{n}$ $\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$.
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em xs} & array of source positions; \\
+\hline
+{\em xstride} & stride in {\itshape xs} between source positions; \\
+\hline
+{\em src} & array of complex scalar source strengths; \\
+\hline
+{\em sstride} & stride in {\itshape src}; \\
+\hline
+{\em nsrc} & number of sources; \\
+\hline
+{\em xf} & point for field evaluation; \\
+\hline
+{\em field} & incremented with computed field\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}}
+\index{wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+total\+\_\+field\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+total\+\_\+field\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{k, }
+\item[{gfloat $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gfloat $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nsrc, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field}
+\end{DoxyParamCaption}
+)}\label{group__util_gaa27d47964996f8ca59e9e530c6bcd023}
+
+
+Compute total field by direct evaluation. 
+
+Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum over sources at $\mathbf{x}_{n}$ $\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$.
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em xs} & array of source positions; \\
+\hline
+{\em xstride} & stride in {\itshape xs} between source positions; \\
+\hline
+{\em src} & array of complex scalar source strengths; \\
+\hline
+{\em sstride} & stride in {\itshape src}; \\
+\hline
+{\em nsrc} & number of sources; \\
+\hline
+{\em xf} & point for field evaluation; \\
+\hline
+{\em field} & incremented with computed field\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}}
+\index{wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+box\+\_\+centre (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint32}]{level, }
+\item[{guint64}]{b, }
+\item[{gdouble $\ast$}]{xb, }
+\item[{gdouble $\ast$}]{wb}
+\end{DoxyParamCaption}
+)}\label{group__util_gadfcb43de5aa68a4af89b7e383a82855a}
+
+
+Find centre and width of box in an octree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & an octree; \\
+\hline
+{\em level} & level inside {\itshape t}; \\
+\hline
+{\em b} & Morton index of box at level {\itshape level}; \\
+\hline
+{\em xb} & centre of box with index {\itshape b} at level {\itshape level}; \\
+\hline
+{\em wb} & width of box at level {\itshape level};\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}}
+\index{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}
+\subsubsection[{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint32}]{level, }
+\item[{guint64}]{b, }
+\item[{gfloat $\ast$}]{xb, }
+\item[{gfloat $\ast$}]{wb}
+\end{DoxyParamCaption}
+)}\label{group__util_ga33eba76ae9cab65183e549cfc3e6b8dc}
+
+
+Find centre and width of box in an octree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & an octree; \\
+\hline
+{\em level} & level inside {\itshape t}; \\
+\hline
+{\em b} & Morton index of box at level {\itshape level}; \\
+\hline
+{\em xb} & centre of box with index {\itshape b} at level {\itshape level}; \\
+\hline
+{\em wb} & width of box at level {\itshape level};\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

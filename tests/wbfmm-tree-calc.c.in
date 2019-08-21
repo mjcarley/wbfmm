@@ -251,8 +251,7 @@ gint main(gint argc, gchar **argv)
     return 0 ;
   }
 
-  /* wbfmm_tree_print(stdout, tree, wbfmm_tree_depth(tree), FALSE) ; */
-
+  wbfmm_tree_problem(tree) = WBFMM_PROBLEM_HELMHOLTZ ;
   for ( i = 1 ; i <= depth ; i ++ ) {
     wbfmm_tree_coefficient_init_PREC(tree, i, order[2*i+1], order[2*i+0]) ;
   }

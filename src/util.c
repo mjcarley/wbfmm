@@ -571,8 +571,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
-				       WBFMM_REAL *th, WBFMM_REAL *ph,
-				       WBFMM_REAL *ch, WBFMM_REAL *r)
+					     WBFMM_REAL *th, WBFMM_REAL *ph,
+					     WBFMM_REAL *ch, WBFMM_REAL *r)
 
 {
   WBFMM_REAL ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
@@ -583,7 +583,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
   
   WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(xi, xj, ix, iy, iz, r) ;
   WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(ix0, iy0, iz0, ix, iy, iz, 
-				       th, ph, ch) ;
+					     th, ph, ch) ;
 
   return 0 ;
 }

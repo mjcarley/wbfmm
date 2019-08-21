@@ -41,3 +41,10 @@
 \form#40:$\mathbf{x}_{n}$
 \form#41:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
 \form#42:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\form#43:$C_{n}^{m}$
+\form#44:$-n\leq m \leq n$
+\form#45:$i=n(n+1)+m$
+\form#46:$C_{si+0}+jC_{si+1}$
+\form#47:$i$
+\form#48:$s$
+\form#49:$C_{n}$

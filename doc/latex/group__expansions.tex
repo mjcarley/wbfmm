@@ -29,7 +29,7 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\
 \subsection{Detailed Description}
 Generation of regular and singular expansions and evaluation of them at field points. 
 
-
+The functions described here handle spherical harmonic expansions of complex variables, solutions of the Helmholtz equations. Expansions of real variables are dealt with in a separate set of functions, for the Laplace equation (\doxyref{Evaluation of the Laplace potential}{p.}{group__laplace}). The expansion coefficients are packed in single-\/ or double-\/precision arrays with the index of coefficient $C_{n}^{m}$, $-n\leq m \leq n$ given by $i=n(n+1)+m$. Coefficients are represented as real and imaginary parts, so that the coefficient is given by array entries $C_{si+0}+jC_{si+1}$ where $i$ is the index, $s$ is a stride allowing interleaved packing of data, and $C_{n}$ is an array entry. 
 
 \subsection{Function Documentation}
 \index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}}

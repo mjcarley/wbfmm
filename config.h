@@ -1,6 +1,9 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define if avx2 instructions are supported */
+#define HAVE_AVX2_INSTRUCTIONS 1
+
 /* Define if avx instructions are supported */
 #define HAVE_AVX_INSTRUCTIONS 1
 

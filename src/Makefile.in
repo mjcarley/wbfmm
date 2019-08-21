@@ -137,7 +137,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libwbfmm_base_la_LIBADD =
 am_libwbfmm_base_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
-	tree.lo documentation.lo
+	tree.lo
 libwbfmm_base_la_OBJECTS = $(am_libwbfmm_base_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -180,8 +180,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/boxes.Plo \
-	./$(DEPDIR)/documentation.Plo ./$(DEPDIR)/expansions.Plo \
+am__depfiles_remade = ./$(DEPDIR)/boxes.Plo ./$(DEPDIR)/expansions.Plo \
 	./$(DEPDIR)/factorial.Plo ./$(DEPDIR)/indexing.Plo \
 	./$(DEPDIR)/laplace.Plo ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-expansions.Plo \
@@ -402,8 +401,7 @@ libwbfmm_base_la_SOURCES = \
 	wbfmm-private.h \
 	indexing.c \
 	shifts.c \
-	tree.c \
-	documentation.c
+	tree.c 
 
 libwbfmm_la_SOURCES = \
 	wbfmm-private.h \
@@ -557,7 +555,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/boxes.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/documentation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/expansions.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/factorial.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/indexing.Plo@am__quote@ # am--include-marker
@@ -833,7 +830,6 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
-	-rm -f ./$(DEPDIR)/documentation.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo
@@ -901,7 +897,6 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
-	-rm -f ./$(DEPDIR)/documentation.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/indexing.Plo
