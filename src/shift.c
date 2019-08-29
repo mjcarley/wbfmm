@@ -282,18 +282,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
       WBFMM_REAL buf[16] = {0.0} ;
       /*loop on input and coefficients*/
       for ( l = ABS(m) ; l <= Nc ; l ++ ) {
-	/* ic = l*(l+1) + m ;  */
 	ic = wbfmm_coefficient_index_nm(l, m) ;
 	offc = 2*str*ic ;
 	ih = wbfmm_coaxial_index(l, m, n) ;
 	sgn = wbfmm_coaxial_index_sgn(l, m, n) ;
 	for ( i = 0 ; i < 16 ; i ++ ) buf[i] += trans[ih]*sgn*Cr[offc+i] ;
       }
-      ip = n*(n+1) + m ; off = 2*str*ip ;
-      for ( i = 0 ; i < 16 ; i ++ ) {
-	work[off+i] = buf[i] ;
-	/* g_assert(off+i < 8*2*wbfmm_coefficient_index_nm(Np+1,0)) ; */
-      }
+      ip = wbfmm_coefficient_index_nm(n, m) ;
+      off = 2*str*ip ;
+      for ( i = 0 ; i < 16 ; i ++ ) work[off+i] = buf[i] ;
     }
   }
 

@@ -14,12 +14,16 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gd
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
 \begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
-\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -28,6 +32,108 @@ Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace
 
 
 \subsection{Function Documentation}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace}}
+\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{Cp, }
+\item[{gint}]{Np, }
+\item[{gdouble $\ast$}]{Cc, }
+\item[{gint}]{Nc, }
+\item[{gint}]{nq, }
+\item[{gdouble $\ast$}]{H03, }
+\item[{gdouble $\ast$}]{H47, }
+\item[{gint}]{Lh, }
+\item[{gdouble $\ast$}]{trans, }
+\item[{gint}]{Ls, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga891f3f5c1126cedf8d590834e5b98882}
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+\hline
+{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em trans} & coaxial translation operator for distance between child and parent box centres; \\
+\hline
+{\em Ls} & order of {\itshape trans}; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f}}
+\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{Cp, }
+\item[{gint}]{Np, }
+\item[{gfloat $\ast$}]{Cc, }
+\item[{gint}]{Nc, }
+\item[{gint}]{nq, }
+\item[{gfloat $\ast$}]{H03, }
+\item[{gfloat $\ast$}]{H47, }
+\item[{gint}]{Lh, }
+\item[{gfloat $\ast$}]{trans, }
+\item[{gint}]{Ls, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gaa2a6d4bff47e423716d88c512a7e63fc}
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+\hline
+{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em trans} & coaxial translation operator for distance between child and parent box centres; \\
+\hline
+{\em Ls} & order of {\itshape trans}; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
 \index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}}
 \index{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
 \subsubsection[{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace (

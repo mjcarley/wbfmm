@@ -1024,10 +1024,12 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
   WBFMM_REAL *H03, *H47, *shift, *work, *child, *parent ;
   WBFMM_REAL xsrc[1536], src[1024], xb[3], xf[3] ;
   WBFMM_REAL fc[2] = {0.0}, fp[2] = {0.0}, fe[2] = {0.0} ;
-  WBFMM_REAL th03 = 0.955316618124509, th47 = 2.18627603546528 ;
+  WBFMM_REAL th03, th47 ;
   WBFMM_REAL kr ;
   gdouble t0 ;
   gint Np, sizew ;
+
+  th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
 
   Np = Nc + 4 ;
   xf[0] = xc[0] + 5*wb ; 

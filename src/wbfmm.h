@@ -306,10 +306,20 @@ gint wbfmm_rotate_H_laplace_f(gfloat *Co, gint cstro,
 			      gint N, gint nq,
 			      gfloat *H,
 			      gfloat ph, gfloat ch) ;
-
-/* gint wbfmm_rotate_H(gdouble *Co, gint cstro, gint N, gdouble *Ci,  */
-/* 		    gint cstri, gdouble *H, */
-/* 		    gdouble ph, gdouble ch) ; */
+gint wbfmm_child_parent_shift_laplace(gdouble *Cp, gint Np,
+				      gdouble *Cc, gint Nc,
+				      gint nq,
+				      gdouble *H03, gdouble *H47,
+				      gint Lh,
+				      gdouble t,
+				      gdouble *work) ;
+gint wbfmm_child_parent_shift_laplace_f(gfloat *Cp, gint Np,
+					gfloat *Cc, gint Nc,
+					gint nq,
+					gfloat *H03, gfloat *H47,
+					gint Lh,
+					gfloat t,
+					gfloat *work) ;
 
 gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
 			      gdouble *Cc, gint Nc,

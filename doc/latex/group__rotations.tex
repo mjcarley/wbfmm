@@ -1,8 +1,8 @@
-\section{Rotation operators}
-\label{group__rotations}\index{Rotation operators@{Rotation operators}}
+\section{Rotation coefficients and operations}
+\label{group__rotations}\index{Rotation coefficients and operations@{Rotation coefficients and operations}}
 
 
-Rotation of expansions.  
+Computation and application of rotation operators.  
 
 
 \subsection*{Functions}
@@ -23,13 +23,13 @@ gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloa
 
 
 \subsection{Detailed Description}
-Rotation of expansions. 
+Computation and application of rotation operators. 
 
-
+Recursive computation of rotation coefficients using the methods of Gumerov and Duraiswami, {\tt http\+://dx.\+doi.\+org/10.\+1137/\+S1064827501399705} 
 
 \subsection{Function Documentation}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}}
-\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}}
+\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation (
 \begin{DoxyParamCaption}
 \item[{gdouble $\ast$}]{H, }
@@ -58,8 +58,8 @@ Generate the coefficients required to rotate one multipole expansion to a new or
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}}
-\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}}
+\index{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f (
 \begin{DoxyParamCaption}
 \item[{gfloat $\ast$}]{H, }
@@ -88,8 +88,8 @@ Generate the coefficients required to rotate one multipole expansion to a new or
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}}
-\index{wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}}
+\index{wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+rotate\+\_\+\+H}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+rotate\+\_\+\+H (
 \begin{DoxyParamCaption}
 \item[{gdouble $\ast$}]{Co, }
@@ -136,8 +136,8 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}}
-\index{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}}
+\index{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f (
 \begin{DoxyParamCaption}
 \item[{gfloat $\ast$}]{Co, }
@@ -184,8 +184,8 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}}
-\index{wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}}
+\index{wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+rotation\+\_\+angles}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+rotation\+\_\+angles (
 \begin{DoxyParamCaption}
 \item[{gdouble $\ast$}]{ix, }
@@ -229,8 +229,8 @@ Compute the angles for rotation between two systems of axes $(\mathbf{i}_{x}, \m
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Rotation operators@{Rotation operators}!wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}}
-\index{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}!Rotation operators@{Rotation operators}}
+\index{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}}
+\index{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}
 \subsubsection[{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+rotation\+\_\+angles\+\_\+f (
 \begin{DoxyParamCaption}
 \item[{gfloat $\ast$}]{ix, }

@@ -1177,3 +1177,40 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SS_laplace)(WBFMM_REAL *Co,
 							     gint nq,
 							     WBFMM_REAL t) {}
 
+/** 
+ * 
+ * @ingroup laplace
+ *
+ * @brief Upward shift of singular expansion from eight children to 
+ * common parent in Laplace problem
+ *
+ * Shift the expansion of eight child boxes to their parent and sum
+ * into the parent expansion. This function assumes data are packed
+ * with a stride of eight elements so that all expansion coefficients
+ * of a given order are contiguous in memory, ordered by Morton index. 
+ *
+ * @param Cp parent expansion array;
+ * @param Np order of parent expansion;
+ * @param Cc child expansion array;
+ * @param Nc order of child expansions;
+ * @param nq number of elements in source;
+ * @param H03 rotation coefficients for `lower' children (Morton index 0-3);
+ * @param H47 rotation coefficients for `upper' children (Morton index 4-7);
+ * @param Lh maximum order of rotation coefficients;
+ * @param t distance between child and parent box centres, for coefficient
+ * translation; 
+ * @param work workspace
+ *
+ * @return 0 on success
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_laplace)(WBFMM_REAL *Cp,
+							   gint Np,
+							   WBFMM_REAL *Cc,
+							   gint Nc,
+							   gint nq,
+							   WBFMM_REAL *H03, 
+							   WBFMM_REAL *H47,
+							   gint Lh,
+							   WBFMM_REAL t,
+							   WBFMM_REAL *work) {}
