@@ -511,14 +511,14 @@ gint shift_test(gint N, WBFMM_REAL *xc, WBFMM_REAL *x0, WBFMM_REAL *xs,
   return 0 ;
 }
 
-gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb,
+gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
 		       WBFMM_REAL *xs, gint xstride,
 		       WBFMM_REAL *src, gint sstride,
 		       gint nsrc, WBFMM_REAL *xf, gint nfld)
 
 {
   WBFMM_REAL *Cc, *Cp, xc[3], xsc[3] ;
-  gint i, nq, Nc, Np, quad ;
+  gint i, nq, Nc, Np ;
   WBFMM_REAL H03[BUFSIZE] = {0.0}, H47[BUFSIZE] = {0.0} ;
   WBFMM_REAL work[BUFSIZE]={0.0} ;
   WBFMM_REAL cr[BUFSIZE] = {0.0}, ct[BUFSIZE] = {0.0}, crr[BUFSIZE] = {0.0} ;
@@ -537,14 +537,16 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb,
 	  "Nc = %d; Np = %d;\n"
 	  "x0 = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
+	  "xs = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "wb = %FLOATFMT;\n"
+	  "quad = %d;\n"
 	  "nsrc = %d\n",
 	  Nc, Np,
 	  x0[0], x0[1], x0[2], xf[0], xf[1], xf[2],
-	  wb, nsrc) ;
+	  xs[0], xs[1], xs[2],
+	  wb, quad, nsrc) ;
 
   /*generate child box coefficients*/
-  quad = 1 ;
   switch ( quad ) {
   default: g_assert_not_reached() ;
   case 0:
@@ -552,6 +554,24 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb,
     break ;
   case 1:
     xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] - wb/2 ;
+    break ;
+  case 2:
+    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+    break ;
+  case 3:
+    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+    break ;
+  case 4:
+    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+    break ;
+  case 5:
+    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+    break ;
+  case 6:
+    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] + wb/2 ;
+    break ;
+  case 7:
+    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] + wb/2 ;
     break ;
   }
   
@@ -579,21 +599,35 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb,
 
   /*same thing using a sequence of reference functions*/
   wbfmm_shift_angles_PREC(xc, x0, &th, &ph, &ch, &r) ;
-  ph = 0.5*M_PI ;
-  fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ;
+  /* ph = 0.5*M_PI ; */
+  /* fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ; */
   wbfmm_coefficients_H_rotation_PREC(H03, Np, th, work) ;
   wbfmm_rotate_H_laplace_PREC(cr, nq, &(Cc[quad*nq]), 8*nq, Nc, nq, H03,
 			      ph, ch) ;
-  fprintf(stderr, "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n",
-	  cr[0*nq + 0],
-	  cr[1*nq + 0],
-	  cr[2*nq + 0], cr[2*nq + 1],
-	  cr[4*nq + 0],
-	  cr[5*nq + 0], cr[5*nq + 1],
-	  cr[7*nq + 0], cr[7*nq + 1]) ;
+  /* fprintf(stderr, "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
+  /* 	  cr[0*nq + 0], */
+  /* 	  cr[1*nq + 0], */
+  /* 	  cr[2*nq + 0], cr[2*nq + 1], */
+  /* 	  cr[4*nq + 0], */
+  /* 	  cr[5*nq + 0], cr[5*nq + 1], */
+  /* 	  cr[7*nq + 0], cr[7*nq + 1]) ; */
 
   wbfmm_coaxial_translate_SS_laplace_PREC(ct, nq, Np, cr, nq, Nc, nq, r) ;
+  /* fprintf(stderr, "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
+  /* 	  ct[0*nq + 0], */
+  /* 	  ct[1*nq + 0], */
+  /* 	  ct[2*nq + 0], ct[2*nq + 1], */
+  /* 	  ct[4*nq + 0], */
+  /* 	  ct[5*nq + 0], ct[5*nq + 1], */
+  /* 	  ct[7*nq + 0], ct[7*nq + 1]) ; */
   wbfmm_rotate_H_laplace_PREC(crr, nq, ct, nq, Np, nq, H03, ch, ph) ;
+  /* fprintf(stderr, "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
+  /* 	  crr[0*nq + 0], */
+  /* 	  crr[1*nq + 0], */
+  /* 	  crr[2*nq + 0], crr[2*nq + 1], */
+  /* 	  crr[4*nq + 0], */
+  /* 	  crr[5*nq + 0], crr[5*nq + 1], */
+  /* 	  crr[7*nq + 0], crr[7*nq + 1]) ; */
 
   wbfmm_expansion_laplace_evaluate_PREC(x0, Cp, nq*8, Np, nq, xf, fp, work) ;
   wbfmm_expansion_laplace_evaluate_PREC(x0, crr, nq, Np, nq, xf, fs, work) ;
@@ -711,7 +745,8 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( test == 6 ) {
-    child_parent_test(N, x0, wb, xs, xstride, src, sstride, nsrc, xf, nfld) ;
+    child_parent_test(N, x0, wb, quad, xs, xstride, src, sstride, nsrc,
+		      xf, nfld) ;
     
     return 0 ;
   }
