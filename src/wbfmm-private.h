@@ -64,6 +64,18 @@
 #define wbfmm_rotation_index_numn(_nu,_m,_n)			\
   ((_n)*(4*(_n)-1)*((_n)+1)/6 + ((_nu)+(_n))*((_n)+1) + (_m))
 
+#define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
+
+#define _wbfmm_SS_coefficient_index_nmnu(_n,_m,_nu)	\
+  ((_n)*((_n)+2)*((_n)+1)/6 + (_m)*(2*(_n)-(_m)+1)/2 + (_nu))
+
+#define wbfmm_coaxial_translation_SS_cfft(_n, _nd, _m)	\
+  (_wbfmm_SS_coefficients_laplace[_wbfmm_SS_coefficient_index_nmnu((_n),(_m),(_nd))])
+
+extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace,
+  *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ;
+
+
 #define ABSDIFF(_i,_j) ((_i) >= (_j) ? ((_i)-(_j)) : ((_j)-(_i)))
 #define IS_EVEN(_i) (((_i)%2==0)?1:0)
 

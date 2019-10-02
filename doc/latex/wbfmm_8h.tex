@@ -72,10 +72,14 @@ gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace} (gdouble $
 \begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+laplace\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
 \begin{DoxyCompactList}\small\item\em Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble t, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+laplace\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat t, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+laplace} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble t, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+laplace\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat t, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)

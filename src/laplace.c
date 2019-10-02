@@ -28,18 +28,10 @@
 
 #include "wbfmm-private.h"
 
-#define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
 
-/*table of \cos m\pi/4 for rotations on upward pass*/
-WBFMM_REAL CmPI_4[] =
-  {1, M_SQRT1_2, 0, -M_SQRT1_2, -1, -M_SQRT1_2, 0, M_SQRT1_2, 1} ;
-/*table of \cos n\pi/2 for rotations*/
-WBFMM_REAL CnPI_2[] = {1.0, 0.0, -1.0, 0.0} ;
-
-#define cos_n_PI_4(_n) (CmPI_4[(_n)%8])
-#define sin_n_PI_4(_n) (CmPI_4[((_n)+6)%8])
-#define cos_n_PI_2(_n) (CnPI_2[(_n)%4])
-#define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4])
+WBFMM_REAL *_wbfmm_SS_coefficients_laplace = NULL,
+  *_wbfmm_RR_coefficients_laplace = NULL,
+  *_wbfmm_SR_coefficients_laplace = NULL ;
 
 gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
 						       WBFMM_REAL *x0,
@@ -107,8 +99,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    /* cfft[cstr*idx+2*i+0] += q[i]*rn*Pn[m]*Cmph[m]/(2*n+1) ; */
-    /* cfft[cstr*idx+2*i+1] -= q[i]*rn*Pn[m]*Smph[m]/(2*n+1) ; */
     cfft[cstr*(idx+0)+i] += q[i]*rn*Pn[m]*Cmph[m]/(2*n+1) ;
     cfft[cstr*(idx+1)+i] -= q[i]*rn*Pn[m]*Smph[m]/(2*n+1) ;
   }
@@ -128,8 +118,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	/* cfft[cstr*idx+2*i+0] += q[i]*rn*Pn[m]*Cmph[m]/(2*n+1) ; */
-	/* cfft[cstr*idx+2*i+1] -= q[i]*rn*Pn[m]*Smph[m]/(2*n+1) ; */
 	cfft[cstr*(idx+0)+i] += q[i]*rn*Pn[m]*Cmph[m]/(2*n+1) ;
 	cfft[cstr*(idx+1)+i] -= q[i]*rn*Pn[m]*Smph[m]/(2*n+1) ;
       }
@@ -180,8 +168,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    /* field[i] += 2.0*Pn[m]*rn*(cfft[cstr*idx+2*i+0]*Cmph[m] - */
-    /* 			      cfft[cstr*idx+2*i+1]*Smph[m]) ; */
     field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 			      cfft[cstr*(idx+1)+i]*Smph[m]) ;
   }
@@ -200,8 +186,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	/* field[i] += 2.0*Pn[m]*rn*(cfft[cstr*idx+2*i+0]*Cmph[m] - */
-	/* 			  cfft[cstr*idx+2*i+1]*Smph[m]) ; */
 	field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 				  cfft[cstr*(idx+1)+i]*Smph[m]) ;
       }
@@ -247,20 +231,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
   idx = n*n ;
   for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pnm1[m] ;
 
-  /* fprintf(stderr, "%g\n", field[0]) ; */
-  
   n = 1 ; 
   m = 0 ; 
   rn *= r ;
   idx = n*n ;
   for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[m] ;
 
-  /* fprintf(stderr, "%g\n", field[0]) ; */
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    /* field[i] += 2.0*Pn[m]*rn*(cfft[cstr*idx+2*i+0]*Cmph[m] - */
-    /* 			      cfft[cstr*idx+2*i+1]*Smph[m]) ; */
     field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 			      cfft[cstr*(idx+1)+i]*Smph[m]) ;
   }
@@ -279,13 +258,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	/* field[i] += 2.0*Pn[m]*rn*(cfft[cstr*idx+2*i+0]*Cmph[m] - */
-	/* 			  cfft[cstr*idx+2*i+1]*Smph[m]) ; */
 	field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 				  cfft[cstr*(idx+1)+i]*Smph[m]) ;
       }
     }
-  /* fprintf(stderr, "%g\n", field[0]) ; */
   }
   
   return 0 ;
@@ -329,25 +305,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
   return 0 ;
 }
 
-static WBFMM_REAL coaxial_translation_SS_cfft(gint n, gint nd, gint m)
-
-{
-  WBFMM_REAL c ;
-
-  g_assert(n >= nd) ;
-  
-  c  = wbfmm_factorial(n  - m)*wbfmm_factorial(n  + m) ;
-  c /= wbfmm_factorial(nd - m)*wbfmm_factorial(nd + m) ;
-  c *= (2.0*nd+1)/(2.0*n+1) ;
-  c  = SQRT(c) ;
-  c /= wbfmm_factorial(n-nd) ;
-
-  /*this needs to be multiplied by (-t)^{n-nd} for a translation of
-    distance t*/
-  
-  return c ;
-}
-
 gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SS_laplace)(WBFMM_REAL *Co,
 							     gint cstro,
 							     gint No,
@@ -365,7 +322,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SS_laplace)(WBFMM_REAL *Co,
   m = 0 ; 
   for ( idxo = n = 0 ; n <= No ; (n ++), (idxo = n*n) ) {
     for ( idxi = nd = 0 ; nd <= MIN(n,Ni) ; (nd ++), (idxi = nd*nd) ) {
-      c = coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
+      c = wbfmm_coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
       for ( i = 0 ; i < nq ; i ++ ) 
 	Co[cstro*idxo+i] += c*Ci[cstri*idxi+i] ;
     }
@@ -377,10 +334,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SS_laplace)(WBFMM_REAL *Co,
       idxo = wbfmm_index_laplace_nm(n,m) ;
       for ( nd = m ; nd <= MIN(n, Ni) ; nd ++ ) {
   	idxi = wbfmm_index_laplace_nm(nd,m) ;
-	c = coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
+	c = wbfmm_coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
-	  /* Co[cstro*idxo+2*i+0] += c*Ci[cstri*idxi+2*i+0] ; */
-	  /* Co[cstro*idxo+2*i+1] += c*Ci[cstri*idxi+2*i+1] ; */
 	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
 	  Co[cstro*(idxo+1)+i] += c*Ci[cstri*(idxi+1)+i] ;
 	}
@@ -441,8 +396,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_RR_laplace)(WBFMM_REAL *Co,
   	idxo = wbfmm_index_laplace_nm(n,m) ;
 	c = coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
-	  /* Co[cstro*idxo+2*i+0] += c*Ci[cstri*idxi+2*i+0] ; */
-	  /* Co[cstro*idxo+2*i+1] += c*Ci[cstri*idxi+2*i+1] ; */
   	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
   	  Co[cstro*(idxo+1)+i] += c*Ci[cstri*(idxi+1)+i] ;
 	}
@@ -503,8 +456,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(WBFMM_REAL *Co,
 	idxi = wbfmm_index_laplace_nm(nd,m) ;
   	c = coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
   	for ( i = 0 ; i < nq ; i ++ ) {
-  	  /* Co[cstro*idxo+2*i+0] += c*Ci[cstri*idxi+2*i+0] ; */
-  	  /* Co[cstro*idxo+2*i+1] += c*Ci[cstri*idxi+2*i+1] ; */
   	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
   	  Co[cstro*(idxo+1)+i] += c*Ci[cstri*(idxi+1)+i] ;
   	}	
@@ -525,7 +476,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(WBFMM_REAL *Co, gint cstro,
   gint n, m, nu, idxi, idxo, i ;
   WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph, tr[32] ;
   WBFMM_REAL Hp, Hm ;
-  gint j ;
   
   g_assert(nq <= cstri) ;
   g_assert(nq <= cstro) ;
@@ -551,8 +501,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(WBFMM_REAL *Co, gint cstro,
       Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
       Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	/* tr[i] += (Ci[cstri*idxi+2*i+0]*Cmch - */
-	/* 	  Ci[cstri*idxi+2*i+1]*Smch)*(Hp+Hm) ; */
 	tr[i] += (Ci[cstri*(idxi+0)+i]*Cmch -
 		  Ci[cstri*(idxi+1)+i]*Smch)*(Hp+Hm) ;
       }
@@ -580,10 +528,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(WBFMM_REAL *Co, gint cstro,
 	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
 	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
-	  /* tr[i] += (Cmch*Ci[cstri*idxi+2*i+0] - */
-	  /* 	    Smch*Ci[cstri*idxi+2*i+1])*(Hp+Hm) ; */
-	  /* ti[i] += (Smch*Ci[cstri*idxi+2*i+0] + */
-	  /* 	    Cmch*Ci[cstri*idxi+2*i+1])*(Hp-Hm) ; */
 	  tr[i] += (Ci[cstri*(idxi+0)+i]*Cmch -
 		    Ci[cstri*(idxi+1)+i]*Smch)*(Hp+Hm) ;
 	  ti[i] += (Ci[cstri*(idxi+0)+i]*Smch +
@@ -600,457 +544,62 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(WBFMM_REAL *Co, gint cstro,
   return 0 ;
 }
 
-static inline void increment_buf_cp_real(WBFMM_REAL *E0, WBFMM_REAL *E1,
-					 WBFMM_REAL *C,
-					 WBFMM_REAL H03p, WBFMM_REAL H03m,
-					 WBFMM_REAL H47p, WBFMM_REAL H47m,
-					 gint nq,
-					 WBFMM_REAL *buf)
+static WBFMM_REAL coaxial_translation_SS_cfft(gint n, gint nd, gint m)
 
 {
-  WBFMM_REAL H03, H47 ;
-  gint i ;
+  WBFMM_REAL c ;
+
+  g_assert(n >= nd) ;
   
-  H03 = H03p + H03m ; H47 = H47p + H47m ;
-  /*terms using \cos (\pm m\pi/4), ...*/
-  for ( i = 0 ; i < nq ; i ++ ) {
-    buf[0*nq+i] += (C[0*nq+i]*E0[0] - C[8*nq+0*nq+i]*E0[1])*H03 ;
-    buf[1*nq+i] += (C[1*nq+i]*E1[0] - C[8*nq+1*nq+i]*E1[1])*H03 ;
-    buf[2*nq+i] += (C[2*nq+i]*E0[0] + C[8*nq+2*nq+i]*E0[1])*H03 ;
-    buf[3*nq+i] += (C[3*nq+i]*E1[0] + C[8*nq+3*nq+i]*E1[1])*H03 ;
+  c  = wbfmm_factorial(n  - m)*wbfmm_factorial(n  + m) ;
+  c /= wbfmm_factorial(nd - m)*wbfmm_factorial(nd + m) ;
+  c *= (2.0*nd+1)/(2.0*n+1) ;
+  c  = SQRT(c) ;
+  c /= wbfmm_factorial(n-nd) ;
 
-    buf[4*nq+i] += (C[4*nq+i]*E0[0] - C[8*nq+4*nq+i]*E0[1])*H47 ;
-    buf[5*nq+i] += (C[5*nq+i]*E1[0] - C[8*nq+5*nq+i]*E1[1])*H47 ;
-    buf[6*nq+i] += (C[6*nq+i]*E0[0] + C[8*nq+6*nq+i]*E0[1])*H47 ;
-    buf[7*nq+i] += (C[7*nq+i]*E1[0] + C[8*nq+7*nq+i]*E1[1])*H47 ;
-
-  }
-
-  return ;
+  /*this needs to be multiplied by (-t)^{n-nd} for a translation of
+    distance t*/
+  
+  return c ;
 }
 
-static inline void increment_buf_cp_complex(WBFMM_REAL *E0, WBFMM_REAL *E1,
-					    WBFMM_REAL *C,
-					    WBFMM_REAL H03p, WBFMM_REAL H03m,
-					    WBFMM_REAL H47p, WBFMM_REAL H47m,
-					    gint nq,
-					    WBFMM_REAL *buf)
+gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_laplace_init)(gint N)
 
 {
-  WBFMM_REAL sH03, sH47, dH03, dH47 ;
-  gint i ;
+  gint n, m, nu, i ;
   
-  sH03 = H03p + H03m ; sH47 = H47p + H47m ;
-  dH03 = H03p - H03m ; dH47 = H47p - H47m ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    buf[0*2*nq+2*i+0] += (C[0*nq+i]*E0[0] - C[8*nq+0*nq+i]*E0[1])*sH03 ;
-    buf[0*2*nq+2*i+1] += (C[0*nq+i]*E0[1] + C[8*nq+0*nq+i]*E0[0])*dH03 ;
-
-    buf[1*2*nq+2*i+0] += (C[1*nq+i]*E1[0] - C[8*nq+1*nq+i]*E1[1])*sH03 ;
-    buf[1*2*nq+2*i+1] += (C[1*nq+i]*E1[1] + C[8*nq+1*nq+i]*E1[0])*dH03 ;
-
-    buf[2*2*nq+2*i+0] += (C[2*nq+i]*E0[0] + C[8*nq+2*nq+i]*E0[1])*sH03 ;
-    buf[2*2*nq+2*i+1] += (C[2*nq+i]*E0[1] - C[8*nq+2*nq+i]*E0[0])*dH03 ;
-
-    buf[3*2*nq+2*i+0] += (C[3*nq+i]*E1[0] + C[8*nq+3*nq+i]*E1[1])*sH03 ;
-    buf[3*2*nq+2*i+1] -= (C[3*nq+i]*E1[1] - C[8*nq+3*nq+i]*E1[0])*dH03 ;
-
-    buf[4*2*nq+2*i+0] += (C[4*nq+i]*E0[0] - C[8*nq+4*nq+i]*E0[1])*sH47 ;
-    buf[4*2*nq+2*i+1] += (C[4*nq+i]*E0[1] + C[8*nq+4*nq+i]*E0[0])*dH47 ;
-
-    buf[5*2*nq+2*i+0] += (C[5*nq+i]*E1[0] - C[8*nq+5*nq+i]*E1[1])*sH47 ;
-    buf[5*2*nq+2*i+1] += (C[5*nq+i]*E1[1] + C[8*nq+5*nq+i]*E1[0])*dH47 ;
-
-    buf[6*2*nq+2*i+0] += (C[6*nq+i]*E0[0] + C[8*nq+6*nq+i]*E0[1])*sH47 ;
-    buf[6*2*nq+2*i+1] += (C[6*nq+i]*E0[1] - C[8*nq+6*nq+i]*E0[0])*dH47 ;
-
-    buf[7*2*nq+2*i+0] += (C[7*nq+i]*E1[0] + C[8*nq+7*nq+i]*E1[1])*sH47 ;
-    buf[7*2*nq+2*i+1] -= (C[7*nq+i]*E1[1] - C[8*nq+7*nq+i]*E1[0])*dH47 ;
-  }
-
-  return ;
-}
-
-static inline void increment_cfft_cp_real(WBFMM_REAL *E0, WBFMM_REAL *E1,
-					  WBFMM_REAL *Ci,
-					  WBFMM_REAL H03p, WBFMM_REAL H03m,
-					  WBFMM_REAL H47p, WBFMM_REAL H47m,
-					  gint nq,
-					  WBFMM_REAL *Cp)
-
-{
-  WBFMM_REAL H03, H47 ;
-  gint i ;
+  /* if ( _wbfmm_SS_coefficients_laplace != NULL ) return 0 ; */
   
-  H03 = H03p + H03m ; H47 = H47p + H47m ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    Cp[0*nq+i] += (Ci[0*nq+0*nq+i]*E0[0] - Ci[8*nq+0*nq+i]*E0[1])*H03 ;
-    Cp[0*nq+i] += (Ci[0*nq+1*nq+i]*E1[0] - Ci[8*nq+1*nq+i]*E1[1])*H03 ;
-    Cp[0*nq+i] += (Ci[0*nq+2*nq+i]*E1[0] + Ci[8*nq+2*nq+i]*E1[1])*H03 ;
-    Cp[0*nq+i] += (Ci[0*nq+3*nq+i]*E0[0] - Ci[8*nq+3*nq+i]*E0[1])*H03 ;
+  /* _wbfmm_SR_coefficients_laplace = */
+  /*   (WBFMM_REAL *)g_malloc0((N+4)*sizeof(WBFMM_REAL)) ; */
+  /* _wbfmm_RR_coefficients_laplace = */
+  /* (WBFMM_REAL *)g_malloc0((N+4)*sizeof(WBFMM_REAL)) ; */
 
-    Cp[0*nq+i] += (Ci[0*nq+4*nq+i]*E0[0] - Ci[8*nq+4*nq+i]*E0[1])*H47 ;
-    Cp[0*nq+i] += (Ci[0*nq+5*nq+i]*E1[0] - Ci[8*nq+5*nq+i]*E1[1])*H47 ;
-    Cp[0*nq+i] += (Ci[0*nq+6*nq+i]*E1[0] + Ci[8*nq+6*nq+i]*E1[1])*H47 ;
-    Cp[0*nq+i] += (Ci[0*nq+7*nq+i]*E0[0] - Ci[8*nq+7*nq+i]*E0[1])*H47 ;
-  }
+  n = _wbfmm_SS_coefficient_index_nmnu((N+4),0,0) ;
+  _wbfmm_SS_coefficients_laplace =
+    (WBFMM_REAL *)g_malloc0(n*sizeof(WBFMM_REAL)) ;
 
-  return ;
-}
-
-static inline void increment_cfft_cp_complex(WBFMM_REAL *E0, WBFMM_REAL *E1,
-					     WBFMM_REAL *E0ph, WBFMM_REAL *E1ph,
-					     WBFMM_REAL *Ci,
-					     WBFMM_REAL H03p, WBFMM_REAL H03m,
-					     WBFMM_REAL H47p, WBFMM_REAL H47m,
-					     gint nq,
-					     WBFMM_REAL *Cp)
-
-{
-  WBFMM_REAL sH03, sH47, dH03, dH47, tr, ti ;
-  gint i ;
-  
-  sH03 = H03p + H03m ; sH47 = H47p + H47m ;
-  dH03 = H03p - H03m ; dH47 = H47p - H47m ;
-  /*terms using \cos (\pm m\pi/4), ...*/
-  for ( i = 0 ; i < nq ; i ++ ) {
-    tr = (Ci[0*nq+0*nq+i]*E0[0] - Ci[8*nq+0*nq+i]*E0[1])*sH03 ;
-    ti = (Ci[8*nq+0*nq+i]*E0[0] + Ci[0*nq+0*nq+i]*E0[1])*dH03 ;
-
-    Cp[0*nq+i] += E0ph[0]*tr + E0ph[1]*ti ;
-    Cp[8*nq+i] += E0ph[0]*ti - E0ph[1]*tr ;
-
-    tr = (Ci[0*nq+1*nq+i]*E1[0] - Ci[8*nq+1*nq+i]*E1[1])*sH03 ;
-    ti = (Ci[8*nq+1*nq+i]*E1[0] + Ci[0*nq+1*nq+i]*E1[1])*dH03 ;
-
-    Cp[0*nq+i] += E1ph[0]*tr + E1ph[1]*ti ;
-    Cp[8*nq+i] += E1ph[0]*ti - E1ph[1]*tr ;
-
-    tr = (Ci[0*nq+2*nq+i]*E1[0] + Ci[8*nq+2*nq+i]*E1[1])*sH03 ;
-    ti = (Ci[8*nq+2*nq+i]*E1[0] - Ci[0*nq+2*nq+i]*E1[1])*dH03 ;
-
-    Cp[0*nq+i] += E0ph[0]*tr - E0ph[1]*ti ;
-    Cp[8*nq+i] += E0ph[0]*ti + E0ph[1]*tr ;
-    
-    tr = (Ci[0*nq+3*nq+i]*E0[0] - Ci[8*nq+3*nq+i]*E0[1])*sH03 ;
-    ti = (Ci[8*nq+3*nq+i]*E0[0] + Ci[0*nq+3*nq+i]*E0[1])*dH03 ;
-
-    Cp[0*nq+i] += E1ph[0]*tr - E1ph[1]*ti ;
-    Cp[8*nq+i] += E1ph[0]*ti + E1ph[1]*tr ;
-
-
-    tr = (Ci[0*nq+4*nq+i]*E0[0] - Ci[8*nq+4*nq+i]*E0[1])*sH47 ;
-    ti = (Ci[8*nq+4*nq+i]*E0[0] + Ci[0*nq+4*nq+i]*E0[1])*dH47 ;
-
-    Cp[0*nq+i] += E0ph[0]*tr + E0ph[1]*ti ;
-    Cp[8*nq+i] += E0ph[0]*ti - E0ph[1]*tr ;
-
-    tr = (Ci[0*nq+5*nq+i]*E1[0] - Ci[8*nq+5*nq+i]*E1[1])*sH47 ;
-    ti = (Ci[8*nq+5*nq+i]*E1[0] + Ci[0*nq+5*nq+i]*E1[1])*dH47 ;
-
-    Cp[0*nq+i] += E1ph[0]*tr + E1ph[1]*ti ;
-    Cp[8*nq+i] += E1ph[0]*ti - E1ph[1]*tr ;
-
-    tr = (Ci[0*nq+6*nq+i]*E1[0] + Ci[8*nq+6*nq+i]*E1[1])*sH47 ;
-    ti = (Ci[8*nq+6*nq+i]*E1[0] - Ci[0*nq+6*nq+i]*E1[1])*dH47 ;
-
-    Cp[0*nq+i] += E0ph[0]*tr - E0ph[1]*ti ;
-    Cp[8*nq+i] += E0ph[0]*ti + E0ph[1]*tr ;
-    
-    tr = (Ci[0*nq+7*nq+i]*E0[0] - Ci[8*nq+7*nq+i]*E0[1])*sH47 ;
-    ti = (Ci[8*nq+7*nq+i]*E0[0] + Ci[0*nq+7*nq+i]*E0[1])*dH47 ;
-
-    Cp[0*nq+i] += E1ph[0]*tr - E1ph[1]*ti ;
-    Cp[8*nq+i] += E1ph[0]*ti + E1ph[1]*tr ;
-  }
-
-  return ;
-}
-
-gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_laplace)(WBFMM_REAL *Cp,
-							   gint Np,
-							   WBFMM_REAL *Cc,
-							   gint Nc,
-							   gint nq,
-							   WBFMM_REAL *H03, 
-							   WBFMM_REAL *H47,
-							   gint Lh,
-							   WBFMM_REAL t,
-							   WBFMM_REAL *work)
-
-/*
-  child-parent shift for Laplace problem, based on Helmholtz version
-  in shift.c, but allowing for vector inputs, and with indexing
-  changed to Laplace convention
-
-  03: "lower" boxes (think of Morton index)
-  47: "upper" boxes
-
-  assumes all coefficients are densely packed in groups of 8*nq
-  coefficients of the same index, in order of child box Morton index
-*/
-
-{
-  WBFMM_REAL *Cr, buf[128], H, Hp, Hm, tn[64] = {0.0}, c ;
-  WBFMM_REAL E0[2], E1[2], E0ph[2], E1ph[2], Cnph, Snph ;
-  gint nu, n, m, ic, ip, str, i ;
-
-  g_assert(nq <= 8) ;
-  
-  /*stride in number of elements per entry*/
-  str = 8*nq ;
-
-  /*used to store the rotated child coefficients*/
-  Cr = &(work[str*(Np+1)*(Np+1)]) ;
-  memset(Cr, 0, str*(Nc+1)*(Nc+1)*sizeof(WBFMM_REAL)) ;
-
-  /*rotate child box coefficients using Cr as temporary storage*/
-  for ( n = 0 ; n <= Nc ; n ++ ) {
-    memset(buf, 0, 16*nq*sizeof(WBFMM_REAL)) ;
-    nu = 0 ; ip = n*n ;
-    m  = 0 ; ic = n*n ;
-
-    H = H03[wbfmm_rotation_index_numn(nu,m,n)] ;
-    for ( i = 0 ; i < 4*nq ; i ++ ) buf[i] = H*Cc[str*ic+i] ;
-    
-    H = H47[wbfmm_rotation_index_numn(nu,m,n)] ;
-    for ( i = 4*nq ; i < 8*nq ; i ++ ) buf[i] = H*Cc[str*ic+i] ;
-
-    for ( m = 1 ; m <= n ; m ++ ) {
-      ic = wbfmm_index_laplace_nm(n,m) ;
-
-      E0[0] = cos_n_PI_4(m)   ; E0[1] = sin_n_PI_4(m) ;
-      E1[0] = cos_n_PI_4(3*m) ; E1[1] = sin_n_PI_4(3*m) ;
-
-      increment_buf_cp_real(E0, E1,
-      			    &(Cc[str*ic]),
-      			    H03[wbfmm_rotation_index_numn( nu,m,n)],
-      			    H03[wbfmm_rotation_index_numn(-nu,m,n)],
-      			    H47[wbfmm_rotation_index_numn( nu,m,n)],
-      			    H47[wbfmm_rotation_index_numn(-nu,m,n)],
-      			    nq, buf) ;
-    }
-
-    for ( i = 0 ; i < 8*nq ; i ++ ) Cr[str*ip+i] += buf[i] ;
-
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      memset(buf, 0, 16*nq*sizeof(WBFMM_REAL)) ;
-
-      E0ph[0] = cos_n_PI_2(nu) ; E0ph[1] = -sin_n_PI_2(nu) ;
-      E1ph[0] = cos_n_PI_2(nu) ; E1ph[1] =  sin_n_PI_2(nu) ;
-      
-      ip = wbfmm_index_laplace_nm(n,nu) ;
-      m = 0 ; ic = n*n ;
-      H = H03[wbfmm_rotation_index_numn(nu,m,n)] ;
-      for ( i = 0 ; i < 4*nq ; i ++ ) buf[2*i+0] = H*Cc[str*ic+i] ;
-      H = H47[wbfmm_rotation_index_numn(nu,m,n)] ;
-      for ( i = 4*nq ; i < 8*nq ; i ++ ) buf[2*i+0] = H*Cc[str*ic+i] ;
-      
-      for ( m = 1 ; m <= n ; m ++ ) {
-	E0[0] = cos_n_PI_4(m)   ; E0[1] = sin_n_PI_4(m) ;
-	E1[0] = cos_n_PI_4(3*m) ; E1[1] = sin_n_PI_4(3*m) ;
-      
-	ic = wbfmm_index_laplace_nm(n,m) ;
-	increment_buf_cp_complex(E0, E1, &(Cc[str*ic]),
-				 H03[wbfmm_rotation_index_numn( nu,m,n)],
-				 H03[wbfmm_rotation_index_numn(-nu,m,n)],
-				 H47[wbfmm_rotation_index_numn( nu,m,n)],
-				 H47[wbfmm_rotation_index_numn(-nu,m,n)],
-				 nq, buf) ;
-      }
-      for ( i = 0 ; i < nq ; i ++ ) {
-	Cr[str*(ip+0)+0*nq+i] +=
-	  buf[0*2*nq+2*i+0]*E0ph[0] + buf[0*2*nq+2*i+1]*E0ph[1] ;
-	Cr[str*(ip+1)+0*nq+i] +=
-	  buf[0*2*nq+2*i+1]*E0ph[0] - buf[0*2*nq+2*i+0]*E0ph[1] ;
-
-	Cr[str*(ip+0)+1*nq+i] +=
-	  buf[1*2*nq+2*i+0]*E1ph[0] + buf[1*2*nq+2*i+1]*E1ph[1] ;
-	Cr[str*(ip+1)+1*nq+i] +=
-	  buf[1*2*nq+2*i+1]*E1ph[0] - buf[1*2*nq+2*i+0]*E1ph[1] ;
-
-	Cr[str*(ip+0)+2*nq+i] +=
-	  buf[2*2*nq+2*i+0]*E1ph[0] + buf[2*2*nq+2*i+1]*E1ph[1] ;
-	Cr[str*(ip+1)+2*nq+i] -=
-	  buf[2*2*nq+2*i+1]*E1ph[0] - buf[2*2*nq+2*i+0]*E1ph[1] ;
-
-	Cr[str*(ip+0)+3*nq+i] +=
-	  buf[3*2*nq+2*i+0]*E0ph[0] + buf[3*2*nq+2*i+1]*E0ph[1] ;
-	Cr[str*(ip+1)+3*nq+i] +=
-	  buf[3*2*nq+2*i+1]*E0ph[0] - buf[3*2*nq+2*i+0]*E0ph[1] ;
-
-	Cr[str*(ip+0)+4*nq+i] +=
-	  buf[4*2*nq+2*i+0]*E0ph[0] + buf[4*2*nq+2*i+1]*E0ph[1] ;
-	Cr[str*(ip+1)+4*nq+i] +=
-	  buf[4*2*nq+2*i+1]*E0ph[0] - buf[4*2*nq+2*i+0]*E0ph[1] ;
-
-	Cr[str*(ip+0)+5*nq+i] +=
-	  buf[5*2*nq+2*i+0]*E1ph[0] + buf[5*2*nq+2*i+1]*E1ph[1] ;
-	Cr[str*(ip+1)+5*nq+i] +=
-	  buf[5*2*nq+2*i+1]*E1ph[0] - buf[5*2*nq+2*i+0]*E1ph[1] ;
-
-	Cr[str*(ip+0)+6*nq+i] +=
-	  buf[6*2*nq+2*i+0]*E1ph[0] + buf[6*2*nq+2*i+1]*E1ph[1] ;
-	Cr[str*(ip+1)+6*nq+i] -=
-	  buf[6*2*nq+2*i+1]*E1ph[0] - buf[6*2*nq+2*i+0]*E1ph[1] ;
-
-	Cr[str*(ip+0)+7*nq+i] +=
-	  buf[7*2*nq+2*i+0]*E0ph[0] + buf[7*2*nq+2*i+1]*E0ph[1] ;
-	Cr[str*(ip+1)+7*nq+i] +=
-	  buf[7*2*nq+2*i+1]*E0ph[0] - buf[7*2*nq+2*i+0]*E0ph[1] ;
-      }
-    }
-  }
-
-  /* { */
-  /*   gint off ; */
-  /*   off = 5 ; */
-  /*   fprintf(stderr, */
-  /* 	    "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
-  /* 	    Cr[0*str + off], */
-  /* 	    Cr[1*str + off], */
-  /* 	    Cr[(2+0)*str + off], Cr[(2+1)*str + off], */
-  /* 	    Cr[4*str + off], */
-  /* 	    Cr[(5+0)*str + off], Cr[(5+1)*str + off], */
-  /* 	    Cr[(7+0)*str + off], Cr[(7+1)*str + off]) ; */
-  /* } */
-  
-  /*Cr now contains rotated child coefficients, translate and store in
-    work*/
-  memset(work, 0, str*(Np+1)*(Np+1)*sizeof(WBFMM_REAL)) ;
-  tn[0] = 1.0 ;
-  m  = 0 ;
-  for ( ip = n = 0 ; n <= Np ; (n ++), (ip = n*n) ) {
-    for ( ic = nu = 0 ; nu <= MIN(n, Nc) ; (nu ++), (ic = nu*nu) ) {
-      c = coaxial_translation_SS_cfft(n, nu, m)*tn[n-nu] ;
-      g_assert(tn[n-nu] != 0.0) ;
-      /* for ( i = 0 ; i < str ; i ++ ) */
-      for ( i = 0 ; i < 8*nq ; i ++ )
-  	work[str*ip+i] += c*Cr[str*ic+i] ;
-    }
-    tn[n+1] = -tn[n]*t ;
-  }
-  
-  for ( m = 1 ; m <= Np ; m ++ ) {
-    for ( n = m ; n <= Np ; n ++ ) {
-      ip = wbfmm_index_laplace_nm(n,m) ;
+  for ( n = 0 ; n <= N+3 ; n ++ ) {
+    for ( m = 0 ; m <= n ; m ++ ) {
       for ( nu = m ; nu <= n ; nu ++ ) {
-  	ic = wbfmm_index_laplace_nm(nu,m) ;
-  	c = coaxial_translation_SS_cfft(n, nu, m)*tn[n-nu] ;
-	/* g_assert(tn[n-nu] != 0.0) ; */
-	for ( i = 0 ; i < 8*nq ; i ++ ) {
-	  work[str*(ip+0)+i] += c*Cr[str*(ic+0)+i] ;
-	  work[str*(ip+1)+i] += c*Cr[str*(ic+1)+i] ;
-	}
+	i = _wbfmm_SS_coefficient_index_nmnu(n, m, nu) ;
+	_wbfmm_SS_coefficients_laplace[i] =
+	  coaxial_translation_SS_cfft(n, nu, m) ;
       }
     }
   }
 
-  /* { */
-  /*   gint off ; */
-  /*   off = 7 ; */
-  /*   fprintf(stderr, */
-  /* 	    "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
-  /* 	    work[0*str + off], */
-  /* 	    work[1*str + off], */
-  /* 	    work[(2+0)*str + off], work[(2+1)*str + off], */
-  /* 	    work[4*str + off], */
-  /* 	    work[(5+0)*str + off], work[(5+1)*str + off], */
-  /* 	    work[(7+0)*str + off], work[(7+1)*str + off]) ; */
-  /* } */
-  
-  /*work now contains rotated and shifted coefficients, perform
-    reverse rotation into parent coefficient array*/
-  for ( n = 0 ; n <= Np ; n ++ ) {
-    nu = 0 ; ip = n*n ;
-    m  = 0 ; ic = n*n ;
-
-    H = H03[wbfmm_rotation_index_numn(nu,m,n)] ;
-    for ( i = 0 ; i < nq ; i ++ ) {
-      Cp[str*ip+i] +=
-	H*(work[str*ic+0*nq+i] + work[str*ic+1*nq+i] +
-	   work[str*ic+2*nq+i] + work[str*ic+3*nq+i]) ;
-    }
-    H = H47[wbfmm_rotation_index_numn(nu,m,n)] ;
-    for ( i = 0 ; i < nq ; i ++ ) {
-      Cp[str*ip+i] +=
-	H*(work[str*ic+4*nq+i] + work[str*ic+5*nq+i] +
-	   work[str*ic+6*nq+i] + work[str*ic+7*nq+i]) ;
-    }
-
-    E0ph[0] = cos_n_PI_4(nu) ; E0ph[1] = sin_n_PI_4(nu) ;
-    for ( m = 1 ; m <= n ; m ++ ) {
-      E0[0] = cos_n_PI_2(m) ; E0[1] = -sin_n_PI_2(m) ;
-      E1[0] = cos_n_PI_2(m) ; E1[1] =  sin_n_PI_2(m) ;
-
-      ic = wbfmm_index_laplace_nm(n,m) ;
-      increment_cfft_cp_real(E0, E1, &(work[str*ic]),
-			     H03[wbfmm_rotation_index_numn( nu,m,n)],
-			     H03[wbfmm_rotation_index_numn(-nu,m,n)],
-			     H47[wbfmm_rotation_index_numn( nu,m,n)],
-			     H47[wbfmm_rotation_index_numn(-nu,m,n)],
-			     nq, &(Cp[str*ip])) ;
-    }
-
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      E0ph[0] = cos_n_PI_4(  nu) ; E0ph[1] = sin_n_PI_4(  nu) ;
-      E1ph[0] = cos_n_PI_4(3*nu) ; E1ph[1] = sin_n_PI_4(3*nu) ;
-
-      ip = wbfmm_index_laplace_nm(n,nu) ;
-      m = 0 ; ic = n*n ;
-      H = H03[wbfmm_rotation_index_numn(nu,m,n)] ;
-      for ( i = 0 ; i < nq ; i ++ ) {
-      	Cp[str*(ip+0)+i] += work[str*ic+0*nq+i]*H*E0ph[0] ;
-      	Cp[str*(ip+1)+i] -= work[str*ic+0*nq+i]*H*E0ph[1] ;
-      	Cp[str*(ip+0)+i] += work[str*ic+1*nq+i]*H*E1ph[0] ;
-      	Cp[str*(ip+1)+i] -= work[str*ic+1*nq+i]*H*E1ph[1] ;
-
-      	Cp[str*(ip+0)+i] += work[str*ic+2*nq+i]*H*E0ph[0] ;
-      	Cp[str*(ip+1)+i] += work[str*ic+2*nq+i]*H*E0ph[1] ;
-
-      	Cp[str*(ip+0)+i] += work[str*ic+3*nq+i]*H*E1ph[0] ;
-      	Cp[str*(ip+1)+i] += work[str*ic+3*nq+i]*H*E1ph[1] ;
-      }
-      H = H47[wbfmm_rotation_index_numn(nu,m,n)] ;
-      for ( i = 0 ; i < nq ; i ++ ) {
-      	Cp[str*(ip+0)+i] += work[str*ic+4*nq+i]*H*E0ph[0] ;
-      	Cp[str*(ip+1)+i] -= work[str*ic+4*nq+i]*H*E0ph[1] ;
-      	Cp[str*(ip+0)+i] += work[str*ic+5*nq+i]*H*E1ph[0] ;
-      	Cp[str*(ip+1)+i] -= work[str*ic+5*nq+i]*H*E1ph[1] ;
-
-      	Cp[str*(ip+0)+i] += work[str*ic+6*nq+i]*H*E0ph[0] ;
-      	Cp[str*(ip+1)+i] += work[str*ic+6*nq+i]*H*E0ph[1] ;
-
-      	Cp[str*(ip+0)+i] += work[str*ic+7*nq+i]*H*E1ph[0] ;
-      	Cp[str*(ip+1)+i] += work[str*ic+7*nq+i]*H*E1ph[1] ;
-      }
-
-      for ( m = 1 ; m <= n ; m ++ ) {
-	E0[0] = cos_n_PI_2(m) ; E0[1] = -sin_n_PI_2(m) ;
-	E1[0] = cos_n_PI_2(m) ; E1[1] =  sin_n_PI_2(m) ;
-
-	ic = wbfmm_index_laplace_nm(n,m) ;
-	increment_cfft_cp_complex(E0, E1, E0ph, E1ph, &(work[str*ic]),
-				  H03[wbfmm_rotation_index_numn( nu,m,n)],
-				  H03[wbfmm_rotation_index_numn(-nu,m,n)],
-				  H47[wbfmm_rotation_index_numn( nu,m,n)],
-				  H47[wbfmm_rotation_index_numn(-nu,m,n)],
-				  nq, &(Cp[str*ip])) ;
-      }
-    }
-  }
-
-  /* { */
-  /*   gint off ; */
-  /*   off = 0 ; */
-  /*   fprintf(stderr, */
-  /* 	    "%lg %lg %lg %lg %lg %lg %lg %lg %lg\n", */
-  /* 	    Cp[0*str + off], */
-  /* 	    Cp[1*str + off], */
-  /* 	    Cp[(2+0)*str + off], Cp[(2+1)*str + off], */
-  /* 	    Cp[4*str + off], */
-  /* 	    Cp[(5+0)*str + off], Cp[(5+1)*str + off], */
-  /* 	    Cp[(7+0)*str + off], Cp[(7+1)*str + off]) ; */
+  /* n = _wbfmm_RR_coefficient_index_nmnu((N+4),0,0) ; */
+  /* _wbfmm_RR_coefficients_laplace = */
+  /*   (WBFMM_REAL *)g_malloc0(n*sizeof(WBFMM_REAL)) ; */
+  /* for ( n = 0 ; n <= N+3 ; n ++ ) { */
+  /*   for ( m = 0 ; m <= n ; m ++ ) { */
+  /*     for ( nu = m ; nu <= n ; nu ++ ) { */
+  /* 	i = _wbfmm_SS_coefficient_index_nmnu(n, m, nu) ; */
+  /* 	_wbfmm_SS_coefficients_laplace[i] = */
+  /* 	  coaxial_translation_SS_cfft(n, nu, m) ; */
+  /*     } */
+  /*   } */
   /* } */
   
   return 0 ;

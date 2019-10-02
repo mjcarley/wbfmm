@@ -36,7 +36,8 @@ libwbfmm_la_SOURCES = \
 	boxes.c \
 	shift.c \
 	pass.c \
-	laplace.c
+	laplace.c \
+	shift-laplace.c
 
 libwbfmm_f_la_SOURCES = \
 	wbfmm-private.h \
@@ -48,7 +49,8 @@ libwbfmm_f_la_SOURCES = \
 	boxes.c \
 	shift.c \
 	pass.c \
-	laplace.c
+	laplace.c \
+	shift-laplace.c
 
 
 documentation.c: documentation.c.in

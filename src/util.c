@@ -27,9 +27,11 @@
 
 #include "wbfmm-private.h"
 
-gint WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REAL *x,
-						 WBFMM_REAL *r, WBFMM_REAL *th,
-						 WBFMM_REAL *ph)
+gint WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0,
+						       WBFMM_REAL *x,
+						       WBFMM_REAL *r,
+						       WBFMM_REAL *th,
+						       WBFMM_REAL *ph)
 
 {
   *r = 
@@ -63,8 +65,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(WBFMM_REAL *x0, WBFMM_REA
 */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
-						   WBFMM_REAL **Pn, gint n,
-						   WBFMM_REAL C, WBFMM_REAL S)
+							 WBFMM_REAL **Pn,
+							 gint n,
+							 WBFMM_REAL C,
+							 WBFMM_REAL S)
 
 {
   gint m ;
@@ -89,8 +93,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(WBFMM_REAL C, WBFMM_REAL S, 
-					WBFMM_REAL *P0, WBFMM_REAL *P10,
-					WBFMM_REAL *P11)
+					      WBFMM_REAL *P0, WBFMM_REAL *P10,
+					      WBFMM_REAL *P11)
 
 {
   /*Cheng, Crutchfield, Gimbutas, Greengard, et al. normalization*/
@@ -135,7 +139,7 @@ static WBFMM_REAL wbfmm_bessel_j_n_series(gint n, WBFMM_REAL x)
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x, WBFMM_REAL *j0,
-					WBFMM_REAL *j1)
+					      WBFMM_REAL *j1)
 
 {
   if ( x > 0.0 ) {
@@ -148,8 +152,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(WBFMM_REAL x, WBFMM_REAL *j0,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1, WBFMM_REAL *jn, 
-					     WBFMM_REAL x, gint n)
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1,
+						   WBFMM_REAL *jn, 
+						   WBFMM_REAL x, gint n)
 
 {
   WBFMM_REAL jnp1, cutoff = n+1 ;
@@ -168,7 +173,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(WBFMM_REAL *jnm1, WBFMM_REAL 
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x, WBFMM_REAL *h0,
-					WBFMM_REAL *h1)
+					      WBFMM_REAL *h1)
 
 {
   h0[0] = SIN(x)/x ; h0[1] = -COS(x)/x ;
@@ -178,8 +183,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(WBFMM_REAL x, WBFMM_REAL *h0,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1, WBFMM_REAL *hn, 
-					     WBFMM_REAL x, gint n)
+gint WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(WBFMM_REAL *hnm1,
+						   WBFMM_REAL *hn, 
+						   WBFMM_REAL x, gint n)
 
 {
   WBFMM_REAL hnp1 ;
@@ -300,10 +306,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 
 
 gint WBFMM_FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
-					     WBFMM_REAL *xs, gint xstride,
-					     WBFMM_REAL *src, gint sstride,
-					     gint nsrc,
-					     WBFMM_REAL *xf, WBFMM_REAL *field)
+						   WBFMM_REAL *xs,
+						   gint xstride,
+						   WBFMM_REAL *src,
+						   gint sstride,
+						   gint nsrc,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field)
 
 {
   gint i ;
@@ -335,11 +344,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_dipole_field)(WBFMM_REAL k,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
-					     WBFMM_REAL *xs, gint xstride,
-					     WBFMM_REAL *ns, gint nstride,
-					     WBFMM_REAL *src, gint sstride,
-					     gint nsrc,
-					     WBFMM_REAL *xf, WBFMM_REAL *field)
+						   WBFMM_REAL *xs,
+						   gint xstride,
+						   WBFMM_REAL *ns,
+						   gint nstride,
+						   WBFMM_REAL *src,
+						   gint sstride,
+						   gint nsrc,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field)
 
 {
   gint i ;
@@ -364,9 +377,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_normal_field)(WBFMM_REAL k,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x, 
-					       WBFMM_REAL *ix, WBFMM_REAL *iy,
-					       WBFMM_REAL *iz,
-					       WBFMM_REAL *y)
+						     WBFMM_REAL *ix,
+						     WBFMM_REAL *iy,
+						     WBFMM_REAL *iz,
+						     WBFMM_REAL *y)
 
 /*
   transform point x to coordinate system (ix,iy,iz) so that
@@ -382,13 +396,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coordinate_transform)(WBFMM_REAL *x,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
-					    WBFMM_REAL *ix, WBFMM_REAL *iy,
-					    WBFMM_REAL *iz,
-					    WBFMM_REAL *r)
+						  WBFMM_REAL *ix,
+						  WBFMM_REAL *iy,
+						  WBFMM_REAL *iz,
+						  WBFMM_REAL *r)
 /*
   coordinate system for shift from x to y, with z axis = (y-x)/|y-x|
 */
-
 
 {
   WBFMM_REAL l ;
@@ -447,9 +461,12 @@ gint print_bits_uint(FILE *f, guint x)
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 level,
-						  WBFMM_REAL *x0, WBFMM_REAL D,
-						  WBFMM_REAL *x, WBFMM_REAL *wb)
+gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx,
+							guint32 level,
+							WBFMM_REAL *x0,
+							WBFMM_REAL D,
+							WBFMM_REAL *x,
+							WBFMM_REAL *wb)
 
 {
   guint nb ;
@@ -472,8 +489,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx, guint32 lev
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(wbfmm_tree_t *t, guint32 level,
-					  guint64 b, WBFMM_REAL *xb,
-					  WBFMM_REAL *wb)
+						guint64 b, WBFMM_REAL *xb,
+						WBFMM_REAL *wb)
 
 {
   WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(b, level, 
@@ -539,11 +556,11 @@ gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
-					      gint str, gint n,
-					      WBFMM_REAL *xmin,
-					      WBFMM_REAL *xmax,
-					      WBFMM_REAL *D,
-					      gboolean init_limits)
+						    gint str, gint n,
+						    WBFMM_REAL *xmin,
+						    WBFMM_REAL *xmax,
+						    WBFMM_REAL *D,
+						    gboolean init_limits)
 
 {
   /* WBFMM_REAL xmin[3] = {G_MAXFLOAT, G_MAXFLOAT, G_MAXFLOAT} ; */
@@ -589,8 +606,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles)(WBFMM_REAL *xi, WBFMM_REAL *xj,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
-					     WBFMM_REAL *q, gint stride,
-					     FILE *f)
+						   WBFMM_REAL *q, gint stride,
+						   FILE *f)
 
 {
   guint i, idx ;

@@ -266,6 +266,8 @@ gint wbfmm_expansion_laplace_local_evaluate_f(gfloat *x0, gfloat *cfft,
 					      gint cstr, gint N, gint nq,
 					      gfloat *xf, gfloat *field,
 					      gfloat *work) ;
+gint wbfmm_coaxial_translate_laplace_init(gint N) ;
+gint wbfmm_coaxial_translate_laplace_init_f(gint N) ;
 
 gint wbfmm_expansion_laplace_cfft_f(gint N, gfloat *x0,
 				    gfloat *xs, gfloat *q, gint nq,
@@ -315,6 +317,20 @@ gint wbfmm_child_parent_shift_laplace(gdouble *Cp, gint Np,
 				      gdouble *work) ;
 gint wbfmm_child_parent_shift_laplace_f(gfloat *Cp, gint Np,
 					gfloat *Cc, gint Nc,
+					gint nq,
+					gfloat *H03, gfloat *H47,
+					gint Lh,
+					gfloat t,
+					gfloat *work) ;
+gint wbfmm_parent_child_shift_laplace(gdouble *Cc, gint Nc,
+				      gdouble *Cp, gint Np,
+				      gint nq,
+				      gdouble *H03, gdouble *H47,
+				      gint Lh,
+				      gdouble t,
+				      gdouble *work) ;
+gint wbfmm_parent_child_shift_laplace_f(gfloat *Cc, gint Nc,
+					gfloat *Cp, gint Np,
 					gint nq,
 					gfloat *H03, gfloat *H47,
 					gint Lh,

@@ -33,7 +33,7 @@
 #include "wbfmm-private.h"
 
 extern gint _wbfmm_shift_angles[] ;
-extern WBFMM_REAL _shifts_ph[], _shifts_ch[] ;
+extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[] ;
 
 gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 					      wbfmm_shift_operators_t *op,
@@ -88,9 +88,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
       
       /*rotation angles \phi and \chi*/
       iph =  _wbfmm_shift_angles[4*idx4+1] ;
-      ph = (iph >= 0 ? _shifts_ph[iph-1] : -_shifts_ph[-1-iph]) ;
+      ph = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       iph =  _wbfmm_shift_angles[4*idx4+2] ;
-      ch = (iph >= 0 ? _shifts_ph[iph-1] : -_shifts_ph[-1-iph]) ;
+      ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
       /*clear workspace*/
       memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
@@ -131,8 +131,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
-				      wbfmm_shift_operators_t *op,
-				      guint level, WBFMM_REAL *work)
+					    wbfmm_shift_operators_t *op,
+					    guint level, WBFMM_REAL *work)
 
 {
   guint np, Np, Nc ;

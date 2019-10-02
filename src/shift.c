@@ -34,9 +34,9 @@
 
 #include <stdio.h>
 
-WBFMM_REAL _shifts_th[49] = {0.0} ;
-WBFMM_REAL _shifts_ph[17] = {0.0} ;
-WBFMM_REAL _shifts_r[19] = {0.0} ;
+WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ;
+WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ;
+WBFMM_REAL _wbfmm_shifts_r[19] = {0.0} ;
 /* extern WBFMM_REAL _shifts_th[], _shifts_ph[] ; */
 
 extern gint _wbfmm_shift_angles[] ;
@@ -519,19 +519,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angles_list4)(gint i, gint j, gint k,
   ip = _wbfmm_shift_angles[str*idx+0] ;
   /*64 used as placeholder for i==j==k==0, to keep indexing consistent*/
   g_assert(ip < 49) ; 
-  *th = _shifts_th[ip] ;
+  *th = _wbfmm_shifts_th[ip] ;
 
   ip = _wbfmm_shift_angles[str*idx+1] ;
   g_assert(ip != 64) ;
-  *ph = (ip >= 0 ? _shifts_ph[ip-1] : -_shifts_ph[-1-ip]) ;
+  *ph = (ip >= 0 ? _wbfmm_shifts_ph[ip-1] : -_wbfmm_shifts_ph[-1-ip]) ;
 
   ip = _wbfmm_shift_angles[str*idx+2] ;
   g_assert(ip != 64) ;
-  *ch = (ip >= 0 ? _shifts_ph[ip-1] : -_shifts_ph[-1-ip]) ;
+  *ch = (ip >= 0 ? _wbfmm_shifts_ph[ip-1] : -_wbfmm_shifts_ph[-1-ip]) ;
 
   ip = _wbfmm_shift_angles[str*idx+3] ;
   g_assert(ip >= 0 && ip < 19) ;
-  *rs = _shifts_r[ip] ;
+  *rs = _wbfmm_shifts_r[ip] ;
 
   return 0 ;
 }
@@ -545,94 +545,94 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(void)
     half
    */
 
-  _shifts_th[ 0] = ACOS(-SQRT(9.0/9)) ;
-  _shifts_th[ 1] = ACOS(-SQRT(9.0/10)) ;
-  _shifts_th[ 2] = ACOS(-SQRT(9.0/11)) ;
-  _shifts_th[ 3] = ACOS(-SQRT(4.0/5)) ;
-  _shifts_th[ 4] = ACOS(-SQRT(9.0/13)) ;
-  _shifts_th[ 5] = ACOS(-SQRT(4.0/6)) ;
-  _shifts_th[ 6] = ACOS(-SQRT(9.0/14)) ;
-  _shifts_th[ 7] = ACOS(-SQRT(9.0/17)) ;
-  _shifts_th[ 8] = ACOS(-SQRT(9.0/18)) ;
-  _shifts_th[ 9] = ACOS(-SQRT(9.0/19)) ;
-  _shifts_th[10] = ACOS(-SQRT(4.0/9)) ;
-  _shifts_th[11] = ACOS(-SQRT(9.0/22)) ;
-  _shifts_th[12] = ACOS(-SQRT(9.0/27)) ;
-  _shifts_th[13] = ACOS(-SQRT(4.0/13)) ;
-  _shifts_th[14] = ACOS(-SQRT(4.0/14)) ;
-  _shifts_th[15] = ACOS(-SQRT(4.0/17)) ;
-  _shifts_th[16] = ACOS(-SQRT(1.0/5)) ;
-  _shifts_th[17] = ACOS(-SQRT(4.0/22)) ;
-  _shifts_th[18] = ACOS(-SQRT(1.0/6)) ;
-  _shifts_th[19] = ACOS(-SQRT(1.0/9)) ;
-  _shifts_th[20] = ACOS(-SQRT(1.0/10)) ;
-  _shifts_th[21] = ACOS(-SQRT(1.0/11)) ;
-  _shifts_th[22] = ACOS(-SQRT(1.0/14)) ;
-  _shifts_th[23] = ACOS(-SQRT(1.0/19)) ;
-  _shifts_th[24] = ACOS( SQRT(0.0/18)) ;
+  _wbfmm_shifts_th[ 0] = ACOS(-SQRT(9.0/9)) ;
+  _wbfmm_shifts_th[ 1] = ACOS(-SQRT(9.0/10)) ;
+  _wbfmm_shifts_th[ 2] = ACOS(-SQRT(9.0/11)) ;
+  _wbfmm_shifts_th[ 3] = ACOS(-SQRT(4.0/5)) ;
+  _wbfmm_shifts_th[ 4] = ACOS(-SQRT(9.0/13)) ;
+  _wbfmm_shifts_th[ 5] = ACOS(-SQRT(4.0/6)) ;
+  _wbfmm_shifts_th[ 6] = ACOS(-SQRT(9.0/14)) ;
+  _wbfmm_shifts_th[ 7] = ACOS(-SQRT(9.0/17)) ;
+  _wbfmm_shifts_th[ 8] = ACOS(-SQRT(9.0/18)) ;
+  _wbfmm_shifts_th[ 9] = ACOS(-SQRT(9.0/19)) ;
+  _wbfmm_shifts_th[10] = ACOS(-SQRT(4.0/9)) ;
+  _wbfmm_shifts_th[11] = ACOS(-SQRT(9.0/22)) ;
+  _wbfmm_shifts_th[12] = ACOS(-SQRT(9.0/27)) ;
+  _wbfmm_shifts_th[13] = ACOS(-SQRT(4.0/13)) ;
+  _wbfmm_shifts_th[14] = ACOS(-SQRT(4.0/14)) ;
+  _wbfmm_shifts_th[15] = ACOS(-SQRT(4.0/17)) ;
+  _wbfmm_shifts_th[16] = ACOS(-SQRT(1.0/5)) ;
+  _wbfmm_shifts_th[17] = ACOS(-SQRT(4.0/22)) ;
+  _wbfmm_shifts_th[18] = ACOS(-SQRT(1.0/6)) ;
+  _wbfmm_shifts_th[19] = ACOS(-SQRT(1.0/9)) ;
+  _wbfmm_shifts_th[20] = ACOS(-SQRT(1.0/10)) ;
+  _wbfmm_shifts_th[21] = ACOS(-SQRT(1.0/11)) ;
+  _wbfmm_shifts_th[22] = ACOS(-SQRT(1.0/14)) ;
+  _wbfmm_shifts_th[23] = ACOS(-SQRT(1.0/19)) ;
+  _wbfmm_shifts_th[24] = ACOS( SQRT(0.0/18)) ;
 
-  _shifts_th[25] = ACOS(SQRT(1.0/19)) ;
-  _shifts_th[26] = ACOS(SQRT(1.0/14)) ;
-  _shifts_th[27] = ACOS(SQRT(1.0/11)) ;
-  _shifts_th[28] = ACOS(SQRT(1.0/10)) ;
-  _shifts_th[29] = ACOS(SQRT(1.0/9)) ;
-  _shifts_th[30] = ACOS(SQRT(1.0/6)) ;
-  _shifts_th[31] = ACOS(SQRT(4.0/22)) ;
-  _shifts_th[32] = ACOS(SQRT(1.0/5)) ;
-  _shifts_th[33] = ACOS(SQRT(4.0/17)) ;
-  _shifts_th[34] = ACOS(SQRT(4.0/14)) ;
-  _shifts_th[35] = ACOS(SQRT(4.0/13)) ;
-  _shifts_th[36] = ACOS(SQRT(9.0/27)) ;
-  _shifts_th[37] = ACOS(SQRT(9.0/22)) ;
-  _shifts_th[38] = ACOS(SQRT(4.0/9)) ;
-  _shifts_th[39] = ACOS(SQRT(9.0/19)) ;
-  _shifts_th[40] = ACOS(SQRT(9.0/18)) ;
-  _shifts_th[41] = ACOS(SQRT(9.0/17)) ;
-  _shifts_th[42] = ACOS(SQRT(9.0/14)) ;
-  _shifts_th[43] = ACOS(SQRT(4.0/6)) ;
-  _shifts_th[44] = ACOS(SQRT(9.0/13)) ;
-  _shifts_th[45] = ACOS(SQRT(4.0/5)) ;
-  _shifts_th[46] = ACOS(SQRT(9.0/11)) ;
-  _shifts_th[47] = ACOS(SQRT(9.0/10)) ;
-  _shifts_th[48] = ACOS(SQRT(9.0/9)) ;
+  _wbfmm_shifts_th[25] = ACOS(SQRT(1.0/19)) ;
+  _wbfmm_shifts_th[26] = ACOS(SQRT(1.0/14)) ;
+  _wbfmm_shifts_th[27] = ACOS(SQRT(1.0/11)) ;
+  _wbfmm_shifts_th[28] = ACOS(SQRT(1.0/10)) ;
+  _wbfmm_shifts_th[29] = ACOS(SQRT(1.0/9)) ;
+  _wbfmm_shifts_th[30] = ACOS(SQRT(1.0/6)) ;
+  _wbfmm_shifts_th[31] = ACOS(SQRT(4.0/22)) ;
+  _wbfmm_shifts_th[32] = ACOS(SQRT(1.0/5)) ;
+  _wbfmm_shifts_th[33] = ACOS(SQRT(4.0/17)) ;
+  _wbfmm_shifts_th[34] = ACOS(SQRT(4.0/14)) ;
+  _wbfmm_shifts_th[35] = ACOS(SQRT(4.0/13)) ;
+  _wbfmm_shifts_th[36] = ACOS(SQRT(9.0/27)) ;
+  _wbfmm_shifts_th[37] = ACOS(SQRT(9.0/22)) ;
+  _wbfmm_shifts_th[38] = ACOS(SQRT(4.0/9)) ;
+  _wbfmm_shifts_th[39] = ACOS(SQRT(9.0/19)) ;
+  _wbfmm_shifts_th[40] = ACOS(SQRT(9.0/18)) ;
+  _wbfmm_shifts_th[41] = ACOS(SQRT(9.0/17)) ;
+  _wbfmm_shifts_th[42] = ACOS(SQRT(9.0/14)) ;
+  _wbfmm_shifts_th[43] = ACOS(SQRT(4.0/6)) ;
+  _wbfmm_shifts_th[44] = ACOS(SQRT(9.0/13)) ;
+  _wbfmm_shifts_th[45] = ACOS(SQRT(4.0/5)) ;
+  _wbfmm_shifts_th[46] = ACOS(SQRT(9.0/11)) ;
+  _wbfmm_shifts_th[47] = ACOS(SQRT(9.0/10)) ;
+  _wbfmm_shifts_th[48] = ACOS(SQRT(9.0/9)) ;
 
-  _shifts_ph[ 0] = 0.0 ;
-  _shifts_ph[ 1] = ATAN2(1,  3) ;
-  _shifts_ph[ 2] = ATAN2(1,  2) ;
-  _shifts_ph[ 3] = ATAN2(2,  3) ;
-  _shifts_ph[ 4] = ATAN2(1,  1) ;
-  _shifts_ph[ 5] = ATAN2(3,  2) ;
-  _shifts_ph[ 6] = ATAN2(2,  1) ;
-  _shifts_ph[ 7] = ATAN2(3,  1) ;
-  _shifts_ph[ 8] = ATAN2(1,  0) ;
-  _shifts_ph[ 9] = ATAN2(3, -1) ;
-  _shifts_ph[10] = ATAN2(2, -1) ;
-  _shifts_ph[11] = ATAN2(3, -2) ;
-  _shifts_ph[12] = ATAN2(1, -1) ;
-  _shifts_ph[13] = ATAN2(2, -3) ;
-  _shifts_ph[14] = ATAN2(1, -2) ;
-  _shifts_ph[15] = ATAN2(1, -3) ;
-  _shifts_ph[16] = M_PI ;
+  _wbfmm_shifts_ph[ 0] = 0.0 ;
+  _wbfmm_shifts_ph[ 1] = ATAN2(1,  3) ;
+  _wbfmm_shifts_ph[ 2] = ATAN2(1,  2) ;
+  _wbfmm_shifts_ph[ 3] = ATAN2(2,  3) ;
+  _wbfmm_shifts_ph[ 4] = ATAN2(1,  1) ;
+  _wbfmm_shifts_ph[ 5] = ATAN2(3,  2) ;
+  _wbfmm_shifts_ph[ 6] = ATAN2(2,  1) ;
+  _wbfmm_shifts_ph[ 7] = ATAN2(3,  1) ;
+  _wbfmm_shifts_ph[ 8] = ATAN2(1,  0) ;
+  _wbfmm_shifts_ph[ 9] = ATAN2(3, -1) ;
+  _wbfmm_shifts_ph[10] = ATAN2(2, -1) ;
+  _wbfmm_shifts_ph[11] = ATAN2(3, -2) ;
+  _wbfmm_shifts_ph[12] = ATAN2(1, -1) ;
+  _wbfmm_shifts_ph[13] = ATAN2(2, -3) ;
+  _wbfmm_shifts_ph[14] = ATAN2(1, -2) ;
+  _wbfmm_shifts_ph[15] = ATAN2(1, -3) ;
+  _wbfmm_shifts_ph[16] = M_PI ;
 
-  _shifts_r[ 0] = SQRT( 0.0) ;
-  _shifts_r[ 1] = SQRT( 1.0) ;
-  _shifts_r[ 2] = SQRT( 2.0) ;
-  _shifts_r[ 3] = SQRT( 3.0) ;
-  _shifts_r[ 4] = SQRT( 4.0) ;
-  _shifts_r[ 5] = SQRT( 5.0) ;
-  _shifts_r[ 6] = SQRT( 6.0) ;
-  _shifts_r[ 7] = SQRT( 8.0) ;
-  _shifts_r[ 8] = SQRT( 9.0) ;
-  _shifts_r[ 9] = SQRT(10.0) ;
-  _shifts_r[10] = SQRT(11.0) ;
-  _shifts_r[11] = SQRT(12.0) ;
-  _shifts_r[12] = SQRT(13.0) ;
-  _shifts_r[13] = SQRT(14.0) ;
-  _shifts_r[14] = SQRT(17.0) ;
-  _shifts_r[15] = SQRT(18.0) ;
-  _shifts_r[16] = SQRT(19.0) ;
-  _shifts_r[17] = SQRT(22.0) ;
-  _shifts_r[18] = SQRT(27.0) ;
+  _wbfmm_shifts_r[ 0] = SQRT( 0.0) ;
+  _wbfmm_shifts_r[ 1] = SQRT( 1.0) ;
+  _wbfmm_shifts_r[ 2] = SQRT( 2.0) ;
+  _wbfmm_shifts_r[ 3] = SQRT( 3.0) ;
+  _wbfmm_shifts_r[ 4] = SQRT( 4.0) ;
+  _wbfmm_shifts_r[ 5] = SQRT( 5.0) ;
+  _wbfmm_shifts_r[ 6] = SQRT( 6.0) ;
+  _wbfmm_shifts_r[ 7] = SQRT( 8.0) ;
+  _wbfmm_shifts_r[ 8] = SQRT( 9.0) ;
+  _wbfmm_shifts_r[ 9] = SQRT(10.0) ;
+  _wbfmm_shifts_r[10] = SQRT(11.0) ;
+  _wbfmm_shifts_r[11] = SQRT(12.0) ;
+  _wbfmm_shifts_r[12] = SQRT(13.0) ;
+  _wbfmm_shifts_r[13] = SQRT(14.0) ;
+  _wbfmm_shifts_r[14] = SQRT(17.0) ;
+  _wbfmm_shifts_r[15] = SQRT(18.0) ;
+  _wbfmm_shifts_r[16] = SQRT(19.0) ;
+  _wbfmm_shifts_r[17] = SQRT(22.0) ;
+  _wbfmm_shifts_r[18] = SQRT(27.0) ;
 
   return 0 ;
 }
@@ -657,7 +657,7 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
 
   op->Lmax = L ;
 
-  if ( _shifts_th[1] == 0.0 ) 
+  if ( _wbfmm_shifts_th[1] == 0.0 ) 
     g_error("%s: rotation table not initiated; call "
 	    "wbfmm_shift_angle_table_init()", 
 	    __FUNCTION__) ;
@@ -668,10 +668,10 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
   /*rotations are the same at all levels, so allocate them here*/
   rotations = op->rotations = g_malloc(49*nerot*sizeof(WBFMM_REAL)) ;
 
-  /*first (0,\pi) rotations, as listed in _shifts_th*/
+  /*first (0,\pi) rotations, as listed in _wbfmm_shifts_th*/
   for ( i = 0 ; i < 49 ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(&(rotations[i*nerot]),
-						 L, _shifts_th[i], work) ;
+						 L, _wbfmm_shifts_th[i], work) ;
   }
 
   for ( i = 0 ; i < WBFMM_TREE_MAX_DEPTH+1 ; i ++ ) {
@@ -705,7 +705,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
 
   for ( i = 0 ; i < 19 ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
-      (&(SR[i*2*ne]), L, k*wb*_shifts_r[i], work) ;    
+      (&(SR[i*2*ne]), L, k*wb*_wbfmm_shifts_r[i], work) ;    
   }
 
   return 0 ;
