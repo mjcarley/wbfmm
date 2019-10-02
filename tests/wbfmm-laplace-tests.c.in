@@ -725,8 +725,8 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
     break ;
   }
   
-  /* xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.3*wb ; xe[2] = xc[2] + 0.4*wb ; */
-  xe[0] = xc[0] ; xe[1] = xc[1] ; xe[2] = xc[2] ;
+  xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.3*wb ; xe[2] = xc[2] + 0.4*wb ;
+  /* xe[0] = xc[0] ; xe[1] = xc[1] ; xe[2] = xc[2] ; */
   wbfmm_expansion_laplace_local_evaluate_PREC(xp, Cp, 8*nq,
 					      Np, nq, xe, fp, work) ;
 
@@ -741,22 +741,22 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   wbfmm_expansion_laplace_local_evaluate_PREC(xc, crr, nq,
 					      Nc, nq, xe, fs, work) ;
     
-  check = cr ;
-  for ( n = 0 ; n <= 2 ; n ++ ) {
-    i = n*n ; nu = 0 ;
-    fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu,
-	    check[i*nq+0], Cc[8*nq*i+nq*quad+0],
-	    fabs(check[i*nq+0]-Cc[8*nq*i+nq*quad+0])) ;
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      i = wbfmm_index_laplace_nm(n,nu) ;
-      fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu,
-	      check[(2*i+0)*nq+0], Cc[8*nq*(2*i+0)+nq*quad+0],
-	      fabs(check[(2*i+0)*nq+0]-Cc[8*nq*(2*i+0)+nq*quad+0])) ;
-      fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu,
-	      check[(2*i+1)*nq+0], Cc[8*nq*(2*i+1)+nq*quad+0],
-	      fabs(check[(2*i+1)*nq+0]-Cc[8*nq*(2*i+1)+nq*quad+0])) ;
-    }
-  }
+  check = crr ;
+  /* for ( n = 0 ; n <= 2 ; n ++ ) { */
+  /*   i = n*n ; nu = 0 ; */
+  /*   fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu, */
+  /* 	    check[i*nq+0], Cc[8*nq*i+nq*quad+0], */
+  /* 	    fabs(check[i*nq+0]-Cc[8*nq*i+nq*quad+0])) ; */
+  /*   for ( nu = 1 ; nu <= n ; nu ++ ) { */
+  /*     i = wbfmm_index_laplace_nm(n,nu) ; */
+  /*     fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu, */
+  /* 	      check[(i+0)*nq+0], Cc[8*nq*(i+0)+nq*quad+0], */
+  /* 	      fabs(check[(i+0)*nq+0]-Cc[8*nq*(i+0)+nq*quad+0])) ; */
+  /*     fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu, */
+  /* 	      check[(i+1)*nq+0], Cc[8*nq*(i+1)+nq*quad+0], */
+  /* 	      fabs(check[(i+1)*nq+0]-Cc[8*nq*(i+1)+nq*quad+0])) ; */
+  /*   } */
+  /* } */
   
   wbfmm_expansion_laplace_local_evaluate_PREC(xc, &(Cc[quad*nq]), nq*8,
 					      Nc, nq, xe, fc, work) ;
@@ -834,7 +834,7 @@ gint main(gint argc, gchar **argv)
 
   timer = g_timer_new() ;
 
-  wbfmm_coaxial_translate_laplace_init_PREC(N+32) ;
+  wbfmm_coaxial_translate_laplace_init_PREC(N+2) ;
   
   if ( ipfile != NULL ) {
     read_data(ipfile, xc, x0, &xs, &src, &nsrc, &xstride, &sstride,
