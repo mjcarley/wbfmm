@@ -92,7 +92,11 @@ bin_PROGRAMS = wbfmm-tests$(EXEEXT) wbfmm-tests-avx$(EXEEXT) \
 	wbfmm-tree-calc$(EXEEXT) wbfmm-tests-float$(EXEEXT) \
 	wbfmm-tree-calc-float$(EXEEXT) wbfmm-direct-calc$(EXEEXT) \
 	wbfmm-direct-calc-float$(EXEEXT) wbfmm-laplace-tests$(EXEEXT) \
-	wbfmm-laplace-tests-float$(EXEEXT)
+	wbfmm-laplace-tests-float$(EXEEXT) \
+	wbfmm-laplace-tree-calc$(EXEEXT) \
+	wbfmm-laplace-tree-calc-float$(EXEEXT) \
+	wbfmm-laplace-direct-calc$(EXEEXT) \
+	wbfmm-laplace-direct-calc-float$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -122,6 +126,19 @@ wbfmm_direct_calc_float_OBJECTS = wbfmm-direct-calc-float.$(OBJEXT)
 wbfmm_direct_calc_float_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_direct_calc_SOURCES = wbfmm-laplace-direct-calc.c
+wbfmm_laplace_direct_calc_OBJECTS =  \
+	wbfmm-laplace-direct-calc.$(OBJEXT)
+wbfmm_laplace_direct_calc_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_direct_calc_float_SOURCES =  \
+	wbfmm-laplace-direct-calc-float.c
+wbfmm_laplace_direct_calc_float_OBJECTS =  \
+	wbfmm-laplace-direct-calc-float.$(OBJEXT)
+wbfmm_laplace_direct_calc_float_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
 wbfmm_laplace_tests_SOURCES = wbfmm-laplace-tests.c
 wbfmm_laplace_tests_OBJECTS = wbfmm-laplace-tests.$(OBJEXT)
 wbfmm_laplace_tests_DEPENDENCIES =  \
@@ -131,6 +148,18 @@ wbfmm_laplace_tests_float_SOURCES = wbfmm-laplace-tests-float.c
 wbfmm_laplace_tests_float_OBJECTS =  \
 	wbfmm-laplace-tests-float.$(OBJEXT)
 wbfmm_laplace_tests_float_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tree_calc_SOURCES = wbfmm-laplace-tree-calc.c
+wbfmm_laplace_tree_calc_OBJECTS = wbfmm-laplace-tree-calc.$(OBJEXT)
+wbfmm_laplace_tree_calc_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tree_calc_float_SOURCES =  \
+	wbfmm-laplace-tree-calc-float.c
+wbfmm_laplace_tree_calc_float_OBJECTS =  \
+	wbfmm-laplace-tree-calc-float.$(OBJEXT)
+wbfmm_laplace_tree_calc_float_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 wbfmm_tests_SOURCES = wbfmm-tests.c
@@ -176,8 +205,12 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/wbfmm-direct-calc-float.Po \
 	./$(DEPDIR)/wbfmm-direct-calc.Po \
+	./$(DEPDIR)/wbfmm-laplace-direct-calc-float.Po \
+	./$(DEPDIR)/wbfmm-laplace-direct-calc.Po \
 	./$(DEPDIR)/wbfmm-laplace-tests-float.Po \
 	./$(DEPDIR)/wbfmm-laplace-tests.Po \
+	./$(DEPDIR)/wbfmm-laplace-tree-calc-float.Po \
+	./$(DEPDIR)/wbfmm-laplace-tree-calc.Po \
 	./$(DEPDIR)/wbfmm-tests-float.Po ./$(DEPDIR)/wbfmm-tests.Po \
 	./$(DEPDIR)/wbfmm-tree-calc-float.Po \
 	./$(DEPDIR)/wbfmm-tree-calc.Po \
@@ -202,11 +235,15 @@ am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
+	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
 	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
+	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
 	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
 	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
 DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
+	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
 	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
+	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
 	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
 	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
 am__can_run_installinfo = \
@@ -371,7 +408,12 @@ top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(includedir)
 DEPS = $(top_builddir)/src/libwbfmm.la
-EXTRA_DIST = wbfmm-test.c.in wbfmm-tree-calc.c.in
+EXTRA_DIST = \
+	wbfmm-tests.c.in wbfmm-tree-calc.c.in \
+	wbfmm-direct-calc.c.in \
+	wbfmm-laplace-tests.c.in wbfmm-laplace-tree-calc.c.in \
+	make-source make-source-float
+
 BUILT_SOURCES = \
 	wbfmm-tests.c \
 	wbfmm-tree-calc.c \
@@ -380,12 +422,19 @@ BUILT_SOURCES = \
 	wbfmm-tree-calc-float.c \
 	wbfmm-direct-calc-float.c \
 	wbfmm-laplace-tests.c \
-	wbfmm-laplace-tests-float.c
+	wbfmm-laplace-tests-float.c \
+	wbfmm-laplace-tree-calc.c \
+	wbfmm-laplace-tree-calc-float.c \
+	wbfmm-laplace-direct-calc.c \
+	wbfmm-laplace-direct-calc-float.c
 
-CLEANFILES = wbfmm-tests.c wbfmm-tests-float.c \
+CLEANFILES = \
+	wbfmm-tests.c wbfmm-tests-float.c \
 	wbfmm-tree-calc.c wbfmm-tree-calc-float.c \
 	wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
-	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c
+	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
+	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
+	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c 
 
 wbfmm_tests_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
@@ -422,6 +471,22 @@ wbfmm_laplace_tests_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
 wbfmm_laplace_tests_float_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tree_calc_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tree_calc_float_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm_f.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_direct_calc_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_direct_calc_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
@@ -517,6 +582,14 @@ wbfmm-direct-calc-float$(EXEEXT): $(wbfmm_direct_calc_float_OBJECTS) $(wbfmm_dir
 	@rm -f wbfmm-direct-calc-float$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_direct_calc_float_OBJECTS) $(wbfmm_direct_calc_float_LDADD) $(LIBS)
 
+wbfmm-laplace-direct-calc$(EXEEXT): $(wbfmm_laplace_direct_calc_OBJECTS) $(wbfmm_laplace_direct_calc_DEPENDENCIES) $(EXTRA_wbfmm_laplace_direct_calc_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-direct-calc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_direct_calc_OBJECTS) $(wbfmm_laplace_direct_calc_LDADD) $(LIBS)
+
+wbfmm-laplace-direct-calc-float$(EXEEXT): $(wbfmm_laplace_direct_calc_float_OBJECTS) $(wbfmm_laplace_direct_calc_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_direct_calc_float_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-direct-calc-float$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_direct_calc_float_OBJECTS) $(wbfmm_laplace_direct_calc_float_LDADD) $(LIBS)
+
 wbfmm-laplace-tests$(EXEEXT): $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tests_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_DEPENDENCIES) 
 	@rm -f wbfmm-laplace-tests$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tests_LDADD) $(LIBS)
@@ -524,6 +597,14 @@ wbfmm-laplace-tests$(EXEEXT): $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tes
 wbfmm-laplace-tests-float$(EXEEXT): $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_float_DEPENDENCIES) 
 	@rm -f wbfmm-laplace-tests-float$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_LDADD) $(LIBS)
+
+wbfmm-laplace-tree-calc$(EXEEXT): $(wbfmm_laplace_tree_calc_OBJECTS) $(wbfmm_laplace_tree_calc_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tree_calc_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tree-calc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tree_calc_OBJECTS) $(wbfmm_laplace_tree_calc_LDADD) $(LIBS)
+
+wbfmm-laplace-tree-calc-float$(EXEEXT): $(wbfmm_laplace_tree_calc_float_OBJECTS) $(wbfmm_laplace_tree_calc_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tree_calc_float_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tree-calc-float$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tree_calc_float_OBJECTS) $(wbfmm_laplace_tree_calc_float_LDADD) $(LIBS)
 
 wbfmm-tests$(EXEEXT): $(wbfmm_tests_OBJECTS) $(wbfmm_tests_DEPENDENCIES) $(EXTRA_wbfmm_tests_DEPENDENCIES) 
 	@rm -f wbfmm-tests$(EXEEXT)
@@ -553,8 +634,12 @@ distclean-compile:
 
 include ./$(DEPDIR)/wbfmm-direct-calc-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-direct-calc.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-direct-calc-float.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-direct-calc.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-laplace-tests-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-laplace-tests.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-tree-calc-float.Po # am--include-marker
+include ./$(DEPDIR)/wbfmm-laplace-tree-calc.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tests-float.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tests.Po # am--include-marker
 include ./$(DEPDIR)/wbfmm-tree-calc-float.Po # am--include-marker
@@ -744,8 +829,12 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/wbfmm-direct-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-direct-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-direct-calc-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-direct-calc.Po
 	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tree-calc-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tree-calc.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc-float.Po
@@ -798,8 +887,12 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/wbfmm-direct-calc-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-direct-calc.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-direct-calc-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-direct-calc.Po
 	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-laplace-tests.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tree-calc-float.Po
+	-rm -f ./$(DEPDIR)/wbfmm-laplace-tree-calc.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests-float.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tests.Po
 	-rm -f ./$(DEPDIR)/wbfmm-tree-calc-float.Po
@@ -843,44 +936,40 @@ uninstall-am: uninstall-binPROGRAMS
 
 
 wbfmm-tests.c: wbfmm-tests.c.in
-	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-tests.c.in > wbfmm-tests.c
+	./make-source wbfmm-tests
 
 wbfmm-tests-float.c: wbfmm-tests.c.in
-	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-tests.c.in > wbfmm-tests-float.c
+	./make-source-float wbfmm-tests
 
 wbfmm-tree-calc.c: wbfmm-tree-calc.c.in
-	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-tree-calc.c.in > wbfmm-tree-calc.c
+	./make-source wbfmm-tree-calc
 
 wbfmm-tree-calc-float.c: wbfmm-tree-calc.c.in
-	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-tree-calc.c.in > wbfmm-tree-calc-float.c
+	./make-source-float wbfmm-tree-calc
 
 wbfmm-direct-calc.c: wbfmm-direct-calc.c.in
-	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-direct-calc.c.in > wbfmm-direct-calc.c
+	./make-source wbfmm-direct-calc
 
 wbfmm-direct-calc-float.c: wbfmm-direct-calc.c.in
-	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-direct-calc.c.in > wbfmm-direct-calc-float.c
+	./make-source-float wbfmm-direct-calc
 
 wbfmm-laplace-tests.c: wbfmm-laplace-tests.c.in
-	sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests.c
+	./make-source wbfmm-laplace-tests
 
 wbfmm-laplace-tests-float.c: wbfmm-laplace-tests.c.in
-	sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
-	-e s/FLOATEXP/1.16e/g \
-	wbfmm-laplace-tests.c.in > wbfmm-laplace-tests-float.c
+	./make-source-float wbfmm-laplace-tests
+
+wbfmm-laplace-tree-calc.c: wbfmm-laplace-tree-calc.c.in
+	./make-source wbfmm-laplace-tree-calc
+
+wbfmm-laplace-tree-calc-float.c: wbfmm-laplace-tree-calc.c.in
+	./make-source-float wbfmm-laplace-tree-calc
+
+wbfmm-laplace-direct-calc.c: wbfmm-laplace-direct-calc.c.in
+	./make-source wbfmm-laplace-direct-calc
+
+wbfmm-laplace-direct-calc-float.c: wbfmm-laplace-direct-calc.c.in
+	./make-source-float wbfmm-laplace-direct-calc
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

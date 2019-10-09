@@ -80,6 +80,7 @@ typedef struct {
   maxpoints, /**< maximum number of points in tree */
     npoints, /**< number of points in tree */
     *ip, /**< indices of points, sorted by Morton index */
+    nq, /**< number of source components*/
     depth, /**< depth of tree */
     order_s[WBFMM_TREE_MAX_DEPTH+1], 
   /**< order of singular expansions at each level */
@@ -127,6 +128,7 @@ typedef struct {
 #define wbfmm_tree_width(_t)  ((_t)->D)
 #define wbfmm_tree_origin(_t) ((gpointer)(&((_t)->x[0]))) 
 #define wbfmm_tree_problem(_t) ((_t)->problem)
+#define wbfmm_tree_source_size(_t) ((_t)->nq)
 
 #define wbfmm_element_number_coaxial(_N)			\
   ( ((_N)+1)*((_N)+2)*((_N)+3)/6 + ((_N)+1)*((_N)+2)/2 + (_N)+1)

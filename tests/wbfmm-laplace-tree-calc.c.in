@@ -75,9 +75,9 @@ gint main(gint argc, gchar **argv)
 {
   wbfmm_tree_t *tree ;
   wbfmm_shift_operators_t *shifts ;
-  WBFMM_REAL k, D, xtree[3] = {0.0}, xtmax[3], *sources ;
+  WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *sources ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, i, str, strf, nf, qstr, nstr, dstr ;
+  gint nsrc, nq, i, str, strf, nf, qstr, nstr, dstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
@@ -85,7 +85,7 @@ gint main(gint argc, gchar **argv)
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box ;
 
-  k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+  D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ; str = 5 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   /* order_s = 8 ; order_r = 8 ; */
@@ -97,7 +97,7 @@ gint main(gint argc, gchar **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hbcD:d:f:k:O:R:s:S:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hbcD:d:f:O:R:s:S:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -111,14 +111,13 @@ gint main(gint argc, gchar **argv)
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%FLOATFMT)\n"
 	      "  -f (field point name)\n"
-	      "  -k # wavenumber (%FLOATFMT)\n"
 	      "  -O #,#,# origin of octree (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
 	      "  -t # tolerance (%FLOATFMT)\n"
 	      "  -w write source data to stdout\n",
-	      progname, depth, D, k, xtree[0], xtree[1], xtree[2],
+	      progname, depth, D, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
       return 0 ;
       break ;
@@ -126,7 +125,6 @@ gint main(gint argc, gchar **argv)
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
-    case 'k': k = atof(optarg) ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
     case 'S': order_s = atoi(optarg) ; break ;
@@ -138,21 +136,25 @@ gint main(gint argc, gchar **argv)
 
   if ( sfile != NULL ) {
     read_points(sfile, &sources, &nsrc, &str) ;
-    switch ( str ) {
-    default:
-      fprintf(stderr, "%s: don't know how to interpret stride %d\n",
-	      progname, str) ;
-      exit(1) ;
-      break ;
-    case  5: fprintf(stderr, "%s: monopole sources\n", progname) ; break ;
-    case  8: fprintf(stderr, "%s: dipole sources\n", progname) ; break ;
-    case 10: fprintf(stderr, "%s: mixed sources\n", progname) ; break ;
-    }
+
+    /* switch ( str ) { */
+    /* default: */
+    /*   fprintf(stderr, "%s: don't know how to interpret stride %d\n", */
+    /* 	      progname, str) ; */
+    /*   exit(1) ; */
+    /*   break ; */
+    /* case  5: fprintf(stderr, "%s: monopole sources\n", progname) ; break ; */
+    /* case  8: fprintf(stderr, "%s: dipole sources\n", progname) ; break ; */
+    /* case 10: fprintf(stderr, "%s: mixed sources\n", progname) ; break ; */
+    /* } */
   } else {
     fprintf(stderr, "%s: source list must be specified (-s)\n",
 	    progname) ;
     return 1 ;
-  }
+ }
+
+  /*monopoles only for now*/
+  nq = str - 3 ;    
 
   if ( ffile != NULL ) {
     read_points(ffile, &xf, &nf, &strf) ;
@@ -162,7 +164,7 @@ gint main(gint argc, gchar **argv)
     return 1 ;
   }
 
-  f = (WBFMM_REAL *)g_malloc0(nf*2*sizeof(WBFMM_REAL)) ;
+  f = (WBFMM_REAL *)g_malloc0(nf*nq*sizeof(WBFMM_REAL)) ;
 
   if ( fit_box ) {
     wbfmm_points_origin_width_PREC(sources, str, nsrc, xtree, xtmax, &D, TRUE) ;
@@ -174,8 +176,7 @@ gint main(gint argc, gchar **argv)
   
   pstr = str*sizeof(WBFMM_REAL) ;
   tree = wbfmm_tree_new_PREC(xtree, D, 2*nsrc) ;
-  wbfmm_tree_source_size(tree) = 1 ;
-  
+
   if ( order_s != 0 && order_r != 0 ) {
     order[2*depth+0] = order_s ; 
     order[2*depth+1] = order_r ; 
@@ -188,13 +189,15 @@ gint main(gint argc, gchar **argv)
     }
   } else {
     for ( i = 1 ; i <= depth ; i ++ ) {
-      order[2*i+0] = order[2*i+1] =
-	wbfmm_truncation_number_PREC(tree, k, i, tol) ;
+      order[2*i+0] = order[2*i+1] = 8 ;
+	/* wbfmm_truncation_number_PREC(tree, k, i, tol) ; */
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
   }
 
+  /*size the workspace: this needs to be tighter to account for
+    Laplace case*/
   sizew = wbfmm_element_number_rotation(2*order_max) ;
   sizew = MAX(sizew, 16*(wbfmm_coefficient_index_nm(order_max+1,0))) ;
   work = (WBFMM_REAL *)g_malloc0(sizew*sizeof(WBFMM_REAL)) ;
@@ -219,6 +222,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
+#if 0  
   fprintf(stderr, "%s: initializing shift translation operators; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -241,22 +245,24 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: upward pass translation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
+#endif
+  
   wbfmm_tree_add_points_PREC(tree, (gpointer)sources, nsrc, pstr) ;
 
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_PREC(tree) ;
 
-  if ( write_sources ) {
-    wbfmm_tree_write_sources_PREC(tree, &(sources[3]), str, stderr) ;
+  /* if ( write_sources ) { */
+  /*   wbfmm_tree_write_sources_PREC(tree, &(sources[3]), str, stderr) ; */
     
-    return 0 ;
-  }
+  /*   return 0 ; */
+  /* } */
 
-  wbfmm_tree_problem(tree) = WBFMM_PROBLEM_HELMHOLTZ ;
-  for ( i = 1 ; i <= depth ; i ++ ) {
-    wbfmm_tree_coefficient_init_PREC(tree, i, order[2*i+1], order[2*i+0]) ;
-  }
+  wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
+  /* for ( i = 1 ; i <= depth ; i ++ ) { */
+  /*   wbfmm_tree_coefficient_init_PREC(tree, i, order[2*i+1], order[2*i+0]) ; */
+  /* } */
 
+#if 0  
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -325,6 +331,7 @@ gint main(gint argc, gchar **argv)
 	    "%FLOATEXP %FLOATEXP %FLOATEXP %FLOATEXP %FLOATEXP\n",
 	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2], f[2*i+0], f[2*i+1]) ;
   }
-
+#endif
+  
   return 0 ;
 }

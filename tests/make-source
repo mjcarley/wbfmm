@@ -1,0 +1,11 @@
+#!/bin/bash
+
+opfile=$1
+
+sed -e s/WBFMM_REAL/gdouble/g -e s/_PREC//g -e s/FLOATFMT/lg/g \
+    -e s/FLOATEXP/1.16e/g \
+    ${opfile}.c.in > ${opfile}.c
+
+#sed -e s/WBFMM_REAL/gfloat/g -e s/_PREC/_f/g -e s/FLOATFMT/g/g \
+#    -e s/FLOATEXP/1.16e/g \
+#    ${opfile}.c.in > ${opfile}-float.c

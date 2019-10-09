@@ -45,6 +45,9 @@ wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
   t->problem = 0 ;
   /*maximum number of points in tree*/
   t->maxpoints = maxpoints ;
+  /*number of components in tree sources (set when coefficients are
+    initialized)*/
+  t->nq = 0 ;
   /*array for sorted point indices*/
   t->ip = (guint32 *)g_malloc(maxpoints*sizeof(guint32)) ;
   t->npoints = 0 ;
@@ -519,8 +522,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   wbfmm_box_t *boxes ;
   WBFMM_REAL *c ;
 
+  if ( wbfmm_tree_source_size(t) < 1 )
+    g_error("%s: tree has invalid number of components in source terms (%d)",
+	    __FUNCTION__, wbfmm_tree_source_size(t)) ;
+  
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
-
+  g_assert(t->nq == 1) ;
+  
   g_assert(l <= wbfmm_tree_depth(t)) ;
 
   /*number of boxes at level l*/
