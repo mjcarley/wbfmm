@@ -16,7 +16,7 @@
 
 /*
   functions for child-parent, parent-child, and other shifts in tree
-  calculations
+  calculations for the Laplace problem
 */
 
 #ifdef _HAVE_CONFIG_H_
@@ -35,10 +35,11 @@
 extern gint _wbfmm_shift_angles[] ;
 extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[] ;
 
-gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
-					      wbfmm_shift_operators_t *op,
-					      guint level,
-					      WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
+						      wbfmm_shift_operators_t
+						      *op,
+						      guint level,
+						      WBFMM_REAL *work)
 
 {
   guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ;
@@ -49,7 +50,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   WBFMM_REAL *H03, *H47, *trans ;
 
   g_assert(level > 1) ;
-  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ;
+  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
 
   /*number of boxes at this level*/
   nb = 1 << 3*(level) ;
@@ -131,18 +132,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
-					    wbfmm_shift_operators_t *op,
-					    guint level, WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_upward_pass)(wbfmm_tree_t *t,
+						    wbfmm_shift_operators_t *op,
+						    guint level,
+						    WBFMM_REAL *work)
 
 {
   guint np, Np, Nc ;
   guint64 ip, ic;
   wbfmm_box_t *bp, *bc ;
-  WBFMM_REAL *H03, *H47, *trans, *rotations ;
+  WBFMM_REAL *H03, *H47, *rotations, wb ;
 
   g_assert(level > 1) ;
-  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ;
+  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
 
   /*number of parent boxes into which to shift child data*/
   np = 1 << 3*(level-1) ;
@@ -155,24 +157,29 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
   bp = t->boxes[level-1] ;
   bc = t->boxes[level  ] ;
 
+  /*child box width*/
+  wb = wbfmm_tree_width(t)/(1 << (level)) ;
+  
   /*rotation and shift operators*/
   rotations = (WBFMM_REAL *)(op->rotations) ;
   H03 = &(rotations[36*(op->nerot)]) ;
   H47 = &(rotations[12*(op->nerot)]) ;
-  trans = (WBFMM_REAL *)(op->SS[level]) ;
 
   g_assert(H03 != NULL) ;
   g_assert(H47 != NULL) ;
-  g_assert(trans != NULL) ;
+
   for ( ip = 0 ; ip < np ; ip ++ ) {
     /*locate first child of parent box*/
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps),
-						  Np,
-						  (WBFMM_REAL *)(bc[ic].mps),
-						  Nc,
-						  H03, H47, Np, 
-						  trans, Np, work) ;
+    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_laplace)((WBFMM_REAL *)
+							  (bp[ip].mps),
+							  Np,
+							  (WBFMM_REAL *)
+							  (bc[ic].mps),
+							  Nc,
+							  t->nq, 
+							  H03, H47, Np, 
+							  wb, work) ;
   }
 
   return 0 ;

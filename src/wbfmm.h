@@ -338,13 +338,55 @@ gint wbfmm_parent_child_shift_laplace_f(gfloat *Cc, gint Nc,
 					gint Lh,
 					gfloat t,
 					gfloat *work) ;
+gint wbfmm_tree_laplace_coefficient_init(wbfmm_tree_t *t,
+					 guint l, 
+					 guint nr,
+					 guint ns) ;
+gint wbfmm_tree_laplace_coefficient_init_f(wbfmm_tree_t *t,
+					   guint l, 
+					   guint nr,
+					   guint ns) ;
+gint wbfmm_tree_laplace_leaf_expansions(wbfmm_tree_t *t,
+					gdouble *src,
+					gint sstr,
+					gdouble *normals,
+					gint nstr,
+					gdouble *dipoles,
+					gint dstr,
+					gboolean zero_expansions,
+					gdouble *work) ;
+gint wbfmm_tree_laplace_leaf_expansions_f(wbfmm_tree_t *t,
+					  gfloat *src,
+					  gint sstr,
+					  gfloat *normals,
+					  gint nstr,
+					  gfloat *dipoles,
+					  gint dstr,
+					  gboolean zero_expansions,
+					  gfloat *work) ;
+gint wbfmm_laplace_downward_pass(wbfmm_tree_t *t,
+				 wbfmm_shift_operators_t *op,
+				 guint level,
+				 gdouble *work) ;
+gint wbfmm_laplace_downward_pass_f(wbfmm_tree_t *t,
+				   wbfmm_shift_operators_t *op,
+				   guint level,
+				   gfloat *work) ;
+gint wbfmm_laplace_upward_pass(wbfmm_tree_t *t,
+				 wbfmm_shift_operators_t *op,
+				 guint level,
+				 gdouble *work) ;
+gint wbfmm_laplace_upward_pass_f(wbfmm_tree_t *t,
+				   wbfmm_shift_operators_t *op,
+				   guint level,
+				   gfloat *work) ;
 
-gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
-			      gdouble *Cc, gint Nc,
-			      gdouble *H03, 
-			      gdouble *H47, gint Lh,
-			      gdouble *shift, gint Ls,
-			      gdouble *work) ;
+  gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
+				gdouble *Cc, gint Nc,
+				gdouble *H03, 
+				gdouble *H47, gint Lh,
+				gdouble *shift, gint Ls,
+				gdouble *work) ;
 gint wbfmm_parent_child_shift(gdouble *Cc, gint Nc,
 			      gdouble *Cp, gint Np,
 			      gdouble *H03, 

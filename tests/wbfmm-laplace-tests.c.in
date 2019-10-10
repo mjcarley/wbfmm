@@ -481,7 +481,8 @@ gint shift_test(gint N, WBFMM_REAL *xc, WBFMM_REAL *x0, WBFMM_REAL *xs,
   wbfmm_rotate_H_laplace_PREC(Cr1, cstri, Ci, cstri, Ni, nq, H1, ph, ch) ;
   
   /*translate the expansion, singular to singular*/
-  wbfmm_coaxial_translate_SS_laplace_PREC(Cr2, cstro, No, Cr1, cstri, Ni, nq, r) ;
+  wbfmm_coaxial_translate_SS_laplace_PREC(Cr2, cstro, No, Cr1, cstri, Ni,
+					  nq, r) ;
 
   /*reverse rotation*/
   wbfmm_rotate_H_laplace_PREC(Co, cstro, Cr2, cstro, No, nq, H1, ch, ph) ;

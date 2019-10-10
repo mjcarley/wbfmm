@@ -182,8 +182,10 @@ gint main(gint argc, gchar **argv)
     order[2*depth+1] = order_r ; 
     order_max = MAX(order_s, order_r) ;
     for ( i = depth-1 ; i > 0 ; i -- ) {
-      order[2*i+0] = order[2*(i+1)+0] + 4 ;
-      order[2*i+1] = order[2*(i+1)+1] + 4 ;
+      /* order[2*i+0] = order[2*(i+1)+0] + 4 ; */
+      /* order[2*i+1] = order[2*(i+1)+1] + 4 ; */
+      order[2*i+0] = order[2*(i+1)+0] ;
+      order[2*i+1] = order[2*(i+1)+1] ;
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
@@ -216,6 +218,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   wbfmm_shift_angle_table_init_PREC() ;
+  wbfmm_coaxial_translate_laplace_init_PREC(order_max+2) ;
 
   shifts = wbfmm_shift_operators_new_PREC(order_max, work) ;
 
@@ -258,35 +261,38 @@ gint main(gint argc, gchar **argv)
   /* } */
 
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
-  /* for ( i = 1 ; i <= depth ; i ++ ) { */
-  /*   wbfmm_tree_coefficient_init_PREC(tree, i, order[2*i+1], order[2*i+0]) ; */
-  /* } */
+  wbfmm_tree_source_size(tree) = nq ;
+  for ( i = 1 ; i <= depth ; i ++ ) {
+    wbfmm_tree_laplace_coefficient_init_PREC(tree, i,
+					     order[2*i+1], order[2*i+0]) ;
+  }
 
-#if 0  
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   qstr = nstr = dstr = 0 ;
   q = normals = dipoles = NULL ;
-  switch ( str ) {
-  default: g_assert_not_reached() ; break ;
-  case 5:
-    q = &(sources[3]) ; qstr = str ;
-    break ;
-  case 8:
-    normals = &(sources[3]) ; nstr = str ;
-    dipoles = &(sources[6]) ; dstr = str ;
-    break ;
-  case 10:
-    q = &(sources[3]) ; qstr = str ;
-    normals = &(sources[5]) ; nstr = str ;
-    dipoles = &(sources[8]) ; dstr = str ;
-    break ;
-  }
+  /* switch ( str ) { */
+  /* default: g_assert_not_reached() ; break ; */
+  /* case 5: */
+  /*   q = &(sources[3]) ; qstr = str ; */
+  /*   break ; */
+  /* case 8: */
+  /*   normals = &(sources[3]) ; nstr = str ; */
+  /*   dipoles = &(sources[6]) ; dstr = str ; */
+  /*   break ; */
+  /* case 10: */
+  /*   q = &(sources[3]) ; qstr = str ; */
+  /*   normals = &(sources[5]) ; nstr = str ; */
+  /*   dipoles = &(sources[8]) ; dstr = str ; */
+  /*   break ; */
+  /* } */
+
+  q = &(sources[3]) ; qstr = str ; 
   
-  wbfmm_tree_leaf_expansions_PREC(tree, k,
-				  q, qstr, normals, nstr, dipoles, dstr,
-				  TRUE, work) ;
+  wbfmm_tree_laplace_leaf_expansions_PREC(tree,
+					  q, qstr, normals, nstr, dipoles, dstr,
+					  TRUE, work) ;
   
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -295,11 +301,37 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( level = depth ; level >= 3 ; level -- ) 
-    wbfmm_upward_pass_PREC(tree, shifts, level, work) ;
+    wbfmm_laplace_upward_pass_PREC(tree, shifts, level, work) ;
 
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
+  /*upward pass test code*/
+  {
+    WBFMM_REAL xf[3], phi[16] = {0.0}, xb[3], wb ;
+    wbfmm_box_t *boxes ;
+    gint nbox ;
+    
+    level = 2 ; nbox = 1 << 3*level ;
+    boxes = tree->boxes[level  ] ;
+
+    xf[0] = 3.0 ; xf[1] = 0.4 ; xf[2] = -3.7 ;
+    for ( i = 0 ; i < nbox ; i ++ ) {
+      wbfmm_tree_box_centre_PREC(tree, level, i, xb, &wb) ;
+      wbfmm_expansion_laplace_evaluate_PREC(xb, boxes[i].mps, 8*nq,
+					    tree->order_s[level],
+					    nq, xf, phi, work) ;
+    }
+
+    fprintf(stdout, "%FLOATFMT %FLOATFMT %FLOATFMT", xf[0], xf[1], xf[2]) ;
+    for ( i = 0 ; i < nq ; i ++ ) 
+    fprintf(stdout, " %FLOATEXP", phi[i]) ;
+    fprintf(stdout, "\n") ;
+    
+    return 0 ;
+  }
+  
+#if 0
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 

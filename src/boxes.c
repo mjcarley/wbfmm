@@ -361,7 +361,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
 					       guint b, WBFMM_REAL k,
 					       WBFMM_REAL *x, WBFMM_REAL *f,
