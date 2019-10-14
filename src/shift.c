@@ -37,7 +37,6 @@
 WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ;
 WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ;
 WBFMM_REAL _wbfmm_shifts_r[19] = {0.0} ;
-/* extern WBFMM_REAL _shifts_th[], _shifts_ph[] ; */
 
 extern gint _wbfmm_shift_angles[] ;
 

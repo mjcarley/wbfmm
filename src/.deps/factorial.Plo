@@ -39,9 +39,9 @@ factorial.lo: factorial.c /usr/include/stdc-predef.h \
  /usr/include/bits/sysmacros.h /usr/include/bits/pthreadtypes.h \
  /usr/include/bits/thread-shared-types.h \
  /usr/include/bits/pthreadtypes-arch.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-float.h /usr/include/glib-2.0/glib/gbacktrace.h \
- /usr/include/signal.h /usr/include/bits/signum.h \
- /usr/include/bits/signum-generic.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/glib-2.0/glib/gbacktrace.h /usr/include/signal.h \
+ /usr/include/bits/signum.h /usr/include/bits/signum-generic.h \
  /usr/include/bits/types/sig_atomic_t.h \
  /usr/include/bits/types/siginfo_t.h /usr/include/bits/types/__sigval_t.h \
  /usr/include/bits/siginfo-arch.h /usr/include/bits/siginfo-consts.h \
@@ -109,7 +109,8 @@ factorial.lo: factorial.c /usr/include/stdc-predef.h \
  /usr/include/stdio.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/libio.h \
  /usr/include/bits/_G_config.h /usr/include/bits/types/__mbstate_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h
 
 /usr/include/stdc-predef.h:
 
@@ -244,6 +245,8 @@ factorial.lo: factorial.c /usr/include/stdc-predef.h \
 /usr/include/bits/pthreadtypes-arch.h:
 
 /usr/include/alloca.h:
+
+/usr/include/bits/stdlib-bsearch.h:
 
 /usr/include/bits/stdlib-float.h:
 
@@ -450,3 +453,5 @@ wbfmm-private.h:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:

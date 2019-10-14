@@ -33,7 +33,7 @@
 #include "wbfmm-private.h"
 
 extern gint _wbfmm_shift_angles[] ;
-extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[] ;
+extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
 						      wbfmm_shift_operators_t
@@ -42,35 +42,35 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
 						      WBFMM_REAL *work)
 
 {
-  guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ;
+  guint nb, Ns, Nr, ni, nerot, ncs, ncr, idx4, j, Nc, Np, nq ;
   gint ith, iph ;
   guint64 ip, ic, ilist[378] ;
   wbfmm_box_t *bp, *bc ;
-  WBFMM_REAL *rotations, *shifts, ph, ch, *H, *Cx, *wks, *wkr ;
-  WBFMM_REAL *H03, *H47, *trans ;
+  WBFMM_REAL *rotations, ph, ch, *H, *wks, *wkr ;
+  WBFMM_REAL *H03, *H47, wb, r ;
 
   g_assert(level > 1) ;
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
 
+  nq = wbfmm_tree_source_size(t) ;
   /*number of boxes at this level*/
   nb = 1 << 3*(level) ;
 
+  /*parent box width*/
+  wb = wbfmm_tree_width(t)/(1 << (level)) ;
+    
   /*singular and regular expansion orders at this level*/
   Ns = t->order_s[level] ; Nr = t->order_r[level] ;
-  ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
-  ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
-  wks = work ; wkr = &(wks[2*ncs]) ;
+  ncs = (Ns+1)*(Ns+1) ;
+  ncr = (Nr+1)*(Nr+1) ;
+  wks = work ; wkr = &(wks[nq*ncs]) ;
 
   /*boxes at this level (parent)*/
   bp = t->boxes[level] ;
 
   nerot = op->nerot ;
-  /*rotation and shift operators*/
+  /*rotation operators*/
   rotations = (WBFMM_REAL *)(op->rotations) ;
-  shifts = (WBFMM_REAL *)(op->SR[level]) ;
-
-  /*number of elements in translation operators*/
-  necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ;
 
   /*interaction list 4, loop on boxes at this level*/
   for ( ip = 0 ; ip < nb ; ip ++ ) {
@@ -86,8 +86,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
       
       /*index of translation operator*/
       ith = _wbfmm_shift_angles[4*idx4+3] ;
-      Cx = &(shifts[ith*necx]) ;
-      
+      r = wb*_wbfmm_shifts_r[ith] ;
+
       /*rotation angles \phi and \chi*/
       iph =  _wbfmm_shift_angles[4*idx4+1] ;
       ph = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
@@ -95,16 +95,20 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
       ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
       /*clear workspace*/
-      memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+      memset(wks, 0, nq*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
       /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ilist[2*j+0]].mps, 8,
-					  Ns, H, ph, ch) ;
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(wks, nq,
+						  bp[ilist[2*j+0]].mps, 8*nq,
+						  Ns, nq, H, ph, ch) ;
       /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
-						   Cx, Nr, TRUE) ;
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(wkr, nq, Nr,
+							      wks, nq, Ns, 
+							      nq, r) ;
       /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, wkr, 1, Nr, 
-					  H, ch, ph) ;
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(bp[ip].mpr, 8*nq,
+						  wkr, nq,
+						  Nr, nq,
+						  H, ch, ph) ;
     }
   }
 
@@ -117,15 +121,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   Np = t->order_r[level  ] ;
   Nc = t->order_r[level+1] ;
   bc = t->boxes[level+1] ;
-  trans = (WBFMM_REAL *)(op->SS[level+1]) ;
+
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr),
-						  Nc,
-						  (WBFMM_REAL *)(bp[ip].mpr),
-						  Np,
-						  H03, H47, Np,
-						  trans, Np, work) ;
+    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)
+      ((WBFMM_REAL *)(bc[ic].mpr), Nc,
+       (WBFMM_REAL *)(bp[ip].mpr), Np,
+       nq, H03, H47, Np,
+       wb, work) ;
     
   }
 

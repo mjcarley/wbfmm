@@ -796,3 +796,108 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
   
   return 0 ;
 }
+
+gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
+						   gint level,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field,
+						   WBFMM_REAL *work)
+
+{
+  gint nbox, i, nq ;
+  WBFMM_REAL xb[3], wb ;
+  wbfmm_box_t *boxes ;
+
+  nq = wbfmm_tree_source_size(t) ;
+  nbox = 1 << 3*level ;
+  
+  boxes = t->boxes[level  ] ;
+  memset(field, 0, nq*sizeof(WBFMM_REAL)) ;
+  
+  for ( i = 0 ; i < nbox ; i ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, i, xb, &wb) ;
+    WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(xb, boxes[i].mps,
+							  8*nq,
+							  t->order_s[level],
+							  nq, xf, field, work) ;
+  }
+  
+ return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
+							     guint level,
+							     guint b,
+							     WBFMM_REAL *x,
+							     WBFMM_REAL *f,
+							     WBFMM_REAL *src,
+							     gint sstr,
+							     WBFMM_REAL
+							     *normals,
+							     gint nstr,
+							     WBFMM_REAL *d,
+							     gint dstr,
+							     gboolean
+							     eval_neighbours,
+							     WBFMM_REAL *work)
+
+{
+  WBFMM_REAL xb[3], wb, *C, *xs, r, h0[2], h1[2], fR[2] ;
+  wbfmm_box_t *boxes, box ;
+  guint64 neighbours[27] ;
+  gint nnbr, i, j, idx, nq ;
+
+  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+
+  nq = wbfmm_tree_source_size(t) ;
+
+  boxes = t->boxes[level] ;
+  C = boxes[b].mpr ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(xb, C, 8*nq,
+							t->order_r[level],
+							nq, x, f, work) ;
+
+  if ( !eval_neighbours ) return 0 ;
+
+  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
+  
+  if ( normals != NULL && d == NULL ) {
+    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+	    __FUNCTION__) ;
+  }
+
+  /* return 0 ; */
+  
+  /*add the contribution from sources in neighbour boxes*/
+  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
+  g_assert(nnbr >= 0 && nnbr < 28) ;
+
+  if ( normals == NULL && d == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > 1e-12 ) {
+	  r = SQRT(r) ;
+	  /* WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ; */
+	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
+	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
+	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
+	}
+      }
+    }
+
+    return 0 ;
+  }
+  
+  g_assert_not_reached() ; 
+  
+  return 0 ;
+}
