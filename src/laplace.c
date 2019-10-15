@@ -867,7 +867,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
   WBFMM_REAL xb[3], wb, *C, *xs, r, fR[2] ;
   wbfmm_box_t *boxes, box ;
   guint64 neighbours[27] ;
-  gint nnbr, i, j, idx, nq ;
+  gint nnbr, i, j, k, idx, nq ;
 
   g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
 
@@ -917,13 +917,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
 	  r *= 4.0*M_PI ;
-	  for ( j = 0 ; j < nq ; j ++ ) {
-	    f[j] += src[idx*sstr+j]/r ;
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k] += src[idx*sstr+k]/r ;
 	  }
 	}
       }
     }
-
+    
     return 0 ;
   }
   
