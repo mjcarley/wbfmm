@@ -40,6 +40,38 @@ gchar *tests[] = {"expansion",
 
 #define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
 
+gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+		    gint xstride, WBFMM_REAL *src, gint sstride,
+		    gint nsrc, WBFMM_REAL *xf, gint nfld) ;
+gint translation_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+		      gint xstride, WBFMM_REAL *src, gint sstride,
+		      gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t) ;
+gint shift_test(gint N, WBFMM_REAL *xc, WBFMM_REAL *x0, WBFMM_REAL *xs,
+		gint xstride, WBFMM_REAL *src, gint sstride,
+		gint nsrc, WBFMM_REAL *xf, gint nfld) ;
+gint rotation_test(gint N, 
+		   WBFMM_REAL *x0,
+		   WBFMM_REAL *xs, gint xstride,
+		   WBFMM_REAL *src, gint sstride,
+		   gint nsrc,
+		   WBFMM_REAL ix[], WBFMM_REAL iy[], 
+		   WBFMM_REAL iz[],			  
+		   WBFMM_REAL *xf, gint nfld) ;
+gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
+		       WBFMM_REAL *xs, gint xstride,
+		       WBFMM_REAL *src, gint sstride,
+		       gint nsrc, WBFMM_REAL *xf, gint nfld) ;
+gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
+		       WBFMM_REAL *xs, gint xstride,
+		       WBFMM_REAL *src, gint sstride,
+		       gint nsrc, WBFMM_REAL *xp) ;
+gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+			 gint xstride, WBFMM_REAL *src, gint sstride,
+			 gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t) ;
+gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+			 gint xstride, WBFMM_REAL *src, gint sstride,
+			 gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t) ;
+
 static gint parse_test(gchar *arg)
 
 {
@@ -436,7 +468,7 @@ gint shift_test(gint N, WBFMM_REAL *xc, WBFMM_REAL *x0, WBFMM_REAL *xs,
   gint i, nq, cstri, cstro, Ni, No ;
   WBFMM_REAL Ci[BUFSIZE]={0.0}, Co[BUFSIZE]={0.0} ;
   WBFMM_REAL Cr1[BUFSIZE] = {0.0}, Cr2[BUFSIZE] = {0.0} ;
-  WBFMM_REAL H1[BUFSIZE] = {0.0}, H2[BUFSIZE] = {0.0} ;
+  WBFMM_REAL H1[BUFSIZE] = {0.0} ;
   WBFMM_REAL work[BUFSIZE]={0.0} ;
   WBFMM_REAL r, th, ph, ch ;
   WBFMM_REAL fc[8]={0.0}, ff[8]={0.0}, ft[8]={0.0} ;
@@ -649,8 +681,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   WBFMM_REAL r, th, ph, ch ;
   WBFMM_REAL fc[8] = {0.0}, fr[8] = {0.0}, fp[8] = {0.0}, fs[8] = {0.0} ;
   WBFMM_REAL th03, th47 ;
-  WBFMM_REAL *check ;
-  gint n, nu ;
+  /* WBFMM_REAL *check ; */
   
   nq = 1 ;
   Nc = N ; Np = N ;
@@ -742,7 +773,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   wbfmm_expansion_laplace_local_evaluate_PREC(xc, crr, nq,
 					      Nc, nq, xe, fs, work) ;
     
-  check = crr ;
+  /* check = crr ; */
   /* for ( n = 0 ; n <= 2 ; n ++ ) { */
   /*   i = n*n ; nu = 0 ; */
   /*   fprintf(stderr, "%d %d %lg %lg %lg\n", n, nu, */
@@ -798,15 +829,13 @@ gint main(gint argc, gchar **argv)
 
 {
   WBFMM_REAL *xs, *src, *xf, wb ;
-  WBFMM_REAL x, r, x0[3] = {0.0}, xc[3] = {0.0} ;
+  WBFMM_REAL x, x0[3] = {0.0}, xc[3] = {0.0} ;
   WBFMM_REAL ix[3] = {0}, iy[3] = {0}, iz[3] = {0} ;
-  gint nsrc, sstride, xstride, fstride, N, i, nfld, test, quad ;
+  gint nsrc, sstride, xstride, fstride, N, nfld, test, quad ;
   gchar ch, *ipfile ;
-  guint level ;
 
   N = 16 ; 
   sstride = 2 ; xstride = 3 ; 
-  r = 0.25 ;
   nsrc = 1 ;
   nfld = 1 ;
   x = 0.025 ;
@@ -816,14 +845,12 @@ gint main(gint argc, gchar **argv)
   xs = src = xf = NULL ;
   wb = 0.125 ;
   quad = 0 ;
-  level = 2 ;
 
-  while ( (ch = getopt(argc, argv, "1f:i:l:n:N:q:t:w:x:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "1f:i:n:N:q:t:w:x:")) != EOF ) {
     switch ( ch ) {
     default: g_assert_not_reached() ; break ;
     case 'f': nfld = atoi(optarg) ; break ;
     case 'i': ipfile = g_strdup(optarg) ; break ;
-    case 'l': level = atoi(optarg) ; break ;
     case 'n': nsrc = atoi(optarg) ; break ;
     case 'N': N = atoi(optarg) ; break ;
     case 'q': quad = atoi(optarg) ; break ;

@@ -35,6 +35,56 @@
 extern gint _wbfmm_shift_angles[] ;
 extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
 
+#if 0
+static gboolean coefficient_check_laplace(WBFMM_REAL *C, gint cstr,
+					  gint N, gint nq)
+
+{
+  gint n, m, idx ;
+
+  n = 0 ; m = 0 ; idx = n*n ;
+  if ( C[cstr*idx+0] != C[cstr*idx+1] ) {
+    fprintf(stderr, "%s: mismatch at n=%d, m=%d, idx=%d, (%lg,%lg)\n",
+	    __FUNCTION__, n, m, idx, C[cstr*idx+0], C[cstr*idx+1]) ;
+    return FALSE ;
+  }
+
+  n = 1 ; m = 0 ; idx = n*n ;
+  if ( C[cstr*idx+0] != C[cstr*idx+1] ) {
+    fprintf(stderr, "%s: mismatch at n=%d, m=%d, idx=%d, (%lg,%lg)\n",
+	    __FUNCTION__, n, m, idx, C[cstr*idx+0], C[cstr*idx+1]) ;
+    return FALSE ;
+  }
+  
+  m = 1 ;
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  if ( C[cstr*idx+0] != C[cstr*idx+1] ) {
+    fprintf(stderr, "%s: mismatch at n=%d, m=%d, idx=%d, (%lg,%lg)\n",
+	    __FUNCTION__, n, m, idx, C[cstr*idx+0], C[cstr*idx+1]) ;
+    return FALSE ;
+  }
+  
+  for ( n = 2 ; n <= N ; n ++ ) {
+    m = 0 ; idx = n*n ;
+    if ( C[cstr*idx+0] != C[cstr*idx+1] ) {
+    fprintf(stderr, "%s: mismatch at n=%d, m=%d, idx=%d, (%lg,%lg)\n",
+	    __FUNCTION__, n, m, idx, C[cstr*idx+0], C[cstr*idx+1]) ;
+      return FALSE ;
+    }
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      if ( C[cstr*idx+0] != C[cstr*idx+1] ) {
+	fprintf(stderr, "%s: mismatch at n=%d, m=%d, idx=%d, (%lg,%lg)\n",
+		__FUNCTION__, n, m, idx, C[cstr*idx+0], C[cstr*idx+1]) ;
+	return FALSE ;
+      }
+    }
+  }
+  
+  return TRUE ;
+}
+#endif
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
 						      wbfmm_shift_operators_t
 						      *op,
@@ -48,7 +98,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   wbfmm_box_t *bp, *bc ;
   WBFMM_REAL *rotations, ph, ch, *H, *wks, *wkr ;
   WBFMM_REAL *H03, *H47, wb, r ;
-
+  /* gint i ; */
+  
   g_assert(level > 1) ;
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
 
@@ -105,11 +156,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
 							      wks, nq, Ns, 
 							      nq, r) ;
       /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(bp[ip].mpr, 8*nq,
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(bp[ip].mpr,
+						  8*nq,
 						  wkr, nq,
 						  Nr, nq,
 						  H, ch, ph) ;
+      /* g_assert(coefficient_check_laplace(bp[ip].mpr, 8*nq, Nr, nq)) ; */
     }
+
   }
 
   /*no downward shift at the deepest level*/
@@ -129,7 +183,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
        (WBFMM_REAL *)(bp[ip].mpr), Np,
        nq, H03, H47, Np,
        wb, work) ;
-    
   }
 
   return 0 ;

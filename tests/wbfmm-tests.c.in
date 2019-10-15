@@ -52,6 +52,8 @@ gchar *tests[] = {"legendre",
 		  "expansion_normal",
 		  ""} ;
 
+gint rotations_write(gint N, WBFMM_REAL ix[], WBFMM_REAL iy[],
+		     WBFMM_REAL iz[]) ;
 gint legendre_test(gint N, WBFMM_REAL C) ;
 gint besselj_test(gint N, WBFMM_REAL x) ;
 gint besselh_test(gint N, WBFMM_REAL x) ;
@@ -110,6 +112,12 @@ gint check_interaction_list_4(guint level, guint64 idx,
 			      guint64 *list, gint n) ;
 gint ilist4_test(guint level) ;
 gint expansion_dipole_test(WBFMM_REAL k, gint N, 
+			   WBFMM_REAL *x0,
+			   WBFMM_REAL *xs, gint xstride,
+			   WBFMM_REAL *src, gint sstride,
+			   gint nsrc,
+			   WBFMM_REAL *xf, gint nfld) ;
+gint expansion_normal_test(WBFMM_REAL k, gint N, 
 			   WBFMM_REAL *x0,
 			   WBFMM_REAL *xs, gint xstride,
 			   WBFMM_REAL *src, gint sstride,
@@ -1261,9 +1269,9 @@ gint shift_local_test(WBFMM_REAL k, gint N,
   
 {
   WBFMM_REAL *work ;    
-  WBFMM_REAL th0, ph0, ch0, th1, ph1, ch1, kr ;
+  WBFMM_REAL th0, ph0, ch0, kr ;
   WBFMM_REAL ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
-  WBFMM_REAL *C0, *C1, *Ca, *Cb, *shift, *H0, *H1 ;
+  WBFMM_REAL *C0, *C1, *Ca, *Cb, *shift, *H0 ;
   WBFMM_REAL f0[2], f1[2], ref[2], xr[3] ;
   gint i, cstr0, cstr1, N0, N1 ;
   gdouble t0 ;
@@ -1294,8 +1302,7 @@ gint shift_local_test(WBFMM_REAL k, gint N,
 			       sizeof(WBFMM_REAL)) ;
   H0 = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_rotation(N0)*
 			       sizeof(WBFMM_REAL)) ;
-  H1 = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_rotation(N1)*
-			       sizeof(WBFMM_REAL)) ;
+
   work = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_rotation(2*N1)*
 				 sizeof(WBFMM_REAL)) ;
   

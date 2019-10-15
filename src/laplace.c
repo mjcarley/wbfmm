@@ -211,7 +211,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL r, th, ph, rn ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m, idx, i ;
-
+  /* gint chk = 0 ; */
+  
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
@@ -231,11 +232,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
   idx = n*n ;
   for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pnm1[m] ;
 
+    /* fprintf(stderr, "%d %d %lg %lg\n", */
+    /* 	    n, m, cfft[cstr*idx+0], cfft[cstr*idx+1]) ; */
+  /* fprintf(stderr, "%d %lg\n", chk++, field[0] - field[1]) ; */
+  
   n = 1 ; 
   m = 0 ; 
   rn *= r ;
   idx = n*n ;
   for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[m] ;
+
+  /* fprintf(stderr, "%d %lg\n", chk++, field[0] - field[1]) ; */
+    /* fprintf(stderr, "%d %d %lg %lg\n", */
+    /* 	    n, m, cfft[cstr*idx+0], cfft[cstr*idx+1]) ; */
 
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
@@ -243,6 +252,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
     field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 			      cfft[cstr*(idx+1)+i]*Smph[m]) ;
   }
+
+  /* fprintf(stderr, "%d %lg\n", chk++, field[0] - field[1]) ; */
+  /* fprintf(stderr, "%d %d %lg %lg\n", */
+  /* 	  n, m, cfft[cstr*idx+0], cfft[cstr*idx+1]) ; */
 
   for ( n = 2 ; n <= N ; n ++ ) {
     rn *= r ;
@@ -255,12 +268,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
     idx = n*n ;
     for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[0] ;
     
+    /* fprintf(stderr, "%d %d %lg\n", n, m, field[0] - field[1]) ; */
+    /* fprintf(stderr, "%d %d %lg %lg\n", */
+    /* 	    n, m, cfft[cstr*idx+0], cfft[cstr*idx+1]) ; */
+
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       for ( i = 0 ; i < nq ; i ++ ) {
 	field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
 				  cfft[cstr*(idx+1)+i]*Smph[m]) ;
       }
+    /* fprintf(stderr, "%d %d %lg\n", n, m, field[0] - field[1]) ; */
+    /* fprintf(stderr, "%d %d %lg %lg\n", */
+    /* 	    n, m, cfft[cstr*idx+0], cfft[cstr*idx+1]) ; */
     }
   }
   
@@ -277,7 +297,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 
 {
   gint i, j ;
-  WBFMM_REAL r, th, ph, fR[2], fd[6] ;
+  WBFMM_REAL r, th, ph ;
+  /* WBFMM_REAL fR[2], fd[6] ; */
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
@@ -677,7 +698,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 							     gint nstr,
 							     WBFMM_REAL *dipoles,
 							     gint dstr,
-							     gboolean zero_expansions,
+							     gboolean
+							     zero_expansions,
 							     WBFMM_REAL *work)
 
 {
@@ -842,7 +864,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 							     WBFMM_REAL *work)
 
 {
-  WBFMM_REAL xb[3], wb, *C, *xs, r, h0[2], h1[2], fR[2] ;
+  WBFMM_REAL xb[3], wb, *C, *xs, r, fR[2] ;
   wbfmm_box_t *boxes, box ;
   guint64 neighbours[27] ;
   gint nnbr, i, j, idx, nq ;
@@ -856,6 +878,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
+  /* fprintf(stderr, "box %d, (%lg, %lg, %lg), %lg\n", */
+  /* 	  b, xb[0], xb[1], xb[2], wb) ; */
+  
+  /* for ( i = 0 ; i < 8 ; i ++ ) { */
+  /*   fprintf(stderr, "%d %lg %lg\n", i, C[i*8*nq+0], C[i*8*nq+1]) ; */
+  /* } */
+  /* exit(0) ; */
+  
   WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(xb, C, 8*nq,
 							t->order_r[level],
 							nq, x, f, work) ;
@@ -886,10 +916,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
-	  /* WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ; */
-	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
-	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
-	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
+	  r *= 4.0*M_PI ;
+	  for ( j = 0 ; j < nq ; j ++ ) {
+	    f[j] += src[idx*sstr+j]/r ;
+	  }
 	}
       }
     }

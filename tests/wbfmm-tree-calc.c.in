@@ -29,6 +29,7 @@
 GTimer *timer ;
 gchar *progname ;
 
+gint parse_origin(WBFMM_REAL *x, gchar *str) ;
 gint read_points(gchar *file, WBFMM_REAL **points, gint *nsrc, gint *str) ;
 
 gint read_points(gchar *file, WBFMM_REAL **points, gint *nsrc, gint *str)

@@ -29,6 +29,7 @@
 GTimer *timer ;
 gchar *progname ;
 
+gint parse_origin(WBFMM_REAL *x, gchar *str) ;
 gint read_points(gchar *file, WBFMM_REAL **points, gint *nsrc, gint *str) ;
 
 gint read_points(gchar *file, WBFMM_REAL **points, gint *nsrc, gint *str)
@@ -77,7 +78,7 @@ gint main(gint argc, gchar **argv)
   wbfmm_shift_operators_t *shifts ;
   WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *sources ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, nq, i, str, strf, nf, qstr, nstr, dstr ;
+  gint nsrc, nq, i, j, str, strf, nf, qstr, nstr, dstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
@@ -192,7 +193,6 @@ gint main(gint argc, gchar **argv)
   } else {
     for ( i = 1 ; i <= depth ; i ++ ) {
       order[2*i+0] = order[2*i+1] = 8 ;
-	/* wbfmm_truncation_number_PREC(tree, k, i, tol) ; */
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
@@ -201,9 +201,13 @@ gint main(gint argc, gchar **argv)
   /*size the workspace: this needs to be tighter to account for
     Laplace case*/
   sizew = wbfmm_element_number_rotation(2*order_max) ;
-  sizew = MAX(sizew, 16*(wbfmm_coefficient_index_nm(order_max+1,0))) ;
-  work = (WBFMM_REAL *)g_malloc0(sizew*sizeof(WBFMM_REAL)) ;
+  /* sizew = MAX(sizew, 64*(wbfmm_coefficient_index_nm(order_max+1,0))) ; */
+  sizew = MAX(sizew, (order_max+1)*(order_max+1)*nq*16) ;
+  work = (WBFMM_REAL *)g_malloc0(2*sizew*sizeof(WBFMM_REAL)) ;
 
+  fprintf(stderr, "%s: %d elements allocated for workspace\n",
+	  progname, sizew) ;
+  
   x = wbfmm_tree_origin(tree) ;
   fprintf(stderr, "%s: box origin: %FLOATFMT %FLOATFMT %FLOATFMT\n",
 	  progname, x[0], x[1], x[2]) ;
@@ -343,10 +347,10 @@ gint main(gint argc, gchar **argv)
   for ( i = 0 ; i < nf ; i ++ ) {
     b = wbfmm_point_box_PREC(tree, level, &(xf[i*strf])) ;
     wbfmm_tree_box_laplace_local_field_PREC(tree, level, b,
-					    &(xf[i*strf]), &(f[2*i]),
+					    &(xf[i*strf]), &(f[nq*i]),
 					    q, qstr, normals, nstr,
 					    dipoles, dstr,
-					    FALSE, work) ;
+					    TRUE, work) ;
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
@@ -354,11 +358,16 @@ gint main(gint argc, gchar **argv)
 
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 
-	    "%FLOATEXP %FLOATEXP %FLOATEXP %FLOATEXP %FLOATEXP\n",
-	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2], f[2*i+0], f[2*i+1]) ;
+	    "%FLOATEXP %FLOATEXP %FLOATEXP",
+	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, " %FLOATEXP", f[i*nq+j]) ;
+    }
+    fprintf(stdout, "\n") ;
   }
-#if 0
-#endif
+
+  g_free(ffile) ; g_free(sfile) ; g_free(progname) ;
+  g_free(xf) ; g_free(work) ;
   
   return 0 ;
 }
