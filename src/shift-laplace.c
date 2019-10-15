@@ -606,8 +606,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)(WBFMM_REAL *Cc,
   WBFMM_REAL buf[1024] ;
   gint nu, n, m, ic, ip, str, i ;
   
-  g_assert(nq <= 8) ;
-
+  g_assert(nq <= 64) ;
+  
   /*translation length*/
   /* t = SQRT(3.0)*0.25*wb ; */
   t = SQRT(0.1875)*wb ;
@@ -621,10 +621,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)(WBFMM_REAL *Cc,
   /* buf = work ; */
   /*rotate parent box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Np ; n ++ ) {
-    /* WBFMM_REAL buf[128] = {0.0} ; */
-    /* WBFMM_REAL *buf = work ; */
-    /* memset(buf, 0, 128*sizeof(WBFMM_REAL)) ; */
-    
     nu = 0 ; ic = n*n ;
     m  = 0 ; ip = n*n ;
 
@@ -690,7 +686,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)(WBFMM_REAL *Cc,
       for ( i = 0 ; i < 8*nq ; i ++ ) {
       	cr[i] += buf[2*i+0]*E0ph[0] - buf[2*i+1]*E0ph[1] ;
       	ci[i] += buf[2*i+1]*E0ph[0] + buf[2*i+0]*E0ph[1] ;
-	/* fprintf(stderr, "%d %lg\n", i, cr[i]) ; */
       }
     }
   }
@@ -723,13 +718,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)(WBFMM_REAL *Cc,
     }
   }
 
-  /* memcpy(Cc, Cr, 256*nq*sizeof(WBFMM_REAL)) ; return 0 ; */
-  /* memcpy(Cc, work, 256*nq*sizeof(WBFMM_REAL)) ; return 0 ; */
-
   /*Ct now contains rotated and shifted coefficients, perform
     reverse rotation into child coefficient array*/
 
-  /* buf = Cr ; */
   for ( n = 0 ; n <= Nc ; n ++ ) {
     nu = 0 ; ic = n*n ;
     m  = 0 ; ip = n*n ;

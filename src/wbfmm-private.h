@@ -79,6 +79,14 @@
 #define wbfmm_coaxial_translation_RR_cfft(_n, _nd, _m)	\
   (_wbfmm_RR_coefficients_laplace[_wbfmm_RR_coefficient_index_nmnu((_n),(_m),(_nd))])
 
+#define _wbfmm_SR_coefficient_index_nmnu(_n,_m,_nu)			\
+  ((6*(_wbfmm_translation_Nmax+1)*					\
+    (_wbfmm_translation_Nmax+2)+1-2*(_m)*(2*_wbfmm_translation_Nmax+3)+	\
+    2*(_m)*(_m))*(_m)/6 +						\
+   ((_n)-(_m))*(_wbfmm_translation_Nmax+1-(_m)) - (_m) + (_nu))
+#define wbfmm_coaxial_translation_SR_cfft(_n, _nd, _m)	\
+  (_wbfmm_SR_coefficients_laplace[_wbfmm_SR_coefficient_index_nmnu((_n),(_m),(_nd))])
+  
 extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace,
   *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ;
 extern gint _wbfmm_translation_Nmax ;

@@ -402,7 +402,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_RR_laplace)(WBFMM_REAL *Co,
   m  = 0 ; 
   for ( idxi = nd = 0 ; nd <= Ni ; (nd ++), (idxi = nd*nd) ) {
     for ( idxo = n = 0 ; n <= nd ; (n ++), (idxo = n*n) ) {
-      /* c = coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ; */
       c = wbfmm_coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ;
       for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] += c*Ci[cstri*idxi+i] ;
     }
@@ -414,7 +413,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_RR_laplace)(WBFMM_REAL *Co,
       idxi = wbfmm_index_laplace_nm(nd,m) ;
       for ( n = m ; n <= nd ; n ++ ) {
   	idxo = wbfmm_index_laplace_nm(n,m) ;
-	/* c = coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ; */
 	c = wbfmm_coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
   	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
@@ -464,7 +462,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(WBFMM_REAL *Co,
   m = 0 ;
   for ( idxo = n = 0 ; n <= No ; (n ++), (idxo = n*n) ) {
     for ( idxi = nd = 0 ; nd <= Ni ; (nd ++), (idxi = nd*nd) ) {
-      c = coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
+      /* c = coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ; */
+      c = wbfmm_coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
       for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] += c*Ci[cstri*idxi+i] ;
     }
   }
@@ -474,7 +473,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(WBFMM_REAL *Co,
       idxo = wbfmm_index_laplace_nm(n,m) ;
       for ( nd = m ; nd <= Ni ; nd ++ ) {
 	idxi = wbfmm_index_laplace_nm(nd,m) ;
-  	c = coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
+  	/* c = coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ; */
+  	c = wbfmm_coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
   	for ( i = 0 ; i < nq ; i ++ ) {
   	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
   	  Co[cstro*(idxo+1)+i] += c*Ci[cstri*(idxi+1)+i] ;
@@ -624,7 +624,25 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_laplace_init)(gint N)
       }
     }
   }
+
+  ne = Nmax*(6*(Nmax+1)*(Nmax+2) + 1 - 3*(Nmax+1)*(2*Nmax+3) +
+	     2*(Nmax+1)*(Nmax+1)) ;    
   
+  _wbfmm_SR_coefficients_laplace =
+    (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
+  
+  for ( m = 0 ; m <= Nmax ; m ++ ) {
+    for ( n = m ; n <= Nmax ; n ++ ) {
+      for ( nu = m ; nu <= Nmax ; nu ++ ) {
+  	i = _wbfmm_SR_coefficient_index_nmnu(n, m, nu) ;
+	g_assert(i < ne) ;
+  	g_assert(_wbfmm_SR_coefficients_laplace[i] == 0.0) ;
+  	_wbfmm_SR_coefficients_laplace[i] =
+  	  coaxial_translation_SR_cfft(n, nu, m) ;
+      }
+    }
+  }
+
   return 0 ;
 }
 
@@ -672,8 +690,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
   if ( nr != 0 ) {
     nc = (nr+1)*(nr+1) ;
     t->mpr[l] = g_malloc0(nb*nc*nq*sizeof(WBFMM_REAL)) ;
-    /* nc = wbfmm_coefficient_index_nm(nr+1,0) ; */
-    /* t->mpr[l] = g_malloc0(nb*2*nc*sizeof(WBFMM_REAL)) ; */
     c = (WBFMM_REAL *)(t->mpr[l]) ;
     /*
       set box pointers to start of their coefficients, noting that
@@ -683,7 +699,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
     for ( i = 0 ; i < nb ; i += 8 ) {
       for ( j = 0 ; j < 8 ; j ++ ) {
 	boxes[i+j].mpr = &(c[i*nq*nc+nq*j]) ;
-	/* boxes[i+j].mpr = &(c[i*2*nc+2*j]) ; */
       }
     }
   }
@@ -694,9 +709,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 							     WBFMM_REAL *src,
 							     gint sstr,
-							     WBFMM_REAL *normals,
+							     WBFMM_REAL
+							     *normals,
 							     gint nstr,
-							     WBFMM_REAL *dipoles,
+							     WBFMM_REAL
+							     *dipoles,
 							     gint dstr,
 							     gboolean
 							     zero_expansions,
@@ -877,14 +894,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
   C = boxes[b].mpr ;
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
-
-  /* fprintf(stderr, "box %d, (%lg, %lg, %lg), %lg\n", */
-  /* 	  b, xb[0], xb[1], xb[2], wb) ; */
-  
-  /* for ( i = 0 ; i < 8 ; i ++ ) { */
-  /*   fprintf(stderr, "%d %lg %lg\n", i, C[i*8*nq+0], C[i*8*nq+1]) ; */
-  /* } */
-  /* exit(0) ; */
   
   WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(xb, C, 8*nq,
 							t->order_r[level],
@@ -899,8 +908,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 	    __FUNCTION__) ;
   }
 
-  /* return 0 ; */
-  
   /*add the contribution from sources in neighbour boxes*/
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
@@ -915,8 +922,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > 1e-12 ) {
-	  r = SQRT(r) ;
-	  r *= 4.0*M_PI ;
+	  r = SQRT(r)*4.0*M_PI ;
 	  for ( k = 0 ; k < nq ; k ++ ) {
 	    f[k] += src[idx*sstr+k]/r ;
 	  }
