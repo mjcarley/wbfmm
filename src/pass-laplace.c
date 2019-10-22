@@ -97,7 +97,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   guint64 ip, ic, ilist[378] ;
   wbfmm_box_t *bp, *bc ;
   WBFMM_REAL *rotations, ph, ch, *H, *wks, *wkr ;
-  WBFMM_REAL *H03, *H47, wb, r ;
+  WBFMM_REAL *H03, *H47, wb, r, *Cn, *C ;
+  /* WBFMM_REAL *cc ; */
   /* gint i ; */
   
   g_assert(level > 1) ;
@@ -114,7 +115,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   Ns = t->order_s[level] ; Nr = t->order_r[level] ;
   ncs = (Ns+1)*(Ns+1) ;
   ncr = (Nr+1)*(Nr+1) ;
-  wks = work ; wkr = &(wks[nq*ncs]) ;
+  /* wks = work ; wkr = &(wks[nq*ncs]) ; */
+  wkr = work ; wks = &(wkr[2*nq*ncr]) ;
 
   /*boxes at this level (parent)*/
   bp = t->boxes[level] ;
@@ -123,12 +125,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   /*rotation operators*/
   rotations = (WBFMM_REAL *)(op->rotations) ;
 
+
   /*interaction list 4, loop on boxes at this level*/
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     /*locate boxes in interaction list*/
     ni = wbfmm_box_interaction_list_4(level, ip, ilist, TRUE) ;
+    C = (WBFMM_REAL *)(bp[ip].mpr) ;
+
     /*loop on interaction list and compute SR-shifted fields*/
     for ( j = 0 ; j < ni ; j ++ ) {
+      /*coefficients of neighbour box*/
+      Cn = (WBFMM_REAL *)(bp[ilist[2*j+0]].mps) ;
       /*find entry in shift lookup tables*/
       idx4 = ilist[2*j+1] ;
       /*index of rotation operator*/
@@ -146,26 +153,29 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
       ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
       /*clear workspace*/
-      memset(wks, 0, nq*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+      memset(work, 0, 2*nq*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
       /*rotate singular coefficients into wks*/
+      g_assert(wks[0] == 0.0) ;
+      g_assert(wks[nq*(Ns+1)*(Ns+1)-1] == 0.0) ;
       WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(wks, nq,
-						  bp[ilist[2*j+0]].mps, 8*nq,
+						  Cn, 8*nq,
 						  Ns, nq, H, ph, ch) ;
       /*translate into wkr*/
+      g_assert(wkr[0] == 0.0) ;
+      g_assert(wkr[nq*(Nr+1)*(Nr+1)-1] == 0.0) ;
       WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(wkr, nq, Nr,
 							      wks, nq, Ns, 
 							      nq, r) ;
       /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(bp[ip].mpr,
-						  8*nq,
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(C, 8*nq,
 						  wkr, nq,
 						  Nr, nq,
 						  H, ch, ph) ;
       /* g_assert(coefficient_check_laplace(bp[ip].mpr, 8*nq, Nr, nq)) ; */
     }
-
   }
-
+  /* return 0 ; */
+  
   /*no downward shift at the deepest level*/
   if ( level == t-> depth ) return 0 ;
 

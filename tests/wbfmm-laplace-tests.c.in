@@ -267,20 +267,22 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 			 gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t)
 
 {
-  gint i, nq, cstr ;
+  gint i, nq, cstr, Ns, Nr ;
   WBFMM_REAL Ci[BUFSIZE]={0.0}, work[8192]={0.0}, Co[BUFSIZE]={0.0} ;
   WBFMM_REAL fc[8]={0.0}, ff[8]={0.0}, ft[8]={0.0} ;
 
   nq = 2 ;
+  Ns = N ; Nr = Ns + 4 ;
   fprintf(stderr, "singular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
   fprintf(stderr,
-	  "N = %d\n"
+	  "Ns = %d\n"
+	  "Nr = %d\n"
 	  "x0 = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "t  = %FLOATFMT\n"
 	  "nsrc = %d\n",
-	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
+	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
   wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
@@ -289,17 +291,17 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_expansion_laplace_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_expansion_laplace_cfft_PREC(Ns, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_expansion_laplace_evaluate_PREC(x0, Ci, cstr, N, nq, xf, ff, work) ;
+  wbfmm_expansion_laplace_evaluate_PREC(x0, Ci, cstr, Ns, nq, xf, ff, work) ;
 
   /*translate the expansion*/
-  wbfmm_coaxial_translate_SR_laplace_PREC(Co, cstr, N, Ci, cstr, N, nq, t) ;
+  wbfmm_coaxial_translate_SR_laplace_PREC(Co, cstr, Nr, Ci, cstr, Ns, nq, t) ;
 
   x0[2] += t ;  
-  wbfmm_expansion_laplace_local_evaluate_PREC(x0, Co, cstr, N, nq,
+  wbfmm_expansion_laplace_local_evaluate_PREC(x0, Co, cstr, Nr, nq,
 					      xf, ft, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -323,21 +325,23 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 			 gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t)
 
 {
-  gint i, nq, cstr ;
+  gint i, nq, cstr, N0, N1 ;
   WBFMM_REAL Ci[BUFSIZE]={0.0}, Co[BUFSIZE]={0.0}, Cr[BUFSIZE] = {0.0} ;
   WBFMM_REAL work[BUFSIZE]={0.0} ;
   WBFMM_REAL fc[8]={0.0}, ff[8]={0.0}, ft[8]={0.0} ;
 
   nq = 2 ;
+  N0 = N+4 ; N1 = N ;
   fprintf(stderr, "regular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
   fprintf(stderr,
-	  "N = %d\n"
+	  "N0 = %d\n"
+	  "N1 = %d\n"
 	  "x0 = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "t  = %FLOATFMT\n"
 	  "nsrc = %d\n",
-	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
+	  N0, N1, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
   wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
@@ -346,21 +350,21 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_expansion_laplace_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_expansion_laplace_cfft_PREC(N0, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_expansion_laplace_evaluate_PREC(x0, Ci, cstr, N, nq, xf, ff, work) ;
+  wbfmm_expansion_laplace_evaluate_PREC(x0, Ci, cstr, N0, nq, xf, ff, work) ;
 
   /*translate the expansion, singular to regular*/
-  wbfmm_coaxial_translate_SR_laplace_PREC(Co, cstr, N, Ci, cstr, N, nq,
+  wbfmm_coaxial_translate_SR_laplace_PREC(Co, cstr, N0, Ci, cstr, N0, nq,
 					  t*0.9) ;
   /*translate the expansion, regular to regular*/
-  wbfmm_coaxial_translate_RR_laplace_PREC(Cr, cstr, N, Co, cstr, N, nq,
+  wbfmm_coaxial_translate_RR_laplace_PREC(Cr, cstr, N1, Co, cstr, N0, nq,
 					  t*0.1) ;  
 
   x0[2] += t ;  
-  wbfmm_expansion_laplace_local_evaluate_PREC(x0, Cr, cstr, N, nq,
+  wbfmm_expansion_laplace_local_evaluate_PREC(x0, Cr, cstr, N1, nq,
 					      xf, ft, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -684,7 +688,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   /* WBFMM_REAL *check ; */
   
   nq = 1 ;
-  Nc = N ; Np = N ;
+  Nc = N ; Np = Nc+4 ;
   Cc = (WBFMM_REAL *)g_malloc0((Nc+1)*(Nc+1)*nq*8*sizeof(WBFMM_REAL)) ;
   Cp = (WBFMM_REAL *)g_malloc0((Np+1)*(Np+1)*nq*8*sizeof(WBFMM_REAL)) ;
   C0 = (WBFMM_REAL *)g_malloc0((Np+1)*(Np+1)*nq*1*sizeof(WBFMM_REAL)) ;
