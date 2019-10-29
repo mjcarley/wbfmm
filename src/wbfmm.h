@@ -94,9 +94,38 @@ typedef struct {
   /**< singular expansion data at each level */
     *mpr[WBFMM_TREE_MAX_DEPTH+1] ; 
   /**< regular expansion data at each level */
-  gsize pstr ; /**< stride in point data */
+  gsize
+  size,  /**< size of floating point type in data (float, double, etc) */
+  pstr ; /**< stride in point data */
   gdouble D ; /**< width of domain cube */
 } wbfmm_tree_t ;
+
+/**
+ * @struct wbfmm_target_list_t
+ * @ingroup boxes
+ *
+ * Data type for target point lists
+ *
+ */
+
+typedef struct {
+  wbfmm_tree_t *t ; /**< tree containing source data */
+  guint
+  maxpoints, /**< maximum number of points in tree */
+    npoints, /**< number of points in tree */
+    *ip,     /**< indices of points, sorted by Morton index */
+    nc ;     /**< number of coefficients (size of blocks of coefficients) */
+  guint32
+  *boxes ;   /**< box indices of points */
+  gchar 
+  *points ; /**< point coordinates */
+  gsize
+  size ;    /**< size of floating point type in data (float, double, etc) */
+  gpointer
+  cfft ;   /**< coefficients of regular expansions in boxes */
+  gboolean
+  grad ;   /**< gradient computations included */
+} wbfmm_target_list_t ;
 
 /**
  * @struct wbfmm_shift_operators_t
@@ -129,6 +158,11 @@ typedef struct {
 #define wbfmm_tree_origin(_t) ((gpointer)(&((_t)->x[0]))) 
 #define wbfmm_tree_problem(_t) ((_t)->problem)
 #define wbfmm_tree_source_size(_t) ((_t)->nq)
+
+#define wbfmm_target_tree(_t) ((_t)->t)
+#define wbfmm_target_point_number(_t) ((_t)->npoints)
+#define wbfmm_target_point_number_max(_t) ((_t)->maxpoints)
+#define wbfmm_target_gradient(_t) ((_t)->grad)
 
 #define wbfmm_element_number_coaxial(_N)			\
   ( ((_N)+1)*((_N)+2)*((_N)+3)/6 + ((_N)+1)*((_N)+2)/2 + (_N)+1)
@@ -270,6 +304,15 @@ gint wbfmm_expansion_laplace_local_evaluate_f(gfloat *x0, gfloat *cfft,
 					      gfloat *work) ;
 gint wbfmm_coaxial_translate_laplace_init(gint N) ;
 gint wbfmm_coaxial_translate_laplace_init_f(gint N) ;
+gint wbfmm_rotation_matrix_operations_laplace(gint N, FILE *f,
+					      gchar *indent,
+					      gchar *output, gchar *ostr,
+					      gchar *input, gchar *istr,
+					      gchar *rot,
+					      gchar *rtmp, gchar *itmp,
+					      gchar *Cmch, gchar *Smch,
+					      gchar *Cnph, gchar *Smph,
+					      gchar *end) ;
 
 gint wbfmm_expansion_laplace_cfft_f(gint N, gfloat *x0,
 				    gfloat *xs, gfloat *q, gint nq,
@@ -412,6 +455,23 @@ gint wbfmm_tree_box_laplace_local_field_f(wbfmm_tree_t *t,
 					  gfloat *d, gint dstr,
 					  gboolean eval_neighbours,
 					  gfloat *work) ;
+gint wbfmm_laplace_local_coefficients(gdouble *x, gint N,
+				      gboolean grad, gdouble *cfft,
+				      gdouble *work) ;
+gint wbfmm_laplace_local_coefficients_f(gfloat *x, gint N,
+					gboolean grad, gfloat *cfft,
+					gfloat *work) ;
+gint wbfmm_laplace_field_coefficients(gdouble *x, gint N,
+				      gboolean grad, gdouble *cfft,
+				      gdouble *work) ;
+gint wbfmm_laplace_field_coefficients_f(gfloat *x, gint N,
+					gboolean grad, gfloat *cfft,
+					gfloat *work) ;
+gint wbfmm_laplace_expansion_evaluate(gdouble *C, gint cstr, gint nq,
+				      gdouble *ec, gint N, gdouble *f) ;
+gint wbfmm_laplace_expansion_evaluate_f(gfloat *C, gint cstr, gint nq,
+					gfloat *ec, gint N, gfloat *f) ;
+
 
   gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
 				gdouble *Cc, gint Nc,
@@ -680,6 +740,12 @@ gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  gboolean eval_neighbours,
 				  gfloat *work) ;
 guint64 wbfmm_point_box_f(wbfmm_tree_t *t, guint level, gfloat *x) ;
+
+wbfmm_target_list_t *wbfmm_target_list_new(wbfmm_tree_t *t, guint npts,
+					   gboolean grad) ;
+wbfmm_target_list_t *wbfmm_target_list_new_f(wbfmm_tree_t *t, guint npts,
+					     gboolean grad) ;
+
 
 /*precision independent functions*/
 guint64 wbfmm_point_locate_box(guint64 x, guint level) ;

@@ -32,7 +32,9 @@
 
 /* #define CHECK_COEFFICIENTS */
 
-/* #undef HAVE_FMA_INSTRUCTIONS */
+/*AVX optimization for double precision calculations*/
+#ifdef HAVE_AVX_INSTRUCTIONS
+#include <immintrin.h>
 
 #ifdef HAVE_FMA_INSTRUCTIONS
 #define wbfmm_cos_sin_recursion_avx(_Cn,_Sn,_C,_S)	\
@@ -55,11 +57,6 @@
   } while (0)
 #endif  /*HAVE_FMA_INSTRUCTIONS*/
 
-
-/*AVX optimization for double precision calculations*/
-
-#ifdef HAVE_AVX_INSTRUCTIONS
-#include <immintrin.h>
 #endif /*HAVE_AVX_INSTRUCTIONS*/
 
 #ifdef CHECK_COEFFICIENTS
@@ -424,7 +421,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
   /* inside loops, trigonmetric quantities are calculated using
    * recursions and take the following values:
    *
-   * Smch = SIN(m*ch) ; Cmch = COS(m*ch) ;
+   * Smch = SIN( m*ch) ; Cmch = COS( m*ch) ;
    * Cnph = COS(nu*ph) ; Snph = SIN(nu*ph) ;
    * 
    * offX (X = `p', `m') = offset into array, `p' for `plus' indices,
@@ -526,7 +523,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
       }
       /*output indices for \pm\nu*/
       offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
-      /* offm = 2*cstro*wbfmm_coefficient_index_nm(n,-nu) ; */
       offm = offp - 4*cstro*nu ;
 
       Co[offp+0] +=

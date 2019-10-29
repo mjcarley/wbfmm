@@ -23,7 +23,7 @@ bin_PROGRAMS = \
 	wbfmm-laplace-tree-calc \
 	wbfmm-laplace-tree-calc-float \
 	wbfmm-laplace-direct-calc \
-	wbfmm-laplace-direct-calc-float 
+	wbfmm-laplace-direct-calc-float
 
 BUILT_SOURCES = \
 	wbfmm-tests.c \
@@ -137,3 +137,4 @@ wbfmm_laplace_direct_calc_LDADD = \
 wbfmm_laplace_direct_calc_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+

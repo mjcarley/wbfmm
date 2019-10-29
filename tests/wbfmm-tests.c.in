@@ -25,6 +25,7 @@
 #include <wbfmm.h>
 
 #define BUFSIZE 131072
+/* 262144 */
 
 GTimer *timer ;
 
@@ -76,12 +77,12 @@ gint translation_local_test(WBFMM_REAL k, gint N,
 			    gint nsrc,
 			    WBFMM_REAL *xf, gint fstride, gint nfld) ;
 gint rotation_test(WBFMM_REAL k, gint N, 
-			  WBFMM_REAL *xc,
-			  WBFMM_REAL *xs, gint xstride,
-			  WBFMM_REAL *src, gint sstride,
-			  gint nsrc,
-			  WBFMM_REAL ix[], WBFMM_REAL iy[], 
-			  WBFMM_REAL iz[],			  
+		   WBFMM_REAL *xc,
+		   WBFMM_REAL *xs, gint xstride,
+		   WBFMM_REAL *src, gint sstride,
+		   gint nsrc,
+		   WBFMM_REAL ix[], WBFMM_REAL iy[], 
+		   WBFMM_REAL iz[],			  
 		   WBFMM_REAL *xf, gint nfld) ;
 gint shift_test(WBFMM_REAL k, gint N, 
 		       WBFMM_REAL *x0, WBFMM_REAL *x1,
@@ -659,12 +660,13 @@ gint rotation_test(WBFMM_REAL k, gint N,
 		   WBFMM_REAL *xf, gint nfld)
 
 {
-  WBFMM_REAL H[BUFSIZE], work[BUFSIZE], th, ph, ch ;
+  WBFMM_REAL H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   WBFMM_REAL ix0[3], iy0[3], iz0[3] ;
-  WBFMM_REAL Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0} ;
+  WBFMM_REAL Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
   WBFMM_REAL furot[2], frot[2], ref[2], y[3] ;
   gint i, cstri, cstro ;
-
+  gdouble t0, dt ;
+  
   cstri = 3 ; cstro = 2 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
@@ -674,6 +676,9 @@ gint rotation_test(WBFMM_REAL k, gint N,
   wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
   fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th, ph, ch) ;
+  t0 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "%s start: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*expand about origin*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
@@ -686,8 +691,24 @@ gint rotation_test(WBFMM_REAL k, gint N,
   wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
 
   /*apply the rotation to the coefficients*/
+  fprintf(stderr, "%s reference rotation: %lg\n",
+	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
   wbfmm_rotate_H_PREC(Co, cstro, Ci, cstri, N, H, ph, ch) ;
+  dt = g_timer_elapsed(timer, NULL) - dt ;
+  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
 
+#ifdef WBFMM_USE_AVX
+  memset(Co, 0, 2*BUFSIZE*sizeof(WBFMM_REAL)) ;
+  fprintf(stderr, "%s AVX rotation: %lg\n",
+	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+  wbfmm_rotate_H_PREC(Co, cstro, Ci, cstri, N, H, ph, ch) ;
+  dt = g_timer_elapsed(timer, NULL) - dt ;
+  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+#endif /*WBFMM_USE_AVX*/
+
+  
   for ( i = 0 ; i < nfld ; i ++ ) {
     ref[0] = ref[1] = 0.0 ;
     wbfmm_total_field_PREC(k, xs, xstride, src, sstride,

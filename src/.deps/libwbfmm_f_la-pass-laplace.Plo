@@ -9,7 +9,8 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c /usr/include/stdc-predef.h \
  /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
  /usr/include/bits/fp-fast.h \
  /usr/include/bits/mathcalls-helper-functions.h \
- /usr/include/bits/mathcalls.h /usr/include/string.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+ /usr/include/string.h \
  /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/stddef.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/glib-2.0/glib.h \
@@ -45,9 +46,9 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c /usr/include/stdc-predef.h \
  /usr/include/bits/sysmacros.h /usr/include/bits/pthreadtypes.h \
  /usr/include/bits/thread-shared-types.h \
  /usr/include/bits/pthreadtypes-arch.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-float.h /usr/include/glib-2.0/glib/gbacktrace.h \
- /usr/include/signal.h /usr/include/bits/signum.h \
- /usr/include/bits/signum-generic.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/glib-2.0/glib/gbacktrace.h /usr/include/signal.h \
+ /usr/include/bits/signum.h /usr/include/bits/signum-generic.h \
  /usr/include/bits/types/sig_atomic_t.h \
  /usr/include/bits/types/siginfo_t.h /usr/include/bits/types/__sigval_t.h \
  /usr/include/bits/siginfo-arch.h /usr/include/bits/siginfo-consts.h \
@@ -116,7 +117,7 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c /usr/include/stdc-predef.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/libio.h \
  /usr/include/bits/_G_config.h /usr/include/bits/types/__mbstate_t.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- wbfmm-private.h
+ /usr/include/bits/stdio.h wbfmm-private.h
 
 /usr/include/stdc-predef.h:
 
@@ -157,6 +158,8 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c /usr/include/stdc-predef.h \
 /usr/include/bits/mathcalls-helper-functions.h:
 
 /usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
 
 /usr/include/string.h:
 
@@ -271,6 +274,8 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c /usr/include/stdc-predef.h \
 /usr/include/bits/pthreadtypes-arch.h:
 
 /usr/include/alloca.h:
+
+/usr/include/bits/stdlib-bsearch.h:
 
 /usr/include/bits/stdlib-float.h:
 
@@ -473,5 +478,7 @@ wbfmm.h:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
 
 wbfmm-private.h:

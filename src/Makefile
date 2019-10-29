@@ -150,7 +150,8 @@ libwbfmm_base_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
 	util.lo factorial.lo boxes.lo shift.lo pass.lo laplace.lo \
-	shift-laplace.lo pass-laplace.lo
+	shift-laplace.lo pass-laplace.lo rotations-laplace.lo \
+	targets.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -161,7 +162,8 @@ am_libwbfmm_f_la_OBJECTS = libwbfmm_f_la-expansions.lo \
 	libwbfmm_f_la-util.lo libwbfmm_f_la-factorial.lo \
 	libwbfmm_f_la-boxes.lo libwbfmm_f_la-shift.lo \
 	libwbfmm_f_la-pass.lo libwbfmm_f_la-laplace.lo \
-	libwbfmm_f_la-shift-laplace.lo libwbfmm_f_la-pass-laplace.lo
+	libwbfmm_f_la-shift-laplace.lo libwbfmm_f_la-pass-laplace.lo \
+	libwbfmm_f_la-rotations-laplace.lo libwbfmm_f_la-targets.lo
 libwbfmm_f_la_OBJECTS = $(am_libwbfmm_f_la_OBJECTS)
 libwbfmm_f_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libwbfmm_f_la_CFLAGS) \
@@ -190,14 +192,17 @@ am__depfiles_remade = ./$(DEPDIR)/boxes.Plo ./$(DEPDIR)/expansions.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-laplace.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-pass.Plo \
+	./$(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-rotations.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-shift.Plo \
+	./$(DEPDIR)/libwbfmm_f_la-targets.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-translations.Plo \
 	./$(DEPDIR)/libwbfmm_f_la-util.Plo \
 	./$(DEPDIR)/pass-laplace.Plo ./$(DEPDIR)/pass.Plo \
-	./$(DEPDIR)/rotations.Plo ./$(DEPDIR)/shift-laplace.Plo \
-	./$(DEPDIR)/shift.Plo ./$(DEPDIR)/shifts.Plo \
+	./$(DEPDIR)/rotations-laplace.Plo ./$(DEPDIR)/rotations.Plo \
+	./$(DEPDIR)/shift-laplace.Plo ./$(DEPDIR)/shift.Plo \
+	./$(DEPDIR)/shifts.Plo ./$(DEPDIR)/targets.Plo \
 	./$(DEPDIR)/translations.Plo ./$(DEPDIR)/tree.Plo \
 	./$(DEPDIR)/util.Plo ./$(DEPDIR)/wbfmm-logging.Plo
 am__mv = mv -f
@@ -261,7 +266,7 @@ AUTOMAKE = automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -420,7 +425,9 @@ libwbfmm_la_SOURCES = \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \
-	pass-laplace.c
+	pass-laplace.c \
+	rotations-laplace.c \
+	targets.c
 
 libwbfmm_f_la_SOURCES = \
 	wbfmm-private.h \
@@ -434,7 +441,9 @@ libwbfmm_f_la_SOURCES = \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \
-	pass-laplace.c
+	pass-laplace.c \
+	rotations-laplace.c \
+	targets.c
 
 libwbfmm_f_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
 include_HEADERS = \
@@ -574,17 +583,21 @@ include ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-pass.Plo # am--include-marker
+include ./$(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-shift.Plo # am--include-marker
+include ./$(DEPDIR)/libwbfmm_f_la-targets.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-translations.Plo # am--include-marker
 include ./$(DEPDIR)/libwbfmm_f_la-util.Plo # am--include-marker
 include ./$(DEPDIR)/pass-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/pass.Plo # am--include-marker
+include ./$(DEPDIR)/rotations-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/rotations.Plo # am--include-marker
 include ./$(DEPDIR)/shift-laplace.Plo # am--include-marker
 include ./$(DEPDIR)/shift.Plo # am--include-marker
 include ./$(DEPDIR)/shifts.Plo # am--include-marker
+include ./$(DEPDIR)/targets.Plo # am--include-marker
 include ./$(DEPDIR)/translations.Plo # am--include-marker
 include ./$(DEPDIR)/tree.Plo # am--include-marker
 include ./$(DEPDIR)/util.Plo # am--include-marker
@@ -696,6 +709,20 @@ libwbfmm_f_la-pass-laplace.lo: pass-laplace.c
 #	$(AM_V_CC)source='pass-laplace.c' object='libwbfmm_f_la-pass-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-pass-laplace.lo `test -f 'pass-laplace.c' || echo '$(srcdir)/'`pass-laplace.c
+
+libwbfmm_f_la-rotations-laplace.lo: rotations-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-rotations-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Tpo -c -o libwbfmm_f_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo
+#	$(AM_V_CC)source='rotations-laplace.c' object='libwbfmm_f_la-rotations-laplace.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
+
+libwbfmm_f_la-targets.lo: targets.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-targets.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-targets.Tpo -c -o libwbfmm_f_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-targets.Tpo $(DEPDIR)/libwbfmm_f_la-targets.Plo
+#	$(AM_V_CC)source='targets.c' object='libwbfmm_f_la-targets.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -867,17 +894,21 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-targets.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-translations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-util.Plo
 	-rm -f ./$(DEPDIR)/pass-laplace.Plo
 	-rm -f ./$(DEPDIR)/pass.Plo
+	-rm -f ./$(DEPDIR)/rotations-laplace.Plo
 	-rm -f ./$(DEPDIR)/rotations.Plo
 	-rm -f ./$(DEPDIR)/shift-laplace.Plo
 	-rm -f ./$(DEPDIR)/shift.Plo
 	-rm -f ./$(DEPDIR)/shifts.Plo
+	-rm -f ./$(DEPDIR)/targets.Plo
 	-rm -f ./$(DEPDIR)/translations.Plo
 	-rm -f ./$(DEPDIR)/tree.Plo
 	-rm -f ./$(DEPDIR)/util.Plo
@@ -938,17 +969,21 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-shift.Plo
+	-rm -f ./$(DEPDIR)/libwbfmm_f_la-targets.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-translations.Plo
 	-rm -f ./$(DEPDIR)/libwbfmm_f_la-util.Plo
 	-rm -f ./$(DEPDIR)/pass-laplace.Plo
 	-rm -f ./$(DEPDIR)/pass.Plo
+	-rm -f ./$(DEPDIR)/rotations-laplace.Plo
 	-rm -f ./$(DEPDIR)/rotations.Plo
 	-rm -f ./$(DEPDIR)/shift-laplace.Plo
 	-rm -f ./$(DEPDIR)/shift.Plo
 	-rm -f ./$(DEPDIR)/shifts.Plo
+	-rm -f ./$(DEPDIR)/targets.Plo
 	-rm -f ./$(DEPDIR)/translations.Plo
 	-rm -f ./$(DEPDIR)/tree.Plo
 	-rm -f ./$(DEPDIR)/util.Plo

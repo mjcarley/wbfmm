@@ -19,10 +19,11 @@
 #endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
-#include <glib.h>
 #include <string.h>
 #include <stdio.h>
 #include <inttypes.h>
+
+#include <glib.h>
 
 #include <wbfmm.h>
 
@@ -52,6 +53,8 @@ wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
   t->ip = (guint32 *)g_malloc(maxpoints*sizeof(guint32)) ;
   t->npoints = 0 ;
 
+  t->size = sizeof(WBFMM_REAL) ;
+  
   for ( i = 0 ; i <= WBFMM_TREE_MAX_DEPTH ; i ++ ) t->boxes[i] = NULL ;
   t->boxes[0] = (wbfmm_box_t *)g_malloc(1*sizeof(wbfmm_box_t)) ;
 

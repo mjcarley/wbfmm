@@ -184,8 +184,8 @@ gint main(gint argc, gchar **argv)
     order_max = MAX(order_s, order_r) ;
     for ( i = depth-1 ; i > 0 ; i -- ) {
       order[2*i+0] = order[2*(i+1)+0] ;
-      order[2*i+0] = order[2*(i+1)+0] + 2 ;
-      order[2*i+1] = order[2*(i+1)+1] + 2 ;
+      order[2*i+0] = order[2*(i+1)+0] + 4 ;
+      order[2*i+1] = order[2*(i+1)+1] + 4 ;
       /* order[2*i+1] = order[2*(i+1)+1] ; */
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
@@ -201,7 +201,6 @@ gint main(gint argc, gchar **argv)
   /*size the workspace: this needs to be tighter to account for
     Laplace case*/
   sizew = wbfmm_element_number_rotation(2*order_max) ;
-  /* sizew = MAX(sizew, 64*(wbfmm_coefficient_index_nm(order_max+1,0))) ; */
   sizew = MAX(sizew, (order_max+1)*(order_max+1)*nq*16) ;
   work = (WBFMM_REAL *)g_malloc0(2*sizew*sizeof(WBFMM_REAL)) ;
 
