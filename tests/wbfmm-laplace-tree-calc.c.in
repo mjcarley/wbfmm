@@ -228,7 +228,7 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: initializing coaxial translation coefficients; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_coaxial_translate_laplace_init_PREC(order_max+2) ;
+  wbfmm_laplace_coaxial_translate_init_PREC(order_max+2) ;
   fprintf(stderr, "%s: coaxial translation coefficients initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
@@ -297,7 +297,7 @@ gint main(gint argc, gchar **argv)
     xf[0] = 1.1 ; xf[1] = 0.4 ; xf[2] = -0.7 ;
     level = 2 ;
     
-    wbfmm_box_fields_laplace_PREC(tree, level, xf, phi, work) ;
+    wbfmm_laplace_box_fields_PREC(tree, level, xf, phi, work) ;
     
     fprintf(stdout, "%FLOATFMT %FLOATFMT %FLOATFMT", xf[0], xf[1], xf[2]) ;
     for ( i = 0 ; i < nq ; i ++ ) 
@@ -328,7 +328,7 @@ gint main(gint argc, gchar **argv)
 
   for ( i = 0 ; i < nf ; i ++ ) {
     b = wbfmm_point_box_PREC(tree, level, &(xf[i*strf])) ;
-    wbfmm_tree_box_laplace_local_field_PREC(tree, level, b,
+    wbfmm_tree_laplace_box_local_field_PREC(tree, level, b,
 					    &(xf[i*strf]), &(f[nq*i]),
 					    q, qstr, normals, nstr,
 					    dipoles, dstr,

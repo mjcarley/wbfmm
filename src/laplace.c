@@ -33,7 +33,7 @@ WBFMM_REAL *_wbfmm_SS_coefficients_laplace = NULL,
   *_wbfmm_SR_coefficients_laplace = NULL ;
 gint _wbfmm_translation_Nmax = 0 ;
 
-gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
 						       WBFMM_REAL *x0,
 						       WBFMM_REAL *xs,
 						       WBFMM_REAL *q, gint nq,
@@ -127,7 +127,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(gint N,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(WBFMM_REAL *x0,
 							   WBFMM_REAL *cfft,
 							   gint cstr, 
 							   gint N, gint nq,
@@ -196,7 +196,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(WBFMM_REAL *x0,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
 								 WBFMM_REAL
 								 *cfft,
 								 gint cstr, 
@@ -308,7 +308,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SS_laplace)(WBFMM_REAL *Co,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SS)(WBFMM_REAL *Co,
 							     gint cstro,
 							     gint No,
 							     WBFMM_REAL *Ci,
@@ -378,7 +378,7 @@ static WBFMM_REAL coaxial_translation_RR_cfft(gint n, gint nd, gint m)
   return c ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_RR_laplace)(WBFMM_REAL *Co,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
 							     gint cstro,
 							     gint No,
 							     WBFMM_REAL *Ci,
@@ -447,7 +447,7 @@ static WBFMM_REAL coaxial_translation_SR_cfft(gint n, gint nd, gint m)
   return c ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(WBFMM_REAL *Co,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
 							     gint cstro,
 							     gint No,
 							     WBFMM_REAL *Ci,
@@ -519,7 +519,7 @@ static WBFMM_REAL coaxial_translation_SS_cfft(gint n, gint nd, gint m)
   return c ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_laplace_init)(gint N)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
 
 {
   gint n, m, nu, i, Nmax, ne ;
@@ -711,7 +711,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 	q = &(src[idx*sstr]) ;
 	/* WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q, */
 	/* 				      boxes[i].mps, 8, work) ; */
-	WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_cfft)(ns, xb, xs, q, nq,
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(ns, xb, xs, q, nq,
 							  boxes[i].mps, 8*nq,
 							  work) ;
       }
@@ -777,7 +777,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_fields)(wbfmm_tree_t *t,
 						   gint level,
 						   WBFMM_REAL *xf,
 						   WBFMM_REAL *field,
@@ -796,7 +796,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
   
   for ( i = 0 ; i < nbox ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, i, xb, &wb) ;
-    WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(xb, boxes[i].mps,
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(xb, boxes[i].mps,
 							  8*nq,
 							  t->order_s[level],
 							  nq, xf, field, work) ;
@@ -805,7 +805,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
  return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 							     guint level,
 							     guint b,
 							     WBFMM_REAL *x,
@@ -836,7 +836,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_laplace_local_field)(wbfmm_tree_t *t,
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
   
-  WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_local_evaluate)(xb, C, 8*nq,
+  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(xb, C, 8*nq,
 							t->order_r[level],
 							nq, x, f, work) ;
 
@@ -1007,12 +1007,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(WBFMM_REAL *C,
-							   gint cstr,
-							   gint nq,
-							   WBFMM_REAL *ec,
-							   gint N,
-							   WBFMM_REAL *f)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
+							gint cstr,
+							gint nq,
+							WBFMM_REAL *ec,
+							gint N,
+							WBFMM_REAL *f)
 {
   gint n, m, idx, i ;
   

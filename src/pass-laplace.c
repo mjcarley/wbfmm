@@ -157,17 +157,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
       /*rotate singular coefficients into wks*/
       g_assert(wks[0] == 0.0) ;
       g_assert(wks[nq*(Ns+1)*(Ns+1)-1] == 0.0) ;
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(wks, nq,
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
 						  Cn, 8*nq,
 						  Ns, nq, H, ph, ch) ;
       /*translate into wkr*/
       g_assert(wkr[0] == 0.0) ;
       g_assert(wkr[nq*(Nr+1)*(Nr+1)-1] == 0.0) ;
-      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_SR_laplace)(wkr, nq, Nr,
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
 							      wks, nq, Ns, 
 							      nq, r) ;
       /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(C, 8*nq,
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(C, 8*nq,
 						  wkr, nq,
 						  Nr, nq,
 						  H, ch, ph) ;
@@ -188,7 +188,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
 
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_parent_child_shift)
       ((WBFMM_REAL *)(bc[ic].mpr), Nc,
        (WBFMM_REAL *)(bp[ip].mpr), Np,
        nq, H03, H47, Np,
@@ -237,7 +237,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_upward_pass)(wbfmm_tree_t *t,
   for ( ip = 0 ; ip < np ; ip ++ ) {
     /*locate first child of parent box*/
     ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_laplace)((WBFMM_REAL *)
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)((WBFMM_REAL *)
 							  (bp[ip].mps),
 							  Np,
 							  (WBFMM_REAL *)

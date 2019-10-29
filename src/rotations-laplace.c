@@ -179,7 +179,7 @@ static gint _wbfmm_rotate_H_laplace_ref_1(WBFMM_REAL *Co, gint cstro,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_laplace)(WBFMM_REAL *Co, gint cstro,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(WBFMM_REAL *Co, gint cstro,
 						 WBFMM_REAL *Ci, gint cstri,
 						 gint N, gint nq,
 						 WBFMM_REAL *H,

@@ -236,7 +236,7 @@ static inline void increment_buf_cp_complex(WBFMM_REAL *E0, WBFMM_REAL *E1,
   return ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_laplace)(WBFMM_REAL *Cp,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)(WBFMM_REAL *Cp,
 							   gint Np,
 							   WBFMM_REAL *Cc,
 							   gint Nc,
@@ -575,7 +575,7 @@ static inline void increment_cfft_pc_complex(WBFMM_REAL *E,   WBFMM_REAL *C,
   return ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift_laplace)(WBFMM_REAL *Cc,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_parent_child_shift)(WBFMM_REAL *Cc,
 							   gint Nc,
 							   WBFMM_REAL *Cp,
 							   gint Np,
