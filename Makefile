@@ -95,7 +95,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/ax_gcc_x86_cpu_supports.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/ax_prog_doxygen.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -224,8 +224,32 @@ CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = dlltool
+DOXYGEN_PAPER_SIZE = 
 DSYMUTIL = 
 DUMPBIN = 
+DX_CONFIG = doxy/wbfmm.dxy
+DX_DOCDIR = doc
+DX_DOT = 
+DX_DOXYGEN = /usr/bin/doxygen
+DX_DVIPS = /usr/bin/dvips
+DX_EGREP = /usr/bin/egrep
+DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='YES'
+DX_FLAG_chi = 0
+DX_FLAG_chm = 0
+DX_FLAG_doc = 1
+DX_FLAG_dot = 0
+DX_FLAG_html = 1
+DX_FLAG_man = 0
+DX_FLAG_pdf = 1
+DX_FLAG_ps = 1
+DX_FLAG_rtf = 0
+DX_FLAG_xml = 0
+DX_HHC = 
+DX_LATEX = /usr/bin/latex
+DX_MAKEINDEX = /usr/bin/makeindex
+DX_PDFLATEX = /usr/bin/pdflatex
+DX_PERL = /usr/bin/perl
+DX_PROJECT = wbfmm
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
@@ -342,7 +366,7 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 DIST_SUBDIRS = src tests doc
-SUBDIRS = src tests doc
+SUBDIRS = src tests
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -828,6 +852,111 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+
+## --------------------------------- ##
+## Format-independent Doxygen rules. ##
+## --------------------------------- ##
+
+## ------------------------------- ##
+## Rules specific for HTML output. ##
+## ------------------------------- ##
+
+DX_CLEAN_HTML = $(DX_DOCDIR)/html\
+                $(DX_DOCDIR)/html
+
+## ----------------------------- ##
+## Rules specific for PS output. ##
+## ----------------------------- ##
+
+DX_CLEAN_PS = $(DX_DOCDIR)/$(PACKAGE).ps\
+              $(DX_DOCDIR)/$(PACKAGE).ps
+
+DX_PS_GOAL = doxygen-ps
+
+doxygen-ps: $(DX_CLEAN_PS)
+
+$(DX_DOCDIR)/$(PACKAGE).ps: $(DX_DOCDIR)/$(PACKAGE).tag
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_LATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_LATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_LATEX) refman.tex; \
+            countdown=`expr $$countdown - 1`; \
+	done; \
+	$(DX_DVIPS) -o ../$(PACKAGE).ps refman.dvi
+
+## ------------------------------ ##
+## Rules specific for PDF output. ##
+## ------------------------------ ##
+
+DX_CLEAN_PDF = $(DX_DOCDIR)/$(PACKAGE).pdf\
+               $(DX_DOCDIR)/$(PACKAGE).pdf
+
+DX_PDF_GOAL = doxygen-pdf
+
+doxygen-pdf: $(DX_CLEAN_PDF)
+
+$(DX_DOCDIR)/$(PACKAGE).pdf: $(DX_DOCDIR)/$(PACKAGE).tag
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_PDFLATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_PDFLATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_PDFLATEX) refman.tex; \
+	    countdown=`expr $$countdown - 1`; \
+	done; \
+	mv refman.pdf ../$(PACKAGE).pdf
+
+## ------------------------------------------------- ##
+## Rules specific for LaTeX (shared for PS and PDF). ##
+## ------------------------------------------------- ##
+
+DX_V_LATEX = $(_DX_v_LATEX_$(V))
+_DX_v_LATEX_ = $(_DX_v_LATEX_$(AM_DEFAULT_VERBOSITY))
+_DX_v_LATEX_0 = @echo "  LATEX " $@;
+
+DX_CLEAN_LATEX = $(DX_DOCDIR)/latex\
+                 $(DX_DOCDIR)/latex
+
+DX_V_DXGEN = $(_DX_v_DXGEN_$(V))
+_DX_v_DXGEN_ = $(_DX_v_DXGEN_$(AM_DEFAULT_VERBOSITY))
+_DX_v_DXGEN_0 = @echo "  DXGEN " $<;
+
+.PHONY: doxygen-run doxygen-doc $(DX_PS_GOAL) $(DX_PDF_GOAL)
+
+.INTERMEDIATE: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+
+doxygen-run: $(DX_DOCDIR)/$(PACKAGE).tag
+
+doxygen-doc: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+
+$(DX_DOCDIR)/$(PACKAGE).tag: $(DX_CONFIG) $(pkginclude_HEADERS)
+	$(AM_V_at)rm -rf $(DX_DOCDIR)
+	$(DX_V_DXGEN)$(DX_ENV) DOCDIR=$(DX_DOCDIR) $(DX_DOXYGEN) $(DX_CONFIG)
+	$(AM_V_at)echo Timestamp >$@
+
+DX_CLEANFILES = \
+	$(DX_DOCDIR)/doxygen_sqlite3.db \
+	$(DX_DOCDIR)/$(PACKAGE).tag \
+	-r \
+	$(DX_CLEAN_HTML) \
+	$(DX_CLEAN_CHM) \
+	$(DX_CLEAN_CHI) \
+	$(DX_CLEAN_MAN) \
+	$(DX_CLEAN_RTF) \
+	$(DX_CLEAN_XML) \
+	$(DX_CLEAN_PS) \
+	$(DX_CLEAN_PDF) \
+	$(DX_CLEAN_LATEX)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

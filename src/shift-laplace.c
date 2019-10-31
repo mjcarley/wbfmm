@@ -271,8 +271,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)(WBFMM_REAL *Cp,
   str = 8*nq ;
 
   /*used to store the rotated child coefficients*/
-  Cr = &(work[2*str*(Np+1)*(Np+1)]) ;
-  memset(Cr, 0, 2*str*(Nc+1)*(Nc+1)*sizeof(WBFMM_REAL)) ;
+  Cr = &(work[str*(Np+1)*(Np+1)]) ;
+  memset(Cr, 0, str*(Nc+1)*(Nc+1)*sizeof(WBFMM_REAL)) ;
 
   /*rotate child box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Nc ; n ++ ) {
@@ -375,7 +375,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)(WBFMM_REAL *Cp,
   for ( m = 1 ; m <= Np ; m ++ ) {
     for ( n = m ; n <= Np ; n ++ ) {
       ip = wbfmm_index_laplace_nm(n,m) ;
-      for ( nu = m ; nu <= n ; nu ++ ) {
+      for ( nu = m ; nu <= MIN(n,Nc) ; nu ++ ) {
+      /* for ( nu = m ; nu <= n ; nu ++ ) { */
   	ic = wbfmm_index_laplace_nm(nu,m) ;
   	c = wbfmm_coaxial_translation_SS_cfft(n, nu, m)*tn[n-nu] ;
 	/* g_assert(tn[n-nu] != 0.0) ; */

@@ -148,12 +148,24 @@ fi
 AC_CHECK_LIB(m, cos)
 AC_OPENMP
 
+DX_INIT_DOXYGEN(wbfmm, doxy/wbfmm.dxy, doc)
+DX_DOXYGEN_FEATURE(ON)
+DX_DOT_FEATURE(ON)
+DX_HTML_FEATURE(ON)
+DX_CHM_FEATURE(OFF)
+DX_CHI_FEATURE(OFF)
+DX_MAN_FEATURE(OFF)
+DX_RTF_FEATURE(OFF)
+DX_XML_FEATURE(OFF)
+DX_PDF_FEATURE(OFF)
+DX_PS_FEATURE(OFF)
 
 CFLAGS="$CFLAGS $OPENMP_CFLAGS $SIMD_FLAGS $glib_cflags"
 LDFLAGS="$LDFLAGS $glib_libs"
 
 AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
+AC_SUBST(DX_RULES)
 
 LIBS="$glib_libs $LAPACK_LIBS $BLAS_LIBS $LIBS $FLIBS"
 
@@ -161,9 +173,11 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 src/wbfmm-config
-tests/Makefile
-doc/Makefile
-doc/html/Makefile])
+tests/Makefile])
+
+#doc/Makefile])
+
+#doc/html/Makefile])
 
 AC_OUTPUT
 

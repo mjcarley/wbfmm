@@ -125,7 +125,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 						  Np,
 						  H03, H47, Np,
 						  trans, Np, work) ;
-    
   }
 
   return 0 ;

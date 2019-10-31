@@ -103,7 +103,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/ax_gcc_x86_cpu_supports.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/ax_prog_doxygen.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -289,8 +289,32 @@ CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = dlltool
+DOXYGEN_PAPER_SIZE = 
 DSYMUTIL = 
 DUMPBIN = 
+DX_CONFIG = doxy/wbfmm.dxy
+DX_DOCDIR = doc
+DX_DOT = 
+DX_DOXYGEN = /usr/bin/doxygen
+DX_DVIPS = /usr/bin/dvips
+DX_EGREP = /usr/bin/egrep
+DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='YES'
+DX_FLAG_chi = 0
+DX_FLAG_chm = 0
+DX_FLAG_doc = 1
+DX_FLAG_dot = 0
+DX_FLAG_html = 1
+DX_FLAG_man = 0
+DX_FLAG_pdf = 1
+DX_FLAG_ps = 1
+DX_FLAG_rtf = 0
+DX_FLAG_xml = 0
+DX_HHC = 
+DX_LATEX = /usr/bin/latex
+DX_MAKEINDEX = /usr/bin/makeindex
+DX_PDFLATEX = /usr/bin/pdflatex
+DX_PERL = /usr/bin/perl
+DX_PROJECT = wbfmm
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 

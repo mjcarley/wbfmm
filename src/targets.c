@@ -55,7 +55,6 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
   
   l->ip = (guint *)g_malloc0(npts*sizeof(guint)) ;
   l->boxes = (guint32 *)g_malloc0(npts*sizeof(guint32)) ;
-  l->points = (gchar *)g_malloc0(npts*3*sizeof(WBFMM_REAL)) ;
 
   /*size the memory allocation, based on order of leaf-level regular
     expansions*/

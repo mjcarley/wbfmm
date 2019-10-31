@@ -23,5 +23,16 @@ it is in use) pass the compiler flag WBFMM_USE_AVX. For example:
 
 CFLAGS="-O3 -g -DWBFMM_USE_AVX" ./configure ...
 
+To compile the code:
 
+make
 
+and to install it:
+
+make install
+
+If you want to generate the documentation:
+
+make doxygen-doc
+
+installs the html documentation in doc/html

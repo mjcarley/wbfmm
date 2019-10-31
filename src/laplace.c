@@ -834,11 +834,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
   boxes = t->boxes[level] ;
   C = boxes[b].mpr ;
 
+  /* if ( C[0] != 0.0 ) { */
+  /*   fprintf(stderr, "%u %lg %lg\n", level, C[0], C[1]) ; */
+  /*   exit(0) ; */
+  /* } */
+  
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
   
   WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(xb, C, 8*nq,
-							t->order_r[level],
-							nq, x, f, work) ;
+							      t->order_r[level],
+							      nq, x, f, work) ;
 
   if ( !eval_neighbours ) return 0 ;
 

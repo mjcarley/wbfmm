@@ -133,7 +133,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 
 {

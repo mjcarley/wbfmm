@@ -57,6 +57,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga93a893069e4a4ca08107764c1adb91f1"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rotations.html#ga93a893069e4a4ca08107764c1adb91f1">wbfmm_rotate_H</a> (gdouble *Co, gint cstro, gdouble *Ci, gint cstri, gint N, gdouble *H, gdouble ph, gdouble ch)</td></tr>
 <tr class="memdesc:ga93a893069e4a4ca08107764c1adb91f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients.  <a href="#ga93a893069e4a4ca08107764c1adb91f1">More...</a><br /></td></tr>
 <tr class="separator:ga93a893069e4a4ca08107764c1adb91f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5809d158cae1e88fcc8c01d8ec3bfd58"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rotations.html#ga5809d158cae1e88fcc8c01d8ec3bfd58">wbfmm_laplace_rotate_H</a> (gdouble *Co, gint cstro, gdouble *Ci, gint cstri, gint N, gint nq, gdouble *H, gdouble ph, gdouble ch)</td></tr>
+<tr class="memdesc:ga5809d158cae1e88fcc8c01d8ec3bfd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients for the Laplace problem.  <a href="#ga5809d158cae1e88fcc8c01d8ec3bfd58">More...</a><br /></td></tr>
+<tr class="separator:ga5809d158cae1e88fcc8c01d8ec3bfd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada5ed4dbfcf5876240f68bba12c0a529"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rotations.html#gada5ed4dbfcf5876240f68bba12c0a529">wbfmm_rotation_angles_f</a> (gfloat *ix, gfloat *iy, gfloat *iz, gfloat *jx, gfloat *jy, gfloat *jz, gfloat *th, gfloat *ph, gfloat *ch)</td></tr>
 <tr class="memdesc:gada5ed4dbfcf5876240f68bba12c0a529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the rotation angles <img class="formulaInl" alt="$(\theta,\phi,\chi)$" src="form_0.png"/> between axes.  <a href="#gada5ed4dbfcf5876240f68bba12c0a529">More...</a><br /></td></tr>
 <tr class="separator:gada5ed4dbfcf5876240f68bba12c0a529"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -66,6 +69,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3e495252419e8ac6498122d27386911e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rotations.html#ga3e495252419e8ac6498122d27386911e">wbfmm_rotate_H_f</a> (gfloat *Co, gint cstro, gfloat *Ci, gint cstri, gint N, gfloat *H, gfloat ph, gfloat ch)</td></tr>
 <tr class="memdesc:ga3e495252419e8ac6498122d27386911e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients.  <a href="#ga3e495252419e8ac6498122d27386911e">More...</a><br /></td></tr>
 <tr class="separator:ga3e495252419e8ac6498122d27386911e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga456e513e795ace0bfe61e21c4b70ffae"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rotations.html#ga456e513e795ace0bfe61e21c4b70ffae">wbfmm_laplace_rotate_H_f</a> (gfloat *Co, gint cstro, gfloat *Ci, gint cstri, gint N, gint nq, gfloat *H, gfloat ph, gfloat ch)</td></tr>
+<tr class="memdesc:ga456e513e795ace0bfe61e21c4b70ffae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients for the Laplace problem.  <a href="#ga456e513e795ace0bfe61e21c4b70ffae">More...</a><br /></td></tr>
+<tr class="separator:ga456e513e795ace0bfe61e21c4b70ffae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Computation and application of rotation operators. </p>
@@ -166,6 +172,182 @@ Functions</h2></td></tr>
     <tr><td class="paramname">N</td><td>maximum order of coefficients to compute; </td></tr>
     <tr><td class="paramname">th</td><td>rotation angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#gada5ed4dbfcf5876240f68bba12c0a529" title="Compute the rotation angles  between axes. ">wbfmm_rotation_angles_f</a>(...); </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga5809d158cae1e88fcc8c01d8ec3bfd58"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_laplace_rotate_H </td>
+          <td>(</td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>Co</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstro</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>Ci</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>nq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>ph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients for the Laplace problem. </p>
+<p>Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle . ">wbfmm_coefficients_H_rotation</a>(...), rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
+<p><img class="formulaInl" alt="$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$" src="form_10.png"/></p>
+<p>This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Co</td><td>on output contains rotated coefficients; </td></tr>
+    <tr><td class="paramname">cstro</td><td>stride in <em>Co</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">Ci</td><td>input coefficients, to be rotated; </td></tr>
+    <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">N</td><td>maximum order of coefficients; </td></tr>
+    <tr><td class="paramname">nq</td><td>number of source terms; </td></tr>
+    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle . ">wbfmm_coefficients_H_rotation</a>(...); </td></tr>
+    <tr><td class="paramname">ph</td><td>angle <img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation; </td></tr>
+    <tr><td class="paramname">ch</td><td>angle <img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga456e513e795ace0bfe61e21c4b70ffae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_laplace_rotate_H_f </td>
+          <td>(</td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>Co</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstro</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>Ci</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>nq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>ph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients for the Laplace problem. </p>
+<p>Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle . ">wbfmm_coefficients_H_rotation_f</a>(...), rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
+<p><img class="formulaInl" alt="$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$" src="form_10.png"/></p>
+<p>This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Co</td><td>on output contains rotated coefficients; </td></tr>
+    <tr><td class="paramname">cstro</td><td>stride in <em>Co</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">Ci</td><td>input coefficients, to be rotated; </td></tr>
+    <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">N</td><td>maximum order of coefficients; </td></tr>
+    <tr><td class="paramname">nq</td><td>number of source terms; </td></tr>
+    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle . ">wbfmm_coefficients_H_rotation_f</a>(...); </td></tr>
+    <tr><td class="paramname">ph</td><td>angle <img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation; </td></tr>
+    <tr><td class="paramname">ch</td><td>angle <img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation.</td></tr>
   </table>
   </dd>
 </dl>
@@ -512,7 +694,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 1 2019 17:30:27 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 30 2019 11:38:18 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

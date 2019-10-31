@@ -41,43 +41,43 @@ PATH: /usr/lib64/qt/bin
 ## Core tests. ##
 ## ----------- ##
 
-configure:2232: checking for a BSD-compatible install
-configure:2300: result: /usr/bin/ginstall -c
-configure:2311: checking whether build environment is sane
-configure:2366: result: yes
-configure:2404: WARNING: 'missing' script is too old or missing
-configure:2517: checking for a thread-safe mkdir -p
-configure:2556: result: /usr/bin/mkdir -p
-configure:2563: checking for gawk
-configure:2579: found /usr/bin/gawk
-configure:2590: result: gawk
-configure:2601: checking whether make sets $(MAKE)
-configure:2623: result: yes
-configure:2652: checking whether make supports nested variables
-configure:2669: result: yes
-configure:2857: checking build system type
-configure:2871: result: x86_64-unknown-linux-gnu
-configure:2891: checking host system type
-configure:2904: result: x86_64-unknown-linux-gnu
-configure:2945: checking how to print strings
-configure:2972: result: printf
-configure:2997: checking whether make supports the include directive
-configure:3012: make -f confmf.GNU && cat confinc.out
+configure:2295: checking for a BSD-compatible install
+configure:2363: result: /usr/bin/ginstall -c
+configure:2374: checking whether build environment is sane
+configure:2429: result: yes
+configure:2467: WARNING: 'missing' script is too old or missing
+configure:2580: checking for a thread-safe mkdir -p
+configure:2619: result: /usr/bin/mkdir -p
+configure:2626: checking for gawk
+configure:2642: found /usr/bin/gawk
+configure:2653: result: gawk
+configure:2664: checking whether make sets $(MAKE)
+configure:2686: result: yes
+configure:2715: checking whether make supports nested variables
+configure:2732: result: yes
+configure:2920: checking build system type
+configure:2934: result: x86_64-unknown-linux-gnu
+configure:2954: checking host system type
+configure:2967: result: x86_64-unknown-linux-gnu
+configure:3008: checking how to print strings
+configure:3035: result: printf
+configure:3060: checking whether make supports the include directive
+configure:3075: make -f confmf.GNU && cat confinc.out
 this is the am__doit target
-configure:3015: $? = 0
-configure:3034: result: yes (GNU style)
-configure:3104: checking for gcc
-configure:3120: found /usr/bin/gcc
-configure:3131: result: gcc
-configure:3360: checking for C compiler version
-configure:3369: gcc --version >&5
+configure:3078: $? = 0
+configure:3097: result: yes (GNU style)
+configure:3167: checking for gcc
+configure:3183: found /usr/bin/gcc
+configure:3194: result: gcc
+configure:3423: checking for C compiler version
+configure:3432: gcc --version >&5
 gcc (GCC) 8.2.0
 Copyright (C) 2018 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:3380: $? = 0
-configure:3369: gcc -v >&5
+configure:3443: $? = 0
+configure:3432: gcc -v >&5
 Reading specs from /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/specs
 COLLECT_GCC=gcc
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-slackware-linux/8.2.0/lto-wrapper
@@ -85,147 +85,147 @@ Target: x86_64-slackware-linux
 Configured with: ../gcc-8.2.0/configure --prefix=/usr --libdir=/usr/lib64 --mandir=/usr/man --infodir=/usr/info --enable-shared --enable-bootstrap --enable-languages=ada,brig,c,c++,fortran,go,lto,objc --enable-threads=posix --enable-checking=release --enable-objc-gc --with-system-zlib --enable-libstdcxx-dual-abi --with-default-libstdcxx-abi=new --disable-libstdcxx-pch --disable-libunwind-exceptions --enable-__cxa_atexit --disable-libssp --enable-gnu-unique-object --enable-plugin --enable-lto --disable-install-libiberty --disable-werror --with-gnu-ld --verbose --with-arch-directory=amd64 --disable-gtktest --disable-multilib --target=x86_64-slackware-linux --build=x86_64-slackware-linux --host=x86_64-slackware-linux
 Thread model: posix
 gcc version 8.2.0 (GCC) 
-configure:3380: $? = 0
-configure:3369: gcc -V >&5
+configure:3443: $? = 0
+configure:3432: gcc -V >&5
 gcc: error: unrecognized command line option '-V'
 gcc: fatal error: no input files
 compilation terminated.
-configure:3380: $? = 1
-configure:3369: gcc -qversion >&5
+configure:3443: $? = 1
+configure:3432: gcc -qversion >&5
 gcc: error: unrecognized command line option '-qversion'; did you mean '--version'?
 gcc: fatal error: no input files
 compilation terminated.
-configure:3380: $? = 1
-configure:3400: checking whether the C compiler works
-configure:3422: gcc -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
-configure:3426: $? = 0
-configure:3474: result: yes
-configure:3477: checking for C compiler default output file name
-configure:3479: result: a.out
-configure:3485: checking for suffix of executables
-configure:3492: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
-configure:3496: $? = 0
-configure:3518: result: 
-configure:3540: checking whether we are cross compiling
-configure:3548: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
-configure:3552: $? = 0
-configure:3559: ./conftest
-configure:3563: $? = 0
-configure:3578: result: no
-configure:3583: checking for suffix of object files
-configure:3605: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:3609: $? = 0
-configure:3630: result: o
-configure:3634: checking whether we are using the GNU C compiler
-configure:3653: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:3653: $? = 0
-configure:3662: result: yes
-configure:3671: checking whether gcc accepts -g
-configure:3691: gcc -c -g  conftest.c >&5
-configure:3691: $? = 0
-configure:3732: result: yes
-configure:3749: checking for gcc option to accept ISO C89
-configure:3812: gcc  -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:3812: $? = 0
-configure:3825: result: none needed
-configure:3850: checking whether gcc understands -c and -o together
-configure:3872: gcc -c conftest.c -o conftest2.o
+configure:3443: $? = 1
+configure:3463: checking whether the C compiler works
+configure:3485: gcc -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3489: $? = 0
+configure:3537: result: yes
+configure:3540: checking for C compiler default output file name
+configure:3542: result: a.out
+configure:3548: checking for suffix of executables
+configure:3555: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3559: $? = 0
+configure:3581: result: 
+configure:3603: checking whether we are cross compiling
+configure:3611: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3615: $? = 0
+configure:3622: ./conftest
+configure:3626: $? = 0
+configure:3641: result: no
+configure:3646: checking for suffix of object files
+configure:3668: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:3672: $? = 0
+configure:3693: result: o
+configure:3697: checking whether we are using the GNU C compiler
+configure:3716: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:3716: $? = 0
+configure:3725: result: yes
+configure:3734: checking whether gcc accepts -g
+configure:3754: gcc -c -g  conftest.c >&5
+configure:3754: $? = 0
+configure:3795: result: yes
+configure:3812: checking for gcc option to accept ISO C89
+configure:3875: gcc  -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:3875: $? = 0
-configure:3872: gcc -c conftest.c -o conftest2.o
-configure:3875: $? = 0
-configure:3887: result: yes
-configure:3906: checking dependency style of gcc
-configure:4017: result: gcc3
-configure:4032: checking for a sed that does not truncate output
-configure:4096: result: /usr/bin/sed
-configure:4114: checking for grep that handles long lines and -e
-configure:4172: result: /usr/bin/grep
-configure:4177: checking for egrep
-configure:4239: result: /usr/bin/grep -E
-configure:4244: checking for fgrep
-configure:4306: result: /usr/bin/grep -F
-configure:4341: checking for ld used by gcc
-configure:4408: result: /usr/bin/ld
-configure:4415: checking if the linker (/usr/bin/ld) is GNU ld
-configure:4430: result: yes
-configure:4442: checking for BSD- or MS-compatible name lister (nm)
-configure:4496: result: /usr/bin/nm -B
-configure:4626: checking the name lister (/usr/bin/nm -B) interface
-configure:4633: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:4636: /usr/bin/nm -B "conftest.o"
-configure:4639: output
+configure:3888: result: none needed
+configure:3913: checking whether gcc understands -c and -o together
+configure:3935: gcc -c conftest.c -o conftest2.o
+configure:3938: $? = 0
+configure:3935: gcc -c conftest.c -o conftest2.o
+configure:3938: $? = 0
+configure:3950: result: yes
+configure:3969: checking dependency style of gcc
+configure:4080: result: gcc3
+configure:4095: checking for a sed that does not truncate output
+configure:4159: result: /usr/bin/sed
+configure:4177: checking for grep that handles long lines and -e
+configure:4235: result: /usr/bin/grep
+configure:4240: checking for egrep
+configure:4302: result: /usr/bin/grep -E
+configure:4307: checking for fgrep
+configure:4369: result: /usr/bin/grep -F
+configure:4404: checking for ld used by gcc
+configure:4471: result: /usr/bin/ld
+configure:4478: checking if the linker (/usr/bin/ld) is GNU ld
+configure:4493: result: yes
+configure:4505: checking for BSD- or MS-compatible name lister (nm)
+configure:4559: result: /usr/bin/nm -B
+configure:4689: checking the name lister (/usr/bin/nm -B) interface
+configure:4696: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:4699: /usr/bin/nm -B "conftest.o"
+configure:4702: output
 0000000000000000 B some_variable
-configure:4646: result: BSD nm
-configure:4649: checking whether ln -s works
-configure:4653: result: yes
-configure:4661: checking the maximum length of command line arguments
-configure:4792: result: 1572864
-configure:4840: checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format
-configure:4880: result: func_convert_file_noop
-configure:4887: checking how to convert x86_64-unknown-linux-gnu file names to toolchain format
-configure:4907: result: func_convert_file_noop
-configure:4914: checking for /usr/bin/ld option to reload object files
-configure:4921: result: -r
-configure:4995: checking for objdump
-configure:5011: found /usr/bin/objdump
-configure:5022: result: objdump
-configure:5054: checking how to recognize dependent libraries
-configure:5254: result: pass_all
-configure:5339: checking for dlltool
-configure:5355: found /usr/bin/dlltool
-configure:5366: result: dlltool
-configure:5399: checking how to associate runtime and link libraries
-configure:5426: result: printf %s\n
-configure:5487: checking for ar
-configure:5503: found /usr/bin/ar
-configure:5514: result: ar
-configure:5551: checking for archiver @FILE support
-configure:5568: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:5568: $? = 0
-configure:5571: ar cru libconftest.a @conftest.lst >&5
-configure:5574: $? = 0
-configure:5579: ar cru libconftest.a @conftest.lst >&5
+configure:4709: result: BSD nm
+configure:4712: checking whether ln -s works
+configure:4716: result: yes
+configure:4724: checking the maximum length of command line arguments
+configure:4855: result: 1572864
+configure:4903: checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format
+configure:4943: result: func_convert_file_noop
+configure:4950: checking how to convert x86_64-unknown-linux-gnu file names to toolchain format
+configure:4970: result: func_convert_file_noop
+configure:4977: checking for /usr/bin/ld option to reload object files
+configure:4984: result: -r
+configure:5058: checking for objdump
+configure:5074: found /usr/bin/objdump
+configure:5085: result: objdump
+configure:5117: checking how to recognize dependent libraries
+configure:5317: result: pass_all
+configure:5402: checking for dlltool
+configure:5418: found /usr/bin/dlltool
+configure:5429: result: dlltool
+configure:5462: checking how to associate runtime and link libraries
+configure:5489: result: printf %s\n
+configure:5550: checking for ar
+configure:5566: found /usr/bin/ar
+configure:5577: result: ar
+configure:5614: checking for archiver @FILE support
+configure:5631: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:5631: $? = 0
+configure:5634: ar cru libconftest.a @conftest.lst >&5
+configure:5637: $? = 0
+configure:5642: ar cru libconftest.a @conftest.lst >&5
 ar: conftest.o: No such file or directory
-configure:5582: $? = 1
-configure:5594: result: @
-configure:5652: checking for strip
-configure:5668: found /usr/bin/strip
-configure:5679: result: strip
-configure:5751: checking for ranlib
-configure:5767: found /usr/bin/ranlib
-configure:5778: result: ranlib
-configure:5880: checking command to parse /usr/bin/nm -B output from gcc object
-configure:6033: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:6036: $? = 0
-configure:6040: /usr/bin/nm -B conftest.o \| sed -n -e 's/^.*[ ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
-configure:6043: $? = 0
-configure:6109: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c conftstm.o >&5
-configure:6112: $? = 0
-configure:6150: result: ok
-configure:6197: checking for sysroot
-configure:6227: result: no
-configure:6234: checking for a working dd
-configure:6272: result: /usr/bin/dd
-configure:6276: checking how to truncate binary pipes
-configure:6291: result: /usr/bin/dd bs=4096 count=1
-configure:6427: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:6430: $? = 0
-configure:6620: checking for mt
-configure:6636: found /bin/mt
-configure:6647: result: mt
-configure:6670: checking if mt is a manifest tool
-configure:6676: mt '-?'
+configure:5645: $? = 1
+configure:5657: result: @
+configure:5715: checking for strip
+configure:5731: found /usr/bin/strip
+configure:5742: result: strip
+configure:5814: checking for ranlib
+configure:5830: found /usr/bin/ranlib
+configure:5841: result: ranlib
+configure:5943: checking command to parse /usr/bin/nm -B output from gcc object
+configure:6096: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:6099: $? = 0
+configure:6103: /usr/bin/nm -B conftest.o \| sed -n -e 's/^.*[ ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
+configure:6106: $? = 0
+configure:6172: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c conftstm.o >&5
+configure:6175: $? = 0
+configure:6213: result: ok
+configure:6260: checking for sysroot
+configure:6290: result: no
+configure:6297: checking for a working dd
+configure:6335: result: /usr/bin/dd
+configure:6339: checking how to truncate binary pipes
+configure:6354: result: /usr/bin/dd bs=4096 count=1
+configure:6490: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:6493: $? = 0
+configure:6683: checking for mt
+configure:6699: found /bin/mt
+configure:6710: result: mt
+configure:6733: checking if mt is a manifest tool
+configure:6739: mt '-?'
 usage: mt [-v] [--version] [-h] [ -f device ] command [ count ]
-configure:6684: result: no
-configure:7361: checking how to run the C preprocessor
-configure:7392: gcc -E  conftest.c
-configure:7392: $? = 0
-configure:7406: gcc -E  conftest.c
+configure:6747: result: no
+configure:7424: checking how to run the C preprocessor
+configure:7455: gcc -E  conftest.c
+configure:7455: $? = 0
+configure:7469: gcc -E  conftest.c
 conftest.c:16:10: fatal error: ac_nonexistent.h: No such file or directory
  #include <ac_nonexistent.h>
           ^~~~~~~~~~~~~~~~~~
 compilation terminated.
-configure:7406: $? = 1
+configure:7469: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "wbfmm"
@@ -243,134 +243,134 @@ configure: failed program was:
 | #define WBFMM_BINARY_AGE 0
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:7431: result: gcc -E
-configure:7451: gcc -E  conftest.c
-configure:7451: $? = 0
-configure:7465: gcc -E  conftest.c
-conftest.c:16:10: fatal error: ac_nonexistent.h: No such file or directory
- #include <ac_nonexistent.h>
-          ^~~~~~~~~~~~~~~~~~
-compilation terminated.
-configure:7465: $? = 1
-configure: failed program was:
-| /* confdefs.h */
-| #define PACKAGE_NAME "wbfmm"
-| #define PACKAGE_TARNAME "wbfmm"
-| #define PACKAGE_VERSION "0.1"
-| #define PACKAGE_STRING "wbfmm 0.1"
-| #define PACKAGE_BUGREPORT ""
-| #define PACKAGE_URL ""
-| #define PACKAGE "wbfmm"
-| #define VERSION "0.1"
-| #define WBFMM_MAJOR_VERSION 0
-| #define WBFMM_MINOR_VERSION 1
-| #define WBFMM_MICRO_VERSION 1
-| #define WBFMM_INTERFACE_AGE 0
-| #define WBFMM_BINARY_AGE 0
-| /* end confdefs.h.  */
-| #include <ac_nonexistent.h>
-configure:7494: checking for ANSI C header files
-configure:7514: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7494: result: gcc -E
+configure:7514: gcc -E  conftest.c
 configure:7514: $? = 0
-configure:7587: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
-configure:7587: $? = 0
-configure:7587: ./conftest
-configure:7587: $? = 0
-configure:7598: result: yes
-configure:7611: checking for sys/types.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for sys/stat.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for stdlib.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for string.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for memory.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for strings.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for inttypes.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for stdint.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7611: checking for unistd.h
-configure:7611: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7611: $? = 0
-configure:7611: result: yes
-configure:7625: checking for dlfcn.h
-configure:7625: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:7625: $? = 0
-configure:7625: result: yes
-configure:7881: checking for objdir
-configure:7896: result: .libs
-configure:8160: checking if gcc supports -fno-rtti -fno-exceptions
-configure:8178: gcc -c -O3 -g -DWBFMM_USE_AVX  -fno-rtti -fno-exceptions conftest.c >&5
+configure:7528: gcc -E  conftest.c
+conftest.c:16:10: fatal error: ac_nonexistent.h: No such file or directory
+ #include <ac_nonexistent.h>
+          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+configure:7528: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "wbfmm"
+| #define PACKAGE_TARNAME "wbfmm"
+| #define PACKAGE_VERSION "0.1"
+| #define PACKAGE_STRING "wbfmm 0.1"
+| #define PACKAGE_BUGREPORT ""
+| #define PACKAGE_URL ""
+| #define PACKAGE "wbfmm"
+| #define VERSION "0.1"
+| #define WBFMM_MAJOR_VERSION 0
+| #define WBFMM_MINOR_VERSION 1
+| #define WBFMM_MICRO_VERSION 1
+| #define WBFMM_INTERFACE_AGE 0
+| #define WBFMM_BINARY_AGE 0
+| /* end confdefs.h.  */
+| #include <ac_nonexistent.h>
+configure:7557: checking for ANSI C header files
+configure:7577: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7577: $? = 0
+configure:7650: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:7650: $? = 0
+configure:7650: ./conftest
+configure:7650: $? = 0
+configure:7661: result: yes
+configure:7674: checking for sys/types.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for sys/stat.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for stdlib.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for string.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for memory.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for strings.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for inttypes.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for stdint.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7674: checking for unistd.h
+configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: $? = 0
+configure:7674: result: yes
+configure:7688: checking for dlfcn.h
+configure:7688: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7688: $? = 0
+configure:7688: result: yes
+configure:7944: checking for objdir
+configure:7959: result: .libs
+configure:8223: checking if gcc supports -fno-rtti -fno-exceptions
+configure:8241: gcc -c -O3 -g -DWBFMM_USE_AVX  -fno-rtti -fno-exceptions conftest.c >&5
 cc1: warning: command line option '-fno-rtti' is valid for C++/ObjC++ but not for C
-configure:8182: $? = 0
-configure:8195: result: no
-configure:8553: checking for gcc option to produce PIC
-configure:8560: result: -fPIC -DPIC
-configure:8568: checking if gcc PIC flag -fPIC -DPIC works
-configure:8586: gcc -c -O3 -g -DWBFMM_USE_AVX  -fPIC -DPIC -DPIC conftest.c >&5
-configure:8590: $? = 0
-configure:8603: result: yes
-configure:8632: checking if gcc static flag -static works
-configure:8660: result: yes
-configure:8675: checking if gcc supports -c -o file.o
-configure:8696: gcc -c -O3 -g -DWBFMM_USE_AVX  -o out/conftest2.o conftest.c >&5
-configure:8700: $? = 0
-configure:8722: result: yes
-configure:8730: checking if gcc supports -c -o file.o
-configure:8777: result: yes
-configure:8810: checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries
-configure:10069: result: yes
-configure:10106: checking whether -lc should be explicitly linked in
-configure:10114: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
-configure:10117: $? = 0
-configure:10132: gcc -shared  -fPIC -DPIC conftest.o  -v -Wl,-soname -Wl,conftest -o conftest 2\>\&1 \| /usr/bin/grep  -lc  \>/dev/null 2\>\&1
-configure:10135: $? = 0
-configure:10149: result: no
-configure:10309: checking dynamic linker characteristics
-configure:10890: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   -Wl,-rpath -Wl,/foo conftest.c  >&5
-configure:10890: $? = 0
-configure:11127: result: GNU/Linux ld.so
-configure:11249: checking how to hardcode library paths into programs
-configure:11274: result: immediate
-configure:11822: checking whether stripping libraries is possible
-configure:11827: result: yes
-configure:11862: checking if libtool supports shared libraries
-configure:11864: result: yes
-configure:11867: checking whether to build shared libraries
-configure:11892: result: yes
-configure:11895: checking whether to build static libraries
-configure:11899: result: yes
-configure:11987: checking for gcc
-configure:12014: result: gcc
-configure:12243: checking for C compiler version
-configure:12252: gcc --version >&5
+configure:8245: $? = 0
+configure:8258: result: no
+configure:8616: checking for gcc option to produce PIC
+configure:8623: result: -fPIC -DPIC
+configure:8631: checking if gcc PIC flag -fPIC -DPIC works
+configure:8649: gcc -c -O3 -g -DWBFMM_USE_AVX  -fPIC -DPIC -DPIC conftest.c >&5
+configure:8653: $? = 0
+configure:8666: result: yes
+configure:8695: checking if gcc static flag -static works
+configure:8723: result: yes
+configure:8738: checking if gcc supports -c -o file.o
+configure:8759: gcc -c -O3 -g -DWBFMM_USE_AVX  -o out/conftest2.o conftest.c >&5
+configure:8763: $? = 0
+configure:8785: result: yes
+configure:8793: checking if gcc supports -c -o file.o
+configure:8840: result: yes
+configure:8873: checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries
+configure:10132: result: yes
+configure:10169: checking whether -lc should be explicitly linked in
+configure:10177: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:10180: $? = 0
+configure:10195: gcc -shared  -fPIC -DPIC conftest.o  -v -Wl,-soname -Wl,conftest -o conftest 2\>\&1 \| /usr/bin/grep  -lc  \>/dev/null 2\>\&1
+configure:10198: $? = 0
+configure:10212: result: no
+configure:10372: checking dynamic linker characteristics
+configure:10953: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   -Wl,-rpath -Wl,/foo conftest.c  >&5
+configure:10953: $? = 0
+configure:11190: result: GNU/Linux ld.so
+configure:11312: checking how to hardcode library paths into programs
+configure:11337: result: immediate
+configure:11885: checking whether stripping libraries is possible
+configure:11890: result: yes
+configure:11925: checking if libtool supports shared libraries
+configure:11927: result: yes
+configure:11930: checking whether to build shared libraries
+configure:11955: result: yes
+configure:11958: checking whether to build static libraries
+configure:11962: result: yes
+configure:12050: checking for gcc
+configure:12077: result: gcc
+configure:12306: checking for C compiler version
+configure:12315: gcc --version >&5
 gcc (GCC) 8.2.0
 Copyright (C) 2018 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:12263: $? = 0
-configure:12252: gcc -v >&5
+configure:12326: $? = 0
+configure:12315: gcc -v >&5
 Reading specs from /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/specs
 COLLECT_GCC=gcc
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-slackware-linux/8.2.0/lto-wrapper
@@ -378,90 +378,90 @@ Target: x86_64-slackware-linux
 Configured with: ../gcc-8.2.0/configure --prefix=/usr --libdir=/usr/lib64 --mandir=/usr/man --infodir=/usr/info --enable-shared --enable-bootstrap --enable-languages=ada,brig,c,c++,fortran,go,lto,objc --enable-threads=posix --enable-checking=release --enable-objc-gc --with-system-zlib --enable-libstdcxx-dual-abi --with-default-libstdcxx-abi=new --disable-libstdcxx-pch --disable-libunwind-exceptions --enable-__cxa_atexit --disable-libssp --enable-gnu-unique-object --enable-plugin --enable-lto --disable-install-libiberty --disable-werror --with-gnu-ld --verbose --with-arch-directory=amd64 --disable-gtktest --disable-multilib --target=x86_64-slackware-linux --build=x86_64-slackware-linux --host=x86_64-slackware-linux
 Thread model: posix
 gcc version 8.2.0 (GCC) 
-configure:12263: $? = 0
-configure:12252: gcc -V >&5
+configure:12326: $? = 0
+configure:12315: gcc -V >&5
 gcc: error: unrecognized command line option '-V'
 gcc: fatal error: no input files
 compilation terminated.
-configure:12263: $? = 1
-configure:12252: gcc -qversion >&5
+configure:12326: $? = 1
+configure:12315: gcc -qversion >&5
 gcc: error: unrecognized command line option '-qversion'; did you mean '--version'?
 gcc: fatal error: no input files
 compilation terminated.
-configure:12263: $? = 1
-configure:12267: checking whether we are using the GNU C compiler
-configure:12295: result: yes
-configure:12304: checking whether gcc accepts -g
-configure:12365: result: yes
-configure:12382: checking for gcc option to accept ISO C89
-configure:12458: result: none needed
-configure:12483: checking whether gcc understands -c and -o together
-configure:12520: result: yes
-configure:12539: checking dependency style of gcc
-configure:12650: result: gcc3
-configure:12675: checking for gawk
-configure:12702: result: gawk
-configure:12713: checking for library containing strerror
-configure:12744: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:12326: $? = 1
+configure:12330: checking whether we are using the GNU C compiler
+configure:12358: result: yes
+configure:12367: checking whether gcc accepts -g
+configure:12428: result: yes
+configure:12445: checking for gcc option to accept ISO C89
+configure:12521: result: none needed
+configure:12546: checking whether gcc understands -c and -o together
+configure:12583: result: yes
+configure:12602: checking dependency style of gcc
+configure:12713: result: gcc3
+configure:12738: checking for gawk
+configure:12765: result: gawk
+configure:12776: checking for library containing strerror
+configure:12807: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:35:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  char strerror ();
  ^~~~
 conftest.c:37:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
-configure:12744: $? = 0
-configure:12761: result: none required
-configure:12769: checking for ANSI C header files
-configure:12873: result: yes
-configure:12966: checking for pkg-config
-configure:12984: found /usr/bin/pkg-config
-configure:12996: result: /usr/bin/pkg-config
-configure:13021: checking pkg-config is at least version 0.16
-configure:13024: result: yes
-configure:13041: checking for GLIB - version >= 2.4.0
-configure:13153: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include   conftest.c -lgthread-2.0 -pthread -Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0  >&5
-configure:13153: $? = 0
-configure:13153: ./conftest
-configure:13153: $? = 0
-configure:13167: result: yes (version 2.56.2)
-configure:13581: checking for gcc __builtin_cpu_init function
-configure:13604: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:12807: $? = 0
+configure:12824: result: none required
+configure:12832: checking for ANSI C header files
+configure:12936: result: yes
+configure:13029: checking for pkg-config
+configure:13047: found /usr/bin/pkg-config
+configure:13059: result: /usr/bin/pkg-config
+configure:13084: checking pkg-config is at least version 0.16
+configure:13087: result: yes
+configure:13104: checking for GLIB - version >= 2.4.0
+configure:13216: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include   conftest.c -lgthread-2.0 -pthread -Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0  >&5
+configure:13216: $? = 0
+configure:13216: ./conftest
+configure:13216: $? = 0
+configure:13230: result: yes (version 2.56.2)
+configure:13644: checking for gcc __builtin_cpu_init function
+configure:13667: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:31:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
-configure:13604: $? = 0
-configure:13604: ./conftest
-configure:13604: $? = 0
-configure:13614: result: yes
-configure:13629: checking for x86 avx instruction support
-configure:13655: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
-conftest.c:31:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
- main ()
- ^~~~
-configure:13655: $? = 0
-configure:13655: ./conftest
-configure:13655: $? = 0
-configure:13667: result: yes
-configure:13692: checking for x86 avx2 instruction support
+configure:13667: $? = 0
+configure:13667: ./conftest
+configure:13667: $? = 0
+configure:13677: result: yes
+configure:13692: checking for x86 avx instruction support
 configure:13718: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
-conftest.c:32:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+conftest.c:31:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
 configure:13718: $? = 0
 configure:13718: ./conftest
 configure:13718: $? = 0
 configure:13730: result: yes
-configure:13755: checking for x86 fma instruction support
+configure:13755: checking for x86 avx2 instruction support
 configure:13781: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
-conftest.c:33:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+conftest.c:32:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
 configure:13781: $? = 0
 configure:13781: ./conftest
 configure:13781: $? = 0
 configure:13793: result: yes
-configure:13817: checking for cos in -lm
-configure:13842: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm   >&5
+configure:13818: checking for x86 fma instruction support
+configure:13844: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+conftest.c:33:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+ main ()
+ ^~~~
+configure:13844: $? = 0
+configure:13844: ./conftest
+configure:13844: $? = 0
+configure:13856: result: yes
+configure:13880: checking for cos in -lm
+configure:13905: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm   >&5
 conftest.c:39:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  char cos ();
  ^~~~
@@ -471,10 +471,10 @@ conftest.c:39:6: warning: conflicting types for built-in function 'cos' [-Wbuilt
 conftest.c:41:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
-configure:13842: $? = 0
-configure:13851: result: yes
-configure:13870: checking for gcc option to support OpenMP
-configure:13885: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm  >&5
+configure:13905: $? = 0
+configure:13914: result: yes
+configure:13933: checking for gcc option to support OpenMP
+configure:13948: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm  >&5
 conftest.c:35:2: error: unknown type name 'choke'
   choke me
   ^~~~~
@@ -485,7 +485,7 @@ conftest.c:35:10: error: expected ';' before 'typedef'
 conftest.c:38:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  int main () { return omp_get_num_threads (); }
      ^~~~
-configure:13885: $? = 1
+configure:13948: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "wbfmm"
@@ -526,15 +526,40 @@ configure: failed program was:
 | #include <omp.h>
 | int main () { return omp_get_num_threads (); }
 | 
-configure:13903: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp   conftest.c -lm  >&5
+configure:13966: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp   conftest.c -lm  >&5
 conftest.c:38:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  int main () { return omp_get_num_threads (); }
      ^~~~
-configure:13903: $? = 0
-configure:13917: result: -fopenmp
-configure:14049: checking that generated files are newer than configure
-configure:14055: result: done
-configure:14082: creating ./config.status
+configure:13966: $? = 0
+configure:13980: result: -fopenmp
+configure:14091: checking for doxygen
+configure:14109: found /usr/bin/doxygen
+configure:14121: result: /usr/bin/doxygen
+configure:14197: checking for perl
+configure:14215: found /usr/bin/perl
+configure:14227: result: /usr/bin/perl
+configure:14957: checking for latex
+configure:14975: found /usr/bin/latex
+configure:14987: result: /usr/bin/latex
+configure:15063: checking for makeindex
+configure:15081: found /usr/bin/makeindex
+configure:15093: result: /usr/bin/makeindex
+configure:15169: checking for dvips
+configure:15187: found /usr/bin/dvips
+configure:15199: result: /usr/bin/dvips
+configure:15275: checking for egrep
+configure:15293: found /usr/bin/egrep
+configure:15305: result: /usr/bin/egrep
+configure:15430: checking for pdflatex
+configure:15448: found /usr/bin/pdflatex
+configure:15460: result: /usr/bin/pdflatex
+configure:15536: checking for makeindex
+configure:15566: result: /usr/bin/makeindex
+configure:15642: checking for egrep
+configure:15672: result: /usr/bin/egrep
+configure:16086: checking that generated files are newer than configure
+configure:16092: result: done
+configure:16119: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -551,22 +576,20 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on aerialist-1.bath.ac.uk
 
-config.status:1118: creating Makefile
-config.status:1118: creating src/Makefile
-config.status:1118: creating src/wbfmm-config
-config.status:1118: creating tests/Makefile
-config.status:1118: creating doc/Makefile
-config.status:1118: creating doc/html/Makefile
-config.status:1118: creating config.h
-config.status:1299: config.h is unchanged
-config.status:1347: executing depfiles commands
-config.status:1424: cd src       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
+config.status:1259: creating Makefile
+config.status:1259: creating src/Makefile
+config.status:1259: creating src/wbfmm-config
+config.status:1259: creating tests/Makefile
+config.status:1259: creating config.h
+config.status:1440: config.h is unchanged
+config.status:1488: executing depfiles commands
+config.status:1565: cd src       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make: Nothing to be done for 'am--depfiles'.
-config.status:1429: $? = 0
-config.status:1424: cd tests       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
+config.status:1570: $? = 0
+config.status:1565: cd tests       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make: Nothing to be done for 'am--depfiles'.
-config.status:1429: $? = 0
-config.status:1347: executing libtool commands
+config.status:1570: $? = 0
+config.status:1488: executing libtool commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -582,6 +605,8 @@ ac_cv_env_CPPFLAGS_set=
 ac_cv_env_CPPFLAGS_value=
 ac_cv_env_CPP_set=
 ac_cv_env_CPP_value=
+ac_cv_env_DOXYGEN_PAPER_SIZE_set=
+ac_cv_env_DOXYGEN_PAPER_SIZE_value=
 ac_cv_env_LDFLAGS_set=
 ac_cv_env_LDFLAGS_value=
 ac_cv_env_LIBS_set=
@@ -618,6 +643,13 @@ ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_FGREP='/usr/bin/grep -F'
 ac_cv_path_GREP=/usr/bin/grep
 ac_cv_path_SED=/usr/bin/sed
+ac_cv_path_ac_pt_DX_DOXYGEN=/usr/bin/doxygen
+ac_cv_path_ac_pt_DX_DVIPS=/usr/bin/dvips
+ac_cv_path_ac_pt_DX_EGREP=/usr/bin/egrep
+ac_cv_path_ac_pt_DX_LATEX=/usr/bin/latex
+ac_cv_path_ac_pt_DX_MAKEINDEX=/usr/bin/makeindex
+ac_cv_path_ac_pt_DX_PDFLATEX=/usr/bin/pdflatex
+ac_cv_path_ac_pt_DX_PERL=/usr/bin/perl
 ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config
 ac_cv_path_install='/usr/bin/ginstall -c'
 ac_cv_path_lt_DD=/usr/bin/dd
@@ -676,6 +708,92 @@ lt_cv_truncate_bin='/usr/bin/dd bs=4096 count=1'
 ## Output variables. ##
 ## ----------------- ##
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	                  refman.log > /dev/null 2>&1 \
+	                  refman.log > /dev/null 2>&1 \
+	    $(DX_LATEX) refman.tex; \
+	    $(DX_PDFLATEX) refman.tex; \
+	    countdown=`expr $$countdown - 1`; \
+	   && test $$countdown -gt 0; do \
+	   && test $$countdown -gt 0; do \
+	$(AM_V_at)echo Timestamp >$@
+	$(AM_V_at)rm -rf $(DX_DOCDIR)
+	$(DX_CLEAN_CHI) \
+	$(DX_CLEAN_CHM) \
+	$(DX_CLEAN_HTML) \
+	$(DX_CLEAN_LATEX)'
+	$(DX_CLEAN_MAN) \
+	$(DX_CLEAN_PDF) \
+	$(DX_CLEAN_PS) \
+	$(DX_CLEAN_RTF) \
+	$(DX_CLEAN_XML) \
+	$(DX_DOCDIR)/$(PACKAGE).tag \
+	$(DX_DOCDIR)/doxygen_sqlite3.db \
+	$(DX_DVIPS) -o ../$(PACKAGE).ps refman.dvi
+	$(DX_LATEX) refman.tex; \
+	$(DX_LATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_PDFLATEX) refman.tex; \
+	$(DX_PDFLATEX) refman.tex; \
+	$(DX_V_DXGEN)$(DX_ENV) DOCDIR=$(DX_DOCDIR) $(DX_DOXYGEN) $(DX_CONFIG)
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	-r \
+	countdown=5; \
+	countdown=5; \
+	done; \
+	done; \
+	mv refman.pdf ../$(PACKAGE).pdf
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	while $(DX_EGREP) '\''Rerun (LaTeX|to get cross-references right)'\'' \
+	while $(DX_EGREP) '\''Rerun (LaTeX|to get cross-references right)'\'' \
+                 $(DX_DOCDIR)/latex
+                $(DX_DOCDIR)/html
+               $(DX_DOCDIR)/$(PACKAGE).pdf
+              $(DX_DOCDIR)/$(PACKAGE).ps
+            countdown=`expr $$countdown - 1`; \
+## ----------------------------- ##
+## ----------------------------- ##
+## ------------------------------ ##
+## ------------------------------ ##
+## ------------------------------- ##
+## ------------------------------- ##
+## --------------------------------- ##
+## ------------------------------------------------- ##
+## ------------------------------------------------- ##
+## Format-independent Doxygen rules. ##
+## Rules specific for HTML output. ##
+## Rules specific for LaTeX (shared for PS and PDF). ##
+## Rules specific for PDF output. ##
+## Rules specific for PS output. ##
+$(DX_DOCDIR)/$(PACKAGE).pdf: $(DX_DOCDIR)/$(PACKAGE).tag
+$(DX_DOCDIR)/$(PACKAGE).ps: $(DX_DOCDIR)/$(PACKAGE).tag
+$(DX_DOCDIR)/$(PACKAGE).tag: $(DX_CONFIG) $(pkginclude_HEADERS)
+.INTERMEDIATE: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+.PHONY: doxygen-run doxygen-doc $(DX_PS_GOAL) $(DX_PDF_GOAL)
 ACLOCAL='aclocal-1.16'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
@@ -699,14 +817,56 @@ CYGPATH_W='echo'
 DEFS='-DHAVE_CONFIG_H'
 DEPDIR='.deps'
 DLLTOOL='dlltool'
+DOT_PATH=''
+DOXYGEN_PAPER_SIZE=''
 DSYMUTIL=''
 DUMPBIN=''
+DX_CLEANFILES = \
+DX_CLEAN_HTML = $(DX_DOCDIR)/html\
+DX_CLEAN_LATEX = $(DX_DOCDIR)/latex\
+DX_CLEAN_PDF = $(DX_DOCDIR)/$(PACKAGE).pdf\
+DX_CLEAN_PS = $(DX_DOCDIR)/$(PACKAGE).ps\
+DX_CONFIG='doxy/wbfmm.dxy'
+DX_DOCDIR='doc'
+DX_DOT=''
+DX_DOXYGEN='/usr/bin/doxygen'
+DX_DVIPS='/usr/bin/dvips'
+DX_EGREP='/usr/bin/egrep'
+DX_ENV=' SRCDIR='\''.'\'' PROJECT='\''wbfmm'\'' VERSION='\''0.1'\'' PERL_PATH='\''/usr/bin/perl'\'' HAVE_DOT='\''NO'\'' GENERATE_MAN='\''NO'\'' GENERATE_RTF='\''NO'\'' GENERATE_XML='\''NO'\'' GENERATE_HTMLHELP='\''NO'\'' GENERATE_CHI='\''NO'\'' GENERATE_HTML='\''YES'\'' GENERATE_LATEX='\''YES'\'''
+DX_FLAG_chi='0'
+DX_FLAG_chm='0'
+DX_FLAG_doc='1'
+DX_FLAG_dot='0'
+DX_FLAG_html='1'
+DX_FLAG_man='0'
+DX_FLAG_pdf='1'
+DX_FLAG_ps='1'
+DX_FLAG_rtf='0'
+DX_FLAG_xml='0'
+DX_HHC=''
+DX_LATEX='/usr/bin/latex'
+DX_MAKEINDEX='/usr/bin/makeindex'
+DX_PDFLATEX='/usr/bin/pdflatex'
+DX_PDF_GOAL = doxygen-pdf
+DX_PERL='/usr/bin/perl'
+DX_PROJECT='wbfmm'
+DX_PS_GOAL = doxygen-ps
+DX_RULES='## --------------------------------- ##
+DX_V_DXGEN = $(_DX_v_DXGEN_$(V))
+DX_V_LATEX = $(_DX_v_LATEX_$(V))
 ECHO_C=''
 ECHO_N='-n'
 ECHO_T=''
 EGREP='/usr/bin/grep -E'
 EXEEXT=''
 FGREP='/usr/bin/grep -F'
+GENERATE_CHI='NO'
+GENERATE_HTML='YES'
+GENERATE_HTMLHELP='NO'
+GENERATE_LATEX='YES'
+GENERATE_MAN='NO'
+GENERATE_RTF='NO'
+GENERATE_XML='NO'
 GLIB_CFLAGS='-pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include'
 GLIB_COMPILE_RESOURCES='glib-compile-resources'
 GLIB_CONFIG=''
@@ -715,6 +875,8 @@ GLIB_LIBS='-lglib-2.0'
 GLIB_MKENUMS='glib-mkenums'
 GOBJECT_QUERY='gobject-query'
 GREP='/usr/bin/grep'
+HAVE_DOT='NO'
+HHC_PATH=''
 INSTALL_DATA='${INSTALL} -m 644'
 INSTALL_PROGRAM='${INSTALL}'
 INSTALL_SCRIPT='${INSTALL}'
@@ -749,20 +911,28 @@ PACKAGE_STRING='wbfmm 0.1'
 PACKAGE_TARNAME='wbfmm'
 PACKAGE_URL=''
 PACKAGE_VERSION='0.1'
+PAPER_SIZE=''
 PATH_SEPARATOR=':'
+PERL_PATH='/usr/bin/perl'
 PKG_CONFIG='/usr/bin/pkg-config'
 PKG_CONFIG_LIBDIR=''
 PKG_CONFIG_PATH='/usr/local/lib64/pkgconfig:/usr/local/share/pkgconfig:/usr/lib64/pkgconfig:/usr/share/pkgconfig'
+PROJECT='wbfmm'
 RANLIB='ranlib'
 SED='/usr/bin/sed'
 SET_MAKE=''
 SHELL='/bin/sh'
+SRCDIR='.'
 STRIP='strip'
 VERSION='0.1'
 WBFMM_MAJOR_VERSION='0'
 WBFMM_MICRO_VERSION='1'
 WBFMM_MINOR_VERSION='1'
 WBFMM_VERSION='0.1.1'
+_DX_v_DXGEN_ = $(_DX_v_DXGEN_$(AM_DEFAULT_VERBOSITY))
+_DX_v_DXGEN_0 = @echo "  DXGEN " $<;
+_DX_v_LATEX_ = $(_DX_v_LATEX_$(AM_DEFAULT_VERBOSITY))
+_DX_v_LATEX_0 = @echo "  LATEX " $@;
 ac_ct_AR='ar'
 ac_ct_CC='gcc'
 ac_ct_DUMPBIN=''
@@ -786,6 +956,10 @@ build_vendor='unknown'
 datadir='${datarootdir}'
 datarootdir='${prefix}/share'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
+doxygen-doc: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+doxygen-pdf: $(DX_CLEAN_PDF)
+doxygen-ps: $(DX_CLEAN_PS)
+doxygen-run: $(DX_DOCDIR)/$(PACKAGE).tag
 dvidir='${docdir}'
 exec_prefix='${prefix}'
 host='x86_64-unknown-linux-gnu'
@@ -862,104 +1036,8 @@ generated by GNU Autoconf 2.69.  Invocation command line was
   CONFIG_HEADERS  = 
   CONFIG_LINKS    = 
   CONFIG_COMMANDS = 
-  $ ./config.status Makefile
-
-on aerialist-1.bath.ac.uk
-
-config.status:1118: creating Makefile
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by wbfmm config.status 0.1, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status src/Makefile depfiles
-
-on aerialist-1.bath.ac.uk
-
-config.status:1118: creating src/Makefile
-config.status:1347: executing depfiles commands
-config.status:1424: cd src       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
-make[3]: Entering directory '/home/ensmjc/Codes/C/WBFMM/src'
-make[3]: Leaving directory '/home/ensmjc/Codes/C/WBFMM/src'
-config.status:1429: $? = 0
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by wbfmm config.status 0.1, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status tests/Makefile depfiles
-
-on aerialist-1.bath.ac.uk
-
-config.status:1118: creating tests/Makefile
-config.status:1347: executing depfiles commands
-config.status:1424: cd tests       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
-make[3]: Entering directory '/home/ensmjc/Codes/C/WBFMM/tests'
-make[3]: Nothing to be done for 'am--depfiles'.
-make[3]: Leaving directory '/home/ensmjc/Codes/C/WBFMM/tests'
-config.status:1429: $? = 0
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by wbfmm config.status 0.1, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status doc/Makefile
-
-on aerialist-1.bath.ac.uk
-
-config.status:1118: creating doc/Makefile
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by wbfmm config.status 0.1, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status doc/html/Makefile
-
-on aerialist-1.bath.ac.uk
-
-config.status:1118: creating doc/html/Makefile
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by wbfmm config.status 0.1, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
   $ ./config.status src/wbfmm-config
 
 on aerialist-1.bath.ac.uk
 
-config.status:1118: creating src/wbfmm-config
+config.status:1259: creating src/wbfmm-config

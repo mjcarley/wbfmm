@@ -56,11 +56,11 @@ static gint _wbfmm_rotate_H_laplace_ref_nq(WBFMM_REAL *Co, gint cstro,
 
     Cmch = 1.0 ; Smch = 0.0 ;
 
-    idxi -- ;
+    /* idxi -- ; */
     for ( m = 1 ; m <= n ; m ++ ) {
       wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
-      idxi += 2 ;
-      /* idxi = wbfmm_index_laplace_nm(n,m) ; */
+      /* idxi += 2 ; */
+      idxi = wbfmm_index_laplace_nm(n,m) ;
       Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
       for ( i = 0 ; i < nq ; i ++ ) {
 	tr[i] += 2.0*(Ci[cstri*(idxi+0)+i]*Cmch -
@@ -70,26 +70,27 @@ static gint _wbfmm_rotate_H_laplace_ref_nq(WBFMM_REAL *Co, gint cstro,
 
     for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] += tr[i] ;
 
-    Cnph = 1.0 ; Snph = 0.0 ; idxo -- ;
+    Cnph = 1.0 ; Snph = 0.0 ;
+    /* idxo -- ; */
     for ( nu = 1 ; nu <= n ; nu ++ ) {
       WBFMM_REAL ti[32] = {0.0} ;
 
       wbfmm_cos_sin_recursion(Cnph,Snph,Cph,Sph) ;
 
-      /* idxo = wbfmm_index_laplace_nm(n,nu) ; */
-      idxo += 2 ;
+      idxo = wbfmm_index_laplace_nm(n,nu) ;
+      /* idxo += 2 ; */
       m = 0 ; idxi = n*n ;
       Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
 
       for ( i = 0 ; i < nq ; i ++ ) tr[i] = Hp*Ci[cstri*idxi+i] ;
       
       Cmch = 1.0 ; Smch = 0.0 ;
-      idxi -- ;
+      /* idxi -- ; */
       for ( m = 1 ; m <= n ; m ++ ) {
 	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
 
-	/* idxi = wbfmm_index_laplace_nm(n,m) ; */
-	idxi += 2 ;
+	idxi = wbfmm_index_laplace_nm(n,m) ;
+	/* idxi += 2 ; */
 	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
 	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
@@ -135,10 +136,11 @@ static gint _wbfmm_rotate_H_laplace_ref_1(WBFMM_REAL *Co, gint cstro,
     
     Cmch = 1.0 ; Smch = 0.0 ;
 
-    idxi -- ;
+    /* idxi -- ; */
     for ( m = 1 ; m <= n ; m ++ ) {
       wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
-      idxi += 2 ;
+      /* idxi += 2 ; */
+      idxi = wbfmm_index_laplace_nm(n,m) ;
       
       Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
       tr += 2.0*(Ci[cstri*(idxi+0)]*Cmch - Ci[cstri*(idxi+1)]*Smch)*Hp ;
@@ -161,10 +163,11 @@ static gint _wbfmm_rotate_H_laplace_ref_1(WBFMM_REAL *Co, gint cstro,
       tr = Hp*Ci[cstri*idxi] ;
       
       Cmch = 1.0 ; Smch = 0.0 ;
-      idxi -- ;
+      /* idxi -- ; */
       for ( m = 1 ; m <= n ; m ++ ) {
 	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
-	idxi += 2 ;
+	/* idxi += 2 ; */
+	idxi = wbfmm_index_laplace_nm(n,m) ;
 	
 	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
 	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;

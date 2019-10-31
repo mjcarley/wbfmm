@@ -75,6 +75,7 @@ gint main(gint argc, gchar **argv)
 
 {
   wbfmm_tree_t *tree ;
+  wbfmm_target_list_t *targets ;
   wbfmm_shift_operators_t *shifts ;
   WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *sources ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
@@ -164,7 +165,7 @@ gint main(gint argc, gchar **argv)
 	    progname) ;
     return 1 ;
   }
-
+  
   f = (WBFMM_REAL *)g_malloc0(nf*nq*sizeof(WBFMM_REAL)) ;
 
   if ( fit_box ) {
@@ -249,6 +250,9 @@ gint main(gint argc, gchar **argv)
 					     order[2*i+1], order[2*i+0]) ;
   }
 
+  /**/
+  targets = wbfmm_target_list_new_PREC(tree, nf, FALSE) ;
+
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -294,7 +298,7 @@ gint main(gint argc, gchar **argv)
   {
     WBFMM_REAL xf[3], phi[16] = {0.0} ;
 
-    xf[0] = 1.1 ; xf[1] = 0.4 ; xf[2] = -0.7 ;
+    xf[0] = 4.1 ; xf[1] = 0.4 ; xf[2] = -0.7 ;
     level = 2 ;
     
     wbfmm_laplace_box_fields_PREC(tree, level, xf, phi, work) ;
@@ -311,9 +315,6 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  /* for ( level = 2 ; level <= depth ; level ++ ) { */
-  /*   wbfmm_laplace_downward_pass_PREC(tree, shifts, level, work) ; */
-  /* } */
   for ( level = 2 ; level <= depth ; level ++ ) {
     wbfmm_laplace_downward_pass_PREC(tree, shifts, level, work) ;
   }

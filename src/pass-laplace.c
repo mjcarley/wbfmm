@@ -116,7 +116,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   ncs = (Ns+1)*(Ns+1) ;
   ncr = (Nr+1)*(Nr+1) ;
   /* wks = work ; wkr = &(wks[nq*ncs]) ; */
-  wkr = work ; wks = &(wkr[2*nq*ncr]) ;
+  wkr = work ; wks = &(wkr[nq*ncr]) ;
 
   /*boxes at this level (parent)*/
   bp = t->boxes[level] ;
@@ -125,8 +125,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
   /*rotation operators*/
   rotations = (WBFMM_REAL *)(op->rotations) ;
 
-
   /*interaction list 4, loop on boxes at this level*/
+
   for ( ip = 0 ; ip < nb ; ip ++ ) {
     /*locate boxes in interaction list*/
     ni = wbfmm_box_interaction_list_4(level, ip, ilist, TRUE) ;
@@ -153,19 +153,21 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
       ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
       /*clear workspace*/
-      memset(work, 0, 2*nq*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+      memset(work, 0, nq*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
       /*rotate singular coefficients into wks*/
-      g_assert(wks[0] == 0.0) ;
-      g_assert(wks[nq*(Ns+1)*(Ns+1)-1] == 0.0) ;
+      /* g_assert(wks[0] == 0.0) ; */
+      /* g_assert(wks[nq*(Ns+1)*(Ns+1)-1] == 0.0) ; */
       WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
 						  Cn, 8*nq,
 						  Ns, nq, H, ph, ch) ;
+      /* g_assert(wks[0] == wks[1]) ; */
       /*translate into wkr*/
-      g_assert(wkr[0] == 0.0) ;
-      g_assert(wkr[nq*(Nr+1)*(Nr+1)-1] == 0.0) ;
+      /* g_assert(wkr[0] == 0.0) ; */
+      /* g_assert(wkr[nq*(Nr+1)*(Nr+1)-1] == 0.0) ; */
       WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
 							      wks, nq, Ns, 
 							      nq, r) ;
+      /* g_assert(wkr[0] == wkr[1]) ; */
       /*rotate regular coefficients into mpr*/
       WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(C, 8*nq,
 						  wkr, nq,
@@ -175,7 +177,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass)(wbfmm_tree_t *t,
     }
   }
   /* return 0 ; */
-  
+
   /*no downward shift at the deepest level*/
   if ( level == t-> depth ) return 0 ;
 
