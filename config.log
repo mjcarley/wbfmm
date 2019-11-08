@@ -97,27 +97,27 @@ gcc: fatal error: no input files
 compilation terminated.
 configure:3443: $? = 1
 configure:3463: checking whether the C compiler works
-configure:3485: gcc -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3485: gcc -O0 -g -DWBFMM_USE_AVX   conftest.c  >&5
 configure:3489: $? = 0
 configure:3537: result: yes
 configure:3540: checking for C compiler default output file name
 configure:3542: result: a.out
 configure:3548: checking for suffix of executables
-configure:3555: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3555: gcc -o conftest -O0 -g -DWBFMM_USE_AVX   conftest.c  >&5
 configure:3559: $? = 0
 configure:3581: result: 
 configure:3603: checking whether we are cross compiling
-configure:3611: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:3611: gcc -o conftest -O0 -g -DWBFMM_USE_AVX   conftest.c  >&5
 configure:3615: $? = 0
 configure:3622: ./conftest
 configure:3626: $? = 0
 configure:3641: result: no
 configure:3646: checking for suffix of object files
-configure:3668: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:3668: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:3672: $? = 0
 configure:3693: result: o
 configure:3697: checking whether we are using the GNU C compiler
-configure:3716: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:3716: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:3716: $? = 0
 configure:3725: result: yes
 configure:3734: checking whether gcc accepts -g
@@ -125,7 +125,7 @@ configure:3754: gcc -c -g  conftest.c >&5
 configure:3754: $? = 0
 configure:3795: result: yes
 configure:3812: checking for gcc option to accept ISO C89
-configure:3875: gcc  -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:3875: gcc  -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:3875: $? = 0
 configure:3888: result: none needed
 configure:3913: checking whether gcc understands -c and -o together
@@ -151,7 +151,7 @@ configure:4493: result: yes
 configure:4505: checking for BSD- or MS-compatible name lister (nm)
 configure:4559: result: /usr/bin/nm -B
 configure:4689: checking the name lister (/usr/bin/nm -B) interface
-configure:4696: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:4696: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:4699: /usr/bin/nm -B "conftest.o"
 configure:4702: output
 0000000000000000 B some_variable
@@ -180,7 +180,7 @@ configure:5550: checking for ar
 configure:5566: found /usr/bin/ar
 configure:5577: result: ar
 configure:5614: checking for archiver @FILE support
-configure:5631: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:5631: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:5631: $? = 0
 configure:5634: ar cru libconftest.a @conftest.lst >&5
 configure:5637: $? = 0
@@ -195,11 +195,11 @@ configure:5814: checking for ranlib
 configure:5830: found /usr/bin/ranlib
 configure:5841: result: ranlib
 configure:5943: checking command to parse /usr/bin/nm -B output from gcc object
-configure:6096: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:6096: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:6099: $? = 0
 configure:6103: /usr/bin/nm -B conftest.o \| sed -n -e 's/^.*[ ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
 configure:6106: $? = 0
-configure:6172: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c conftstm.o >&5
+configure:6172: gcc -o conftest -O0 -g -DWBFMM_USE_AVX   conftest.c conftstm.o >&5
 configure:6175: $? = 0
 configure:6213: result: ok
 configure:6260: checking for sysroot
@@ -208,7 +208,7 @@ configure:6297: checking for a working dd
 configure:6335: result: /usr/bin/dd
 configure:6339: checking how to truncate binary pipes
 configure:6354: result: /usr/bin/dd bs=4096 count=1
-configure:6490: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:6490: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:6493: $? = 0
 configure:6683: checking for mt
 configure:6699: found /bin/mt
@@ -270,70 +270,70 @@ configure: failed program was:
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:7557: checking for ANSI C header files
-configure:7577: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7577: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7577: $? = 0
-configure:7650: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   conftest.c  >&5
+configure:7650: gcc -o conftest -O0 -g -DWBFMM_USE_AVX   conftest.c  >&5
 configure:7650: $? = 0
 configure:7650: ./conftest
 configure:7650: $? = 0
 configure:7661: result: yes
 configure:7674: checking for sys/types.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for sys/stat.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for stdlib.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for string.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for memory.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for strings.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for inttypes.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for stdint.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7674: checking for unistd.h
-configure:7674: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7674: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7674: $? = 0
 configure:7674: result: yes
 configure:7688: checking for dlfcn.h
-configure:7688: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:7688: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:7688: $? = 0
 configure:7688: result: yes
 configure:7944: checking for objdir
 configure:7959: result: .libs
 configure:8223: checking if gcc supports -fno-rtti -fno-exceptions
-configure:8241: gcc -c -O3 -g -DWBFMM_USE_AVX  -fno-rtti -fno-exceptions conftest.c >&5
+configure:8241: gcc -c -O0 -g -DWBFMM_USE_AVX  -fno-rtti -fno-exceptions conftest.c >&5
 cc1: warning: command line option '-fno-rtti' is valid for C++/ObjC++ but not for C
 configure:8245: $? = 0
 configure:8258: result: no
 configure:8616: checking for gcc option to produce PIC
 configure:8623: result: -fPIC -DPIC
 configure:8631: checking if gcc PIC flag -fPIC -DPIC works
-configure:8649: gcc -c -O3 -g -DWBFMM_USE_AVX  -fPIC -DPIC -DPIC conftest.c >&5
+configure:8649: gcc -c -O0 -g -DWBFMM_USE_AVX  -fPIC -DPIC -DPIC conftest.c >&5
 configure:8653: $? = 0
 configure:8666: result: yes
 configure:8695: checking if gcc static flag -static works
 configure:8723: result: yes
 configure:8738: checking if gcc supports -c -o file.o
-configure:8759: gcc -c -O3 -g -DWBFMM_USE_AVX  -o out/conftest2.o conftest.c >&5
+configure:8759: gcc -c -O0 -g -DWBFMM_USE_AVX  -o out/conftest2.o conftest.c >&5
 configure:8763: $? = 0
 configure:8785: result: yes
 configure:8793: checking if gcc supports -c -o file.o
@@ -341,13 +341,13 @@ configure:8840: result: yes
 configure:8873: checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries
 configure:10132: result: yes
 configure:10169: checking whether -lc should be explicitly linked in
-configure:10177: gcc -c -O3 -g -DWBFMM_USE_AVX  conftest.c >&5
+configure:10177: gcc -c -O0 -g -DWBFMM_USE_AVX  conftest.c >&5
 configure:10180: $? = 0
 configure:10195: gcc -shared  -fPIC -DPIC conftest.o  -v -Wl,-soname -Wl,conftest -o conftest 2\>\&1 \| /usr/bin/grep  -lc  \>/dev/null 2\>\&1
 configure:10198: $? = 0
 configure:10212: result: no
 configure:10372: checking dynamic linker characteristics
-configure:10953: gcc -o conftest -O3 -g -DWBFMM_USE_AVX   -Wl,-rpath -Wl,/foo conftest.c  >&5
+configure:10953: gcc -o conftest -O0 -g -DWBFMM_USE_AVX   -Wl,-rpath -Wl,/foo conftest.c  >&5
 configure:10953: $? = 0
 configure:11190: result: GNU/Linux ld.so
 configure:11312: checking how to hardcode library paths into programs
@@ -402,7 +402,7 @@ configure:12713: result: gcc3
 configure:12738: checking for gawk
 configure:12765: result: gawk
 configure:12776: checking for library containing strerror
-configure:12807: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:12807: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:35:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  char strerror ();
  ^~~~
@@ -419,13 +419,13 @@ configure:13059: result: /usr/bin/pkg-config
 configure:13084: checking pkg-config is at least version 0.16
 configure:13087: result: yes
 configure:13104: checking for GLIB - version >= 2.4.0
-configure:13216: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include   conftest.c -lgthread-2.0 -pthread -Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0  >&5
+configure:13216: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -pthread -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include   conftest.c -lgthread-2.0 -pthread -Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0  >&5
 configure:13216: $? = 0
 configure:13216: ./conftest
 configure:13216: $? = 0
 configure:13230: result: yes (version 2.56.2)
 configure:13644: checking for gcc __builtin_cpu_init function
-configure:13667: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:13667: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:31:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
@@ -434,7 +434,7 @@ configure:13667: ./conftest
 configure:13667: $? = 0
 configure:13677: result: yes
 configure:13692: checking for x86 avx instruction support
-configure:13718: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:13718: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:31:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
@@ -443,7 +443,7 @@ configure:13718: ./conftest
 configure:13718: $? = 0
 configure:13730: result: yes
 configure:13755: checking for x86 avx2 instruction support
-configure:13781: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:13781: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:32:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
@@ -452,7 +452,7 @@ configure:13781: ./conftest
 configure:13781: $? = 0
 configure:13793: result: yes
 configure:13818: checking for x86 fma instruction support
-configure:13844: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
+configure:13844: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c  >&5
 conftest.c:33:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  main ()
  ^~~~
@@ -461,7 +461,7 @@ configure:13844: ./conftest
 configure:13844: $? = 0
 configure:13856: result: yes
 configure:13880: checking for cos in -lm
-configure:13905: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm   >&5
+configure:13905: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm   >&5
 conftest.c:39:1: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  char cos ();
  ^~~~
@@ -474,7 +474,7 @@ conftest.c:41:1: warning: function declaration isn't a prototype [-Wstrict-proto
 configure:13905: $? = 0
 configure:13914: result: yes
 configure:13933: checking for gcc option to support OpenMP
-configure:13948: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm  >&5
+configure:13948: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations   conftest.c -lm  >&5
 conftest.c:35:2: error: unknown type name 'choke'
   choke me
   ^~~~~
@@ -526,7 +526,7 @@ configure: failed program was:
 | #include <omp.h>
 | int main () { return omp_get_num_threads (); }
 | 
-configure:13966: gcc -o conftest -O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp   conftest.c -lm  >&5
+configure:13966: gcc -o conftest -O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp   conftest.c -lm  >&5
 conftest.c:38:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
  int main () { return omp_get_num_threads (); }
      ^~~~
@@ -600,7 +600,7 @@ ac_cv_c_compiler_gnu=yes
 ac_cv_env_CC_set=
 ac_cv_env_CC_value=
 ac_cv_env_CFLAGS_set=set
-ac_cv_env_CFLAGS_value='-O3 -g -DWBFMM_USE_AVX'
+ac_cv_env_CFLAGS_value='-O0 -g -DWBFMM_USE_AVX'
 ac_cv_env_CPPFLAGS_set=
 ac_cv_env_CPPFLAGS_value=
 ac_cv_env_CPP_set=
@@ -810,7 +810,7 @@ AUTOMAKE='automake-1.16'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include'
+CFLAGS='-O0 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include'
 CPP='gcc -E'
 CPPFLAGS=''
 CYGPATH_W='echo'

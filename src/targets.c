@@ -46,10 +46,10 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
   
   l = (wbfmm_target_list_t *)g_malloc0(sizeof(wbfmm_target_list_t)) ;
 
-  wbfmm_target_tree(l) = t ;
-  wbfmm_target_point_number_max(l) = npts ;
-  wbfmm_target_point_number(l) = 0 ;
-  wbfmm_target_gradient(l) = grad ;
+  wbfmm_target_list_tree(l) = t ;
+  wbfmm_target_list_point_number_max(l) = npts ;
+  wbfmm_target_list_point_number(l) = 0 ;
+  wbfmm_target_list_gradient(l) = grad ;
 
   l->size = sizeof(WBFMM_REAL) ;
   
@@ -84,3 +84,139 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
   
   return l ;
 }
+
+static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
+				   gpointer data)
+
+{
+  guint i, j ;
+  wbfmm_tree_t *t = data ;
+  guint64 mi, mj ;
+  WBFMM_REAL *xi, *xj ;
+
+  i = *((guint *)a) ; j = *((guint *)b) ;
+
+  xi = wbfmm_tree_point_index(t, i) ; 
+  xj = wbfmm_tree_point_index(t, j) ;
+  /*Morton codes*/
+  mi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
+					   wbfmm_tree_width(t)) ;
+  mj = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xj, wbfmm_tree_origin(t), 
+					   wbfmm_tree_width(t)) ;
+
+  if ( mi < mj ) return -1 ;
+  if ( mi > mj ) return  1 ;
+
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
+						       gpointer pts, guint npts,
+						       gsize pstr)
+
+{
+  gint i ;
+  WBFMM_REAL *x, *xt, D ;
+  wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  
+  if ( l->size != sizeof(WBFMM_REAL) )
+    g_error("%s: mixed precision not implemented\n"
+	    "  (size of target list data type (%lu) not equal to "
+	    "size of requested target type (%lu))",
+	    __FUNCTION__, l->size, sizeof(WBFMM_REAL)) ;
+
+  if ( npts > wbfmm_target_list_point_number_max(l) ) 
+    g_error("%s: too many points (%u) for target list (%u)",
+	    __FUNCTION__, npts, wbfmm_target_list_point_number_max(l)) ;
+
+  wbfmm_target_list_point_number(l) = npts ;
+  l->points = (gchar *)pts ; l->pstr = pstr ;
+
+  xt = wbfmm_tree_origin(t) ;
+  D = wbfmm_tree_width(t) ;
+
+  for ( i = 0 ; i < npts ; i ++ ) {
+    x = wbfmm_tree_point_index(t, i) ;
+    if ( x[0] <= xt[0] || x[0] >= xt[0] + D ||
+	 x[1] <= xt[1] || x[1] >= xt[1] + D ||
+	 x[2] <= xt[2] || x[2] >= xt[2] + D )
+      g_error("%s: point (%g,%g,%g) does not lie in box of width %g at "
+	      "(%g,%g,%g)",
+	      __FUNCTION__, x[0], x[1], x[2], D, xt[0], xt[1], xt[2]) ;
+	 
+    l->ip[i] = i ;
+  }
+
+  /*sort points on the Morton index*/
+  g_qsort_with_data(l->ip, npts, sizeof(guint), compare_morton_indexed, 
+		    (gpointer)t) ;
+  
+  for ( i = 0 ; i < npts ; i ++ ) {
+    x = wbfmm_target_list_point_index(l, i) ;
+    l->boxes[i] = WBFMM_FUNCTION_NAME(wbfmm_point_box)(t, t->depth, x) ;
+  }
+
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list_t *l, WBFMM_REAL *work)
+
+{
+  gint i, nr, nc ;
+  guint level ;
+  guint64 b ;
+  wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  WBFMM_REAL xb[3], wb, xf[3], *x, *cfft ;
+
+  level = t->depth ;
+  nr = t->order_r[level] ;
+  nc = l->nc ;
+  cfft = (WBFMM_REAL *)(l->cfft) ;
+  
+  for ( i = 0 ; i < wbfmm_target_list_point_number(l) ; i ++ ) {
+    b = l->boxes[i] ;
+    x = wbfmm_target_list_point_index(l, i) ;
+    WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+    xf[0] = x[0] - xb[0] ; xf[1] = x[1] - xb[1] ; xf[2] = x[2] - xb[2] ;
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(xf, nr, FALSE,
+							  &(cfft[i*nc]),
+							  work) ;
+  }
+
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
+							WBFMM_REAL *f)
+
+{
+  guint level ;
+  guint64 b ;
+  gint i, nq, nr, nc ;
+  wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  wbfmm_box_t *boxes ;
+  WBFMM_REAL *cfft, *eval ;
+  
+  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
+  
+  nq = t->nq ;
+
+  level = t->depth ;
+  nr = t->order_r[level] ;
+  nc = l->nc ;
+  eval = (WBFMM_REAL *)(l->cfft) ;
+  boxes = t->boxes[level] ;
+
+  memset(f, 0, nq*wbfmm_target_list_point_number(l)*sizeof(WBFMM_REAL)) ;
+  for ( i = 0 ; i < wbfmm_target_list_point_number(l) ; i ++ ) {
+    b = l->boxes[i] ;
+    cfft = boxes[b].mpr ;
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
+						       8*nq, nq,
+						       &(eval[i*nc]), nr,
+						       &(f[i*nq])) ;
+  }
+  
+  return 0 ;
+}
+							

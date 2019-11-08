@@ -59,6 +59,8 @@
 
 #define wbfmm_tree_point_index(_t,_i)		\
   ((WBFMM_REAL *)(&((_t)->points[(_i)*((_t)->pstr)])))
+#define wbfmm_target_list_point_index(_t,_i)		\
+  ((WBFMM_REAL *)(&((_t)->points[(_i)*((_t)->pstr)])))
 /* #define wbfmm_tree_origin(_t) ((WBFMM_REAL *)(&((_t)->x[0])))  */
 
 #define wbfmm_rotation_index_numn(_nu,_m,_n)			\

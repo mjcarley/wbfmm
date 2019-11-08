@@ -79,7 +79,7 @@ gint main(gint argc, gchar **argv)
   wbfmm_shift_operators_t *shifts ;
   WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *sources ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, nq, i, j, str, strf, nf, qstr, nstr, dstr ;
+  gint nsrc, nq, i, j, str, strf, nf, fstr, qstr, nstr, dstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
@@ -177,6 +177,7 @@ gint main(gint argc, gchar **argv)
   }
   
   pstr = str*sizeof(WBFMM_REAL) ;
+  fstr = strf*sizeof(WBFMM_REAL) ;
   tree = wbfmm_tree_new_PREC(xtree, D, 2*nsrc) ;
 
   if ( order_s != 0 && order_r != 0 ) {
@@ -250,9 +251,15 @@ gint main(gint argc, gchar **argv)
 					     order[2*i+1], order[2*i+0]) ;
   }
 
-  /**/
+  fprintf(stderr, "%s: initializing target point list; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
   targets = wbfmm_target_list_new_PREC(tree, nf, FALSE) ;
-
+  wbfmm_target_list_coefficients_init(targets) ;
+  wbfmm_target_list_add_points_PREC(targets, xf, nf, fstr) ;
+  wbfmm_target_list_local_coefficients_PREC(targets, work) ;
+  fprintf(stderr, "%s: target point list initialized; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
+  
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -327,13 +334,15 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
+  wbfmm_target_list_local_field_PREC(targets, f) ;
+
   for ( i = 0 ; i < nf ; i ++ ) {
     b = wbfmm_point_box_PREC(tree, level, &(xf[i*strf])) ;
     wbfmm_tree_laplace_box_local_field_PREC(tree, level, b,
-					    &(xf[i*strf]), &(f[nq*i]),
-					    q, qstr, normals, nstr,
-					    dipoles, dstr,
-					    TRUE, work) ;
+  					    &(xf[i*strf]), &(f[nq*i]),
+  					    q, qstr, normals, nstr,
+  					    dipoles, dstr,
+  					    FALSE, work) ;
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",

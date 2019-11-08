@@ -69,3 +69,30 @@ gint wbfmm_tree_add_level(wbfmm_tree_t *t)
 
   return 0 ;
 }
+
+gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l)
+
+{
+  wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  gint nr, nc ;
+
+  /*order of regular expansions in leaf boxes*/
+  nr = t->order_r[t->depth] ;
+  
+  switch ( wbfmm_tree_problem(t) ) {
+  default:
+    g_error("%s: unrecognized problem %u",
+	    __FUNCTION__, wbfmm_tree_problem(t)) ;
+    break ;
+  case WBFMM_PROBLEM_LAPLACE:
+    nc = (nr+1)*(nr+1) ;
+    break ;
+  case WBFMM_PROBLEM_HELMHOLTZ:
+    g_assert_not_reached() ; /*unchecked code*/
+    break ;
+  }
+
+  l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+  
+  return 0 ;
+}

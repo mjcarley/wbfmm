@@ -97,8 +97,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 						gsize pstr)
 
 {
-  guint i ;
+  gint i ;
   WBFMM_REAL *x, *xt, D ;
+
+  if ( t->size != sizeof(WBFMM_REAL) )
+    g_error("%s: mixed precision not implemented\n"
+	    "  (size of tree data type (%lu) not equal to "
+	    "size of requested target type (%lu))",
+	    __FUNCTION__, t->size, sizeof(WBFMM_REAL)) ;
 
   if ( npts > wbfmm_tree_point_number_max(t) ) 
     g_error("%s: too many points (%u) for tree (%u)",
@@ -121,7 +127,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 	 
     t->ip[i] = i ;
   }
-  
 
   /*sort points on the Morton index*/
   g_qsort_with_data(t->ip, npts, sizeof(guint), compare_morton_indexed, 

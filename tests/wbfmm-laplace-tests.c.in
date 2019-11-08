@@ -201,7 +201,6 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
   wbfmm_laplace_field_coefficients_PREC(xf, N, FALSE, eval, work) ;
   wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, fe) ;
-
   
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;

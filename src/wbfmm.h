@@ -118,13 +118,14 @@ typedef struct {
   guint32
   *boxes ;   /**< box indices of points */
   gchar 
-  *points ; /**< point coordinates */
+  *points ;  /**< point coordinates */
   gsize
-  size ;    /**< size of floating point type in data (float, double, etc) */
+  size,      /**< size of floating point type in data (float, double, etc) */
+  pstr ;     /**< stride in point data */
   gpointer
-  cfft ;   /**< coefficients of regular expansions in boxes */
+  cfft ;     /**< coefficients of regular expansions in boxes */
   gboolean
-  grad ;   /**< gradient computations included */
+  grad ;     /**< gradient computations included */
 } wbfmm_target_list_t ;
 
 /**
@@ -159,10 +160,10 @@ typedef struct {
 #define wbfmm_tree_problem(_t) ((_t)->problem)
 #define wbfmm_tree_source_size(_t) ((_t)->nq)
 
-#define wbfmm_target_tree(_t) ((_t)->t)
-#define wbfmm_target_point_number(_t) ((_t)->npoints)
-#define wbfmm_target_point_number_max(_t) ((_t)->maxpoints)
-#define wbfmm_target_gradient(_t) ((_t)->grad)
+#define wbfmm_target_list_tree(_t) ((_t)->t)
+#define wbfmm_target_list_point_number(_t) ((_t)->npoints)
+#define wbfmm_target_list_point_number_max(_t) ((_t)->maxpoints)
+#define wbfmm_target_list_gradient(_t) ((_t)->grad)
 
 #define wbfmm_element_number_coaxial(_N)			\
   ( ((_N)+1)*((_N)+2)*((_N)+3)/6 + ((_N)+1)*((_N)+2)/2 + (_N)+1)
@@ -510,6 +511,7 @@ gint wbfmm_tree_refine(wbfmm_tree_t *t) ;
 gint wbfmm_tree_add_level(wbfmm_tree_t *tree) ;
 gint wbfmm_tree_add_points(wbfmm_tree_t *t, 
 			   gpointer pts, guint npts, gsize stride) ;
+gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l) ;
 
 /*indexing and octrees*/
 guint64 wbfmm_point_index_3d(gdouble *x, gdouble *c, gdouble D) ;
@@ -737,6 +739,18 @@ wbfmm_target_list_t *wbfmm_target_list_new(wbfmm_tree_t *t, guint npts,
 wbfmm_target_list_t *wbfmm_target_list_new_f(wbfmm_tree_t *t, guint npts,
 					     gboolean grad) ;
 
+gint wbfmm_target_list_add_points(wbfmm_target_list_t *l,
+				  gpointer pts, guint npts,
+				  gsize pstr) ;
+gint wbfmm_target_list_add_points_f(wbfmm_target_list_t *l,
+				    gpointer pts, guint npts,
+				    gsize pstr) ;
+gint wbfmm_target_list_local_coefficients(wbfmm_target_list_t *l,
+					  gdouble *work) ;
+gint wbfmm_target_list_local_coefficients_f(wbfmm_target_list_t *l,
+					    gfloat *work) ;
+gint wbfmm_target_list_local_field(wbfmm_target_list_t *l, gdouble *f) ;
+gint wbfmm_target_list_local_field_f(wbfmm_target_list_t *l, gfloat *f) ;
 
 /*precision independent functions*/
 guint64 wbfmm_point_locate_box(guint64 x, guint level) ;
