@@ -20,6 +20,8 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
  /usr/lib64/gcc/x86_64-slackware-linux/8.2.0/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/string.h /usr/include/bits/types/locale_t.h \
+ /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
  /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
  /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib64/glib-2.0/include/glibconfig.h \
@@ -36,7 +38,6 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
  /usr/include/bits/types/struct_timespec.h \
  /usr/include/bits/types/clockid_t.h /usr/include/bits/types/timer_t.h \
  /usr/include/bits/types/struct_itimerspec.h \
- /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/glib-2.0/glib/garray.h \
  /usr/include/glib-2.0/glib/gasyncqueue.h \
  /usr/include/glib-2.0/glib/gthread.h \
@@ -104,8 +105,8 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/gspawn.h \
  /usr/include/glib-2.0/glib/gstrfuncs.h \
  /usr/include/glib-2.0/glib/gstringchunk.h \
- /usr/include/glib-2.0/glib/gtestutils.h /usr/include/string.h \
- /usr/include/strings.h /usr/include/glib-2.0/glib/gthreadpool.h \
+ /usr/include/glib-2.0/glib/gtestutils.h \
+ /usr/include/glib-2.0/glib/gthreadpool.h \
  /usr/include/glib-2.0/glib/gtimer.h \
  /usr/include/glib-2.0/glib/gtrashstack.h \
  /usr/include/glib-2.0/glib/gtree.h \
@@ -195,6 +196,14 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
 
 /usr/include/bits/stdint-uintn.h:
 
+/usr/include/string.h:
+
+/usr/include/bits/types/locale_t.h:
+
+/usr/include/bits/types/__locale_t.h:
+
+/usr/include/strings.h:
+
 /usr/include/glib-2.0/glib.h:
 
 /usr/include/glib-2.0/glib/galloca.h:
@@ -240,10 +249,6 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
 /usr/include/bits/types/timer_t.h:
 
 /usr/include/bits/types/struct_itimerspec.h:
-
-/usr/include/bits/types/locale_t.h:
-
-/usr/include/bits/types/__locale_t.h:
 
 /usr/include/glib-2.0/glib/garray.h:
 
@@ -444,10 +449,6 @@ libwbfmm_f_la-targets.lo: targets.c /usr/include/stdc-predef.h \
 /usr/include/glib-2.0/glib/gstringchunk.h:
 
 /usr/include/glib-2.0/glib/gtestutils.h:
-
-/usr/include/string.h:
-
-/usr/include/strings.h:
 
 /usr/include/glib-2.0/glib/gthreadpool.h:
 
