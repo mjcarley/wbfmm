@@ -334,16 +334,16 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_target_list_local_field_PREC(targets, f) ;
+  wbfmm_target_list_local_field_PREC(targets, q, qstr, f) ;
 
-  for ( i = 0 ; i < nf ; i ++ ) {
-    b = wbfmm_point_box_PREC(tree, level, &(xf[i*strf])) ;
-    wbfmm_tree_laplace_box_local_field_PREC(tree, level, b,
-  					    &(xf[i*strf]), &(f[nq*i]),
-  					    q, qstr, normals, nstr,
-  					    dipoles, dstr,
-  					    FALSE, work) ;
-  }
+  /* for ( i = 0 ; i < nf ; i ++ ) { */
+  /*   b = wbfmm_point_box_PREC(tree, level, &(xf[i*strf])) ; */
+  /*   wbfmm_tree_laplace_box_local_field_PREC(tree, level, b, */
+  /* 					    &(xf[i*strf]), &(f[nq*i]), */
+  /* 					    q, qstr, normals, nstr, */
+  /* 					    dipoles, dstr, */
+  /* 					    TRUE, work) ; */
+  /* } */
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;

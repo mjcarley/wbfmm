@@ -111,8 +111,8 @@ typedef struct {
 typedef struct {
   wbfmm_tree_t *t ; /**< tree containing source data */
   guint
-  maxpoints, /**< maximum number of points in tree */
-    npoints, /**< number of points in tree */
+  maxpoints, /**< maximum number of points in target list */
+    npoints, /**< number of points in target list */
     *ip,     /**< indices of points, sorted by Morton index */
     nc ;     /**< number of coefficients (size of blocks of coefficients) */
   guint32
@@ -122,8 +122,13 @@ typedef struct {
   gsize
   size,      /**< size of floating point type in data (float, double, etc) */
   pstr ;     /**< stride in point data */
+  gint
+  *ibox,    /**< start and end of source index lists for each box */
+    *isrc ;    /**< source index lists for each box */
   gpointer
-  cfft ;     /**< coefficients of regular expansions in boxes */
+  cfft,     /**< coefficients of regular expansions in boxes */
+    csrc ;  /**< coefficients of near-field (direct) interactions, 
+	       point-by-point */
   gboolean
   grad ;     /**< gradient computations included */
 } wbfmm_target_list_t ;
@@ -749,8 +754,10 @@ gint wbfmm_target_list_local_coefficients(wbfmm_target_list_t *l,
 					  gdouble *work) ;
 gint wbfmm_target_list_local_coefficients_f(wbfmm_target_list_t *l,
 					    gfloat *work) ;
-gint wbfmm_target_list_local_field(wbfmm_target_list_t *l, gdouble *f) ;
-gint wbfmm_target_list_local_field_f(wbfmm_target_list_t *l, gfloat *f) ;
+gint wbfmm_target_list_local_field(wbfmm_target_list_t *l,
+				   gdouble *src, gint sstr, gdouble *f) ;
+gint wbfmm_target_list_local_field_f(wbfmm_target_list_t *l,
+				     gfloat *src, gint sstr, gfloat *f) ;
 
 /*precision independent functions*/
 guint64 wbfmm_point_locate_box(guint64 x, guint level) ;

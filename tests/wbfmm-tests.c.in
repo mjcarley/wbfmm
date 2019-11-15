@@ -1618,7 +1618,7 @@ gint main(gint argc, gchar **argv)
 
 {
   WBFMM_REAL *xs, *src, *xf, wb ;
-  WBFMM_REAL x, k, r, x0[3] = {0.0}, xc[3] = {0.0} ;
+  WBFMM_REAL x, k, r, x0[3] = {0.0}, xc[3] = {0.0}, defaults[128] ;
   WBFMM_REAL ix[3] = {0}, iy[3] = {0}, iz[3] = {0} ;
   gint nsrc, sstride, xstride, fstride, N, i, nfld, test, quad ;
   gchar ch, *ipfile ;
@@ -1677,7 +1677,19 @@ gint main(gint argc, gchar **argv)
   if ( ipfile != NULL ) {
     read_data(ipfile, xc, x0, &xs, &src, &nsrc, &xstride, &sstride,
 	      &xf, &fstride, &nfld, ix, iy, iz) ;
-  }
+  } else {
+    xs = &(defaults[0]) ;
+    xs[0] = 0.1 ; xs[1] = 0.2 ; xs[2] = -0.05 ;
+    xstride = 3*sizeof(WBFMM_REAL) ;
+    src = &(xs[3]) ; nsrc = 1 ;
+    src[0] = 0.5 ; src[1] = -0.9 ;
+    xf = &(src[2]) ;
+    xf[0] = 1.5 ; xf[1] = 2.5 ; xf[2] = -1.3 ;
+
+    ix[0] = 0.0 ; ix[1] =  1.0/sqrt(2.0) ; ix[2] = 1.0/sqrt(2.0) ;
+    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+    iz[0] = 1.0 ; iz[1] =  0.0 ;           iz[2] = 0.0 ;
+  }    
 
   if ( test == 3 || test == 4 || test == 5 || test == 6 ||
        test == 19 || test == 21 ) {

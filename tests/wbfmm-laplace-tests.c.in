@@ -932,6 +932,10 @@ gint main(gint argc, gchar **argv)
     src[0] = 0.5 ; src[1] = -0.9 ;
     xf = &(src[2]) ;
     xf[0] = 1.5 ; xf[1] = 2.5 ; xf[2] = -1.3 ;
+
+    ix[0] = 0.0 ; ix[1] =  1.0/sqrt(2.0) ; ix[2] = 1.0/sqrt(2.0) ;
+    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+    iz[0] = 1.0 ; iz[1] =  0.0 ;           iz[2] = 0.0 ;
   }
 
   if ( test == 0 ) {
