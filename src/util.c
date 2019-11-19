@@ -633,7 +633,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_write_sources)(wbfmm_tree_t *t,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
-						      gint N, FILE *f)
+							    gint N, FILE *f)
 
 {
   gint n, m, nu, idx ;
@@ -655,8 +655,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotation_write_coefficients)(WBFMM_REAL *H,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
-					    WBFMM_REAL k, guint level,
-					    WBFMM_REAL tol)
+						  WBFMM_REAL k, guint level,
+						  WBFMM_REAL tol)
 
 /* Gumerov and Duraiswami, J. Acoust. Soc. Am. 2009, p191 */
   

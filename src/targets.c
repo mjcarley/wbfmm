@@ -101,9 +101,9 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
   xj = wbfmm_tree_point_index(t, j) ;
   /*Morton codes*/
   mi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
-					   wbfmm_tree_width(t)) ;
+						 wbfmm_tree_width(t)) ;
   mj = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xj, wbfmm_tree_origin(t), 
-					   wbfmm_tree_width(t)) ;
+						 wbfmm_tree_width(t)) ;
 
   if ( mi < mj ) return -1 ;
   if ( mi > mj ) return  1 ;
@@ -116,9 +116,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 						       gsize pstr)
 
 {
-  gint i ;
-  WBFMM_REAL *x, *xt, D ;
+  gint i, j, k, idx, ns, nsb, nnbr, nb ;
+  guint64 neighbours[27] ;
+  WBFMM_REAL *x, *xt, D, *xs, *csrc, r ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  guint level = t->depth ;
+  wbfmm_box_t box, *boxes ;
   
   if ( l->size != sizeof(WBFMM_REAL) )
     g_error("%s: mixed precision not implemented\n"
@@ -151,12 +154,71 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
   /*sort points on the Morton index*/
   g_qsort_with_data(l->ip, npts, sizeof(guint), compare_morton_indexed, 
 		    (gpointer)t) ;
-  
+
   for ( i = 0 ; i < npts ; i ++ ) {
     x = wbfmm_target_list_point_index(l, i) ;
     l->boxes[i] = WBFMM_FUNCTION_NAME(wbfmm_point_box)(t, t->depth, x) ;
   }
+  
+  nb = 1 << (3*(level)) ;
+  nsb = 0 ; boxes = t->boxes[level] ;
+  for ( i = 0 ; i < nb ; i ++ ) {
+    nnbr = wbfmm_box_neighbours(level, i, neighbours) ;
+    for ( j = 0 ; j < nnbr ; j ++ ) {
+      box = boxes[neighbours[j]] ;
+      nsb += box.n ;
+    }
+  }
 
+  l->ibox = (gint *)g_malloc0((nb+1)*sizeof(gint)) ;
+  l->isrc = (gint *)g_malloc0(nsb*sizeof(gint)) ;
+
+  /*list of indices of source points lying in the near field of each
+    box*/
+  for ( i = 0 ; i < nb ; i ++ ) {
+    l->ibox[i+1] = l->ibox[i] ;
+    nnbr = wbfmm_box_neighbours(level, i, neighbours) ;
+    for ( j = 0 ; j < nnbr ; j ++ ) {
+      box = boxes[neighbours[j]] ;
+      for ( k = 0 ; k < box.n ; k ++ ) {
+	l->isrc[l->ibox[i+1]] = t->ip[box.i+k] ;
+	l->ibox[i+1] ++ ;
+      }
+    }
+  }
+
+  /*number of source coefficients*/
+  ns = 0 ;
+  for ( i = 0 ; i < npts ; i ++ ) {
+    j = l->boxes[i] ;
+    ns += l->ibox[j+1] - l->ibox[j] ;
+  }
+
+  l->csrc =         g_malloc0(ns*sizeof(WBFMM_REAL)) ;
+  l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
+
+  ns = 0 ;
+  for ( i = 0 ; i < npts ; i ++ ) {
+    l->ics[i] = ns ;
+    csrc = &(((WBFMM_REAL *)(l->csrc))[ns]) ;
+    k = l->boxes[i] ;
+    x = wbfmm_target_list_point_index(l, i) ;
+    for ( j = 0 ; j < l->ibox[k+1] - l->ibox[k] ; j ++ ) {
+      idx = l->isrc[l->ibox[k] + j] ;
+      xs = wbfmm_tree_point_index(t, idx) ;
+      r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	(xs[2]-x[2])*(xs[2]-x[2]) ;
+      if ( r > 1e-12 ) {
+	r = SQRT(r)*4.0*M_PI ;
+	csrc[j] = 1.0/r ;
+      } else {
+	csrc[j] = 0.0 ;
+      }
+    }
+
+    ns += l->ibox[k+1] - l->ibox[k] ;
+  }
+  
   return 0 ;
 }
 
@@ -194,11 +256,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 
 {
   guint level ;
-  guint64 b, neighbours[27] ;
-  gint ib, i, j, k, nq, nr, nc, nnbr, idx ;
+  gint ib, b, j, k, nc, nq, nr, idx ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
-  wbfmm_box_t *boxes, box ;
-  WBFMM_REAL *cfft, *eval, *x, *xs, r ;
+  wbfmm_box_t *boxes ;
+  WBFMM_REAL *cfft, *eval, *csrc ;
   
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
   
@@ -218,29 +279,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 						       8*nq, nq,
 						       &(eval[ib*nc]), nr,
 						       &(f[ib*nq])) ;
-
     /*direct contributions from neighbour boxes*/
-    x = wbfmm_target_list_point_index(l, ib) ;
-    nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
-    g_assert(nnbr >= 0 && nnbr < 28) ;
-    for ( i = 0 ; i < nnbr ; i ++ ) {
-      box = boxes[neighbours[i]] ;
-      for ( j = 0 ; j < box.n ; j ++ ) {
-    	idx = t->ip[box.i+j] ;
-	
-    	xs = wbfmm_tree_point_index(t, idx) ;
-    	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
-    	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-    	if ( r > 1e-12 ) {
-    	  r = SQRT(r)*4.0*M_PI ;
-    	  for ( k = 0 ; k < nq ; k ++ ) {
-    	    f[ib*nq+k] += src[idx*sstr+k]/r ;
-    	  }
-    	}
+    csrc = &(((WBFMM_REAL *)(l->csrc))[l->ics[ib]]) ;
+    for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+      idx = l->isrc[l->ibox[b]+j] ;
+      for ( k = 0 ; k < nq ; k ++ ) {
+    	f[ib*nq+k] += src[idx*sstr+k]*csrc[j] ;
       }
-    }
+    }    
   }
   
   return 0 ;
 }
-							

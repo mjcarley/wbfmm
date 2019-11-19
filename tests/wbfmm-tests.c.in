@@ -65,13 +65,13 @@ gint expansion_test(WBFMM_REAL k, gint N,
 		    gint nsrc,
 		    WBFMM_REAL *xf, gint nfld) ;
 gint translation_test(WBFMM_REAL k, gint N, 
-		      WBFMM_REAL xc[], WBFMM_REAL *x0,
+		      WBFMM_REAL xc[], WBFMM_REAL x,
 		      WBFMM_REAL *xs, gint xstride,
 		      WBFMM_REAL *src, gint sstride,
 		      gint nsrc,
 		      WBFMM_REAL *xf, gint fstride, gint nfld) ;
 gint translation_local_test(WBFMM_REAL k, gint N, 
-			    WBFMM_REAL xc[], WBFMM_REAL *x0,
+			    WBFMM_REAL xc[], WBFMM_REAL x,
 			    WBFMM_REAL *xs, gint xstride,
 			    WBFMM_REAL *src, gint sstride,
 			    gint nsrc,
@@ -471,7 +471,7 @@ gint expansion_normal_test(WBFMM_REAL k, gint N,
 }
 
 gint translation_test(WBFMM_REAL k, gint N, 
-		      WBFMM_REAL xc[], WBFMM_REAL *x0,
+		      WBFMM_REAL xc[], WBFMM_REAL x,
 		      WBFMM_REAL *xs, gint xstride,
 		      WBFMM_REAL *src, gint sstride,
 		      gint nsrc,
@@ -483,7 +483,7 @@ gint translation_test(WBFMM_REAL k, gint N,
 
 {
   WBFMM_REAL Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
-  WBFMM_REAL field[2], kr, work[BUFSIZE] ;
+  WBFMM_REAL field[2], kr, work[BUFSIZE], x0[3] ;
   gint i, Ni, No, cstri, cstro ;
   gdouble t0 ;
 
@@ -498,7 +498,9 @@ gint translation_test(WBFMM_REAL k, gint N,
 
   /*generate coaxial shift coefficients*/
   /* kr = -k*(xc[2] - x0[2]) ; */
-  kr = k*(x0[2] - xc[2]) ;
+  /* kr = k*(x0[2] - xc[2]) ; */
+  kr = k*x ;
+  x0[0] = xc[0] ; x0[1] = xc[1] ; x0[2] = xc[2] + x ; 
   wbfmm_coefficients_RR_coaxial_PREC(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -561,7 +563,7 @@ gint translation_test(WBFMM_REAL k, gint N,
 }
 
 gint translation_local_test(WBFMM_REAL k, gint N, 
-			    WBFMM_REAL xc[], WBFMM_REAL *x0,
+			    WBFMM_REAL xc[], WBFMM_REAL x,
 			    WBFMM_REAL *xs, gint xstride,
 			    WBFMM_REAL *src, gint sstride,
 			    gint nsrc,
@@ -573,7 +575,7 @@ gint translation_local_test(WBFMM_REAL k, gint N,
 
 {
   WBFMM_REAL Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
-  WBFMM_REAL field[2], kr, work[BUFSIZE], xr[3] ;
+  WBFMM_REAL field[2], kr, work[BUFSIZE], xr[3], x0[3] ;
   gint i, Ni, No, cstri, cstro ;
   gdouble t0 ;
 
@@ -586,6 +588,8 @@ gint translation_local_test(WBFMM_REAL k, gint N,
   cstri = 1 ;
   cstro = 1 ;
 
+  x0[0] = xc[0] ; x0[1] = xc[1] ; x0[2] = xc[2] + x ; 
+  
   xr[0] = x0[0] + 0.01 ;
   xr[1] = x0[1] + 0.01 ;
   xr[2] = x0[2] + 0.01 ;
@@ -1723,7 +1727,7 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( test == 4 ) {
-    translation_test(k, N, xc, x0, xs, xstride, src, sstride, nsrc,
+    translation_test(k, N, xc, x, xs, xstride, src, sstride, nsrc,
   		     xf, fstride, nfld) ;
 
     return 0 ;
@@ -1784,7 +1788,7 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( test == 14 ) {
-    translation_local_test(k, N, xc, x0, xs, xstride, src, sstride, nsrc,
+    translation_local_test(k, N, xc, x, xs, xstride, src, sstride, nsrc,
 			   xf, fstride, nfld) ;
 
     return 0 ;

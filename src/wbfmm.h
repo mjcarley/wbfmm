@@ -124,7 +124,8 @@ typedef struct {
   pstr ;     /**< stride in point data */
   gint
   *ibox,    /**< start and end of source index lists for each box */
-    *isrc ;    /**< source index lists for each box */
+    *isrc,  /**< source index lists for each box */
+    *ics ;  /**< start of near-field coefficients for each target */
   gpointer
   cfft,     /**< coefficients of regular expansions in boxes */
     csrc ;  /**< coefficients of near-field (direct) interactions, 

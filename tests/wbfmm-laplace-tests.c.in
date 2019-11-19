@@ -293,6 +293,11 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   nq = 2 ;
   Ns = N ; Nr = Ns + 4 ;
+
+  xf[0] = x0[0] + 0.01 ; 
+  xf[1] = x0[1] - 0.01 ; 
+  xf[2] = x0[2] + t + 0.01 ; 
+  
   fprintf(stderr, "singular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
   fprintf(stderr,
