@@ -260,8 +260,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
 							WBFMM_REAL *work)
 
 /*
-  generate coefficients for coaxial shift kr in positive z direction,
-  G&D section 4.8
+  generate coefficients for coaxial shift kr (positive or negative) in
+  z direction, G&D section 4.8
 
   indexing on coaxial coefficients using wbfmm_coaxial_index_lmn(l,m,n) 
   l >= n >= m >= 0 (no check on indexing)
@@ -271,13 +271,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
 */
 
 {
-  gint l, m, n, idx, sgnl ;
+  gint l, m, n, idx, sgnl, sw = 1 ;
   WBFMM_REAL jlm1, jl, *cfft ;
-  gboolean invert = FALSE ;
   
-  if ( kr < 0 ) {
-    kr = -kr ; invert = TRUE ;
-  }
+  if ( kr < 0 ) { kr = -kr ; sw = -1 ; }
 
   g_assert(kr > 0.0) ;
 
@@ -287,32 +284,23 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
   /*G&D section 4.8.1*/
   /*G&D 4.83*/
   /*initialize (R|R)_{l0}^0*/
-  /*(-1)^l term reverses the sense of translation*/
+  /*(-1)^l term reverses sense of translation*/
   l = 0 ; m = 0 ; n = 0 ; sgnl = 1 ;
   idx = wbfmm_coaxial_index_lmn(l, m, n) ;
   cfft[idx] = sgnl*SQRT(2*l+1)*jlm1 ;
-  l = 1 ; sgnl = ( invert ? -sgnl : sgnl) ;
+  l = 1 ; sgnl *= sw ;
   idx = wbfmm_coaxial_index_lmn(l, m, n) ;
   cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
 
-  if ( !invert ) {
-    /*no (-1)^l term as this reverses the sense of translation*/
-    for ( l = 2 ; l <= 2*L ; l ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jlm1, &jl, kr, l-1) ;
-      /* sgnl = -sgnl ; */
-      idx = wbfmm_coaxial_index_lmn(l, m, n) ;
-      cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
-    }
-  } else {
-    /*(-1)^l term reverses the sense of translation*/
-    for ( l = 2 ; l <= 2*L ; l ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jlm1, &jl, kr, l-1) ;
-      sgnl = -sgnl ;
-      idx = wbfmm_coaxial_index_lmn(l, m, n) ;
-      cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
-    }    
+  /*(-1)^l term reverses sense of translation*/
+  for ( l = 2 ; l <= 2*L ; l ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jlm1, &jl, kr, l-1) ;
+    sgnl *= sw ;
+    idx = wbfmm_coaxial_index_lmn(l, m, n) ;
+    cfft[idx] = sgnl*SQRT(2*l+1)*jl ;
   }
 
+  /*recursion is the same for either direction of translation*/
   coefficient_recursions_coaxial(cfft, L, 1) ;
 
   /*copy to output array (probably not ideal, but better for development)*/
@@ -331,8 +319,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
 							WBFMM_REAL *work)
 
 /*
-  generate coefficients for coaxial shift kr in positive z direction,
-  G&D section 4.8
+  generate coefficients for coaxial shift kr (positive or negative) in
+  z direction, G&D section 4.8
 
   indexing on coaxial coefficients using wbfmm_coaxial_index_lmn(l,m,n) 
   l >= n >= m >= 0 (no check on indexing)
@@ -342,13 +330,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
 */
 
 {
-  gint l, m, n, idx, sgnl ;
+  gint l, m, n, idx, sgnl, sw = 1 ;
   WBFMM_REAL hlm1[2], hl[2], *cfft ;
-  gboolean invert = FALSE ;
   
-  if ( kr < 0 ) {
-    kr = -kr ; invert = TRUE ;
-  }
+  if ( kr < 0 ) { kr = -kr ; sw = -1 ; }
 
   g_assert(kr > 0.0) ;
   
@@ -362,29 +347,20 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
   idx = wbfmm_coaxial_index_lmn(l, m, n) ;
   cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hlm1[0] ;
   cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hlm1[1] ;
-  /*(-1)^l term reverses the sense of translation*/
-  l = 1 ; sgnl = ( invert ? -sgnl : sgnl) ;
+  /*(-1)^l term reverses sense of translation*/
+  l = 1 ; sgnl *= sw ;
   idx = wbfmm_coaxial_index_lmn(l, m, n) ;
   cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;
   cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hl[1] ;
 
-  if ( !invert ) {
-    /*no (-1)^l term as this reverses the sense of translation*/
-    for ( l = 2 ; l <= 2*L ; l ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
-      /* sgnl = -sgnl ; */
-      idx = wbfmm_coaxial_index_lmn(l, m, n) ;
-      cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;
-      cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hl[1] ;
-    }
-  } else {
-    for ( l = 2 ; l <= 2*L ; l ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
-      sgnl = -sgnl ;
-      idx = wbfmm_coaxial_index_lmn(l, m, n) ;
-      cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;
-      cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hl[1] ;
-    }
+  /*(-1)^l term reverses sense of translation*/
+  for ( l = 2 ; l <= 2*L ; l ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
+    /* sgnl = -sgnl ; */
+    sgnl *= sw ;
+    idx = wbfmm_coaxial_index_lmn(l, m, n) ;
+    cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;
+    cfft[2*idx+1] = sgnl*SQRT(2*l+1)*hl[1] ;
   }
   
   /*recursion is the same for either direction of translation*/
