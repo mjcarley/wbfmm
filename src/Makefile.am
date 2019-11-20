@@ -35,6 +35,7 @@ libwbfmm_la_SOURCES = \
 	factorial.c \
 	boxes.c \
 	shift.c \
+	shiftbw.c \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \
@@ -51,6 +52,7 @@ libwbfmm_f_la_SOURCES = \
 	factorial.c \
 	boxes.c \
 	shift.c \
+	shiftbw.c \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \

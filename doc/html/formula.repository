@@ -16,35 +16,37 @@
 \form#15:$a_{1}$
 \form#16:$b_{1}$
 \form#17:$n_{xi}$
-\form#18:$(i,j,k)$
-\form#19:$(r,\theta,\phi)$
-\form#20:$P_{n-1}^{m}(\cos\theta)$
-\form#21:$0\leq m\leq n-1$
-\form#22:$P_{n}^{m}(\cos\theta)$
-\form#23:$0\leq m \leq n$
-\form#24:$n$
-\form#25:$n-1$
-\form#26:$\cos\theta$
-\form#27:$\sin\theta$
-\form#28:$P_{0}^{0}(\cos\theta)$
-\form#29:$P_{1}^{0}(\cos\theta)$
-\form#30:$P_{1}^{1}(\cos\theta)$
-\form#31:$j_{n}(x)$
-\form#32:$j_{n-1}(x)$
-\form#33:$j_{0}(x)$
-\form#34:$j_{1}(x)$
-\form#35:$h_{n}(x)$
-\form#36:$h_{0}(x)$
-\form#37:$h_{1}(x)$
-\form#38:$h_{n-1}(x)$
-\form#39:$\mathbf{x}$
-\form#40:$\mathbf{x}_{n}$
-\form#41:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
-\form#42:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
-\form#43:$C_{n}^{m}$
-\form#44:$-n\leq m \leq n$
-\form#45:$i=n(n+1)+m$
-\form#46:$C_{si+0}+jC_{si+1}$
-\form#47:$i$
-\form#48:$s$
-\form#49:$C_{n}$
+\form#18:$+kr$
+\form#19:$-kr$
+\form#20:$(i,j,k)$
+\form#21:$(r,\theta,\phi)$
+\form#22:$P_{n-1}^{m}(\cos\theta)$
+\form#23:$0\leq m\leq n-1$
+\form#24:$P_{n}^{m}(\cos\theta)$
+\form#25:$0\leq m \leq n$
+\form#26:$n$
+\form#27:$n-1$
+\form#28:$\cos\theta$
+\form#29:$\sin\theta$
+\form#30:$P_{0}^{0}(\cos\theta)$
+\form#31:$P_{1}^{0}(\cos\theta)$
+\form#32:$P_{1}^{1}(\cos\theta)$
+\form#33:$j_{n}(x)$
+\form#34:$j_{n-1}(x)$
+\form#35:$j_{0}(x)$
+\form#36:$j_{1}(x)$
+\form#37:$h_{n}(x)$
+\form#38:$h_{0}(x)$
+\form#39:$h_{1}(x)$
+\form#40:$h_{n-1}(x)$
+\form#41:$\mathbf{x}$
+\form#42:$\mathbf{x}_{n}$
+\form#43:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\form#44:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\form#45:$C_{n}^{m}$
+\form#46:$-n\leq m \leq n$
+\form#47:$i=n(n+1)+m$
+\form#48:$C_{si+0}+jC_{si+1}$
+\form#49:$i$
+\form#50:$s$
+\form#51:$C_{n}$

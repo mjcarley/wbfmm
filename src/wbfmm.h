@@ -471,12 +471,21 @@ gint wbfmm_laplace_expansion_apply_f(gfloat *C, gint cstr, gint nq,
 					gfloat *ec, gint N, gfloat *f) ;
 
 
-  gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
-				gdouble *Cc, gint Nc,
-				gdouble *H03, 
-				gdouble *H47, gint Lh,
-				gdouble *shift, gint Ls,
-				gdouble *work) ;
+gint wbfmm_child_parent_shift_bw(gdouble *Cp, gint Np, gdouble *Cc, gint Nc,
+				 gdouble *H03, gint Lh,
+				 gdouble *transf, gdouble *transb, gint Ls,
+				 gdouble *work) ;
+gint wbfmm_child_parent_shift_bw_f(gfloat *Cp, gint Np, gfloat *Cc, gint Nc,
+				   gfloat *H03, gint Lh,
+				   gfloat *transf, gfloat *transb, gint Ls,
+				   gfloat *work) ;
+
+gint wbfmm_child_parent_shift(gdouble *Cp, gint Np,
+			      gdouble *Cc, gint Nc,
+			      gdouble *H03, 
+			      gdouble *H47, gint Lh,
+			      gdouble *shift, gint Ls,
+			      gdouble *work) ;
 gint wbfmm_parent_child_shift(gdouble *Cc, gint Nc,
 			      gdouble *Cp, gint Np,
 			      gdouble *H03, 

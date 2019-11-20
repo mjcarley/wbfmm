@@ -50,223 +50,227 @@
 \indexentry{Shift operations@{Shift operations}}{21}
 \indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}}{22}
 \indexentry{wbfmm\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}!Shift operations@{Shift operations}}{22}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}{22}
-\indexentry{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}{22}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}}{22}
-\indexentry{wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}!Shift operations@{Shift operations}}{22}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}{23}
-\indexentry{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}{23}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}}{23}
-\indexentry{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}!Shift operations@{Shift operations}}{23}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}}{24}
-\indexentry{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}!Shift operations@{Shift operations}}{24}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}}{24}
-\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}!Shift operations@{Shift operations}}{24}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}}{24}
-\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}!Shift operations@{Shift operations}}{24}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}}{24}
-\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}!Shift operations@{Shift operations}}{24}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}}{22}
+\indexentry{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}!Shift operations@{Shift operations}}{22}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}}{23}
+\indexentry{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}!Shift operations@{Shift operations}}{23}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}{23}
+\indexentry{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}{23}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}}{24}
+\indexentry{wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}!Shift operations@{Shift operations}}{24}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}{24}
+\indexentry{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}{24}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}}{25}
+\indexentry{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}!Shift operations@{Shift operations}}{25}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}}{25}
+\indexentry{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}!Shift operations@{Shift operations}}{25}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}}{25}
+\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}!Shift operations@{Shift operations}}{25}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}}{26}
+\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}!Shift operations@{Shift operations}}{26}
 \indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}}{26}
 \indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}!Shift operations@{Shift operations}}{26}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}{26}
-\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}{26}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}{26}
-\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}{26}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}}{26}
+\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}!Shift operations@{Shift operations}}{26}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}{27}
+\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}{27}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}{27}
+\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}{27}
 \indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+new@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}}{27}
 \indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+new@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}!Shift operations@{Shift operations}}{27}
-\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}}{27}
-\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}!Shift operations@{Shift operations}}{27}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}}{28}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}}{28}
-\indexentry{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{28}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}}{29}
-\indexentry{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{29}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}}{29}
-\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{29}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}}{30}
-\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{30}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}}{30}
-\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{30}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}}{30}
-\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{30}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}}{31}
-\indexentry{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{31}
-\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}}{31}
-\indexentry{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{31}
-\indexentry{Upward and downward passes@{Upward and downward passes}}{32}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}}{32}
-\indexentry{wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{32}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}}{33}
-\indexentry{wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{33}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass}}{33}
-\indexentry{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{33}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f}}{33}
-\indexentry{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{33}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass}}{34}
-\indexentry{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{34}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f}}{34}
-\indexentry{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{34}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}}{34}
-\indexentry{wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{34}
-\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}}{35}
-\indexentry{wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{35}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}}{36}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}}{36}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}!Rotation coefficients and operations@{Rotation coefficients and operations}}{36}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}}{36}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{36}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H}}{37}
-\indexentry{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H}!Rotation coefficients and operations@{Rotation coefficients and operations}}{37}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f}}{37}
-\indexentry{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{37}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}}{38}
-\indexentry{wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}!Rotation coefficients and operations@{Rotation coefficients and operations}}{38}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}}{38}
-\indexentry{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{38}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}}{39}
-\indexentry{wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}!Rotation coefficients and operations@{Rotation coefficients and operations}}{39}
-\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}}{39}
-\indexentry{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{39}
-\indexentry{Translation operators@{Translation operators}}{41}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}}{41}
-\indexentry{wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}!Translation operators@{Translation operators}}{41}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}}{41}
-\indexentry{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}!Translation operators@{Translation operators}}{41}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}}{42}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}!Translation operators@{Translation operators}}{42}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}}{42}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}{42}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}}{43}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}!Translation operators@{Translation operators}}{43}
-\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}}{43}
-\indexentry{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}{43}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}}{44}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}}{45}
-\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{45}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}}{45}
-\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{45}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}}{46}
-\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}{46}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}}{46}
-\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{46}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}}{46}
-\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{46}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}}{47}
-\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{47}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}}{47}
-\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}{47}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}}{47}
-\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{47}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}}{48}
-\indexentry{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}!Utility and convenience functions@{Utility and convenience functions}}{48}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}}{48}
-\indexentry{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{48}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}}{48}
-\indexentry{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}!Utility and convenience functions@{Utility and convenience functions}}{48}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}}{49}
-\indexentry{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{49}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}}{49}
-\indexentry{wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}!Utility and convenience functions@{Utility and convenience functions}}{49}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}}{49}
-\indexentry{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{49}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}}{50}
-\indexentry{wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{50}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}}{50}
-\indexentry{wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{50}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}}{50}
-\indexentry{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}!Utility and convenience functions@{Utility and convenience functions}}{50}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}}{51}
-\indexentry{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{51}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}}{51}
-\indexentry{wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}!Utility and convenience functions@{Utility and convenience functions}}{51}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}}{51}
-\indexentry{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{51}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}}{52}
-\indexentry{wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}!Utility and convenience functions@{Utility and convenience functions}}{52}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}}{52}
-\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{52}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}}{52}
-\indexentry{wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}!Utility and convenience functions@{Utility and convenience functions}}{52}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}}{53}
-\indexentry{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{53}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}}{53}
-\indexentry{wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}{53}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}}{53}
-\indexentry{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{53}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}}{54}
-\indexentry{wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}{54}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}}{54}
-\indexentry{wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{54}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}}{55}
-\indexentry{wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}!Utility and convenience functions@{Utility and convenience functions}}{55}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}}{55}
-\indexentry{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{55}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}}{55}
-\indexentry{wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}!Utility and convenience functions@{Utility and convenience functions}}{55}
-\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}}{55}
-\indexentry{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{55}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{57}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}}{58}
-\indexentry{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{58}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}}{59}
-\indexentry{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{59}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}}{59}
-\indexentry{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{59}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}}{59}
-\indexentry{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{59}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}}{60}
-\indexentry{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{60}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}{60}
-\indexentry{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{60}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}}{61}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{61}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}}{61}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{61}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}}{61}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{61}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}}{62}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{62}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}}{62}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{62}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}}{63}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{63}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}}{63}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{63}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}}{63}
-\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{63}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}}{64}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{64}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}}{64}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{64}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}}{65}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{65}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}}{65}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{65}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}}{65}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{65}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}}{66}
-\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}}{66}
-\indexentry{wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}}{66}
-\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}}{66}
-\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}}{66}
-\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}}{67}
-\indexentry{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}}{67}
-\indexentry{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}}{67}
-\indexentry{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
-\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}{68}
-\indexentry{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{68}
-\indexentry{Indexing and lookup operations@{Indexing and lookup operations}}{69}
-\indexentry{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}}{69}
-\indexentry{wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}!Indexing and lookup operations@{Indexing and lookup operations}}{69}
-\indexentry{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}}{69}
-\indexentry{wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}!Indexing and lookup operations@{Indexing and lookup operations}}{69}
+\indexentry{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}}{28}
+\indexentry{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}!Shift operations@{Shift operations}}{28}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}}{29}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}}{29}
+\indexentry{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{29}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}}{30}
+\indexentry{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{30}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}}{30}
+\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{30}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}}{31}
+\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{31}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}}{31}
+\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{31}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}}{31}
+\indexentry{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{31}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}}{32}
+\indexentry{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{32}
+\indexentry{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}}{32}
+\indexentry{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}{32}
+\indexentry{Upward and downward passes@{Upward and downward passes}}{33}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}}{33}
+\indexentry{wbfmm\+\_\+downward\+\_\+pass@{wbfmm\+\_\+downward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{33}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}}{34}
+\indexentry{wbfmm\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+downward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{34}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass}}{34}
+\indexentry{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{34}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f}}{34}
+\indexentry{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{34}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass}}{35}
+\indexentry{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{35}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f}}{35}
+\indexentry{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{35}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}}{35}
+\indexentry{wbfmm\+\_\+upward\+\_\+pass@{wbfmm\+\_\+upward\+\_\+pass}!Upward and downward passes@{Upward and downward passes}}{35}
+\indexentry{Upward and downward passes@{Upward and downward passes}!wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}}{36}
+\indexentry{wbfmm\+\_\+upward\+\_\+pass\+\_\+f@{wbfmm\+\_\+upward\+\_\+pass\+\_\+f}!Upward and downward passes@{Upward and downward passes}}{36}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}}{37}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}}{37}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}!Rotation coefficients and operations@{Rotation coefficients and operations}}{37}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}}{37}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{37}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H}}{38}
+\indexentry{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H}!Rotation coefficients and operations@{Rotation coefficients and operations}}{38}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f}}{38}
+\indexentry{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{38}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}}{39}
+\indexentry{wbfmm\+\_\+rotate\+\_\+\+H@{wbfmm\+\_\+rotate\+\_\+\+H}!Rotation coefficients and operations@{Rotation coefficients and operations}}{39}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}}{39}
+\indexentry{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f@{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{39}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}}{40}
+\indexentry{wbfmm\+\_\+rotation\+\_\+angles@{wbfmm\+\_\+rotation\+\_\+angles}!Rotation coefficients and operations@{Rotation coefficients and operations}}{40}
+\indexentry{Rotation coefficients and operations@{Rotation coefficients and operations}!wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}}{40}
+\indexentry{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f@{wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}!Rotation coefficients and operations@{Rotation coefficients and operations}}{40}
+\indexentry{Translation operators@{Translation operators}}{42}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}}{42}
+\indexentry{wbfmm\+\_\+coaxial\+\_\+translate@{wbfmm\+\_\+coaxial\+\_\+translate}!Translation operators@{Translation operators}}{42}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}}{42}
+\indexentry{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f@{wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}!Translation operators@{Translation operators}}{42}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}}{43}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}!Translation operators@{Translation operators}}{43}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}}{43}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}{43}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}}{44}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}!Translation operators@{Translation operators}}{44}
+\indexentry{Translation operators@{Translation operators}!wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}}{44}
+\indexentry{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f@{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}!Translation operators@{Translation operators}}{44}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}}{45}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}}{46}
+\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+init@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{46}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}}{46}
+\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{46}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}}{47}
+\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}{47}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}}{47}
+\indexentry{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{47}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}}{47}
+\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+init@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{47}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}}{48}
+\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{48}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}}{48}
+\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion}!Utility and convenience functions@{Utility and convenience functions}}{48}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}}{48}
+\indexentry{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f@{wbfmm\+\_\+bessel\+\_\+j\+\_\+recursion\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{48}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}}{49}
+\indexentry{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}!Utility and convenience functions@{Utility and convenience functions}}{49}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}}{49}
+\indexentry{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f@{wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{49}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}}{49}
+\indexentry{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}!Utility and convenience functions@{Utility and convenience functions}}{49}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}}{50}
+\indexentry{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f@{wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{50}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}}{50}
+\indexentry{wbfmm\+\_\+coordinate\+\_\+transform@{wbfmm\+\_\+coordinate\+\_\+transform}!Utility and convenience functions@{Utility and convenience functions}}{50}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}}{50}
+\indexentry{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f@{wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{50}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}}{51}
+\indexentry{wbfmm\+\_\+legendre\+\_\+init@{wbfmm\+\_\+legendre\+\_\+init}!Utility and convenience functions@{Utility and convenience functions}}{51}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}}{51}
+\indexentry{wbfmm\+\_\+legendre\+\_\+init\+\_\+f@{wbfmm\+\_\+legendre\+\_\+init\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{51}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}}{51}
+\indexentry{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array}!Utility and convenience functions@{Utility and convenience functions}}{51}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}}{52}
+\indexentry{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f@{wbfmm\+\_\+legendre\+\_\+recursion\+\_\+array\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{52}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}}{52}
+\indexentry{wbfmm\+\_\+points\+\_\+origin\+\_\+width@{wbfmm\+\_\+points\+\_\+origin\+\_\+width}!Utility and convenience functions@{Utility and convenience functions}}{52}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}}{52}
+\indexentry{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f@{wbfmm\+\_\+points\+\_\+origin\+\_\+width\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{52}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}}{53}
+\indexentry{wbfmm\+\_\+shift\+\_\+angles@{wbfmm\+\_\+shift\+\_\+angles}!Utility and convenience functions@{Utility and convenience functions}}{53}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}}{53}
+\indexentry{wbfmm\+\_\+shift\+\_\+angles\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{53}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}}{53}
+\indexentry{wbfmm\+\_\+shift\+\_\+coordinates@{wbfmm\+\_\+shift\+\_\+coordinates}!Utility and convenience functions@{Utility and convenience functions}}{53}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}}{54}
+\indexentry{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f@{wbfmm\+\_\+shift\+\_\+coordinates\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{54}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}}{54}
+\indexentry{wbfmm\+\_\+total\+\_\+dipole\+\_\+field@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}{54}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}}{54}
+\indexentry{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{54}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}}{55}
+\indexentry{wbfmm\+\_\+total\+\_\+field@{wbfmm\+\_\+total\+\_\+field}!Utility and convenience functions@{Utility and convenience functions}}{55}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}}{55}
+\indexentry{wbfmm\+\_\+total\+\_\+field\+\_\+f@{wbfmm\+\_\+total\+\_\+field\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{55}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}}{56}
+\indexentry{wbfmm\+\_\+tree\+\_\+box\+\_\+centre@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre}!Utility and convenience functions@{Utility and convenience functions}}{56}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}}{56}
+\indexentry{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f@{wbfmm\+\_\+tree\+\_\+box\+\_\+centre\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{56}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}}{56}
+\indexentry{wbfmm\+\_\+tree\+\_\+write\+\_\+sources@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources}!Utility and convenience functions@{Utility and convenience functions}}{56}
+\indexentry{Utility and convenience functions@{Utility and convenience functions}!wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}}{56}
+\indexentry{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f@{wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}!Utility and convenience functions@{Utility and convenience functions}}{56}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{58}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}}{59}
+\indexentry{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{59}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}}{60}
+\indexentry{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{60}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}}{60}
+\indexentry{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{60}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}}{60}
+\indexentry{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{60}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}}{61}
+\indexentry{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{61}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}{61}
+\indexentry{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{61}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}}{62}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{62}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}}{62}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{62}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}}{62}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{62}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}}{63}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{63}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}}{63}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{63}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}}{64}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{64}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}}{64}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{64}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}}{64}
+\indexentry{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{64}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}}{65}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{65}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}}{65}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{65}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}}{66}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}}{66}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}}{66}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{66}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}}{67}
+\indexentry{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}}{67}
+\indexentry{wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}}{67}
+\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}}{67}
+\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}}{67}
+\indexentry{wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{67}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}}{68}
+\indexentry{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{68}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}}{68}
+\indexentry{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{68}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}}{68}
+\indexentry{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{68}
+\indexentry{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}{69}
+\indexentry{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}{69}
+\indexentry{Indexing and lookup operations@{Indexing and lookup operations}}{70}
+\indexentry{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}}{70}
+\indexentry{wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}!Indexing and lookup operations@{Indexing and lookup operations}}{70}
+\indexentry{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}}{70}
+\indexentry{wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}!Indexing and lookup operations@{Indexing and lookup operations}}{70}
 \indexentry{wbfmm\+\_\+box\+\_\+t@{wbfmm\+\_\+box\+\_\+t}}{71}
 \indexentry{wbfmm\+\_\+box\+\_\+t@{wbfmm\+\_\+box\+\_\+t}!i@{i}}{71}
 \indexentry{i@{i}!wbfmm\+\_\+box\+\_\+t@{wbfmm\+\_\+box\+\_\+t}}{71}
@@ -296,31 +300,41 @@
 \indexentry{boxes@{boxes}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
 \indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!cfft@{cfft}}{73}
 \indexentry{cfft@{cfft}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!csrc@{csrc}}{73}
+\indexentry{csrc@{csrc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
 \indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!grad@{grad}}{73}
 \indexentry{grad@{grad}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ibox@{ibox}}{73}
+\indexentry{ibox@{ibox}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ics@{ics}}{73}
+\indexentry{ics@{ics}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
 \indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ip@{ip}}{73}
 \indexentry{ip@{ip}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
-\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!maxpoints@{maxpoints}}{73}
-\indexentry{maxpoints@{maxpoints}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
-\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!nc@{nc}}{73}
-\indexentry{nc@{nc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
-\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!npoints@{npoints}}{73}
-\indexentry{npoints@{npoints}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
-\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!points@{points}}{73}
-\indexentry{points@{points}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
-\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!size@{size}}{73}
-\indexentry{size@{size}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!isrc@{isrc}}{73}
+\indexentry{isrc@{isrc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{73}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!maxpoints@{maxpoints}}{74}
+\indexentry{maxpoints@{maxpoints}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!nc@{nc}}{74}
+\indexentry{nc@{nc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!npoints@{npoints}}{74}
+\indexentry{npoints@{npoints}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!points@{points}}{74}
+\indexentry{points@{points}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!pstr@{pstr}}{74}
+\indexentry{pstr@{pstr}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!size@{size}}{74}
+\indexentry{size@{size}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
 \indexentry{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!t@{t}}{74}
 \indexentry{t@{t}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}{74}
 \indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{74}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!boxes@{boxes}}{74}
-\indexentry{boxes@{boxes}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{74}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!D@{D}}{74}
-\indexentry{D@{D}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{74}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!depth@{depth}}{74}
-\indexentry{depth@{depth}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{74}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!ip@{ip}}{74}
-\indexentry{ip@{ip}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{74}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!boxes@{boxes}}{75}
+\indexentry{boxes@{boxes}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!D@{D}}{75}
+\indexentry{D@{D}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!depth@{depth}}{75}
+\indexentry{depth@{depth}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!ip@{ip}}{75}
+\indexentry{ip@{ip}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
 \indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!maxpoints@{maxpoints}}{75}
 \indexentry{maxpoints@{maxpoints}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
 \indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mpr@{mpr}}{75}
@@ -335,13 +349,13 @@
 \indexentry{order\+\_\+r@{order\+\_\+r}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
 \indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+s@{order\+\_\+s}}{75}
 \indexentry{order\+\_\+s@{order\+\_\+s}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!points@{points}}{75}
-\indexentry{points@{points}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!pstr@{pstr}}{75}
-\indexentry{pstr@{pstr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!size@{size}}{75}
-\indexentry{size@{size}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
-\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!x@{x}}{75}
-\indexentry{x@{x}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{75}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!points@{points}}{76}
+\indexentry{points@{points}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{76}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!pstr@{pstr}}{76}
+\indexentry{pstr@{pstr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{76}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!size@{size}}{76}
+\indexentry{size@{size}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{76}
+\indexentry{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!x@{x}}{76}
+\indexentry{x@{x}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}{76}
 \indexentry{tree.\+c@{tree.\+c}}{77}
 \indexentry{wbfmm.\+h@{wbfmm.\+h}}{77}

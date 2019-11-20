@@ -357,6 +357,10 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   nq = 2 ;
   N0 = N+4 ; N1 = N ;
+  xf[0] = x0[0] + 0.01 ; 
+  xf[1] = x0[1] + 0.01 ; 
+  xf[2] = x0[2] + t - 0.05 ; 
+
   fprintf(stderr, "regular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
   fprintf(stderr,

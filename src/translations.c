@@ -281,8 +281,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
   WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jlm1, &jl) ; 
   cfft = work ;
 
-  /*G&D section 4.8.1*/
-  /*G&D 4.83*/
+  /*G&D section 4.8.1, G&D 4.83*/
   /*initialize (R|R)_{l0}^0*/
   /*(-1)^l term reverses sense of translation*/
   l = 0 ; m = 0 ; n = 0 ; sgnl = 1 ;
@@ -340,8 +339,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
   WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(kr, hlm1, hl) ; 
   cfft = work ;
 
-  /*G&D section 4.8.1*/
-  /*G&D 4.83*/
+  /*G&D section 4.8.1, G&D 4.83*/
   /*initialize (S|R)_{l0}^0*/
   l = 0 ; m = 0 ; n = 0 ; sgnl = 1 ;
   idx = wbfmm_coaxial_index_lmn(l, m, n) ;
@@ -356,7 +354,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
   /*(-1)^l term reverses sense of translation*/
   for ( l = 2 ; l <= 2*L ; l ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_bessel_h_recursion)(hlm1, hl, kr, l-1) ;
-    /* sgnl = -sgnl ; */
     sgnl *= sw ;
     idx = wbfmm_coaxial_index_lmn(l, m, n) ;
     cfft[2*idx+0] = sgnl*SQRT(2*l+1)*hl[0] ;

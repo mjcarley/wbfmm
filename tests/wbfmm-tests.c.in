@@ -1054,12 +1054,12 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
 		       WBFMM_REAL wb, gint quad) 
 
 {
-  WBFMM_REAL *H03, *H47, *shift, *work, *child, *parent ;
+  WBFMM_REAL *H03, *H47, *shiftf, *shiftb, *work, *child, *parent ;
   WBFMM_REAL xsrc[1536], src[1024], xb[3], xf[3] ;
   WBFMM_REAL fc[2] = {0.0}, fp[2] = {0.0}, fe[2] = {0.0} ;
   WBFMM_REAL th03, th47 ;
   WBFMM_REAL kr ;
-  gdouble t0 ;
+  gdouble t0, t1 ;
   gint Np, sizew ;
 
   th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
@@ -1073,8 +1073,10 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
 				sizeof(WBFMM_REAL)) ;
   H47 = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_rotation(Np)*
 				sizeof(WBFMM_REAL)) ;
-  shift = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_coaxial(Np)*
-				  sizeof(WBFMM_REAL)) ;
+  shiftf = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_coaxial(Np)*
+				   sizeof(WBFMM_REAL)) ;
+  shiftb = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_coaxial(Np)*
+				   sizeof(WBFMM_REAL)) ;
   child = (WBFMM_REAL *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Nc+1,0)*
 				  sizeof(WBFMM_REAL)) ;
   parent = (WBFMM_REAL *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Np+1,0)*
@@ -1118,6 +1120,7 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
   xsrc[0] = xb[0] + 0.125*wb ;
   xsrc[1] = xb[1] + 0.125*wb ;
   xsrc[2] = xb[2] + 0.125*wb ;
+
   src[0] = 0.5 ; src[1] = -0.3 ;
 
   /*wb is child box width, or parent box half width*/
@@ -1132,7 +1135,8 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_RR_coaxial_PREC(shift, Np, kr, work) ;
+  wbfmm_coefficients_RR_coaxial_PREC(shiftf, Np,  kr, work) ;
+  wbfmm_coefficients_RR_coaxial_PREC(shiftb, Np, -kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1142,11 +1146,19 @@ gint child_parent_test(WBFMM_REAL k, gint Nc, WBFMM_REAL *xc,
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
+  t1 = g_timer_elapsed(timer, NULL) ;
   wbfmm_child_parent_shift_PREC(parent, Np, child, Nc, H03, H47, Np,
-				shift, Np, work) ;
+  				shiftf, Np, work) ;
+  fprintf(stderr, "%s child expansions shifted to parent: %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,
+	  g_timer_elapsed(timer, NULL) - t1) ;
+  t1 = g_timer_elapsed(timer, NULL) ;
+  wbfmm_child_parent_shift_bw_PREC(parent, Np, child, Nc, H03, Np,
+				   shiftf, shiftb, Np, work) ;
 
-  fprintf(stderr, "%s child expansions shifted to parent: %lg\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+  fprintf(stderr, "%s child expansions shifted to parent (BW): %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, 
+	  g_timer_elapsed(timer, NULL) - t1) ;
 
   /*calculate child, parent, and exact fields*/
   wbfmm_expansion_h_evaluate_PREC(k, xb, &(child[2*quad]), 8, Nc, 

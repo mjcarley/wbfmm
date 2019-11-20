@@ -433,14 +433,7 @@ static WBFMM_REAL coaxial_translation_SR_cfft(gint n, gint nd, gint m)
   c *= pow(-1.0, n+m) ;
 
   return c ;
-  
-  c  = wbfmm_factorial(n  - m)*wbfmm_factorial(n  + m) ;
-  c *= wbfmm_factorial(nd - m)*wbfmm_factorial(nd + m) ;
-  c  = (2.0*nd+1)/(2.0*n+1)/c ;
-  c  = SQRT(c) ;
-  c *= wbfmm_factorial(n+nd) ;
-  c *= pow(-1.0, n+m) ;
-  
+
   /*this needs to be divided by (t)^{n+nd+1} for a translation of
     distance t*/
   
@@ -461,7 +454,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
   WBFMM_REAL c, tn[128] ;
 
   g_assert(No + Ni < 126) ;
-  tn[0] = 1.0 ;
+  tn[0] = ( t < 0 ? -1.0 : 1.0) ;
   for ( n = 1 ; n <= No+Ni+2 ; n ++ ) tn[n] = t*tn[n-1] ;
 
   m = 0 ;

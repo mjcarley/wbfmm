@@ -68,8 +68,18 @@ Data Fields</h2></td></tr>
 <tr class="separator:a506b4f5c246ffeaa63579dd0599f4982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a3765da21d5bc65aecdb430dba04af0"><td class="memItemLeft" align="right" valign="top">gsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a8a3765da21d5bc65aecdb430dba04af0">size</a></td></tr>
 <tr class="separator:a8a3765da21d5bc65aecdb430dba04af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ad22089280c197357287a78b2c5ef2"><td class="memItemLeft" align="right" valign="top">gsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a85ad22089280c197357287a78b2c5ef2">pstr</a></td></tr>
+<tr class="separator:a85ad22089280c197357287a78b2c5ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d627c8decc0eb9c51a967ec88a5217c"><td class="memItemLeft" align="right" valign="top">gint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a6d627c8decc0eb9c51a967ec88a5217c">ibox</a></td></tr>
+<tr class="separator:a6d627c8decc0eb9c51a967ec88a5217c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c96b0b65a1823ba1f7610ca44d538ba"><td class="memItemLeft" align="right" valign="top">gint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a1c96b0b65a1823ba1f7610ca44d538ba">isrc</a></td></tr>
+<tr class="separator:a1c96b0b65a1823ba1f7610ca44d538ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891463ff38b81ace58270087c28187e7"><td class="memItemLeft" align="right" valign="top">gint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a891463ff38b81ace58270087c28187e7">ics</a></td></tr>
+<tr class="separator:a891463ff38b81ace58270087c28187e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12bb5b8d5d13858490facfb5ba8c194c"><td class="memItemLeft" align="right" valign="top">gpointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#a12bb5b8d5d13858490facfb5ba8c194c">cfft</a></td></tr>
 <tr class="separator:a12bb5b8d5d13858490facfb5ba8c194c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada73422907fc27f3ef9c28bf138a9771"><td class="memItemLeft" align="right" valign="top">gpointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#ada73422907fc27f3ef9c28bf138a9771">csrc</a></td></tr>
+<tr class="separator:ada73422907fc27f3ef9c28bf138a9771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11d85c28d4ea1a81adf6c53dad621e2"><td class="memItemLeft" align="right" valign="top">gboolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__target__list__t.html#ad11d85c28d4ea1a81adf6c53dad621e2">grad</a></td></tr>
 <tr class="separator:ad11d85c28d4ea1a81adf6c53dad621e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -102,6 +112,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ada73422907fc27f3ef9c28bf138a9771"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gpointer wbfmm_target_list_t::csrc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>coefficients of near-field (direct) interactions, point-by-point </p>
+
+</div>
+</div>
 <a class="anchor" id="ad11d85c28d4ea1a81adf6c53dad621e2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -112,6 +135,32 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>gradient computations included </p>
+
+</div>
+</div>
+<a class="anchor" id="a6d627c8decc0eb9c51a967ec88a5217c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint* wbfmm_target_list_t::ibox</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>start and end of source index lists for each box </p>
+
+</div>
+</div>
+<a class="anchor" id="a891463ff38b81ace58270087c28187e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint * wbfmm_target_list_t::ics</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>start of near-field coefficients for each target </p>
 
 </div>
 </div>
@@ -128,6 +177,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1c96b0b65a1823ba1f7610ca44d538ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint * wbfmm_target_list_t::isrc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>source index lists for each box </p>
+
+</div>
+</div>
 <a class="anchor" id="aaebfaff7dc490dbdbf42a0810573235f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +199,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>maximum number of points in tree </p>
+<p>maximum number of points in target list </p>
 
 </div>
 </div>
@@ -163,7 +225,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>number of points in tree </p>
+<p>number of points in target list </p>
 
 </div>
 </div>
@@ -177,6 +239,19 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>point coordinates </p>
+
+</div>
+</div>
+<a class="anchor" id="a85ad22089280c197357287a78b2c5ef2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gsize wbfmm_target_list_t::pstr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>stride in point data </p>
 
 </div>
 </div>
@@ -209,7 +284,7 @@ Data Fields</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 30 2019 11:38:18 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 20 2019 12:13:35 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
