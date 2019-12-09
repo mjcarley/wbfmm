@@ -34,12 +34,6 @@
 
 #include <stdio.h>
 
-extern WBFMM_REAL _wbfmm_shifts_th[] ;
-extern WBFMM_REAL _wbfmm_shifts_ph[] ;
-extern WBFMM_REAL _wbfmm_shifts_r[] ;
-
-extern gint _wbfmm_shift_angles[] ;
-
 static inline void sincos_recursion(WBFMM_REAL Epr[], WBFMM_REAL Epi[],
 				    WBFMM_REAL Enr[], WBFMM_REAL Eni[],
 				    WBFMM_REAL Cch[], WBFMM_REAL Sch[])

@@ -52,6 +52,9 @@ Functions</h2></td></tr>
 <tr class="separator:ga772ce9b74a28e167382adbf10f332fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a0d2671f306bcc38f59557730fe11c9"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__indexing.html#ga5a0d2671f306bcc38f59557730fe11c9">wbfmm_box_location</a> (guint64 idx, guint32 *i, guint32 *j, guint32 *k)</td></tr>
 <tr class="separator:ga5a0d2671f306bcc38f59557730fe11c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga289943cd11d9771f29c81e26694485b9"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__indexing.html#ga289943cd11d9771f29c81e26694485b9">wbfmm_box_interaction_list_4</a> (guint level, guint64 idx, guint64 *list, gboolean sort)</td></tr>
+<tr class="memdesc:ga289943cd11d9771f29c81e26694485b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the local interaction list for a specified box.  <a href="#ga289943cd11d9771f29c81e26694485b9">More...</a><br /></td></tr>
+<tr class="separator:ga289943cd11d9771f29c81e26694485b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Indexing functions for accessing tree data structures. </p>
@@ -98,6 +101,61 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Morton index for (<em>i</em>, <em>j</em>, <em>k</em>). </dd></dl>
+
+<p>Referenced by <a class="el" href="group__indexing.html#ga289943cd11d9771f29c81e26694485b9">wbfmm_box_interaction_list_4()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga289943cd11d9771f29c81e26694485b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_box_interaction_list_4 </td>
+          <td>(</td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint64&#160;</td>
+          <td class="paramname"><em>idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint64 *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gboolean&#160;</td>
+          <td class="paramname"><em>sort</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the local interaction list for a specified box. </p>
+<p>Find the indices of boxes on a given level of a tree which interact directly with a specified box (list 4 in Gumerov and Duraiswami's notation). These are boxes which are children of neighbours of the parent of the specified box, and separated from it by at least one box. On exit <em>list</em> contains entries made up of two integers, a box index and the index for looking up rotation and translation operations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>tree level for list; </td></tr>
+    <tr><td class="paramname">idx</td><td>index of box whose interaction list is to be found; </td></tr>
+    <tr><td class="paramname">list</td><td>on exit contains list of interacting boxes and specification of rotation required; </td></tr>
+    <tr><td class="paramname">sort</td><td>if TRUE, sort <em>list</em> so that boxes with the same rotation angles are grouped together</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of entries in <em>list</em> </dd></dl>
+
+<p>References <a class="el" href="group__indexing.html#ga772ce9b74a28e167382adbf10f332fbf">wbfmm_box_index()</a>, and <a class="el" href="group__indexing.html#ga5a0d2671f306bcc38f59557730fe11c9">wbfmm_box_location()</a>.</p>
 
 </div>
 </div>
@@ -148,12 +206,14 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 on success. </dd></dl>
 
+<p>Referenced by <a class="el" href="group__indexing.html#ga289943cd11d9771f29c81e26694485b9">wbfmm_box_interaction_list_4()</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 20 2019 12:13:35 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 5 2019 16:49:56 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

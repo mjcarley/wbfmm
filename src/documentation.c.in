@@ -452,7 +452,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
 						      WBFMM_REAL *transf,
 						      WBFMM_REAL *transb,
 						      gint Ls,
-						      WBFMM_REAL *work) ;
+						      WBFMM_REAL *work) {}
 
 /**
  *
@@ -550,15 +550,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(void) {}
  * interaction calculations and upward and downward passes.
  *
  * @param L maximum order of expansions;
+ * @param bw if TRUE generate operators for backward translation algorithm;
  * @param work workspace.
  *
  * @return 0 on success
  *
  */
 
-wbfmm_shift_operators_t WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint
-									L,
-									WBFMM_REAL *work) {}
+wbfmm_shift_operators_t
+WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
+						gboolean bw,
+						WBFMM_REAL *work) {}
 
 /**
  *
@@ -1270,6 +1272,44 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)(WBFMM_REAL *Cp,
  * 
  * @ingroup laplace
  *
+ * @brief Upward shift of singular expansion from eight children to 
+ * common parent in Laplace problem
+ *
+ * Shift the expansion of eight child boxes to their parent and sum
+ * into the parent expansion. This function assumes data are packed
+ * with a stride of eight elements so that all expansion coefficients
+ * of a given order are contiguous in memory, ordered by Morton index,
+ * using the backward translation method of
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(...)
+ *
+ * @param Cp parent expansion array;
+ * @param Np order of parent expansion;
+ * @param Cc child expansion array;
+ * @param Nc order of child expansions;
+ * @param nq number of elements in source;
+ * @param H03 rotation coefficients for `lower' children (Morton index 0-3);
+ * @param Lh maximum order of rotation coefficients;
+ * @param wb child box width;
+ * @param work workspace
+ *
+ * @return 0 on success
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift_bw)(WBFMM_REAL *Cp,
+							      gint Np,
+							      WBFMM_REAL *Cc,
+							      gint Nc,
+							      gint nq,
+							      WBFMM_REAL *H03, 
+							      gint Lh,
+							      WBFMM_REAL wb,
+							      WBFMM_REAL
+							      *work) {} ;
+
+/** 
+ * 
+ * @ingroup laplace
+ *
  * @brief Downward shift of regular expansion from parent to eight
  * children in Laplace problem
  *
@@ -1460,17 +1500,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
  * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in
  * the array must correspond to that in the point list. Input arrays
  * may be NULL: if \a src is not NULL, it is interpreted as a list of
- * complex monopole strengths; if \a normals is not NULL, \a dipoles
- * may not be NULL and they are interpreted respectively as a vector
- * (`normal') at each source position and a scalar complex amplitude
- * (this corresponds to surface normal and a normal velocity amplitude
- * in a boundary element method calculation); if \a normals is NULL
- * and \a dipoles is not NULL, \a dipoles is interpreted as a
- * three-element complex vector specifying the dipole strength. The
- * strides \a sstr, \a nstr, and \a dstr are the number of scalar
- * elements between successive entries in the arrays, with the
- * elements of each entry densely packed. For example, a list of
- * normals might read:
+ * monopole strengths; if \a normals is not NULL, \a dipoles may not
+ * be NULL and they are interpreted respectively as a vector
+ * (`normal') at each source position and a scalar amplitude (this
+ * corresponds to surface normal and a normal velocity amplitude in a
+ * boundary element method calculation); if \a normals is NULL and \a
+ * dipoles is not NULL, \a dipoles is interpreted as a three-element
+ * vector specifying the dipole strength. The strides \a sstr, \a
+ * nstr, and \a dstr are the number of scalar elements between
+ * successive entries in the arrays, with the elements of each entry
+ * densely packed. For example, a list of normals might read:
  *
  * \f$[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2}
  * \ldots]\f$

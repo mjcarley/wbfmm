@@ -11,7 +11,9 @@ Indexing functions for accessing tree data structures.
 guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
 \item 
 gint {\bf wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)
-\end{DoxyCompactItemize}
+\item 
+gint {\bf wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4} (guint level, guint64 idx, guint64 $\ast$list, gboolean sort)
+\begin{DoxyCompactList}\small\item\em Find the local interaction list for a specified box. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -47,6 +49,44 @@ Generate a Morton index for a box with corner at integer coordinates (i,j,k).
 \begin{DoxyReturn}{Returns}
 Morton index for ({\itshape i}, {\itshape j}, {\itshape k}). 
 \end{DoxyReturn}
+
+
+Referenced by wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4().
+
+\index{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4@{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}}
+\index{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4@{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}!Indexing and lookup operations@{Indexing and lookup operations}}
+\subsubsection[{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4 (
+\begin{DoxyParamCaption}
+\item[{guint}]{level, }
+\item[{guint64}]{idx, }
+\item[{guint64 $\ast$}]{list, }
+\item[{gboolean}]{sort}
+\end{DoxyParamCaption}
+)}\label{group__indexing_ga289943cd11d9771f29c81e26694485b9}
+
+
+Find the local interaction list for a specified box. 
+
+Find the indices of boxes on a given level of a tree which interact directly with a specified box (list 4 in Gumerov and Duraiswami\textquotesingle{}s notation). These are boxes which are children of neighbours of the parent of the specified box, and separated from it by at least one box. On exit {\itshape list} contains entries made up of two integers, a box index and the index for looking up rotation and translation operations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & tree level for list; \\
+\hline
+{\em idx} & index of box whose interaction list is to be found; \\
+\hline
+{\em list} & on exit contains list of interacting boxes and specification of rotation required; \\
+\hline
+{\em sort} & if T\+R\+U\+E, sort {\itshape list} so that boxes with the same rotation angles are grouped together\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of entries in {\itshape list} 
+\end{DoxyReturn}
+
+
+References wbfmm\+\_\+box\+\_\+index(), and wbfmm\+\_\+box\+\_\+location().
+
 \index{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}}
 \index{wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}!Indexing and lookup operations@{Indexing and lookup operations}}
 \subsubsection[{wbfmm\+\_\+box\+\_\+location}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+location (
@@ -73,3 +113,7 @@ Compute indices for bottom left hand corner of box defined by its Morton index, 
 \begin{DoxyReturn}{Returns}
 0 on success. 
 \end{DoxyReturn}
+
+
+Referenced by wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4().
+

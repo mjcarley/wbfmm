@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018 on Slackware) (preloaded format=pdflatex 2019.8.20)  20 NOV 2019 12:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018 on Slackware) (preloaded format=pdflatex 2019.8.20)  5 DEC 2019 16:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -936,12 +936,12 @@ Underfull \hbox (badness 10000) detected at line 756
 [][][]
  []
 
-[19]
+
 Underfull \hbox (badness 10000) detected at line 781
 [][][]
  []
 
-
+[19] [20]
 Underfull \hbox (badness 10000) detected at line 806
 [][][]
  []
@@ -956,17 +956,17 @@ Underfull \hbox (badness 10000) detected at line 844
 [][][]
  []
 
-) [20]
+) [21]
 \openout2 = `group__shift.aux'.
 
- (./group__shift.tex [21
+ (./group__shift.tex [22
 
 ]
 Underfull \hbox (badness 10000) detected at line 96
 [][][]
  []
 
-[22]
+[23]
 Underfull \hbox (badness 10000) detected at line 144
 [][][]
  []
@@ -976,7 +976,7 @@ Underfull \hbox (badness 10000) detected at line 192
 [][][]
  []
 
-[23]
+[24]
 Underfull \hbox (badness 10000) detected at line 240
 [][][]
  []
@@ -986,7 +986,7 @@ Underfull \hbox (badness 10000) detected at line 288
 [][][]
  []
 
-[24]
+[25]
 Underfull \hbox (badness 10000) detected at line 336
 [][][]
  []
@@ -1001,7 +1001,7 @@ Underfull \hbox (badness 10000) detected at line 368
 [][][]
  []
 
-[25]
+[26]
 Underfull \hbox (badness 10000) detected at line 407
 [][][]
  []
@@ -1016,7 +1016,7 @@ Underfull \hbox (badness 10000) detected at line 480
 [][][]
  []
 
-[26]
+[27]
 Underfull \hbox (badness 10000) detected at line 514
 [][][]
  []
@@ -1031,20 +1031,20 @@ Underfull \hbox (badness 10000) detected at line 582
 [][][]
  []
 
-[27]
-Underfull \hbox (badness 10000) detected at line 606
+[28]
+Underfull \hbox (badness 10000) detected at line 609
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 630
+Underfull \hbox (badness 10000) detected at line 636
 [][][]
  []
 
-) [28]
+) [29]
 \openout2 = `group__expansions.aux'.
 
- (./group__expansions.tex [29
+ (./group__expansions.tex [30
 
 
 ]
@@ -1057,7 +1057,7 @@ Underfull \hbox (badness 10000) detected at line 124
 [][][]
  []
 
-[30]
+[31]
 Underfull \hbox (badness 10000) detected at line 164
 [][][]
  []
@@ -1072,7 +1072,7 @@ Underfull \hbox (badness 10000) detected at line 244
 [][][]
  []
 
-[31]
+[32]
 Underfull \hbox (badness 10000) detected at line 284
 [][][]
  []
@@ -1087,10 +1087,10 @@ Underfull \hbox (badness 10000) detected at line 364
 [][][]
  []
 
-) [32]
+) [33]
 \openout2 = `group__pass.aux'.
 
- (./group__pass.tex [33
+ (./group__pass.tex [34
 
 
 ]
@@ -1108,7 +1108,7 @@ Underfull \hbox (badness 10000) detected at line 122
 [][][]
  []
 
-[34]
+[35]
 Underfull \hbox (badness 10000) detected at line 152
 [][][]
  []
@@ -1123,7 +1123,7 @@ Underfull \hbox (badness 10000) detected at line 212
 [][][]
  []
 
-[35]
+[36]
 Underfull \hbox (badness 10000) detected at line 242
 [][][]
  []
@@ -1133,7 +1133,7 @@ Underfull \hbox (badness 10000) detected at line 272
 [][][]
  []
 
-) [36]
+) [37]
 \openout2 = `group__rotations.aux'.
 
  (./group__rotations.tex
@@ -1141,7 +1141,7 @@ Underfull \hbox (badness 10000) detected at line 62
 [][][]
  []
 
-[37
+[38
 
 
 ]
@@ -1154,7 +1154,7 @@ Underfull \hbox (badness 10000) detected at line 141
 [][][]
  []
 
-[38]
+[39]
 Underfull \hbox (badness 10000) detected at line 190
 [][][]
  []
@@ -1164,7 +1164,7 @@ Underfull \hbox (badness 10000) detected at line 238
 [][][]
  []
 
-[39]
+[40]
 Underfull \hbox (badness 10000) detected at line 286
 [][][]
  []
@@ -1174,12 +1174,12 @@ Underfull \hbox (badness 10000) detected at line 331
 [][][]
  []
 
-[40]
+[41]
 Underfull \hbox (badness 10000) detected at line 376
 [][][]
  []
 
-) [41]
+) [42]
 \openout2 = `group__translations.aux'.
 
  (./group__translations.tex
@@ -1187,7 +1187,7 @@ Underfull \hbox (badness 10000) detected at line 73
 [][][]
  []
 
-[42
+[43
 
 
 ]
@@ -1200,7 +1200,7 @@ Underfull \hbox (badness 10000) detected at line 148
 [][][]
  []
 
-[43]
+[44]
 Underfull \hbox (badness 10000) detected at line 178
 [][][]
  []
@@ -1215,10 +1215,10 @@ Underfull \hbox (badness 10000) detected at line 238
 [][][]
  []
 
-) [44]
+) [45]
 \openout2 = `group__util.aux'.
 
- (./group__util.tex [45
+ (./group__util.tex [46
 
 
 ]
@@ -1226,7 +1226,7 @@ Underfull \hbox (badness 10000) detected at line 105
 [][][]
  []
 
-[46]
+[47]
 Underfull \hbox (badness 10000) detected at line 130
 [][][]
  []
@@ -1241,7 +1241,7 @@ Underfull \hbox (badness 10000) detected at line 190
 [][][]
  []
 
-[47]
+[48]
 Underfull \hbox (badness 10000) detected at line 215
 [][][]
  []
@@ -1256,7 +1256,7 @@ Underfull \hbox (badness 10000) detected at line 270
 [][][]
  []
 
-[48]
+[49]
 Underfull \hbox (badness 10000) detected at line 300
 [][][]
  []
@@ -1271,7 +1271,7 @@ Underfull \hbox (badness 10000) detected at line 368
 [][][]
  []
 
-[49]
+[50]
 Underfull \hbox (badness 10000) detected at line 399
 [][][]
  []
@@ -1286,7 +1286,7 @@ Underfull \hbox (badness 10000) detected at line 461
 [][][]
  []
 
-[50]
+[51]
 Underfull \hbox (badness 10000) detected at line 492
 [][][]
  []
@@ -1301,7 +1301,7 @@ Underfull \hbox (badness 10000) detected at line 554
 [][][]
  []
 
-[51]
+[52]
 Underfull \hbox (badness 10000) detected at line 587
 [][][]
  []
@@ -1316,7 +1316,7 @@ Underfull \hbox (badness 10000) detected at line 654
 [][][]
  []
 
-[52]
+[53]
 Underfull \hbox (badness 10000) detected at line 688
 [][][]
  []
@@ -1331,7 +1331,7 @@ Underfull \hbox (badness 10000) detected at line 760
 [][][]
  []
 
-[53]
+[54]
 Underfull \hbox (badness 10000) detected at line 794
 [][][]
  []
@@ -1346,7 +1346,7 @@ Underfull \hbox (badness 10000) detected at line 870
 [][][]
  []
 
-[54]
+[55]
 Underfull \hbox (badness 10000) detected at line 912
 [][][]
  []
@@ -1356,7 +1356,7 @@ Underfull \hbox (badness 10000) detected at line 954
 [][][]
  []
 
-[55]
+[56]
 Underfull \hbox (badness 10000) detected at line 996
 [][][]
  []
@@ -1376,175 +1376,190 @@ Underfull \hbox (badness 10000) detected at line 1088
 [][][]
  []
 
-[56]
+[57]
 Underfull \hbox (badness 10000) detected at line 1118
 [][][]
  []
 
-) [57]
+) [58]
 \openout2 = `group__laplace.aux'.
 
  (./group__laplace.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 22.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 22.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 8.09995pt on input line 22.
- [58
+(Font)              scaled to size 8.09995pt on input line 24.
+ [59
 
 
-] [59]
-Underfull \hbox (badness 10000) detected at line 103
+] [60]
+Underfull \hbox (badness 10000) detected at line 107
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 134
+Underfull \hbox (badness 10000) detected at line 138
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 174
-[][][]
- []
-
-[60]
-Underfull \hbox (badness 10000) detected at line 214
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 262
+Underfull \hbox (badness 10000) detected at line 178
 [][][]
  []
 
 [61]
-Underfull \hbox (badness 10000) detected at line 310
+Underfull \hbox (badness 10000) detected at line 218
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 331
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 352
+Underfull \hbox (badness 10000) detected at line 266
 [][][]
  []
 
 [62]
-Underfull \hbox (badness 10000) detected at line 394
+Underfull \hbox (badness 10000) detected at line 311
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 436
+Underfull \hbox (badness 10000) detected at line 356
 [][][]
  []
 
 [63]
-Underfull \hbox (badness 10000) detected at line 478
+Underfull \hbox (badness 10000) detected at line 404
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 520
+Underfull \hbox (badness 10000) detected at line 425
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 562
+Underfull \hbox (badness 10000) detected at line 446
 [][][]
  []
 
 [64]
-Underfull \hbox (badness 10000) detected at line 604
+Underfull \hbox (badness 10000) detected at line 488
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 638
+Underfull \hbox (badness 10000) detected at line 530
 [][][]
  []
 
 [65]
-Underfull \hbox (badness 10000) detected at line 672
+Underfull \hbox (badness 10000) detected at line 572
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 712
+Underfull \hbox (badness 10000) detected at line 614
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 752
+Underfull \hbox (badness 10000) detected at line 656
 [][][]
  []
 
 [66]
-Underfull \hbox (badness 10000) detected at line 844
+Underfull \hbox (badness 10000) detected at line 698
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 875
+Underfull \hbox (badness 10000) detected at line 732
 [][][]
  []
 
 [67]
-Underfull \hbox (badness 10000) detected at line 929
+Underfull \hbox (badness 10000) detected at line 766
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 960
+Underfull \hbox (badness 10000) detected at line 806
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 846
 [][][]
  []
 
 [68]
-Underfull \hbox (badness 10000) detected at line 1008
+Underfull \hbox (badness 10000) detected at line 938
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1056
+Underfull \hbox (badness 10000) detected at line 969
 [][][]
  []
 
-) [69]
+[69]
+Underfull \hbox (badness 10000) detected at line 1023
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1054
+[][][]
+ []
+
+[70]
+Underfull \hbox (badness 10000) detected at line 1102
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1150
+[][][]
+ []
+
+) [71]
 \openout2 = `group__indexing.aux'.
 
  (./group__indexing.tex
-Overfull \hbox (351.02908pt too wide) in paragraph at lines 24--25
+Overfull \hbox (351.02908pt too wide) in paragraph at lines 26--27
 []\T1/phv/m/n/10 Code for Mor-ton in-dex-ing op-er-a-tions is taken from[]: \T1
 /pcr/m/n/10 https[]://www.[]forceflow.[]be/2013/10/07/morton-encodingdecoding-t
 hrough-bit-interleaving-implementations/ 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 47
+Underfull \hbox (badness 10000) detected at line 49
+[][][]
+ []
+
+[72
+
+
+]
+Underfull \hbox (badness 10000) detected at line 83
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 73
+Underfull \hbox (badness 10000) detected at line 113
 [][][]
  []
 
-) [70
+) [73] [74
 
 
 ]
 Chapter 6.
-(./structwbfmm__box__t.tex) (./structwbfmm__shift__operators__t.tex [71
-
-
-])
-(./structwbfmm__target__list__t.tex [72] [73]) (./structwbfmm__tree__t.tex
-[74] [75]) [76]
+(./structwbfmm__box__t.tex) (./structwbfmm__shift__operators__t.tex [75])
+(./structwbfmm__target__list__t.tex [76] [77]) (./structwbfmm__tree__t.tex
+[78] [79]) [80]
 Chapter 7.
 (./tree_8c.tex
 Underfull \hbox (badness 10000) detected at line 11
@@ -1556,43 +1571,43 @@ Underfull \hbox (badness 10000) detected at line 14
 [][][]
  []
 
-) (./wbfmm_8h.tex [77
+) (./wbfmm_8h.tex [81
 
-] [78] [79] [80]
-Underfull \hbox (badness 1033) in paragraph at lines 165--166
+] [82] [83] [84]
+Underfull \hbox (badness 1033) in paragraph at lines 173--174
 []\T1/phv/m/n/10 gint \T1/phv/b/n/10 wbfmm[]_[]tree[]_[]leaf[]_[]expansions \T1
 /phv/m/n/10 (\T1/phv/b/n/10 wbfmm[]_[]tree[]_[]t $\OMS/cmsy/m/n/10 ^^C$\T1/phv/
 m/n/10 t, gdou-ble k, gdou-ble $\OMS/cmsy/m/n/10 ^^C$\T1/phv/m/n/10 src, gint s
 str, gdou-ble
  []
 
-[81] [82]
-Underfull \hbox (badness 10000) detected at line 252
+[85] [86]
+Underfull \hbox (badness 10000) detected at line 262
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 255
+Underfull \hbox (badness 10000) detected at line 265
 [][][]
  []
 
-) [83] [84
+) [87] [88
 
-] (./refman.ind [85
+] (./refman.ind [89
 
 
-] [86] [87] [88] [89]) (./refman.aux
+] [90] [91] [92] [93]) (./refman.aux
 (./group__shift.aux) (./group__expansions.aux) (./group__pass.aux)
 (./group__rotations.aux) (./group__translations.aux) (./group__util.aux)
 (./group__laplace.aux) (./group__indexing.aux)) ) 
 Here is how much of TeX's memory you used:
- 6738 strings out of 492642
- 97615 string characters out of 6135531
- 197267 words of memory out of 5000000
- 10336 multiletter control sequences out of 15000+600000
+ 6744 strings out of 492642
+ 97800 string characters out of 6135531
+ 198321 words of memory out of 5000000
+ 10342 multiletter control sequences out of 15000+600000
  76919 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,15n,43p,1535b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,15n,43p,1536b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/e
 nc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
 10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/s
@@ -1609,10 +1624,10 @@ nts/type1/urw/helvetic/uhvb8ac.pfb></usr/share/texmf-dist/fonts/type1/urw/helve
 tic/uhvbo8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></
 usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist
 /fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (99 pages, 350092 bytes).
+Output written on refman.pdf (103 pages, 355395 bytes).
 PDF statistics:
- 397 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
+ 410 PDF objects out of 1000 (max. 8388607)
+ 284 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

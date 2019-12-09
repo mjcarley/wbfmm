@@ -36,9 +36,8 @@
 
 WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ;
 WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ;
-WBFMM_REAL _wbfmm_shifts_r[19] = {0.0} ;
-
-extern gint _wbfmm_shift_angles[] ;
+/* WBFMM_REAL _wbfmm_shifts_r[19] = {0.0} ; */
+WBFMM_REAL _wbfmm_shifts_r[WBFMM_SHIFTS_R_NUMBER] = {0.0} ;
 
 static inline void sincos_recursion(WBFMM_REAL Epr[], WBFMM_REAL Epi[],
 				    WBFMM_REAL Enr[], WBFMM_REAL Eni[],
@@ -613,32 +612,29 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(void)
   _wbfmm_shifts_ph[15] = ATAN2(1, -3) ;
   _wbfmm_shifts_ph[16] = M_PI ;
 
-  _wbfmm_shifts_r[ 0] = SQRT( 0.0) ;
-  _wbfmm_shifts_r[ 1] = SQRT( 1.0) ;
-  _wbfmm_shifts_r[ 2] = SQRT( 2.0) ;
-  _wbfmm_shifts_r[ 3] = SQRT( 3.0) ;
-  _wbfmm_shifts_r[ 4] = SQRT( 4.0) ;
-  _wbfmm_shifts_r[ 5] = SQRT( 5.0) ;
-  _wbfmm_shifts_r[ 6] = SQRT( 6.0) ;
-  _wbfmm_shifts_r[ 7] = SQRT( 8.0) ;
-  _wbfmm_shifts_r[ 8] = SQRT( 9.0) ;
-  _wbfmm_shifts_r[ 9] = SQRT(10.0) ;
-  _wbfmm_shifts_r[10] = SQRT(11.0) ;
-  _wbfmm_shifts_r[11] = SQRT(12.0) ;
-  _wbfmm_shifts_r[12] = SQRT(13.0) ;
-  _wbfmm_shifts_r[13] = SQRT(14.0) ;
-  _wbfmm_shifts_r[14] = SQRT(17.0) ;
-  _wbfmm_shifts_r[15] = SQRT(18.0) ;
-  _wbfmm_shifts_r[16] = SQRT(19.0) ;
-  _wbfmm_shifts_r[17] = SQRT(22.0) ;
-  _wbfmm_shifts_r[18] = SQRT(27.0) ;
+  _wbfmm_shifts_r[ 0] = SQRT( 4.0) ;
+  _wbfmm_shifts_r[ 1] = SQRT( 5.0) ;
+  _wbfmm_shifts_r[ 2] = SQRT( 6.0) ;
+  _wbfmm_shifts_r[ 3] = SQRT( 8.0) ;
+  _wbfmm_shifts_r[ 4] = SQRT( 9.0) ;
+  _wbfmm_shifts_r[ 5] = SQRT(10.0) ;
+  _wbfmm_shifts_r[ 6] = SQRT(11.0) ;
+  _wbfmm_shifts_r[ 7] = SQRT(12.0) ;
+  _wbfmm_shifts_r[ 8] = SQRT(13.0) ;
+  _wbfmm_shifts_r[ 9] = SQRT(14.0) ;
+  _wbfmm_shifts_r[10] = SQRT(17.0) ;
+  _wbfmm_shifts_r[11] = SQRT(18.0) ;
+  _wbfmm_shifts_r[12] = SQRT(19.0) ;
+  _wbfmm_shifts_r[13] = SQRT(22.0) ;
+  _wbfmm_shifts_r[14] = SQRT(27.0) ;
 
   return 0 ;
 }
 
 wbfmm_shift_operators_t 
 WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
-					  WBFMM_REAL *work)
+						gboolean bw,
+						WBFMM_REAL *work)
 
 {
   wbfmm_shift_operators_t *op = NULL ;
@@ -650,12 +646,14 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
     workspace size = wbfmm_element_number_rotation(2*L) elements
   */
 
-  op = (wbfmm_shift_operators_t *)g_malloc(sizeof(wbfmm_shift_operators_t)) ;
+  op = (wbfmm_shift_operators_t *)g_malloc0(sizeof(wbfmm_shift_operators_t)) ;
 
   op->size = sizeof(WBFMM_REAL) ;
 
   op->Lmax = L ;
 
+  op->bw = bw ;
+  
   if ( _wbfmm_shifts_th[1] == 0.0 ) 
     g_error("%s: rotation table not initiated; call "
 	    "wbfmm_shift_angle_table_init()", 
@@ -670,10 +668,11 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
   /*first (0,\pi) rotations, as listed in _wbfmm_shifts_th*/
   for ( i = 0 ; i < 49 ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(&(rotations[i*nerot]),
-						 L, _wbfmm_shifts_th[i], work) ;
+						       L, _wbfmm_shifts_th[i],
+						       work) ;
   }
 
-  for ( i = 0 ; i < WBFMM_TREE_MAX_DEPTH+1 ; i ++ ) {
+  for ( i = 0 ; i <= WBFMM_TREE_MAX_DEPTH ; i ++ ) {
     op->SR[i] = op->SS[i] = NULL ; op->L[i] = 0 ;
   }
 
@@ -681,8 +680,8 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
-     (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, guint L,
-      WBFMM_REAL k, WBFMM_REAL *work)
+  (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, guint L,
+   WBFMM_REAL k, WBFMM_REAL *work)
 
 {
   WBFMM_REAL wb, *SR ;
@@ -699,12 +698,27 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
   wb = D/nb ;  
 
   ne = wbfmm_element_number_coaxial(L) ;
-  SR = w->SR[level] = g_malloc0(19*2*ne*sizeof(WBFMM_REAL)) ;
+  if ( w->bw )
+    SR = w->SR[level] = g_malloc0(2*WBFMM_SHIFTS_R_NUMBER*2*ne*
+				  sizeof(WBFMM_REAL)) ;
+  else
+    SR = w->SR[level] = g_malloc0(  WBFMM_SHIFTS_R_NUMBER*2*ne*
+				    sizeof(WBFMM_REAL)) ;
   w->L[level] = L ;
 
-  for ( i = 0 ; i < 19 ; i ++ ) {
+  for ( i = 0 ; i < WBFMM_SHIFTS_R_NUMBER ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
       (&(SR[i*2*ne]), L, k*wb*_wbfmm_shifts_r[i], work) ;    
+  }
+
+  if ( !(w->bw) ) return 0 ;
+
+  /*if we are using the backward translation algorithm on list 4 boxes,
+    the negative translation operators follow the positive*/
+  for ( i = 0 ; i < WBFMM_SHIFTS_R_NUMBER ; i ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
+      (&(SR[(WBFMM_SHIFTS_R_NUMBER+i)*2*ne]), L, -k*wb*_wbfmm_shifts_r[i],
+       work) ;    
   }
 
   return 0 ;
@@ -728,10 +742,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SS_init)
   wb = D/nb ;
 
   ne = wbfmm_element_number_coaxial(L) ;
-  SS = w->SS[level] = g_malloc0(ne*sizeof(WBFMM_REAL)) ;
+  if ( w->bw )
+    SS = w->SS[level] = g_malloc0(2*ne*sizeof(WBFMM_REAL)) ;
+  else
+    SS = w->SS[level] = g_malloc0(  ne*sizeof(WBFMM_REAL)) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(SS, L, k*wb*0.5*SQRT(3.0), 
-					       work) ;    
+						     work) ;    
+  if ( !(w->bw) ) return 0 ;
 
+  WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(&(SS[ne]), L,
+						     -k*wb*0.5*SQRT(3.0), 
+						     work) ;      
+  
   return 0 ;
 }

@@ -1481,7 +1481,7 @@ gint check_interaction_list_4(guint level, guint64 idx,
   guint32 in, jn, kn, ip, jp, kp ;
   guint64 p, pn, ishift ;
   gint ii ;
-  guint nb, di, dj, dk ;
+  gint nb, di, dj, dk ;
 
   /*
     list 4 boxes are children of neighbours of the box's parent,
@@ -1495,14 +1495,26 @@ gint check_interaction_list_4(guint level, guint64 idx,
   for ( ii = 0 ; ii < n ; ii ++ ) {
     wbfmm_box_location(list[2*ii+0], &in, &jn, &kn) ;
     g_assert(in < nb) ; g_assert(jn < nb) ; g_assert(kn < nb) ;
-    if ( i >= in ) di = i-in ; else di = in-i ;
-    if ( j >= jn ) dj = j-jn ; else dj = jn-j ;
-    if ( k >= kn ) dk = k-kn ; else dk = kn-k ;
+    /* if ( i >= in ) di = i-in ; else di = -(gint)(in-i) ; */
+    /* if ( j >= jn ) dj = j-jn ; else dj = -(gint)(jn-j) ; */
+    /* if ( k >= kn ) dk = k-kn ; else dk = -(gint)(kn-k) ; */
+    di = (gint)in - (gint)i ;
+    dj = (gint)jn - (gint)j ;
+    dk = (gint)kn - (gint)k ;
     /*check boxes are not neighbours*/
-    g_assert(!((di <= 1) && (dj <= 1) && (dk <= 1))) ;
-
+    g_assert(!((di*di <= 1) && (dj*dj <= 1) && (dk*dk <= 1))) ;
+    
+    
     /*check index in shift angle table is correct*/
     ishift = (guint64)((di+3)*49+(dj+3)*7+dk+3) ;
+
+    /* fprintf(stderr, "%lu %lu %lu (%d %d %d)\n", */
+    /* 	    list[2*ii+0], list[2*ii+1], ishift, di, dj, dk) ; */
+    
+    if ( list[2*ii+1] != ishift ) {
+      g_error("  %s: ishift %u wrong, %lu should be %lu",
+	      __FUNCTION__, ii, list[2*ii+1], ishift) ;
+    }
     g_assert(list[2*ii+1] == ishift) ;
 
     /*check parents ARE neighbours*/
@@ -1518,23 +1530,77 @@ gint check_interaction_list_4(guint level, guint64 idx,
   return 0 ;
 }
 
+gboolean index_in_list(guint64 *list, gint n, guint64 idx)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( list[2*i+0] == idx ) return TRUE ;
+  }
+  
+  return FALSE ;
+}
+  
+gint check_list_grid(guint level, guint64 idx,
+		     guint32 i, guint32 j, guint32 k, 
+		     guint64 *list, gint n, guint64 grid[])
+
+{
+  guint32 in, jn, kn, ip, jp, kp ;
+  guint64 p, pn, ishift ;
+  gint nb, di, dj, dk, ii, nn ;
+
+  nb = 1 << level ;
+
+  p = wbfmm_box_parent(idx) ;
+  wbfmm_box_location(p, &ip, &jp, &kp) ;
+
+  nn = 0 ;
+  for ( di = -3 ; di <= 3 ; di ++ ) {
+    for ( dj = -3 ; dj <= 3 ; dj ++ ) {
+      for ( dk = -3 ; dk <= 3 ; dk ++ ) {
+	ii = (di+3)*49 + (dj+3)*7 + dk + 3 ;
+	if ( grid[ii] != 0 ) {
+	  pn = grid[ii] - 1 ;
+	  g_assert(index_in_list(list, n, pn)) ;
+	  nn ++ ;
+	}
+      }
+    }
+  }
+
+  /* g_assert(nn == n) ; */
+  if ( nn != n )
+    g_error("%s: wrong number of entries in grid (%d should be %d)",
+	    __FUNCTION__, nn, n) ;    
+  
+  return 0 ;
+}
+
 gint ilist4_test(guint level)
 
 {
-  guint nb ;
+  guint nb, p ;
   guint32 i, j, k ;
-  guint64 idx, list[378] ;
+  guint64 idx, list[378], grid[343] ;
   gint n ;
 
   nb = 1 << level ;
 
+  fprintf(stderr, "interaction list test\n") ;
+  fprintf(stderr, "level = %u\n", level) ;
+  
   for ( i = 0 ; i < nb ; i ++ ) {
     for ( j = 0 ; j < nb ; j ++ ) {
       for ( k = 0 ; k < nb ; k ++ ) {
 	idx = wbfmm_box_index(i, j, k) ;
+	/* fprintf(stderr, "************\n") ;	 */
 	n = wbfmm_box_interaction_list_4(level, idx, list, FALSE) ;
+	p = wbfmm_box_interaction_grid_4(level, idx, grid) ;
 	check_interaction_list_4(level, idx, i, j, k, list, n) ;
-	fprintf(stderr, "%u %u %u %d PASS\n", i, j, k, n) ;
+	check_list_grid(level, idx, i, j, k, list, n, grid) ;
+	fprintf(stderr, "%2u %2u %2u %2u %3d PASS\n", i, j, k, p, n) ;
       }
     }
   }

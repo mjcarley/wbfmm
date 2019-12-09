@@ -54,8 +54,6 @@
 
 #include "wbfmm-private.h"
 
-extern gint _wbfmm_shift_angles[] ;
-
 /* 
    Based on public domain code from
    https://stackoverflow.com/questions/49748864/morton-reverse-encoding-for-a-3d-grid
@@ -308,18 +306,36 @@ static gint compare_wbfmm_shift_angles(gconstpointer i1, gconstpointer i2)
   return 0 ;
 }
 
+/** 
+ * @brief Find the local interaction list for a specified box
+ *
+ * Find the indices of boxes on a given level of a tree which interact
+ * directly with a specified box (list 4 in Gumerov and Duraiswami's
+ * notation). These are boxes which are children of neighbours of the
+ * parent of the specified box, and separated from it by at least one
+ * box. On exit \a list contains entries made up of two integers, a
+ * box index and the index for looking up rotation and translation
+ * operations.
+ * 
+ * @param level tree level for list;
+ * @param idx index of box whose interaction list is to be found;
+ * @param list on exit contains list of interacting boxes and specification
+ * of rotation required;
+ * @param sort if TRUE, sort \a list so that boxes with the same rotation
+ * angles are grouped together
+ * 
+ * @return number of entries in \a list
+ */
+
 gint wbfmm_box_interaction_list_4(guint level, guint64 idx, 
 				  guint64 *list, gboolean sort)
-
-/*
-  indices of boxes which are in the E_4 list
-*/
 
 {
   gint n, dx, dy, dz ;
   guint32 i, j, k, i0, i1, j0, j1, k0, k1, ii, jj, kk, nbox ;
   guint64 ishift ;
-
+  guint32 ic, jc, kc ;
+  
   morton_decode(idx, &i, &j, &k) ;
   /*number of boxes per side on this level*/
   nbox = 1 << level ;
@@ -339,12 +355,16 @@ gint wbfmm_box_interaction_list_4(guint level, guint64 idx,
       for ( kk = k0 ; kk <= k1 ; kk ++ ) {
 	if ( !_is_neighbour(i,j,k,ii,jj,kk) ) {
 	  list[2*n+0] = wbfmm_box_index(ii, jj, kk) ;
+	  wbfmm_box_location(list[2*n+0], &ic, &jc, &kc) ;
+	  g_assert((ic == ii) && (jc == jj) && (kc == kk)) ;
 	  /*index into shift angle table*/
 	  dx = ( ii > i ? ii - i : -(gint)(i-ii)) ;
 	  dy = ( jj > j ? jj - j : -(gint)(j-jj)) ;
 	  dz = ( kk > k ? kk - k : -(gint)(k-kk)) ;
 	  ishift = (guint64)((dx+3)*49+(dy+3)*7+dz+3) ;
 	  list[2*n+1] = ishift ;
+	  /* fprintf(stderr, "%lu %lu (%d %d %d)\n", */
+	  /* 	  list[2*n+0], list[2*n+1], dx, dy, dz) ; */
 	  n ++ ;
 	}
       }
@@ -374,6 +394,46 @@ gint wbfmm_box_interaction_index(gint i, gint j, gint k)
   g_assert(idx >= 0 && idx < 343) ;
 
   return _wbfmm_shift_angles[4*idx+0] ;
+}
+
+gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 grid[])
+
+{
+  gint dx, dy, dz ;
+  guint32 i, j, k, i0, i1, j0, j1, k0, k1, ii, jj, kk, nbox ;
+  guint32 ic, jc, kc ;
+  /* guint p ; */
+    
+  memset(grid, 0, 343*sizeof(guint64)) ;
+  
+  morton_decode(idx, &i, &j, &k) ;
+  /*number of boxes per side on this level*/
+  nbox = 1 << level ;
+
+  /*reduce to even part (coordinates of bottom corner of parent box)*/
+  i0 = i - i%2 ; j0 = j - j%2 ; k0 = k - k%2 ; 
+
+  /* p = 4*(k-k0) + 2*(j-j0) + 1*(i-i0) ; */
+  
+  i1 = MIN(i0+3,nbox-1) ; j1 = MIN(j0+3,nbox-1) ; k1 = MIN(k0+3,nbox-1) ;
+
+  if ( i0 > 0 ) i0 -= 2 ;
+  if ( j0 > 0 ) j0 -= 2 ;
+  if ( k0 > 0 ) k0 -= 2 ;
+
+  for ( ii = i0 ; ii <= i1 ; ii ++ ) {
+    for ( jj = j0 ; jj <= j1 ; jj ++ ) {
+      for ( kk = k0 ; kk <= k1 ; kk ++ ) {
+	if ( !_is_neighbour(i,j,k,ii,jj,kk) ) {
+	  idx = (ii-i+3)*49 + (jj-j+3)*7 + kk - k + 3 ;
+	  g_assert(idx < 343 && idx >=0) ;
+	  grid[idx] = wbfmm_box_index(ii, jj, kk) + 1 ;
+	}
+      }
+    }
+  }
+
+  return 0 ;
 }
 
 /* @} */

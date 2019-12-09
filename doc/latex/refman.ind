@@ -1,8 +1,8 @@
 \begin{theindex}
 
   \item {boxes}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {Boxes and octrees}, 9
     \subitem {W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+H\+E\+L\+M\+H\+O\+L\+T\+Z}, 
 		10
@@ -39,16 +39,16 @@
   \indexspace
 
   \item {cfft}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
   \item {csrc}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
 
   \indexspace
 
   \item {D}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {depth}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
 
   \indexspace
 
@@ -59,43 +59,47 @@
     \subitem {wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}, 
 		59
     \subitem {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}, 60
-    \subitem {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}, 
+    \subitem {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}, 
 		60
+    \subitem {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}, 
+		61
+    \subitem {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}, 
+		61
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}, 
-		61
+		62
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}, 
-		62
+		63
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}, 
-		62
+		63
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}, 
-		63
+		64
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}, 
-		63
+		64
     \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}, 
-		63
-    \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}, 
-		61
-    \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}, 
-		61
-    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}, 64
-    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}, 64
-    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}, 65
-    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}, 65
-    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}, 
 		65
+    \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}, 
+		62
+    \subitem {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}, 
+		62
+    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}, 65
+    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}, 65
+    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}, 66
+    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}, 66
+    \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}, 
+		66
     \subitem {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}, 
-		66
-    \subitem {wbfmm\+\_\+laplace\+\_\+field}, 66
-    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}, 66
-    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}, 
-		66
-    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+f}, 66
-    \subitem {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}, 67
-    \subitem {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}, 
 		67
-    \subitem {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}, 67
-    \subitem {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}, 
+    \subitem {wbfmm\+\_\+laplace\+\_\+field}, 67
+    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}, 67
+    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}, 
+		67
+    \subitem {wbfmm\+\_\+laplace\+\_\+field\+\_\+f}, 67
+    \subitem {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}, 68
+    \subitem {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}, 
 		68
+    \subitem {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}, 68
+    \subitem {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}, 
+		69
 
   \indexspace
 
@@ -110,73 +114,74 @@
     \subitem {wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}, 31
     \subitem {wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}, 31
   \item {grad}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
 
   \indexspace
 
   \item {i}
-    \subitem {wbfmm\+\_\+box\+\_\+t}, 71
+    \subitem {wbfmm\+\_\+box\+\_\+t}, 73
   \item {ibox}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
   \item {ics}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
-  \item {Indexing and lookup operations}, 69
-    \subitem {wbfmm\+\_\+box\+\_\+index}, 69
-    \subitem {wbfmm\+\_\+box\+\_\+location}, 69
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
+  \item {Indexing and lookup operations}, 70
+    \subitem {wbfmm\+\_\+box\+\_\+index}, 70
+    \subitem {wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}, 70
+    \subitem {wbfmm\+\_\+box\+\_\+location}, 71
   \item {ip}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {isrc}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 75
 
   \indexspace
 
   \item {L}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
 
   \indexspace
 
   \item {maxpoints}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {mpr}
-    \subitem {wbfmm\+\_\+box\+\_\+t}, 71
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+box\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {mps}
-    \subitem {wbfmm\+\_\+box\+\_\+t}, 71
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+box\+\_\+t}, 73
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
 
   \indexspace
 
   \item {n}
-    \subitem {wbfmm\+\_\+box\+\_\+t}, 71
+    \subitem {wbfmm\+\_\+box\+\_\+t}, 73
   \item {nc}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
   \item {nerot}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
   \item {nlevels}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
   \item {npoints}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {nq}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
 
   \indexspace
 
   \item {order\+\_\+r}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
   \item {order\+\_\+s}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 75
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 77
 
   \indexspace
 
   \item {points}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 78
   \item {pstr}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 78
 
   \indexspace
 
@@ -191,14 +196,14 @@
     \subitem {wbfmm\+\_\+rotation\+\_\+angles}, 39
     \subitem {wbfmm\+\_\+rotation\+\_\+angles\+\_\+f}, 39
   \item {rotations}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
 
   \indexspace
 
   \item {S\+R}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
   \item {S\+S}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
   \item {Shift operations}, 20
     \subitem {wbfmm\+\_\+child\+\_\+parent\+\_\+shift}, 21
     \subitem {wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}, 21
@@ -219,14 +224,14 @@
     \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+new}, 26
     \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}, 27
   \item {size}
-    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 72
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 74
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 78
 
   \indexspace
 
   \item {t}
-    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
+    \subitem {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 76
   \item {Translation operators}, 41
     \subitem {wbfmm\+\_\+coaxial\+\_\+translate}, 41
     \subitem {wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f}, 42
@@ -236,7 +241,7 @@
     \subitem {wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}, 43
     \subitem {wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}, 
 		43
-  \item {tree.\+c}, 77
+  \item {tree.\+c}, 79
 
   \indexspace
 
@@ -290,7 +295,7 @@
     \subitem {Boxes and octrees}, 10
   \item {W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+L\+A\+P\+L\+A\+C\+E}
     \subitem {Boxes and octrees}, 10
-  \item {wbfmm.\+h}, 77
+  \item {wbfmm.\+h}, 79
   \item {wbfmm\+\_\+bessel\+\_\+h\+\_\+init}
     \subitem {Utility and convenience functions}, 45
   \item {wbfmm\+\_\+bessel\+\_\+h\+\_\+init\+\_\+f}
@@ -312,18 +317,20 @@
   \item {wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}
     \subitem {Evaluation of the Laplace potential}, 59
   \item {wbfmm\+\_\+box\+\_\+index}
-    \subitem {Indexing and lookup operations}, 69
+    \subitem {Indexing and lookup operations}, 70
+  \item {wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}
+    \subitem {Indexing and lookup operations}, 70
   \item {wbfmm\+\_\+box\+\_\+location}
-    \subitem {Indexing and lookup operations}, 69
+    \subitem {Indexing and lookup operations}, 71
   \item {wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index}
     \subitem {Utility and convenience functions}, 48
   \item {wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f}
     \subitem {Utility and convenience functions}, 48
-  \item {wbfmm\+\_\+box\+\_\+t}, 71
-    \subitem {i}, 71
-    \subitem {mpr}, 71
-    \subitem {mps}, 71
-    \subitem {n}, 71
+  \item {wbfmm\+\_\+box\+\_\+t}, 73
+    \subitem {i}, 73
+    \subitem {mpr}, 73
+    \subitem {mps}, 73
+    \subitem {n}, 73
   \item {wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical}
     \subitem {Utility and convenience functions}, 48
   \item {wbfmm\+\_\+cartesian\+\_\+to\+\_\+spherical\+\_\+f}
@@ -382,56 +389,60 @@
     \subitem {Evaluation of the Laplace potential}, 59
   \item {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}
     \subitem {Evaluation of the Laplace potential}, 60
-  \item {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}
+  \item {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}
     \subitem {Evaluation of the Laplace potential}, 60
+  \item {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}
+    \subitem {Evaluation of the Laplace potential}, 61
+  \item {wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}
+    \subitem {Evaluation of the Laplace potential}, 61
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}
-    \subitem {Evaluation of the Laplace potential}, 61
+    \subitem {Evaluation of the Laplace potential}, 62
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 62
+    \subitem {Evaluation of the Laplace potential}, 63
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}
-    \subitem {Evaluation of the Laplace potential}, 62
+    \subitem {Evaluation of the Laplace potential}, 63
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 63
+    \subitem {Evaluation of the Laplace potential}, 64
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}
-    \subitem {Evaluation of the Laplace potential}, 63
+    \subitem {Evaluation of the Laplace potential}, 64
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 63
+    \subitem {Evaluation of the Laplace potential}, 65
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}
-    \subitem {Evaluation of the Laplace potential}, 61
+    \subitem {Evaluation of the Laplace potential}, 62
   \item {wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 61
+    \subitem {Evaluation of the Laplace potential}, 62
   \item {wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass}
     \subitem {Upward and downward passes}, 33
   \item {wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f}
     \subitem {Upward and downward passes}, 33
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}
-    \subitem {Evaluation of the Laplace potential}, 64
+    \subitem {Evaluation of the Laplace potential}, 65
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 64
+    \subitem {Evaluation of the Laplace potential}, 65
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}
-    \subitem {Evaluation of the Laplace potential}, 65
+    \subitem {Evaluation of the Laplace potential}, 66
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 65
+    \subitem {Evaluation of the Laplace potential}, 66
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}
-    \subitem {Evaluation of the Laplace potential}, 65
+    \subitem {Evaluation of the Laplace potential}, 66
   \item {wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 66
+    \subitem {Evaluation of the Laplace potential}, 67
   \item {wbfmm\+\_\+laplace\+\_\+field}
-    \subitem {Evaluation of the Laplace potential}, 66
+    \subitem {Evaluation of the Laplace potential}, 67
   \item {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}
-    \subitem {Evaluation of the Laplace potential}, 66
+    \subitem {Evaluation of the Laplace potential}, 67
   \item {wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 66
+    \subitem {Evaluation of the Laplace potential}, 67
   \item {wbfmm\+\_\+laplace\+\_\+field\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 66
+    \subitem {Evaluation of the Laplace potential}, 67
   \item {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}
-    \subitem {Evaluation of the Laplace potential}, 67
-  \item {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}
-    \subitem {Evaluation of the Laplace potential}, 67
-  \item {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}
-    \subitem {Evaluation of the Laplace potential}, 67
-  \item {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}
     \subitem {Evaluation of the Laplace potential}, 68
+  \item {wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}
+    \subitem {Evaluation of the Laplace potential}, 68
+  \item {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}
+    \subitem {Evaluation of the Laplace potential}, 68
+  \item {wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}
+    \subitem {Evaluation of the Laplace potential}, 69
   \item {wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H}
     \subitem {Rotation coefficients and operations}, 37
   \item {wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f}
@@ -494,30 +505,30 @@
     \subitem {Shift operations}, 26
   \item {wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}
     \subitem {Shift operations}, 27
-  \item {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 71
-    \subitem {L}, 72
-    \subitem {nerot}, 72
-    \subitem {nlevels}, 72
-    \subitem {rotations}, 72
-    \subitem {S\+R}, 72
-    \subitem {S\+S}, 72
-    \subitem {size}, 72
-  \item {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 72
-    \subitem {boxes}, 73
-    \subitem {cfft}, 73
-    \subitem {csrc}, 73
-    \subitem {grad}, 73
-    \subitem {ibox}, 73
-    \subitem {ics}, 73
-    \subitem {ip}, 73
-    \subitem {isrc}, 73
-    \subitem {maxpoints}, 74
-    \subitem {nc}, 74
-    \subitem {npoints}, 74
-    \subitem {points}, 74
-    \subitem {pstr}, 74
+  \item {wbfmm\+\_\+shift\+\_\+operators\+\_\+t}, 73
+    \subitem {L}, 74
+    \subitem {nerot}, 74
+    \subitem {nlevels}, 74
+    \subitem {rotations}, 74
+    \subitem {S\+R}, 74
+    \subitem {S\+S}, 74
     \subitem {size}, 74
-    \subitem {t}, 74
+  \item {wbfmm\+\_\+target\+\_\+list\+\_\+t}, 74
+    \subitem {boxes}, 75
+    \subitem {cfft}, 75
+    \subitem {csrc}, 75
+    \subitem {grad}, 75
+    \subitem {ibox}, 75
+    \subitem {ics}, 75
+    \subitem {ip}, 75
+    \subitem {isrc}, 75
+    \subitem {maxpoints}, 76
+    \subitem {nc}, 76
+    \subitem {npoints}, 76
+    \subitem {points}, 76
+    \subitem {pstr}, 76
+    \subitem {size}, 76
+    \subitem {t}, 76
   \item {wbfmm\+\_\+total\+\_\+dipole\+\_\+field}
     \subitem {Utility and convenience functions}, 53
   \item {wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f}
@@ -568,22 +579,22 @@
     \subitem {Boxes and octrees}, 19
   \item {wbfmm\+\_\+tree\+\_\+refine\+\_\+f}
     \subitem {Boxes and octrees}, 19
-  \item {wbfmm\+\_\+tree\+\_\+t}, 74
-    \subitem {boxes}, 75
-    \subitem {D}, 75
-    \subitem {depth}, 75
-    \subitem {ip}, 75
-    \subitem {maxpoints}, 75
-    \subitem {mpr}, 75
-    \subitem {mps}, 75
-    \subitem {npoints}, 75
-    \subitem {nq}, 75
-    \subitem {order\+\_\+r}, 75
-    \subitem {order\+\_\+s}, 75
-    \subitem {points}, 76
-    \subitem {pstr}, 76
-    \subitem {size}, 76
-    \subitem {x}, 76
+  \item {wbfmm\+\_\+tree\+\_\+t}, 76
+    \subitem {boxes}, 77
+    \subitem {D}, 77
+    \subitem {depth}, 77
+    \subitem {ip}, 77
+    \subitem {maxpoints}, 77
+    \subitem {mpr}, 77
+    \subitem {mps}, 77
+    \subitem {npoints}, 77
+    \subitem {nq}, 77
+    \subitem {order\+\_\+r}, 77
+    \subitem {order\+\_\+s}, 77
+    \subitem {points}, 78
+    \subitem {pstr}, 78
+    \subitem {size}, 78
+    \subitem {x}, 78
   \item {wbfmm\+\_\+tree\+\_\+write\+\_\+sources}
     \subitem {Utility and convenience functions}, 55
   \item {wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f}
@@ -596,6 +607,6 @@
   \indexspace
 
   \item {x}
-    \subitem {wbfmm\+\_\+tree\+\_\+t}, 76
+    \subitem {wbfmm\+\_\+tree\+\_\+t}, 78
 
 \end{theindex}

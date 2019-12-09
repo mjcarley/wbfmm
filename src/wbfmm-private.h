@@ -92,6 +92,10 @@
 extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace,
   *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ;
 extern gint _wbfmm_translation_Nmax ;
+extern gint _wbfmm_shift_angles[] ;
+extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
+
+#define WBFMM_SHIFTS_R_NUMBER 15
 
 #define ABSDIFF(_i,_j) ((_i) >= (_j) ? ((_i)-(_j)) : ((_j)-(_i)))
 #define IS_EVEN(_i) (((_i)%2==0)?1:0)

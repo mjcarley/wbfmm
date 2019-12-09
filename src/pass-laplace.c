@@ -32,9 +32,6 @@
 
 #include "wbfmm-private.h"
 
-extern gint _wbfmm_shift_angles[] ;
-extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
-
 #if 0
 static gboolean coefficient_check_laplace(WBFMM_REAL *C, gint cstr,
 					  gint N, gint nq)

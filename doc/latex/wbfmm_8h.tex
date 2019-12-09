@@ -102,6 +102,10 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$C
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat t, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gint Lh, gdouble wb, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gint Lh, gfloat wb, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree in the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
@@ -130,6 +134,10 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint c
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, gfloat $\ast$f)
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$shift, gint Ls, gdouble $\ast$work)
@@ -138,7 +146,7 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4} (gint i, gint j, gint k, gdou
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gdouble $\ast$work)
+{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gboolean bw, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
@@ -232,7 +240,7 @@ gint {\bf wbfmm\+\_\+tree\+\_\+write\+\_\+sources\+\_\+f} ({\bf wbfmm\+\_\+tree\
 \begin{DoxyCompactList}\small\item\em Write a tree source list to file. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gfloat $\ast$work)
+{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gboolean bw, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
@@ -243,7 +251,9 @@ gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\
 guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
 \item 
 gint {\bf wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)
-\end{DoxyCompactItemize}
+\item 
+gint {\bf wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4} (guint level, guint64 idx, guint64 $\ast$list, gboolean sort)
+\begin{DoxyCompactList}\small\item\em Find the local interaction list for a specified box. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}

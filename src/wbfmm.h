@@ -155,6 +155,8 @@ typedef struct {
     SS[WBFMM_TREE_MAX_DEPTH+1],
   /** < singular-to-singular (regular-to-regular) coaxial translations */
     rotations ; /** < rotation operations (H) */
+  gboolean
+  bw ; /** < operators allocated for backward translation algorithm */
 } wbfmm_shift_operators_t ;
 
 #define wbfmm_tree_point_number(_t) ((_t)->npoints)
@@ -379,7 +381,20 @@ gint wbfmm_laplace_parent_child_shift_f(gfloat *Cc, gint Nc,
 					gint Lh,
 					gfloat t,
 					gfloat *work) ;
-gint wbfmm_tree_laplace_coefficient_init(wbfmm_tree_t *t,
+gint wbfmm_laplace_child_parent_shift_bw(gdouble *Cp, gint Np,
+					 gdouble *Cc, gint Nc,
+					 gint nq,
+					 gdouble *H03, gint Lh,
+					 gdouble wb,
+					 gdouble *work) ;
+gint wbfmm_laplace_child_parent_shift_bw_f(gfloat *Cp, gint Np,
+					   gfloat *Cc, gint Nc,
+					   gint nq,
+					   gfloat *H03, gint Lh,
+					   gfloat wb,
+					   gfloat *work) ;
+
+  gint wbfmm_tree_laplace_coefficient_init(wbfmm_tree_t *t,
 					 guint l, 
 					 guint nr,
 					 guint ns) ;
@@ -496,7 +511,9 @@ gint wbfmm_shift_angles_list4(gint i, gint j, gint k,
 			      gdouble *th, gdouble *ph,
 			      gdouble *ch, gdouble *rs) ;
 gint wbfmm_shift_angle_table_init(void) ;
-wbfmm_shift_operators_t *wbfmm_shift_operators_new(guint L, gdouble *work) ;
+wbfmm_shift_operators_t *wbfmm_shift_operators_new(guint L,
+						   gboolean bw,
+						   gdouble *work) ;
 gint wbfmm_shift_operators_coaxial_SR_init(wbfmm_shift_operators_t *w, 
 					   gdouble D, guint level, guint L,
 					   gdouble k, gdouble *work) ;
@@ -723,6 +740,7 @@ gint wbfmm_rotation_write_coefficients_f(gfloat *H, gint N, FILE *f) ;
 
 gint wbfmm_shift_angle_table_init_f(void) ;
 wbfmm_shift_operators_t *wbfmm_shift_operators_new_f(guint L,
+						     gboolean bw,
 						     gfloat *work) ;
 gint wbfmm_shift_operators_coaxial_SR_init_f(wbfmm_shift_operators_t *w, 
 					     gfloat D, guint level, guint L,
@@ -784,6 +802,7 @@ gint wbfmm_logging_init(FILE *f, gchar *p,
 gint wbfmm_box_neighbours(guint level, guint64 idx, guint64 *neighbours) ;
 gint wbfmm_box_interaction_list_4(guint level, guint64 idx, 
 				  guint64 *list, gboolean sort) ;
+gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 list[]) ;
 gint wbfmm_box_interaction_index(gint i, gint j, gint k) ;
 
 /*compile time switches for compiler options*/

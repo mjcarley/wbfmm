@@ -84,7 +84,7 @@ gint main(gint argc, gchar **argv)
   guint sizew ;
   guint64 b ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean write_sources, fit_box ;
+  gboolean write_sources, fit_box, shift_bw ;
 
   k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ; str = 5 ;
@@ -94,11 +94,12 @@ gint main(gint argc, gchar **argv)
   order_max = 0 ;
   write_sources = FALSE ;
   fit_box = FALSE ;
+  shift_bw = FALSE ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hbcD:d:f:k:O:R:s:S:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hBbcD:d:f:k:O:R:s:S:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -108,6 +109,7 @@ gint main(gint argc, gchar **argv)
 	      "field points using\n"
 	      "Wide Band (some day) Fast Multipole Method\n\n"
 	      "Options:\n\n"
+	      "  -B use backward shift algorithm\n"
 	      "  -b fit octree box to sources\n"
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%FLOATFMT)\n"
@@ -123,6 +125,7 @@ gint main(gint argc, gchar **argv)
 	      order_r, order_s, tol) ;
       return 0 ;
       break ;
+    case 'B': shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
@@ -215,7 +218,7 @@ gint main(gint argc, gchar **argv)
 
   wbfmm_shift_angle_table_init_PREC() ;
 
-  shifts = wbfmm_shift_operators_new_PREC(order_max, work) ;
+  shifts = wbfmm_shift_operators_new_PREC(order_max, shift_bw, work) ;
 
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;

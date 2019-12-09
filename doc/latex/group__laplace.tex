@@ -16,6 +16,8 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S} (gdouble $
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gint Lh, gdouble wb, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients} (gdouble $\ast$x, gint N, gboolean grad, gdouble $\ast$cfft, gdouble $\ast$work)
@@ -43,6 +45,8 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gint Lh, gfloat wb, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
@@ -251,6 +255,96 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 {\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
 \hline
 {\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}}
+\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{Cp, }
+\item[{gint}]{Np, }
+\item[{gdouble $\ast$}]{Cc, }
+\item[{gint}]{Nc, }
+\item[{gint}]{nq, }
+\item[{gdouble $\ast$}]{H03, }
+\item[{gint}]{Lh, }
+\item[{gdouble}]{wb, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga83660257c91ebb703a9ab93c4b2a3fd8}
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}{p.}{group__shift_ga6e64de67ce14325af5dc16012717063a}(...)
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}}
+\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{Cp, }
+\item[{gint}]{Np, }
+\item[{gfloat $\ast$}]{Cc, }
+\item[{gint}]{Nc, }
+\item[{gint}]{nq, }
+\item[{gfloat $\ast$}]{H03, }
+\item[{gint}]{Lh, }
+\item[{gfloat}]{wb, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga9bffd76c3897a803aaa04026c291af2c}
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}{p.}{group__shift_gaa53172531f0e173daa38866b6f73023a}(...)
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline

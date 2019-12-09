@@ -610,19 +610,22 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
 		       gint nsrc, WBFMM_REAL *xf, gint nfld)
 
 {
-  WBFMM_REAL *Cc, *Cp, xc[3], xsc[3] ;
+  WBFMM_REAL *Cc, *Cp, *Cpbw, xc[3], xsc[3] ;
   gint i, nq, Nc, Np ;
   WBFMM_REAL H03[BUFSIZE] = {0.0}, H47[BUFSIZE] = {0.0} ;
   WBFMM_REAL work[BUFSIZE] = {0.0} ;
   WBFMM_REAL cr[BUFSIZE] = {0.0}, ct[BUFSIZE] = {0.0}, crr[BUFSIZE] = {0.0} ;
   WBFMM_REAL r, th, ph, ch ;
-  WBFMM_REAL fc[8] = {0.0}, fr[8] = {0.0}, fp[8] = {0.0}, fs[8] = {0.0} ;
+  WBFMM_REAL fc[8] = {0.0}, fr[8] = {0.0}, fp[8] = {0.0}, fs[8] = {0.0},
+    fb[8] = {0.0} ;
   WBFMM_REAL th03, th47 ;
-
-  nq = 1 ;
+  gdouble t0, t1 ;
+  
+  nq = 2 ;
   Nc = N ; Np = N ;
-  Cc = (WBFMM_REAL *)g_malloc0((Nc+1)*(Nc+1)*nq*8*sizeof(WBFMM_REAL)) ;
-  Cp = (WBFMM_REAL *)g_malloc0((Np+1)*(Np+1)*nq*8*sizeof(WBFMM_REAL)) ;
+  Cc   = (WBFMM_REAL *)g_malloc0((Nc+1)*(Nc+1)*nq*8*sizeof(WBFMM_REAL)) ;
+  Cp   = (WBFMM_REAL *)g_malloc0((Np+1)*(Np+1)*nq*8*sizeof(WBFMM_REAL)) ;
+  Cpbw = (WBFMM_REAL *)g_malloc0((Np+1)*(Np+1)*nq*8*sizeof(WBFMM_REAL)) ;
 
   fprintf(stderr, "child-parent shift test\n") ;
   fprintf(stderr, "=======================\n") ;
@@ -670,6 +673,7 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   
   xsc[0] = xc[0] + xs[0] ; xsc[1] = xc[1] + xs[1] ; xsc[2] = xc[2] + xs[2] ; 
   /* xsc[0] = x0[0]; xsc[1] = x0[1] ; xsc[2] = x0[2] ; */
+  /* xsc[0] = xc[0]; xsc[1] = xc[1] ; xsc[2] = xc[2] ; */
 
   wbfmm_laplace_expansion_cfft_PREC(Nc, xc, xsc, src, nq,
 				    &(Cc[quad*nq]), nq*8, work) ;
@@ -685,8 +689,18 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
 
   /* Np = Nc = 0 ; */
   fprintf(stderr, "child parent shift:\n") ;
+  t0 = g_timer_elapsed(timer, NULL) ;
   wbfmm_laplace_child_parent_shift_PREC(Cp, Np, Cc, Nc, nq, H03, H47, Np,
-					wb, work) ;
+  					wb, work) ;
+  t1 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "shift completed (%lg);\n", t1 - t0) ;
+  memset(work, 0, BUFSIZE*sizeof(WBFMM_REAL)) ;
+
+  t0 = g_timer_elapsed(timer, NULL) ;  
+  wbfmm_laplace_child_parent_shift_bw_PREC(Cpbw, Np, Cc, Nc, nq, H03, Np,
+					   wb, work) ;
+  t1 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "bw shift completed (%lg);\n", t1 - t0) ;
   memset(work, 0, BUFSIZE*sizeof(WBFMM_REAL)) ;
 
   /*same thing using a sequence of reference functions*/
@@ -702,6 +716,7 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   wbfmm_laplace_rotate_H_PREC(crr, nq, ct, nq, Np, nq, H03, ch, ph) ;
 
   wbfmm_laplace_expansion_evaluate_PREC(x0, Cp, nq*8, Np, nq, xf, fp, work) ;
+  wbfmm_laplace_expansion_evaluate_PREC(x0, Cpbw, nq*8, Np, nq, xf, fb, work) ;
   wbfmm_laplace_expansion_evaluate_PREC(x0, crr, nq, Np, nq, xf, fs, work) ;
 
   fprintf(stderr, "ref:   ") ;
@@ -712,6 +727,9 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   fprintf(stderr, "\n") ;
   fprintf(stderr, "shift: ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fp[i]) ;
+  fprintf(stderr, "\n") ;
+  fprintf(stderr, "backw: ") ;
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fb[i]) ;
   fprintf(stderr, "\n") ;
   fprintf(stderr, "chain: ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fs[i]) ;
@@ -724,6 +742,10 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   fprintf(stderr, "shift: ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%FLOATEXP ", fabs(fp[i]-fr[i])) ;
+  fprintf(stderr, "\n") ;
+  fprintf(stderr, "backw: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%FLOATEXP ", fabs(fb[i]-fr[i])) ;
   fprintf(stderr, "\n") ;
   fprintf(stderr, "chain: ") ;
   for ( i = 0 ; i < nq ; i ++ )

@@ -39,6 +39,7 @@ libwbfmm_la_SOURCES = \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \
+	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
 	targets.c
@@ -56,6 +57,7 @@ libwbfmm_f_la_SOURCES = \
 	pass.c \
 	laplace.c \
 	shift-laplace.c \
+	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
 	targets.c

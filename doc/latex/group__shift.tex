@@ -18,7 +18,7 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4} (gint i, gint j, gint k, gdou
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gdouble $\ast$work)
+{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gboolean bw, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
@@ -34,7 +34,7 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f} (gint i, gint j, gint 
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gfloat $\ast$work)
+{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gboolean bw, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gfloat D, guint level, guint L, gfloat k, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
@@ -347,7 +347,7 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 
 Initialize table of angles for shift operations. 
 
-This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}{p.}{group__shift_ga911acb2fc1382d2a7ba99ffcf2ae55e3}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
+This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}{p.}{group__shift_gaa426a9e484fa29145c2cac93a22a65ba}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
 
 \begin{DoxyReturn}{Returns}
 0 on success 
@@ -363,7 +363,7 @@ This function must be called before any interaction calculations are performed, 
 
 Initialize table of angles for shift operations. 
 
-This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}{p.}{group__shift_gac1d389b8dc5f3807d5af43555ebd4718}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
+This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}{p.}{group__shift_ga106d7c318a67fc042c18ec8577109dd6}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
 
 \begin{DoxyReturn}{Returns}
 0 on success 
@@ -587,9 +587,10 @@ Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operato
 \subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}$\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new (
 \begin{DoxyParamCaption}
 \item[{guint}]{L, }
+\item[{gboolean}]{bw, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_ga911acb2fc1382d2a7ba99ffcf2ae55e3}
+)}\label{group__shift_gaa426a9e484fa29145c2cac93a22a65ba}
 
 
 Allocate shift operators and initialize rotations. 
@@ -599,6 +600,8 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 
 \begin{DoxyParams}{Parameters}
 {\em L} & maximum order of expansions; \\
+\hline
+{\em bw} & if T\+R\+U\+E generate operators for backward translation algorithm; \\
 \hline
 {\em work} & workspace.\\
 \hline
@@ -611,9 +614,10 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 \subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}$\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f (
 \begin{DoxyParamCaption}
 \item[{guint}]{L, }
+\item[{gboolean}]{bw, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_gac1d389b8dc5f3807d5af43555ebd4718}
+)}\label{group__shift_ga106d7c318a67fc042c18ec8577109dd6}
 
 
 Allocate shift operators and initialize rotations. 
@@ -623,6 +627,8 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 
 \begin{DoxyParams}{Parameters}
 {\em L} & maximum order of expansions; \\
+\hline
+{\em bw} & if T\+R\+U\+E generate operators for backward translation algorithm; \\
 \hline
 {\em work} & workspace.\\
 \hline
