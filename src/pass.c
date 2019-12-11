@@ -32,22 +32,380 @@
 
 #include "wbfmm-private.h"
 
-static gint _wbfmm_downward_pass(wbfmm_tree_t *t,
-				 wbfmm_shift_operators_t *op,
-				 guint level,
-				 WBFMM_REAL *work)
+static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
+					    wbfmm_box_t *b,
+					    guint Ns, guint Nr,
+					    WBFMM_REAL *rotations,
+					    guint nerot,
+					    WBFMM_REAL *shifts,
+					    guint necx,
+					    WBFMM_REAL *wks, guint ncs,
+					    WBFMM_REAL *wkr, guint ncr)
 
 {
-  guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ;
-  gint ith, iph ;
-  guint64 ip, ic, ilist[378] ;
+  guint idx4, ni ;
+  guint64 ilist[378] ;
+  gint j, iph, ith ;
+  WBFMM_REAL ph, ch, *H, *Cx ;
+  
+  ni = wbfmm_box_interaction_list_4(level, ip, ilist, TRUE) ;
+  /*loop on interaction list and compute SR-shifted fields*/
+  for ( j = 0 ; j < ni ; j ++ ) {
+    /*find entry in shift lookup tables*/
+    idx4 = ilist[2*j+1] ;
+    /*index of rotation operator*/
+    ith = _wbfmm_shift_angles[4*idx4+0] ;
+    H = &(rotations[ith*nerot]) ;
+      
+    /*index of translation operator*/
+    ith = _wbfmm_shift_angles[4*idx4+3] ;
+    g_assert(ith >= 0) ;
+    Cx = &(shifts[ith*necx]) ;
+
+    /*rotation angles \phi and \chi*/
+    iph =  _wbfmm_shift_angles[4*idx4+1] ;
+    ph = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
+    iph =  _wbfmm_shift_angles[4*idx4+2] ;
+    ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
+      
+    /*clear workspace*/
+    memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+    /*rotate singular coefficients into wks*/
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, b[ilist[2*j+0]].mps, 8,
+					Ns, H, ph, ch) ;
+    /*translate into wkr*/
+    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
+						 Cx, Nr, TRUE) ;
+    /*rotate regular coefficients into mpr*/
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(b[ip].mpr, 8, wkr, 1, Nr, 
+					H, ch, ph) ;
+  }
+  
+  return ;
+}
+
+/* static inline gint _wbfmm_downward_pass(wbfmm_tree_t *t, */
+/* 					wbfmm_shift_operators_t *op, */
+/* 					guint level, */
+/* 					WBFMM_REAL *work) */
+
+/* { */
+/*   guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ; */
+/*   gint ith, iph ; */
+/*   guint64 ip, ic, ilist[378] ; */
+/*   wbfmm_box_t *bp, *bc ; */
+/*   WBFMM_REAL *rotations, *shifts, ph, ch, *H, *Cx, *wks, *wkr ; */
+/*   WBFMM_REAL *H03, *H47, *trans ; */
+  
+/*   g_assert(level > 1) ; */
+/*   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ; */
+/*   g_assert(op->bw == FALSE) ; */
+
+/*   /\*number of boxes at this level*\/ */
+/*   nb = 1 << 3*(level) ; */
+
+/*   /\*singular and regular expansion orders at this level*\/ */
+/*   Ns = t->order_s[level] ; Nr = t->order_r[level] ; */
+/*   ncs = wbfmm_coefficient_index_nm(Ns+1,0) ; */
+/*   ncr = wbfmm_coefficient_index_nm(Nr+1,0) ; */
+/*   wks = work ; wkr = &(wks[2*ncs]) ; */
+
+/*   /\*boxes at this level (parent)*\/ */
+/*   bp = t->boxes[level] ; */
+
+/*   nerot = op->nerot ; */
+/*   /\*rotation and shift operators*\/ */
+/*   rotations = (WBFMM_REAL *)(op->rotations) ; */
+/*   shifts    = (WBFMM_REAL *)(op->SR[level]) ; */
+
+/*   /\*number of elements in translation operators*\/ */
+/*   necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ; */
+
+/*   /\*interaction list 4, loop on boxes at this level*\/ */
+/*   for ( ip = 0 ; ip < nb ; ip ++ ) { */
+/*     _wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot, */
+/* 			     shifts, necx, wks, ncs, wkr, ncr) ; */
+/*   } */
+
+/*   /\*no downward shift at the deepest level*\/ */
+/*   if ( level == t-> depth ) return 0 ; */
+
+/*   /\*rotation operators for parent-child shifts*\/ */
+/*   H03 = &(rotations[12*nerot]) ; */
+/*   H47 = &(rotations[36*nerot]) ; */
+/*   Np = t->order_r[level  ] ; */
+/*   Nc = t->order_r[level+1] ; */
+/*   bc = t->boxes[level+1] ; */
+/*   trans = (WBFMM_REAL *)(op->SS[level+1]) ; */
+/*   for ( ip = 0 ; ip < nb ; ip ++ ) { */
+/*     ic = wbfmm_box_first_child(ip) ; */
+/*     WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr), */
+/* 						  Nc, */
+/* 						  (WBFMM_REAL *)(bp[ip].mpr), */
+/* 						  Np, */
+/* 						  H03, H47, Np, */
+/* 						  trans, Np, work) ; */
+/*   } */
+
+/*   return 0 ; */
+/* } */
+
+static inline void _wbfmm_shift_up(guint64 grid[], gint idx4,
+				   WBFMM_REAL *shifts, guint necx,
+				   gint Nr, gint Ns,
+				   wbfmm_box_t *bp, WBFMM_REAL *target)
+{
+  WBFMM_REAL *Cx ;
+  gint ith, ic ;
+
+  if ( grid[idx4] == 0 ) return ;
+  
+  ic = grid[idx4] - 1 ;
+  ith = _wbfmm_shift_angles[4*idx4+3] ;
+  Cx = &(shifts[(ith*2+0)*necx]) ;
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
+					       bp[ic].mps, 8, Ns,
+					       Cx, Nr, TRUE) ;
+  grid[idx4] = 0 ;
+
+  return ;
+}
+
+static inline void _wbfmm_shift_down(guint64 grid[], gint idx4,
+				     WBFMM_REAL *shifts, guint necx,
+				     gint Nr, gint Ns,
+				     wbfmm_box_t *bp, WBFMM_REAL *target)
+{
+  WBFMM_REAL *Cx ;
+  gint ith, ic ;
+
+  if ( grid[idx4] == 0 ) return ;
+  
+  ic = grid[idx4] - 1 ;
+  ith = _wbfmm_shift_angles[4*idx4+3] ;
+  /* Cx = &(shifts[(ith+WBFMM_SHIFTS_R_NUMBER)*necx]) ; */
+  Cx = &(shifts[(ith*2+1)*necx]) ;
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
+					       bp[ic].mps, 8, Ns,
+					       Cx, Nr, TRUE) ;
+  grid[idx4] = 0 ;
+
+  return ;
+}
+
+static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
+					 WBFMM_REAL *rotations, guint nerot,
+					 WBFMM_REAL *shifts, guint necx,
+					 gint Nr, gint Ns,
+					 wbfmm_box_t *bp, WBFMM_REAL *target,
+					 WBFMM_REAL *wks, gint ncs,
+					 WBFMM_REAL *wkr, gint ncr)
+
+{
+  WBFMM_REAL *H, *Cx, ch, ph ;
+  gint ith, ic, ix ;
+
+  if ( grid[idx4] == 0 ) return ;
+
+  /*index of box in list 4 grid*/
+  ic = grid[idx4] - 1 ;
+  /*mark box as processed*/
+  grid[idx4] = 0 ;
+  
+  /*index of rotation operator*/
+  ith = _wbfmm_shift_angles[4*idx4+0] ;
+  H = &(rotations[ith*nerot]) ;
+  
+  /*index of translation operator*/
+  ix = _wbfmm_shift_angles[4*idx4+3] ;
+  Cx = &(shifts[(2*ix+0)*necx]) ;
+  
+  /*rotation angles \phi and \chi*/
+  ith =  _wbfmm_shift_angles[4*idx4+1] ;
+  ph = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
+  ith =  _wbfmm_shift_angles[4*idx4+2] ;
+  ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
+      
+  /*clear workspace*/
+  memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+  /*rotate singular coefficients into wks*/
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, H, ph, ch) ;
+  /*translate into wkr*/
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns,
+					       Cx, Nr, TRUE) ;
+  if ( grid[342-idx4] != 0 ) {
+    memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
+    ic = grid[342-idx4] - 1 ;
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, H, ph, ch) ;
+    Cx = &(shifts[(2*ix+1)*necx]) ;
+    /* Cx = &(Cx[necx]) ; */
+    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns,
+						 Cx, Nr, TRUE) ;
+    grid[342-idx4] = 0 ;
+  }
+  /*rotate regular coefficients into mpr*/
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, H, ch, ph) ;
+  
+  return ;
+}
+
+static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
+					   guint idx4f[], guint idx4b[],
+					   WBFMM_REAL *rotations, guint nerot,
+					   WBFMM_REAL *shifts, guint necx,
+					   gint Nr, gint Ns,
+					   wbfmm_box_t *bp, WBFMM_REAL *target,
+					   WBFMM_REAL *wks, gint ncs,
+					   WBFMM_REAL *wkr, gint ncr)
+
+{
+  WBFMM_REAL *H, *Cx, ch, ph ;
+  gint ith, ic, ix, i ;
+
+  /*index of rotation operator, assuming indices are all compatible*/
+  ith = _wbfmm_shift_angles[4*idx4f[0]+0] ;
+  H = &(rotations[ith*nerot]) ;
+  /*rotation angles \phi and \chi*/
+  ith =  _wbfmm_shift_angles[4*idx4f[0]+1] ;
+  ph = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
+  ith =  _wbfmm_shift_angles[4*idx4f[0]+2] ;
+  ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
+  
+  memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+  for ( i = 0 ; i < 2 ; i ++ ) {
+    if ( grid[idx4f[i]] != 0 ) {
+      ic = grid[idx4f[i]] - 1 ;
+      /*index of translation operator*/
+      ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
+      Cx = &(shifts[(2*ix+0)*necx]) ;
+      /*rotate singular coefficients into wks*/
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
+					  Ns, H, ph, ch) ;
+      /*translate into wkr*/
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns,
+						   Cx, Nr, TRUE) ;
+      grid[idx4f[i]] = 0 ;
+      memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
+    }
+    if ( grid[idx4b[i]] != 0 ) {
+      ic = grid[idx4b[i]] - 1 ;
+      /*index of translation operator*/
+      ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
+      Cx = &(shifts[(2*ix+1)*necx]) ;
+      /*rotate singular coefficients into wks*/
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
+    					  Ns, H, ph, ch) ;
+      /*translate into wkr*/
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns,
+    						   Cx, Nr, TRUE) ;
+      grid[idx4b[i]] = 0 ;
+      memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
+    }
+  }
+
+  /*rotate regular coefficients into mpr*/
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, H, ch, ph) ;
+  
+  return ;
+}
+
+static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
+					       wbfmm_box_t *b,
+					       guint Ns, guint Nr,
+					       WBFMM_REAL *rotations,
+					       guint nerot,
+					       WBFMM_REAL *shifts,
+					       guint necx,
+					       WBFMM_REAL *wks, guint ncs,
+					       WBFMM_REAL *wkr, guint ncr)
+
+{
+  guint idx4, idx4f[2], idx4b[2] ;
+  guint64 grid[343] = {0} ;
+
+  /*locate boxes in interaction list*/
+  wbfmm_box_interaction_grid_4(level, ip, grid) ;
+  /*deal with special cases combining rotations*/
+  idx4f[0] = (-3+3)*49 + (-3+3)*7 + (-3+3) ;
+  idx4f[1] = (-2+3)*49 + (-2+3)*7 + (-2+3) ;
+  idx4b[1] = ( 2+3)*49 + ( 2+3)*7 + ( 2+3) ;
+  idx4b[0] = ( 3+3)*49 + ( 3+3)*7 + ( 3+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  idx4f[0] = ( 3+3)*49 + (-3+3)*7 + (-3+3) ;
+  idx4f[1] = ( 2+3)*49 + (-2+3)*7 + (-2+3) ;
+  idx4b[1] = (-2+3)*49 + ( 2+3)*7 + ( 2+3) ;
+  idx4b[0] = (-3+3)*49 + ( 3+3)*7 + ( 3+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  idx4f[0] = (-3+3)*49 + ( 3+3)*7 + (-3+3) ;
+  idx4f[1] = (-2+3)*49 + ( 2+3)*7 + (-2+3) ;
+  idx4b[1] = ( 2+3)*49 + (-2+3)*7 + ( 2+3) ;
+  idx4b[0] = ( 3+3)*49 + (-3+3)*7 + ( 3+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  idx4b[0] = (-3+3)*49 + (-3+3)*7 + ( 3+3) ;
+  idx4b[1] = (-2+3)*49 + (-2+3)*7 + ( 2+3) ;
+  idx4f[1] = ( 2+3)*49 + ( 2+3)*7 + (-2+3) ;
+  idx4f[0] = ( 3+3)*49 + ( 3+3)*7 + (-3+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+
+  idx4f[0] = (-3+3)*49 + ( 0+3)*7 + ( 0+3) ;
+  idx4f[1] = (-2+3)*49 + ( 0+3)*7 + ( 0+3) ;
+  idx4b[1] = ( 2+3)*49 + ( 0+3)*7 + ( 0+3) ;
+  idx4b[0] = ( 3+3)*49 + ( 0+3)*7 + ( 0+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  idx4f[0] = ( 0+3)*49 + (-3+3)*7 + ( 0+3) ;
+  idx4f[1] = ( 0+3)*49 + (-2+3)*7 + ( 0+3) ;
+  idx4b[1] = ( 0+3)*49 + ( 2+3)*7 + ( 0+3) ;
+  idx4b[0] = ( 0+3)*49 + ( 3+3)*7 + ( 0+3) ;
+  _wbfmm_diagonal_shift_3(grid, idx4f, idx4b,
+			  rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+    
+  for ( idx4 = 0 ; idx4 < 168 ; idx4 ++ ) {
+    _wbfmm_diagonal_shift(grid, idx4, rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  }
+  /*vertically displaced above and below target box, no rotations
+    required*/
+  idx4 = (0+3)*49 + (0+3)*7 + (-3+3) ;
+  _wbfmm_shift_up(grid, idx4, shifts, necx, Nr, Ns, b, b[ip].mpr) ;
+  idx4 = (0+3)*49 + (0+3)*7 + (-2+3) ;
+  _wbfmm_shift_up(grid, idx4, shifts, necx, Nr, Ns, b, b[ip].mpr) ;
+  idx4 = (0+3)*49 + (0+3)*7 + ( 2+3) ;
+  _wbfmm_shift_down(grid, idx4, shifts, necx, Nr, Ns, b, b[ip].mpr) ;
+  idx4 = (0+3)*49 + (0+3)*7 + ( 3+3) ;
+  _wbfmm_shift_down(grid, idx4, shifts, necx, Nr, Ns, b, b[ip].mpr) ;
+
+  for ( idx4 = 175 ; idx4 < 343 ; idx4 ++ ) {
+    _wbfmm_diagonal_shift(grid, idx4, rotations, nerot, shifts, necx,
+			  Nr, Ns, b, b[ip].mpr, wks, ncs, wkr, ncr) ;
+  }
+
+  return ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
+					      wbfmm_shift_operators_t *op,
+					      guint level,
+					      WBFMM_REAL *work)
+
+{
+  guint nb, Ns, Nr, nerot, necx, ncs, ncr, Nc, Np ;
+  guint64 ic, ip ;
   wbfmm_box_t *bp, *bc ;
-  WBFMM_REAL *rotations, *shifts, ph, ch, *H, *Cx, *wks, *wkr ;
-  WBFMM_REAL *H03, *H47, *trans ;
+  WBFMM_REAL *rotations, *shifts, *wks, *wkr, *H03, *H47, *trans ;
   
   g_assert(level > 1) ;
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ;
-  g_assert(op->bw == FALSE) ;
 
   /*number of boxes at this level*/
   nb = 1 << 3*(level) ;
@@ -70,190 +428,39 @@ static gint _wbfmm_downward_pass(wbfmm_tree_t *t,
   necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ;
 
   /*interaction list 4, loop on boxes at this level*/
-  for ( ip = 0 ; ip < nb ; ip ++ ) {
-    /*locate boxes in interaction list*/
-    ni = wbfmm_box_interaction_list_4(level, ip, ilist, TRUE) ;
-    /*loop on interaction list and compute SR-shifted fields*/
-    for ( j = 0 ; j < ni ; j ++ ) {
-      /*find entry in shift lookup tables*/
-      idx4 = ilist[2*j+1] ;
-      /*index of rotation operator*/
-      ith = _wbfmm_shift_angles[4*idx4+0] ;
-      H = &(rotations[ith*nerot]) ;
-      
-      /*index of translation operator*/
-      ith = _wbfmm_shift_angles[4*idx4+3] ;
-      g_assert(ith >= 0) ;
-      Cx = &(shifts[ith*necx]) ;
-
-      /*rotation angles \phi and \chi*/
-      iph =  _wbfmm_shift_angles[4*idx4+1] ;
-      ph = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
-      iph =  _wbfmm_shift_angles[4*idx4+2] ;
-      ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
-      
-      /*clear workspace*/
-      memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
-      /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ilist[2*j+0]].mps, 8,
-					  Ns, H, ph, ch) ;
-      /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, 
-						   Cx, Nr, TRUE) ;
-      /*rotate regular coefficients into mpr*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, wkr, 1, Nr, 
-					  H, ch, ph) ;
-    }
-  }
-
-  /*no downward shift at the deepest level*/
-  if ( level == t-> depth ) return 0 ;
-
-  /*rotation operators for parent-child shifts*/
-  H03 = &(rotations[12*nerot]) ;
-  H47 = &(rotations[36*nerot]) ;
-  Np = t->order_r[level  ] ;
-  Nc = t->order_r[level+1] ;
-  bc = t->boxes[level+1] ;
-  trans = (WBFMM_REAL *)(op->SS[level+1]) ;
-  for ( ip = 0 ; ip < nb ; ip ++ ) {
-    ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr),
-						  Nc,
-						  (WBFMM_REAL *)(bp[ip].mpr),
-						  Np,
-						  H03, H47, Np,
-						  trans, Np, work) ;
-  }
-
-  return 0 ;
-}
-
-static gint _wbfmm_downward_pass_bw(wbfmm_tree_t *t,
-				    wbfmm_shift_operators_t *op,
-				    guint level,
-				    WBFMM_REAL *work)
-
-{
-  guint nb, Ns, Nr, ni, nerot, necx, ncs, ncr, idx4, j, Nc, Np ;
-  gint ith, iph ;
-  gint ii, jj, kk, idx ;
-  guint64 ip, ic, grid[343] = {0} ;
-  wbfmm_box_t *bp, *bc ;
-  WBFMM_REAL *rotations, *shifts, ph, ch, *H, *Cx, *wks, *wkr ;
-  WBFMM_REAL *H03, *H47, *trans ;
-
-  g_assert(level > 1) ;
-  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ;
-  g_assert(op->bw == TRUE) ;
-  
-  /*number of boxes at this level*/
-  nb = 1 << 3*(level) ;
-
-  /*singular and regular expansion orders at this level*/
-  Ns = t->order_s[level] ; Nr = t->order_r[level] ;
-  ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
-  ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
-  wks = work ; wkr = &(wks[2*ncs]) ;
-
-  /*boxes at this level (parent)*/
-  bp = t->boxes[level] ;
-
-  nerot = op->nerot ;
-  /*rotation and shift operators*/
-  rotations = (WBFMM_REAL *)(op->rotations) ;
-  shifts = (WBFMM_REAL *)(op->SR[level]) ;
-
-  /*number of elements in translation operators*/
-  necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ;
-
-  /*interaction list 4, loop on boxes at this level*/
-  for ( ip = 0 ; ip < nb ; ip ++ ) {
-    /*locate boxes in interaction list*/
-    wbfmm_box_interaction_grid_4(level, ip, grid) ;
-
-    for ( ii = -3 ; ii <= 3 ; ii ++ ) {
-      for ( jj = -3 ; jj <= 3 ; jj ++ ) {
-	for ( kk = -3 ; kk <= 3 ; kk ++ ) {
-	  idx4 = (ii+3)*49 + (jj+3)*7 + kk + 3 ;
-	  if ( grid[idx4] != 0 && (ii*ii+jj*jj+kk*kk > 3)) {
-	    /*index of box in list 4 grid*/
-	    ic = grid[idx4] - 1 ;
-	    /*index of rotation operator*/
-	    ith = _wbfmm_shift_angles[4*idx4+0] ;
-	    H = &(rotations[ith*nerot]) ;
-      
-	    /*index of translation operator*/
-	    ith = _wbfmm_shift_angles[4*idx4+3] ;
-	    Cx = &(shifts[ith*necx]) ;
-
-	    g_assert(fabs(ii*ii+jj*jj+kk*kk -
-			  _wbfmm_shifts_r[ith]*_wbfmm_shifts_r[ith]) < 1e-6) ;
-	    
-	    /*rotation angles \phi and \chi*/
-	    iph =  _wbfmm_shift_angles[4*idx4+1] ;
-	    ph = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] :
-		  -_wbfmm_shifts_ph[-1-iph]) ;
-	    iph =  _wbfmm_shift_angles[4*idx4+2] ;
-	    ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] :
-		  -_wbfmm_shifts_ph[-1-iph]) ;
-      
-	    /*clear workspace*/
-	    memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
-	    /*rotate singular coefficients into wks*/
-	    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
-						Ns, H, ph, ch) ;
-	    /*translate into wkr*/
-	    /* fprintf(stderr, "idx4 = %d\n", idx4) ; */
-	    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns,
-							 Cx, Nr, TRUE) ;
-	    /*rotate regular coefficients into mpr*/
-	    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(bp[ip].mpr, 8, wkr, 1, Nr,
-						H, ch, ph) ;	    
-	  }
-	}
-      }
-    }
-  }
-
-  /*no downward shift at the deepest level*/
-  if ( level == t-> depth ) return 0 ;
-
-  /*rotation operators for parent-child shifts*/
-  H03 = &(rotations[12*nerot]) ;
-  H47 = &(rotations[36*nerot]) ;
-  Np = t->order_r[level  ] ;
-  Nc = t->order_r[level+1] ;
-  bc = t->boxes[level+1] ;
-  trans = (WBFMM_REAL *)(op->SS[level+1]) ;
-  for ( ip = 0 ; ip < nb ; ip ++ ) {
-    ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr),
-						  Nc,
-						  (WBFMM_REAL *)(bp[ip].mpr),
-						  Np,
-						  H03, H47, Np,
-						  trans, Np, work) ;
-  }
-
-  return 0 ;
-}
-
-
-gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
-					      wbfmm_shift_operators_t *op,
-					      guint level,
-					      WBFMM_REAL *work)
-
-{
   if ( op->bw )
-    _wbfmm_downward_pass_bw(t, op, level, work) ;
+    for ( ip = 0 ; ip < nb ; ip ++ ) {
+      _wbfmm_downward_pass_box_bw(level, ip, bp, Ns, Nr, rotations, nerot,
+				  shifts, necx, wks, ncs, wkr, ncr) ;
+    }
   else
-    _wbfmm_downward_pass(t, op, level, work) ;
-    
+    for ( ip = 0 ; ip < nb ; ip ++ ) {
+      _wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot,
+			       shifts, necx, wks, ncs, wkr, ncr) ;
+    }
+
+  /*no downward shift at the deepest level*/
+  if ( level == t-> depth ) return 0 ;
+
+  /*rotation operators for parent-child shifts*/
+  H03 = &(rotations[12*nerot]) ;
+  H47 = &(rotations[36*nerot]) ;
+  Np = t->order_r[level  ] ;
+  Nc = t->order_r[level+1] ;
+  bc = t->boxes[level+1] ;
+  trans = (WBFMM_REAL *)(op->SS[level+1]) ;
+  for ( ip = 0 ; ip < nb ; ip ++ ) {
+    ic = wbfmm_box_first_child(ip) ;
+    WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)((WBFMM_REAL *)(bc[ic].mpr),
+						  Nc,
+						  (WBFMM_REAL *)(bp[ip].mpr),
+						  Np,
+						  H03, H47, Np,
+						  trans, Np, work) ;
+  }
+
   return 0 ;
 }
-
 
 gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 					    wbfmm_shift_operators_t *op,

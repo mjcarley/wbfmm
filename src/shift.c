@@ -706,18 +706,25 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
 				    sizeof(WBFMM_REAL)) ;
   w->L[level] = L ;
 
-  for ( i = 0 ; i < WBFMM_SHIFTS_R_NUMBER ; i ++ ) {
-    WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
-      (&(SR[i*2*ne]), L, k*wb*_wbfmm_shifts_r[i], work) ;    
+  if ( !(w->bw) ) {
+    for ( i = 0 ; i < WBFMM_SHIFTS_R_NUMBER ; i ++ ) {
+      WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
+	(&(SR[i*2*ne]), L, k*wb*_wbfmm_shifts_r[i], work) ;    
+    }
+
+    return 0 ;
   }
 
-  if ( !(w->bw) ) return 0 ;
+  /* if ( !(w->bw) ) return 0 ; */
 
   /*if we are using the backward translation algorithm on list 4 boxes,
     the negative translation operators follow the positive*/
   for ( i = 0 ; i < WBFMM_SHIFTS_R_NUMBER ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
-      (&(SR[(WBFMM_SHIFTS_R_NUMBER+i)*2*ne]), L, -k*wb*_wbfmm_shifts_r[i],
+      (&(SR[(2*i+0)*2*ne]), L,  k*wb*_wbfmm_shifts_r[i],
+       work) ;    
+    WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)
+      (&(SR[(2*i+1)*2*ne]), L, -k*wb*_wbfmm_shifts_r[i],
        work) ;    
   }
 
