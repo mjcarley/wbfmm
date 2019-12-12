@@ -684,3 +684,52 @@ gint WBFMM_FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
   
   return p ;
 }
+
+gint wbfmm_library_config(wbfmm_library_config_t *c)
+
+{
+  c->real_size = sizeof(WBFMM_REAL) ;
+
+  c->switches = WBFMM_COMPILER_FLAGS ;
+  
+#ifdef HAVE_FMA_INSTRUCTIONS
+  c->fma = TRUE ;
+#else
+  c->fma = FALSE ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+
+#ifdef HAVE_AVX_INSTRUCTIONS
+  c->avx = TRUE ;
+#else
+  c->avx = FALSE ;
+#endif /*HAVE_AVX_INSTRUCTIONS*/
+
+#ifdef HAVE_AVX2_INSTRUCTIONS
+  c->avx2 = TRUE ;
+#else
+  c->avx2 = FALSE ;
+#endif /*HAVE_AVX_INSTRUCTIONS*/
+
+  return 0 ;
+}
+
+gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f)
+
+{
+  fprintf(f,
+	  "AVX extensions: %s\n"
+	  "FMA extensions: %s\n"
+	  "precision:      %s\n"
+	  "compiler flags: %s\n",
+	  yes_if_true(c->avx),
+	  yes_if_true(c->fma),
+#ifdef WBFMM_SINGLE_PRECISION
+	  "single",
+#else
+	  "double",
+#endif /*WBFMM_SINGLE_PRECISION*/
+	  c->switches
+	  ) ;
+  
+  return 0 ;
+}

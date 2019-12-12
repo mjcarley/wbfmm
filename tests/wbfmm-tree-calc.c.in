@@ -85,7 +85,8 @@ gint main(gint argc, gchar **argv)
   guint64 b ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box, shift_bw ;
-
+  wbfmm_library_config_t lconfig ;
+  
   k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ; str = 5 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
@@ -111,6 +112,7 @@ gint main(gint argc, gchar **argv)
 	      "Options:\n\n"
 	      "  -B use backward shift algorithm\n"
 	      "  -b fit octree box to sources\n"
+	      "  -c write the library configuration to stderr and exit\n"
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%FLOATFMT)\n"
 	      "  -f (field point name)\n"
@@ -127,6 +129,11 @@ gint main(gint argc, gchar **argv)
       break ;
     case 'B': shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
+    case 'c':
+      wbfmm_library_config(&lconfig) ;  
+      wbfmm_library_config_print(&lconfig, stderr) ;
+      return 0 ;
+      break ;
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      

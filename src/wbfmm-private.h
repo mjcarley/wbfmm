@@ -132,6 +132,8 @@ extern const WBFMM_REAL WBFMM_FACTORIALS[] ;
 
 #define minus_one_pow(_n) ((2*((_n)/2) == (_n) ? 1 : -1))
 
+#define yes_if_true(_t)  ((_t) == TRUE ? "yes" : "no") 
+
 gint print_bits_uint(FILE *f, guint x) ;
 
 gint _wbfmm_bessel_j_scaled_init(gdouble x, gdouble *j0, gdouble *j1) ;

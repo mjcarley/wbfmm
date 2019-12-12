@@ -34,6 +34,25 @@
 #define WBFMM_INDEX_SHIFT (1U << 20)
 
 /**
+ * @struct wbfmm_library_config_t
+ * @ingroup util
+ *
+ * Data type to report library compilation settings and other
+ * configuration information
+ *
+ */
+
+typedef struct {
+  gboolean
+  avx,
+    avx2,
+    fma ;
+  gchar *switches ;
+  gsize
+  real_size ;
+} wbfmm_library_config_t ;
+
+/**
  * @struct wbfmm_box_t
  * @ingroup boxes
  *
@@ -804,6 +823,8 @@ gint wbfmm_box_interaction_list_4(guint level, guint64 idx,
 				  guint64 *list, gboolean sort) ;
 gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 list[]) ;
 gint wbfmm_box_interaction_index(gint i, gint j, gint k) ;
+gint wbfmm_library_config(wbfmm_library_config_t *c) ;
+gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 
 /*compile time switches for compiler options*/
 #ifdef WBFMM_USE_AVX

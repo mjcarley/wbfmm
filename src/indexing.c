@@ -399,10 +399,7 @@ gint wbfmm_box_interaction_index(gint i, gint j, gint k)
 gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 grid[])
 
 {
-  gint dx, dy, dz ;
-  guint32 i, j, k, i0, i1, j0, j1, k0, k1, ii, jj, kk, nbox ;
-  guint32 ic, jc, kc ;
-  /* guint p ; */
+  guint32 i, j, k, i0, i1, j0, j1, k0, k1, ii, jj, kk, nbox, idxg ;
     
   memset(grid, 0, 343*sizeof(guint64)) ;
   
@@ -412,8 +409,6 @@ gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 grid[])
 
   /*reduce to even part (coordinates of bottom corner of parent box)*/
   i0 = i - i%2 ; j0 = j - j%2 ; k0 = k - k%2 ; 
-
-  /* p = 4*(k-k0) + 2*(j-j0) + 1*(i-i0) ; */
   
   i1 = MIN(i0+3,nbox-1) ; j1 = MIN(j0+3,nbox-1) ; k1 = MIN(k0+3,nbox-1) ;
 
@@ -425,9 +420,9 @@ gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 grid[])
     for ( jj = j0 ; jj <= j1 ; jj ++ ) {
       for ( kk = k0 ; kk <= k1 ; kk ++ ) {
 	if ( !_is_neighbour(i,j,k,ii,jj,kk) ) {
-	  idx = (ii-i+3)*49 + (jj-j+3)*7 + kk - k + 3 ;
-	  g_assert(idx < 343 && idx >=0) ;
-	  grid[idx] = wbfmm_box_index(ii, jj, kk) + 1 ;
+	  idxg = (ii-i+3)*49 + (jj-j+3)*7 + kk - k + 3 ;
+	  g_assert(idxg < 343 && idxg >=0) ;
+	  grid[idxg] = wbfmm_box_index(ii, jj, kk) + 1 ;
 	}
       }
     }

@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(includedir) -DG_LOG_DOMAIN=\"WBFMM\"
+AM_CPPFLAGS = -I$(top_srcdir) -I$(includedir) -DG_LOG_DOMAIN=\"WBFMM\" \
+	-DWBFMM_COMPILER_FLAGS="\"@CFLAGS@\""
 
 bin_SCRIPTS=wbfmm-config
 

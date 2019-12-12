@@ -418,7 +418,9 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-AM_CPPFLAGS = -I$(top_srcdir) -I$(includedir) -DG_LOG_DOMAIN=\"WBFMM\"
+AM_CPPFLAGS = -I$(top_srcdir) -I$(includedir) -DG_LOG_DOMAIN=\"WBFMM\" \
+	-DWBFMM_COMPILER_FLAGS="\"-O3 -g -DWBFMM_USE_AVX -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include\""
+
 bin_SCRIPTS = wbfmm-config
 BUILT_SOURCES = \
 	wbfmm-config \
