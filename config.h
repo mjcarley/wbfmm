@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define if avx2 instructions are supported */
-#define HAVE_AVX2_INSTRUCTIONS 1
+/* #undef HAVE_AVX2_INSTRUCTIONS */
 
 /* Define if avx instructions are supported */
 #define HAVE_AVX_INSTRUCTIONS 1
@@ -11,7 +11,7 @@
 #define HAVE_DLFCN_H 1
 
 /* Define if fma instructions are supported */
-#define HAVE_FMA_INSTRUCTIONS 1
+/* #undef HAVE_FMA_INSTRUCTIONS */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1

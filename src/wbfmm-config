@@ -5,7 +5,7 @@ blas_libs="@blas_libs@"
 wbfmm_cppflags=""
 openmp_cflags="-fopenmp"
 
-prefix=/home/ensmjc/Codes
+prefix=/home/michael/Codes
 exec_prefix=${prefix}
 includedir=${prefix}/include
 

@@ -934,9 +934,24 @@ gint main(gint argc, gchar **argv)
   wb = 0.125 ;
   quad = 0 ;
 
-  while ( (ch = getopt(argc, argv, "1f:i:n:N:q:t:w:x:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hf:i:n:N:q:t:w:x:")) != EOF ) {
     switch ( ch ) {
     default: g_assert_not_reached() ; break ;
+    case 'h':
+      fprintf(stderr,
+	      "Usage: %s <options>\n\n"
+	      "Options:\n"
+	      "  -h print this message and exit\n"
+	      "  -i <input file name>\n"
+	      "  -n <number of sources>\n"
+	      "  -N <expansion order>\n"
+	      "  -q <test quadrant>\n"
+	      "  -t <test name>\n"
+	      "  -w <box width>\n"
+	      "  -x <distance, e.g. for translation tests>\n",
+	      argv[0]) ;
+      return 0 ;
+      break ;
     case 'f': nfld = atoi(optarg) ; break ;
     case 'i': ipfile = g_strdup(optarg) ; break ;
     case 'n': nsrc = atoi(optarg) ; break ;
