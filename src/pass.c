@@ -376,8 +376,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   if ( level == t-> depth ) return 0 ;
 
   /*rotation operators for parent-child shifts*/
-  H03 = &(rotations[12*nerot]) ;
-  H47 = &(rotations[36*nerot]) ;
+  /* H03 = &(rotations[12*nerot]) ; */
+  /* H47 = &(rotations[36*nerot]) ; */
+  H03 = &(rotations[36*nerot]) ;
+  H47 = &(rotations[12*nerot]) ;
   Np = t->order_r[level  ] ;
   Nc = t->order_r[level+1] ;
   bc = t->boxes[level+1] ;
@@ -421,8 +423,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 
   /*rotation and shift operators*/
   rotations = (WBFMM_REAL *)(op->rotations) ;
-  H03 = &(rotations[36*(op->nerot)]) ;
-  H47 = &(rotations[12*(op->nerot)]) ;
+  /* H03 = &(rotations[36*(op->nerot)]) ; */
+  /* H47 = &(rotations[12*(op->nerot)]) ; */
+  H03 = &(rotations[12*(op->nerot)]) ;
+  H47 = &(rotations[36*(op->nerot)]) ;
   trans = (WBFMM_REAL *)(op->SS[level]) ;
 
   g_assert(H03 != NULL) ;
