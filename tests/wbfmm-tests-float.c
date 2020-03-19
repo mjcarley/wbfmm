@@ -51,6 +51,7 @@ gchar *tests[] = {"legendre",
 		  "expansion_dipole",
 		  "rotations_write",
 		  "expansion_normal",
+		  "expansion_gradient"
 		  ""} ;
 
 gint rotations_write(gint N, gfloat ix[], gfloat iy[],
@@ -64,6 +65,12 @@ gint expansion_test(gfloat k, gint N,
 		    gfloat *src, gint sstride,
 		    gint nsrc,
 		    gfloat *xf, gint nfld) ;
+gint expansion_gradient_test(gfloat k, gint N, 
+			     gfloat *x0,
+			     gfloat *xs, gint xstride,
+			     gfloat *src, gint sstride,
+			     gint nsrc,
+			     gfloat *xf, gint nfld) ;
 gint translation_test(gfloat k, gint N, 
 		      gfloat xc[], gfloat x,
 		      gfloat *xs, gint xstride,
@@ -342,6 +349,68 @@ gint expansion_test(gfloat k, gint N,
   return 0 ;
 }
 
+gint expansion_gradient_test(gfloat k, gint N, 
+			     gfloat *x0,
+			     gfloat *xs, gint xstride,
+			     gfloat *src, gint sstride,
+			     gint nsrc,
+			     gfloat *xf, gint nfld)
+
+{
+  gfloat cfft[4096] = {0}, work[1024] ;
+  gint i, cstr ;
+  gdouble t0 ;
+
+  cstr = 2 ;
+  t0 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "%s start: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  for ( i = 0 ; i < nsrc ; i ++ ) {
+    wbfmm_expansion_h_cfft_f(k, N, x0, &(xs[i*xstride]), &(src[i*sstride]),
+				cfft, cstr, work) ;
+  }
+
+  fprintf(stderr, "%s expansion generated: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  for ( i = 0 ; i < nfld ; i ++ ) {
+    gfloat field[6] = {0.0}, dz=1e-6 ;
+
+    wbfmm_expansion_h_grad_evaluate_f(k, x0, cfft, cstr, N,
+					 &(xf[i*xstride]), 
+					 field, work) ;
+
+    fprintf(stdout,
+	    "%g+j*%g %g+j*%g %g+j*%g\n",
+	    field[0], field[1], field[2], field[3], field[4], field[5]) ;
+
+    work[0] = work[1] = work[2] = work[3] = work[4] = work[5] = 0.0 ;
+    wbfmm_total_field_grad_f(k, xs, xstride, src, sstride,
+				NULL, 0, NULL, 0,			   
+				nsrc, &(xf[i*xstride]), work) ;
+
+    fprintf(stdout,
+	    "%g+j*%g %g+j*%g %g+j*%g\n",
+	    work[0], work[1], work[2], work[3], work[4], work[5]) ;
+
+    fprintf(stdout,
+	    "%g %g %g\n",
+	    sqrt((work[0]-field[0])*(work[0]-field[0]) +
+		 (work[1]-field[1])*(work[1]-field[1])),
+	    sqrt((work[2]-field[2])*(work[2]-field[2]) +
+		 (work[3]-field[3])*(work[3]-field[3])),
+	    sqrt((work[4]-field[4])*(work[4]-field[4]) +
+		 (work[5]-field[5])*(work[5]-field[5]))) ;  
+    
+  }
+
+  fprintf(stderr, "%s end: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  return 0 ;
+}
+
 gint expansion_dipole_test(gfloat k, gint N, 
 			   gfloat *x0,
 			   gfloat *xs, gint xstride,
@@ -381,13 +450,13 @@ gint expansion_dipole_test(gfloat k, gint N,
     wbfmm_expansion_h_evaluate_f(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
 				    field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
     wbfmm_total_dipole_field_f(k, xs, xstride, dipole, sstride, nsrc,
 				  &(xf[i*xstride]), work) ;
 
-    fprintf(stdout, "%g+j%g (%g)\n", work[0], work[1], 
+    fprintf(stdout, "%g+j*%g (%g)\n", work[0], work[1], 
 	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
 		 (field[1]-work[1])*(field[1]-work[1]))) ;
   }
@@ -451,7 +520,7 @@ gint expansion_normal_test(gfloat k, gint N,
     wbfmm_expansion_h_evaluate_f(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
 				    field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
     wbfmm_total_normal_field_f(k, xs, xstride, n, 1, q, 1, nsrc,
@@ -459,7 +528,7 @@ gint expansion_normal_test(gfloat k, gint N,
     /* wbfmm_total_dipole_field_f(k, xs, xstride, dipole, 1, nsrc, */
     /* 				  &(xf[i*xstride]), work) ; */
 
-    fprintf(stdout, "%g+j%g (%g)\n", work[0], work[1], 
+    fprintf(stdout, "%g+j*%g (%g)\n", work[0], work[1], 
 	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
 		 (field[1]-work[1])*(field[1]-work[1]))) ;
   }
@@ -536,20 +605,20 @@ gint translation_test(gfloat k, gint N,
     wbfmm_expansion_h_evaluate_f(k, xc, Ci, cstri, Ni, &(xf[i*fstride]),
 				    field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     field[0] = field[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_f(k, x0, Co, cstro, No, &(xf[i*fstride]),
 				    field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
     wbfmm_total_field_f(k, xs, xstride, src, sstride,
 			   NULL, 0, NULL, 0,			   
 			   nsrc, &(xf[i*fstride]), work) ;
 
-    fprintf(stdout, "%g+j%g ", work[0], work[1]) ;
+    fprintf(stdout, "%g+j*%g ", work[0], work[1]) ;
 
     fprintf(stdout, "(%g)\n",
   	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
@@ -629,19 +698,19 @@ gint translation_local_test(gfloat k, gint N,
     field[0] = field[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_f(k, xc, Ci, cstri, Ni, xr, field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     field[0] = field[1] = 0.0 ;
     wbfmm_expansion_j_evaluate_f(k, x0, Co, cstro, No, xr, field, work) ;
 
-    fprintf(stdout, "%g+j%g ", field[0], field[1]) ;
+    fprintf(stdout, "%g+j*%g ", field[0], field[1]) ;
 
     work[0] = work[1] = 0.0 ;
     wbfmm_total_field_f(k, xs, xstride, src, sstride,
 			   NULL, 0, NULL, 0,
 			   nsrc, xr, work) ;
 
-    fprintf(stdout, "%g+j%g ", work[0], work[1]) ;
+    fprintf(stdout, "%g+j*%g ", work[0], work[1]) ;
 
     fprintf(stdout, "(%g)\n",
   	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
@@ -723,14 +792,14 @@ gint rotation_test(gfloat k, gint N,
     wbfmm_expansion_h_evaluate_f(k, xc, Ci, cstri, N, &(xf[i*xstride]), 
 				    furot, work) ;
 
-    fprintf(stdout, "%g+j%g ", furot[0], furot[1]) ;
+    fprintf(stdout, "%g+j*%g ", furot[0], furot[1]) ;
 
     wbfmm_coordinate_transform_f(&(xf[i*xstride]), ix, iy, iz, y) ;
 
     frot[0] = frot[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_f(k, xc, Co, cstro, N, y, frot, work) ;
 
-    fprintf(stdout, "%g+j%g ", frot[0], frot[1]) ;
+    fprintf(stdout, "%g+j*%g ", frot[0], frot[1]) ;
 
     fprintf(stdout, "(%g, %g)\n",
 	    sqrt((furot[0]-ref[0])*(furot[0]-ref[0]) +
@@ -850,14 +919,14 @@ gint shift_test(gfloat k, gint N,
     wbfmm_expansion_h_evaluate_f(k, x0, C0, cstr0, N, 
 				    &(xf[i*xstride]), f0, work) ;
 
-    fprintf(stdout, "%g+j%g ", f0[0], f0[1]) ;
+    fprintf(stdout, "%g+j*%g ", f0[0], f0[1]) ;
 
     /*computed field on shifted coefficients*/
     f1[0] = f1[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_f(k, x1, C1, cstr1, N, 
 				    &(xf[i*xstride]), f1, work) ;
 
-    fprintf(stdout, "%g+j%g ", f1[0], f1[1]) ;
+    fprintf(stdout, "%g+j*%g ", f1[0], f1[1]) ;
 
     fprintf(stdout, "%g, %g\n",
 	    sqrt((f0[0]-ref[0])*(f0[0]-ref[0]) +
@@ -1167,8 +1236,8 @@ gint child_parent_test(gfloat k, gint Nc, gfloat *xc,
 				  xf, fp, work) ;
   wbfmm_total_field_f(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, 1, xf, fe) ;
 
-  fprintf(stderr, "%g+j%g ", fc[0], fc[1]) ;
-  fprintf(stderr, "%g+j%g ", fp[0], fp[1]) ;
+  fprintf(stderr, "%g+j*%g ", fc[0], fc[1]) ;
+  fprintf(stderr, "%g+j*%g ", fp[0], fp[1]) ;
   fprintf(stderr, "(%g, %g)\n", 
 	  sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) +
 	       (fc[1]-fe[1])*(fc[1]-fe[1])),
@@ -1288,7 +1357,7 @@ gint parent_child_test(gfloat k, gint Nc, gfloat *xc,
 			       xf, fp, work) ;
     wbfmm_expansion_j_evaluate_f(k, &(xb[3*i]), &(child[2*i]), 8, Nc,
 			       xf, fc, work) ;
-    fprintf(stderr, "%0.4f+j%0.4f %0.4f+j%0.4f %0.4f+j%0.4f (%lg, %lg)\n",
+    fprintf(stderr, "%0.4f+j*%0.4f %0.4f+j*%0.4f %0.4f+j*%0.4f (%lg, %lg)\n",
 	    fp[0], fp[1], fc[0], fc[1], fe[0], fe[1],
 	    sqrt((fp[0]-fe[0])*(fp[0]-fe[0]) + (fp[1]-fe[1])*(fp[1]-fe[1])),
 	    sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) + (fc[1]-fe[1])*(fc[1]-fe[1]))) ;
@@ -1407,13 +1476,13 @@ gint shift_local_test(gfloat k, gint N,
     f0[0] = f0[1] = 0.0 ;
     wbfmm_expansion_h_evaluate_f(k, x0, C0, cstr0, N0, xr, f0, work) ;
 
-    fprintf(stdout, "%g+j%g ", f0[0], f0[1]) ;
+    fprintf(stdout, "%g+j*%g ", f0[0], f0[1]) ;
 
     /*computed field on shifted coefficients*/
     f1[0] = f1[1] = 0.0 ;
     wbfmm_expansion_j_evaluate_f(k, x1, C1, cstr1, N1, xr, f1, work) ;
 
-    fprintf(stdout, "%g+j%g ", f1[0], f1[1]) ;
+    fprintf(stdout, "%g+j*%g ", f1[0], f1[1]) ;
 
     fprintf(stdout, "%g, %g\n",
 	    sqrt((f0[0]-ref[0])*(f0[0]-ref[0]) +
@@ -1916,5 +1985,12 @@ gint main(gint argc, gchar **argv)
     return 0 ;
   }
 
+  if ( test == 22 ) {
+    expansion_gradient_test(k, N, x0, xs, xstride, src, sstride, nsrc,
+			    xf, nfld) ;
+    return 0 ;
+  }
+
+  
   return 0 ;
 }

@@ -695,6 +695,34 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
  *
  * @ingroup expansions
  *
+ * @brief Evaluate the gradient of a singular expansion
+ *
+ * @param k wavenumber;
+ * @param x0 centre of expansion;
+ * @param cfft expansion coefficients;
+ * @param cstr stride in \a cfft, in number of complex elements;
+ * @param N order of expansion;
+ * @param xf field point;
+ * @param field incremented with computed gradient;
+ * @param work workspace
+ *
+ * @return 0 on success
+ *
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k, 
+							  WBFMM_REAL *x0,
+							  WBFMM_REAL *cfft,
+							  gint cstr,
+							  gint N, 
+							  WBFMM_REAL *xf, 
+							  WBFMM_REAL *field,
+							  WBFMM_REAL *work) {}
+
+/**
+ *
+ * @ingroup expansions
+ *
  * @brief Evaluate a regular expansion
  *
  * @param k wavenumber;
