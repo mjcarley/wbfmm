@@ -539,8 +539,8 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   nq = 2 ; fstr = 3 ;
   Ns = N ; Nr = Ns + 4 ;
 
-  xf[0] = x0[0] + 0.2 ; 
-  xf[1] = x0[1] - 0.1 ; 
+  xf[0] = x0[0] + 0.0 ; 
+  xf[1] = x0[1] - 0.0 ; 
   xf[2] = x0[2] + t + 0.1 ; 
   
   fprintf(stderr, "singular to regular translation gradient test\n") ;

@@ -69,17 +69,62 @@ For term $cS_{n}^{m}+c^{*}S_{n}^{-m}$, $m>0$,
 \end{align}
 
 \begin{align}
+  \partial_{xy} R_{n}^{m}
+  &=
+    -\left[
+    \frac{2n+1}{2n-1}(n-|m|)(n-|m|-1)
+    \right]^{1/2}
+    R_{n-1}^{m+1},\quad m \geq 0,\\
+  &=
+    \left[
+    \frac{2n+1}{2n-1}(n+|m|)(n+|m|-1)
+    \right]^{1/2}
+    R_{n-1}^{m+1},\quad m < 0,\\
+  \overline{\partial_{xy}} R_{n}^{m}
+  &=
+    \left[
+    \frac{2n+1}{2n-1}(n+|m|)(n+|m|-1)
+    \right]^{1/2}
+    R_{n-1}^{m-1},\quad m > 0,\\
+  &=
+    -\left[
+    \frac{2n+1}{2n-1}(n-|m|)(n-|m|-1)
+    \right]^{1/2}
+    R_{n-1}^{m-1},\quad m \leq 0,\\
   \frac{\partial}{\partial z}
   R_{n}^{m}
   &=
     \left[
     \frac{2n+1}{2n-1}(n-|m|)(n+|m|)
     \right]^{1/2}
-    R_{n-1}^{m},\\
+    R_{n-1}^{m}.
+\end{align}
+
+For term $cR_{n}^{m}+c^{*}R_{n}^{-m}$, $m>0$,
+\begin{align}
+  \partial_{xy} \left(cR_{n}^{m} + c^{*}R_{n}^{-m}\right)
+  &=
+    -b_{1}c
+    \overline{R_{n-1}^{m+1}}\E^{\J(m+1)\phi}
+    +b_{2}c^{*}
+    \overline{R_{n-1}^{m-1}}\E^{-\J(m-1)\phi},\\
+  \overline{\partial_{xy}} \left(cR_{n}^{m} + c^{*}R_{n}^{-m}\right)
+  &=
+    -b_{1}c^{*} \overline{R_{n-1}^{m+1}}\E^{-\J(m+1)\phi}
+    +b_{2}c \overline{R_{n-1}^{m-1}}\E^{\J(m-1)\phi},\\
+  b_{1} &=
+          \left[
+          \frac{2n+1}{2n-1}(n-m)(n-m-1)
+          \right]^{1/2},\\
+  b_{2} &=
+          \left[
+          \frac{2n+1}{2n-1}(n+m)(n+m-1)
+          \right]^{1/2},\\
   \overline{R_{n}^{m}}
   &=
     r^{n}\overline{P}_{n}^{|m|}(\cos\theta).
 \end{align}
+
 
 \end{document}
 
