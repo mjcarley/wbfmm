@@ -1066,7 +1066,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
 {
   WBFMM_REAL r, th, ph, rn, anm, b1, b2, Snmp1, Snmm1, Snm ;
   WBFMM_REAL Cth, Sth, *Pnm1, *Pn, *Pnp1 ;
-  WBFMM_REAL *Cmph, *Smph ;
+  WBFMM_REAL *Cmph, *Smph, cr, ci ;
   gint n, m, idx, i, fstr = 3 ;
 
   Pn = &(work[0]) ; Pnp1 = &(Pn[N+2]) ;
@@ -1094,15 +1094,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
   b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
   b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snmm1 = rn*Pnp1[m+1]*0.5 ;
   Snm   = rn*Pnp1[m] ;
-  Snmp1 = rn*Pnp1[m+1]/2.0 ;
-  Snmm1 = rn*Pnp1[m+1]/2.0 ;
+  Snmp1 = rn*Pnp1[m+1]*0.5 ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    /* field[fstr*i+0] -= cfft[cstr*idx+i]*b1*Snmp1*Cmph[1] ; */
-    /* field[fstr*i+0] -= cfft[cstr*idx+i]*b2*Snmm1*Cmph[1] ; */
-    field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
-
-    field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+    cr = cfft[cstr*idx+i] ;
+    field[fstr*i+0] -= cr*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+    field[fstr*i+1] -= cr*(b1*Snmp1+b2*Snmm1)*Smph[1] ;
+    field[fstr*i+2] -= cr*anm*Snm ;
   }
 
   if ( n = 0 ) return 0 ;
@@ -1116,48 +1115,36 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
 						      n, Cth, Sth) ;
   idx = n*n ;
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
-  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
-  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
-  Snm   = rn*Pnp1[m] ;
-  Snmp1 = rn*Pnp1[m+1]/2.0 ;
-  Snmm1 = rn*Pnp1[m+1]/2.0 ;
+  b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snmm1 = rn*Pnp1[m+1]*0.5 ;
+  Snm   = rn*Pnp1[m+0] ;
+  Snmp1 = rn*Pnp1[m+1]*0.5 ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
-    
-    field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+    cr = cfft[cstr*idx+i] ;
+    field[fstr*i+0] -= cr*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+    field[fstr*i+1] -= cr*(b1*Snmp1+b2*Snmm1)*Smph[1] ;
+    field[fstr*i+2] -= cr*anm*Snm ;
   }
 
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
-  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
-  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
-  Snm   = rn*Pnp1[m] ;
-  Snmp1 = rn*Pnp1[m+1]/2.0 ;
-  Snmm1 = rn*Pnp1[m-1]/2.0 ;
+  b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snmm1 = rn*Pnp1[m-1]*0.5 ;
+  Snm   = rn*Pnp1[m+0] ;
+  Snmp1 = rn*Pnp1[m+1]*0.5 ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    /* field[fstr*i+0] -= */
-    /*   b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] - */
-    /* 		cfft[cstr*(idx+1)+i]*Smph[m+1]) ;       */
-    /* field[fstr*i+0] += */
-    /*   b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] - */
-    /* 		cfft[cstr*(idx+1)+i]*Smph[m-1]) ;       */
-    /* field[fstr*i+0] += */
-    /*   b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] - */
-    /* 		cfft[cstr*(idx+1)+i]*Smph[m-1]) ;       */
-    /* field[fstr*i+0] -= */
-    /*   b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] - */
-    /* 		cfft[cstr*(idx+1)+i]*Smph[m+1]) ;       */
-    field[fstr*i+0] -=
-      2.0*b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] -
-		    cfft[cstr*(idx+1)+i]*Smph[m+1]) ;      
-    field[fstr*i+0] +=
-      2.0*b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] -
-		    cfft[cstr*(idx+1)+i]*Smph[m-1]) ;      
+    cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
     
-    field[fstr*i+2] -=
-      2.0*anm*Snm*(cfft[cstr*(idx+0)+i]*Cmph[m] -
-		   cfft[cstr*(idx+1)+i]*Smph[m]) ;
+    field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] - ci*Smph[m+1]) ;      
+    field[fstr*i+0] += 2.0*b2*Snmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;      
+
+    field[fstr*i+1] -= 2.0*b2*Snmm1*(ci*Cmph[m-1] + cr*Smph[m-1]) ;
+    field[fstr*i+1] -= 2.0*b1*Snmp1*(ci*Cmph[m+1] + cr*Smph[m+1]) ;
+    
+    field[fstr*i+2] -= 2.0*anm*Snm*(cr*Cmph[m] - ci*Smph[m]) ;
   }
 
   for ( n = 2 ; n <= N ; n ++ ) {
@@ -1170,37 +1157,35 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
     m = 0 ; 
     idx = n*n ;
     anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
-    b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
-    b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
-    Snm   = rn*Pnp1[m] ;
-    Snmp1 = rn*Pnp1[m+1]/2.0 ;
-    Snmm1 = rn*Pnp1[m+1]/2.0 ;
+    b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+    b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+    Snmm1 = rn*Pnp1[m+1]*0.5 ;
+    Snm   = rn*Pnp1[m+0] ;
+    Snmp1 = rn*Pnp1[m+1]*0.5 ;
     for ( i = 0 ; i < nq ; i ++ ) {
-      /* field[fstr*i+0] -= cfft[cstr*idx+i]*b1*Snmp1*Cmph[1] ; */
-      /* field[fstr*i+0] -= cfft[cstr*idx+i]*b2*Snmm1*Cmph[1] ; */
-      field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
-    
-      field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+      cr = cfft[cstr*idx+i] ;
+      field[fstr*i+0] -= cr*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+      field[fstr*i+1] -= cr*(b1*Snmp1+b2*Snmm1)*Smph[1] ;    
+      field[fstr*i+2] -= cr*anm*Snm ;
     }
     
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
-      b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
-      b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
-      Snm   = rn*Pnp1[m] ;
-      Snmp1 = rn*Pnp1[m+1]/2.0 ;
-      Snmm1 = rn*Pnp1[m-1]/2.0 ;
+      b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+      b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+      Snmm1 = rn*Pnp1[m-1]*0.5 ;
+      Snm   = rn*Pnp1[m+0] ;
+      Snmp1 = rn*Pnp1[m+1]*0.5 ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	field[fstr*i+0] -=
-	  2.0*b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] -
-			cfft[cstr*(idx+1)+i]*Smph[m+1]) ;      
-	field[fstr*i+0] +=
-	  2.0*b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] -
-			cfft[cstr*(idx+1)+i]*Smph[m-1]) ;      
+	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
+	field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] -	ci*Smph[m+1]) ;      
+	field[fstr*i+0] += 2.0*b2*Snmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;      
     
-	field[fstr*i+2] -= 2.0*anm*Snm*(cfft[cstr*(idx+0)+i]*Cmph[m] -
-					cfft[cstr*(idx+1)+i]*Smph[m]) ;
+	field[fstr*i+1] -= 2.0*b2*Snmm1*(ci*Cmph[m-1] + cr*Smph[m-1]) ;
+	field[fstr*i+1] -= 2.0*b1*Snmp1*(ci*Cmph[m+1] + cr*Smph[m+1]) ;
+	
+	field[fstr*i+2] -= 2.0*anm*Snm*(cr*Cmph[m] - ci*Smph[m]) ;
       }
     }
   }
