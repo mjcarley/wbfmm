@@ -327,6 +327,28 @@ gint wbfmm_laplace_field(gdouble *xs, gint xstride,
 			 gdouble *dipoles, gint dstr,
 			 gint nsrc,
 			 gdouble *xf, gdouble *field) ;
+gint wbfmm_laplace_field_grad(gdouble *xs, gint xstride,
+			      gdouble *src, gint sstride,
+			      gint nq,
+			      gdouble *normals, gint nstr,
+			      gdouble *dipoles, gint dstr,
+			      gint nsrc,
+			      gdouble *xf, gdouble *field) ;
+gint wbfmm_laplace_expansion_grad_evaluate(gdouble *x0, gdouble *cfft,
+					   gint cstr, gint N, gint nq,
+					   gdouble *xf, gdouble *field,
+					   gdouble *work) ;
+gint wbfmm_laplace_field_grad_f(gfloat *xs, gint xstride,
+				gfloat *src, gint sstride,
+				gint nq,
+				gfloat *normals, gint nstr,
+				gfloat *dipoles, gint dstr,
+				gint nsrc,
+				gfloat *xf, gfloat *field) ;
+gint wbfmm_laplace_expansion_grad_evaluate_f(gfloat *x0, gfloat *cfft,
+					     gint cstr, gint N, gint nq,
+					     gfloat *xf, gfloat *field,
+					     gfloat *work) ;
 gint wbfmm_laplace_expansion_evaluate(gdouble *x0, gdouble *cfft,
 				      gint cstr, gint N, gint nq,
 				      gdouble *xf, gdouble *field,

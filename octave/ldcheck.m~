@@ -1,0 +1,15 @@
+x = 0.4 ; y = 0.9 ; z = 3.1 ;  dz = 1e-6 ;
+
+n = 3 ; m = 1 ;
+
+S = sfunc(n, m, x, y, z) ;
+dS = (sfunc(n, m, x, y, z+0.5*dz) - sfunc(n, m, x, y, z-0.5*dz))/dz ;
+
+r = sqrt(x.^2 + y.^2 + z.^2) ;
+th = acos(z/r) ;
+ph = atan2(y, x) ;
+
+C = cos(th) ;
+
+P = nlegendre(n+1, C) ;
+ds = -exp(j*m*ph)*P(m+1)/r^(n+2)*sqrt((2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;

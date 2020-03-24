@@ -1041,3 +1041,217 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
   
   return 0 ;
 }
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
+								WBFMM_REAL
+								*cfft,
+								gint cstr, 
+								gint N, gint nq,
+								WBFMM_REAL *xf,
+								WBFMM_REAL
+								*field,
+								WBFMM_REAL
+								*work)
+
+/*
+  z derivative of singular functions:
+  \partial S_{n}^{m}/\partial z = -a_{n}^{m}S_{n+1}^{m}
+  
+  a_{n}^{m} = 
+  \left
+  (2n+1)(n+m+1)(n-m+1)/(2n+3)
+  \right]^{1/2}
+ */
+  
+{
+  WBFMM_REAL r, th, ph, rn, anm, b1, b2, Snmp1, Snmm1, Snm ;
+  WBFMM_REAL Cth, Sth, *Pnm1, *Pn, *Pnp1 ;
+  WBFMM_REAL *Cmph, *Smph ;
+  gint n, m, idx, i, fstr = 3 ;
+
+  Pn = &(work[0]) ; Pnp1 = &(Pn[N+2]) ;
+  Cmph = &(Pnp1[N+3]) ; Smph = &(Cmph[N+3]) ;
+
+  memset(Pn  , 0, (N+1)*sizeof(WBFMM_REAL)) ;
+  memset(Pnp1, 0, (N+2)*sizeof(WBFMM_REAL)) ;
+  memset(Cmph, 0, (N+3)*sizeof(WBFMM_REAL)) ;
+  memset(Smph, 0, (N+3)*sizeof(WBFMM_REAL)) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pn[0]), &(Pnp1[0]), &(Pnp1[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
+
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  rn = 1.0/r/r ;
+  idx = n*n ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
+  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snm   = rn*Pnp1[m] ;
+  Snmp1 = rn*Pnp1[m+1]/2.0 ;
+  Snmm1 = rn*Pnp1[m+1]/2.0 ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    /* field[fstr*i+0] -= cfft[cstr*idx+i]*b1*Snmp1*Cmph[1] ; */
+    /* field[fstr*i+0] -= cfft[cstr*idx+i]*b2*Snmm1*Cmph[1] ; */
+    field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+
+    field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+  }
+
+  if ( n = 0 ) return 0 ;
+  
+  n = 1 ; 
+  m = 0 ; 
+  rn /= r ;
+  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pn, &Pnp1,
+						      n, Cth, Sth) ;
+  idx = n*n ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
+  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snm   = rn*Pnp1[m] ;
+  Snmp1 = rn*Pnp1[m+1]/2.0 ;
+  Snmm1 = rn*Pnp1[m+1]/2.0 ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+    
+    field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+  }
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
+  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  Snm   = rn*Pnp1[m] ;
+  Snmp1 = rn*Pnp1[m+1]/2.0 ;
+  Snmm1 = rn*Pnp1[m-1]/2.0 ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    /* field[fstr*i+0] -= */
+    /*   b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] - */
+    /* 		cfft[cstr*(idx+1)+i]*Smph[m+1]) ;       */
+    /* field[fstr*i+0] += */
+    /*   b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] - */
+    /* 		cfft[cstr*(idx+1)+i]*Smph[m-1]) ;       */
+    /* field[fstr*i+0] += */
+    /*   b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] - */
+    /* 		cfft[cstr*(idx+1)+i]*Smph[m-1]) ;       */
+    /* field[fstr*i+0] -= */
+    /*   b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] - */
+    /* 		cfft[cstr*(idx+1)+i]*Smph[m+1]) ;       */
+    field[fstr*i+0] -=
+      2.0*b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] -
+		    cfft[cstr*(idx+1)+i]*Smph[m+1]) ;      
+    field[fstr*i+0] +=
+      2.0*b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] -
+		    cfft[cstr*(idx+1)+i]*Smph[m-1]) ;      
+    
+    field[fstr*i+2] -=
+      2.0*anm*Snm*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+		   cfft[cstr*(idx+1)+i]*Smph[m]) ;
+  }
+
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rn /= r ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pn, &Pnp1,
+							n, Cth, Sth) ;
+    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+    anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
+    b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+    b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+    Snm   = rn*Pnp1[m] ;
+    Snmp1 = rn*Pnp1[m+1]/2.0 ;
+    Snmm1 = rn*Pnp1[m+1]/2.0 ;
+    for ( i = 0 ; i < nq ; i ++ ) {
+      /* field[fstr*i+0] -= cfft[cstr*idx+i]*b1*Snmp1*Cmph[1] ; */
+      /* field[fstr*i+0] -= cfft[cstr*idx+i]*b2*Snmm1*Cmph[1] ; */
+      field[fstr*i+0] -= cfft[cstr*idx+i]*(b1*Snmp1+b2*Snmm1)*Cmph[1] ;
+    
+      field[fstr*i+2] -= cfft[cstr*idx+i]*anm*Snm ;
+    }
+    
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
+      b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+      b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+      Snm   = rn*Pnp1[m] ;
+      Snmp1 = rn*Pnp1[m+1]/2.0 ;
+      Snmm1 = rn*Pnp1[m-1]/2.0 ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	field[fstr*i+0] -=
+	  2.0*b1*Snmp1*(cfft[cstr*(idx+0)+i]*Cmph[m+1] -
+			cfft[cstr*(idx+1)+i]*Smph[m+1]) ;      
+	field[fstr*i+0] +=
+	  2.0*b2*Snmm1*(cfft[cstr*(idx+0)+i]*Cmph[m-1] -
+			cfft[cstr*(idx+1)+i]*Smph[m-1]) ;      
+    
+	field[fstr*i+2] -= 2.0*anm*Snm*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+					cfft[cstr*(idx+1)+i]*Smph[m]) ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
+						   gint xstride,
+						   WBFMM_REAL *src,
+						   gint sstride,
+						   gint nq,
+						   WBFMM_REAL *normals,
+						   gint nstr,
+						   WBFMM_REAL *dipoles,
+						   gint dstr,
+						   gint nsrc,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field)
+
+{
+  gint i, j ;
+  WBFMM_REAL r, th, ph, nR[3] ;
+  /* WBFMM_REAL fR[2], fd[6] ; */
+
+  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
+
+  g_assert(sstride >= nq) ;
+  
+  if ( normals != NULL && dipoles == NULL )
+    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
+	    __FUNCTION__) ;
+
+  if ( normals == NULL && dipoles == NULL ) {
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+							&r, &th, &ph) ;
+      nR[0] = (xf[0] - xs[i*xstride+0])/r*0.25*M_1_PI ;
+      nR[1] = (xf[1] - xs[i*xstride+1])/r*0.25*M_1_PI ;
+      nR[2] = (xf[2] - xs[i*xstride+2])/r*0.25*M_1_PI ;
+      for ( j = 0 ; j < nq ; j ++ ) {
+	field[3*j+0] -= src[i*sstride+j]/r/r*nR[0] ;
+	field[3*j+1] -= src[i*sstride+j]/r/r*nR[1] ;
+	field[3*j+2] -= src[i*sstride+j]/r/r*nR[2] ;
+      }
+    }
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
+  return 0 ;
+}

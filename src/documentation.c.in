@@ -1229,6 +1229,33 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
  *
  * @ingroup laplace
  *
+ * @brief Evaluate the gradient of a singular expansion for Laplace problem
+ *
+ * @param x0 origin of expansion;
+ * @param cfft on output, incremented with coefficients of expansion;
+ * @param cstr stride in \a cfft (must be at least equal to \a nq);
+ * @param N order of expansion;
+ * @param nq number of components in \a q;
+ * @param xf field point;
+ * @param field computed potential for each of the \a nq components;
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_grad_evaluate)(WBFMM_REAL *x0,
+								WBFMM_REAL *cfft,
+								gint cstr, gint N,
+								gint nq,
+								WBFMM_REAL *xf,
+								WBFMM_REAL *field,
+								WBFMM_REAL *work) {}
+
+/**
+ *
+ * @ingroup laplace
+ *
  * @brief Singular to singular translation for Laplace expansion
  *
  * Translate a singular expansion for the Laplace problem along the
@@ -1671,18 +1698,57 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
  * 
  * @ingroup laplace
  *
- * @brief 
+ * @brief Direct evaluation of the Laplace field from a list of sources
  * 
- * @param 
- * @param 
- * @param 
- * @param 
- * @param 
- * @param 
+ * @param xs source positions
+ * @param xstride source array stride
+ * @param src source strengths
+ * @param sstride source strength array stride
+ * @param nq number of source components
+ * @param normals normals at source positions
+ * @param nstr normal stride
+ * @param dipoles dipole components
+ * @param dstr dipole stride
+ * @param nsrc number of sources
+ * @param xf field point
+ * @param field on output incremented with computed field
  *
  * @return 0 on success
  *
 */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs, gint xstride,
+						   WBFMM_REAL *src, gint sstride,
+						   gint nq,
+						   WBFMM_REAL *normals, gint nstr,
+						   WBFMM_REAL *dipoles, gint dstr,
+						   gint nsrc,
+						   WBFMM_REAL *xf, WBFMM_REAL *field) {}
+
+/**
+ * 
+ * @ingroup laplace
+ *
+ * @brief Direct evaluation of the gradient of a Laplace field from a
+ * list of sources
+ * 
+ * @param xs source positions
+ * @param xstride source array stride
+ * @param src source strengths
+ * @param sstride source strength array stride
+ * @param nq number of source components
+ * @param normals normals at source positions
+ * @param nstr normal stride
+ * @param dipoles dipole components
+ * @param dstr dipole stride
+ * @param nsrc number of sources
+ * @param xf field point
+ * @param field on output incremented with computed field
+ *
+ * @return 0 on success
+ *
+*/
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 					      WBFMM_REAL *src, gint sstride,
 					      gint nq,
@@ -1690,6 +1756,48 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 					      WBFMM_REAL *dipoles, gint dstr,
 					      gint nsrc,
 					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
+
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
+							     gint cstro,
+							     gint No,
+							     WBFMM_REAL *Ci,
+							     gint cstri,
+							     gint Ni,
+							     gint nq,
+							     WBFMM_REAL t) {}
+
+/**
+ * 
+ * @ingroup laplace
+ *
+ * @brief Direct evaluation of the Laplace from a list of sources
+ * 
+ * @param xs source positions
+ * @param xstride source array stride
+ * @param src source strengths
+ * @param sstride source strength array stride
+ * @param nq number of source components
+ * @param normals normals at source positions
+ * @param nstr normal stride
+ * @param dipoles dipole components
+ * @param dstr dipole stride
+ * @param nsrc number of sources
+ * @param xf field point
+ * @param field on output incremented with computed field
+ *
+ * @return 0 on success
+ *
+*/
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
+					      WBFMM_REAL *src, gint sstride,
+					      gint nq,
+					      WBFMM_REAL *normals, gint nstr,
+					      WBFMM_REAL *dipoles, gint dstr,
+					      gint nsrc,
+					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
+
 
 /** 
  *

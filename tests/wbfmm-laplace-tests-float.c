@@ -36,6 +36,7 @@ gchar *tests[] = {"expansion",
 		  "shift",
 		  "child_parent",
 		  "parent_child",
+		  "expansion_gradient",
 		  ""} ;
 
 #define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
@@ -43,6 +44,9 @@ gchar *tests[] = {"expansion",
 gint expansion_test(gint N, gfloat *x0, gfloat *xs,
 		    gint xstride, gfloat *src, gint sstride,
 		    gint nsrc, gfloat *xf, gint nfld) ;
+gint expansion_gradient_test(gint N, gfloat *x0, gfloat *xs,
+			     gint xstride, gfloat *src, gint sstride,
+			     gint nsrc, gfloat *xf, gint nfld) ;
 gint translation_test(gint N, gfloat *x0, gfloat *xs,
 		      gint xstride, gfloat *src, gint sstride,
 		      gint nsrc, gfloat *xf, gint nfld, gfloat t) ;
@@ -206,6 +210,87 @@ gint expansion_test(gint N, gfloat *x0, gfloat *xs,
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%g ", fc[i]) ;
   fprintf(stderr, "\n") ;
 
+  fprintf(stderr, "field:      ") ;
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%g ", ff[i]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "expansion:  ") ;
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%g ", fe[i]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "errors:\n") ;  
+  fprintf(stderr, "field:      ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+  fprintf(stderr, "\n") ;
+  fprintf(stderr, "expansion:  ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ;
+  fprintf(stderr, "\n") ;
+  
+  return 0 ;
+}
+
+gint expansion_gradient_test(gint N, gfloat *x0, gfloat *xs,
+			     gint xstride, gfloat *src, gint sstride,
+			     gint nsrc, gfloat *xf, gint nfld)
+
+{
+  gint i, nq, cstr ;
+  gfloat cfft[BUFSIZE]={0.0}, work[8192]={0.0}, eval[BUFSIZE] = {0.0} ;
+  gfloat fc[32]={0.0}, ff[32]={0.0}, fe[32]={0.0} ;
+
+  nq = 2 ;
+  fprintf(stderr, "expansion gradient test\n") ;
+  fprintf(stderr, "=======================\n") ;
+  fprintf(stderr,
+	  "N = %d\n"
+	  "x0 = (%g, %g, %g)\n"
+	  "xf = (%g, %g, %g)\n"
+	  "nsrc = %d\n",
+	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], nsrc) ;
+
+  /*reference calculation*/
+  wbfmm_laplace_field_grad_f(xs, xstride, src, sstride, nq,
+				NULL, 0, NULL, 0, nsrc, xf, fc) ;
+
+  cstr = 3 ;
+  /*multipole expansion*/
+  for ( i = 0 ; i < nsrc ; i ++ ) 
+    wbfmm_laplace_expansion_cfft_f(N, x0, &(xs[i*xstride]),
+				      &(src[i*sstride]), nq, cfft, cstr,
+				      work) ;
+
+  wbfmm_laplace_expansion_grad_evaluate_f(x0, cfft, cstr, N, nq, xf, ff,
+					     work) ;
+
+  /*check pre-computed evaluation method*/
+  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
+  /* wbfmm_laplace_field_coefficients_f(xf, N, FALSE, eval, work) ; */
+  /* wbfmm_laplace_expansion_apply_f(cfft, cstr, nq, eval, N, fe) ; */
+  
+  fprintf(stderr, "exact:     ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%g %g %g, ",
+	    fc[3*i+0], fc[3*i+1], fc[3*i+2]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "expansion: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%g %g %g, ",
+	    ff[3*i+0], ff[3*i+1], ff[3*i+2]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "error: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%g %g %g, ",
+	    fabs(ff[3*i+0]-fc[3*i+0]),
+	    fabs(ff[3*i+1]-fc[3*i+1]),
+	    fabs(ff[3*i+2]-fc[3*i+2])) ;
+  fprintf(stderr, "\n") ;
+
+  return 0 ;
+  
   fprintf(stderr, "field:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%g ", ff[i]) ;
   fprintf(stderr, "\n") ;
@@ -1033,5 +1118,11 @@ gint main(gint argc, gchar **argv)
     return 0 ;
   }
   
+  if ( test == 8 ) {
+    expansion_gradient_test(N, x0, xs, xstride, src, sstride, nsrc, xf, nfld) ;
+
+    return 0 ;
+  }
+
   return 0 ;
 }

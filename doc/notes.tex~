@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{times}
+\usepackage{graphicx}
+
+\newcommand{\E}{\mathrm{e}}
+\newcommand{\J}{\mathrm{i}}
+
+\begin{document}
+
+With reference to Gumerov \& Duraiswami (CS-TR-4264), Laplace
+operators are:
+\begin{align}
+  \partial_{xy} S_{n}^{m}
+  &=
+    -\left[
+    \frac{2n+1}{2n+3}(n+m+1)(n+m+2)
+    \right]^{1/2}
+    S_{n+1}^{m+1},\quad m \geq 0,\\
+  &=
+    \left[
+    \frac{2n+1}{2n+3}(n+m+1)(n+m+2)
+    \right]^{1/2}
+    S_{n+1}^{m+1},\quad m < 0,\\
+  \overline{\partial_{xy}} S_{n}^{m}
+  &=
+    \left[
+    \frac{2n+1}{2n+3}(n-m+2)(n-m+1)
+    \right]^{1/2}
+    S_{n+1}^{m-1},\quad m > 0,\\
+  &=
+    -\left[
+    \frac{2n+1}{2n+3}(n-m+2)(n-m+1)
+    \right]^{1/2}
+    S_{n+1}^{m-1},\quad m \leq 0,\\
+  \partial_{z}S_{n}^{m}
+  &=
+    -\left[
+    \frac{2n+1}{2n+3}(n+m+1)(n-m+1)    
+    \right]^{1/2}
+    S_{n+1}^{m},\quad \forall m.
+\end{align}
+
+For term $cS_{n}^{m}+c^{*}S_{n}^{-m}$, $m>0$,
+\begin{align}
+  \partial_{xy} \left(cS_{n}^{m} + c^{*}S_{n}^{-m}\right)
+  &=r
+    -b_{1}c
+    \overline{S_{n+1}^{m+1}}\E^{\J(m+1)\phi}
+    +b_{2}c^{*}
+    \overline{S_{n+1}^{m-1}}\E^{-\J(m-1)\phi},\\
+  \overline{\partial_{xy}} \left(cS_{n}^{m} + c^{*}S_{n}^{-m}\right)
+  &=
+    -b_{1}c^{*}
+    \overline{S_{n+1}^{m+1}}\E^{-\J(m+1)\phi}
+    +b_{2}c
+    \overline{S_{n+1}^{m-1}}\E^{\J(m-1)\phi},\\
+  b_{1} &=
+  \left[
+          \frac{2n+1}{2n+3}(n+m+1)(n+m+2)
+  \right]^{1/2},\\
+  b_{2} &=
+  \left[
+          \frac{2n+1}{2n+3}(n-m+1)(n-m+2)
+          \right]^{1/2},\\
+  \overline{S_{n}^{m}}
+  &=
+\end{align}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
