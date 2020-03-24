@@ -37,6 +37,7 @@ gchar *tests[] = {"expansion",
 		  "child_parent",
 		  "parent_child",
 		  "expansion_gradient",
+		  "local_gradient"
 		  ""} ;
 
 #define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
@@ -73,6 +74,9 @@ gint translation_RR_test(gint N, gdouble *x0, gdouble *xs,
 			 gint xstride, gdouble *src, gint sstride,
 			 gint nsrc, gdouble *xf, gint nfld, gdouble t) ;
 gint translation_SR_test(gint N, gdouble *x0, gdouble *xs,
+			 gint xstride, gdouble *src, gint sstride,
+			 gint nsrc, gdouble *xf, gint nfld, gdouble t) ;
+gint local_gradient_test(gint N, gdouble *x0, gdouble *xs,
 			 gint xstride, gdouble *src, gint sstride,
 			 gint nsrc, gdouble *xf, gint nfld, gdouble t) ;
 
@@ -236,11 +240,11 @@ gint expansion_gradient_test(gint N, gdouble *x0, gdouble *xs,
 			     gint nsrc, gdouble *xf, gint nfld)
 
 {
-  gint i, nq, cstr ;
+  gint i, nq, cstr, fstr ;
   gdouble cfft[BUFSIZE]={0.0}, work[8192]={0.0}, eval[BUFSIZE] = {0.0} ;
   gdouble fc[32]={0.0}, ff[32]={0.0}, fe[32]={0.0} ;
 
-  nq = 2 ;
+  nq = 2 ; fstr = 4 ;
   fprintf(stderr, "expansion gradient test\n") ;
   fprintf(stderr, "=======================\n") ;
   fprintf(stderr,
@@ -252,7 +256,7 @@ gint expansion_gradient_test(gint N, gdouble *x0, gdouble *xs,
 
   /*reference calculation*/
   wbfmm_laplace_field_grad(xs, xstride, src, sstride, nq,
-				NULL, 0, NULL, 0, nsrc, xf, fc) ;
+				NULL, 0, NULL, 0, nsrc, xf, fc, fstr) ;
 
   cstr = 3 ;
   /*multipole expansion*/
@@ -261,8 +265,8 @@ gint expansion_gradient_test(gint N, gdouble *x0, gdouble *xs,
 				      &(src[i*sstride]), nq, cfft, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_grad_evaluate(x0, cfft, cstr, N, nq, xf, ff,
-					     work) ;
+  wbfmm_laplace_expansion_grad_evaluate(x0, cfft, cstr, N, nq, xf,
+					     ff, fstr, work) ;
 
   /*check pre-computed evaluation method*/
   /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
@@ -272,21 +276,21 @@ gint expansion_gradient_test(gint N, gdouble *x0, gdouble *xs,
   fprintf(stderr, "exact:     ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%lg %lg %lg, ",
-	    fc[3*i+0], fc[3*i+1], fc[3*i+2]) ;
+	    fc[fstr*i+0], fc[fstr*i+1], fc[fstr*i+2]) ;
   fprintf(stderr, "\n") ;
 
   fprintf(stderr, "expansion: ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%lg %lg %lg, ",
-	    ff[3*i+0], ff[3*i+1], ff[3*i+2]) ;
+	    ff[fstr*i+0], ff[fstr*i+1], ff[fstr*i+2]) ;
   fprintf(stderr, "\n") ;
 
   fprintf(stderr, "error: ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%lg %lg %lg, ",
-	    fabs(ff[3*i+0]-fc[3*i+0]),
-	    fabs(ff[3*i+1]-fc[3*i+1]),
-	    fabs(ff[3*i+2]-fc[3*i+2])) ;
+	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
   fprintf(stderr, "\n") ;
 
   return 0 ;
@@ -519,6 +523,107 @@ gint translation_RR_test(gint N, gdouble *x0, gdouble *xs,
   fprintf(stderr, "\n") ;
 
 
+  
+  return 0 ;
+}
+
+gint local_gradient_test(gint N, gdouble *x0, gdouble *xs,
+			 gint xstride, gdouble *src, gint sstride,
+			 gint nsrc, gdouble *xf, gint nfld, gdouble t)
+
+{
+  gint i, nq, cstr, Ns, Nr, fstr ;
+  gdouble Ci[BUFSIZE]={0.0}, work[8192]={0.0}, Co[BUFSIZE]={0.0} ;
+  gdouble fc[32]={0.0}, ff[32]={0.0}, ft[32]={0.0} ;
+
+  nq = 2 ; fstr = 3 ;
+  Ns = N ; Nr = Ns + 4 ;
+
+  xf[0] = x0[0] + 0.2 ; 
+  xf[1] = x0[1] - 0.1 ; 
+  xf[2] = x0[2] + t + 0.1 ; 
+  
+  fprintf(stderr, "singular to regular translation gradient test\n") ;
+  fprintf(stderr, "=============================================\n") ;
+  fprintf(stderr,
+	  "Ns = %d\n"
+	  "Nr = %d\n"
+	  "x0 = (%lg, %lg, %lg)\n"
+	  "xf = (%lg, %lg, %lg)\n"
+	  "t  = %lg\n"
+	  "nsrc = %d\n",
+	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
+
+  /*reference calculation*/
+  wbfmm_laplace_field_grad(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+				nsrc, xf, fc, fstr) ;
+
+  cstr = 4 ;
+  /*multipole expansion*/
+  for ( i = 0 ; i < nsrc ; i ++ ) 
+    wbfmm_laplace_expansion_cfft(Ns, x0, &(xs[i*xstride]),
+				      &(src[i*sstride]), nq, Ci, cstr,
+				      work) ;
+
+  wbfmm_laplace_expansion_grad_evaluate(x0, Ci, cstr, Ns, nq, xf,
+					     ff, fstr, work) ;
+
+  /*translate the expansion*/
+  wbfmm_laplace_coaxial_translate_SR(Co, cstr, Nr, Ci, cstr, Ns, nq, t) ;
+
+  x0[2] += t ;
+  wbfmm_laplace_expansion_local_grad_evaluate(x0, Co, cstr, Nr, nq,
+  						   xf, ft, fstr, work) ;
+
+  fprintf(stderr, "exact:     ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%lg %lg %lg, ",
+	    fc[fstr*i+0], fc[fstr*i+1], fc[fstr*i+2]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "expansion: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%lg %lg %lg, ",
+	    ff[fstr*i+0], ff[fstr*i+1], ff[fstr*i+2]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "error: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%lg %lg %lg, ",
+	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "expansion: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%lg %lg %lg, ",
+	    ft[fstr*i+0], ft[fstr*i+1], ft[fstr*i+2]) ;
+  fprintf(stderr, "\n") ;
+
+  fprintf(stderr, "error: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%lg %lg %lg, ",
+	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ;
+  fprintf(stderr, "\n") ;
+
+  
+  return 0 ;
+  
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%lg ", fc[i]) ;
+  fprintf(stderr, "\n") ;
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%lg ", ff[i]) ;
+  fprintf(stderr, "\n") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+  fprintf(stderr, "\n") ;
+  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%lg ", ft[i]) ;
+  fprintf(stderr, "\n") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+  fprintf(stderr, "\n") ;
   
   return 0 ;
 }
@@ -1121,6 +1226,12 @@ gint main(gint argc, gchar **argv)
   if ( test == 8 ) {
     expansion_gradient_test(N, x0, xs, xstride, src, sstride, nsrc, xf, nfld) ;
 
+    return 0 ;
+  }
+
+  if ( test == 9 ) {
+    local_gradient_test(N, x0, xs, xstride, src, sstride, nsrc, xf, nfld, x) ;
+    
     return 0 ;
   }
 

@@ -270,6 +270,88 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
   return 0 ;
 }
 
+gint
+WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
+								 WBFMM_REAL
+								 *cfft,
+								 gint cstr, 
+								 gint N,
+								 gint nq,
+								 WBFMM_REAL *xf,
+								 WBFMM_REAL
+								 *field,
+								 gint fstr,
+								 WBFMM_REAL
+								 *work)
+
+{
+  WBFMM_REAL r, th, ph, rn, anm ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
+  WBFMM_REAL *Cmph, *Smph ;
+  gint n, m, idx, i ;
+  /* gint chk = 0 ; */
+  
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
+  Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
+
+  /*first two terms by hand; gradient of zero order term is zero*/  
+  n = 1 ; 
+  m = 0 ; 
+  rn = 1.0 ;
+  idx = n*n ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    field[fstr*i+2] += anm*cfft[cstr*idx+i]*rn*Pnm1[m] ;
+  }
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    field[fstr*i+2] += 2.0*anm*Pnm1[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+					   cfft[cstr*(idx+1)+i]*Smph[m]) ;
+  }
+
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rn *= r ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
+    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+    anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+    for ( i = 0 ; i < nq ; i ++ ) {
+      field[fstr*i+2] += anm*cfft[cstr*idx+i]*rn*Pnm1[m] ;
+    }
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	field[fstr*i+2] += 2.0*anm*Pnm1[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+					       cfft[cstr*(idx+1)+i]*Smph[m]) ;
+    	/* field[fstr*i+2] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] - */
+    	/* 			  cfft[cstr*(idx+1)+i]*Smph[m]) ; */
+      }
+    }
+  }
+#if 0
+#endif
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 					      WBFMM_REAL *src, gint sstride,
 					      gint nq,
@@ -1050,6 +1132,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
 								WBFMM_REAL *xf,
 								WBFMM_REAL
 								*field,
+								gint fstr,
 								WBFMM_REAL
 								*work)
 
@@ -1067,8 +1150,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL r, th, ph, rn, anm, b1, b2, Snmp1, Snmm1, Snm ;
   WBFMM_REAL Cth, Sth, *Pnm1, *Pn, *Pnp1 ;
   WBFMM_REAL *Cmph, *Smph, cr, ci ;
-  gint n, m, idx, i, fstr = 3 ;
+  gint n, m, idx, i ;
 
+  if ( fstr < 3 )
+    g_error("%s: field data stride (%d) must be greater than two",
+	    __FUNCTION__, fstr) ;
+  
   Pn = &(work[0]) ; Pnp1 = &(Pn[N+2]) ;
   Cmph = &(Pnp1[N+3]) ; Smph = &(Cmph[N+3]) ;
 
@@ -1092,10 +1179,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   rn = 1.0/r/r ;
   idx = n*n ;
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n-m+1)) ;
-  b1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
-  b2 = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
   Snmm1 = rn*Pnp1[m+1]*0.5 ;
-  Snm   = rn*Pnp1[m] ;
+  Snm   = rn*Pnp1[m+0] ;
   Snmp1 = rn*Pnp1[m+1]*0.5 ;
   for ( i = 0 ; i < nq ; i ++ ) {
     cr = cfft[cstr*idx+i] ;
@@ -1138,8 +1225,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   for ( i = 0 ; i < nq ; i ++ ) {
     cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
     
-    field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] - ci*Smph[m+1]) ;      
     field[fstr*i+0] += 2.0*b2*Snmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;      
+    field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] - ci*Smph[m+1]) ;      
 
     field[fstr*i+1] -= 2.0*b2*Snmm1*(ci*Cmph[m-1] + cr*Smph[m-1]) ;
     field[fstr*i+1] -= 2.0*b1*Snmp1*(ci*Cmph[m+1] + cr*Smph[m+1]) ;
@@ -1179,8 +1266,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
       Snmp1 = rn*Pnp1[m+1]*0.5 ;
       for ( i = 0 ; i < nq ; i ++ ) {
 	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
-	field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] -	ci*Smph[m+1]) ;      
+
 	field[fstr*i+0] += 2.0*b2*Snmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;      
+	field[fstr*i+0] -= 2.0*b1*Snmp1*(cr*Cmph[m+1] -	ci*Smph[m+1]) ;      
     
 	field[fstr*i+1] -= 2.0*b2*Snmm1*(ci*Cmph[m-1] + cr*Smph[m-1]) ;
 	field[fstr*i+1] -= 2.0*b1*Snmp1*(ci*Cmph[m+1] + cr*Smph[m+1]) ;
@@ -1204,7 +1292,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
 						   gint dstr,
 						   gint nsrc,
 						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field)
+						   WBFMM_REAL *field,
+						   gint fstr)
 
 {
   gint i, j ;
@@ -1212,6 +1301,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
   /* WBFMM_REAL fR[2], fd[6] ; */
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
+
+  if ( fstr < 3 )
+    g_error("%s: field data stride (%d) must be greater than two",
+	    __FUNCTION__, fstr) ;
 
   g_assert(sstride >= nq) ;
   
@@ -1227,9 +1320,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
       nR[1] = (xf[1] - xs[i*xstride+1])/r*0.25*M_1_PI ;
       nR[2] = (xf[2] - xs[i*xstride+2])/r*0.25*M_1_PI ;
       for ( j = 0 ; j < nq ; j ++ ) {
-	field[3*j+0] -= src[i*sstride+j]/r/r*nR[0] ;
-	field[3*j+1] -= src[i*sstride+j]/r/r*nR[1] ;
-	field[3*j+2] -= src[i*sstride+j]/r/r*nR[2] ;
+	field[fstr*j+0] -= src[i*sstride+j]/r/r*nR[0] ;
+	field[fstr*j+1] -= src[i*sstride+j]/r/r*nR[1] ;
+	field[fstr*j+2] -= src[i*sstride+j]/r/r*nR[2] ;
       }
     }
 

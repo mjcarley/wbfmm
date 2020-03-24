@@ -333,10 +333,11 @@ gint wbfmm_laplace_field_grad(gdouble *xs, gint xstride,
 			      gdouble *normals, gint nstr,
 			      gdouble *dipoles, gint dstr,
 			      gint nsrc,
-			      gdouble *xf, gdouble *field) ;
+			      gdouble *xf, gdouble *field, gint fstr) ;
 gint wbfmm_laplace_expansion_grad_evaluate(gdouble *x0, gdouble *cfft,
 					   gint cstr, gint N, gint nq,
 					   gdouble *xf, gdouble *field,
+					   gint fstr,
 					   gdouble *work) ;
 gint wbfmm_laplace_field_grad_f(gfloat *xs, gint xstride,
 				gfloat *src, gint sstride,
@@ -344,10 +345,11 @@ gint wbfmm_laplace_field_grad_f(gfloat *xs, gint xstride,
 				gfloat *normals, gint nstr,
 				gfloat *dipoles, gint dstr,
 				gint nsrc,
-				gfloat *xf, gfloat *field) ;
+				gfloat *xf, gfloat *field, gint fstr) ;
 gint wbfmm_laplace_expansion_grad_evaluate_f(gfloat *x0, gfloat *cfft,
 					     gint cstr, gint N, gint nq,
 					     gfloat *xf, gfloat *field,
+					     gint fstr,
 					     gfloat *work) ;
 gint wbfmm_laplace_expansion_evaluate(gdouble *x0, gdouble *cfft,
 				      gint cstr, gint N, gint nq,
@@ -365,6 +367,17 @@ gint wbfmm_laplace_expansion_local_evaluate_f(gfloat *x0, gfloat *cfft,
 					      gint cstr, gint N, gint nq,
 					      gfloat *xf, gfloat *field,
 					      gfloat *work) ;
+gint wbfmm_laplace_expansion_local_grad_evaluate(gdouble *x0, gdouble *cfft,
+						 gint cstr, gint N,
+						 gint nq, gdouble *xf,
+						 gdouble *field,
+						 gint fstr, gdouble *work) ;
+gint wbfmm_laplace_expansion_local_grad_evaluate_f(gfloat *x0, gfloat *cfft,
+						   gint cstr, gint N,
+						   gint nq, gfloat *xf,
+						   gfloat *field,
+						   gint fstr, gfloat *work) ;
+
 gint wbfmm_laplace_coaxial_translate_init(gint N) ;
 gint wbfmm_laplace_coaxial_translate_init_f(gint N) ;
 

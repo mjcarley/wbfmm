@@ -1238,6 +1238,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
  * @param nq number of components in \a q;
  * @param xf field point;
  * @param field computed potential for each of the \a nq components;
+ * @param fstr stride in \a field
  * @param work workspace.
  *
  * @return 0 on success
@@ -1250,6 +1251,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_grad_evaluate)(WBFMM_REAL *x0,
 								gint nq,
 								WBFMM_REAL *xf,
 								WBFMM_REAL *field,
+								gint fstr,
 								WBFMM_REAL *work) {}
 
 /**
