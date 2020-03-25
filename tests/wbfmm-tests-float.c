@@ -51,7 +51,8 @@ gchar *tests[] = {"legendre",
 		  "expansion_dipole",
 		  "rotations_write",
 		  "expansion_normal",
-		  "expansion_gradient"
+		  "expansion_gradient",
+		  "local_gradient",
 		  ""} ;
 
 gint rotations_write(gint N, gfloat ix[], gfloat iy[],
@@ -83,6 +84,12 @@ gint translation_local_test(gfloat k, gint N,
 			    gfloat *src, gint sstride,
 			    gint nsrc,
 			    gfloat *xf, gint fstride, gint nfld) ;
+gint local_gradient_test(gfloat k, gint N, 
+			 gfloat xc[], gfloat x,
+			 gfloat *xs, gint xstride,
+			 gfloat *src, gint sstride,
+			 gint nsrc,
+			 gfloat *xf, gint fstride, gint nfld) ;
 gint rotation_test(gfloat k, gint N, 
 		   gfloat *xc,
 		   gfloat *xs, gint xstride,
@@ -715,6 +722,121 @@ gint translation_local_test(gfloat k, gint N,
     fprintf(stdout, "(%g)\n",
   	    sqrt((field[0]-work[0])*(field[0]-work[0]) +
   		 (field[1]-work[1])*(field[1]-work[1]))) ;
+  }
+
+  fprintf(stderr, "%s ends: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  return 0 ;
+}
+
+gint local_gradient_test(gfloat k, gint N, 
+			 gfloat xc[], gfloat x,
+			 gfloat *xs, gint xstride,
+			 gfloat *src, gint sstride,
+			 gint nsrc,
+			 gfloat *xf, gint fstride, gint nfld)
+
+/*
+  coaxial translation from xc to x0 and check on evaluation of field
+*/
+
+{
+  gfloat Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
+  gfloat fl[32]={0.0}, fe[32]={0.0}, fc[32]={0.0} ;
+  gfloat kr, work[BUFSIZE], xr[3], x0[3] ;
+  gint i, Ni, No, cstri, cstro, fstr ;
+  gdouble t0 ;
+
+  t0 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "%s start: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  Ni = No = N ; fstr = 3 ;
+  if ( N > 12 ) Ni = N - 3 ; 
+  cstri = 1 ;
+  cstro = 1 ;
+
+  x0[0] = xc[0] ; x0[1] = xc[1] ; x0[2] = xc[2] + x ; 
+  
+  xr[0] = x0[0] + 0.1 ;
+  xr[1] = x0[1] + 0.2 ;
+  xr[2] = x0[2] + 0.3 ;
+
+  /*generate coaxial shift coefficients*/
+  /* kr = -k*(xc[2] - x0[2]) ; */
+  kr = k*(x0[2] - xc[2]) ;
+  wbfmm_coefficients_SR_coaxial_f(shift, N, kr, work) ;
+  fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  /* memset(work, 0, BUFSIZE*sizeof(gfloat)) ; */
+
+  fprintf(stderr, "initial expansion: %g %g %g\n", 
+	  xc[0], xc[1], xc[2]) ;
+  fprintf(stderr, "shifted expansion: %g %g %g\n", 
+	  x0[0], x0[1], x0[2]) ;
+  fprintf(stderr, "coaxial translation: kr = %g\n", kr) ;
+
+  /*expand about origin*/
+  for ( i = 0 ; i < nsrc ; i ++ ) {
+    wbfmm_expansion_h_cfft_f(k, Ni, xc, &(xs[i*xstride]), &(src[i*sstride]),
+				Ci, cstri, work) ;
+  }
+
+  fprintf(stderr, "%s initial expansion generated: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  /*apply shift*/
+  wbfmm_coaxial_translate_f(Co, cstro, No, Ci, cstri, Ni, shift, N,
+			       TRUE) ;
+  fprintf(stderr, "%s coefficients translated: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  /*compute field in both frames*/
+  for ( i = 0 ; i < nfld ; i ++ ) {
+    memset(fe, 0, 32*sizeof(gfloat)) ;
+    memset(fl, 0, 32*sizeof(gfloat)) ;
+    memset(fc, 0, 32*sizeof(gfloat)) ;
+    wbfmm_total_field_grad_f(k, xs, xstride, src, sstride,
+				NULL, 0, NULL, 0,
+				nsrc, xr, fc) ;
+
+    fprintf(stdout, "direct:      %g+j*%g "
+	    "%g+j*%g %g+j*%g\n",
+	    fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
+
+    wbfmm_expansion_h_grad_evaluate_f(k, xc, Ci, cstri, Ni, xr, fe, fstr,
+					 work) ;
+
+    fprintf(stdout, "h expansion: %g+j*%g "
+	    "%g+j*%g %g+j*%g\n",
+	    fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
+
+    fprintf(stdout, "             %g %g %g\n",
+  	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+  		 (fe[1]-fc[1])*(fe[1]-fc[1])),
+  	    sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
+  		 (fe[3]-fc[3])*(fe[3]-fc[3])),
+  	    sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
+  		 (fe[5]-fc[5])*(fe[5]-fc[5]))
+	    ) ;
+
+    wbfmm_expansion_j_grad_evaluate_f(k, x0, Co, cstro, No, xr, fl, fstr,
+					 work) ;
+
+    fprintf(stdout, "j expansion: %g+j*%g "
+	    "%g+j*%g %g+j*%g\n",
+	    fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]) ;
+
+    fprintf(stdout, "             %g %g %g\n",
+  	    sqrt((fl[0]-fc[0])*(fl[0]-fc[0]) +
+  		 (fl[1]-fc[1])*(fl[1]-fc[1])),
+  	    sqrt((fl[2]-fc[2])*(fl[2]-fc[2]) +
+  		 (fl[3]-fc[3])*(fl[3]-fc[3])),
+  	    sqrt((fl[4]-fc[4])*(fl[4]-fc[4]) +
+  		 (fl[5]-fc[5])*(fl[5]-fc[5]))
+	    ) ;
   }
 
   fprintf(stderr, "%s ends: %lg\n",
@@ -1765,6 +1887,7 @@ gint rotations_write(gint N, gfloat ix[], gfloat iy[],
   return 0 ;
 }
 
+
 gint main(gint argc, gchar **argv)
 
 {
@@ -1988,6 +2111,13 @@ gint main(gint argc, gchar **argv)
   if ( test == 22 ) {
     expansion_gradient_test(k, N, x0, xs, xstride, src, sstride, nsrc,
 			    xf, nfld) ;
+    return 0 ;
+  }
+
+  if ( test == 23 ) {
+    local_gradient_test(k, N, xc, x, xs, xstride, src, sstride, nsrc,
+			xf, fstride, nfld) ;
+
     return 0 ;
   }
 
