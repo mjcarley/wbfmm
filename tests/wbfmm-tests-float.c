@@ -358,10 +358,10 @@ gint expansion_gradient_test(gfloat k, gint N,
 
 {
   gfloat cfft[4096] = {0}, work[1024] ;
-  gint i, cstr ;
+  gint i, cstr, fstr ;
   gdouble t0 ;
 
-  cstr = 2 ;
+  cstr = 2 ; fstr = 4 ;
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -379,7 +379,7 @@ gint expansion_gradient_test(gfloat k, gint N,
 
     wbfmm_expansion_h_grad_evaluate_f(k, x0, cfft, cstr, N,
 					 &(xf[i*xstride]), 
-					 field, work) ;
+					 field, fstr, work) ;
 
     fprintf(stdout,
 	    "%g+j*%g %g+j*%g %g+j*%g\n",

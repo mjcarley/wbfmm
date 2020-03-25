@@ -14,6 +14,8 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft} (gdouble k, gint N,
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
@@ -22,6 +24,8 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, g
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -277,6 +281,86 @@ Evaluate a singular expansion.
 {\em xf} & field point; \\
 \hline
 {\em field} & incremented with computed field; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}}
+\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{k, }
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{N, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__expansions_gab194b25bd2b96d73edfe23e10af09536}
+
+
+Evaluate the gradient of a singular expansion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}, in number of complex elements; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & incremented with computed gradient; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}}
+\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{k, }
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{N, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__expansions_ga7423056c70c8f5ae29710a956e81c25a}
+
+
+Evaluate the gradient of a singular expansion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}, in number of complex elements; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & incremented with computed gradient; \\
 \hline
 {\em work} & workspace\\
 \hline

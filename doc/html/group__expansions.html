@@ -57,6 +57,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5aba93d8454663ff005b4efb432054e6"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga5aba93d8454663ff005b4efb432054e6">wbfmm_expansion_h_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="memdesc:ga5aba93d8454663ff005b4efb432054e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a singular expansion.  <a href="#ga5aba93d8454663ff005b4efb432054e6">More...</a><br /></td></tr>
 <tr class="separator:ga5aba93d8454663ff005b4efb432054e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab194b25bd2b96d73edfe23e10af09536"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gab194b25bd2b96d73edfe23e10af09536">wbfmm_expansion_h_grad_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
+<tr class="memdesc:gab194b25bd2b96d73edfe23e10af09536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion.  <a href="#gab194b25bd2b96d73edfe23e10af09536">More...</a><br /></td></tr>
+<tr class="separator:gab194b25bd2b96d73edfe23e10af09536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac9668aa319572d57678daea10c0a458e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gac9668aa319572d57678daea10c0a458e">wbfmm_expansion_j_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="memdesc:gac9668aa319572d57678daea10c0a458e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="#gac9668aa319572d57678daea10c0a458e">More...</a><br /></td></tr>
 <tr class="separator:gac9668aa319572d57678daea10c0a458e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -69,6 +72,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gaa18c7c959a45da7e1fcb6dadc77e0a90">wbfmm_expansion_h_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
 <tr class="memdesc:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a singular expansion.  <a href="#gaa18c7c959a45da7e1fcb6dadc77e0a90">More...</a><br /></td></tr>
 <tr class="separator:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7423056c70c8f5ae29710a956e81c25a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga7423056c70c8f5ae29710a956e81c25a">wbfmm_expansion_h_grad_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
+<tr class="memdesc:ga7423056c70c8f5ae29710a956e81c25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion.  <a href="#ga7423056c70c8f5ae29710a956e81c25a">More...</a><br /></td></tr>
+<tr class="separator:ga7423056c70c8f5ae29710a956e81c25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad5d4c4ca0541289f2975030c324186c2"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gad5d4c4ca0541289f2975030c324186c2">wbfmm_expansion_j_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
 <tr class="memdesc:gad5d4c4ca0541289f2975030c324186c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="#gad5d4c4ca0541289f2975030c324186c2">More...</a><br /></td></tr>
 <tr class="separator:gad5d4c4ca0541289f2975030c324186c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -573,6 +579,162 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gab194b25bd2b96d73edfe23e10af09536"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_expansion_h_grad_evaluate </td>
+          <td>(</td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>cfft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>xf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Evaluate the gradient of a singular expansion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
+    <tr><td class="paramname">x0</td><td>centre of expansion; </td></tr>
+    <tr><td class="paramname">cfft</td><td>expansion coefficients; </td></tr>
+    <tr><td class="paramname">cstr</td><td>stride in <em>cfft</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">xf</td><td>field point; </td></tr>
+    <tr><td class="paramname">field</td><td>incremented with computed gradient; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga7423056c70c8f5ae29710a956e81c25a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_expansion_h_grad_evaluate_f </td>
+          <td>(</td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>cfft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>cstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>xf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Evaluate the gradient of a singular expansion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
+    <tr><td class="paramname">x0</td><td>centre of expansion; </td></tr>
+    <tr><td class="paramname">cfft</td><td>expansion coefficients; </td></tr>
+    <tr><td class="paramname">cstr</td><td>stride in <em>cfft</em>, in number of complex elements; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">xf</td><td>field point; </td></tr>
+    <tr><td class="paramname">field</td><td>incremented with computed gradient; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="gac9668aa319572d57678daea10c0a458e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -732,7 +894,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 5 2019 16:49:56 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 25 2020 10:27:58 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

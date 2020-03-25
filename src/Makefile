@@ -151,7 +151,8 @@ libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
 	util.lo factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo \
 	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
-	rotations-laplace.lo targets.lo
+	rotations-laplace.lo targets.lo gradient.lo \
+	gradient-laplace.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -164,7 +165,8 @@ am_libwbfmm_f_la_OBJECTS = libwbfmm_f_la-expansions.lo \
 	libwbfmm_f_la-shiftbw.lo libwbfmm_f_la-pass.lo \
 	libwbfmm_f_la-laplace.lo libwbfmm_f_la-shift-laplace.lo \
 	libwbfmm_f_la-shiftbw-laplace.lo libwbfmm_f_la-pass-laplace.lo \
-	libwbfmm_f_la-rotations-laplace.lo libwbfmm_f_la-targets.lo
+	libwbfmm_f_la-rotations-laplace.lo libwbfmm_f_la-targets.lo \
+	libwbfmm_f_la-gradient.lo libwbfmm_f_la-gradient-laplace.lo
 libwbfmm_f_la_OBJECTS = $(am_libwbfmm_f_la_OBJECTS)
 libwbfmm_f_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libwbfmm_f_la_CFLAGS) \
@@ -246,7 +248,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -O0 -g -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -395,7 +397,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = -I$(top_srcdir) -I$(includedir) -DG_LOG_DOMAIN=\"WBFMM\" \
-	-DWBFMM_COMPILER_FLAGS="\"-g -O0 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include\""
+	-DWBFMM_COMPILER_FLAGS="\"-O0 -g -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include\""
 
 bin_SCRIPTS = wbfmm-config
 BUILT_SOURCES = \
@@ -435,7 +437,9 @@ libwbfmm_la_SOURCES = \
 	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
-	targets.c
+	targets.c \
+	gradient.c \
+	gradient-laplace.c
 
 libwbfmm_f_la_SOURCES = \
 	wbfmm-private.h \
@@ -453,7 +457,9 @@ libwbfmm_f_la_SOURCES = \
 	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
-	targets.c
+	targets.c \
+	gradient.c \
+	gradient-laplace.c
 
 libwbfmm_f_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
 include_HEADERS = \
@@ -585,11 +591,15 @@ distclean-compile:
 include ./$(DEPDIR)/boxes.Plo
 include ./$(DEPDIR)/expansions.Plo
 include ./$(DEPDIR)/factorial.Plo
+include ./$(DEPDIR)/gradient-laplace.Plo
+include ./$(DEPDIR)/gradient.Plo
 include ./$(DEPDIR)/indexing.Plo
 include ./$(DEPDIR)/laplace.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-expansions.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo
+include ./$(DEPDIR)/libwbfmm_f_la-gradient-laplace.Plo
+include ./$(DEPDIR)/libwbfmm_f_la-gradient.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
@@ -745,6 +755,20 @@ libwbfmm_f_la-targets.lo: targets.c
 #	$(AM_V_CC)source='targets.c' object='libwbfmm_f_la-targets.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
+
+libwbfmm_f_la-gradient.lo: gradient.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-gradient.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-gradient.Tpo -c -o libwbfmm_f_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-gradient.Tpo $(DEPDIR)/libwbfmm_f_la-gradient.Plo
+#	$(AM_V_CC)source='gradient.c' object='libwbfmm_f_la-gradient.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
+
+libwbfmm_f_la-gradient-laplace.lo: gradient-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-gradient-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Tpo -c -o libwbfmm_f_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Plo
+#	$(AM_V_CC)source='gradient-laplace.c' object='libwbfmm_f_la-gradient-laplace.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

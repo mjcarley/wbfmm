@@ -43,7 +43,9 @@ libwbfmm_la_SOURCES = \
 	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
-	targets.c
+	targets.c \
+	gradient.c \
+	gradient-laplace.c
 
 libwbfmm_f_la_SOURCES = \
 	wbfmm-private.h \
@@ -61,7 +63,9 @@ libwbfmm_f_la_SOURCES = \
 	shiftbw-laplace.c \
 	pass-laplace.c \
 	rotations-laplace.c \
-	targets.c
+	targets.c \
+	gradient.c \
+	gradient-laplace.c
 
 
 documentation.c: documentation.c.in

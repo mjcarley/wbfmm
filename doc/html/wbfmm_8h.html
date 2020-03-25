@@ -60,6 +60,8 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__library__config__t.html">wbfmm_library_config_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__box__t.html">wbfmm_box_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a></td></tr>
@@ -111,6 +113,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5aba93d8454663ff005b4efb432054e6"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga5aba93d8454663ff005b4efb432054e6">wbfmm_expansion_h_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="memdesc:ga5aba93d8454663ff005b4efb432054e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a singular expansion.  <a href="group__expansions.html#ga5aba93d8454663ff005b4efb432054e6">More...</a><br /></td></tr>
 <tr class="separator:ga5aba93d8454663ff005b4efb432054e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab194b25bd2b96d73edfe23e10af09536"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gab194b25bd2b96d73edfe23e10af09536">wbfmm_expansion_h_grad_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
+<tr class="memdesc:gab194b25bd2b96d73edfe23e10af09536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion.  <a href="group__expansions.html#gab194b25bd2b96d73edfe23e10af09536">More...</a><br /></td></tr>
+<tr class="separator:gab194b25bd2b96d73edfe23e10af09536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac9668aa319572d57678daea10c0a458e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gac9668aa319572d57678daea10c0a458e">wbfmm_expansion_j_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint N, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="memdesc:gac9668aa319572d57678daea10c0a458e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="group__expansions.html#gac9668aa319572d57678daea10c0a458e">More...</a><br /></td></tr>
 <tr class="separator:gac9668aa319572d57678daea10c0a458e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +141,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gad0f2457911b1324fe39bab1044dd8c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generation of singular expansion coefficients for point source in Laplace problem.  <a href="group__laplace.html#gad0f2457911b1324fe39bab1044dd8c9a">More...</a><br /></td></tr>
 <tr class="separator:gad0f2457911b1324fe39bab1044dd8c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga12ac2edf679dfd52e1108f2f74ce505e"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga12ac2edf679dfd52e1108f2f74ce505e">wbfmm_laplace_field</a> (gdouble *xs, gint xstride, gdouble *src, gint sstride, gint nq, gdouble *normals, gint nstr, gdouble *dipoles, gint dstr, gint nsrc, gdouble *xf, gdouble *field)</td></tr>
+<tr class="memdesc:ga12ac2edf679dfd52e1108f2f74ce505e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the gradient of a Laplace field from a list of sources.  <a href="group__laplace.html#ga12ac2edf679dfd52e1108f2f74ce505e">More...</a><br /></td></tr>
 <tr class="separator:ga12ac2edf679dfd52e1108f2f74ce505e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9fe069b51c26672209dc655720654dff"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga9fe069b51c26672209dc655720654dff">wbfmm_laplace_expansion_local_evaluate</a> (gdouble *x0, gdouble *cfft, gint cstr, gint N, gint nq, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="separator:ga9fe069b51c26672209dc655720654dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +157,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gad2f28f1b407481b0f9c21e3893b75ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generation of singular expansion coefficients for point source in Laplace problem.  <a href="group__laplace.html#gad2f28f1b407481b0f9c21e3893b75ef8">More...</a><br /></td></tr>
 <tr class="separator:gad2f28f1b407481b0f9c21e3893b75ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4c1182e5aac03f9fbaf2a1dabb29a957"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga4c1182e5aac03f9fbaf2a1dabb29a957">wbfmm_laplace_field_f</a> (gfloat *xs, gint xstride, gfloat *src, gint sstride, gint nq, gfloat *normals, gint nstr, gfloat *dipoles, gint dstr, gint nsrc, gfloat *xf, gfloat *field)</td></tr>
+<tr class="memdesc:ga4c1182e5aac03f9fbaf2a1dabb29a957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the gradient of a Laplace field from a list of sources.  <a href="group__laplace.html#ga4c1182e5aac03f9fbaf2a1dabb29a957">More...</a><br /></td></tr>
 <tr class="separator:ga4c1182e5aac03f9fbaf2a1dabb29a957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga52d2376289622a76d27f1b7a256bbe04"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga52d2376289622a76d27f1b7a256bbe04">wbfmm_laplace_coaxial_translate_SS</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t)</td></tr>
 <tr class="memdesc:ga52d2376289622a76d27f1b7a256bbe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to singular translation for Laplace expansion.  <a href="group__laplace.html#ga52d2376289622a76d27f1b7a256bbe04">More...</a><br /></td></tr>
@@ -334,6 +341,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gaa18c7c959a45da7e1fcb6dadc77e0a90">wbfmm_expansion_h_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
 <tr class="memdesc:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a singular expansion.  <a href="group__expansions.html#gaa18c7c959a45da7e1fcb6dadc77e0a90">More...</a><br /></td></tr>
 <tr class="separator:gaa18c7c959a45da7e1fcb6dadc77e0a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7423056c70c8f5ae29710a956e81c25a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga7423056c70c8f5ae29710a956e81c25a">wbfmm_expansion_h_grad_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
+<tr class="memdesc:ga7423056c70c8f5ae29710a956e81c25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion.  <a href="group__expansions.html#ga7423056c70c8f5ae29710a956e81c25a">More...</a><br /></td></tr>
+<tr class="separator:ga7423056c70c8f5ae29710a956e81c25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad5d4c4ca0541289f2975030c324186c2"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gad5d4c4ca0541289f2975030c324186c2">wbfmm_expansion_j_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint N, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
 <tr class="memdesc:gad5d4c4ca0541289f2975030c324186c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="group__expansions.html#gad5d4c4ca0541289f2975030c324186c2">More...</a><br /></td></tr>
 <tr class="separator:gad5d4c4ca0541289f2975030c324186c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -421,7 +431,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 5 2019 16:49:56 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 25 2020 10:27:58 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
