@@ -78,7 +78,7 @@ gint main(gint argc, gchar **argv)
   wbfmm_shift_operators_t *shifts ;
   gdouble k, D, xtree[3] = {0.0}, xtmax[3], *sources ;
   gdouble del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, i, str, strf, nf, qstr, nstr, dstr ;
+  gint nsrc, i, str, strf, nf, qstr, nstr, dstr, nq ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
@@ -88,6 +88,7 @@ gint main(gint argc, gchar **argv)
   wbfmm_library_config_t lconfig ;
   
   k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+  nq = 1 ;
   depth = 2 ; str = 5 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   /* order_s = 8 ; order_r = 8 ; */
@@ -291,6 +292,7 @@ gint main(gint argc, gchar **argv)
   
   wbfmm_tree_leaf_expansions(tree, k,
 				  q, qstr, normals, nstr, dipoles, dstr,
+				  nq,
 				  TRUE, work) ;
   
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",

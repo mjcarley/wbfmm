@@ -241,7 +241,7 @@ gint expansion_gradient_test(gint N, gfloat *x0, gfloat *xs,
 
 {
   gint i, nq, cstr, fstr ;
-  gfloat cfft[BUFSIZE]={0.0}, work[8192]={0.0}, eval[BUFSIZE] = {0.0} ;
+  gfloat cfft[BUFSIZE]={0.0}, work[8192]={0.0} ;
   gfloat fc[32]={0.0}, ff[32]={0.0}, fe[32]={0.0} ;
 
   nq = 2 ; fstr = 4 ;

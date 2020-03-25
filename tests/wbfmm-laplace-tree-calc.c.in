@@ -83,9 +83,8 @@ gint main(gint argc, gchar **argv)
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
-  guint64 b ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean write_sources, fit_box, shift_bw ;
+  gboolean fit_box, shift_bw ;
 
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ; str = 5 ;
@@ -93,7 +92,6 @@ gint main(gint argc, gchar **argv)
   /* order_s = 8 ; order_r = 8 ; */
   order_s = order_r = 0 ;
   order_max = 0 ;
-  write_sources = FALSE ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
   

@@ -169,7 +169,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   
 {
   WBFMM_REAL r, th, ph, rn, anm, b1, b2, Snmp1, Snmm1, Snm ;
-  WBFMM_REAL Cth, Sth, *Pnm1, *Pn, *Pnp1 ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnp1 ;
   WBFMM_REAL *Cmph, *Smph, cr, ci ;
   gint n, m, idx, i ;
 

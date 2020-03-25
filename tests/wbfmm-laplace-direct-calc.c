@@ -66,8 +66,8 @@ gint main(gint argc, gchar **argv)
 
 {
   gdouble *sources ;
-  gdouble *xf, *f, *q, *normals, *dipoles ;
-  gint nsrc, i, j, str, strf, nf, qstr, dstr, nstr, nq ;
+  gdouble *xf, *f, *q ;
+  gint nsrc, i, j, str, strf, nf, qstr, nq ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
 
   progname = g_strdup(g_path_get_basename(argv[0])) ;

@@ -658,7 +658,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
   guint32 nb, nc, i, j, ns, d, idx, nq ;
   guint64 im ;
   wbfmm_box_t *boxes ;
-  WBFMM_REAL *xs, *q, *fd, *n, xb[3], wb ;
+  WBFMM_REAL *xs, *q, xb[3], wb ;
 
   if ( (nq = wbfmm_tree_source_size(t)) < 1 )
     g_error("%s: tree has invalid number of components in source terms (%d)",
@@ -816,7 +816,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 							     WBFMM_REAL *work)
 
 {
-  WBFMM_REAL xb[3], wb, *C, *xs, r, fR[2] ;
+  WBFMM_REAL xb[3], wb, *C, *xs, r ;
   wbfmm_box_t *boxes, box ;
   guint64 neighbours[27] ;
   gint nnbr, i, j, k, idx, nq ;

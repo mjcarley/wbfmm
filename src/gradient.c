@@ -93,6 +93,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
 							  WBFMM_REAL *x0,
 							  WBFMM_REAL *cfft,
 							  gint cstr,
+							  gint nq,
 							  gint N, 
 							  WBFMM_REAL *xf, 
 							  WBFMM_REAL *field,
@@ -104,10 +105,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
 */
 		       
 {
-  WBFMM_REAL hn[2], hnm1[2], hnp1[2], r, th, ph, kr ;
+  WBFMM_REAL hn[2]={0.0}, hnm1[2]={0.0}, hnp1[2]={0.0}, r, th, ph, kr ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, *Pnp1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
+  g_assert(nq == 1) ;
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
@@ -211,26 +213,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
   return 0 ;
 }
 
-/* static gint expansion_j_grad_increment(gint n, gint m, gint sgn, */
-/* 				       WBFMM_REAL jn, */
-/* 				       WBFMM_REAL *cfft, gint cstr,  */
-/* 				       WBFMM_REAL *Pn, */
-/* 				       WBFMM_REAL Cmph, WBFMM_REAL Smph, */
-/* 				       WBFMM_REAL *field) */
-
-/* { */
-/*   gint idx ; */
-/*   WBFMM_REAL ar, ai, tr, ti ; */
-
-/*   idx = wbfmm_coefficient_index_nm(n,sgn*m) ; */
-/*   ar = cfft[2*idx*cstr+0] ; ai = cfft[2*idx*cstr+1] ;  */
-/*   tr = ar*jn ; ti = ai*jn ; */
-/*   field[0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ; */
-/*   field[1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ; */
-  
-/*   return 0 ; */
-/* } */
-
 static gint expansion_j_grad_increment(gint n, gint m, gint sgn,
 				       WBFMM_REAL k,
 				       WBFMM_REAL jnm1, WBFMM_REAL jnp1,
@@ -296,6 +278,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
 							  WBFMM_REAL *x0,
 							  WBFMM_REAL *cfft,
 							  gint cstr,
+							  gint nq,
 							  gint N, 
 							  WBFMM_REAL *xf, 
 							  WBFMM_REAL *field,
@@ -311,6 +294,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, *Pnp1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
+  g_assert(nq == 1) ;
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
@@ -335,7 +319,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
 
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
-
+  jnm1 = 0.0 ;
   /*first two terms by hand*/
   n = 0 ; 
   m = 0 ; 

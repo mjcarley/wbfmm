@@ -45,7 +45,7 @@ static gint expansion_h_increment_cfft(gint n, gint m, gint sgn,
 
 gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
 						 WBFMM_REAL *x0, WBFMM_REAL *xs,
-						 WBFMM_REAL *q, 
+						 WBFMM_REAL *q, gint nq,
 						 WBFMM_REAL *cfft, gint cstr,
 						 WBFMM_REAL *work)
 
@@ -58,6 +58,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
+  g_assert(nq == 1) ;
+  
   /*G&D (2.17)*/
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
@@ -129,6 +131,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
 						     WBFMM_REAL *x0,
 						     WBFMM_REAL *cfft,
 						     gint cstr,
+						     gint nq,
 						     gint N, 
 						     WBFMM_REAL *xf, 
 						     WBFMM_REAL *field,
@@ -142,6 +145,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
   WBFMM_REAL hn[2], hnm1[2], r, th, ph, kr ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
+
+  g_assert(nq == 1) ;
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
@@ -216,7 +221,7 @@ static gint expansion_j_increment(gint n, gint m, gint sgn,
 gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
 						     WBFMM_REAL *x0,
 						     WBFMM_REAL *cfft,
-						     gint cstr,
+						     gint cstr, gint nq,
 						     gint N, 
 						     WBFMM_REAL *xf, 
 						     WBFMM_REAL *field,
@@ -230,6 +235,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
   WBFMM_REAL jn, jnm1, r, th, ph, kr ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
+
+  g_assert(nq == 1) ;
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
@@ -344,6 +351,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
 							WBFMM_REAL *fxi,
 							WBFMM_REAL *fyi,
 							WBFMM_REAL *fzi,
+							gint nq,
 							WBFMM_REAL *cfft,
 							gint cstr,
 							WBFMM_REAL *work)
@@ -357,6 +365,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
+  g_assert(nq == 1) ;
+  
   /*G&D (2.17) combined with derivatives (3.2)--(3.7)*/
 
   /*f_{\pm} = (k/2) \mathbf{f}.(i_{x} \pm j i_{y})*/
@@ -421,8 +431,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
 							WBFMM_REAL *xs,
 							WBFMM_REAL *normal,
 							WBFMM_REAL *q,
+							gint nq,
 							WBFMM_REAL *cfft,
-							gint cstr,
+							gint cstr, 
 							WBFMM_REAL *work)
 
 /*
@@ -434,6 +445,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
+  g_assert(nq == 1) ;
   /*G&D (2.17) combined with derivatives (3.2)--(3.7)*/
 
   /*f_{\pm} = (k/2) \mathbf{f}.(i_{x} \pm j i_{y})*/

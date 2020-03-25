@@ -254,6 +254,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  * @param dipoles dipole source strengths (if \a normals is not NULL), or 
  * moment vectors (if \a normals is NULL);
  * @param dstr stride of data in \a dipoles;
+ * @param nq number of source components;
  * @param zero_expansions if TRUE, set expansion coefficients to zero
  * before adding source terms;
  * @param work workspace.
@@ -269,6 +270,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
 						      gint nstr,
 						      WBFMM_REAL *dipoles,
 						      gint dstr,
+						      gint nq,
 						      gboolean zero_expansions,
 						      WBFMM_REAL *work) {}
 
@@ -618,6 +620,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  * @param x0 centre of expansion;
  * @param xs source position;
  * @param q complex source strength;
+ * @param nq number of source elements;
  * @param cfft incremented with expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
  * @param work workspace
@@ -629,7 +632,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N, 
                                                   WBFMM_REAL *x0,
 						  WBFMM_REAL *xs,
-						  WBFMM_REAL *q, 
+						  WBFMM_REAL *q, gint nq,
 						  WBFMM_REAL *cfft, gint cstr,
 						  WBFMM_REAL *work) {}
 
@@ -646,6 +649,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  * @param fx component of complex source strength;
  * @param fy component of complex source strength;
  * @param fz component of complex source strength;
+ * @param nq number of source elements;
  * @param cfft incremented with expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
  * @param work workspace
@@ -655,13 +659,49 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  */
 
  gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N, 
-						  WBFMM_REAL *x0,
-						  WBFMM_REAL *xs,
-						  WBFMM_REAL *fx,
-						  WBFMM_REAL *fy,
-						  WBFMM_REAL *fz,
-						  WBFMM_REAL *cfft, gint cstr,
+							 WBFMM_REAL *x0,
+							 WBFMM_REAL *xs,
+							 WBFMM_REAL *fx,
+							 WBFMM_REAL *fy,
+							 WBFMM_REAL *fz,
+							 gint nq,
+							 WBFMM_REAL *cfft,
+							 gint cstr,
 							 WBFMM_REAL *work) {}
+
+
+ /**
+ *
+ * @ingroup expansions
+ *
+ * @brief Generation of singular expansion coefficients for point
+ * dipole source defined as normal and strength
+ *
+ * @param k wavenumber;
+ * @param N order of expansion;
+ * @param x0 centre of expansion;
+ * @param xs source position;
+ * @param normal normal vector for source orientation;
+ * @param q complex source strength;
+ * @param nq number of source elements;
+ * @param cfft incremented with expansion coefficients;
+ * @param cstr stride in \a cfft, in number of complex elements;
+ * @param nq number of source elements;
+ * @param work workspace
+ *
+ * @return 0 on success
+ *
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N, 
+							WBFMM_REAL *x0,
+							WBFMM_REAL *xs,
+							WBFMM_REAL *normal,
+							WBFMM_REAL *q,
+							gint nq,
+							WBFMM_REAL *cfft,
+							gint cstr,
+							WBFMM_REAL *work) ;
 
 /**
  *
@@ -673,6 +713,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  * @param x0 centre of expansion;
  * @param cfft expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
+ * @param nq number of source elements;
  * @param N order of expansion;
  * @param xf field point;
  * @param field incremented with computed field;
@@ -683,12 +724,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k, 
-                                                      WBFMM_REAL *x0,
-						      WBFMM_REAL *cfft,
-						      gint cstr,
-						      gint N, 
-						      WBFMM_REAL *xf, 
-						      WBFMM_REAL *field,
+						     WBFMM_REAL *x0,
+						     WBFMM_REAL *cfft,
+						     gint cstr,
+						     gint nq,
+						     gint N, 
+						     WBFMM_REAL *xf, 
+						     WBFMM_REAL *field,
 						     WBFMM_REAL *work) {}
 
 /**
@@ -701,6 +743,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
  * @param x0 centre of expansion;
  * @param cfft expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
+ * @param nq number of source elements;
  * @param N order of expansion;
  * @param xf field point;
  * @param field incremented with computed gradient;
@@ -714,10 +757,43 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
 							  WBFMM_REAL *x0,
 							  WBFMM_REAL *cfft,
 							  gint cstr,
+							  gint nq,
 							  gint N, 
 							  WBFMM_REAL *xf, 
 							  WBFMM_REAL *field,
 							  WBFMM_REAL *work) {}
+
+
+/**
+ *
+ * @ingroup expansions
+ *
+ * @brief Evaluate the gradient of a reggular expansion
+ *
+ * @param k wavenumber;
+ * @param x0 centre of expansion;
+ * @param cfft expansion coefficients;
+ * @param cstr stride in \a cfft, in number of complex elements;
+ * @param nq number of source elements;
+ * @param N order of expansion;
+ * @param xf field point;
+ * @param field incremented with computed gradient;
+ * @param work workspace
+ *
+ * @return 0 on success
+ *
+ */
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
+							  WBFMM_REAL *x0,
+							  WBFMM_REAL *cfft,
+							  gint cstr,
+							  gint nq,
+							  gint N, 
+							  WBFMM_REAL *xf, 
+							  WBFMM_REAL *field,
+							  gint fstr,
+							  WBFMM_REAL *work) ;
 
 /**
  *
@@ -729,6 +805,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
  * @param x0 centre of expansion;
  * @param cfft expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
+ * @param nq number of source elements;
  * @param N order of expansion;
  * @param xf field point;
  * @param field incremented with computed field;
@@ -741,7 +818,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
  gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
                                                       WBFMM_REAL *x0,
 						      WBFMM_REAL *cfft,
-						      gint cstr,
+						      gint cstr, gint nq,
 						      gint N, 
 						      WBFMM_REAL *xf, 
 						      WBFMM_REAL *field,

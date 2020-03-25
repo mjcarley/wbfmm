@@ -317,17 +317,17 @@ gint expansion_test(gdouble k, gint N,
 
 {
   gdouble cfft[4096] = {0}, work[1024], field[2] ;
-  gint i, cstr ;
+  gint i, cstr, nq ;
   gdouble t0 ;
 
-  cstr = 2 ;
+  cstr = 2 ; nq = 1 ;
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, N, x0, &(xs[i*xstride]), &(src[i*sstride]),
-				cfft, cstr, work) ;
+				nq, cfft, cstr, work) ;
   }
 
   fprintf(stderr, "%s expansion generated: %lg\n",
@@ -335,7 +335,7 @@ gint expansion_test(gdouble k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
+    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, nq, N, &(xf[i*xstride]), 
 				    field, work) ;
 
     fprintf(stdout, "%lg+j%lg ", field[0], field[1]) ;
@@ -365,26 +365,26 @@ gint expansion_gradient_test(gdouble k, gint N,
 
 {
   gdouble cfft[4096] = {0}, work[1024] ;
-  gint i, cstr, fstr ;
+  gint i, cstr, fstr, nq ;
   gdouble t0 ;
 
-  cstr = 2 ; fstr = 4 ;
+  cstr = 2 ; fstr = 4 ; nq = 1 ;
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, N, x0, &(xs[i*xstride]), &(src[i*sstride]),
-				cfft, cstr, work) ;
+				nq, cfft, cstr, work) ;
   }
 
   fprintf(stderr, "%s expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < nfld ; i ++ ) {
-    gdouble field[6] = {0.0}, dz=1e-6 ;
+    gdouble field[6] = {0.0} ;
 
-    wbfmm_expansion_h_grad_evaluate(k, x0, cfft, cstr, N,
+    wbfmm_expansion_h_grad_evaluate(k, x0, cfft, cstr, nq, N,
 					 &(xf[i*xstride]), 
 					 field, fstr, work) ;
 
@@ -428,10 +428,10 @@ gint expansion_dipole_test(gdouble k, gint N,
 {
   gdouble cfft[4096] = {0}, work[1024], field[2], dipole[6] ;
   gdouble *fx, *fy, *fz ;
-  gint i, cstr ;
+  gint i, cstr, nq ;
   gdouble t0 ;
 
-  nsrc = 1 ;
+  nsrc = 1 ; nq = 1 ;
 
   fx = &(dipole[0]) ; fy = &(dipole[2]) ; fz = &(dipole[4]) ;
   fx[0] = 1.3 ; fx[1] = -0.9 ;
@@ -446,6 +446,7 @@ gint expansion_dipole_test(gdouble k, gint N,
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_dipole_h_cfft(k, N, x0,
 				       &(xs[i*xstride]), fx, fy, fz,
+				       nq, 
 				       cfft, cstr, work) ;
   }
 
@@ -454,7 +455,7 @@ gint expansion_dipole_test(gdouble k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
+    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, nq, N, &(xf[i*xstride]), 
 				    field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
@@ -485,10 +486,10 @@ gint expansion_normal_test(gdouble k, gint N,
   gdouble cfft[16384] = {0}, work[16384], field[2], dipole[6] ;
   gdouble n[3], q[2] ;
   gdouble *fx, *fy, *fz ;
-  gint i, cstr ;
+  gint i, cstr, nq ;
   gdouble t0 ;
 
-  nsrc = 1 ;
+  nsrc = 1 ; nq = 1 ;
 
   /* n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.5 ; */
   n[0] = 0.1 ; n[1] = -0.3 ; n[2] = 1.0 ;
@@ -512,7 +513,7 @@ gint expansion_normal_test(gdouble k, gint N,
 
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_normal_h_cfft(k, N, x0,
-    				       &(xs[i*xstride]), n, q,
+    				       &(xs[i*xstride]), n, q, nq,
     				       cfft, cstr, work) ;
     /* wbfmm_expansion_dipole_h_cfft(k, N, x0, */
     /* 				       &(xs[i*xstride]), fx, fy, fz, */
@@ -524,7 +525,8 @@ gint expansion_normal_test(gdouble k, gint N,
 
   for ( i = 0 ; i < nfld ; i ++ ) {
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, N, &(xf[i*xstride]), 
+    wbfmm_expansion_h_evaluate(k, x0, cfft, cstr, nq,
+				    N, &(xf[i*xstride]), 
 				    field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
@@ -560,14 +562,14 @@ gint translation_test(gdouble k, gint N,
 {
   gdouble Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   gdouble field[2], kr, work[BUFSIZE], x0[3] ;
-  gint i, Ni, No, cstri, cstro ;
+  gint i, Ni, No, cstri, cstro, nq ;
   gdouble t0 ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  Ni = No = N ;
+  Ni = No = N ; nq = 1 ;
   if ( N > 12 ) Ni = N - 3 ; 
   cstri = 2 ;
   cstro = 3 ;
@@ -592,7 +594,7 @@ gint translation_test(gdouble k, gint N,
   /*expand about origin*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, Ni, xc, &(xs[i*xstride]), &(src[i*sstride]),
-				Ci, cstri, work) ;
+				nq, Ci, cstri, work) ;
   }
 
   fprintf(stderr, "%s initial expansion generated: %lg\n",
@@ -609,13 +611,13 @@ gint translation_test(gdouble k, gint N,
   /*compute field in both frames*/
   for ( i = 0 ; i < nfld ; i ++ ) {
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, Ni, &(xf[i*fstride]),
+    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, nq, Ni, &(xf[i*fstride]),
 				    field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
 
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, Co, cstro, No, &(xf[i*fstride]),
+    wbfmm_expansion_h_evaluate(k, x0, Co, cstro, nq, No, &(xf[i*fstride]),
 				    field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
@@ -652,14 +654,14 @@ gint translation_local_test(gdouble k, gint N,
 {
   gdouble Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   gdouble field[2], kr, work[BUFSIZE], xr[3], x0[3] ;
-  gint i, Ni, No, cstri, cstro ;
+  gint i, Ni, No, cstri, cstro, nq ;
   gdouble t0 ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  Ni = No = N ;
+  Ni = No = N ; nq = 1 ;
   if ( N > 12 ) Ni = N - 3 ; 
   cstri = 1 ;
   cstro = 1 ;
@@ -688,7 +690,7 @@ gint translation_local_test(gdouble k, gint N,
   /*expand about origin*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, Ni, xc, &(xs[i*xstride]), &(src[i*sstride]),
-				Ci, cstri, work) ;
+				nq, Ci, cstri, work) ;
   }
 
   fprintf(stderr, "%s initial expansion generated: %lg\n",
@@ -703,12 +705,12 @@ gint translation_local_test(gdouble k, gint N,
   /*compute field in both frames*/
   for ( i = 0 ; i < nfld ; i ++ ) {
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, Ni, xr, field, work) ;
+    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, nq, Ni, xr, field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
 
     field[0] = field[1] = 0.0 ;
-    wbfmm_expansion_j_evaluate(k, x0, Co, cstro, No, xr, field, work) ;
+    wbfmm_expansion_j_evaluate(k, x0, Co, cstro, nq, No, xr, field, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", field[0], field[1]) ;
 
@@ -745,14 +747,14 @@ gint local_gradient_test(gdouble k, gint N,
   gdouble Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   gdouble fl[32]={0.0}, fe[32]={0.0}, fc[32]={0.0} ;
   gdouble kr, work[BUFSIZE], xr[3], x0[3] ;
-  gint i, Ni, No, cstri, cstro, fstr ;
+  gint i, Ni, No, cstri, cstro, fstr, nq ;
   gdouble t0 ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  Ni = No = N ; fstr = 3 ;
+  Ni = No = N ; fstr = 3 ; nq = 1 ;
   if ( N > 12 ) Ni = N - 3 ; 
   cstri = 1 ;
   cstro = 1 ;
@@ -781,7 +783,7 @@ gint local_gradient_test(gdouble k, gint N,
   /*expand about origin*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, Ni, xc, &(xs[i*xstride]), &(src[i*sstride]),
-				Ci, cstri, work) ;
+				nq, Ci, cstri, work) ;
   }
 
   fprintf(stderr, "%s initial expansion generated: %lg\n",
@@ -806,7 +808,7 @@ gint local_gradient_test(gdouble k, gint N,
 	    "%lg+j*%lg %lg+j*%lg\n",
 	    fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
 
-    wbfmm_expansion_h_grad_evaluate(k, xc, Ci, cstri, Ni, xr, fe, fstr,
+    wbfmm_expansion_h_grad_evaluate(k, xc, Ci, cstri, nq, Ni, xr, fe, fstr,
 					 work) ;
 
     fprintf(stdout, "h expansion: %lg+j*%lg "
@@ -822,7 +824,7 @@ gint local_gradient_test(gdouble k, gint N,
   		 (fe[5]-fc[5])*(fe[5]-fc[5]))
 	    ) ;
 
-    wbfmm_expansion_j_grad_evaluate(k, x0, Co, cstro, No, xr, fl, fstr,
+    wbfmm_expansion_j_grad_evaluate(k, x0, Co, cstro, nq, No, xr, fl, fstr,
 					 work) ;
 
     fprintf(stdout, "j expansion: %lg+j*%lg "
@@ -859,10 +861,10 @@ gint rotation_test(gdouble k, gint N,
   gdouble ix0[3], iy0[3], iz0[3] ;
   gdouble Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
   gdouble furot[2], frot[2], ref[2], y[3] ;
-  gint i, cstri, cstro ;
+  gint i, cstri, cstro, nq ;
   gdouble t0, dt ;
   
-  cstri = 3 ; cstro = 2 ;
+  cstri = 3 ; cstro = 2 ; nq = 1 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
@@ -878,7 +880,7 @@ gint rotation_test(gdouble k, gint N,
   /*expand about origin*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, N, xc, &(xs[i*xstride]), &(src[i*sstride]),
-				Ci, cstri, work) ;
+				nq, Ci, cstri, work) ;
   }
   /*fill H with rubbish to make sure entries are being set in the
     function call*/
@@ -911,7 +913,7 @@ gint rotation_test(gdouble k, gint N,
 			   nsrc, &(xf[i*xstride]), ref) ;
     /*computed field on unrotated coefficients*/
     furot[0] = furot[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, N, &(xf[i*xstride]), 
+    wbfmm_expansion_h_evaluate(k, xc, Ci, cstri, nq, N, &(xf[i*xstride]), 
 				    furot, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", furot[0], furot[1]) ;
@@ -919,7 +921,7 @@ gint rotation_test(gdouble k, gint N,
     wbfmm_coordinate_transform(&(xf[i*xstride]), ix, iy, iz, y) ;
 
     frot[0] = frot[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, xc, Co, cstro, N, y, frot, work) ;
+    wbfmm_expansion_h_evaluate(k, xc, Co, cstro, nq, N, y, frot, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", frot[0], frot[1]) ;
 
@@ -948,10 +950,10 @@ gint shift_test(gdouble k, gint N,
   gdouble ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
   gdouble *C0, *C1, *Ca, *Cb, *shift, *H0, *H1 ;
   gdouble f0[2], f1[2], ref[2] ;
-  gint i, cstr0, cstr1 ;
+  gint i, cstr0, cstr1, nq ;
   gdouble t0 ;
 
-  cstr0 = 3 ; cstr1 = 8 ;
+  cstr0 = 3 ; cstr1 = 8 ; nq = 1 ;
 
   fprintf(stderr, 
 	  "buffer sizes\n"
@@ -1015,7 +1017,7 @@ gint shift_test(gdouble k, gint N,
   /*expand about x0*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, N, x0, &(xs[i*xstride]), &(src[i*sstride]),
-				C0, cstr0, work) ;
+				nq, C0, cstr0, work) ;
   }
   fprintf(stderr, "%s expansion coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -1038,14 +1040,14 @@ gint shift_test(gdouble k, gint N,
 			   &(xf[i*xstride]), ref) ;
     /*computed field on unshifted coefficients*/
     f0[0] = f0[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, C0, cstr0, N, 
+    wbfmm_expansion_h_evaluate(k, x0, C0, cstr0, nq, N, 
 				    &(xf[i*xstride]), f0, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", f0[0], f0[1]) ;
 
     /*computed field on shifted coefficients*/
     f1[0] = f1[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x1, C1, cstr1, N, 
+    wbfmm_expansion_h_evaluate(k, x1, C1, cstr1, nq, N, 
 				    &(xf[i*xstride]), f1, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", f1[0], f1[1]) ;
@@ -1251,11 +1253,11 @@ gint child_parent_test(gdouble k, gint Nc, gdouble *xc,
   gdouble th03, th47 ;
   gdouble kr ;
   gdouble t0, t1 ;
-  gint Np, sizew ;
+  gint Np, sizew, nq ;
 
   th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
 
-  Np = Nc + 4 ;
+  Np = Nc + 4 ; nq = 1 ;
   xf[0] = xc[0] + 5*wb ; 
   xf[1] = xc[1] - 3*wb ; 
   xf[2] = xc[2] + 7*wb ; 
@@ -1332,7 +1334,7 @@ gint child_parent_test(gdouble k, gint Nc, gdouble *xc,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*generate the child box expansions*/
-  wbfmm_expansion_h_cfft(k, Nc, xb, xsrc, src, 
+  wbfmm_expansion_h_cfft(k, Nc, xb, xsrc, src, nq,
 			      &(child[2*quad]), 8, work) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -1352,9 +1354,9 @@ gint child_parent_test(gdouble k, gint Nc, gdouble *xc,
 	  g_timer_elapsed(timer, NULL) - t1) ;
 
   /*calculate child, parent, and exact fields*/
-  wbfmm_expansion_h_evaluate(k, xb, &(child[2*quad]), 8, Nc, 
+  wbfmm_expansion_h_evaluate(k, xb, &(child[2*quad]), 8, nq, Nc, 
 				  xf, fc, work) ;
-  wbfmm_expansion_h_evaluate(k, xc, &(parent[0]), 8, Np, 
+  wbfmm_expansion_h_evaluate(k, xc, &(parent[0]), 8, nq, Np, 
 				  xf, fp, work) ;
   wbfmm_total_field(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, 1, xf, fe) ;
 
@@ -1381,9 +1383,9 @@ gint parent_child_test(gdouble k, gint Nc, gdouble *xc,
   gdouble th47 = 0.955316618124509, th03 = 2.18627603546528 ;
   gdouble kr, len, dx ;
   gdouble t0 ;
-  gint Np, sizew, i, pq ;
+  gint Np, sizew, i, pq, nq ;
 
-  Np = Nc + 4 ;
+  Np = Nc + 4 ; nq = 1 ;
   /*set a parent quadrant to check indexing*/
   pq = 0 ;
   /*source outside parent box generating field inside*/
@@ -1450,7 +1452,7 @@ gint parent_child_test(gdouble k, gint Nc, gdouble *xc,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*generate the source expansion in child for now*/
-  wbfmm_expansion_h_cfft(k, Np, xs, xsrc, src, child, 1, work) ;
+  wbfmm_expansion_h_cfft(k, Np, xs, xsrc, src, nq, child, 1, work) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   wbfmm_coaxial_translate(&(parent[2*pq]), 8, Np, child, 1, Np, 
@@ -1475,10 +1477,10 @@ gint parent_child_test(gdouble k, gint Nc, gdouble *xc,
     xf[2] = xb[3*i+2] + wb*0.1 ; 
 
     wbfmm_total_field(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, 1, xf, fe) ;
-    wbfmm_expansion_j_evaluate(k, xc, &(parent[2*pq]), 8, Np,
-			       xf, fp, work) ;
-    wbfmm_expansion_j_evaluate(k, &(xb[3*i]), &(child[2*i]), 8, Nc,
-			       xf, fc, work) ;
+    wbfmm_expansion_j_evaluate(k, xc, &(parent[2*pq]), 8, nq, Np,
+				    xf, fp, work) ;
+    wbfmm_expansion_j_evaluate(k, &(xb[3*i]), &(child[2*i]), 8, nq, Nc,
+				    xf, fc, work) ;
     fprintf(stderr, "%0.4f+j*%0.4f %0.4f+j*%0.4f %0.4f+j*%0.4f (%lg, %lg)\n",
 	    fp[0], fp[1], fc[0], fc[1], fe[0], fe[1],
 	    sqrt((fp[0]-fe[0])*(fp[0]-fe[0]) + (fp[1]-fe[1])*(fp[1]-fe[1])),
@@ -1501,10 +1503,10 @@ gint shift_local_test(gdouble k, gint N,
   gdouble ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
   gdouble *C0, *C1, *Ca, *Cb, *shift, *H0 ;
   gdouble f0[2], f1[2], ref[2], xr[3] ;
-  gint i, cstr0, cstr1, N0, N1 ;
+  gint i, cstr0, cstr1, N0, N1, nq ;
   gdouble t0 ;
 
-  cstr0 = 3 ; cstr1 = 7 ;
+  cstr0 = 3 ; cstr1 = 7 ; nq = 1 ;
 
   N0 = N ; N1 = N + 4 ;
   fprintf(stderr, 
@@ -1575,7 +1577,7 @@ gint shift_local_test(gdouble k, gint N,
   /*expand about x0*/
   for ( i = 0 ; i < nsrc ; i ++ ) {
     wbfmm_expansion_h_cfft(k, N0, x0, &(xs[i*xstride]), &(src[i*sstride]),
-				C0, cstr0, work) ;
+				nq, C0, cstr0, work) ;
   }
   fprintf(stderr, "%s expansion coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -1596,13 +1598,13 @@ gint shift_local_test(gdouble k, gint N,
 			   nsrc, xr, ref) ;
     /*computed field on unshifted coefficients*/
     f0[0] = f0[1] = 0.0 ;
-    wbfmm_expansion_h_evaluate(k, x0, C0, cstr0, N0, xr, f0, work) ;
+    wbfmm_expansion_h_evaluate(k, x0, C0, cstr0, nq, N0, xr, f0, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", f0[0], f0[1]) ;
 
     /*computed field on shifted coefficients*/
     f1[0] = f1[1] = 0.0 ;
-    wbfmm_expansion_j_evaluate(k, x1, C1, cstr1, N1, xr, f1, work) ;
+    wbfmm_expansion_j_evaluate(k, x1, C1, cstr1, nq, N1, xr, f1, work) ;
 
     fprintf(stdout, "%lg+j*%lg ", f1[0], f1[1]) ;
 
@@ -1721,7 +1723,7 @@ gint check_interaction_list_4(guint level, guint64 idx,
   return 0 ;
 }
 
-gboolean index_in_list(guint64 *list, gint n, guint64 idx)
+static gboolean index_in_list(guint64 *list, gint n, guint64 idx)
 
 {
   gint i ;
@@ -1733,16 +1735,14 @@ gboolean index_in_list(guint64 *list, gint n, guint64 idx)
   return FALSE ;
 }
   
-gint check_list_grid(guint level, guint64 idx,
-		     guint32 i, guint32 j, guint32 k, 
-		     guint64 *list, gint n, guint64 grid[])
+static gint check_list_grid(guint level, guint64 idx,
+			    guint32 i, guint32 j, guint32 k, 
+			    guint64 *list, gint n, guint64 grid[])
 
 {
-  guint32 in, jn, kn, ip, jp, kp ;
-  guint64 p, pn, ishift ;
-  gint nb, di, dj, dk, ii, nn ;
-
-  nb = 1 << level ;
+  guint32 ip, jp, kp ;
+  guint64 p, pn ;
+  gint di, dj, dk, ii, nn ;
 
   p = wbfmm_box_parent(idx) ;
   wbfmm_box_location(p, &ip, &jp, &kp) ;
