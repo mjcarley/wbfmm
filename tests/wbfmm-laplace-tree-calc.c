@@ -84,7 +84,7 @@ gint main(gint argc, gchar **argv)
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean fit_box, shift_bw ;
+  gboolean fit_box, shift_bw, write_sources ;
 
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ; str = 5 ;
@@ -94,6 +94,7 @@ gint main(gint argc, gchar **argv)
   order_max = 0 ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
+  write_sources = FALSE ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;

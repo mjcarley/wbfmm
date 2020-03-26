@@ -1,0 +1,11 @@
+#!/bin/bash
+
+k=1.5
+depth=4
+bw=-B
+
+../tests/wbfmm-tree-calc -b -d ${depth} -f field.dat -k ${k} ${bw} \
+                         -s monopoles.dat -t 1e-6 > monopole-fmm.dat
+
+#../tests/wbfmm-direct-calc -f field.dat -k ${k} \
+#                        -s monopoles.dat > monopole-direct.dat

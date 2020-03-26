@@ -224,6 +224,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H, gint N,
 gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro, 
 					     WBFMM_REAL *Ci, gint cstri,
 					     gint N,
+					     gint nq,
 					     WBFMM_REAL *H,
 					     WBFMM_REAL ph, WBFMM_REAL ch)
 
@@ -399,7 +400,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
 
 gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro, 
 					     WBFMM_REAL *Ci, gint cstri,
-					     gint N,
+					     gint N, gint nq,
 					     WBFMM_REAL *H,
 					     WBFMM_REAL ph, WBFMM_REAL ch)
 
@@ -414,6 +415,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
   WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
   WBFMM_REAL Hp, Hm ;
 
+  g_assert(nq == 1) ;
+  
   /*initialize recursions*/
   Cph = COS(ph) ; Sph = SIN(ph) ;
   Cch = COS(ch) ; Sch = SIN(ch) ;

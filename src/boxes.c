@@ -377,6 +377,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
 					       guint b, WBFMM_REAL k,
 					       WBFMM_REAL *x, WBFMM_REAL *f,
+					       gint fstr,
 					       WBFMM_REAL *work)
 
 {
@@ -390,9 +391,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
-  WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(k, xb, C, 8,
-						  t->nq,
-						  t->order_s[level], x, f,
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(k, xb, C, 8,	  
+						  t->order_s[level], t->nq,
+						  x, f, fstr,
 						  work) ;
 
   return 0 ;
@@ -423,9 +424,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
-  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,
-						  t->nq,
-						  t->order_r[level], x, f,
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,  
+						  t->order_r[level], t->nq,
+						  x, f,
 						  work) ;
 
   if ( !eval_neighbours ) return 0 ;

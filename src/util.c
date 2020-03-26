@@ -204,38 +204,44 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 					    WBFMM_REAL *src, gint sstride,
 					    WBFMM_REAL *normals, gint nstr,
 					    WBFMM_REAL *dipoles, gint dstr,
-					    gint nsrc,
-					    WBFMM_REAL *xf, WBFMM_REAL *field)
+					    gint nq, gint nsrc,
+					    WBFMM_REAL *xf, WBFMM_REAL *field,
+					    gint fstr)
 
 {
-  gint i ;
-  WBFMM_REAL r, th, ph, h0[2], h1[2], fR[2], fd[6] ;
+  gint i, j ;
+  WBFMM_REAL r, th, ph, h0[2], h1[2], fR[2], fd[6], norm ;
 
-  /* field[0] = field[1] = 0.0 ; */
-
+  if ( fstr < 2 && nq > 1 )
+    g_error("%s: field stride (%d) must be greater than 1 for "
+	    "multi-component sources (nq=%d)", __FUNCTION__, fstr, nq) ;
+  
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
   if ( normals != NULL && dipoles == NULL )
     g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
 	    __FUNCTION__) ;
 
+  norm = 0.25*M_1_PI ;
   if ( normals == NULL && dipoles == NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
       WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 						  &r, &th, &ph) ;
       WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-      field[0] +=
-	(h0[0]*src[i*sstride+0] - h0[1]*src[i*sstride+1])*0.25*M_1_PI ;
-      field[1] +=
-	(h0[1]*src[i*sstride+0] + h0[0]*src[i*sstride+1])*0.25*M_1_PI ;
+      
+      for ( j = 0 ; j < nq ; j ++ ) {
+	field[j*fstr + 0] +=
+	  (h0[0]*src[i*sstride+2*j+0] - h0[1]*src[i*sstride+2*j+1])*norm ;
+	field[j*fstr + 1] +=
+	  (h0[1]*src[i*sstride+2*j+0] + h0[0]*src[i*sstride+2*j+1])*norm ;
+      }
     }
-    
-    /*G&D normalization of Legendre polynomials*/
-    /* field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ; */
 
     return 0 ;
   }
 
+  g_assert_not_reached() ; /*following code needs modification*/
+  
   if ( src == NULL && dipoles != NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
       WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 

@@ -372,6 +372,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
 						      WBFMM_REAL *Ci,
 						      gint cstri,
 						      gint Ni,
+						      gint nq,
 						      WBFMM_REAL *cfft,
 						      gint L,
 						      gboolean complex)
@@ -532,6 +533,5 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
 
   return 0 ;
 }
-
 
 /* @} */

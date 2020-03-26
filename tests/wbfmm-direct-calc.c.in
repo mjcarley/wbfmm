@@ -67,10 +67,10 @@ gint main(gint argc, gchar **argv)
 {
   WBFMM_REAL k, *sources ;
   WBFMM_REAL *xf, *f, *q, *normals, *dipoles ;
-  gint nsrc, i, str, strf, nf, qstr, dstr, nstr ;
+  gint nsrc, i, str, strf, nf, qstr, dstr, nstr, nq ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
 
-  k = 1.0 ;
+  k = 1.0 ; nq = 1 ;
 
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
@@ -148,8 +148,9 @@ gint main(gint argc, gchar **argv)
 
   for ( i = 0 ; i < nf ; i ++ ) {
     wbfmm_total_field_PREC(k, sources, str,
-			   q, qstr, normals, nstr, dipoles, dstr, nsrc,
-			   &(xf[i*strf]), &(f[2*i])) ;
+			   q, qstr, normals, nstr, dipoles, dstr, nq,
+			   nsrc,
+			   &(xf[i*strf]), &(f[2*i]), 1) ;
   }
 
   fprintf(stderr, "%s: direct field computed; %lg\n",

@@ -1,8 +1,0 @@
-function f=snmfunc(n,m,r,ph,mu)
-
-
-  P = nlegendre(n, mu) ;
-  P = P(abs(m)+1) ;
-
-  f = P*r^(-n-1)*exp(j*m*ph) ;
-  

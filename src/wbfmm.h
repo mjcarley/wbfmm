@@ -247,29 +247,28 @@ gint wbfmm_expansion_normal_h_cfft(gdouble k, gint N,
 
 gint wbfmm_expansion_h_evaluate(gdouble k, gdouble *x0,
 				gdouble *cfft, 
-				gint cstr, gint nq,
-				gint N, 
+				gint cstr,
+				gint N, gint nq,
 				gdouble *xf, gdouble *field,
+				gint fstr,
 				gdouble *work) ;
 gint wbfmm_expansion_h_grad_evaluate(gdouble k, gdouble *x0,
 				     gdouble *cfft, 
 				     gint cstr,
-				     gint nq,
-				     gint N, 
+				     gint N, gint nq,
 				     gdouble *xf,
 				     gdouble *field, gint fstr,
 				     gdouble *work) ;
 gint wbfmm_expansion_j_evaluate(gdouble k, gdouble *x0,
 				gdouble *cfft, 
-				gint cstr, gint nq,
-				gint N, 
+				gint cstr,
+				gint N,  gint nq,
 				gdouble *xf, gdouble *field,
 				gdouble *work) ;
 gint wbfmm_expansion_j_grad_evaluate(gdouble k, gdouble *x0,
 				     gdouble *cfft, 
 				     gint cstr,
-				     gint nq,
-				     gint N, 
+				     gint N, gint nq,
 				     gdouble *xf,
 				     gdouble *field, gint fstr,
 				     gdouble *work) ;
@@ -279,8 +278,8 @@ gint wbfmm_total_field(gdouble k,
 		       gdouble *src, gint sstride,
 		       gdouble *normals, gint nstr,
 		       gdouble *dipoles, gint dstr,
-		       gint nsrc,
-		       gdouble *xf, gdouble *field) ;
+		       gint nq, gint nsrc,
+		       gdouble *xf, gdouble *field, gint fstr) ;
 gint wbfmm_total_field_grad(gdouble k,
 			    gdouble *xs, gint xstride,
 			    gdouble *src, gint sstride,
@@ -310,6 +309,7 @@ gint wbfmm_coefficients_SR_coaxial(gdouble *cfftSR, gint L,
 				   gdouble kr, gdouble *work) ;
 gint wbfmm_coaxial_translate_ref(gdouble *Co, gint cstro, gint No,
 				 gdouble *Ci, gint cstri, gint Ni,
+				 gint nq,
 				 gdouble *cfft, gint L,
 				 gboolean complex) ;
 
@@ -320,11 +320,15 @@ gint wbfmm_coefficients_H_rotation(gdouble *H, gint N, gdouble th,
 				   gdouble *work) ;
 gint wbfmm_rotate_H_ref(gdouble *Co, gint cstro, 
 			gdouble *Ci, gint cstri,
-			gint N, gdouble *H,
+			gint N,
+			gint nq,
+			gdouble *H,
 			gdouble ph, gdouble ch) ;
 gint wbfmm_rotate_H_avx(gdouble *Co, gint cstro, 
 			gdouble *Ci, gint cstri,
-			gint N, gdouble *H,
+			gint N,
+			gint nq,
+			gdouble *H,
 			gdouble ph, gdouble ch) ;
 
 gint wbfmm_laplace_expansion_cfft(gint N, gdouble *x0,
@@ -606,7 +610,7 @@ gint wbfmm_downward_pass(wbfmm_tree_t *t,
 			 guint level, gdouble *work) ;
 gint wbfmm_tree_box_field(wbfmm_tree_t *t, guint level,
 			  guint b, gdouble k,
-			  gdouble *x, gdouble *f, gdouble *work) ;
+			  gdouble *x, gdouble *f, gint fstr, gdouble *work) ;
 gint wbfmm_tree_box_local_field(wbfmm_tree_t *t, guint level,
 				guint b, gdouble k,
 				gdouble *x, gdouble *f, 
@@ -704,29 +708,28 @@ gint wbfmm_expansion_normal_h_cfft_f(gfloat k, gint N,
 
 gint wbfmm_expansion_h_evaluate_f(gfloat k, gfloat *x0,
 				  gfloat *cfft, 
-				  gint cstr, gint nq,
-				  gint N, 
+				  gint cstr,
+				  gint N, gint nq,
 				  gfloat *xf, gfloat *field,
+				  gint fstr,
 				  gfloat *work) ;
 gint wbfmm_expansion_h_grad_evaluate_f(gfloat k, gfloat *x0,
 				       gfloat *cfft, 
 				       gint cstr,
-				       gint nq,
-				       gint N, 
+				       gint N, gint nq,
 				       gfloat *xf,
 				       gfloat *field, gint fstr,
 				       gfloat *work) ;
 gint wbfmm_expansion_j_evaluate_f(gfloat k, gfloat *x0,
 				  gfloat *cfft, 
-				  gint cstr, gint nq,
-				  gint N, 
+				  gint cstr,
+				  gint N, gint nq,
 				  gfloat *xf, gfloat *field,
 				  gfloat *work) ;
 gint wbfmm_expansion_j_grad_evaluate_f(gfloat k, gfloat *x0,
 				       gfloat *cfft, 
 				       gint cstr,
-				       gint nq,
-				       gint N, 
+				       gint N, gint nq,
 				       gfloat *xf,
 				       gfloat *field, gint fstr,
 				       gfloat *work) ;
@@ -736,8 +739,8 @@ gint wbfmm_total_field_f(gfloat k,
 			 gfloat *src, gint sstride,
 			 gfloat *normals, gint nstr,
 			 gfloat *dipoles, gint dstr,
-			 gint nsrc,
-			 gfloat *xf, gfloat *field) ;
+			 gint nq, gint nsrc,
+			 gfloat *xf, gfloat *field, gint fstr) ;
 gint wbfmm_total_field_grad_f(gfloat k,
 			      gfloat *xs, gint xstride,
 			      gfloat *src, gint sstride,
@@ -766,9 +769,10 @@ gint wbfmm_coefficients_RR_coaxial_f(gfloat *cfftRR, gint L,
 gint wbfmm_coefficients_SR_coaxial_f(gfloat *cfftSR, gint L,
 				     gfloat kr, gfloat *work) ;
 gint wbfmm_coaxial_translate_ref_f(gfloat *Co, gint cstro, gint No,
-			       gfloat *Ci, gint cstri, gint Ni,
-			       gfloat *cfft, gint L,
-			       gboolean complex) ;
+				   gfloat *Ci, gint cstri, gint Ni,
+				   gint nq,
+				   gfloat *cfft, gint L,
+				   gboolean complex) ;
 
 gint wbfmm_rotation_angles_f(gfloat *ix, gfloat *iy, gfloat *iz, 
 			   gfloat *jx, gfloat *jy, gfloat *jz, 
@@ -778,11 +782,11 @@ gint wbfmm_coefficients_H_rotation_f(gfloat *H, gint N, gfloat th,
 
 gint wbfmm_rotate_H_ref_f(gfloat *Co, gint cstro, 
 			  gfloat *Ci, gint cstri,
-			  gint N, gfloat *H,
+			  gint N, gint nq, gfloat *H,
 			  gfloat ph, gfloat ch) ;
 gint wbfmm_rotate_H_avx_f(gfloat *Co, gint cstro, 
 			  gfloat *Ci, gint cstri,
-			  gint N, gfloat *H,
+			  gint N, gint nq, gfloat *H,
 			  gfloat ph, gfloat ch) ;
 
 /*indexing and octrees*/
@@ -860,7 +864,7 @@ gint wbfmm_downward_pass_f(wbfmm_tree_t *t,
 			   guint level, gfloat *work) ;
 gint wbfmm_tree_box_field_f(wbfmm_tree_t *t, guint level,
 			    guint b, gfloat k,
-			    gfloat *x, gfloat *f, gfloat *work) ;
+			    gfloat *x, gfloat *f, gint fstr, gfloat *work) ;
 gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  guint b, gfloat k,
 				  gfloat *x, gfloat *f, 
@@ -914,29 +918,29 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 /*compile time switches for compiler options*/
 #ifdef WBFMM_USE_AVX
 
-#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
-  wbfmm_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
+  wbfmm_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
 
-#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
 
-#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)
-#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)
+#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
+  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
+#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
+  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
 
 #else
 
-#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
 
-#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_H,_ph,_ch)
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
 
-#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)
-#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_cft,_L,_c)
+#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
+  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
+#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
+  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
 
 #endif
 
