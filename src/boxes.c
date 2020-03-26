@@ -404,6 +404,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 						     guint b, WBFMM_REAL k,
 						     WBFMM_REAL *x,
 						     WBFMM_REAL *f,
+						     gint fstr,
 						     WBFMM_REAL *src, gint sstr,
 						     WBFMM_REAL *normals,
 						     gint nstr,
@@ -426,7 +427,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 
   WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,  
 						  t->order_r[level], t->nq,
-						  x, f,
+						  x, f, fstr,
 						  work) ;
 
   if ( !eval_neighbours ) return 0 ;

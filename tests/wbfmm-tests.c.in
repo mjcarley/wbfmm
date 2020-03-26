@@ -741,7 +741,7 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   WBFMM_REAL Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   WBFMM_REAL kr, work[BUFSIZE], xr[3], xt[3] ;
   WBFMM_REAL f0[64] = {0.0}, ft[64] = {0.0}, fc[64] = {0.0} ;
-  gint i, Ni, No, cstri, cstro ;
+  gint i, j, Ni, No, cstri, cstro, fcstr ;
   gdouble t0 ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
@@ -750,9 +750,10 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 
-  cstri = 1 ;
-  cstro = 1 ;
-
+  cstri = nq ;
+  cstro = nq ;
+  fcstr = 2 ;
+  
   xt[0] = x0[0] ; xt[1] = x0[1] ; xt[2] = x0[2] + t ; 
   
   xr[0] = xt[0] + x2[0] ;
@@ -787,27 +788,26 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*compute field in both frames*/
-  wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, f0, 2, work) ;
-
-  fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f0[0], f0[1]) ;
-
-  wbfmm_expansion_j_evaluate_PREC(k, xt, Co, cstro, No, nq, xr, ft, work) ;
-
-  fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", ft[0], ft[1]) ;
-
-  work[0] = work[1] = 0.0 ;
+  wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, f0, fcstr,
+				  work) ;
+  wbfmm_expansion_j_evaluate_PREC(k, xt, Co, cstro, No, nq, xr, ft, fcstr,
+				  work) ;
   wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
 			 NULL, 0, NULL, 0, nq,
-			 ns, xr, fc, 1) ;
+			 ns, xr, fc, fcstr) ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    fprintf(stdout, "%d: ", j) ;
+    fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f0[j*fcstr+0], f0[j*fcstr+1]) ;
+    fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", ft[j*fcstr+0], ft[j*fcstr+1]) ;
+    fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", fc[j*fcstr+0], fc[j*fcstr+1]) ;
 
-  fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", fc[0], fc[1]) ;
-
-  fprintf(stdout, "(%FLOATFMT, %FLOATFMT)\n",
-	  sqrt((f0[0]-fc[0])*(f0[0]-fc[0]) +
-	       (f0[1]-fc[1])*(f0[1]-fc[1])),
-	  sqrt((ft[0]-fc[0])*(ft[0]-fc[0]) +
-	       (ft[1]-fc[1])*(ft[1]-fc[1]))) ;
-
+    fprintf(stdout, "(%FLOATFMT, %FLOATFMT)\n",
+	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1])),
+	    sqrt((ft[j*fcstr+0]-fc[j*fcstr+0])*(ft[j*fcstr+0]-fc[j*fcstr+0]) +
+		 (ft[j*fcstr+1]-fc[j*fcstr+1])*(ft[j*fcstr+1]-fc[j*fcstr+1]))) ;
+  }
+  
   fprintf(stderr, "%s ends: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1422,7 +1422,6 @@ gint child_parent_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   qstr = 2 ;
   for ( j = 0 ; j < nq ; j ++ ) {
     src[j*qstr+0] = 0.5*(j+1) ; src[j*qstr+1] = -0.3*(j+1) ;
-    /* src[j*qstr+0] = 0.5 ; src[j*qstr+1] = -0.5 ; */
   }
 
   /*wb is child box width, or parent box half width*/
@@ -1511,10 +1510,11 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   WBFMM_REAL th47 = 0.955316618124509, th03 = 2.18627603546528 ;
   WBFMM_REAL kr, len, dx ;
   gdouble t0 ;
-  gint Np, Nc, sizew, i, pq ;
+  gint Np, Nc, sizew, i, j, pq, fcstr ;
 
   Nc = N ;
   Np = Nc + 4 ;
+  fcstr = 3 ;
   /*set a parent quadrant to check indexing*/
   pq = quad ;
   /*source outside parent box generating field inside*/
@@ -1532,9 +1532,9 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 				  sizeof(WBFMM_REAL)) ;
   SRshift = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_coaxial(Np)*
 				    2*sizeof(WBFMM_REAL)) ;
-  child = (WBFMM_REAL *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Nc+1,0)*
+  child = (WBFMM_REAL *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*
 				  sizeof(WBFMM_REAL)) ;
-  parent = (WBFMM_REAL *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Np+1,0)*
+  parent = (WBFMM_REAL *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)*
 				   sizeof(WBFMM_REAL)) ;
 
   /*calculate and allocate the workspace*/
@@ -1558,7 +1558,9 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   xsrc[0] = xs[0] + 0.*wb ;
   xsrc[1] = xs[1] + 0.*wb ;
   xsrc[2] = xs[2] + 0.*wb ;
-  src[0] = 0.5 ; src[1] = -0.3 ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    src[2*j+0] = 0.5*(j+2) ; src[2*j+1] = -0.3*(j+1) ;
+  }
 
   /*wb is parent box width*/
   kr = k*sqrt(3.0)*0.25*wb ;
@@ -1581,17 +1583,18 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*generate the source expansion in child for now*/
-  wbfmm_expansion_h_cfft_PREC(k, Np, xs, xsrc, src, nq, child, 1, work) ;
+  wbfmm_expansion_h_cfft_PREC(k, Np, xs, xsrc, src, nq, child, nq, work) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-  wbfmm_coaxial_translate_PREC(&(parent[2*pq]), 8, Np, child, 1, Np, nq,
-			       SRshift, Np, TRUE) ;
+  wbfmm_coaxial_translate_PREC(&(parent[2*pq*nq]), 8*nq, Np, child, 8*nq, Np,
+			       nq, SRshift, Np, TRUE) ;
   
   /*wipe the child data*/
-  memset(child, 0, 8*2*wbfmm_coefficient_index_nm(Nc+1,0)*sizeof(WBFMM_REAL)) ;
+  memset(child, 0,
+	 8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*sizeof(WBFMM_REAL)) ;
 
   /*the parent box now holds the data for the shift to the children*/
-  wbfmm_parent_child_shift_PREC(child, Nc, &(parent[2*pq]), Np, H03, H47, Np,
+  wbfmm_parent_child_shift_PREC(child, Nc, &(parent[2*nq*pq]), Np, H03, H47, Np,
   				shift, Np, nq, work) ;
 
   fprintf(stderr, "%s parent expansion shifted to children: %lg\n",
@@ -1600,21 +1603,34 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*calculate child, parent, and exact fields in each child box*/
   for ( i = 0 ; i < 8 ; i ++ ) {
+    fprintf(stderr, "quad %d:\n", i) ;
     WBFMM_REAL fc[32] = {0.0}, fp[32] = {0.0}, fe[32] = {0.0} ;
     xf[0] = xb[3*i+0] + wb*0.1 ; 
     xf[1] = xb[3*i+1] - wb*0.05 ; 
     xf[2] = xb[3*i+2] + wb*0.1 ; 
 
     wbfmm_total_field_PREC(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq,
-			   1, xf, fe, 1) ;
-    wbfmm_expansion_j_evaluate_PREC(k, x0, &(parent[2*pq]), 8, Np, nq,
-				    xf, fp, work) ;
-    wbfmm_expansion_j_evaluate_PREC(k, &(xb[3*i]), &(child[2*i]), 8, Nc, nq,
-				    xf, fc, work) ;
-    fprintf(stderr, "%0.4f+j*%0.4f %0.4f+j*%0.4f %0.4f+j*%0.4f (%lg, %lg)\n",
-	    fp[0], fp[1], fc[0], fc[1], fe[0], fe[1],
-	    sqrt((fp[0]-fe[0])*(fp[0]-fe[0]) + (fp[1]-fe[1])*(fp[1]-fe[1])),
-	    sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) + (fc[1]-fe[1])*(fc[1]-fe[1]))) ;
+			   1, xf, fe, fcstr) ;
+    wbfmm_expansion_j_evaluate_PREC(k, x0, &(parent[2*nq*pq]), 8*nq, Np, nq,
+				    xf, fp, fcstr, work) ;
+    wbfmm_expansion_j_evaluate_PREC(k, &(xb[3*i]), &(child[2*nq*i]), 8*nq,
+				    Nc, nq,
+				    xf, fc, fcstr, work) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stderr, "%d: ", j) ;
+      fprintf(stderr, "%0.4f+j*%0.4f %0.4f+j*%0.4f %0.4f+j*%0.4f (%lg, %lg)\n",
+	      fp[j*fcstr+0], fp[j*fcstr+1],
+	      fc[j*fcstr+0], fc[j*fcstr+1],
+	      fe[j*fcstr+0], fe[j*fcstr+1],
+	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+		   (fp[j*fcstr+1]-fe[j*fcstr+1])),
+	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+		   (fc[j*fcstr+1]-fe[j*fcstr+1]))) ;
+    }
   }
 
   return 0 ;
@@ -1642,11 +1658,12 @@ gint shift_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   WBFMM_REAL ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
   WBFMM_REAL *C0, *C1, *Ca, *Cb, *shift, *H0 ;
   WBFMM_REAL f0[64] = {0.0}, f1[64] = {0.0}, fc[64] = {0.0}, xr[3] ;
-  gint i, cstr0, cstr1, N0, N1 ;
+  gint i, j, cstr0, cstr1, N0, N1, fcstr ;
   gdouble t0 ;
 
   cstr0 = 3 ; cstr1 = 7 ;
-
+  fcstr = 4 ;
+  
   N0 = N ; N1 = N + 4 ;
   fprintf(stderr, 
 	  "buffer sizes\n"
@@ -1729,23 +1746,26 @@ gint shift_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   wbfmm_total_field_PREC(k, xs, sstr, q, qstr, NULL, 0, NULL, 0, nq,
-			 ns, xr, fc, 1) ;
+			 ns, xr, fc, fcstr) ;
   /*computed field on unshifted coefficients*/
-  wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N0, nq, xr, f0, 2, work) ;
-  
-  fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f0[0], f0[1]) ;
-  
+  wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N0, nq, xr, f0, fcstr,
+				  work) ;
   /*computed field on shifted coefficients*/
-  wbfmm_expansion_j_evaluate_PREC(k, x1, C1, cstr1, N1, nq, xr, f1, work) ;
+  wbfmm_expansion_j_evaluate_PREC(k, x1, C1, cstr1, N1, nq, xr, f1, fcstr,
+				  work) ;
   
-  fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f1[0], f1[1]) ;
-  
-  fprintf(stdout, "%FLOATFMT, %FLOATFMT\n",
-	  sqrt((f0[0]-fc[0])*(f0[0]-fc[0]) +
-	       (f0[1]-fc[1])*(f0[1]-fc[1])),
-	  sqrt((f1[0]-fc[0])*(f1[0]-fc[0]) +
-	       (f1[1]-fc[1])*(f1[1]-fc[1]))) ;
 
+  for ( j = 0 ; j < nq ; j ++ ) {
+    fprintf(stdout, "%d: ", j) ;
+    fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f0[j*fcstr+0], f0[j*fcstr+1]) ;
+    fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", f1[j*fcstr+0], f1[j*fcstr+1]) ;
+    fprintf(stdout, "%FLOATFMT, %FLOATFMT\n",
+	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1])),
+	    sqrt((f1[j*fcstr+0]-fc[j*fcstr+0])*(f1[j*fcstr+0]-fc[j*fcstr+0]) +
+		 (f1[j*fcstr+1]-fc[j*fcstr+1])*(f1[j*fcstr+1]-fc[j*fcstr+1]))) ;
+  }
+  
   fprintf(stderr, "%s end: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 

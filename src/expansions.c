@@ -232,18 +232,25 @@ static gint expansion_j_increment(gint n, gint m, gint sgn,
 				  WBFMM_REAL *cfft, gint cstr, 
 				  WBFMM_REAL *Pn,
 				  WBFMM_REAL Cmph, WBFMM_REAL Smph,
-				  WBFMM_REAL *field)
+				  WBFMM_REAL *field, gint nq, gint fstr)
 
 {
-  gint idx ;
+  gint idx, j ;
   WBFMM_REAL ar, ai, tr, ti ;
 
   idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
-  ar = cfft[2*idx*cstr+0] ; ai = cfft[2*idx*cstr+1] ; 
-  tr = ar*jn ; ti = ai*jn ;
-  field[0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ;
-  field[1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ;
+  /* ar = cfft[2*idx*cstr+0] ; ai = cfft[2*idx*cstr+1] ;  */
+  /* tr = ar*jn ; ti = ai*jn ; */
+  /* field[0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ; */
+  /* field[1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ; */
   
+  for ( j = 0 ; j < nq ; j ++ ) {
+    ar = cfft[2*idx*cstr+2*j+0] ; ai = cfft[2*idx*cstr+2*j+1] ; 
+    tr = ar*jn ; ti = ai*jn ;
+    field[j*fstr+0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ;
+    field[j*fstr+1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ;
+  }
+
   return 0 ;
 }
 
@@ -254,6 +261,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
 						     gint N, gint nq,
 						     WBFMM_REAL *xf, 
 						     WBFMM_REAL *field,
+						     gint fstr, 
 						     WBFMM_REAL *work)
 
 /*
@@ -265,7 +273,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
   gint n, m ;
 
-  g_assert(nq == 1) ;
+  if ( cstr < nq )
+    g_error("%s: coefficient stride (cstr=%d) less than number of source"
+	    "elements (nq=%d)", __FUNCTION__, cstr, nq) ;
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
@@ -285,15 +295,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
   n = 0 ; 
   m = 0 ; 
   expansion_j_increment(n, m,  1, jnm1, cfft, cstr, 
-			Pnm1, Cmph[m], Smph[m], field) ;
+			Pnm1, Cmph[m], Smph[m], field, nq, fstr) ;
 
   n = 1 ; 
   m = 0 ; 
-  expansion_j_increment(n, m,  1, jn, cfft, cstr, Pn, Cmph[m], Smph[m], field) ;
+  expansion_j_increment(n, m,  1, jn, cfft, cstr, Pn, Cmph[m], Smph[m],
+			field, nq, fstr) ;
 
   m = 1 ; 
-  expansion_j_increment(n, m,  1, jn, cfft, cstr, Pn, Cmph[m], Smph[m], field) ;
-  expansion_j_increment(n, m, -1, jn, cfft, cstr, Pn, Cmph[m], Smph[m], field) ;
+  expansion_j_increment(n, m,  1, jn, cfft, cstr, Pn, Cmph[m], Smph[m],
+			field, nq, fstr) ;
+  expansion_j_increment(n, m, -1, jn, cfft, cstr, Pn, Cmph[m], Smph[m],
+			field, nq, fstr) ;
 
   for ( n = 2 ; n <= N ; n ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
@@ -304,13 +317,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(WBFMM_REAL k,
 
     m = 0 ; 
     expansion_j_increment(n, m,  1, jn, cfft, cstr, 
-			  Pn, Cmph[m], Smph[m], field) ;
+			  Pn, Cmph[m], Smph[m], field, nq, fstr) ;
 
     for ( m = 1 ; m <= n ; m ++ ) {
       expansion_j_increment(n, m,  1, jn, cfft, cstr, 
-			    Pn, Cmph[m], Smph[m], field) ;
+			    Pn, Cmph[m], Smph[m], field, nq, fstr) ;
       expansion_j_increment(n, m, -1, jn, cfft, cstr, 
-			    Pn, Cmph[m], Smph[m], field) ;
+			    Pn, Cmph[m], Smph[m], field, nq, fstr) ;
     }
   }
 
