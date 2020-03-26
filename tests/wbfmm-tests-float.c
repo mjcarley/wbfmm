@@ -1532,9 +1532,9 @@ gint parent_child_test(gfloat *x0, gfloat *x1, gfloat *x2,
 				  sizeof(gfloat)) ;
   SRshift = (gfloat *)g_malloc0(wbfmm_element_number_coaxial(Np)*
 				    2*sizeof(gfloat)) ;
-  child = (gfloat *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*
+  child = (gfloat *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+5,0)*
 				  sizeof(gfloat)) ;
-  parent = (gfloat *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)*
+  parent = (gfloat *)g_malloc0(8*4*nq*wbfmm_coefficient_index_nm(Np+1,0)*
 				   sizeof(gfloat)) ;
 
   /*calculate and allocate the workspace*/

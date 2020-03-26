@@ -1532,9 +1532,9 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 				  sizeof(WBFMM_REAL)) ;
   SRshift = (WBFMM_REAL *)g_malloc0(wbfmm_element_number_coaxial(Np)*
 				    2*sizeof(WBFMM_REAL)) ;
-  child = (WBFMM_REAL *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*
+  child = (WBFMM_REAL *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+5,0)*
 				  sizeof(WBFMM_REAL)) ;
-  parent = (WBFMM_REAL *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)*
+  parent = (WBFMM_REAL *)g_malloc0(8*4*nq*wbfmm_coefficient_index_nm(Np+1,0)*
 				   sizeof(WBFMM_REAL)) ;
 
   /*calculate and allocate the workspace*/
