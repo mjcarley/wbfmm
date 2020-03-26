@@ -660,13 +660,11 @@ gint translation_test(gdouble *x0, gdouble *x1, gdouble *x2,
 
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 
-  cstri = 2 ;
-  cstro = 3 ;
+  cstri = nq+1 ;
+  cstro = nq+2 ;
   fcstr = 5 ;
   
   /*generate coaxial shift coefficients*/
-  /* kr = -k*(xc[2] - x0[2]) ; */
-  /* kr = k*(x0[2] - xc[2]) ; */
   kr = k*t ;
   x1[0] = x0[0] ; x1[1] = x0[1] ; x1[2] = x0[2] + t ; 
   wbfmm_coefficients_RR_coaxial(shift, N, kr, work) ;
@@ -949,7 +947,8 @@ gint rotation_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gint i, j, cstri, cstro, fcstr ;
   gdouble t0, dt ;
   
-  cstri = 3 ; cstro = 2 ; fcstr = 3 ;
+  cstri = nq ; cstro = nq ;
+  fcstr = 3 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
@@ -1027,9 +1026,7 @@ gint rotation_test(gdouble *x0, gdouble *x1, gdouble *x2,
   }
   
   return 0 ;
- }
-
-
+}
 
 gint shift_test(gdouble *x0, gdouble *x1, gdouble *x2,
 		gdouble *jx, gdouble *jy, gdouble *jz,
@@ -1049,11 +1046,12 @@ gint shift_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gdouble th0, ph0, ch0, th1, ph1, ch1, kr ;
   gdouble ix0[3], iy0[3], iz0[3], ix[3], iy[3], iz[3] ;
   gdouble *C0, *C1, *Ca, *Cb, *shift, *H0, *H1 ;
-  gint i, cstr0, cstr1 ;
+  gint i, j, cstr0, cstr1, fcstr ;
   gdouble t0 ;
 
-  cstr0 = 3 ; cstr1 = 8 ;
-
+  cstr0 = nq ; cstr1 = 8*nq ;
+  fcstr = 2 ;
+  
   fprintf(stderr, 
 	  "buffer sizes\n"
 	  "shift:        %u\n"
@@ -1135,26 +1133,33 @@ gint shift_test(gdouble *x0, gdouble *x1, gdouble *x2,
   for ( i = 0 ; i < nf ; i ++ ) {
     gdouble f0[64] = {0.0}, f1[64] = {0.0}, fc[64] = {0.0} ;
     wbfmm_total_field(k, xs, sstr, q, qstr,
-			   NULL, 0, NULL, 0, ns, nq,
-			   &(xf[i*fstr]), fc, 1) ;
+			   NULL, 0, NULL, 0, nq, ns,
+			   &(xf[i*fstr]), fc, fcstr) ;
     /*computed field on unshifted coefficients*/
     wbfmm_expansion_h_evaluate(k, x0, C0, cstr0, N, nq,
-				    &(xf[i*fstr]), f0, 2, work) ;
-
-    fprintf(stdout, "%lg+j*%lg ", f0[0], f0[1]) ;
-
+				    &(xf[i*fstr]), f0, fcstr, work) ;
     /*computed field on shifted coefficients*/
     wbfmm_expansion_h_evaluate(k, x1, C1, cstr1, N, nq,
-				    &(xf[i*fstr]), f1, 2, work) ;
+				    &(xf[i*fstr]), f1, fcstr, work) ;
 
-    fprintf(stdout, "%lg+j*%lg ", f1[0], f1[1]) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, "%d: ", j) ;
+      fprintf(stdout, "%lg+j*%lg ",
+	      fc[fcstr*j+0], fc[fcstr*j+1]) ;
 
-    fprintf(stdout, "%lg, %lg\n",
-	    sqrt((f0[0]-fc[0])*(f0[0]-fc[0]) +
-		 (f0[1]-fc[1])*(f0[1]-fc[1])),
-	    sqrt((f1[0]-fc[0])*(f1[0]-fc[0]) +
-		 (f1[1]-fc[1])*(f1[1]-fc[1]))) ;
-		 
+      fprintf(stdout, "%lg+j*%lg ",
+	      f1[fcstr*j+0], f1[fcstr*j+1]) ;
+
+      fprintf(stdout, "%lg, %lg\n",
+	      sqrt((f0[fcstr*j+0]-fc[fcstr*j+0])*
+		   (f0[fcstr*j+0]-fc[fcstr*j+0]) +
+		   (f0[fcstr*j+1]-fc[fcstr*j+1])*
+		   (f0[fcstr*j+1]-fc[fcstr*j+1])),
+	      sqrt((f1[fcstr*j+0]-fc[fcstr*j+0])*
+		   (f1[fcstr*j+0]-fc[fcstr*j+0]) +
+		   (f1[fcstr*j+1]-fc[fcstr*j+1])*
+		   (f1[fcstr*j+1]-fc[fcstr*j+1]))) ;
+    }
   }
 
   fprintf(stderr, "%s end: %lg\n",
@@ -1345,25 +1350,22 @@ gint child_parent_test(gdouble *x0, gdouble *x1, gdouble *x2,
 		       gdouble *ix, gdouble *iy, gdouble *iz,
 		       gdouble k,
 		       gdouble *xs, gint sstr, gint ns,
-		       gdouble *q , gint qstr, gint nq,
+		       gdouble *q , gint qstr1, gint nq,
 		       gint N,
 		       gdouble t, gdouble wb, gint quad,
 		       gdouble *xf, gint fstr, gint nf)
   
 {
   gdouble *H03, *H47, *shiftf, *shiftb, *work, *child, *parent ;
-  gdouble xsrc[1536], src[1024], xb[3] ;
+  gdouble xsrc[1536], src[1024]={0}, xb[3] ;
   gdouble th03, th47 ;
   gdouble kr ;
   gdouble t0, t1 ;
-  gint Np, Nc = N, sizew, i ;
+  gint Np, Nc = N, sizew, i, j, qstr, fcstr ;
 
   th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
 
-  Np = Nc + 4 ;
-  /* xf[0] = x0[0] + 5*wb ;  */
-  /* xf[1] = x0[1] - 3*wb ;  */
-  /* xf[2] = x0[2] + 7*wb ;  */
+  Np = Nc + 4 ; fcstr = 2*nq ;
 
   H03 = (gdouble *)g_malloc0(wbfmm_element_number_rotation(Np)*
 				sizeof(gdouble)) ;
@@ -1373,9 +1375,9 @@ gint child_parent_test(gdouble *x0, gdouble *x1, gdouble *x2,
 				   sizeof(gdouble)) ;
   shiftb = (gdouble *)g_malloc0(wbfmm_element_number_coaxial(Np)*
 				   sizeof(gdouble)) ;
-  child = (gdouble *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Nc+1,0)*
+  child = (gdouble *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*
 				  sizeof(gdouble)) ;
-  parent = (gdouble *)g_malloc0(8*2*wbfmm_coefficient_index_nm(Np+1,0)*
+  parent = (gdouble *)g_malloc0(8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)*
 				   sizeof(gdouble)) ;
 
   /*calculate and allocate the workspace*/
@@ -1417,7 +1419,11 @@ gint child_parent_test(gdouble *x0, gdouble *x1, gdouble *x2,
   xsrc[1] = xb[1] + 0.125*wb ;
   xsrc[2] = xb[2] + 0.125*wb ;
 
-  src[0] = 0.5 ; src[1] = -0.3 ;
+  qstr = 2 ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    src[j*qstr+0] = 0.5*(j+1) ; src[j*qstr+1] = -0.3*(j+1) ;
+    /* src[j*qstr+0] = 0.5 ; src[j*qstr+1] = -0.5 ; */
+  }
 
   /*wb is child box width, or parent box half width*/
   kr = k*sqrt(3.0)*0.5*wb ;
@@ -1438,42 +1444,52 @@ gint child_parent_test(gdouble *x0, gdouble *x1, gdouble *x2,
 
   /*generate the child box expansions*/
   wbfmm_expansion_h_cfft(k, Nc, xb, xsrc, src, nq,
-			      &(child[2*quad]), 8, work) ;
+			      &(child[2*nq*quad]), 8*nq, work) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   t1 = g_timer_elapsed(timer, NULL) ;
   wbfmm_child_parent_shift(parent, Np, child, Nc, H03, H47, Np,
-  				shiftf, Np, work) ;
+  				shiftf, Np, nq, work) ;
   fprintf(stderr, "%s child expansions shifted to parent: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,
 	  g_timer_elapsed(timer, NULL) - t1) ;
-  t1 = g_timer_elapsed(timer, NULL) ;
-  wbfmm_child_parent_shift_bw(parent, Np, child, Nc, H03, Np,
-				   shiftf, shiftb, Np, work) ;
+  /* t1 = g_timer_elapsed(timer, NULL) ; */
+  /* wbfmm_child_parent_shift_bw(parent, Np, child, Nc, H03, Np, */
+  /* 				   shiftf, shiftb, Np, work) ; */
 
-  fprintf(stderr, "%s child expansions shifted to parent (BW): %lg (%lg)\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, 
-	  g_timer_elapsed(timer, NULL) - t1) ;
+  /* fprintf(stderr, "%s child expansions shifted to parent (BW): %lg (%lg)\n", */
+  /* 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,  */
+  /* 	  g_timer_elapsed(timer, NULL) - t1) ; */
 
   /*calculate child, parent, and exact fields*/
   for ( i = 0 ; i < nf ; i ++ ) {
     gdouble fc[32] = {0.0}, fp[32] = {0.0}, fe[32] = {0.0} ;
-    wbfmm_expansion_h_evaluate(k, xb, &(child[2*quad]), 8, Nc, nq,
-				    &(xf[i*fstr]), fc, 2, work) ;
-    wbfmm_expansion_h_evaluate(k, x0, &(parent[0]), 8, Np, nq,
-				    &(xf[i*fstr]), fp, 2, work) ;
+    wbfmm_expansion_h_evaluate(k, xb, &(child[2*nq*quad]), 8*nq, Nc, nq,
+				    &(xf[i*fstr]), fc, fcstr, work) ;
+    wbfmm_expansion_h_evaluate(k, x0, &(parent[0]), 8*nq, Np, nq,
+				    &(xf[i*fstr]), fp, fcstr, work) ;
     wbfmm_total_field(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq, 1,
-			   &(xf[i*fstr]), fe, 1) ;
+			   &(xf[i*fstr]), fe, fcstr) ;
 
-    fprintf(stderr, "%lg+j*%lg ", fc[0], fc[1]) ;
-    fprintf(stderr, "%lg+j*%lg ", fp[0], fp[1]) ;
-    fprintf(stderr, "(%lg, %lg)\n", 
-	    sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) +
-		 (fc[1]-fe[1])*(fc[1]-fe[1])),
-	    sqrt((fp[0]-fe[0])*(fp[0]-fe[0]) +
-		 (fp[1]-fe[1])*(fp[1]-fe[1]))) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stderr, "%d: ", j) ;
+      fprintf(stderr, "%lg+j*%lg ",
+	      fc[j*fcstr+0], fc[j*fcstr+1]) ;
+      fprintf(stderr, "%lg+j*%lg ",
+	      fp[j*fcstr+0], fp[j*fcstr+1]) ;
+      fprintf(stderr, "(%lg, %lg)\n", 
+	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+		   (fc[j*fcstr+1]-fe[j*fcstr+1])),
+	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+		   (fp[j*fcstr+1]-fe[j*fcstr+1]))) ;
+    }
   }
+
   return 0 ;
 }
 
@@ -1576,7 +1592,7 @@ gint parent_child_test(gdouble *x0, gdouble *x1, gdouble *x2,
 
   /*the parent box now holds the data for the shift to the children*/
   wbfmm_parent_child_shift(child, Nc, &(parent[2*pq]), Np, H03, H47, Np,
-  				shift, Np, work) ;
+  				shift, Np, nq, work) ;
 
   fprintf(stderr, "%s parent expansion shifted to children: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -2022,7 +2038,7 @@ gint expansion_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gint i, j, cstr, fcstr ;
   gdouble t0 ;
 
-  cstr = 2 ; fcstr = 3 ;
+  cstr = nq ; fcstr = 3 ;
   t0 = g_timer_elapsed(timer, NULL) ;
 
   fprintf(stderr, "%s start: %lg\n",

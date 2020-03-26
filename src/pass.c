@@ -402,7 +402,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 						  (WBFMM_REAL *)(bp[ip].mpr),
 						  Np,
 						  H03, H47, Np,
-						  trans, Np, work) ;
+						  trans, Np, t->nq, work) ;
   }
 
   return 0 ;
@@ -451,7 +451,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 						  (WBFMM_REAL *)(bc[ic].mps),
 						  Nc,
 						  H03, H47, Np, 
-						  trans, Np, work) ;
+						  trans, Np, t->nq, work) ;
   }
 
   return 0 ;

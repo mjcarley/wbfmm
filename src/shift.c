@@ -67,7 +67,7 @@ static inline void sincos_recursion(WBFMM_REAL Epr[], WBFMM_REAL Epi[],
 static inline void increment_buf_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 				    WBFMM_REAL *Cc, 
 				    WBFMM_REAL H03, WBFMM_REAL H47,
-				    WBFMM_REAL buf[])
+				    WBFMM_REAL buf[], gint nq)
 
 /*
   increment buffer entries for child-parent shift operations
@@ -77,37 +77,41 @@ static inline void increment_buf_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 */
 
 {
-  buf[2*0+0] += H03*(Er[0]*Cc[2*0+0] - Ei[0]*Cc[2*0+1]) ;
-  buf[2*0+1] += H03*(Er[0]*Cc[2*0+1] + Ei[0]*Cc[2*0+0]) ;
+  gint j ;
 
-  buf[2*1+0] += H03*(Er[1]*Cc[2*1+0] - Ei[1]*Cc[2*1+1]) ;
-  buf[2*1+1] += H03*(Er[1]*Cc[2*1+1] + Ei[1]*Cc[2*1+0]) ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    buf[2*nq*0+2*j+0] += H03*(Er[0]*Cc[2*nq*0+2*j+0] - Ei[0]*Cc[2*nq*0+2*j+1]) ;
+    buf[2*nq*0+2*j+1] += H03*(Er[0]*Cc[2*nq*0+2*j+1] + Ei[0]*Cc[2*nq*0+2*j+0]) ;
+  
+    buf[2*nq*1+2*j+0] += H03*(Er[1]*Cc[2*nq*1+2*j+0] - Ei[1]*Cc[2*nq*1+2*j+1]) ;
+    buf[2*nq*1+2*j+1] += H03*(Er[1]*Cc[2*nq*1+2*j+1] + Ei[1]*Cc[2*nq*1+2*j+0]) ;
 
-  buf[2*2+0] += H03*(Er[0]*Cc[2*2+0] + Ei[0]*Cc[2*2+1]) ;
-  buf[2*2+1] += H03*(Er[0]*Cc[2*2+1] - Ei[0]*Cc[2*2+0]) ;
+    buf[2*nq*2+2*j+0] += H03*(Er[0]*Cc[2*nq*2+2*j+0] + Ei[0]*Cc[2*nq*2+2*j+1]) ;
+    buf[2*nq*2+2*j+1] += H03*(Er[0]*Cc[2*nq*2+2*j+1] - Ei[0]*Cc[2*nq*2+2*j+0]) ;
     
-  buf[2*3+0] += H03*(Er[1]*Cc[2*3+0] + Ei[1]*Cc[2*3+1]) ;
-  buf[2*3+1] += H03*(Er[1]*Cc[2*3+1] - Ei[1]*Cc[2*3+0]) ;
+    buf[2*nq*3+2*j+0] += H03*(Er[1]*Cc[2*nq*3+2*j+0] + Ei[1]*Cc[2*nq*3+2*j+1]) ;
+    buf[2*nq*3+2*j+1] += H03*(Er[1]*Cc[2*nq*3+2*j+1] - Ei[1]*Cc[2*nq*3+2*j+0]) ;
     
-  buf[2*4+0] += H47*(Er[0]*Cc[2*4+0] - Ei[0]*Cc[2*4+1]) ;
-  buf[2*4+1] += H47*(Er[0]*Cc[2*4+1] + Ei[0]*Cc[2*4+0]) ;
-
-  buf[2*5+0] += H47*(Er[1]*Cc[2*5+0] - Ei[1]*Cc[2*5+1]) ;
-  buf[2*5+1] += H47*(Er[1]*Cc[2*5+1] + Ei[1]*Cc[2*5+0]) ;
-
-  buf[2*6+0] += H47*(Er[0]*Cc[2*6+0] + Ei[0]*Cc[2*6+1]) ;
-  buf[2*6+1] += H47*(Er[0]*Cc[2*6+1] - Ei[0]*Cc[2*6+0]) ;
+    buf[2*nq*4+2*j+0] += H47*(Er[0]*Cc[2*nq*4+2*j+0] - Ei[0]*Cc[2*nq*4+2*j+1]) ;
+    buf[2*nq*4+2*j+1] += H47*(Er[0]*Cc[2*nq*4+2*j+1] + Ei[0]*Cc[2*nq*4+2*j+0]) ;
     
-  buf[2*7+0] += H47*(Er[1]*Cc[2*7+0] + Ei[1]*Cc[2*7+1]) ;
-  buf[2*7+1] += H47*(Er[1]*Cc[2*7+1] - Ei[1]*Cc[2*7+0]) ;
-
+    buf[2*nq*5+2*j+0] += H47*(Er[1]*Cc[2*nq*5+2*j+0] - Ei[1]*Cc[2*nq*5+2*j+1]) ;
+    buf[2*nq*5+2*j+1] += H47*(Er[1]*Cc[2*nq*5+2*j+1] + Ei[1]*Cc[2*nq*5+2*j+0]) ;
+    
+    buf[2*nq*6+2*j+0] += H47*(Er[0]*Cc[2*nq*6+2*j+0] + Ei[0]*Cc[2*nq*6+2*j+1]) ;
+    buf[2*nq*6+2*j+1] += H47*(Er[0]*Cc[2*nq*6+2*j+1] - Ei[0]*Cc[2*nq*6+2*j+0]) ;
+    
+    buf[2*nq*7+2*j+0] += H47*(Er[1]*Cc[2*nq*7+2*j+0] + Ei[1]*Cc[2*nq*7+2*j+1]) ;
+    buf[2*nq*7+2*j+1] += H47*(Er[1]*Cc[2*nq*7+2*j+1] - Ei[1]*Cc[2*nq*7+2*j+0]) ;
+  }
+  
   return ;
 }
 
 static inline void increment_buf_pc(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 				    WBFMM_REAL *Cp, 
 				    WBFMM_REAL H03, WBFMM_REAL H47,
-				    WBFMM_REAL buf[])
+				    WBFMM_REAL buf[], gint nq)
 
 /*
   increment buffer entries for parent-child shift operations
@@ -149,28 +153,48 @@ static inline void increment_buf_pc(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 static inline void increment_cfft_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 				     WBFMM_REAL *Cr, 
 				     WBFMM_REAL H03, WBFMM_REAL H47,
-				     WBFMM_REAL *Cp)
+				     WBFMM_REAL *Cp, gint nq)
 
 {
-  Cp[0] += 
-    H03*(Er[0]*(Cr[0] + Cr[4]) -  Ei[0]*(Cr[1]-Cr[5]) + 
-	 Er[1]*(Cr[2] + Cr[6]) -  Ei[1]*(Cr[3]-Cr[7])) +
-    H47*(Er[0]*(Cr[8] + Cr[12]) - Ei[0]*(Cr[9]-Cr[13]) +
-	 Er[1]*(Cr[10]+ Cr[14]) - Ei[1]*(Cr[11]-Cr[15])) ;
+  gint j ;
 
-  Cp[1] += 
-    H03*(Er[0]*(Cr[1]+Cr[5]) + Ei[0]*(Cr[0]-Cr[4]) +
-	 Er[1]*(Cr[3]+Cr[7]) + Ei[1]*(Cr[2]-Cr[6])) +
-    H47*(Er[0]*(Cr[9]+Cr[13]) + Ei[0]*(Cr[8]-Cr[12]) +
-	 Er[1]*(Cr[11]+Cr[15]) + Ei[1]*(Cr[10]-Cr[14])) ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    Cp[2*j+0] += 
+      H03*(Er[0]*(Cr[2*nq*0+2*j+0] + Cr[2*nq*2+2*j+0]) -
+	   Ei[0]*(Cr[2*nq*0+2*j+1] - Cr[2*nq*2+2*j+1]) + 
+	   Er[1]*(Cr[2*nq*1+2*j+0] + Cr[2*nq*3+2*j+0]) -
+	   Ei[1]*(Cr[2*nq*1+2*j+1] - Cr[2*nq*3+2*j+1])) +
+      H47*(Er[0]*(Cr[2*nq*4+2*j+0] + Cr[2*nq*6+2*j+0]) -
+	   Ei[0]*(Cr[2*nq*4+2*j+1] - Cr[2*nq*6+2*j+1]) +
+	   Er[1]*(Cr[2*nq*5+2*j+0] + Cr[2*nq*7+2*j+0]) -
+	   Ei[1]*(Cr[2*nq*5+2*j+1] - Cr[2*nq*7+2*j+1])) ;
+      /* H03*(Er[0]*(Cr[0] + Cr[4]) -  Ei[0]*(Cr[1]-Cr[5]) +  */
+      /* 	   Er[1]*(Cr[2] + Cr[6]) -  Ei[1]*(Cr[3]-Cr[7])) + */
+      /* H47*(Er[0]*(Cr[8] + Cr[12]) - Ei[0]*(Cr[9]-Cr[13]) + */
+      /* 	   Er[1]*(Cr[10]+ Cr[14]) - Ei[1]*(Cr[11]-Cr[15])) ; */
 
+    Cp[2*j+1] += 
+      H03*(Er[0]*(Cr[2*nq*0+2*j+1] + Cr[2*nq*2+2*j+1]) +
+	   Ei[0]*(Cr[2*nq*0+2*j+0] - Cr[2*nq*2+2*j+0]) +
+	   Er[1]*(Cr[2*nq*1+2*j+1] + Cr[2*nq*3+2*j+1]) +
+	   Ei[1]*(Cr[2*nq*1+2*j+0] - Cr[2*nq*3+2*j+0])) +
+      H47*(Er[0]*(Cr[2*nq*4+2*j+1] + Cr[2*nq*6+2*j+1]) +
+	   Ei[0]*(Cr[2*nq*4+2*j+0] - Cr[2*nq*6+2*j+0]) +
+	   Er[1]*(Cr[2*nq*5+2*j+1] + Cr[2*nq*7+2*j+1]) +
+	   Ei[1]*(Cr[2*nq*5+2*j+0] - Cr[2*nq*7+2*j+0])) ;
+      /* H03*(Er[0]*(Cr[1]+Cr[5]) + Ei[0]*(Cr[0]-Cr[4]) + */
+      /* 	   Er[1]*(Cr[3]+Cr[7]) + Ei[1]*(Cr[2]-Cr[6])) + */
+      /* H47*(Er[0]*(Cr[9]+Cr[13]) + Ei[0]*(Cr[8]-Cr[12]) + */
+      /* 	   Er[1]*(Cr[11]+Cr[15]) + Ei[1]*(Cr[10]-Cr[14])) ; */
+  }
+  
   return ;
 }
 
 static inline void increment_cfft_pc(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 				     WBFMM_REAL *Cr, 
 				     WBFMM_REAL H03, WBFMM_REAL H47,
-				     WBFMM_REAL *buf)
+				     WBFMM_REAL *buf, gint nq)
 
 {
   buf[2*7+0] += H47*(Er[0]*Cr[2*7+0] - Ei[0]*Cr[2*7+1]) ;
@@ -205,6 +229,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 						   WBFMM_REAL *H03, 
 						   WBFMM_REAL *H47, gint Lh,
 						   WBFMM_REAL *trans, gint Ls,
+						   gint nq,
 						   WBFMM_REAL *work)
 
 /*
@@ -221,22 +246,22 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
   WBFMM_REAL Cnph, Snph, S0, Cnph0, Snph0 ;
   WBFMM_REAL Cnch, Snch, Cn3ch, Sn3ch ;
   WBFMM_REAL Cnch0, Snch0, Cn3ch0, Sn3ch0 ;
-  gint nu, l, n, m, ic, ip, ih, str, i, sgn, off, offc ;
+  gint nu, l, n, m, ic, ip, ih, str, i, j, sgn, off, offc ;
 
   /*stride in number of complex elements per entry*/
-  str = 8 ;
+  str = 8*nq ;
   /*used for trigonometric recursions*/
   Cch[0] = Sch[0] = Sch[1] = M_SQRT1_2 ; Cch[1] = -M_SQRT1_2 ;
 
   Cnph0 = 1.0 ; Snph0 = 0.0 ; S0 = 1.0 ;
   /*used to store the rotated child coefficients*/
-  Cr = &(work[8*2*wbfmm_coefficient_index_nm(Np+1,0)]) ;
+  Cr = &(work[8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)]) ;
 
   /*rotate child box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Nc ; n ++ ) {
     Cnph = Cnph0 ; Snph = Snph0 ;
     for ( nu = -n ; nu <= n ; nu ++ ) {
-      WBFMM_REAL buf[16] = {0.0} ;
+      WBFMM_REAL buf[256] = {0.0} ;
       m = 0 ; 
       Epr[0] = Enr[0] = Epr[1] = Enr[1] = Cnph ;
       Epi[0] = Eni[0] = Snph ;
@@ -246,7 +271,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
       ih = wbfmm_rotation_index_numn(nu,m,n) ;
 
       offc = 2*str*ic ;
-      increment_buf_cp(Epr, Epi, &(Cc[offc]), H03[ih], H47[ih], buf) ;
+      increment_buf_cp(Epr, Epi, &(Cc[offc]), H03[ih], H47[ih], buf, nq) ;
 
       for ( m = 1 ; m <= n ; m ++ ) {
 	sincos_recursion(Epr, Epi, Enr, Eni, Cch, Sch) ;
@@ -255,17 +280,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 	ih = wbfmm_rotation_index_numn(nu,m,n) ;
 	offc = 2*str*ic ;
 
-	increment_buf_cp(Epr, Epi, &(Cc[offc]), H03[ih], H47[ih], buf) ;
+	increment_buf_cp(Epr, Epi, &(Cc[offc]), H03[ih], H47[ih], buf, nq) ;
 
 	ic = wbfmm_coefficient_index_nm(n,-m) ;
 	ih = wbfmm_rotation_index_numn(-nu,m,n) ;
 	offc = 2*str*ic ;
 
-	increment_buf_cp(Enr, Eni, &(Cc[offc]), H03[ih], H47[ih], buf) ;
+	increment_buf_cp(Enr, Eni, &(Cc[offc]), H03[ih], H47[ih], buf, nq) ;
       }
 
       ip = wbfmm_coefficient_index_nm(n,nu) ; off = 2*str*ip ;      
-      for ( i = 0 ; i < 16 ; i ++ ) Cr[off+i] = buf[i] ;
+      for ( i = 0 ; i < 16*nq ; i ++ ) Cr[off+i] = buf[i] ;
 
       /*trigonometric recursions taking note that C0 = 0*/
       tmp = Cnph ; Cnph = -Snph ; Snph = tmp ;
@@ -277,18 +302,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
     translation to all coefficients to shift to centre of parent box*/
   for ( n = 0 ; n <= Np ; n ++ ) {
     for ( m = -n ; m <= n ; m ++ ) {
-      WBFMM_REAL buf[16] = {0.0} ;
+      WBFMM_REAL buf[256] = {0.0} ;
       /*loop on input and coefficients*/
       for ( l = ABS(m) ; l <= Nc ; l ++ ) {
 	ic = wbfmm_coefficient_index_nm(l, m) ;
 	offc = 2*str*ic ;
 	ih = wbfmm_coaxial_index(l, m, n) ;
 	sgn = wbfmm_coaxial_index_sgn(l, m, n) ;
-	for ( i = 0 ; i < 16 ; i ++ ) buf[i] += trans[ih]*sgn*Cr[offc+i] ;
+	for ( i = 0 ; i < 16*nq ; i ++ ) buf[i] += trans[ih]*sgn*Cr[offc+i] ;
       }
       ip = wbfmm_coefficient_index_nm(n, m) ;
       off = 2*str*ip ;
-      for ( i = 0 ; i < 16 ; i ++ ) work[off+i] = buf[i] ;
+      for ( i = 0 ; i < 16*nq ; i ++ ) work[off+i] = buf[i] ;
     }
   }
 
@@ -314,7 +339,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
       ih = wbfmm_rotation_index_numn(nu,m,n) ;
       offc = 2*str*ic ;
 
-      increment_cfft_cp(Epr, Epi, &(work[offc]), H03[ih], H47[ih], &(Cp[off])) ;
+      increment_cfft_cp(Epr, Epi, &(work[offc]), H03[ih], H47[ih],
+			&(Cp[off]), nq) ;
 
       for ( m = 1 ; m <= n ; m ++ ) {
 	sincos_recursion(Epr, Epi, Enr, Eni, Cch, Sch) ;
@@ -324,14 +350,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
         offc = 2*str*ic ;
 
 	increment_cfft_cp(Epr, Epi, &(work[offc]), H03[ih], H47[ih], 
-			  &(Cp[off])) ;
+			  &(Cp[off]), nq) ;
 
 	ic = wbfmm_coefficient_index_nm(n,-m) ;
 	ih = wbfmm_rotation_index_numn(-nu,m,n) ;
         offc = 2*str*ic ;
 
 	increment_cfft_cp(Enr, Eni, &(work[offc]), H03[ih], H47[ih], 
-			  &(Cp[off])) ;
+			  &(Cp[off]), nq) ;
       }
       tmp = Cnch ; Cnch = S0*(Cnch - Snch) ; Snch = S0*(tmp + Snch) ;
       tmp = Cn3ch ; Cn3ch = -S0*(Cn3ch + Sn3ch) ; Sn3ch = S0*(tmp - Sn3ch) ;
@@ -350,6 +376,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 						   WBFMM_REAL *H03, 
 						   WBFMM_REAL *H47, gint Lh,
 						   WBFMM_REAL *trans, gint Ls,
+						   gint nq,
 						   WBFMM_REAL *work)
 
 /*
@@ -393,7 +420,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
       ih = wbfmm_rotation_index_numn(nu,m,n) ;
 
       offp = 2*str*ip ;
-      increment_buf_pc(Epr, Epi, &(Cp[offp]), H03[ih], H47[ih], buf) ;
+      increment_buf_pc(Epr, Epi, &(Cp[offp]), H03[ih], H47[ih], buf, nq) ;
 
       for ( m = 1 ; m <= n ; m ++ ) {
 	sincos_recursion(Epr, Epi, Enr, Eni, Cch, Sch) ;
@@ -402,13 +429,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 	ih = wbfmm_rotation_index_numn(nu,m,n) ;
 	offp = 2*str*ip ;
 
-	increment_buf_pc(Epr, Epi, &(Cp[offp]), H03[ih], H47[ih], buf) ;
+	increment_buf_pc(Epr, Epi, &(Cp[offp]), H03[ih], H47[ih], buf, nq) ;
 
 	ip = wbfmm_coefficient_index_nm(n,-m) ;
 	ih = wbfmm_rotation_index_numn(-nu,m,n) ;
 	offp = 2*str*ip ;
 
-	increment_buf_pc(Enr, Eni, &(Cp[offp]), H03[ih], H47[ih], buf) ;
+	increment_buf_pc(Enr, Eni, &(Cp[offp]), H03[ih], H47[ih], buf, nq) ;
       }
 
       ip = wbfmm_coefficient_index_nm(n,nu) ; offp = 2*str*ip ;      
@@ -426,7 +453,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
     for ( m = -n ; m <= n ; m ++ ) {
       ic = wbfmm_coefficient_index_nm(n,m) ; offc = 2*str*ic ;
       WBFMM_REAL *buf = &(work[offc]) ;
-      memset(buf, 0, 16*sizeof(WBFMM_REAL)) ;
+      memset(buf, 0, 16*nq*sizeof(WBFMM_REAL)) ;
       /*loop on input and coefficients*/
       for ( l = ABS(m) ; l <= Np ; l ++ ) {
 	ip = wbfmm_coefficient_index_nm(l,m) ; offp = 2*str*ip ;
@@ -459,7 +486,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
       ih = wbfmm_rotation_index_numn(nu,m,n) ;
       offc = 2*str*ic ;
 
-      increment_cfft_pc(Epr, Epi, &(work[offc]), H03[ih], H47[ih], buf) ;
+      increment_cfft_pc(Epr, Epi, &(work[offc]), H03[ih], H47[ih], buf, nq) ;
 
       for ( m = 1 ; m <= n ; m ++ ) {
 	sincos_recursion(Epr, Epi, Enr, Eni, Cch, Sch) ;
@@ -468,13 +495,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 	ih = wbfmm_rotation_index_numn(nu,m,n) ;
         offc = 2*str*ic ;
 
-	increment_cfft_pc(Epr, Epi, &(work[offc]), H03[ih], H47[ih], buf) ;
+	increment_cfft_pc(Epr, Epi, &(work[offc]), H03[ih], H47[ih], buf, nq) ;
 
 	ic = wbfmm_coefficient_index_nm(n,-m) ;
 	ih = wbfmm_rotation_index_numn(-nu,m,n) ;
         offc = 2*str*ic ;
 
-	increment_cfft_pc(Enr, Eni, &(work[offc]), H03[ih], H47[ih], buf) ;
+	increment_cfft_pc(Enr, Eni, &(work[offc]), H03[ih], H47[ih], buf, nq) ;
       }
       tmp = Cnch ; Cnch = S0*(Cnch - Snch) ; Snch = S0*(tmp + Snch) ;
       tmp = Cn3ch ; Cn3ch = -S0*(Cn3ch + Sn3ch) ; Sn3ch = S0*(tmp - Sn3ch) ;

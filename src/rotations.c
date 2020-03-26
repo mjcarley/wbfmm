@@ -238,6 +238,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
   gint nu, n, m, offp, offm ;
   WBFMM_REAL Cnph, Snph, Cch, Sch, Cph, Sph ;
   __m256d rCch, rSch ;
+
+  g_assert(nq == 1) ;
   
   /*initialize recursions*/
   Cph = COS(ph) ; Sph = SIN(ph) ;

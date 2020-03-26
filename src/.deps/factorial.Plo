@@ -87,7 +87,7 @@ factorial.lo: factorial.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm-private.h \
  /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
  /usr/include/wchar.h /usr/include/bits/stdio_lim.h \
- /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h
+ /usr/include/bits/sys_errlist.h
 
 /usr/include/stdc-predef.h:
 
@@ -346,5 +346,3 @@ wbfmm-private.h:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:

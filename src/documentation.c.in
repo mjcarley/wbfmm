@@ -400,6 +400,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t) {}
  * @param trans coaxial translation operator for distance between child and 
  * parent box centres;
  * @param Ls order of \a trans;
+ * @param nq number of source components;
  * @param work workspace
  *
  * @return 0 on success
@@ -411,6 +412,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 						   WBFMM_REAL *H03, 
 						   WBFMM_REAL *H47, gint Lh,
 						   WBFMM_REAL *trans, gint Ls,
+						   gint nq,
 						   WBFMM_REAL *work) {}
 
 /**
@@ -486,6 +488,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
  * @param trans coaxial translation operator for distance between child and 
  * parent box centres;
  * @param Ls order of \a trans;
+ * @param nq number of source components;
  * @param work workspace
  *
  * @return 0 on success
@@ -497,6 +500,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
 						   WBFMM_REAL *H03, 
 						   WBFMM_REAL *H47, gint Lh,
 						   WBFMM_REAL *trans, gint Ls,
+						   gint nq,
 						   WBFMM_REAL *work) {}
 
 /**
