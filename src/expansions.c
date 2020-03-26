@@ -126,7 +126,7 @@ static gint expansion_h_increment(gint n, gint m, gint sgn,
 				  WBFMM_REAL *cfft, gint cstr, 
 				  WBFMM_REAL *Pn,
 				  WBFMM_REAL Cmph, WBFMM_REAL Smph,
-				  WBFMM_REAL *field, gint nq)
+				  WBFMM_REAL *field, gint nq, gint fstr)
 
 {
   gint idx, j ;
@@ -140,8 +140,8 @@ static gint expansion_h_increment(gint n, gint m, gint sgn,
   for ( j = 0 ; j < nq ; j ++ ) {
     ar = cfft[2*idx*cstr+2*j+0] ; ai = cfft[2*idx*cstr+2*j+1] ; 
     tr = ar*hn[0] - ai*hn[1] ; ti = ai*hn[0] + ar*hn[1] ;
-    field[2*j+0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ;
-    field[2*j+1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ;
+    field[j*fstr+0] += (Cmph*tr - sgn*Smph*ti)*Pn[m] ;
+    field[j*fstr+1] += (Cmph*ti + sgn*Smph*tr)*Pn[m] ;
   }
   
   return 0 ;
@@ -192,18 +192,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
   n = 0 ; 
   m = 0 ; 
   expansion_h_increment(n, m,  1, hnm1, cfft, cstr, 
-			Pnm1, Cmph[m], Smph[m], field, nq) ;
+			Pnm1, Cmph[m], Smph[m], field, nq, fstr) ;
 
   n = 1 ; 
   m = 0 ; 
   expansion_h_increment(n, m,  1, hn, cfft, cstr, Pn, Cmph[m], Smph[m],
-			field, nq) ;
+			field, nq, fstr) ;
 
   m = 1 ; 
   expansion_h_increment(n, m,  1, hn, cfft, cstr, Pn, Cmph[m], Smph[m],
-			field, nq) ;
+			field, nq, fstr) ;
   expansion_h_increment(n, m, -1, hn, cfft, cstr, Pn, Cmph[m], Smph[m],
-			field, nq) ;
+			field, nq, fstr) ;
 
   for ( n = 2 ; n <= N ; n ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
@@ -214,13 +214,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
 
     m = 0 ; 
     expansion_h_increment(n, m,  1, hn, cfft, cstr, 
-			  Pn, Cmph[m], Smph[m], field, nq) ;
+			  Pn, Cmph[m], Smph[m], field, nq, fstr) ;
 
     for ( m = 1 ; m <= n ; m ++ ) {
       expansion_h_increment(n, m,  1, hn, cfft, cstr, 
-			    Pn, Cmph[m], Smph[m], field, nq) ;
+			    Pn, Cmph[m], Smph[m], field, nq, fstr) ;
       expansion_h_increment(n, m, -1, hn, cfft, cstr, 
-			    Pn, Cmph[m], Smph[m], field, nq) ;
+			    Pn, Cmph[m], Smph[m], field, nq, fstr) ;
     }
   }
 

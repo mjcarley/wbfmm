@@ -651,7 +651,7 @@ gint translation_test(gfloat *x0, gfloat *x1, gfloat *x2,
 {
   gfloat Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   gfloat kr, work[BUFSIZE] ;
-  gint i, Ni, No, cstri, cstro ;
+  gint i, j, Ni, No, cstri, cstro, fcstr ;
   gdouble t0 ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
@@ -662,7 +662,8 @@ gint translation_test(gfloat *x0, gfloat *x1, gfloat *x2,
   if ( N > 12 ) Ni = N - 3 ; 
   cstri = 2 ;
   cstro = 3 ;
-
+  fcstr = 5 ;
+  
   /*generate coaxial shift coefficients*/
   /* kr = -k*(xc[2] - x0[2]) ; */
   /* kr = k*(x0[2] - xc[2]) ; */
@@ -698,24 +699,24 @@ gint translation_test(gfloat *x0, gfloat *x1, gfloat *x2,
     gfloat f0[64] = {0.0}, fs[64] = {0.0}, fc[64] = {0.0} ;
 
     wbfmm_expansion_h_evaluate_f(k, x0, Ci, cstri, Ni, nq, &(xf[i*fstr]),
-				    f0, 2, work) ;
-
-    fprintf(stdout, "%g+j*%g ", f0[0], f0[1]) ;
-
+				    f0, fcstr, work) ;
     wbfmm_expansion_h_evaluate_f(k, x1, Co, cstro, No, nq, &(xf[i*fstr]),
-				    fs, 2, work) ;
-
-    fprintf(stdout, "%g+j*%g ", fs[0], fs[1]) ;
-
+				    fs, fcstr, work) ;
     wbfmm_total_field_f(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq, 
-			   ns, &(xf[i*fstr]), fc, 1) ;
+			   ns, &(xf[i*fstr]), fc, fcstr) ;
 
-    fprintf(stdout, "%g+j*%g ", fc[0], fc[1]) ;
-
-    fprintf(stdout, "(%g)\n",
-  	    sqrt((fs[0]-fc[0])*(fs[0]-fc[0])+
-  		 (fs[1]-fc[1])*(fs[1]-fc[1]))) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, "%d: ", j) ;
+      fprintf(stdout, "%g+j*%g ", f0[j*fcstr+0], f0[j*fcstr+1]) ;
+      fprintf(stdout, "%g+j*%g ", fs[j*fcstr+0], fs[j*fcstr+1]) ;
+      fprintf(stdout, "%g+j*%g ", fc[j*fcstr+0], fc[j*fcstr+1]) ;
+      fprintf(stdout, "(%g)\n",
+	      sqrt((fs[j*fcstr+0]-fc[j*fcstr+0])*
+		   (fs[j*fcstr+0]-fc[j*fcstr+0])+
+		   (fs[j*fcstr+1]-fc[j*fcstr+1])*
+		   (fs[j*fcstr+1]-fc[j*fcstr+1]))) ;
+    }
   }
 
   fprintf(stderr, "%s ends: %lg\n",
@@ -945,10 +946,10 @@ gint rotation_test(gfloat *x0, gfloat *x1, gfloat *x2,
   gfloat H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   gfloat ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
   gfloat Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
-  gint i, cstri, cstro ;
+  gint i, j, cstri, cstro, fcstr ;
   gdouble t0, dt ;
   
-  cstri = 3 ; cstro = 2 ;
+  cstri = 3 ; cstro = 2 ; fcstr = 3 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
@@ -993,29 +994,38 @@ gint rotation_test(gfloat *x0, gfloat *x1, gfloat *x2,
   for ( i = 0 ; i < nf ; i ++ ) {
     gfloat fu[64] = {0.0}, fr[64] = {0.0}, fc[64] = {0.0} ;
 
-    wbfmm_total_field_f(k, xs, sstr, q, qstr,
-			   NULL, 0, NULL, 0, nq,
-			   ns, &(xf[i*fstr]), fc, 1) ;
-    /*computed field on unrotated coefficients*/
-    wbfmm_expansion_h_evaluate_f(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
-				    fu, 2, work) ;
-
-    fprintf(stdout, "%g+j*%g ", fu[0], fu[1]) ;
-
     wbfmm_coordinate_transform_f(&(xf[i*fstr]), ix, iy, iz, y) ;
 
-    wbfmm_expansion_h_evaluate_f(k, y0, Co, cstro, N, nq, y, fr, 2, work) ;
+    wbfmm_total_field_f(k, xs, sstr, q, qstr,
+			   NULL, 0, NULL, 0, nq,
+			   ns, &(xf[i*fstr]), fc, fcstr) ;
+    wbfmm_expansion_h_evaluate_f(k, y0, Co, cstro, N, nq, y, fr,
+				    fcstr, work) ;
 
-    fprintf(stdout, "%g+j*%g ", fr[0], fr[1]) ;
+    /*computed field on unrotated coefficients*/
+    wbfmm_expansion_h_evaluate_f(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
+				    fu, fcstr, work) ;
 
-    fprintf(stdout, "(%g, %g)\n",
-	    sqrt((fu[0]-fc[0])*(fu[0]-fc[0]) +
-		 (fu[1]-fc[1])*(fu[1]-fc[1])),
-	    sqrt((fr[0]-fc[0])*(fr[0]-fc[0]) +
-		 (fr[1]-fc[1])*(fr[1]-fc[1]))) ;
-		 
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, "%d: ", j) ;
+      fprintf(stdout, "%g+j*%g ",
+	      fu[j*fcstr+0], fu[j*fcstr+1]) ;
+
+      fprintf(stdout, "%g+j*%g ",
+	      fr[j*fcstr+0], fr[j*fcstr+1]) ;
+
+      fprintf(stdout, "(%g, %g)\n",
+	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+    }
   }
-
+  
   return 0 ;
  }
 
@@ -2043,8 +2053,10 @@ gint expansion_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
       fprintf(stdout, "%g+j*%g (%g)\n",
 	      fc[fcstr*j+0], fc[fcstr*j+1],
-	      sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
-		   (fe[1]-fc[1])*(fe[1]-fc[1]))) ;
+	      sqrt((fe[fcstr*j+0]-fc[fcstr*j+0])*
+		   (fe[fcstr*j+0]-fc[fcstr*j+0]) +
+		   (fe[fcstr*j+1]-fc[fcstr*j+1])*
+		   (fe[fcstr*j+1]-fc[fcstr*j+1]))) ;
     }
   }
 

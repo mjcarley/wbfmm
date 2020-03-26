@@ -411,11 +411,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 */
 
 {
-  gint nu, n, m, offp, offm ;
+  gint nu, n, m, offp, offm, j ;
   WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
   WBFMM_REAL Hp, Hm ;
 
-  g_assert(nq == 1) ;
+  if ( cstro < nq )
+    g_error("%s: output coefficient stride (%d) less than number of source "
+	    " components (%d)", __FUNCTION__, cstro, nq) ;
+  if ( cstri < nq )
+    g_error("%s: input coefficient stride (%d) less than number of source "
+	    " components (%d)", __FUNCTION__, cstro, nq) ;
   
   /*initialize recursions*/
   Cph = COS(ph) ; Sph = SIN(ph) ;
@@ -432,8 +437,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
    */
 
   for ( n = 0 ; n <= N ; n ++ ) {
-    WBFMM_REAL tC[4], tS[4] ;
-    WBFMM_REAL tmul[16] = {0.0} ;
+    WBFMM_REAL tC[4], tS[4] ; /*4*/
+    WBFMM_REAL tmul[256] = {0.0} ; /*16*/
 
     nu = 0 ; Cnph = 1.0 ; Snph = 0.0 ;
 
@@ -441,11 +446,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 
     offp = 2*cstri*wbfmm_coefficient_index_nm(n,m) ;
     Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
+    
+    for ( j = 0 ; j < nq ; j ++ ) {
+      tC[0] = Cmch*Ci[offp+2*j+0] ; tC[1] = Cmch*Ci[offp+2*j+1] ;
 
-    tC[0] = Cmch*Ci[offp+0] ; tC[1] = Cmch*Ci[offp+1] ;
-
-    tmul[ 0] += tC[0]*Hp ; tmul[ 1] += tC[1]*Hp ;
-
+      tmul[16*j+ 0] += tC[0]*Hp ; tmul[16*j+ 1] += tC[1]*Hp ;
+    }
+    
     for ( m = 1 ; m <= n ; m ++ ) {
       Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
       Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
@@ -455,29 +462,33 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 
       wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
 
-      tC[0] = Cmch*Ci[offp+0] ; tC[1] = Cmch*Ci[offp+1] ;
-      tC[2] = Cmch*Ci[offm+0] ; tC[3] = Cmch*Ci[offm+1] ;
+      for ( j = 0 ; j < nq ; j ++ ) {
+	tC[0] = Cmch*Ci[offp+2*j+0] ; tC[1] = Cmch*Ci[offp+2*j+1] ;
+	tC[2] = Cmch*Ci[offm+2*j+0] ; tC[3] = Cmch*Ci[offm+2*j+1] ;
 
-      tS[0] = Smch*Ci[offp+0] ; tS[1] = Smch*Ci[offp+1] ;
-      tS[2] = Smch*Ci[offm+0] ; tS[3] = Smch*Ci[offm+1] ;
+	tS[0] = Smch*Ci[offp+2*j+0] ; tS[1] = Smch*Ci[offp+2*j+1] ;
+	tS[2] = Smch*Ci[offm+2*j+0] ; tS[3] = Smch*Ci[offm+2*j+1] ;
+	
+	tmul[16*j+ 0] += tC[0]*Hp ; tmul[16*j+ 1] += tC[1]*Hp ;
+	
+	tmul[16*j+ 4] += tS[0]*Hp ; tmul[16*j+ 5] += tS[1]*Hp ;
 
-      tmul[ 0] += tC[0]*Hp ; tmul[ 1] += tC[1]*Hp ;
+	tmul[16*j+10] += tC[2]*Hm ; tmul[16*j+11] += tC[3]*Hm ;
 
-      tmul[ 4] += tS[0]*Hp ; tmul[ 5] += tS[1]*Hp ;
-
-      tmul[10] += tC[2]*Hm ; tmul[11] += tC[3]*Hm ;
-
-      tmul[14] += tS[2]*Hm ; tmul[15] += tS[3]*Hm ;
+	tmul[16*j+14] += tS[2]*Hm ; tmul[16*j+15] += tS[3]*Hm ;
+      }
     }
 
     offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
-    Co[offp+0] +=
-      (tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15])*Cnph ;
-    Co[offp+1] +=
-      (tmul[ 1] + tmul[ 4] + tmul[11] - tmul[14])*Cnph ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      Co[offp+2*j+0] +=
+	(tmul[16*j+ 0] - tmul[16*j+ 5] + tmul[16*j+10] + tmul[16*j+15])*Cnph ;
+      Co[offp+2*j+1] +=
+	(tmul[16*j+ 1] + tmul[16*j+ 4] + tmul[16*j+11] - tmul[16*j+14])*Cnph ;
+    }
     
     for ( nu = 1 ; nu <= n ; nu ++ ) {
-      memset(tmul, 0, 16*sizeof(WBFMM_REAL)) ;
+      memset(tmul, 0, 16*nq*sizeof(WBFMM_REAL)) ;
       wbfmm_cos_sin_recursion(Cnph,Snph,Cph,Sph) ;
 
       m = 0 ; Cmch = 1.0 ; Smch = 0.0 ;
@@ -486,16 +497,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 
       Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
       Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+      for ( j = 0 ; j < nq ; j ++ ) {
+	tC[0] = Cmch*Ci[offp+2*j+0] ; tC[1] = Cmch*Ci[offp+2*j+1] ;
+	tC[2] = Smch*Ci[offp+2*j+0] ; tC[3] = Smch*Ci[offp+2*j+1] ;
 
-      tC[0] = Cmch*Ci[offp+0] ; tC[1] = Cmch*Ci[offp+1] ;
-      tC[2] = Smch*Ci[offp+0] ; tC[3] = Smch*Ci[offp+1] ;
+	tmul[16*j+ 0] = tC[0]*Hp ; tmul[16*j+ 1] = tC[1]*Hp ;
+	tmul[16*j+ 4] = tC[2]*Hp ; tmul[16*j+ 5] = tC[3]*Hp ;
 
-      tmul[ 0] = tC[0]*Hp ; tmul[ 1] = tC[1]*Hp ;
-      tmul[ 4] = tC[2]*Hp ; tmul[ 5] = tC[3]*Hp ;
-
-      tmul[ 8] = tC[0]*Hm ; tmul[ 9] = tC[1]*Hm ;
-      tmul[12] = tC[2]*Hm ; tmul[13] = tC[3]*Hm ;
-
+	tmul[16*j+ 8] = tC[0]*Hm ; tmul[16*j+ 9] = tC[1]*Hm ;
+	tmul[16*j+12] = tC[2]*Hm ; tmul[16*j+13] = tC[3]*Hm ;
+      }
+      
       for ( m = 1 ; m <= n ; m ++ ) {
 	/*rotation coefficients for \pm\nu*/
 	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
@@ -506,40 +518,44 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 
 	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
 
-	tC[0] = Cmch*Ci[offp+0] ; tC[1] = Cmch*Ci[offp+1] ;
-	tC[2] = Cmch*Ci[offm+0] ; tC[3] = Cmch*Ci[offm+1] ;
+	for ( j = 0 ; j < nq ; j ++ ) {
+	  tC[0] = Cmch*Ci[offp+2*j+0] ; tC[1] = Cmch*Ci[offp+2*j+1] ;
+	  tC[2] = Cmch*Ci[offm+2*j+0] ; tC[3] = Cmch*Ci[offm+2*j+1] ;
 
-	tS[0] = Smch*Ci[offp+0] ; tS[1] = Smch*Ci[offp+1] ;
-	tS[2] = Smch*Ci[offm+0] ; tS[3] = Smch*Ci[offm+1] ;
+	  tS[0] = Smch*Ci[offp+2*j+0] ; tS[1] = Smch*Ci[offp+2*j+1] ;
+	  tS[2] = Smch*Ci[offm+2*j+0] ; tS[3] = Smch*Ci[offm+2*j+1] ;
 
-	tmul[ 0] += tC[0]*Hp ; tmul[ 1] += tC[1]*Hp ;
-	tmul[ 2] += tC[2]*Hp ; tmul[ 3] += tC[3]*Hp ;
+	  tmul[16*j+ 0] += tC[0]*Hp ; tmul[16*j+ 1] += tC[1]*Hp ;
+	  tmul[16*j+ 2] += tC[2]*Hp ; tmul[16*j+ 3] += tC[3]*Hp ;
 
-	tmul[ 4] += tS[0]*Hp ; tmul[ 5] += tS[1]*Hp ;
-	tmul[ 6] += tS[2]*Hp ; tmul[ 7] += tS[3]*Hp ;
+	  tmul[16*j+ 4] += tS[0]*Hp ; tmul[16*j+ 5] += tS[1]*Hp ;
+	  tmul[16*j+ 6] += tS[2]*Hp ; tmul[16*j+ 7] += tS[3]*Hp ;
 
-	tmul[ 8] += tC[0]*Hm ; tmul[ 9] += tC[1]*Hm ;
-	tmul[10] += tC[2]*Hm ; tmul[11] += tC[3]*Hm ;
+	  tmul[16*j+ 8] += tC[0]*Hm ; tmul[16*j+ 9] += tC[1]*Hm ;
+	  tmul[16*j+10] += tC[2]*Hm ; tmul[16*j+11] += tC[3]*Hm ;
 
-	tmul[12] += tS[0]*Hm ; tmul[13] += tS[1]*Hm ;
-	tmul[14] += tS[2]*Hm ; tmul[15] += tS[3]*Hm ;
+	  tmul[16*j+12] += tS[0]*Hm ; tmul[16*j+13] += tS[1]*Hm ;
+	  tmul[16*j+14] += tS[2]*Hm ; tmul[16*j+15] += tS[3]*Hm ;
+	}
       }
       /*output indices for \pm\nu*/
       offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
       offm = offp - 4*cstro*nu ;
 
-      Co[offp+0] +=
-	(tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15])*Cnph +
-	(tmul[ 1] + tmul[ 4] + tmul[11] - tmul[14])*Snph ;
-      Co[offp+1] +=
-	(tmul[ 1] + tmul[ 4] + tmul[11] - tmul[14])*Cnph -
-	(tmul[ 0] - tmul[ 5] + tmul[10] + tmul[15])*Snph ;
-      Co[offm+0] +=
-	(tmul[ 8] - tmul[13] + tmul[ 2] + tmul[ 7])*Cnph -
-	(tmul[12] + tmul[ 9] + tmul[ 3] - tmul[ 6])*Snph ;
-      Co[offm+1] +=
-	(tmul[12] + tmul[ 9] + tmul[ 3] - tmul[ 6])*Cnph +
-	(tmul[ 8] - tmul[13] + tmul[ 2] + tmul[ 7])*Snph ;
+      for ( j = 0 ; j < nq ; j ++ ) {
+	Co[offp+2*j+0] +=
+	  (tmul[16*j+ 0] - tmul[16*j+ 5] + tmul[16*j+10] + tmul[16*j+15])*Cnph +
+	  (tmul[16*j+ 1] + tmul[16*j+ 4] + tmul[16*j+11] - tmul[16*j+14])*Snph ;
+	Co[offp+2*j+1] +=
+	  (tmul[16*j+ 1] + tmul[16*j+ 4] + tmul[16*j+11] - tmul[16*j+14])*Cnph -
+	  (tmul[16*j+ 0] - tmul[16*j+ 5] + tmul[16*j+10] + tmul[16*j+15])*Snph ;
+	Co[offm+2*j+0] +=
+	  (tmul[16*j+ 8] - tmul[16*j+13] + tmul[16*j+ 2] + tmul[16*j+ 7])*Cnph -
+	  (tmul[16*j+12] + tmul[16*j+ 9] + tmul[16*j+ 3] - tmul[16*j+ 6])*Snph ;
+	Co[offm+2*j+1] +=
+	  (tmul[16*j+12] + tmul[16*j+ 9] + tmul[16*j+ 3] - tmul[16*j+ 6])*Cnph +
+	  (tmul[16*j+ 8] - tmul[16*j+13] + tmul[16*j+ 2] + tmul[16*j+ 7])*Snph ;
+      }
     }
   }
 
