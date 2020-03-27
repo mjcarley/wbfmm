@@ -4,9 +4,10 @@ function dat = mksources(file, xmin, D, nsrc, nc)
   
 fid = fopen(file, "w") ;
 
-fprintf(fid, "%d %d\n", nsrc, nc+3) ;
+fprintf(fid, "%d %d M\n", nsrc, nc) ;
 
-dat = [D*rand(nsrc, 3) randn(nsrc,nc)] ;
+q = randn(nsrc, nc) ;
+dat = [D*rand(nsrc, 3) q] ;
 dat(:,1) += xmin(1) ;
 dat(:,2) += xmin(2) ;
 dat(:,3) += xmin(3) ;

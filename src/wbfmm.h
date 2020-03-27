@@ -641,7 +641,6 @@ gint wbfmm_tree_leaf_expansions(wbfmm_tree_t *t, gdouble k,
 				gdouble *src, gint sstr,
 				gdouble *normals, gint nstr,
 				gdouble *dipoles, gint dstr,
-				gint nq,
 				gboolean zero_expansions,
 				gdouble *work) ;
 
@@ -804,7 +803,6 @@ gint wbfmm_tree_leaf_expansions_f(wbfmm_tree_t *t, gfloat k,
 				  gfloat *src, gint sstr,
 				  gfloat *normals, gint nstr,
 				  gfloat *dipoles, gint dstr,
-				  gint nq,
 				  gboolean zero_expansions,
 				  gfloat *work) ;
 

@@ -256,7 +256,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  * @param dipoles dipole source strengths (if \a normals is not NULL), or 
  * moment vectors (if \a normals is NULL);
  * @param dstr stride of data in \a dipoles;
- * @param nq number of source components;
  * @param zero_expansions if TRUE, set expansion coefficients to zero
  * before adding source terms;
  * @param work workspace.
@@ -272,7 +271,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
 						      gint nstr,
 						      WBFMM_REAL *dipoles,
 						      gint dstr,
-						      gint nq,
 						      gboolean zero_expansions,
 						      WBFMM_REAL *work) {}
 

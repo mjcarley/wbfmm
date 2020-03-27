@@ -70,15 +70,15 @@ static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
     ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
     /*clear workspace*/
-    memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+    memset(wks, 0, 2*(ncs+ncr)*nq*sizeof(WBFMM_REAL)) ;
     /*rotate singular coefficients into wks*/
-    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, b[ilist[2*j+0]].mps, 8,
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, b[ilist[2*j+0]].mps, 8*nq,
 					Ns, nq, H, ph, ch) ;
     /*translate into wkr*/
-    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
+    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr, wks, nq, Ns, nq,
 						 Cx, Nr, TRUE) ;
     /*rotate regular coefficients into mpr*/
-    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(b[ip].mpr, 8, wkr, 1, Nr, nq,
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(b[ip].mpr, 8*nq, wkr, nq, Nr, nq,
 					H, ch, ph) ;
   }
   
@@ -346,8 +346,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   wbfmm_box_t *bp, *bc ;
   WBFMM_REAL *rotations, *shifts, *wks, *wkr, *H03, *H47, *trans ;
 
-  nq = t->nq ;
-  g_assert(nq == 1) ;
+  nq = wbfmm_tree_source_size(t) ;
+  
   g_assert(level > 1) ;
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ) ;
 
@@ -358,7 +358,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
   Ns = t->order_s[level] ; Nr = t->order_r[level] ;
   ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
   ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
-  wks = work ; wkr = &(wks[2*ncs]) ;
+  wks = work ; wkr = &(wks[2*ncs*nq]) ;
 
   /*boxes at this level (parent)*/
   bp = t->boxes[level] ;
@@ -402,7 +402,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
 						  (WBFMM_REAL *)(bp[ip].mpr),
 						  Np,
 						  H03, H47, Np,
-						  trans, Np, t->nq, work) ;
+						  trans, Np,
+						  wbfmm_tree_source_size(t),
+						  work) ;
   }
 
   return 0 ;
@@ -451,7 +453,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 						  (WBFMM_REAL *)(bc[ic].mps),
 						  Nc,
 						  H03, H47, Np, 
-						  trans, Np, t->nq, work) ;
+						  trans, Np,
+						  wbfmm_tree_source_size(t),
+						  work) ;
   }
 
   return 0 ;

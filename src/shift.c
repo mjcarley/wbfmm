@@ -172,10 +172,6 @@ static inline void increment_cfft_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 	   Ei[0]*(Cr[2*nq*4+2*j+1] - Cr[2*nq*6+2*j+1]) +
 	   Er[1]*(Cr[2*nq*5+2*j+0] + Cr[2*nq*7+2*j+0]) -
 	   Ei[1]*(Cr[2*nq*5+2*j+1] - Cr[2*nq*7+2*j+1])) ;
-      /* H03*(Er[0]*(Cr[0] + Cr[4]) -  Ei[0]*(Cr[1]-Cr[5]) +  */
-      /* 	   Er[1]*(Cr[2] + Cr[6]) -  Ei[1]*(Cr[3]-Cr[7])) + */
-      /* H47*(Er[0]*(Cr[8] + Cr[12]) - Ei[0]*(Cr[9]-Cr[13]) + */
-      /* 	   Er[1]*(Cr[10]+ Cr[14]) - Ei[1]*(Cr[11]-Cr[15])) ; */
 
     Cp[2*j+1] += 
       H03*(Er[0]*(Cr[2*nq*0+2*j+1] + Cr[2*nq*2+2*j+1]) +
@@ -186,10 +182,6 @@ static inline void increment_cfft_cp(WBFMM_REAL Er[], WBFMM_REAL Ei[],
 	   Ei[0]*(Cr[2*nq*4+2*j+0] - Cr[2*nq*6+2*j+0]) +
 	   Er[1]*(Cr[2*nq*5+2*j+1] + Cr[2*nq*7+2*j+1]) +
 	   Ei[1]*(Cr[2*nq*5+2*j+0] - Cr[2*nq*7+2*j+0])) ;
-      /* H03*(Er[0]*(Cr[1]+Cr[5]) + Ei[0]*(Cr[0]-Cr[4]) + */
-      /* 	   Er[1]*(Cr[3]+Cr[7]) + Ei[1]*(Cr[2]-Cr[6])) + */
-      /* H47*(Er[0]*(Cr[9]+Cr[13]) + Ei[0]*(Cr[8]-Cr[12]) + */
-      /* 	   Er[1]*(Cr[11]+Cr[15]) + Ei[1]*(Cr[10]-Cr[14])) ; */
   }
   
   return ;
@@ -219,7 +211,7 @@ static inline void increment_cfft_pc(WBFMM_REAL Er[], WBFMM_REAL Ei[],
     buf[2*nq*3+2*j+0] += H03*(Er[0]*Cr[2*nq*3+2*j+0] - Ei[0]*Cr[2*nq*3+2*j+1]) ;
     buf[2*nq*3+2*j+1] += H03*(Er[0]*Cr[2*nq*3+2*j+1] + Ei[0]*Cr[2*nq*3+2*j+0]) ;
 
-    buf[2*nq*2+2*j+0] += H03*(Er[1]*Cr[2*nq*2+2*j+0] - Ei[1]*Cr[2*nq*2+1]) ;
+    buf[2*nq*2+2*j+0] += H03*(Er[1]*Cr[2*nq*2+2*j+0] - Ei[1]*Cr[2*nq*2+2*j+1]) ;
     buf[2*nq*2+2*j+1] += H03*(Er[1]*Cr[2*nq*2+2*j+1] + Ei[1]*Cr[2*nq*2+2*j+0]) ;
 
     buf[2*nq*1+2*j+0] += H03*(Er[0]*Cr[2*nq*1+2*j+0] + Ei[0]*Cr[2*nq*1+2*j+1]) ;
@@ -405,7 +397,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
   WBFMM_REAL Cnch, Snch, Cn3ch, Sn3ch ;
   WBFMM_REAL Cnch0, Snch0, Cn3ch0, Sn3ch0 ;
   gint nu, l, n, m, ic, ip, ih, str, i, sgn, offc, offp ;
-
+  
   /*stride in number of complex elements per entry*/
   str = 8*nq ;
   /*used for trigonometric recursions*/

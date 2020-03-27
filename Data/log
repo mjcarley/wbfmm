@@ -1,0 +1,79 @@
+wbfmm-tree-calc: 2 points of 4 components
+wbfmm-tree-calc: 1024 points of 0 components
+wbfmm-tree-calc: box origin: -1.30797 -1.30402 -1.00999
+wbfmm-tree-calc: box width: 2.51967
+wbfmm-tree-calc: expansion order, level 1: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 2: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 3: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 4: singular 13; regular 13
+wbfmm-tree-calc: initializing shift rotation operators; 0.002493
+wbfmm-tree-calc: shift rotation operators initialized; 0.132668
+wbfmm-tree-calc: initializing shift translation operators; 0.132682
+wbfmm-tree-calc: shift translation operators initialized; 0.15964
+wbfmm-tree-calc: initializing upward pass translation operators; 0.159648
+wbfmm-tree-calc: upward pass translation operators initialized; 0.160961
+wbfmm-tree-calc: initializing leaf expansions; 0.161096
+wbfmm-tree-calc: leaf expansions initialized; 0.166051
+wbfmm-tree-calc: upward pass; 0.166073
+wbfmm-tree-calc: upward pass completed; 1.21337
+wbfmm-tree-calc: downward pass; 1.2134
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0.135191 0.135191 0.0255588 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+0 0 0 0.0255588
+wbfmm-direct-calc: 2 points of 4 components
+wbfmm-direct-calc: 1024 points of 0 components
+wbfmm-direct-calc: computing direct field; 0.002191
+wbfmm-direct-calc: direct field computed; 0.004851

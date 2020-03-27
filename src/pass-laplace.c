@@ -246,7 +246,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_upward_pass)(wbfmm_tree_t *t,
 							  (WBFMM_REAL *)
 							  (bc[ic].mps),
 							  Nc,
-							  t->nq, 
+							  wbfmm_tree_source_size(t), 
 							  H03, H47, Np, 
 							  wb, work) ;
   }

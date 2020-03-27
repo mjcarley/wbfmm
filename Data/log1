@@ -1,0 +1,19 @@
+wbfmm-tree-calc: 2 points of 4 components
+wbfmm-tree-calc: 1024 points of 0 components
+wbfmm-tree-calc: box origin: -1.30797 -1.30402 -1.00999
+wbfmm-tree-calc: box width: 2.51967
+wbfmm-tree-calc: expansion order, level 1: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 2: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 3: singular 13; regular 13
+wbfmm-tree-calc: expansion order, level 4: singular 13; regular 13
+wbfmm-tree-calc: initializing shift rotation operators; 0.002456
+wbfmm-tree-calc: shift rotation operators initialized; 0.133993
+wbfmm-tree-calc: initializing shift translation operators; 0.134008
+wbfmm-tree-calc: shift translation operators initialized; 0.160943
+wbfmm-tree-calc: initializing upward pass translation operators; 0.160948
+wbfmm-tree-calc: upward pass translation operators initialized; 0.162263
+wbfmm-tree-calc: initializing leaf expansions; 0.162397
+wbfmm-tree-calc: leaf expansions initialized; 0.16703
+wbfmm-tree-calc: upward pass; 0.167053
+wbfmm-tree-calc: upward pass completed; 1.22714
+wbfmm-tree-calc: downward pass; 1.22716

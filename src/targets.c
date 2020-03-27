@@ -263,7 +263,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
   
-  nq = t->nq ;
+  nq = wbfmm_tree_source_size(t) ;
 
   level = t->depth ;
   nr = t->order_r[level] ;

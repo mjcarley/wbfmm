@@ -29,14 +29,25 @@
 GTimer *timer ;
 gchar *progname ;
 
-gint read_points(gchar *file, gdouble **points, gint *nsrc, gint *str) ;
+gint read_points(gchar *file,
+		 gdouble **xs, gint *xstr,
+		 gdouble **q,  gint *qstr, gint *nq,
+		 gdouble **n,  gint *nstr, 
+		 gdouble **f,  gint *fstr,
+		 gint *nsrc) ;
 
-gint read_points(gchar *file, gdouble **points, gint *nsrc, gint *str)
+gint read_points(gchar *file,
+		 gdouble **xs, gint *xstr,
+		 gdouble **q,  gint *qstr, gint *nq,
+		 gdouble **n,  gint *nstr, 
+		 gdouble **f,  gint *fstr,
+		 gint *nsrc)
 
 {
   FILE *input = stdin ;
   gdouble *s ;
-  gint i, j ;
+  gchar code[8] ;
+  gint i, j, nqt ;
 
   if ( file != NULL ) {
     input = fopen(file, "r") ;
@@ -46,28 +57,56 @@ gint read_points(gchar *file, gdouble **points, gint *nsrc, gint *str)
     }
   }
 
-  fscanf(input, "%d", nsrc) ;
-  fscanf(input, "%d", str) ;
-  fprintf(stderr, "%s: %d point%c\n", 
-	  progname, *nsrc, (*nsrc > 1 ? 's' : ' ')) ;
-  s = *points = (gdouble *)g_malloc0((*str)*(*nsrc)*sizeof(gdouble)) ;
 
-  for ( i = 0 ; i < *nsrc ; i ++ ) {
-    for ( j = 0 ; j < *str ; j ++ ) 
-      fscanf(input, "%lg", &(s[(*str)*i+j])) ;
+  fscanf(input, "%d", nsrc) ;
+  fscanf(input, "%d", &nqt) ;
+  fscanf(input, "%s", code) ;
+  fprintf(stderr, "%s: %d point%c of %d components\n", 
+	  progname, *nsrc, (*nsrc > 1 ? 's' : ' '), nqt) ;
+  if ( strcmp(code, "M") == 0) {
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + *nq ;
+    s = *xs = (gdouble *)g_malloc0((*xstr)*(*nsrc)*sizeof(gdouble)) ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%lg", &(s[(*xstr)*i+j])) ;
+    }
+
+    *q = &(s[3]) ; *qstr = *xstr ;
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
   }
 
-  if ( file != NULL ) fclose(input) ;
+  if ( strcmp(code, "F") == 0) {
+    *xstr = 3 ;
+    s = *xs = (gdouble *)g_malloc0((*xstr)*(*nsrc)*sizeof(gdouble)) ;
 
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%lg", &(s[(*xstr)*i+j])) ;
+    }
+
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
   return 0 ;
 }
 
 gint main(gint argc, gchar **argv)
 
 {
-  gdouble k, *sources ;
+  gdouble k, *xs ;
   gdouble *xf, *f, *q, *normals, *dipoles ;
-  gint nsrc, i, str, strf, nf, qstr, dstr, nstr, nq ;
+  gint nsrc, i, j, xstr, fstr, nf, qstr, dstr, nstr, fcstr, nq ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
 
   k = 1.0 ; nq = 1 ;
@@ -98,25 +137,26 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( sfile != NULL ) {
-    read_points(sfile, &sources, &nsrc, &str) ;
-    switch ( str ) {
-    default:
-      fprintf(stderr, "%s: don't know how to interpret stride %d\n",
-	      progname, str) ;
-      exit(1) ;
-      break ;
-    case  5: fprintf(stderr, "%s: monopole sources\n", progname) ; break ;
-    case  8: fprintf(stderr, "%s: dipole sources\n", progname) ; break ;
-    case 10: fprintf(stderr, "%s: mixed sources\n", progname) ; break ;
-    }
+    read_points(sfile,
+		&xs, &xstr,
+		&q,  &qstr, &nq,
+		&normals, &nstr,
+		&dipoles, &dstr,
+		&nsrc) ;
+    /* read_points(sfile, &sources, &nsrc, &str) ; */
   } else {
     fprintf(stderr, "%s: source list must be specified (-s)\n",
 	    progname) ;
     return 1 ;
   }
 
+  nq /= 2 ;
+  fcstr = 2*nq ;
+  
   if ( ffile != NULL ) {
-    read_points(ffile, &xf, &nf, &strf) ;
+    /* read_points(ffile, &xf, &nf, &strf) ; */
+    read_points(ffile,
+		&xf, &fstr, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &nf) ;
   } else {
     fprintf(stderr, "%s: field point list must be specified (-f)\n",
 	    progname) ;
@@ -128,29 +168,11 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing direct field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  qstr = nstr = dstr = 0 ;
-  q = normals = dipoles = NULL ;
-  switch ( str ) {
-  default: g_assert_not_reached() ; break ;
-  case 5:
-    q = &(sources[3]) ; qstr = str ;
-    break ;
-  case 8:
-    normals = &(sources[3]) ; nstr = str ;
-    dipoles = &(sources[6]) ; dstr = str ;
-    break ;
-  case 10:
-    q = &(sources[3]) ; qstr = str ;
-    normals = &(sources[5]) ; nstr = str ;
-    dipoles = &(sources[8]) ; dstr = str ;
-    break ;
-  }
-
   for ( i = 0 ; i < nf ; i ++ ) {
-    wbfmm_total_field(k, sources, str,
+    wbfmm_total_field(k, xs, xstr,
 			   q, qstr, normals, nstr, dipoles, dstr, nq,
 			   nsrc,
-			   &(xf[i*strf]), &(f[2*i]), 1) ;
+			   &(xf[i*fstr]), &(f[fcstr*i]), nq) ;
   }
 
   fprintf(stderr, "%s: direct field computed; %lg\n",
@@ -158,8 +180,13 @@ gint main(gint argc, gchar **argv)
 
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 
-	    "%1.16e %1.16e %1.16e %1.16e %1.16e\n",
-	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2], f[2*i+0], f[2*i+1]) ;
+	    "%1.16e %1.16e %1.16e ",
+	    xf[i*fstr+0], xf[i*fstr+1], xf[i*fstr+2]) ;
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, 
+	      " %1.16e %1.16e", f[fcstr*i+2*j+0], f[fcstr*i+2*j+1]) ;
+    }
+    fprintf(stdout, "\n") ;
   }
 
   return 0 ;

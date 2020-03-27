@@ -48,7 +48,7 @@ wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
   t->maxpoints = maxpoints ;
   /*number of components in tree sources (set when coefficients are
     initialized)*/
-  t->nq = 0 ;
+  wbfmm_tree_source_size(t) = 0 ;
   /*array for sorted point indices*/
   t->ip = (guint32 *)g_malloc(maxpoints*sizeof(guint32)) ;
   t->npoints = 0 ;
@@ -259,7 +259,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 						     gint nstr,
 						     WBFMM_REAL *dipoles,
 						     gint dstr,
-						     gint nq,
 						     gboolean zero_expansions,
 						     WBFMM_REAL *work)
 
@@ -268,8 +267,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
   guint64 im ;
   wbfmm_box_t *boxes ;
   WBFMM_REAL *xs, *q, *fd, *n, xb[3], wb ;
-
-  g_assert(nq == 1) ;
+  gint nq = wbfmm_tree_source_size(t) ;
+  
+  /* g_assert(nq == 1) ; */
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
 
   /*depth of leaves*/
@@ -283,7 +283,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 
   /*zero the coefficients before accumulating*/
   if ( zero_expansions )
-    memset(t->mps[d], 0, nb*nc*2*sizeof(WBFMM_REAL)) ;
+    memset(t->mps[d], 0, nb*nc*2*nq*sizeof(WBFMM_REAL)) ;
 
   boxes = t->boxes[d] ;
 
@@ -309,13 +309,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t,idx) ;
 	q = &(src[idx*sstr]) ;
 	WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q, nq,
-					      boxes[i].mps, 8, work) ;
+					      boxes[i].mps, 8*nq, work) ;
       }
     }
 
     return 0 ;
   }
 
+  g_assert_not_reached() ; /*following code needs modification*/
+  
   if ( src == NULL && normals != NULL ) {
     /*dipoles only, specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
@@ -392,7 +394,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_field)(wbfmm_tree_t *t, guint level,
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(k, xb, C, 8,	  
-						  t->order_s[level], t->nq,
+						  t->order_s[level],
+						  wbfmm_tree_source_size(t),
 						  x, f, fstr,
 						  work) ;
 
@@ -416,19 +419,22 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
   WBFMM_REAL xb[3], wb, *C, *xs, r, h0[2], h1[2], fR[2] ;
   wbfmm_box_t *boxes, box ;
   guint64 neighbours[27] ;
-  gint nnbr, i, j, idx ;
+  gint nnbr, i, j, jj, idx, nq ;
 
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
-
+  nq = wbfmm_tree_source_size(t) ;
+  
   boxes = t->boxes[level] ;
   C = boxes[b].mpr ;
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
 
-  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8,  
-						  t->order_r[level], t->nq,
+  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8*nq,  
+						  t->order_r[level],
+						  wbfmm_tree_source_size(t),
 						  x, f, fstr,
 						  work) ;
+
 
   if ( !eval_neighbours ) return 0 ;
 
@@ -455,9 +461,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 	if ( r > 1e-12 ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ; 
-	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
-	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
+	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
+	  for ( jj = 0 ; jj < nq ; jj ++ ) {
+	    f[fstr*jj+0] +=
+	      h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ;
+	    f[fstr*jj+1] +=
+	      h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ;
+	  }
 	}
       }
     }
@@ -537,15 +547,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
 
 {
   guint nb, nc, i, j ;
+  gint nq ;
   wbfmm_box_t *boxes ;
   WBFMM_REAL *c ;
 
-  if ( wbfmm_tree_source_size(t) < 1 )
+  nq = wbfmm_tree_source_size(t) ;
+  if ( nq < 1 )
     g_error("%s: tree has invalid number of components in source terms (%d)",
-	    __FUNCTION__, wbfmm_tree_source_size(t)) ;
+	    __FUNCTION__, nq) ;
   
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
-  g_assert(t->nq == 1) ;
+  /* g_assert(t->nq == 1) ; */
   
   g_assert(l <= wbfmm_tree_depth(t)) ;
 
@@ -558,7 +570,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   /*number of coefficients in singular expansions*/
   if ( ns != 0 ) {
     nc = wbfmm_coefficient_index_nm(ns+1,0) ;
-    t->mps[l] = g_malloc0(nb*2*nc*sizeof(WBFMM_REAL)) ;
+    t->mps[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mps[l]) ;
     /*
       set box pointers to start of their coefficients, noting that
@@ -567,14 +579,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
     boxes = t->boxes[l] ;
     for ( i = 0 ; i < nb ; i += 8 ) {
       for ( j = 0 ; j < 8 ; j ++ ) {
-	boxes[i+j].mps = &(c[i*2*nc+2*j]) ;
+	boxes[i+j].mps = &(c[i*2*nc*nq+2*j*nq]) ;
       }
     }
   }
 
   if ( nr != 0 ) {
     nc = wbfmm_coefficient_index_nm(nr+1,0) ;
-    t->mpr[l] = g_malloc0(nb*2*nc*sizeof(WBFMM_REAL)) ;
+    t->mpr[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mpr[l]) ;
     /*
       set box pointers to start of their coefficients, noting that
@@ -583,7 +595,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
     boxes = t->boxes[l] ;
     for ( i = 0 ; i < nb ; i += 8 ) {
       for ( j = 0 ; j < 8 ; j ++ ) {
-	boxes[i+j].mpr = &(c[i*2*nc+2*j]) ;
+	boxes[i+j].mpr = &(c[i*2*nq*nc+2*nq*j]) ;
       }
     }
   }
