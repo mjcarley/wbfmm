@@ -83,6 +83,19 @@ typedef enum {
 	      WBFMM_PROBLEM_HELMHOLTZ = 2 /**< Helmholtz equation */	      
 } wbfmm_problem_t ; 
 
+/** 
+ * Selection of field to be calculated
+ *
+ * @ingroup boxes
+ *
+ */
+
+typedef enum {
+  WBFMM_FIELD_SCALAR   = 1 << 0, /**< scalar field */
+  WBFMM_FIELD_GRADIENT = 1 << 1, /**< gradient of scalar field */
+  WBFMM_FIELD_CURL     = 1 << 2 /**< curl of scalar field */
+} wbfmm_field_t ;
+
 /**
  * @struct wbfmm_tree_t
  * @ingroup boxes
@@ -286,8 +299,8 @@ gint wbfmm_total_field_grad(gdouble k,
 			    gdouble *src, gint sstride,
 			    gdouble *normals, gint nstr,
 			    gdouble *dipoles, gint dstr,
-			    gint nsrc,
-			    gdouble *xf, gdouble *field) ;
+			    gint nq, gint nsrc,
+			    gdouble *xf, gdouble *field, gint fstr) ;
 gint wbfmm_total_dipole_field(gdouble k,
 			      gdouble *xs, gint xstride,
 			      gdouble *src, gint sstride,
@@ -621,6 +634,7 @@ gint wbfmm_tree_box_local_field(wbfmm_tree_t *t, guint level,
 				gdouble *normals, gint nstr,
 				gdouble *d, gint dstr,
 				gboolean eval_neighbours,
+				guint field,
 				gdouble *work) ;
 guint64 wbfmm_point_box(wbfmm_tree_t *t, guint level, gdouble *x) ;
 
@@ -749,8 +763,8 @@ gint wbfmm_total_field_grad_f(gfloat k,
 			      gfloat *src, gint sstride,
 			      gfloat *normals, gint nstr,
 			      gfloat *dipoles, gint dstr,
-			      gint nsrc,
-			      gfloat *xf, gfloat *field) ;
+			      gint nq, gint nsrc,
+			      gfloat *xf, gfloat *field, gint fstr) ;
 gint wbfmm_total_dipole_field_f(gfloat k,
 				gfloat *xs, gint xstride,
 				gfloat *src, gint sstride,
@@ -876,6 +890,7 @@ gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  gfloat *normals, gint nstr,
 				  gfloat *d, gint dstr,
 				  gboolean eval_neighbours,
+				  guint field,
 				  gfloat *work) ;
 guint64 wbfmm_point_box_f(wbfmm_tree_t *t, guint level, gfloat *x) ;
 

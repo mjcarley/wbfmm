@@ -1,0 +1,11 @@
+#!/bin/bash
+
+depth=4
+#bw=-B
+bw=
+
+../tests/wbfmm-laplace-tree-calc -b -d ${depth} -f field.dat -R 20 -S 20 ${bw} \
+                         -s monopoles.dat -t 1e-9 > monopole-laplace-fmm.dat
+
+../tests/wbfmm-laplace-direct-calc -f field.dat \
+                        -s monopoles.dat > monopole-laplace-direct.dat

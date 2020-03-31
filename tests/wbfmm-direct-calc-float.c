@@ -108,13 +108,15 @@ gint main(gint argc, gchar **argv)
   gfloat *xf, *f, *q, *normals, *dipoles ;
   gint nsrc, i, j, xstr, fstr, nf, qstr, dstr, nstr, fcstr, nq ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
+  gboolean gradient ;
 
   k = 1.0 ; nq = 1 ;
-
+  gradient = FALSE ;
+  
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hf:k:s:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hf:gk:s:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -125,12 +127,14 @@ gint main(gint argc, gchar **argv)
 	      "direct evaluation method\n"
 	      "Options:\n\n"
 	      "  -f (field point name)\n"
+	      "  -g calculate gradient of field\n"
 	      "  -k # wavenumber (%g)\n"
 	      "  -s (source file name)\n",
 	      progname, k) ;
       return 0 ;
       break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
+    case 'g': gradient = TRUE ; break ;
     case 'k': k = atof(optarg) ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
     }
@@ -152,6 +156,7 @@ gint main(gint argc, gchar **argv)
 
   nq /= 2 ;
   fcstr = 2*nq ;
+  if ( gradient ) fcstr *= 3 ;
   
   if ( ffile != NULL ) {
     /* read_points(ffile, &xf, &nf, &strf) ; */
@@ -163,17 +168,25 @@ gint main(gint argc, gchar **argv)
     return 1 ;
   }
 
-  f = (gfloat *)g_malloc0(nf*2*sizeof(gfloat)) ;
+  f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
   fprintf(stderr, "%s: computing direct field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  for ( i = 0 ; i < nf ; i ++ ) {
-    wbfmm_total_field_f(k, xs, xstr,
-			   q, qstr, normals, nstr, dipoles, dstr, nq,
-			   nsrc,
-			   &(xf[i*fstr]), &(f[fcstr*i]), nq) ;
-  }
+  if ( gradient )
+    for ( i = 0 ; i < nf ; i ++ ) {
+      wbfmm_total_field_grad_f(k, xs, xstr,
+				  q, qstr, normals, nstr, dipoles, dstr,
+				  nq, nsrc,
+				  &(xf[i*fstr]), &(f[fcstr*i]), 6) ;
+    }
+  else
+    for ( i = 0 ; i < nf ; i ++ ) {
+      wbfmm_total_field_f(k, xs, xstr,
+			     q, qstr, normals, nstr, dipoles, dstr, nq,
+			     nsrc,
+			     &(xf[i*fstr]), &(f[fcstr*i]), nq) ;
+    }
 
   fprintf(stderr, "%s: direct field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -182,7 +195,7 @@ gint main(gint argc, gchar **argv)
     fprintf(stdout, 
 	    "%1.16e %1.16e %1.16e ",
 	    xf[i*fstr+0], xf[i*fstr+1], xf[i*fstr+2]) ;
-    for ( j = 0 ; j < nq ; j ++ ) {
+    for ( j = 0 ; j < fcstr/2 ; j ++ ) {
       fprintf(stdout, 
 	      " %1.16e %1.16e", f[fcstr*i+2*j+0], f[fcstr*i+2*j+1]) ;
     }

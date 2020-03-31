@@ -30,14 +30,25 @@ GTimer *timer ;
 gchar *progname ;
 
 gint parse_origin(gfloat *x, gchar *str) ;
-gint read_points(gchar *file, gfloat **points, gint *nsrc, gint *str) ;
+gint read_points(gchar *file,
+		 gfloat **xs, gint *xstr,
+		 gfloat **q,  gint *qstr, gint *nq,
+		 gfloat **n,  gint *nstr, 
+		 gfloat **f,  gint *fstr,
+		 gint *nsrc) ;
 
-gint read_points(gchar *file, gfloat **points, gint *nsrc, gint *str)
+gint read_points(gchar *file,
+		 gfloat **xs, gint *xstr,
+		 gfloat **q,  gint *qstr, gint *nq,
+		 gfloat **n,  gint *nstr, 
+		 gfloat **f,  gint *fstr,
+		 gint *nsrc)
 
 {
   FILE *input = stdin ;
   gfloat *s ;
-  gint i, j ;
+  gchar code[8] ;
+  gint i, j, nqt ;
 
   if ( file != NULL ) {
     input = fopen(file, "r") ;
@@ -47,19 +58,47 @@ gint read_points(gchar *file, gfloat **points, gint *nsrc, gint *str)
     }
   }
 
-  fscanf(input, "%d", nsrc) ;
-  fscanf(input, "%d", str) ;
-  fprintf(stderr, "%s: %d point%c\n", 
-	  progname, *nsrc, (*nsrc > 1 ? 's' : ' ')) ;
-  s = *points = (gfloat *)g_malloc0((*str)*(*nsrc)*sizeof(gfloat)) ;
 
-  for ( i = 0 ; i < *nsrc ; i ++ ) {
-    for ( j = 0 ; j < *str ; j ++ ) 
-      fscanf(input, "%g", &(s[(*str)*i+j])) ;
+  fscanf(input, "%d", nsrc) ;
+  fscanf(input, "%d", &nqt) ;
+  fscanf(input, "%s", code) ;
+  fprintf(stderr, "%s: %d point%c of %d components\n", 
+	  progname, *nsrc, (*nsrc > 1 ? 's' : ' '), nqt) ;
+  if ( strcmp(code, "M") == 0) {
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + *nq ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
+    }
+
+    *q = &(s[3]) ; *qstr = *xstr ;
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
   }
 
-  if ( file != NULL ) fclose(input) ;
+  if ( strcmp(code, "F") == 0) {
+    *xstr = 3 ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
 
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
+    }
+
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
   return 0 ;
 }
 
@@ -77,9 +116,9 @@ gint main(gint argc, gchar **argv)
   wbfmm_tree_t *tree ;
   wbfmm_target_list_t *targets ;
   wbfmm_shift_operators_t *shifts ;
-  gfloat D, xtree[3] = {0.0}, xtmax[3], *sources ;
+  gfloat D, xtree[3] = {0.0}, xtmax[3], *sources, *xs ;
   gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, nq, i, j, str, strf, nf, fstr, qstr, nstr, dstr ;
+  gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew ;
@@ -87,7 +126,7 @@ gint main(gint argc, gchar **argv)
   gboolean fit_box, shift_bw, write_sources ;
 
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
-  depth = 2 ; str = 5 ;
+  depth = 2 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   /* order_s = 8 ; order_r = 8 ; */
   order_s = order_r = 0 ;
@@ -139,7 +178,13 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( sfile != NULL ) {
-    read_points(sfile, &sources, &nsrc, &str) ;
+    read_points(sfile,
+		&xs, &xstr,
+		&q,  &qstr, &nq,
+		&normals, &nstr,
+		&dipoles, &dstr,
+		&nsrc) ;
+    /* read_points(sfile, &sources, &nsrc, &str) ; */
 
     /* switch ( str ) { */
     /* default: */
@@ -158,10 +203,11 @@ gint main(gint argc, gchar **argv)
  }
 
   /*monopoles only for now*/
-  nq = str - 3 ;    
+  /* nq = str - 3 ;     */
 
   if ( ffile != NULL ) {
-    read_points(ffile, &xf, &nf, &strf) ;
+    read_points(ffile,
+		&xf, &strf, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &nf) ;
   } else {
     fprintf(stderr, "%s: field point list must be specified (-f)\n",
 	    progname) ;
@@ -171,14 +217,14 @@ gint main(gint argc, gchar **argv)
   f = (gfloat *)g_malloc0(nf*nq*sizeof(gfloat)) ;
 
   if ( fit_box ) {
-    wbfmm_points_origin_width_f(sources, str, nsrc, xtree, xtmax, &D, TRUE) ;
+    wbfmm_points_origin_width_f(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
     wbfmm_points_origin_width_f(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
 
     xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
     D += 2.0*del ;
   }
   
-  pstr = str*sizeof(gfloat) ;
+  pstr = xstr*sizeof(gfloat) ;
   fstr = strf*sizeof(gfloat) ;
   tree = wbfmm_tree_new_f(xtree, D, 2*nsrc) ;
 
@@ -236,7 +282,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: coaxial translation coefficients initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
-  wbfmm_tree_add_points_f(tree, (gpointer)sources, nsrc, pstr) ;
+  wbfmm_tree_add_points_f(tree, (gpointer)xs, nsrc, pstr) ;
 
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_f(tree) ;
 
@@ -264,26 +310,6 @@ gint main(gint argc, gchar **argv)
   
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
-  qstr = nstr = dstr = 0 ;
-  q = normals = dipoles = NULL ;
-  /* switch ( str ) { */
-  /* default: g_assert_not_reached() ; break ; */
-  /* case 5: */
-  /*   q = &(sources[3]) ; qstr = str ; */
-  /*   break ; */
-  /* case 8: */
-  /*   normals = &(sources[3]) ; nstr = str ; */
-  /*   dipoles = &(sources[6]) ; dstr = str ; */
-  /*   break ; */
-  /* case 10: */
-  /*   q = &(sources[3]) ; qstr = str ; */
-  /*   normals = &(sources[5]) ; nstr = str ; */
-  /*   dipoles = &(sources[8]) ; dstr = str ; */
-  /*   break ; */
-  /* } */
-
-  q = &(sources[3]) ; qstr = str ; 
   
   wbfmm_tree_laplace_leaf_expansions_f(tree,
 					  q, qstr, normals, nstr, dipoles, dstr,

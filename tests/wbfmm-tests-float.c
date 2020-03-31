@@ -430,7 +430,7 @@ gint expansion_gradient_test(gfloat k, gint N,
     work[0] = work[1] = work[2] = work[3] = work[4] = work[5] = 0.0 ;
     wbfmm_total_field_grad_f(k, xs, xstride, src, sstride,
 				NULL, 0, NULL, 0,			   
-				nsrc, &(xf[i*xstride]), work) ;
+				nsrc, &(xf[i*xstride]), work, 6) ;
 
     fprintf(stdout,
 	    "%g+j*%g %g+j*%g %g+j*%g\n",
@@ -495,7 +495,7 @@ gint expansion_gradient_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
     wbfmm_total_field_grad_f(k, xs, sstr, q, qstr,
 				NULL, 0, NULL, 0,			   
-				ns, &(xf[i*fstr]), fc) ;
+				nq, ns, &(xf[i*fstr]), fc, 6) ;
 
     fprintf(stdout,
 	    "%g+j*%g %g+j*%g "
@@ -881,7 +881,7 @@ gint local_gradient_test(gfloat *x0, gfloat *x1, gfloat *x2,
   /*compute field in both frames*/
     wbfmm_total_field_grad_f(k, xs, sstr, q, qstr,
 				NULL, 0, NULL, 0,
-				ns, xr, fc) ;
+				nq, ns, xr, fc, 6) ;
 
     fprintf(stdout, "direct:      %g+j*%g "
 	    "%g+j*%g %g+j*%g\n",

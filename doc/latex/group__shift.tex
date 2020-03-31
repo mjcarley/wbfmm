@@ -8,11 +8,11 @@ Shift operations (combined rotation and translation) for upward and downward pas
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of parent expansion to child box centres. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4} (gint i, gint j, gint k, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$rs)
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
@@ -24,11 +24,11 @@ gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of parent expansion to child box centres. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f} (gint i, gint j, gint k, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$rs)
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
@@ -61,9 +61,10 @@ Shift operations (combined rotation and translation) for upward and downward pas
 \item[{gint}]{Lh, }
 \item[{gdouble $\ast$}]{trans, }
 \item[{gint}]{Ls, }
+\item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_gad0937c26d1608bda47e211ce8d44aea8}
+)}\label{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}
 
 
 Upward shift of singular expansion from eight children to common parent. 
@@ -89,6 +90,8 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 {\em trans} & coaxial translation operator for distance between child and parent box centres; \\
 \hline
 {\em Ls} & order of {\itshape trans}; \\
+\hline
+{\em nq} & number of source components; \\
 \hline
 {\em work} & workspace\\
 \hline
@@ -116,7 +119,7 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 
 Upward shift of singular expansion from eight children to common parent, using backward translations. 
 
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_gad0937c26d1608bda47e211ce8d44aea8}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
 
 
 \begin{DoxyParams}{Parameters}
@@ -164,7 +167,7 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 
 Upward shift of singular expansion from eight children to common parent, using backward translations. 
 
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gae07cc41d0c51a9c780e716c2c7995b0c}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
 
 
 \begin{DoxyParams}{Parameters}
@@ -205,9 +208,10 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \item[{gint}]{Lh, }
 \item[{gfloat $\ast$}]{trans, }
 \item[{gint}]{Ls, }
+\item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_gae07cc41d0c51a9c780e716c2c7995b0c}
+)}\label{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}
 
 
 Upward shift of singular expansion from eight children to common parent. 
@@ -234,6 +238,8 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \hline
 {\em Ls} & order of {\itshape trans}; \\
 \hline
+{\em nq} & number of source components; \\
+\hline
 {\em work} & workspace\\
 \hline
 \end{DoxyParams}
@@ -253,14 +259,15 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \item[{gint}]{Lh, }
 \item[{gdouble $\ast$}]{trans, }
 \item[{gint}]{Ls, }
+\item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_ga1ad87746f13fcc0960f18d42998da605}
+)}\label{group__shift_ga54498ecb6a5d89dae071b3039f305e4c}
 
 
 Downward shift of parent expansion to child box centres. 
 
-Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_gad0937c26d1608bda47e211ce8d44aea8}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_gad0937c26d1608bda47e211ce8d44aea8}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
+Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
 
 
 \begin{DoxyParams}{Parameters}
@@ -281,6 +288,8 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 {\em trans} & coaxial translation operator for distance between child and parent box centres; \\
 \hline
 {\em Ls} & order of {\itshape trans}; \\
+\hline
+{\em nq} & number of source components; \\
 \hline
 {\em work} & workspace\\
 \hline
@@ -301,14 +310,15 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 \item[{gint}]{Lh, }
 \item[{gfloat $\ast$}]{trans, }
 \item[{gint}]{Ls, }
+\item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__shift_ga3e1de100aa7b18f5b53c490c4b7f4863}
+)}\label{group__shift_gae539e4b2ab750c3c0b761cfd180cfd75}
 
 
 Downward shift of parent expansion to child box centres. 
 
-Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gae07cc41d0c51a9c780e716c2c7995b0c}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gae07cc41d0c51a9c780e716c2c7995b0c}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
+Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
 
 
 \begin{DoxyParams}{Parameters}
@@ -329,6 +339,8 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 {\em trans} & coaxial translation operator for distance between child and parent box centres; \\
 \hline
 {\em Ls} & order of {\itshape trans}; \\
+\hline
+{\em nq} & number of source components; \\
 \hline
 {\em work} & workspace\\
 \hline

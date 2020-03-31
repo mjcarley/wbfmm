@@ -29,7 +29,7 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble 
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+total\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform} (gdouble $\ast$x, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
@@ -61,7 +61,7 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gf
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+total\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f} (gfloat $\ast$x, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
@@ -926,11 +926,12 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \item[{gint}]{xstride, }
 \item[{gdouble $\ast$}]{src, }
 \item[{gint}]{sstride, }
+\item[{gint}]{nq, }
 \item[{gint}]{nsrc, }
 \item[{gdouble $\ast$}]{xf, }
 \item[{gdouble $\ast$}]{field}
 \end{DoxyParamCaption}
-)}\label{group__util_ga38c6f8b3e11ae55f9e555937eff8c7f6}
+)}\label{group__util_gae4246a5542a4dd541356761aead1ecb4}
 
 
 Compute total field by direct evaluation. 
@@ -949,11 +950,15 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \hline
 {\em sstride} & stride in {\itshape src}; \\
 \hline
+{\em nq} & number of source elements; \\
+\hline
 {\em nsrc} & number of sources; \\
 \hline
 {\em xf} & point for field evaluation; \\
 \hline
-{\em field} & incremented with computed field\\
+{\em field} & incremented with computed field; \\
+\hline
+{\em fstr} & stride in field array between components.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -968,11 +973,12 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \item[{gint}]{xstride, }
 \item[{gfloat $\ast$}]{src, }
 \item[{gint}]{sstride, }
+\item[{gint}]{nq, }
 \item[{gint}]{nsrc, }
 \item[{gfloat $\ast$}]{xf, }
 \item[{gfloat $\ast$}]{field}
 \end{DoxyParamCaption}
-)}\label{group__util_gaa27d47964996f8ca59e9e530c6bcd023}
+)}\label{group__util_ga01f1ed85ea1e9d32fd12d39154fc0176}
 
 
 Compute total field by direct evaluation. 
@@ -991,11 +997,15 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \hline
 {\em sstride} & stride in {\itshape src}; \\
 \hline
+{\em nq} & number of source elements; \\
+\hline
 {\em nsrc} & number of sources; \\
 \hline
 {\em xf} & point for field evaluation; \\
 \hline
-{\em field} & incremented with computed field\\
+{\em field} & incremented with computed field; \\
+\hline
+{\em fstr} & stride in field array between components.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

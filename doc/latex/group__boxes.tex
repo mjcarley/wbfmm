@@ -22,6 +22,11 @@ struct {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}
 enum {\bf wbfmm\+\_\+problem\+\_\+t} \{ {\bf W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+L\+A\+P\+L\+A\+C\+E} = 1, 
 {\bf W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+H\+E\+L\+M\+H\+O\+L\+T\+Z} = 2
  \}
+\item 
+enum {\bf wbfmm\+\_\+field\+\_\+t} \{ {\bf W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R} = 1 $<$$<$ 0, 
+{\bf W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T} = 1 $<$$<$ 1, 
+{\bf W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L} = 1 $<$$<$ 2
+ \}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -32,9 +37,9 @@ gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble k, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gdouble $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gint fstr, gdouble $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, guint field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local field from regular expansion in box. \end{DoxyCompactList}\item 
 guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble $\ast$c, gdouble D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
@@ -52,9 +57,9 @@ gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat k, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gint fstr, gfloat $\ast$src, gint sstr, gboolean eval\+\_\+neighbours, guint field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local field from regular expansion in box. \end{DoxyCompactList}\item 
 guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d\+\_\+f} (gfloat $\ast$x, gfloat $\ast$c, gfloat D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
@@ -76,6 +81,20 @@ Operations on octree boxes and trees.
 
 
 \subsection{Enumeration Type Documentation}
+\index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+field\+\_\+t@{wbfmm\+\_\+field\+\_\+t}}
+\index{wbfmm\+\_\+field\+\_\+t@{wbfmm\+\_\+field\+\_\+t}!Boxes and octrees@{Boxes and octrees}}
+\subsubsection[{wbfmm\+\_\+field\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf wbfmm\+\_\+field\+\_\+t}}\label{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}
+Selection of field to be calculated \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R}!Boxes and octrees@{Boxes and octrees}}\index{Boxes and octrees@{Boxes and octrees}!W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R}}\item[{\em 
+W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R\label{group__boxes_gga72eefe6d21d0860d8c79c60291006a4ea35ece9ea76c38c84590c74b82691b0c4}
+}]scalar field \index{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T}!Boxes and octrees@{Boxes and octrees}}\index{Boxes and octrees@{Boxes and octrees}!W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T}}\item[{\em 
+W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T\label{group__boxes_gga72eefe6d21d0860d8c79c60291006a4eaf7f9549d5b359762102d10c0abf13043}
+}]gradient of scalar field \index{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L}!Boxes and octrees@{Boxes and octrees}}\index{Boxes and octrees@{Boxes and octrees}!W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L@{W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L}}\item[{\em 
+W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+C\+U\+R\+L\label{group__boxes_gga72eefe6d21d0860d8c79c60291006a4ea5b8f094ac70d692be60ad4dbf1dcd3a5}
+}]curl of scalar field \end{description}
+\end{Desc}
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+problem\+\_\+t@{wbfmm\+\_\+problem\+\_\+t}}
 \index{wbfmm\+\_\+problem\+\_\+t@{wbfmm\+\_\+problem\+\_\+t}!Boxes and octrees@{Boxes and octrees}}
 \subsubsection[{wbfmm\+\_\+problem\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf wbfmm\+\_\+problem\+\_\+t}}\label{group__boxes_ga543f6fd5c05c2399bf0a3625c0430552}
@@ -232,9 +251,10 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \item[{gdouble}]{k, }
 \item[{gdouble $\ast$}]{x, }
 \item[{gdouble $\ast$}]{f, }
+\item[{gint}]{fstr, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__boxes_ga9c0aeb15c46d9e512d7a14148f2deef1}
+)}\label{group__boxes_ga252f8fa31681dbdf2b0cc25779d9321b}
 
 
 Evaluate singular expansion about a box centre. 
@@ -252,6 +272,8 @@ Evaluate singular expansion about a box centre.
 {\em x} & field evaluation point; \\
 \hline
 {\em f} & on output field at {\itshape x} (not zeroed before evaluation); \\
+\hline
+{\em fstr} & stride in {\itshape field} in number of array entries; \\
 \hline
 {\em work} & workspace\\
 \hline
@@ -269,9 +291,10 @@ Evaluate singular expansion about a box centre.
 \item[{gfloat}]{k, }
 \item[{gfloat $\ast$}]{x, }
 \item[{gfloat $\ast$}]{f, }
+\item[{gint}]{fstr, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__boxes_gaa90373997c49b3a0780892a7d1948d32}
+)}\label{group__boxes_gaeabd371c311cc5378faaa8ad2cee864c}
 
 
 Evaluate singular expansion about a box centre. 
@@ -290,6 +313,8 @@ Evaluate singular expansion about a box centre.
 \hline
 {\em f} & on output field at {\itshape x} (not zeroed before evaluation); \\
 \hline
+{\em fstr} & stride in {\itshape field} in number of array entries; \\
+\hline
 {\em work} & workspace\\
 \hline
 \end{DoxyParams}
@@ -306,12 +331,14 @@ Evaluate singular expansion about a box centre.
 \item[{gdouble}]{k, }
 \item[{gdouble $\ast$}]{x, }
 \item[{gdouble $\ast$}]{f, }
+\item[{gint}]{fstr, }
 \item[{gdouble $\ast$}]{src, }
 \item[{gint}]{sstr, }
 \item[{gboolean}]{eval\+\_\+neighbours, }
+\item[{guint}]{field, }
 \item[{gdouble $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__boxes_ga29e663871574ce6fc4180951a34a85ab}
+)}\label{group__boxes_ga30fed6f06740bcad070aadaf1f499865}
 
 
 Evaluate local field from regular expansion in box. 
@@ -330,11 +357,15 @@ Evaluate local field from regular expansion in box.
 \hline
 {\em f} & on output, field value (not zeroed before evaluation); \\
 \hline
+{\em fstr} & stride of data in {\itshape f}; \\
+\hline
 {\em src} & source strengths; \\
 \hline
 {\em sstr} & stride of data in {\itshape src}; \\
 \hline
 {\em eval\+\_\+neighbours} & if T\+R\+U\+E compute contributions from sources in box {\itshape b} and neighbours; \\
+\hline
+{\em field} & X\+O\+R combination of \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e} to select output field type (scalar, gradient, curl, etc.); \\
 \hline
 {\em work} & workspace.\\
 \hline
@@ -352,12 +383,14 @@ Evaluate local field from regular expansion in box.
 \item[{gfloat}]{k, }
 \item[{gfloat $\ast$}]{x, }
 \item[{gfloat $\ast$}]{f, }
+\item[{gint}]{fstr, }
 \item[{gfloat $\ast$}]{src, }
 \item[{gint}]{sstr, }
 \item[{gboolean}]{eval\+\_\+neighbours, }
+\item[{guint}]{field, }
 \item[{gfloat $\ast$}]{work}
 \end{DoxyParamCaption}
-)}\label{group__boxes_gae55d5679416553cec0576d799c96456b}
+)}\label{group__boxes_gaea123d47e282266840fa39af0866f433}
 
 
 Evaluate local field from regular expansion in box. 
@@ -376,11 +409,15 @@ Evaluate local field from regular expansion in box.
 \hline
 {\em f} & on output, field value (not zeroed before evaluation); \\
 \hline
+{\em fstr} & stride of data in {\itshape f}; \\
+\hline
 {\em src} & source strengths; \\
 \hline
 {\em sstr} & stride of data in {\itshape src}; \\
 \hline
 {\em eval\+\_\+neighbours} & if T\+R\+U\+E compute contributions from sources in box {\itshape b} and neighbours; \\
+\hline
+{\em field} & X\+O\+R combination of \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e} to select output field type (scalar, gradient, curl, etc.); \\
 \hline
 {\em work} & workspace.\\
 \hline

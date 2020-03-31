@@ -65,6 +65,11 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__boxes.html#gga543f6fd5c05c2399bf0a3625c0430552a41a0eaa8074cb51d13117e09e2bbc859">WBFMM_PROBLEM_HELMHOLTZ</a> = 2
  }</td></tr>
 <tr class="separator:ga543f6fd5c05c2399bf0a3625c0430552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga72eefe6d21d0860d8c79c60291006a4e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a> { <a class="el" href="group__boxes.html#gga72eefe6d21d0860d8c79c60291006a4ea35ece9ea76c38c84590c74b82691b0c4">WBFMM_FIELD_SCALAR</a> = 1 &lt;&lt; 0, 
+<a class="el" href="group__boxes.html#gga72eefe6d21d0860d8c79c60291006a4eaf7f9549d5b359762102d10c0abf13043">WBFMM_FIELD_GRADIENT</a> = 1 &lt;&lt; 1, 
+<a class="el" href="group__boxes.html#gga72eefe6d21d0860d8c79c60291006a4ea5b8f094ac70d692be60ad4dbf1dcd3a5">WBFMM_FIELD_CURL</a> = 1 &lt;&lt; 2
+ }</td></tr>
+<tr class="separator:ga72eefe6d21d0860d8c79c60291006a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -77,12 +82,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gacff456ef3d99c08c93be852ec781aa2a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gacff456ef3d99c08c93be852ec781aa2a">wbfmm_tree_leaf_expansions</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, gdouble k, gdouble *src, gint sstr, gdouble *normals, gint nstr, gdouble *dipoles, gint dstr, gboolean zero_expansions, gdouble *work)</td></tr>
 <tr class="memdesc:gacff456ef3d99c08c93be852ec781aa2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate leaf expansions for a tree.  <a href="#gacff456ef3d99c08c93be852ec781aa2a">More...</a><br /></td></tr>
 <tr class="separator:gacff456ef3d99c08c93be852ec781aa2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c0aeb15c46d9e512d7a14148f2deef1"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga9c0aeb15c46d9e512d7a14148f2deef1">wbfmm_tree_box_field</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gdouble k, gdouble *x, gdouble *f, gdouble *work)</td></tr>
-<tr class="memdesc:ga9c0aeb15c46d9e512d7a14148f2deef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate singular expansion about a box centre.  <a href="#ga9c0aeb15c46d9e512d7a14148f2deef1">More...</a><br /></td></tr>
-<tr class="separator:ga9c0aeb15c46d9e512d7a14148f2deef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga29e663871574ce6fc4180951a34a85ab"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga29e663871574ce6fc4180951a34a85ab">wbfmm_tree_box_local_field</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gdouble k, gdouble *x, gdouble *f, gdouble *src, gint sstr, gboolean eval_neighbours, gdouble *work)</td></tr>
-<tr class="memdesc:ga29e663871574ce6fc4180951a34a85ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local field from regular expansion in box.  <a href="#ga29e663871574ce6fc4180951a34a85ab">More...</a><br /></td></tr>
-<tr class="separator:ga29e663871574ce6fc4180951a34a85ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga252f8fa31681dbdf2b0cc25779d9321b"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga252f8fa31681dbdf2b0cc25779d9321b">wbfmm_tree_box_field</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gdouble k, gdouble *x, gdouble *f, gint fstr, gdouble *work)</td></tr>
+<tr class="memdesc:ga252f8fa31681dbdf2b0cc25779d9321b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate singular expansion about a box centre.  <a href="#ga252f8fa31681dbdf2b0cc25779d9321b">More...</a><br /></td></tr>
+<tr class="separator:ga252f8fa31681dbdf2b0cc25779d9321b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30fed6f06740bcad070aadaf1f499865"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga30fed6f06740bcad070aadaf1f499865">wbfmm_tree_box_local_field</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gdouble k, gdouble *x, gdouble *f, gint fstr, gdouble *src, gint sstr, gboolean eval_neighbours, guint field, gdouble *work)</td></tr>
+<tr class="memdesc:ga30fed6f06740bcad070aadaf1f499865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local field from regular expansion in box.  <a href="#ga30fed6f06740bcad070aadaf1f499865">More...</a><br /></td></tr>
+<tr class="separator:ga30fed6f06740bcad070aadaf1f499865"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf4fe54ab8180ef3460bc9283a6a5ef87"><td class="memItemLeft" align="right" valign="top">guint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gaf4fe54ab8180ef3460bc9283a6a5ef87">wbfmm_point_index_3d</a> (gdouble *x, gdouble *c, gdouble D)</td></tr>
 <tr class="memdesc:gaf4fe54ab8180ef3460bc9283a6a5ef87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find Morton index for point in a cubic domain.  <a href="#gaf4fe54ab8180ef3460bc9283a6a5ef87">More...</a><br /></td></tr>
 <tr class="separator:gaf4fe54ab8180ef3460bc9283a6a5ef87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,12 +112,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0fe2ee1d112ae2f61ebf75f36f4e0698"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#ga0fe2ee1d112ae2f61ebf75f36f4e0698">wbfmm_tree_leaf_expansions_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, gfloat k, gfloat *src, gint sstr, gfloat *normals, gint nstr, gfloat *dipoles, gint dstr, gboolean zero_expansions, gfloat *work)</td></tr>
 <tr class="memdesc:ga0fe2ee1d112ae2f61ebf75f36f4e0698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate leaf expansions for a tree.  <a href="#ga0fe2ee1d112ae2f61ebf75f36f4e0698">More...</a><br /></td></tr>
 <tr class="separator:ga0fe2ee1d112ae2f61ebf75f36f4e0698"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa90373997c49b3a0780892a7d1948d32"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gaa90373997c49b3a0780892a7d1948d32">wbfmm_tree_box_field_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gfloat k, gfloat *x, gfloat *f, gfloat *work)</td></tr>
-<tr class="memdesc:gaa90373997c49b3a0780892a7d1948d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate singular expansion about a box centre.  <a href="#gaa90373997c49b3a0780892a7d1948d32">More...</a><br /></td></tr>
-<tr class="separator:gaa90373997c49b3a0780892a7d1948d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae55d5679416553cec0576d799c96456b"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gae55d5679416553cec0576d799c96456b">wbfmm_tree_box_local_field_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gfloat k, gfloat *x, gfloat *f, gfloat *src, gint sstr, gboolean eval_neighbours, gfloat *work)</td></tr>
-<tr class="memdesc:gae55d5679416553cec0576d799c96456b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local field from regular expansion in box.  <a href="#gae55d5679416553cec0576d799c96456b">More...</a><br /></td></tr>
-<tr class="separator:gae55d5679416553cec0576d799c96456b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeabd371c311cc5378faaa8ad2cee864c"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gaeabd371c311cc5378faaa8ad2cee864c">wbfmm_tree_box_field_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gfloat k, gfloat *x, gfloat *f, gint fstr, gfloat *work)</td></tr>
+<tr class="memdesc:gaeabd371c311cc5378faaa8ad2cee864c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate singular expansion about a box centre.  <a href="#gaeabd371c311cc5378faaa8ad2cee864c">More...</a><br /></td></tr>
+<tr class="separator:gaeabd371c311cc5378faaa8ad2cee864c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea123d47e282266840fa39af0866f433"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gaea123d47e282266840fa39af0866f433">wbfmm_tree_box_local_field_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gfloat k, gfloat *x, gfloat *f, gint fstr, gfloat *src, gint sstr, gboolean eval_neighbours, guint field, gfloat *work)</td></tr>
+<tr class="memdesc:gaea123d47e282266840fa39af0866f433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local field from regular expansion in box.  <a href="#gaea123d47e282266840fa39af0866f433">More...</a><br /></td></tr>
+<tr class="separator:gaea123d47e282266840fa39af0866f433"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed9d494a72a7a808860cd38da5f3c47b"><td class="memItemLeft" align="right" valign="top">guint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__boxes.html#gaed9d494a72a7a808860cd38da5f3c47b">wbfmm_point_index_3d_f</a> (gfloat *x, gfloat *c, gfloat D)</td></tr>
 <tr class="memdesc:gaed9d494a72a7a808860cd38da5f3c47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find Morton index for point in a cubic domain.  <a href="#gaed9d494a72a7a808860cd38da5f3c47b">More...</a><br /></td></tr>
 <tr class="separator:gaed9d494a72a7a808860cd38da5f3c47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +139,30 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Operations on octree boxes and trees. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga72eefe6d21d0860d8c79c60291006a4e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Selection of field to be calculated </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga72eefe6d21d0860d8c79c60291006a4ea35ece9ea76c38c84590c74b82691b0c4"></a>WBFMM_FIELD_SCALAR&#160;</td><td class="fielddoc">
+<p>scalar field </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga72eefe6d21d0860d8c79c60291006a4eaf7f9549d5b359762102d10c0abf13043"></a>WBFMM_FIELD_GRADIENT&#160;</td><td class="fielddoc">
+<p>gradient of scalar field </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga72eefe6d21d0860d8c79c60291006a4ea5b8f094ac70d692be60ad4dbf1dcd3a5"></a>WBFMM_FIELD_CURL&#160;</td><td class="fielddoc">
+<p>curl of scalar field </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="ga543f6fd5c05c2399bf0a3625c0430552"></a>
 <div class="memitem">
 <div class="memproto">
@@ -370,7 +399,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga9c0aeb15c46d9e512d7a14148f2deef1"></a>
+<a class="anchor" id="ga252f8fa31681dbdf2b0cc25779d9321b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -413,6 +442,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">gdouble *&#160;</td>
           <td class="paramname"><em>work</em>&#160;</td>
         </tr>
@@ -433,6 +468,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">x</td><td>field evaluation point; </td></tr>
     <tr><td class="paramname">f</td><td>on output field at <em>x</em> (not zeroed before evaluation); </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride in <em>field</em> in number of array entries; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
   </dd>
@@ -441,7 +477,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gaa90373997c49b3a0780892a7d1948d32"></a>
+<a class="anchor" id="gaeabd371c311cc5378faaa8ad2cee864c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -484,6 +520,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">gfloat *&#160;</td>
           <td class="paramname"><em>work</em>&#160;</td>
         </tr>
@@ -504,6 +546,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">x</td><td>field evaluation point; </td></tr>
     <tr><td class="paramname">f</td><td>on output field at <em>x</em> (not zeroed before evaluation); </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride in <em>field</em> in number of array entries; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
   </dd>
@@ -512,7 +555,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga29e663871574ce6fc4180951a34a85ab"></a>
+<a class="anchor" id="ga30fed6f06740bcad070aadaf1f499865"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -555,6 +598,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">gdouble *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
@@ -569,6 +618,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">gboolean&#160;</td>
           <td class="paramname"><em>eval_neighbours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -593,9 +648,11 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">x</td><td>location of evaluation point; </td></tr>
     <tr><td class="paramname">f</td><td>on output, field value (not zeroed before evaluation); </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride of data in <em>f</em>; </td></tr>
     <tr><td class="paramname">src</td><td>source strengths; </td></tr>
     <tr><td class="paramname">sstr</td><td>stride of data in <em>src</em>; </td></tr>
     <tr><td class="paramname">eval_neighbours</td><td>if TRUE compute contributions from sources in box <em>b</em> and neighbours; </td></tr>
+    <tr><td class="paramname">field</td><td>XOR combination of <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a> to select output field type (scalar, gradient, curl, etc.); </td></tr>
     <tr><td class="paramname">work</td><td>workspace.</td></tr>
   </table>
   </dd>
@@ -604,7 +661,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gae55d5679416553cec0576d799c96456b"></a>
+<a class="anchor" id="gaea123d47e282266840fa39af0866f433"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -647,6 +704,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">gfloat *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
@@ -661,6 +724,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">gboolean&#160;</td>
           <td class="paramname"><em>eval_neighbours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -685,9 +754,11 @@ Functions</h2></td></tr>
     <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
     <tr><td class="paramname">x</td><td>location of evaluation point; </td></tr>
     <tr><td class="paramname">f</td><td>on output, field value (not zeroed before evaluation); </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride of data in <em>f</em>; </td></tr>
     <tr><td class="paramname">src</td><td>source strengths; </td></tr>
     <tr><td class="paramname">sstr</td><td>stride of data in <em>src</em>; </td></tr>
     <tr><td class="paramname">eval_neighbours</td><td>if TRUE compute contributions from sources in box <em>b</em> and neighbours; </td></tr>
+    <tr><td class="paramname">field</td><td>XOR combination of <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a> to select output field type (scalar, gradient, curl, etc.); </td></tr>
     <tr><td class="paramname">work</td><td>workspace.</td></tr>
   </table>
   </dd>
@@ -1527,7 +1598,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 25 2020 10:27:58 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 30 2020 15:29:30 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

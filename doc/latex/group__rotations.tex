@@ -12,7 +12,7 @@ gint {\bf wbfmm\+\_\+rotation\+\_\+angles} (gdouble $\ast$ix, gdouble $\ast$iy, 
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint N, gdouble th, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gdouble $\ast$H, gdouble ph, gdouble ch)
+gint {\bf wbfmm\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\item 
@@ -20,7 +20,7 @@ gint {\bf wbfmm\+\_\+rotation\+\_\+angles\+\_\+f} (gfloat $\ast$ix, gfloat $\ast
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f} (gfloat $\ast$H, gint N, gfloat th, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gfloat $\ast$H, gfloat ph, gfloat ch)
+gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -199,11 +199,12 @@ This stride system allows for packing data more conveniently for upward and down
 \item[{gdouble $\ast$}]{Ci, }
 \item[{gint}]{cstri, }
 \item[{gint}]{N, }
+\item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{H, }
 \item[{gdouble}]{ph, }
 \item[{gdouble}]{ch}
 \end{DoxyParamCaption}
-)}\label{group__rotations_ga93a893069e4a4ca08107764c1adb91f1}
+)}\label{group__rotations_ga9d732be8026e98bd34e2c339329a3e8b}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
@@ -228,6 +229,8 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \hline
 {\em N} & maximum order of coefficients; \\
 \hline
+{\em nq} & number of source components; \\
+\hline
 {\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}(...); \\
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
@@ -247,11 +250,12 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \item[{gfloat $\ast$}]{Ci, }
 \item[{gint}]{cstri, }
 \item[{gint}]{N, }
+\item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{H, }
 \item[{gfloat}]{ph, }
 \item[{gfloat}]{ch}
 \end{DoxyParamCaption}
-)}\label{group__rotations_ga3e495252419e8ac6498122d27386911e}
+)}\label{group__rotations_gad6deed8944c6a3b37f62ae074073ffac}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
@@ -275,6 +279,8 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 {\em cstri} & stride in {\itshape Ci}, in number of complex elements; \\
 \hline
 {\em N} & maximum order of coefficients; \\
+\hline
+{\em nq} & number of source components; \\
 \hline
 {\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}(...); \\
 \hline

@@ -310,19 +310,29 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  * @param k wavenumber;
  * @param x location of evaluation point;
  * @param f on output, field value (not zeroed before evaluation);
+ * @param fstr stride of data in \a f;
  * @param src source strengths;
  * @param sstr stride of data in \a src;
  * @param eval_neighbours if TRUE compute contributions from sources 
  * in box \a b and neighbours; 
+ * @param field XOR combination of ::wbfmm_field_t to select output 
+ * field type (scalar, gradient, curl, etc.);
  * @param work workspace.
  *
  * @return 0 on success
  */
 
  gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
- guint level, guint b, WBFMM_REAL k, WBFMM_REAL *x, WBFMM_REAL *f,
- WBFMM_REAL *src, gint sstr, gboolean eval_neighbours, WBFMM_REAL
-						      *work) {}
+						      guint level,
+						      guint b, WBFMM_REAL k,
+						      WBFMM_REAL *x,
+						      WBFMM_REAL *f,
+						      gint fstr,
+						      WBFMM_REAL *src,
+						      gint sstr,
+						      gboolean eval_neighbours,
+						      guint field,
+						      WBFMM_REAL *work) {}
 
 
 /**

@@ -317,15 +317,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field_grad)(WBFMM_REAL k,
 						 WBFMM_REAL *src, gint sstride,
 						 WBFMM_REAL *normals, gint nstr,
 						 WBFMM_REAL *dipoles, gint dstr,
-						 gint nsrc,
+						 gint nq, gint nsrc,
 						 WBFMM_REAL *xf,
-						 WBFMM_REAL *field)
+						 WBFMM_REAL *field, gint fstr)
 
 {
-  gint i ;
+  gint i, j ;
   WBFMM_REAL r, th, ph, h0[2], h1[2], fR[2], fd[6], nR[3], fr, fi ;
-
-  /* field[0] = field[1] = 0.0 ; */
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
@@ -342,20 +340,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field_grad)(WBFMM_REAL k,
       nR[0] = (xf[0] - xs[i*xstride+0])/r*0.25*M_1_PI ;
       nR[1] = (xf[1] - xs[i*xstride+1])/r*0.25*M_1_PI ;
       nR[2] = (xf[2] - xs[i*xstride+2])/r*0.25*M_1_PI ;
-      
-      /* field[0] += h0[0]*src[i*sstride+0] - h0[1]*src[i*sstride+1] ; */
-      /* field[1] += h0[1]*src[i*sstride+0] + h0[0]*src[i*sstride+1] ; */
-      fr = h1[0]*src[i*sstride+0] - h1[1]*src[i*sstride+1] ;
-      fi = h1[1]*src[i*sstride+0] + h1[0]*src[i*sstride+1] ;
-      field[0] -= k*fr*nR[0] ; field[1] -= k*fi*nR[0] ;
-      field[2] -= k*fr*nR[1] ; field[3] -= k*fi*nR[1] ;
-      field[4] -= k*fr*nR[2] ; field[5] -= k*fi*nR[2] ;
+
+      for ( j = 0 ; j < nq ; j ++ ) {
+	fr = h1[0]*src[i*sstride+2*j+0] - h1[1]*src[i*sstride+2*j+1] ;
+	fi = h1[1]*src[i*sstride+2*j+0] + h1[0]*src[i*sstride+2*j+1] ;
+	field[j*fstr+0] -= k*fr*nR[0] ;
+	field[j*fstr+1] -= k*fi*nR[0] ;
+	field[j*fstr+2] -= k*fr*nR[1] ;
+	field[j*fstr+3] -= k*fi*nR[1] ;
+	field[j*fstr+4] -= k*fr*nR[2] ;
+	field[j*fstr+5] -= k*fi*nR[2] ;
+      }
     }
-    
-    /*G&D normalization of Legendre polynomials*/
-    /* field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ; */
-    /* field[2] /= 4.0*M_PI ; field[3] /= 4.0*M_PI ; */
-    /* field[4] /= 4.0*M_PI ; field[5] /= 4.0*M_PI ; */
 
     return 0 ;
   }

@@ -140,7 +140,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
   D = wbfmm_tree_width(t) ;
 
   for ( i = 0 ; i < npts ; i ++ ) {
-    x = wbfmm_tree_point_index(t, i) ;
+    /* x = wbfmm_tree_point_index(t, i) ; */
+    x = wbfmm_target_list_point_index(l, i) ;
     if ( x[0] <= xt[0] || x[0] >= xt[0] + D ||
 	 x[1] <= xt[1] || x[1] >= xt[1] + D ||
 	 x[2] <= xt[2] || x[2] >= xt[2] + D )

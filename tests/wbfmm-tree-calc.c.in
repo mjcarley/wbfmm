@@ -125,8 +125,10 @@ gint main(gint argc, gchar **argv)
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box, shift_bw ;
   wbfmm_library_config_t lconfig ;
-  WBFMM_REAL *tmp ;
+  wbfmm_field_t field ;
+  
   k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+  field = WBFMM_FIELD_SCALAR ;
   nq = 1 ;
   depth = 2 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
@@ -140,7 +142,7 @@ gint main(gint argc, gchar **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hBbcD:d:f:k:O:R:s:S:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gk:O:R:s:S:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -156,6 +158,7 @@ gint main(gint argc, gchar **argv)
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%FLOATFMT)\n"
 	      "  -f (field point name)\n"
+	      "  -g calculate gradient of field\n"
 	      "  -k # wavenumber (%FLOATFMT)\n"
 	      "  -O #,#,# origin of octree (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
@@ -177,6 +180,7 @@ gint main(gint argc, gchar **argv)
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
+    case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
     case 'k': k = atof(optarg) ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
@@ -211,8 +215,10 @@ gint main(gint argc, gchar **argv)
     return 1 ;
   }
 
-  f = (WBFMM_REAL *)g_malloc0(nf*2*nq*sizeof(WBFMM_REAL)) ;
   fcstr = 2*nq ;
+
+  if ( fcstr | WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
+  f = (WBFMM_REAL *)g_malloc0(nf*fcstr*sizeof(WBFMM_REAL)) ;
   
   if ( fit_box ) {
     wbfmm_points_origin_width_PREC(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
@@ -323,8 +329,6 @@ gint main(gint argc, gchar **argv)
   for ( level = depth ; level >= 3 ; level -- ) 
     wbfmm_upward_pass_PREC(tree, shifts, level, work) ;
 
-  tmp = (WBFMM_REAL *)(tree->boxes[2][0].mps) ;
-  
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -346,9 +350,9 @@ gint main(gint argc, gchar **argv)
   for ( i = 0 ; i < nf ; i ++ ) {
     b = wbfmm_point_box_PREC(tree, level, &(xf[i*fstr])) ;
     wbfmm_tree_box_local_field_PREC(tree, level, b, k, 
-				    &(xf[i*fstr]), &(f[fcstr*i]), 2,
+				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr,
 				    q, qstr, normals, nstr, dipoles, dstr,
-				    TRUE, work) ;
+				    TRUE, field, work) ;
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
@@ -358,9 +362,8 @@ gint main(gint argc, gchar **argv)
     fprintf(stdout, 
 	    "%FLOATEXP %FLOATEXP %FLOATEXP",
 	    xf[i*fstr+0], xf[i*fstr+1], xf[i*fstr+2]) ;
-    for ( j = 0 ; j < nq ; j ++ ) {
-      fprintf(stdout, 
-	      " %FLOATEXP %FLOATEXP", f[fcstr*i+2*j+0], f[fcstr*i+2*j+1]) ;
+    for ( j = 0 ; j < fcstr ; j ++ ) {
+      fprintf(stdout, " %FLOATEXP", f[fcstr*i+j]) ;
     }
     fprintf(stdout, "\n") ;
   }
