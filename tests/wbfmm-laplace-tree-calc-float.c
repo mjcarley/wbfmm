@@ -121,7 +121,7 @@ gint main(gint argc, gchar **argv)
   gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
-  guint sizew ;
+  guint sizew, field ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean fit_box, shift_bw, write_sources ;
 
@@ -134,6 +134,7 @@ gint main(gint argc, gchar **argv)
   fit_box = FALSE ;
   shift_bw = FALSE ;
   write_sources = FALSE ;
+  field = WBFMM_FIELD_SCALAR ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
@@ -301,8 +302,8 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: initializing target point list; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  targets = wbfmm_target_list_new_f(tree, nf, FALSE) ;
-  wbfmm_target_list_coefficients_init(targets) ;
+  targets = wbfmm_target_list_new_f(tree, nf) ;
+  wbfmm_target_list_coefficients_init(targets, field) ;
   wbfmm_target_list_add_points_f(targets, xf, nf, fstr) ;
   wbfmm_target_list_local_coefficients_f(targets, work) ;
   fprintf(stderr, "%s: target point list initialized; %lg\n",
@@ -362,7 +363,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_target_list_local_field_f(targets, q, qstr, f) ;
+  wbfmm_target_list_local_field_f(targets, q, qstr, f, 1) ;
 
   /* for ( i = 0 ; i < nf ; i ++ ) { */
   /*   b = wbfmm_point_box_f(tree, level, &(xf[i*strf])) ; */

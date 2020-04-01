@@ -143,6 +143,7 @@ typedef struct {
 typedef struct {
   wbfmm_tree_t *t ; /**< tree containing source data */
   guint
+  field,     /**< field specifier (see ::wbfmm_tree_box_local_field) */
   maxpoints, /**< maximum number of points in target list */
     npoints, /**< number of points in target list */
     *ip,     /**< indices of points, sorted by Morton index */
@@ -162,9 +163,9 @@ typedef struct {
   cfft,     /**< coefficients of regular expansions in boxes */
     csrc ;  /**< coefficients of near-field (direct) interactions, 
 	       point-by-point */
-  gboolean
-  grad ;     /**< gradient computations included */
 } wbfmm_target_list_t ;
+
+#define wbfmm_target_list_field(_l) ((_l)->field)
 
 /**
  * @struct wbfmm_shift_operators_t
@@ -565,21 +566,23 @@ gint wbfmm_tree_laplace_box_local_field_f(wbfmm_tree_t *t,
 					  gboolean eval_neighbours,
 					  gfloat *work) ;
 gint wbfmm_laplace_local_coefficients(gdouble *x, gint N,
-				      gboolean grad, gdouble *cfft,
+				      guint field, gdouble *cfft,
 				      gdouble *work) ;
 gint wbfmm_laplace_local_coefficients_f(gfloat *x, gint N,
-					gboolean grad, gfloat *cfft,
+					guint field, gfloat *cfft,
 					gfloat *work) ;
 gint wbfmm_laplace_field_coefficients(gdouble *x, gint N,
-				      gboolean grad, gdouble *cfft,
+				      guint field, gdouble *cfft,
 				      gdouble *work) ;
 gint wbfmm_laplace_field_coefficients_f(gfloat *x, gint N,
-					gboolean grad, gfloat *cfft,
+					guint field, gfloat *cfft,
 					gfloat *work) ;
 gint wbfmm_laplace_expansion_apply(gdouble *C, gint cstr, gint nq,
-	   	     	   	      gdouble *ec, gint N, gdouble *f) ;
+				   gdouble *ec, gint N, guint field,
+				   gdouble *f, gint fstr) ;
 gint wbfmm_laplace_expansion_apply_f(gfloat *C, gint cstr, gint nq,
-					gfloat *ec, gint N, gfloat *f) ;
+				     gfloat *ec, gint N, guint field,
+				     gfloat *f, gint fstr) ;
 
 
 gint wbfmm_child_parent_shift_bw(gdouble *Cp, gint Np, gdouble *Cc, gint Nc,
@@ -642,7 +645,8 @@ gint wbfmm_tree_refine(wbfmm_tree_t *t) ;
 gint wbfmm_tree_add_level(wbfmm_tree_t *tree) ;
 gint wbfmm_tree_add_points(wbfmm_tree_t *t, 
 			   gpointer pts, guint npts, gsize stride) ;
-gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l) ;
+gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
+					 guint field) ;
 
 /*indexing and octrees*/
 guint64 wbfmm_point_index_3d(gdouble *x, gdouble *c, gdouble D) ;
@@ -894,10 +898,8 @@ gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  gfloat *work) ;
 guint64 wbfmm_point_box_f(wbfmm_tree_t *t, guint level, gfloat *x) ;
 
-wbfmm_target_list_t *wbfmm_target_list_new(wbfmm_tree_t *t, guint npts,
-					   gboolean grad) ;
-wbfmm_target_list_t *wbfmm_target_list_new_f(wbfmm_tree_t *t, guint npts,
-					     gboolean grad) ;
+wbfmm_target_list_t *wbfmm_target_list_new(wbfmm_tree_t *t, guint npts) ;
+wbfmm_target_list_t *wbfmm_target_list_new_f(wbfmm_tree_t *t, guint npts) ;
 
 gint wbfmm_target_list_add_points(wbfmm_target_list_t *l,
 				  gpointer pts, guint npts,
@@ -910,9 +912,11 @@ gint wbfmm_target_list_local_coefficients(wbfmm_target_list_t *l,
 gint wbfmm_target_list_local_coefficients_f(wbfmm_target_list_t *l,
 					    gfloat *work) ;
 gint wbfmm_target_list_local_field(wbfmm_target_list_t *l,
-				   gdouble *src, gint sstr, gdouble *f) ;
+				   gdouble *src, gint sstr, gdouble *f,
+				   gint fstr) ;
 gint wbfmm_target_list_local_field_f(wbfmm_target_list_t *l,
-				     gfloat *src, gint sstr, gfloat *f) ;
+				     gfloat *src, gint sstr, gfloat *f,
+				     gint fstr) ;
 
 /*precision independent functions*/
 guint64 wbfmm_point_locate_box(guint64 x, guint level) ;

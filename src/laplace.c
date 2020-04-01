@@ -873,25 +873,24 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(WBFMM_REAL *x,
-							   gint N,
-							   gboolean grad,
-							   WBFMM_REAL *cfft,
-							   WBFMM_REAL *work)
+static gint _wbfmm_laplace_local_coefficients_scalar(WBFMM_REAL *cfft,
+						     gint N,
+						     WBFMM_REAL r,
+						     WBFMM_REAL Cth,
+						     WBFMM_REAL Sth,
+						     WBFMM_REAL Cph,
+						     WBFMM_REAL Sph,
+						     WBFMM_REAL *work)
 
 {
-  WBFMM_REAL r, th, ph, rn, x0[3] = {0.0} ;
-  WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph ;
-  WBFMM_REAL *Cmph, *Smph ;
   gint n, m, idx ;
-  
+  WBFMM_REAL *Pn, *Pnm1 ;
+  WBFMM_REAL *Cmph, *Smph ;
+  WBFMM_REAL rn ;
+
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
   Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
-  
-  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, x, &r, &th, &ph) ;
-  Cth = COS(th) ; Sth = SIN(th) ; 
-  Cph = COS(ph) ; Sph = SIN(ph) ; 
-
+    
   /*initialize recursions*/
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
@@ -937,9 +936,134 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(WBFMM_REAL *x,
   return 0 ;
 }
 
+static gint _wbfmm_laplace_local_coefficients_gradient(WBFMM_REAL *cfft,
+						       gint N,
+						       WBFMM_REAL r,
+						       WBFMM_REAL Cth,
+						       WBFMM_REAL Sth,
+						       WBFMM_REAL Cph,
+						       WBFMM_REAL Sph,
+						       WBFMM_REAL *work)
+
+{
+  gint n, m, idx ;
+  WBFMM_REAL *Pn, *Pnm1, *Cmph, *Smph, rn, anm, b1, b2, Rnmm1, Rnm, Rnmp1 ;
+
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
+  Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
+    
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = Cph ; Smph[1] = Sph ;
+
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  rn = 1.0 ;
+  idx = n*n ;
+  cfft[3*idx+0] = cfft[3*idx+1] = cfft[3*idx+2] = 0.0 ;
+
+  n = 1 ; 
+  m = 0 ;
+  rn = 1.0 ;
+  idx = n*n ;
+  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  Rnm = rn*Pnm1[m]*anm ;
+  cfft[3*idx+0] = cfft[3*idx+1] = 0.0 ;
+  cfft[3*idx+2] = Rnm ;
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+  b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
+  Rnmm1 = rn*Pnm1[m-1]*b2 ;
+  Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
+  Rnmp1 = rn*Pnm1[m+1]*b1 ;
+  cfft[3*idx+0] =  Rnmm1*Cmph[m-1] - Rnmp1*Cmph[m+1] ;
+  cfft[3*idx+1] =  Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+  cfft[3*idx+2] = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+  cfft[3*idx+3] = -Rnmm1*Cmph[m-1] - Rnmp1*Cmph[m+1] ;
+  cfft[3*idx+4] =  Rnm  *Cmph[m+0] ;
+  cfft[3*idx+5] = -Rnm  *Smph[m+0] ;
+  
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rn *= r ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+    anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+    b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+    b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
+    Rnmm1 = rn*Pnm1[m+1]*b2 ;
+    Rnm   = rn*Pnm1[m]*anm ;
+    Rnmp1 = rn*Pnm1[m+1]*b1 ;
+
+    cfft[3*idx+0] -= Rnmp1*Cmph[m+1] ;
+    cfft[3*idx+1] -= Rnmp1*Smph[m+1] ;
+    cfft[3*idx+2] = Rnm ;
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+      b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+      b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
+      Rnmm1 = rn*Pnm1[m-1]*b2 ;
+      Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
+      Rnmp1 = rn*Pnm1[m+1]*b1 ;
+      cfft[3*idx+0] =  Rnmm1*Cmph[m-1] - Rnmp1*Cmph[m+1] ;
+      cfft[3*idx+1] =  Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+      cfft[3*idx+2] = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+      cfft[3*idx+3] = -Rnmm1*Cmph[m-1] - Rnmp1*Cmph[m+1] ;
+      cfft[3*idx+4] =  Rnm  *Cmph[m+0] ;
+      cfft[3*idx+5] = -Rnm  *Smph[m+0] ;
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(WBFMM_REAL *x,
+							   gint N,
+							   guint field,
+							   WBFMM_REAL *cfft,
+							   WBFMM_REAL *work)
+
+{
+  WBFMM_REAL r, th, ph, x0[3] = {0.0} ;
+  WBFMM_REAL Cth, Sth, Cph, Sph ;
+  
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, x, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+  Cph = COS(ph) ; Sph = SIN(ph) ; 
+
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    return _wbfmm_laplace_local_coefficients_scalar(cfft, N, r, Cth, Sth,
+						    Cph, Sph, work) ;
+    break ;
+  case WBFMM_FIELD_GRADIENT:
+    return _wbfmm_laplace_local_coefficients_gradient(cfft, N, r, Cth, Sth,
+						      Cph, Sph, work) ;
+    break ;
+  }
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
 							   gint N,
-							   gboolean grad,
+							   guint field,
 							   WBFMM_REAL *cfft,
 							   WBFMM_REAL *work)
 
@@ -1001,12 +1125,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
-							gint cstr,
-							gint nq,
-							WBFMM_REAL *ec,
-							gint N,
-							WBFMM_REAL *f)
+static gint _wbfmm_laplace_expansion_apply_scalar(WBFMM_REAL *C,
+						  gint cstr,
+						  gint nq,
+						  WBFMM_REAL *ec,
+						  gint N,
+						  WBFMM_REAL *f, gint fstr)
 {
   gint n, m, idx, i ;
   
@@ -1040,6 +1164,93 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
     }
   }
   
+  return 0 ;
+}
+
+static gint _wbfmm_laplace_expansion_apply_gradient(WBFMM_REAL *C,
+						    gint cstr,
+						    gint nq,
+						    WBFMM_REAL *ec,
+						    gint N,
+						    WBFMM_REAL *f,
+						    gint fstr)
+{
+  gint n, m, idx, i ;
+  WBFMM_REAL cr, ci ;
+  
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  idx = n*n ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    f[fstr*i+0] += C[cstr*idx+i]*ec[3*idx+0] ;
+    f[fstr*i+1] += C[cstr*idx+i]*ec[3*idx+1] ;
+    f[fstr*i+2] += C[cstr*idx+i]*ec[3*idx+2] ;
+  }
+  
+  n = 1 ; 
+  m = 0 ; 
+  idx = n*n ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    f[fstr*i+0] += C[cstr*idx+i]*ec[3*idx+0] ;
+    f[fstr*i+1] += C[cstr*idx+i]*ec[3*idx+1] ;
+    f[fstr*i+2] += C[cstr*idx+i]*ec[3*idx+2] ;
+  }
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    cr = C[cstr*(idx+0)+i] ; ci = C[cstr*(idx+1)+i] ;
+    f[fstr*i+0] += cr*ec[3*idx+0] + ci*ec[3*idx+1] ;
+    f[fstr*i+1] += cr*ec[3*idx+2] + ci*ec[3*idx+3] ;
+    f[fstr*i+2] += cr*ec[3*idx+4] + ci*ec[3*idx+5] ;
+  }
+  
+  for ( n = 2 ; n <= N ; n ++ ) {
+    m = 0 ; 
+    idx = n*n ;
+    for ( i = 0 ; i < nq ; i ++ ) {
+      f[fstr*i+0] += C[cstr*idx+i]*ec[3*idx+0] ;
+      f[fstr*i+1] += C[cstr*idx+i]*ec[3*idx+1] ;
+      f[fstr*i+2] += C[cstr*idx+i]*ec[3*idx+2] ;
+    }
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	cr = C[cstr*(idx+0)+i] ; ci = C[cstr*(idx+1)+i] ;
+	f[fstr*i+0] += cr*ec[3*idx+0] + ci*ec[3*idx+1] ;
+	f[fstr*i+1] += cr*ec[3*idx+2] + ci*ec[3*idx+3] ;
+	f[fstr*i+2] += cr*ec[3*idx+4] + ci*ec[3*idx+5] ;
+      }  
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
+							gint cstr,
+							gint nq,
+							WBFMM_REAL *ec,
+							gint N,
+							guint field,
+							WBFMM_REAL *f,
+							gint fstr)
+{
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    return _wbfmm_laplace_expansion_apply_scalar(C, cstr, nq, ec, N, f, fstr) ;
+    break ;
+  case WBFMM_FIELD_GRADIENT:
+    return _wbfmm_laplace_expansion_apply_gradient(C, cstr, nq, ec, N, f,
+						   fstr) ;
+    break ;
+  }
+
   return 0 ;
 }
 

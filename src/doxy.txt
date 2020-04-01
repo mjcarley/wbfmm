@@ -109,4 +109,12 @@
  *
  */
 
+/**
+ * @defgroup targets Target point lists
+ *
+ * @brief Handling of pre-defined lists of target points for
+ * pre-computation of evaluation quantities
+ *
+ */
+
 

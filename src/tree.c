@@ -70,7 +70,21 @@ gint wbfmm_tree_add_level(wbfmm_tree_t *t)
   return 0 ;
 }
 
-gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l)
+
+/** 
+
+ *
+ * @ingroup targets
+ * 
+ * @param l a ::wbfmm_target_list_t generated using ::wbfmm_target_list_new
+ * or ::wbfmm_target_list_new_f;
+ * @param field a field definition made up of ::wbfmm_field_t
+ * 
+ * @return 0 on success.
+ */
+
+gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
+					 guint field)
 
 {
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
@@ -78,6 +92,7 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l)
 
   /*order of regular expansions in leaf boxes*/
   nr = t->order_r[t->depth] ;
+  l->field = field ;
   
   switch ( wbfmm_tree_problem(t) ) {
   default:
@@ -92,7 +107,18 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l)
     break ;
   }
 
-  l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+  l->nc = nc ;
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+    break ;
+  case WBFMM_FIELD_GRADIENT:
+    l->cfft = g_malloc0(3*nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+    break ;
+  }
   
   return 0 ;
 }

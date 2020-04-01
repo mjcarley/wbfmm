@@ -37,7 +37,7 @@ gchar *tests[] = {"expansion",
 		  "child_parent",
 		  "parent_child",
 		  "expansion_gradient",
-		  "local_gradient"
+		  "local_gradient",
 		  ""} ;
 
 #define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
@@ -181,7 +181,8 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   gint i, nq, cstr ;
   WBFMM_REAL cfft[BUFSIZE]={0.0}, work[8192]={0.0}, fc[8]={0.0}, ff[8]={0.0} ;
   WBFMM_REAL eval[BUFSIZE] = {0.0}, fe[8]={0.0} ;
-
+  guint field ;
+  
   nq = 2 ;
   fprintf(stderr, "expansion test\n") ;
   fprintf(stderr, "==============\n") ;
@@ -191,7 +192,8 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "nsrc = %d\n",
 	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], nsrc) ;
-
+  field = WBFMM_FIELD_SCALAR ;
+  
   /*reference calculation*/
   wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
@@ -207,8 +209,8 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   /*check pre-computed evaluation method*/
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
-  wbfmm_laplace_field_coefficients_PREC(xf, N, FALSE, eval, work) ;
-  wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, fe) ;
+  wbfmm_laplace_field_coefficients_PREC(xf, N, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, field, fe, 1) ;
   
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -242,7 +244,7 @@ gint expansion_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 {
   gint i, nq, cstr, fstr ;
   WBFMM_REAL cfft[BUFSIZE]={0.0}, work[8192]={0.0} ;
-  WBFMM_REAL fc[32]={0.0}, ff[32]={0.0}, fe[32]={0.0} ;
+  WBFMM_REAL fc[32]={0.0}, ff[32]={0.0} ;
 
   nq = 2 ; fstr = 4 ;
   fprintf(stderr, "expansion gradient test\n") ;
@@ -293,26 +295,6 @@ gint expansion_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
   fprintf(stderr, "\n") ;
 
-  return 0 ;
-  
-  fprintf(stderr, "field:      ") ;
-  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", ff[i]) ;
-  fprintf(stderr, "\n") ;
-
-  fprintf(stderr, "expansion:  ") ;
-  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fe[i]) ;
-  fprintf(stderr, "\n") ;
-
-  fprintf(stderr, "errors:\n") ;  
-  fprintf(stderr, "field:      ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%FLOATEXP ", fabs(fc[i]-ff[i])) ;
-  fprintf(stderr, "\n") ;
-  fprintf(stderr, "expansion:  ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%FLOATEXP ", fabs(fc[i]-fe[i])) ;
-  fprintf(stderr, "\n") ;
-  
   return 0 ;
 }
 
@@ -443,13 +425,16 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   WBFMM_REAL Ci[BUFSIZE]={0.0}, Co[BUFSIZE]={0.0}, Cr[BUFSIZE] = {0.0} ;
   WBFMM_REAL work[BUFSIZE]={0.0}, eval[BUFSIZE] = {0.0} ;
   WBFMM_REAL fc[8]={0.0}, ff[8]={0.0}, ft[8]={0.0}, fe[8]={0.0} ;
-
+  guint field ;
+  
   nq = 2 ;
   N0 = N+4 ; N1 = N ;
   xf[0] = x0[0] + 0.01 ; 
   xf[1] = x0[1] + 0.01 ; 
   xf[2] = x0[2] + t - 0.05 ; 
 
+  field = WBFMM_FIELD_SCALAR ;
+  
   fprintf(stderr, "regular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
   fprintf(stderr,
@@ -487,8 +472,8 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   /*check pre-computed evaluation method*/
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
-  wbfmm_laplace_local_coefficients_PREC(xf, N1, FALSE, eval, work) ;
-  wbfmm_laplace_expansion_apply_PREC(Cr, cstr, nq, eval, N1, fe) ;
+  wbfmm_laplace_local_coefficients_PREC(xf, N1, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_PREC(Cr, cstr, nq, eval, N1, field, fe, 1) ;
 					
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -534,14 +519,18 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 {
   gint i, nq, cstr, Ns, Nr, fstr ;
   WBFMM_REAL Ci[BUFSIZE]={0.0}, work[8192]={0.0}, Co[BUFSIZE]={0.0} ;
-  WBFMM_REAL fc[32]={0.0}, ff[32]={0.0}, ft[32]={0.0} ;
+  WBFMM_REAL eval[BUFSIZE] = {0.0} ;
+  WBFMM_REAL fc[32]={0.0}, ff[32]={0.0}, ft[32]={0.0}, fe[32] = {0.0} ;
+  guint field ;
+  
+  nq = 1 ; fstr = 4 ;
+  Ns = N ; Nr = Ns ;
 
-  nq = 2 ; fstr = 3 ;
-  Ns = N ; Nr = Ns + 4 ;
-
-  xf[0] = x0[0] + 0.0 ; 
-  xf[1] = x0[1] - 0.0 ; 
-  xf[2] = x0[2] + t + 0.1 ; 
+  field = WBFMM_FIELD_GRADIENT ;
+  
+  xf[0] = x0[0] + 0.35 ; 
+  xf[1] = x0[1] - 0.31 ; 
+  xf[2] = x0[2] + t + 0.5 ; 
   
   fprintf(stderr, "singular to regular translation gradient test\n") ;
   fprintf(stderr, "=============================================\n") ;
@@ -575,13 +564,17 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   wbfmm_laplace_expansion_local_grad_evaluate_PREC(x0, Co, cstr, Nr, nq,
   						   xf, ft, fstr, work) ;
 
-  fprintf(stderr, "exact:     ") ;
+  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+  wbfmm_laplace_local_coefficients_PREC(xf, N, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_PREC(Co, cstr, nq, eval, N, field, fe, fstr) ;
+
+  fprintf(stderr, "exact:       ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ",
 	    fc[fstr*i+0], fc[fstr*i+1], fc[fstr*i+2]) ;
   fprintf(stderr, "\n") ;
 
-  fprintf(stderr, "expansion: ") ;
+  fprintf(stderr, "expansion:   ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ",
 	    ff[fstr*i+0], ff[fstr*i+1], ff[fstr*i+2]) ;
@@ -595,7 +588,13 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
   fprintf(stderr, "\n") ;
 
-  fprintf(stderr, "expansion: ") ;
+  fprintf(stderr, "precomputed: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ",
+	    fe[fstr*i+0], fe[fstr*i+1], fe[fstr*i+2]) ;
+  fprintf(stderr, "\n") ;
+  
+  fprintf(stderr, "translated:  ") ;
   for ( i = 0 ; i < nq ; i ++ )
     fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ",
 	    ft[fstr*i+0], ft[fstr*i+1], ft[fstr*i+2]) ;
@@ -609,21 +608,6 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ;
   fprintf(stderr, "\n") ;
 
-  
-  return 0 ;
-  
-  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
-  fprintf(stderr, "\n") ;
-  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", ff[i]) ;
-  fprintf(stderr, "\n") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%FLOATEXP ", fabs(fc[i]-ff[i])) ;
-  fprintf(stderr, "\n") ;
-  for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", ft[i]) ;
-  fprintf(stderr, "\n") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%FLOATEXP ", fabs(fc[i]-ft[i])) ;
-  fprintf(stderr, "\n") ;
   
   return 0 ;
 }

@@ -30,8 +30,8 @@
 #include "wbfmm-private.h"
 
 wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
-								guint npts,
-								gboolean grad)
+								guint npts)
+  
 
 {
   wbfmm_target_list_t *l ;
@@ -43,20 +43,21 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
 	    "size of requested target type (%lu))",
 	    __FUNCTION__, t->size, sizeof(WBFMM_REAL)) ;
 
-  g_assert(grad == FALSE) ;
-  
   l = (wbfmm_target_list_t *)g_malloc0(sizeof(wbfmm_target_list_t)) ;
 
   wbfmm_target_list_tree(l) = t ;
   wbfmm_target_list_point_number_max(l) = npts ;
   wbfmm_target_list_point_number(l) = 0 ;
-  wbfmm_target_list_gradient(l) = grad ;
 
   l->size = sizeof(WBFMM_REAL) ;
   
   l->ip = (guint *)g_malloc0(npts*sizeof(guint)) ;
   l->boxes = (guint32 *)g_malloc0(npts*sizeof(guint32)) ;
 
+  l->cfft = NULL ;
+  l->nc = 0 ;
+  
+#if 0
   /*size the memory allocation, based on order of leaf-level regular
     expansions*/
   nr = t->order_r[t->depth] ;
@@ -82,7 +83,8 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
   nb = 1 << (3*(t->depth)) ;
 
   l->cfft = g_malloc0(nc*nb*sizeof(WBFMM_REAL)) ;
-  
+#endif
+
   return l ;
 }
 
@@ -242,7 +244,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
     x = wbfmm_target_list_point_index(l, i) ;
     WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
     xf[0] = x[0] - xb[0] ; xf[1] = x[1] - xb[1] ; xf[2] = x[2] - xb[2] ;
-    WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(xf, nr, FALSE,
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(xf, nr, l->field,
 							  &(cfft[i*nc]),
 							  work) ;
   }
@@ -253,7 +255,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
 gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 							WBFMM_REAL *src,
 							gint sstr,
-							WBFMM_REAL *f)
+							WBFMM_REAL *f,
+							gint fstr)
 
 {
   guint level ;
@@ -262,7 +265,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   wbfmm_box_t *boxes ;
   WBFMM_REAL *cfft, *eval, *csrc ;
   
-  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
+  /* g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ; */
+
+  g_assert_not_reached() ; /*data striding needs rethinking*/
   
   nq = wbfmm_tree_source_size(t) ;
 
@@ -279,13 +284,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
     WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
 						       8*nq, nq,
 						       &(eval[ib*nc]), nr,
-						       &(f[ib*nq])) ;
+						       l->field,
+						       &(f[ib*fstr]), 1) ;
     /*direct contributions from neighbour boxes*/
     csrc = &(((WBFMM_REAL *)(l->csrc))[l->ics[ib]]) ;
     for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
       idx = l->isrc[l->ibox[b]+j] ;
       for ( k = 0 ; k < nq ; k ++ ) {
-    	f[ib*nq+k] += src[idx*sstr+k]*csrc[j] ;
+    	f[ib*fstr+k] += src[idx*sstr+k]*csrc[j] ;
       }
     }    
   }

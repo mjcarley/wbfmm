@@ -1,13 +1,19 @@
 ph = 0.7 ; mu = -0.4 ; r = 1.9 ;
 n = 3 ; m = -1 ;
 
+ph = -0.19739555984988075 ;
+th = 0.47153775456849351 ;
+r = 0.11224972160321793 ;
+
 d = 1e-4 ;
 
 Rnm = rnmfunc(n, m, r, ph, mu) ;
 
+dR = [] ;
+
 ee = id = rr = [] ;
-for n=1:4
-  for m=-n:n
+for n=3#1:4
+  for m=0#-n:n
 
     drdr = ...
     (rnmfunc(n, m, r+0.5*d, ph, mu) - rnmfunc(n, m, r-0.5*d, ph, mu))/d ;
@@ -19,6 +25,8 @@ for n=1:4
     dxy = ((1-mu^2)*(r*drdr - mu*drdmu) + j*drdph)/r/sqrt(1-mu^2)*exp(j*ph) ;
     dxyb = ((1-mu^2)*(r*drdr - mu*drdmu) - j*drdph)/r/sqrt(1-mu^2)*exp(-j*ph) ;
 
+    dR = [dR; dxy dxyb] ;
+    
     if 1
       if ( m >= 0 ) 
 	tt = -sqrt((2*n+1)/(2*n-1)*(n-abs(m))*(n-abs(m)-1))*...

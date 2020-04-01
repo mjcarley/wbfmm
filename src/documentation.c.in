@@ -1543,7 +1543,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
  * @param nq number of source terms in \a C;
  * @param ec evaluation coefficients;
  * @param N order of expansion;
- * @param f on exit contains evaluated field.
+ * @param field field specifier using ::wbfmm_field_t;
+ * @param f on exit contains evaluated field;
+ * @param fstr stride in \a f.
  *
  * @return 0 on success
  *
@@ -1554,6 +1556,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
 							gint nq,
 							WBFMM_REAL *ec,
 							gint N,
+							guint field,
 							WBFMM_REAL *f) {}
 
 /** 
@@ -1567,7 +1570,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
  * 
  * @param x location of evaluation point relative to centre of expansion;
  * @param N order of expansion;
- * @param grad if TRUE generate coefficients for gradient of field;
+ * @param field field specifier using ::wbfmm_field_t;
  * @param cfft on exit contains evaluation coefficients;
  * @param work workspace.
  *
@@ -1577,7 +1580,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(WBFMM_REAL *x,
 							   gint N,
-							   gboolean grad,
+							   guint field,
 							   WBFMM_REAL *cfft,
 							   WBFMM_REAL *work) {}
 

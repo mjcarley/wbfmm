@@ -47,7 +47,6 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
   WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
   gint n, m, idx, i ;
-  /* gint chk = 0 ; */
   
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
@@ -55,8 +54,8 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 
   if ( N == 0 ) return 0 ;
 
-  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
-  Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ;
+  Cmph = &(Pn[N+2]) ; Smph = &(Cmph[N+2]) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
@@ -102,7 +101,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
     
     field[fstr*i+2] += Rnm  *(cr*Cmph[m+0] - ci*Smph[m+0]) ;
   }
-
+  
   for ( n = 2 ; n <= N ; n ++ ) {
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
@@ -113,10 +112,17 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
     m = 0 ; 
     idx = n*n ;
     anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+    b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+    b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
+    Rnmm1 = rn*Pnm1[m+1]*b2 ;
     Rnm = rn*Pnm1[m]*anm ;
+    Rnmp1 = rn*Pnm1[m+1]*b1 ;
     for ( i = 0 ; i < nq ; i ++ ) {
       cr = cfft[cstr*idx+i] ;
 
+      field[fstr*i+0] -= cr*Rnmp1*Cmph[m+1] ;
+      field[fstr*i+1] -= cr*Rnmp1*Smph[m+1] ;
+      
       field[fstr*i+2] += cr*Rnm ;
     }
 
