@@ -2023,3 +2023,64 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_upward_pass)(wbfmm_tree_t *t,
 						    wbfmm_shift_operators_t *op,
 						    guint level,
 						    WBFMM_REAL *work) {}
+
+
+/** 
+ * 
+ * @ingroup expansions
+ *
+ * @brief Generate coefficients for evaluation of local field from
+ * (regular) expansion coefficients in the Helmholtz problem. The
+ * coefficients from this function can be applied to an expansion
+ * using ::WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(...)
+ * 
+ * @param k wavenumber;
+ * @param x location of evaluation point relative to centre of expansion;
+ * @param N order of expansion;
+ * @param field field specifier using ::wbfmm_field_t;
+ * @param cfft on exit contains evaluation coefficients;
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+*/
+
+gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
+						   WBFMM_REAL *x,
+						   gint N,
+						   guint field,
+						   WBFMM_REAL *cfft,
+						   WBFMM_REAL *work) ;
+
+/**
+ * 
+ * @ingroup laplace
+ *
+ * @brief Apply evaluation coefficients to coefficients of an
+ * expansion to evaluate the Helmholtz potential. Evaluation
+ * coefficients can be evaluated using
+ * WBFMM_FUNCTION_NAME(wbfmm_field_coefficients) or
+ * WBFMM_FUNCTION_NAME(wbfmm_local_coefficients) for the field
+ * (singular) or local (regular) expansions respectively.
+ * 
+ * @param C coefficients of expansion;
+ * @param cstr stride in \a C;
+ * @param nq number of source terms in \a C;
+ * @param ec evaluation coefficients;
+ * @param N order of expansion;
+ * @param field field specifier using ::wbfmm_field_t;
+ * @param f on exit contains evaluated field;
+ * @param fstr stride in \a f.
+ *
+ * @return 0 on success
+ *
+*/
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
+						gint cstr,
+						gint nq,
+						WBFMM_REAL *ec,
+						gint N,
+						guint field,
+						WBFMM_REAL *f,
+						gint fstr) ;

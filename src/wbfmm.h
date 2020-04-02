@@ -346,6 +346,18 @@ gint wbfmm_rotate_H_avx(gdouble *Co, gint cstro,
 			gdouble *H,
 			gdouble ph, gdouble ch) ;
 
+gint wbfmm_local_coefficients(gdouble k, gdouble *x, gint N,
+			      guint field, gdouble *cfft, gdouble *work) ;
+gint wbfmm_local_coefficients_f(gfloat k, gfloat *x, gint N,
+				guint field, gfloat *cfft, gfloat *work) ;
+
+gint wbfmm_expansion_apply(gdouble *C, gint cstr, gint nq,
+			   gdouble *ec, gint N, guint field,
+			   gdouble *f, gint fstr) ;
+gint wbfmm_expansion_apply_f(gfloat *C, gint cstr, gint nq,
+			     gfloat *ec, gint N, guint field,
+			     gfloat *f, gint fstr) ;
+
 gint wbfmm_laplace_expansion_cfft(gint N, gdouble *x0,
 				  gdouble *xs, gdouble *q, gint nq,
 				  gdouble *cfft, gint cstr,

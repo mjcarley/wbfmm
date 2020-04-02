@@ -548,3 +548,170 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
 
   return 0 ;
 }
+
+static gint coefficients_j_increment(gint n, gint m, gint sgn,
+				     WBFMM_REAL jn,
+				     WBFMM_REAL *Pn,
+				     WBFMM_REAL Cmph, WBFMM_REAL Smph,
+				     WBFMM_REAL *cfft)
+
+{
+  gint idx ;
+
+  idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
+  cfft[2*idx+0] = Cmph*jn*Pn[m] ; cfft[2*idx+1] = sgn*Smph*jn*Pn[m] ;
+  
+  return 0 ;
+}
+
+static gint _wbfmm_local_coefficients_scalar(WBFMM_REAL kr,
+					     WBFMM_REAL *cfft,
+					     gint N,
+					     WBFMM_REAL Cth,
+					     WBFMM_REAL Sth,
+					     WBFMM_REAL Cph,
+					     WBFMM_REAL Sph,
+					     WBFMM_REAL *work)
+
+{
+  WBFMM_REAL jn, jnm1 ;
+  WBFMM_REAL *Pn, *Pnm1, Cmph[64], Smph[64] ;
+  gint n, m ;
+
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = Cph ; Smph[1] = Sph ;
+
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  coefficients_j_increment(n, m,  1, jnm1, Pnm1, Cmph[m], Smph[m], cfft) ;
+
+  n = 1 ; 
+  m = 0 ; 
+  coefficients_j_increment(n, m,  1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+
+  m = 1 ; 
+  coefficients_j_increment(n, m,  1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+  coefficients_j_increment(n, m, -1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+
+  for ( n = 2 ; n <= N ; n ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
+    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+
+    m = 0 ; 
+    coefficients_j_increment(n, m,  1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      coefficients_j_increment(n, m,  1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+      coefficients_j_increment(n, m, -1, jn, Pn, Cmph[m], Smph[m], cfft) ;
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
+						   WBFMM_REAL *x,
+						   gint N,
+						   guint field,
+						   WBFMM_REAL *cfft,
+						   WBFMM_REAL *work)
+
+{
+  WBFMM_REAL r, th, ph, x0[3] = {0.0} ;
+  WBFMM_REAL Cth, Sth, Cph, Sph ;
+  
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, x, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+  Cph = COS(ph) ; Sph = SIN(ph) ; 
+
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    return _wbfmm_local_coefficients_scalar(k*r, cfft, N, Cth, Sth,
+					    Cph, Sph, work) ;
+    break ;
+  /* case WBFMM_FIELD_GRADIENT: */
+  /*   return _wbfmm_laplace_local_coefficients_gradient(cfft, N, r, Cth, Sth, */
+  /* 						      Cph, Sph, work) ; */
+  /*   break ; */
+  }
+
+  return 0 ;
+}
+
+static gint _wbfmm_expansion_apply_scalar(WBFMM_REAL *C,
+					  gint cstr,
+					  gint nq,
+					  WBFMM_REAL *ec,
+					  gint N,
+					  WBFMM_REAL *f,
+					  gint fstr)
+{
+  gint n, m, idx, j ;
+
+  for ( n = 0 ; n <= N ; n ++ ) {
+    m = 0 ;
+    idx = 2*wbfmm_coefficient_index_nm(n,m) ;  
+
+    for ( j = 0 ; j < nq ; j ++ ) {
+      f[j*fstr+0] += C[idx*cstr+2*j+0]*ec[idx+0] - C[idx*cstr+2*j+1]*ec[idx+1] ;
+      f[j*fstr+1] += C[idx*cstr+2*j+0]*ec[idx+1] + C[idx*cstr+2*j+1]*ec[idx+0] ;
+    }
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = 2*wbfmm_coefficient_index_nm(n, m) ;  
+      for ( j = 0 ; j < nq ; j ++ ) {
+	f[j*fstr+0] += C[idx*cstr+2*j+0]*ec[idx+0] -
+	  C[idx*cstr+2*j+1]*ec[idx+1] ;
+	f[j*fstr+1] += C[idx*cstr+2*j+0]*ec[idx+1] +
+	  C[idx*cstr+2*j+1]*ec[idx+0] ;
+      }
+      idx = 2*wbfmm_coefficient_index_nm(n, -m) ;  
+      for ( j = 0 ; j < nq ; j ++ ) {
+	f[j*fstr+0] += C[idx*cstr+2*j+0]*ec[idx+0] -
+	  C[idx*cstr+2*j+1]*ec[idx+1] ;
+	f[j*fstr+1] += C[idx*cstr+2*j+0]*ec[idx+1] +
+	  C[idx*cstr+2*j+1]*ec[idx+0] ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
+						gint cstr,
+						gint nq,
+						WBFMM_REAL *ec,
+						gint N,
+						guint field,
+						WBFMM_REAL *f,
+						gint fstr)
+{
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    return _wbfmm_expansion_apply_scalar(C, cstr, nq, ec, N, f, fstr) ;
+    break ;
+  /* case WBFMM_FIELD_GRADIENT: */
+  /*   return _wbfmm_laplace_expansion_apply_gradient(C, cstr, nq, ec, N, f, */
+  /* 						   fstr) ; */
+    break ;
+  }
+
+  return 0 ;
+}
+

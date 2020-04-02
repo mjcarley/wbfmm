@@ -37,6 +37,26 @@ gint read_points(gchar *file,
 		 gfloat **f,  gint *fstr,
 		 gint *nsrc) ;
 
+static gint print_longer_help(gchar *progname)
+
+{
+  fprintf(stderr, "%s: detailed notes\n\n", progname) ;
+
+  fprintf(stderr,
+	  "Input file formats:\n\n"
+	  "Input files for source and field points take the same format\n"
+	  "consisting of a header followed by point data:\n\n"
+	  "[number of points] [number of source components] [type code]\n"
+	  "x y z [source data]\n"
+	  "x y z [source data]\n"
+	  "...\n\n"
+	  "The number of source components allows for multiple source\n"
+	  "values at each source position, such as in vector problems.\n"
+	  "The type code is `M' for monopoles and `F' for field points.\n"
+	  "For field data, the number of source components can be zero.\n") ;
+  return 0 ;
+}
+
 gint read_points(gchar *file,
 		 gfloat **xs, gint *xstr,
 		 gfloat **q,  gint *qstr, gint *nq,
@@ -116,14 +136,14 @@ gint main(gint argc, gchar **argv)
   wbfmm_tree_t *tree ;
   wbfmm_target_list_t *targets ;
   wbfmm_shift_operators_t *shifts ;
-  gfloat D, xtree[3] = {0.0}, xtmax[3], *sources, *xs ;
+  gfloat D, xtree[3] = {0.0}, xtmax[3], *xs ;
   gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr, nfc ;
+  gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, field ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean fit_box, shift_bw, write_sources ;
+  gboolean fit_box, shift_bw ;
 
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ;
@@ -133,13 +153,12 @@ gint main(gint argc, gchar **argv)
   order_max = 0 ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
-  write_sources = FALSE ;
   field = WBFMM_FIELD_SCALAR ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gO:R:s:S:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:gO:R:s:S:t:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -149,6 +168,8 @@ gint main(gint argc, gchar **argv)
 	      "field points using\n"
 	      "Wide Band (some day) Fast Multipole Method\n\n"
 	      "Options:\n\n"
+	      "  -h print this message and exit\n"
+	      "  -H print some more detailed information and exit\n"
 	      "  -B use backward shift algorithm\n"
 	      "  -b fit octree box to sources\n"
 	      "  -d # depth of octree (%d)\n"
@@ -159,12 +180,12 @@ gint main(gint argc, gchar **argv)
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
-	      "  -t # tolerance (%g)\n"
-	      "  -w write source data to stdout\n",
+	      "  -t # tolerance (%g)\n",
 	      progname, depth, D, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
       return 0 ;
       break ;
+    case 'H': print_longer_help(progname) ;  return 0 ; break ;
     case 'B': g_assert_not_reached() ; shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
     case 'd': depth = atoi(optarg) ; break ;
@@ -176,7 +197,6 @@ gint main(gint argc, gchar **argv)
     case 'S': order_s = atoi(optarg) ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
     case 't': tol = atof(optarg) ; break ;
-    case 'w': write_sources = TRUE ; break ;
     }
   }
 
@@ -207,6 +227,7 @@ gint main(gint argc, gchar **argv)
   
   f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
+  /*fitting the bounding box to the field and source points*/
   if ( fit_box ) {
     wbfmm_points_origin_width_f(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
     wbfmm_points_origin_width_f(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
@@ -214,11 +235,13 @@ gint main(gint argc, gchar **argv)
     xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
     D += 2.0*del ;
   }
-  
+
+  /*data strides and tree allocation*/
   pstr = xstr*sizeof(gfloat) ;
   fstr = strf*sizeof(gfloat) ;
   tree = wbfmm_tree_new_f(xtree, D, 2*nsrc) ;
 
+  /*set expansion orders at each level of the tree*/
   if ( order_s != 0 && order_r != 0 ) {
     order[2*depth+0] = order_s ; 
     order[2*depth+1] = order_r ; 
@@ -260,10 +283,8 @@ gint main(gint argc, gchar **argv)
   
   fprintf(stderr, "%s: initializing shift rotation operators; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
   wbfmm_shift_angle_table_init_f() ;
   shifts = wbfmm_shift_operators_new_f(order_max, shift_bw, work) ;
-
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -272,17 +293,13 @@ gint main(gint argc, gchar **argv)
   wbfmm_laplace_coaxial_translate_init_f(order_max+2) ;
   fprintf(stderr, "%s: coaxial translation coefficients initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  
-  wbfmm_tree_add_points_f(tree, (gpointer)xs, nsrc, pstr) ;
 
+  /*add source points to the tree and refine to allocate sources to
+    leaf boxes*/
+  wbfmm_tree_add_points_f(tree, (gpointer)xs, nsrc, pstr) ;
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_f(tree) ;
 
-  /* if ( write_sources ) { */
-  /*   wbfmm_tree_write_sources_f(tree, &(sources[3]), str, stderr) ; */
-    
-  /*   return 0 ; */
-  /* } */
-
+  /*initialize memory for box coefficients at each level*/
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
   wbfmm_tree_source_size(tree) = nq ;
   for ( i = 1 ; i <= depth ; i ++ ) {
@@ -300,61 +317,32 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-  
+	  progname, g_timer_elapsed(timer, NULL)) ;  
   wbfmm_tree_laplace_leaf_expansions_f(tree,
 					  q, qstr, normals, nstr, dipoles, dstr,
-					  TRUE, work) ;
-  
+					  TRUE, work) ;  
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   fprintf(stderr, "%s: upward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
   for ( level = depth ; level >= 3 ; level -- ) {
     wbfmm_laplace_upward_pass_f(tree, shifts, level, work) ;
-  }
-  
+  }  
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-#if 0
-  /*upward pass test code*/
-  {
-    gfloat xf[3], phi[16] = {0.0} ;
-
-    xf[0] = 4.1 ; xf[1] = 0.4 ; xf[2] = -0.7 ;
-    level = 2 ;
-    
-    wbfmm_laplace_box_fields_f(tree, level, xf, phi, work) ;
-    
-    fprintf(stdout, "%g %g %g", xf[0], xf[1], xf[2]) ;
-    for ( i = 0 ; i < nq ; i ++ ) 
-    fprintf(stdout, " %1.16e", phi[i]) ;
-    fprintf(stdout, "\n") ;
-    
-    return 0 ;
-  }
-#endif
-  
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
   for ( level = 2 ; level <= depth ; level ++ ) {
     wbfmm_laplace_downward_pass_f(tree, shifts, level, work) ;
   }
-
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  level = depth ;
-
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
   wbfmm_target_list_local_field_f(targets, q, qstr, f, fcstr) ;
-
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 

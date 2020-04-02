@@ -35,7 +35,6 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
 
 {
   wbfmm_target_list_t *l ;
-  guint nc, nr, nb ;
   
   if ( t->size != sizeof(WBFMM_REAL) )
     g_error("%s: mixed precision not implemented\n"
@@ -56,34 +55,6 @@ wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
 
   l->cfft = NULL ;
   l->nc = 0 ;
-  
-#if 0
-  /*size the memory allocation, based on order of leaf-level regular
-    expansions*/
-  nr = t->order_r[t->depth] ;
-  
-  switch ( wbfmm_tree_problem(t) ) {
-  default:
-    g_error("%s: unrecognized problem type %u",
-	    __FUNCTION__, wbfmm_tree_problem(t)) ;
-    break ;
-  case WBFMM_PROBLEM_LAPLACE:
-    nc = (nr+1)*(nr+1) ;
-    break ;
-  case WBFMM_PROBLEM_HELMHOLTZ:
-    g_assert_not_reached() ;
-    break ;
-  }
-
-  if ( grad ) nc *= 4 ;
-
-  l->nc = nc ;
-
-  /*number of leaf boxes*/
-  nb = 1 << (3*(t->depth)) ;
-
-  l->cfft = g_malloc0(nc*nb*sizeof(WBFMM_REAL)) ;
-#endif
 
   return l ;
 }
@@ -118,9 +89,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 						       gsize pstr)
 
 {
-  gint i, j, k, idx, nsb, nnbr, nb ;
+  gint i, j, k, nsb, nnbr, nb ;
   guint64 neighbours[27] ;
-  WBFMM_REAL *x, *xt, D, *xs, r ;
+  WBFMM_REAL *x, *xt, D ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
   guint level = t->depth ;
   wbfmm_box_t box, *boxes ;
@@ -142,7 +113,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
   D = wbfmm_tree_width(t) ;
 
   for ( i = 0 ; i < npts ; i ++ ) {
-    /* x = wbfmm_tree_point_index(t, i) ; */
     x = wbfmm_target_list_point_index(l, i) ;
     if ( x[0] <= xt[0] || x[0] >= xt[0] + D ||
 	 x[1] <= xt[1] || x[1] >= xt[1] + D ||
@@ -196,12 +166,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list_t *l, WBFMM_REAL *work)
 
 {
-  gint i, j, k, npts, nr, nc, ns, ics, idx ;
+  gint i, j, k, npts, nr, nc, ns, idx ;
   guint level ;
   guint64 b ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
   WBFMM_REAL xb[3], wb, xf[3], *x, *cfft ;
-  WBFMM_REAL *xt, *csrc, r, *xs, nR[3] ;
+  WBFMM_REAL *csrc, r, *xs, nR[3] ;
 
   level = t->depth ;
   nr = t->order_r[level] ;
@@ -308,8 +278,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   
   g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
 
-  /* g_assert_not_reached() ; /\*data striding needs rethinking*\/ */
-  
   nq = wbfmm_tree_source_size(t) ;
 
   level = t->depth ;
@@ -366,7 +334,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	  }
 	}
       }
-      /* g_assert_not_reached() ; */
       return 0 ;
       break ;
     }

@@ -733,21 +733,25 @@ gint translation_local_test(gfloat *x0, gfloat *x1, gfloat *x2,
 			    gfloat *xf, gint fstr, gint nf)
 
 /*
-  coaxial translation from x0 to x0 + (0,0,t) and check on evaluation
-  of field at x0 + (0,0,t) + x2
+  singular-regular coaxial translation from x0 to x0 + (0,0,t) and
+  check on evaluation of field at x0 + (0,0,t) + x2
 */
 
 {
   gfloat Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
+  gfloat eval[BUFSIZE] = {0.0} ;
   gfloat kr, work[BUFSIZE], xr[3], xt[3] ;
-  gfloat f0[64] = {0.0}, ft[64] = {0.0}, fc[64] = {0.0} ;
+  gfloat f0[64] = {0.0}, ft[64] = {0.0}, fc[64] = {0.0}, fe[64] = {0.0} ;
   gint i, j, Ni, No, cstri, cstro, fcstr ;
   gdouble t0 ;
-
+  guint field ;
+  
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
+  field = WBFMM_FIELD_SCALAR ;
+  
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 
   cstri = nq ;
@@ -795,17 +799,29 @@ gint translation_local_test(gfloat *x0, gfloat *x1, gfloat *x2,
   wbfmm_total_field_f(k, xs, sstr, q, qstr,
 			 NULL, 0, NULL, 0, nq,
 			 ns, xr, fc, fcstr) ;
-  for ( j = 0 ; j < nq ; j ++ ) {
-    fprintf(stdout, "%d: ", j) ;
-    fprintf(stdout, "%g+j*%g ", f0[j*fcstr+0], f0[j*fcstr+1]) ;
-    fprintf(stdout, "%g+j*%g ", ft[j*fcstr+0], ft[j*fcstr+1]) ;
-    fprintf(stdout, "%g+j*%g ", fc[j*fcstr+0], fc[j*fcstr+1]) ;
 
-    fprintf(stdout, "(%g, %g)\n",
+  /*check pre-computed evaluation method*/
+  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+  wbfmm_local_coefficients_f(k, xr, No, field, eval, work) ;
+  wbfmm_expansion_apply_f(Co, cstro, nq, eval, No, field, fe, fcstr) ;
+  
+  for ( j = 0 ; j < nq ; j ++ ) {
+    fprintf(stdout, "source %d:\n", j) ;
+    fprintf(stdout, "reference:   %g+j*%g\n",
+	    fc[j*fcstr+0], fc[j*fcstr+1]) ;
+    fprintf(stdout, "singular:    %g+j*%g (%g)\n",
+	    f0[j*fcstr+0], f0[j*fcstr+1],
 	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
-		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1])),
+		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1]))) ;
+    fprintf(stdout, "translated:  %g+j*%g (%g)\n",
+	    ft[j*fcstr+0], ft[j*fcstr+1],
 	    sqrt((ft[j*fcstr+0]-fc[j*fcstr+0])*(ft[j*fcstr+0]-fc[j*fcstr+0]) +
 		 (ft[j*fcstr+1]-fc[j*fcstr+1])*(ft[j*fcstr+1]-fc[j*fcstr+1]))) ;
+
+    fprintf(stdout, "precomputed: %g+j*%g (%g)\n",
+	    fe[j*fcstr+0], fe[j*fcstr+1],
+	    sqrt((fe[j*fcstr+0]-fc[j*fcstr+0])*(fe[j*fcstr+0]-fc[j*fcstr+0]) +
+		 (fe[j*fcstr+1]-fc[j*fcstr+1])*(fe[j*fcstr+1]-fc[j*fcstr+1]))) ;
   }
   
   fprintf(stderr, "%s ends: %lg\n",
