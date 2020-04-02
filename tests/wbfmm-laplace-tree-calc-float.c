@@ -118,7 +118,7 @@ gint main(gint argc, gchar **argv)
   wbfmm_shift_operators_t *shifts ;
   gfloat D, xtree[3] = {0.0}, xtmax[3], *sources, *xs ;
   gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
-  gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr ;
+  gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr, nfc ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, field ;
@@ -139,7 +139,7 @@ gint main(gint argc, gchar **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hBbcD:d:f:O:R:s:S:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gO:R:s:S:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -154,6 +154,7 @@ gint main(gint argc, gchar **argv)
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%g)\n"
 	      "  -f (field point name)\n"
+	      "  -g calculate gradient of field\n"
 	      "  -O #,#,# origin of octree (%g,%g,%g)\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
@@ -169,6 +170,7 @@ gint main(gint argc, gchar **argv)
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
+    case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
     case 'S': order_s = atoi(optarg) ; break ;
@@ -185,26 +187,11 @@ gint main(gint argc, gchar **argv)
 		&normals, &nstr,
 		&dipoles, &dstr,
 		&nsrc) ;
-    /* read_points(sfile, &sources, &nsrc, &str) ; */
-
-    /* switch ( str ) { */
-    /* default: */
-    /*   fprintf(stderr, "%s: don't know how to interpret stride %d\n", */
-    /* 	      progname, str) ; */
-    /*   exit(1) ; */
-    /*   break ; */
-    /* case  5: fprintf(stderr, "%s: monopole sources\n", progname) ; break ; */
-    /* case  8: fprintf(stderr, "%s: dipole sources\n", progname) ; break ; */
-    /* case 10: fprintf(stderr, "%s: mixed sources\n", progname) ; break ; */
-    /* } */
   } else {
     fprintf(stderr, "%s: source list must be specified (-s)\n",
 	    progname) ;
     return 1 ;
  }
-
-  /*monopoles only for now*/
-  /* nq = str - 3 ;     */
 
   if ( ffile != NULL ) {
     read_points(ffile,
@@ -214,8 +201,11 @@ gint main(gint argc, gchar **argv)
 	    progname) ;
     return 1 ;
   }
+
+  fcstr = nq ;
+  if ( field == WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
   
-  f = (gfloat *)g_malloc0(nf*nq*sizeof(gfloat)) ;
+  f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
   if ( fit_box ) {
     wbfmm_points_origin_width_f(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
@@ -363,16 +353,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_target_list_local_field_f(targets, q, qstr, f, 1) ;
-
-  /* for ( i = 0 ; i < nf ; i ++ ) { */
-  /*   b = wbfmm_point_box_f(tree, level, &(xf[i*strf])) ; */
-  /*   wbfmm_tree_laplace_box_local_field_f(tree, level, b, */
-  /* 					    &(xf[i*strf]), &(f[nq*i]), */
-  /* 					    q, qstr, normals, nstr, */
-  /* 					    dipoles, dstr, */
-  /* 					    TRUE, work) ; */
-  /* } */
+  wbfmm_target_list_local_field_f(targets, q, qstr, f, fcstr) ;
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -381,8 +362,8 @@ gint main(gint argc, gchar **argv)
     fprintf(stdout, 
 	    "%1.16e %1.16e %1.16e",
 	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
-    for ( j = 0 ; j < nq ; j ++ ) {
-      fprintf(stdout, " %1.16e", f[i*nq+j]) ;
+    for ( j = 0 ; j < fcstr ; j ++ ) {
+      fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
     }
     fprintf(stdout, "\n") ;
   }

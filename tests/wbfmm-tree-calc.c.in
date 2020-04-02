@@ -142,6 +142,7 @@ gint main(gint argc, gchar **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
+
   while ( (ch = getopt(argc, argv, "hBbcD:d:f:gk:O:R:s:S:t:w")) != EOF ) {
     switch ( ch ) {
     default:

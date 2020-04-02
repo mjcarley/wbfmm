@@ -121,8 +121,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
       cr = cfft[cstr*idx+i] ;
 
       field[fstr*i+0] -= cr*Rnmp1*Cmph[m+1] ;
-      field[fstr*i+1] -= cr*Rnmp1*Smph[m+1] ;
-      
+      field[fstr*i+1] -= cr*Rnmp1*Smph[m+1] ;      
       field[fstr*i+2] += cr*Rnm ;
     }
 

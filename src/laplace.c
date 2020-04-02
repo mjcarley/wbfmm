@@ -1007,9 +1007,9 @@ static gint _wbfmm_laplace_local_coefficients_gradient(WBFMM_REAL *cfft,
     Rnm   = rn*Pnm1[m]*anm ;
     Rnmp1 = rn*Pnm1[m+1]*b1 ;
 
-    cfft[3*idx+0] -= Rnmp1*Cmph[m+1] ;
-    cfft[3*idx+1] -= Rnmp1*Smph[m+1] ;
-    cfft[3*idx+2] = Rnm ;
+    cfft[3*idx+0] = -Rnmp1*Cmph[m+1] ;
+    cfft[3*idx+1] = -Rnmp1*Smph[m+1] ;
+    cfft[3*idx+2] =  Rnm ;
 
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;

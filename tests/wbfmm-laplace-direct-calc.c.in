@@ -106,14 +106,16 @@ gint main(gint argc, gchar **argv)
 {
   WBFMM_REAL *xs ;
   WBFMM_REAL *xf, *f, *q, *normals, *dipoles ;
-  gint nsrc, i, j, xstr, strf, nf, qstr, nq, nstr, dstr ;
+  gint nsrc, i, j, xstr, strf, nf, qstr, nq, nstr, dstr, fcstr, nfc ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-
+  gboolean gradient ;
+  
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  nq = 1 ;
-  while ( (ch = getopt(argc, argv, "hf:k:s:")) != EOF ) {
+  nq = 1 ; gradient = FALSE ;
+  
+  while ( (ch = getopt(argc, argv, "hf:gk:s:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -124,11 +126,13 @@ gint main(gint argc, gchar **argv)
 	      "direct evaluation method\n"
 	      "Options:\n\n"
 	      "  -f (field point name)\n"
+	      "  -g calculate field gradient\n"
 	      "  -s (source file name)\n",
 	      progname) ;
       return 0 ;
       break ;
-    case 'f': ffile = g_strdup(optarg) ; break ;      
+    case 'f': ffile = g_strdup(optarg) ; break ;
+    case 'g': gradient = TRUE ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
     }
   }
@@ -155,14 +159,26 @@ gint main(gint argc, gchar **argv)
     return 1 ;
   }
 
+  nfc = nq ; fcstr = nq ;
+  if ( gradient ) {
+    nfc *= 3 ; fcstr *= 3 ;
+  }
+  
   fprintf(stderr, "%s: computing direct field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   f = (WBFMM_REAL *)g_malloc0(nf*nq*sizeof(WBFMM_REAL)) ;
 
-  for ( i = 0 ; i < nf ; i ++ ) {
-    wbfmm_laplace_field_PREC(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
-			     nsrc, &(xf[i*strf]), &(f[nq*i])) ;
+  if ( gradient ) {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      wbfmm_laplace_field_grad_PREC(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
+    }
+  } else {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      wbfmm_laplace_field_PREC(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+			       nsrc, &(xf[i*strf]), &(f[nq*i])) ;
+    }
   }
   
   fprintf(stderr, "%s: direct field computed; %lg\n",
@@ -172,9 +188,12 @@ gint main(gint argc, gchar **argv)
     fprintf(stdout,
     	    "%FLOATEXP %FLOATEXP %FLOATEXP",
     	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
-    for ( j = 0 ; j < nq ; j ++ ) {
-      fprintf(stdout, " %FLOATEXP", f[nq*i+j]) ;
+    for ( j = 0 ; j < nfc ; j ++ ) {
+      fprintf(stdout, " %FLOATEXP", f[fcstr*i+j]) ;
     }
+    /* for ( j = 0 ; j < nq ; j ++ ) { */
+    /*   fprintf(stdout, " %FLOATEXP", f[nq*i+j]) ; */
+    /* } */
     fprintf(stdout, "\n") ;
   }
 

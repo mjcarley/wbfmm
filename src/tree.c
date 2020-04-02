@@ -107,18 +107,16 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
     break ;
   }
 
-  l->nc = nc ;
   switch ( field ) {
   default:
     g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
-    l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
-    break ;
-  case WBFMM_FIELD_GRADIENT:
-    l->cfft = g_malloc0(3*nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
-    break ;
+  case WBFMM_FIELD_SCALAR:   nc *= 1 ; break ;
+  case WBFMM_FIELD_GRADIENT: nc *= 3 ; break ; 
   }
   
+  l->nc = nc ;
+  l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+
   return 0 ;
 }
