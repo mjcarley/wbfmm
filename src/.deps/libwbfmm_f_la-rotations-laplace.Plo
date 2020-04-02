@@ -7,15 +7,16 @@ libwbfmm_f_la-rotations-laplace.lo: rotations-laplace.c \
  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
  /usr/include/bits/inf.h /usr/include/bits/nan.h \
  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
- /usr/include/string.h \
+ /usr/include/bits/mathinline.h /usr/include/string.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stddef.h \
- /usr/include/xlocale.h /usr/include/stdio.h /usr/include/bits/types.h \
- /usr/include/bits/typesizes.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/include/xlocale.h /usr/include/bits/string.h \
+ /usr/include/bits/string2.h /usr/include/stdlib.h /usr/include/stdio.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
- /usr/include/glib-2.0/glib/gtypes.h \
+ /usr/include/bits/stdio.h /usr/include/glib-2.0/glib.h \
+ /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib64/glib-2.0/include/glibconfig.h \
  /usr/include/glib-2.0/glib/gmacros.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include-fixed/limits.h \
@@ -129,11 +130,19 @@ libwbfmm_f_la-rotations-laplace.lo: rotations-laplace.c \
 
 /usr/include/bits/mathcalls.h:
 
+/usr/include/bits/mathinline.h:
+
 /usr/include/string.h:
 
 /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stddef.h:
 
 /usr/include/xlocale.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/include/stdlib.h:
 
 /usr/include/stdio.h:
 
@@ -152,6 +161,8 @@ libwbfmm_f_la-rotations-laplace.lo: rotations-laplace.c \
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
 
 /usr/include/glib-2.0/glib.h:
 

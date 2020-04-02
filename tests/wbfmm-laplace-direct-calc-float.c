@@ -167,7 +167,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing direct field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  f = (gfloat *)g_malloc0(nf*nq*sizeof(gfloat)) ;
+  f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
   if ( gradient ) {
     for ( i = 0 ; i < nf ; i ++ ) {
