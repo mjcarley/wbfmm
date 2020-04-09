@@ -185,11 +185,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   Pn = &(work[0]) ; Pnp1 = &(Pn[N+2]) ;
   Cmph = &(Pnp1[N+3]) ; Smph = &(Cmph[N+3]) ;
 
-  memset(Pn  , 0, (N+1)*sizeof(WBFMM_REAL)) ;
-  memset(Pnp1, 0, (N+2)*sizeof(WBFMM_REAL)) ;
-  memset(Cmph, 0, (N+3)*sizeof(WBFMM_REAL)) ;
-  memset(Smph, 0, (N+3)*sizeof(WBFMM_REAL)) ;
-
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
 

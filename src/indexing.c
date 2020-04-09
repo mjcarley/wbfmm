@@ -334,7 +334,6 @@ gint wbfmm_box_interaction_list_4(guint level, guint64 idx,
   gint n, dx, dy, dz ;
   guint32 i, j, k, i0, i1, j0, j1, k0, k1, ii, jj, kk, nbox ;
   guint64 ishift ;
-  guint32 ic, jc, kc ;
   
   morton_decode(idx, &i, &j, &k) ;
   /*number of boxes per side on this level*/
@@ -355,8 +354,6 @@ gint wbfmm_box_interaction_list_4(guint level, guint64 idx,
       for ( kk = k0 ; kk <= k1 ; kk ++ ) {
 	if ( !_is_neighbour(i,j,k,ii,jj,kk) ) {
 	  list[2*n+0] = wbfmm_box_index(ii, jj, kk) ;
-	  /* wbfmm_box_location(list[2*n+0], &ic, &jc, &kc) ; */
-	  /* g_assert((ic == ii) && (jc == jj) && (kc == kk)) ; */
 	  /*index into shift angle table*/
 	  dx = ( ii > i ? ii - i : -(gint)(i-ii)) ;
 	  dy = ( jj > j ? jj - j : -(gint)(j-jj)) ;

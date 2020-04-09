@@ -332,7 +332,9 @@ gint translation_test(gint N, gdouble *x0, gdouble *xs,
   wbfmm_laplace_expansion_evaluate(x0, Ci, cstr, N, nq, xf, ff, work) ;
 
   /*translate the expansion*/
-  wbfmm_laplace_coaxial_translate_SS(Co, cstr, N, Ci, cstr, N, nq, t) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+  wbfmm_laplace_coaxial_translate_SS(Co, cstr, N, Ci, cstr, N, nq, t,
+					  0.0) ;
 
   x0[2] += t ;  
   wbfmm_laplace_expansion_evaluate(x0, Co, cstr, N, nq, xf, ft, work) ;
@@ -394,7 +396,9 @@ gint translation_SR_test(gint N, gdouble *x0, gdouble *xs,
   wbfmm_laplace_expansion_evaluate(x0, Ci, cstr, Ns, nq, xf, ff, work) ;
 
   /*translate the expansion*/
-  wbfmm_laplace_coaxial_translate_SR(Co, cstr, Nr, Ci, cstr, Ns, nq, t) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+  wbfmm_laplace_coaxial_translate_SR(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
+					  0.0) ;
 
   x0[2] += t ;  
   wbfmm_laplace_expansion_local_evaluate(x0, Co, cstr, Nr, nq,
@@ -460,11 +464,13 @@ gint translation_RR_test(gint N, gdouble *x0, gdouble *xs,
   wbfmm_laplace_expansion_evaluate(x0, Ci, cstr, N0, nq, xf, ff, work) ;
 
   /*translate the expansion, singular to regular*/
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   wbfmm_laplace_coaxial_translate_SR(Co, cstr, N0, Ci, cstr, N0, nq,
-					  t*0.9) ;
+					  t*0.9, 0.0) ;
   /*translate the expansion, regular to regular*/
+  for ( i = 0 ; i < 1024 ; i ++ ) Cr[i] = -13.0 ;
   wbfmm_laplace_coaxial_translate_RR(Cr, cstr, N1, Co, cstr, N0, nq,
-					  t*0.1) ;  
+					  t*0.1, 0.0) ;  
 
   x0[2] += t ;  
   wbfmm_laplace_expansion_local_evaluate(x0, Cr, cstr, N1, nq,
@@ -558,7 +564,8 @@ gint local_gradient_test(gint N, gdouble *x0, gdouble *xs,
 					     ff, fstr, work) ;
 
   /*translate the expansion*/
-  wbfmm_laplace_coaxial_translate_SR(Co, cstr, Nr, Ci, cstr, Ns, nq, t) ;
+  wbfmm_laplace_coaxial_translate_SR(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
+					  0.0) ;
 
   x0[2] += t ;
   wbfmm_laplace_expansion_local_grad_evaluate(x0, Co, cstr, Nr, nq,
@@ -630,7 +637,7 @@ gint rotation_test(gint N,
   gint i, cstri, cstro, nq ;
   gdouble t0 ;
   
-  cstri = 3 ; cstro = 3 ; nq = 2 ;
+  cstri = 3 ; cstro = 3 ; nq = 1 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
@@ -665,10 +672,12 @@ gint rotation_test(gint N,
 
   wbfmm_coefficients_H_rotation(H, N, th, work) ;
 
-  memset(Co, 0, BUFSIZE*sizeof(gdouble)) ;
+  /*fill Co with rubbish to check pre-scaling*/
+  /* memset(Co, 1, BUFSIZE*sizeof(gdouble)) ; */
+  /* for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ; */
   /*apply the rotation to the coefficients*/
   t0 = g_timer_elapsed(timer, NULL) ;
-  wbfmm_laplace_rotate_H(Co, cstro, Ci, cstri, N, nq, H, ph, ch) ;
+  wbfmm_laplace_rotate_H(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   t0 = g_timer_elapsed(timer, NULL) - t0 ;
   fprintf(stderr, "rotation: time %lg\n", t0) ;
   
@@ -750,14 +759,14 @@ gint shift_test(gint N, gdouble *xc, gdouble *x0, gdouble *xs,
   wbfmm_coefficients_H_rotation(H1, MAX(Ni, No), th, work) ;
 
   /*rotate expansion*/
-  wbfmm_laplace_rotate_H(Cr1, cstri, Ci, cstri, Ni, nq, H1, ph, ch) ;
+  wbfmm_laplace_rotate_H(Cr1, cstri, Ci, cstri, Ni, nq, H1, ph, ch, 0.0) ;
   
   /*translate the expansion, singular to singular*/
   wbfmm_laplace_coaxial_translate_SS(Cr2, cstro, No, Cr1, cstri, Ni,
-					  nq, r) ;
+					  nq, r, 0.0) ;
 
   /*reverse rotation*/
-  wbfmm_laplace_rotate_H(Co, cstro, Cr2, cstro, No, nq, H1, ch, ph) ;
+  wbfmm_laplace_rotate_H(Co, cstro, Cr2, cstro, No, nq, H1, ch, ph, 0.0) ;
 
   wbfmm_laplace_expansion_evaluate(xc, Co, cstro, No, nq,
 					xf, ft, work) ;
@@ -864,6 +873,8 @@ gint child_parent_test(gint N, gdouble *x0, gdouble wb, gint quad,
   /* Np = Nc = 0 ; */
   fprintf(stderr, "child parent shift:\n") ;
   t0 = g_timer_elapsed(timer, NULL) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Cp[i] = -13.0 ;
+  for ( i = 0 ; i < 1024 ; i ++ ) work[8*nq*(Np+1)*(Np+1)] = -13.0 ;
   wbfmm_laplace_child_parent_shift(Cp, Np, Cc, Nc, nq, H03, H47, Np,
   					wb, work) ;
   t1 = g_timer_elapsed(timer, NULL) ;
@@ -883,11 +894,11 @@ gint child_parent_test(gint N, gdouble *x0, gdouble wb, gint quad,
   fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ;
   wbfmm_coefficients_H_rotation(H03, Np, th, work) ;
   wbfmm_laplace_rotate_H(cr, nq, &(Cc[quad*nq]), 8*nq, Nc, nq, H03,
-			      ph, ch) ;
+			      ph, ch, 0.0) ;
 
-  wbfmm_laplace_coaxial_translate_SS(ct, nq, Np, cr, nq, Nc, nq, r) ;
+  wbfmm_laplace_coaxial_translate_SS(ct, nq, Np, cr, nq, Nc, nq, r, 0.0) ;
 
-  wbfmm_laplace_rotate_H(crr, nq, ct, nq, Np, nq, H03, ch, ph) ;
+  wbfmm_laplace_rotate_H(crr, nq, ct, nq, Np, nq, H03, ch, ph, 0.0) ;
 
   wbfmm_laplace_expansion_evaluate(x0, Cp, nq*8, Np, nq, xf, fp, work) ;
   wbfmm_laplace_expansion_evaluate(x0, Cpbw, nq*8, Np, nq, xf, fb, work) ;
@@ -976,10 +987,10 @@ gint parent_child_test(gint N, gdouble *x0, gdouble wb, gint quad,
   /*shift singular expansion to regular expansion about parent box*/
   wbfmm_shift_angles(x0, xp, &th, &ph, &ch, &r) ;
   wbfmm_coefficients_H_rotation(H0, Np, th, work) ;
-  wbfmm_laplace_rotate_H(C1, nq, C0, nq, Np, nq, H0, ph, ch) ;
+  wbfmm_laplace_rotate_H(C1, nq, C0, nq, Np, nq, H0, ph, ch, 0.0) ;
   memset(C0, 0, sizeof(gdouble)*(Np+1)*(Np+1)*nq) ;
-  wbfmm_laplace_coaxial_translate_SR(C0, nq, Np, C1, nq, Np, nq, r) ;
-  wbfmm_laplace_rotate_H(Cp, 8*nq, C0, nq, Np, nq, H0, ch, ph) ;
+  wbfmm_laplace_coaxial_translate_SR(C0, nq, Np, C1, nq, Np, nq, r, 0.0) ;
+  wbfmm_laplace_rotate_H(Cp, 8*nq, C0, nq, Np, nq, H0, ch, ph, 0.0) ;
 
   /*perform RR shift from parent centre to child centres*/
   th47 = acos(sqrt(1.0/3.0)) ; th03 = M_PI - th47 ;
@@ -1019,7 +1030,7 @@ gint parent_child_test(gint N, gdouble *x0, gdouble wb, gint quad,
     break ;
   }
   
-  xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.3*wb ; xe[2] = xc[2] + 0.4*wb ;
+  xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.05*wb ; xe[2] = xc[2] + 0.1*wb ;
   /* xe[0] = xc[0] ; xe[1] = xc[1] ; xe[2] = xc[2] ; */
   wbfmm_laplace_expansion_local_evaluate(xp, Cp, 8*nq,
 					      Np, nq, xe, fp, work) ;
@@ -1028,9 +1039,9 @@ gint parent_child_test(gint N, gdouble *x0, gdouble wb, gint quad,
   wbfmm_shift_angles(xp, xc, &th, &ph, &ch, &r) ;  
   fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ;
   wbfmm_coefficients_H_rotation(H03, Np, th, work) ;
-  wbfmm_laplace_rotate_H(cr, nq, Cp, 8*nq, Np, nq, H03, ph, ch) ;
-  wbfmm_laplace_coaxial_translate_RR(ct, nq, Nc, cr, nq, Np, nq, r) ;
-  wbfmm_laplace_rotate_H(crr, nq, ct, nq, Nc, nq, H03, ch, ph) ;
+  wbfmm_laplace_rotate_H(cr, nq, Cp, 8*nq, Np, nq, H03, ph, ch, 0.0) ;
+  wbfmm_laplace_coaxial_translate_RR(ct, nq, Nc, cr, nq, Np, nq, r, 0.0) ;
+  wbfmm_laplace_rotate_H(crr, nq, ct, nq, Nc, nq, H03, ch, ph, 0.0) ;
 
   wbfmm_laplace_expansion_local_evaluate(xc, crr, nq,
 					      Nc, nq, xe, fs, work) ;

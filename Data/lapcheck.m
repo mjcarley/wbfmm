@@ -1,4 +1,4 @@
-grad = 1 ;
+grad = 0 ;
 
 [xs,q] = readpts("monopoles.dat") ;
 
@@ -14,6 +14,7 @@ dat = load("monopole-laplace-fmm.dat") ;
 xf = dat(:,1:3) ;
 pf = dat(:,4:end) ;
 
+if 1
 pc = 0*pd ;
 if ( ~grad ) 
   for i=1:length(xf)
@@ -35,4 +36,5 @@ else
     endfor
     pc(i,:) = tt ;
   endfor
+endif
 endif

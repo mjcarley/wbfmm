@@ -186,7 +186,7 @@ gint main(gint argc, gchar **argv)
       return 0 ;
       break ;
     case 'H': print_longer_help(progname) ;  return 0 ; break ;
-    case 'B': g_assert_not_reached() ; shift_bw = TRUE ; break ;
+    case 'B': shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;

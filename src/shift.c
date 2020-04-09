@@ -453,8 +453,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
   for ( n = 0 ; n <= Nc ; n ++ ) {
     for ( m = -n ; m <= n ; m ++ ) {
       ic = wbfmm_coefficient_index_nm(n,m) ; offc = 2*str*ic ;
-      /* WBFMM_REAL *buf = &(work[offc]) ; */
-      /* memset(buf, 0, 16*nq*sizeof(WBFMM_REAL)) ; */
       WBFMM_REAL buf[256] = {0.0} ;
       /*loop on input and coefficients*/
       for ( l = ABS(m) ; l <= Np ; l ++ ) {

@@ -314,7 +314,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SS)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t)
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc)
 
 {
   gint n, m, nd, idxo, idxi, i ;
@@ -323,6 +324,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SS)(WBFMM_REAL *Co,
   tn[0] = 1.0 ;
   m = 0 ; 
   for ( idxo = n = 0 ; n <= No ; (n ++), (idxo = n*n) ) {
+    for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] *= sc ;
     for ( idxi = nd = 0 ; nd <= MIN(n,Ni) ; (nd ++), (idxi = nd*nd) ) {
       c = wbfmm_coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
       for ( i = 0 ; i < nq ; i ++ ) 
@@ -334,6 +336,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SS)(WBFMM_REAL *Co,
   for ( m = 1 ; m <= No ; m ++ ) {
     for ( n = m ; n <= No ; n ++ ) {
       idxo = wbfmm_index_laplace_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	Co[cstro*(idxo+0)+i] *= sc ; Co[cstro*(idxo+1)+i] *= sc ;
+      }
       for ( nd = m ; nd <= MIN(n, Ni) ; nd ++ ) {
   	idxi = wbfmm_index_laplace_nm(nd,m) ;
 	c = wbfmm_coaxial_translation_SS_cfft(n, nd, m)*tn[n-nd] ;
@@ -384,16 +389,34 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t)
-
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc)
+  
 {
   gint n, m, nd, idxo, idxi, i ;
   WBFMM_REAL c, tn[64] ;
+
+  for ( idxi = nd = 0 ; nd <= Ni ; (nd ++), (idxi = nd*nd) ) {
+    for ( idxo = n = 0 ; n <= MIN(nd,Ni) ; (n ++), (idxo = n*n) ) {
+      for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] *= sc ;
+    }
+  }
+  for ( m = 1 ; m <= No ; m ++ ) {
+    for ( nd = m ; nd <= No ; nd ++ ) {
+      for ( n = m ; n <= MIN(nd,Ni) ; n ++ ) {
+  	idxo = wbfmm_index_laplace_nm(n,m) ;
+	for ( i = 0 ; i < nq ; i ++ ) {
+	  Co[cstro*(idxo+0)+i] *= sc ; Co[cstro*(idxo+1)+i] *= sc ;
+	}
+      }
+    }
+  }
 
   tn[0] = 1.0 ;
   m  = 0 ; 
   for ( idxi = nd = 0 ; nd <= Ni ; (nd ++), (idxi = nd*nd) ) {
     for ( idxo = n = 0 ; n <= MIN(nd,Ni) ; (n ++), (idxo = n*n) ) {
+      /* for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] *= sc ; */
       c = wbfmm_coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ;
       for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] += c*Ci[cstri*idxi+i] ;
     }
@@ -405,6 +428,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
       idxi = wbfmm_index_laplace_nm(nd,m) ;
       for ( n = m ; n <= MIN(nd,Ni) ; n ++ ) {
   	idxo = wbfmm_index_laplace_nm(n,m) ;
+	/* for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] *= sc ; */
 	c = wbfmm_coaxial_translation_RR_cfft(n, nd, m)*tn[nd-n] ;
 	for ( i = 0 ; i < nq ; i ++ ) {
   	  Co[cstro*(idxo+0)+i] += c*Ci[cstri*(idxi+0)+i] ;
@@ -445,8 +469,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t)
-
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc)
+  
 {
   gint n, m, nd, idxo, idxi, i ;
   WBFMM_REAL c, tn[128] ;
@@ -457,6 +482,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
 
   m = 0 ;
   for ( idxo = n = 0 ; n <= No ; (n ++), (idxo = n*n) ) {
+    for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] *= sc ;
     for ( idxi = nd = 0 ; nd <= Ni ; (nd ++), (idxi = nd*nd) ) {
       c = wbfmm_coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;
       for ( i = 0 ; i < nq ; i ++ ) Co[cstro*idxo+i] += c*Ci[cstri*idxi+i] ;
@@ -466,6 +492,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
   for ( m = 1 ; m <= No ; m ++ ) {
     for ( n = m ; n <= No ; n ++ ) {
       idxo = wbfmm_index_laplace_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	Co[cstro*(idxo+0)+i] *= sc ; Co[cstro*(idxo+1)+i] *= sc ;
+      }
       for ( nd = m ; nd <= Ni ; nd ++ ) {
 	idxi = wbfmm_index_laplace_nm(nd,m) ;
   	c = wbfmm_coaxial_translation_SR_cfft(n, nd, m)/tn[n+nd+1] ;

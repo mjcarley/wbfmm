@@ -1377,7 +1377,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_grad_evaluate)(WBFMM_REAL *x0,
  * @param cstri stride in \a Ci;
  * @param Ni order of expansion in \a Ci;
  * @param nq number of source terms in expansion;
- * @param t distance to translate expansion.
+ * @param t distance to translate expansion;
+ * @param sc scaling factor to premultiply \a Co.
  * 
  * @return 0 on success
  *
@@ -1390,7 +1391,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SS)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t) {}
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc) {}
 
 /** 
  * 
@@ -1754,7 +1756,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
  * @param cstri stride in \a Ci;
  * @param Ni order of expansion in \a Ci;
  * @param nq number of source terms in expansion;
- * @param t distance to translate expansion.
+ * @param t distance to translate expansion;
+ * @param sc scaling factor to premultiply \a Co.
  * 
  * @return 0 on success
  *
@@ -1767,7 +1770,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t) {}
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc) {}
 
 /**
  *
@@ -1788,7 +1792,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
  * @param cstri stride in \a Ci;
  * @param Ni order of expansion in \a Ci;
  * @param nq number of source terms in expansion;
- * @param t distance to translate expansion.
+ * @param t distance to translate expansion;
+ * @param sc scaling factor to premultiply \a Co.
  * 
  * @return 0 on success
  *
@@ -1801,7 +1806,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
 							     gint cstri,
 							     gint Ni,
 							     gint nq,
-							     WBFMM_REAL t) {}
+							     WBFMM_REAL t,
+							     WBFMM_REAL sc) {}
 
 /**
  * 
@@ -1965,7 +1971,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
  * @param H rotation coefficients for angle \f$\theta\f$, from
  * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
  * @param ph angle \f$\phi\f$ for rotation;
- * @param ch angle \f$\chi\f$ for rotation.
+ * @param ch angle \f$\chi\f$ for rotation;
+ * @param sc scaling factor to premultiply \a Co.
  *
  * @return 0 on success
  */
@@ -1974,7 +1981,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(WBFMM_REAL *Co, gint cstro,
 						 WBFMM_REAL *Ci, gint cstri,
 						 gint N, gint nq,
 						 WBFMM_REAL *H,
-						 WBFMM_REAL ph, WBFMM_REAL ch) {}
+						 WBFMM_REAL ph, WBFMM_REAL ch,
+						 WBFMM_REAL sc) {}
 
  /**
  *
