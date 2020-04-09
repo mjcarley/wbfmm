@@ -375,7 +375,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
 						      gint nq,
 						      WBFMM_REAL *cfft,
 						      gint L,
-						      gboolean complex)
+						      gboolean complex,
+						      WBFMM_REAL sc)
 
 /*
   apply coaxial translation cfft to input coefficients Ci, up to order
@@ -407,6 +408,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
     for ( n = 0 ; n <= No ; n ++ ) {
       m = 0 ;
       offp = 2*wbfmm_coefficient_index_nm(n, m)*cstro ;
+      for ( j = 0 ; j < 2*nq ; j ++ ) Co[offp+j] *= sc ;
       sgn = sgnn ;
       for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
 	idxi = wbfmm_coefficient_index_nm(l, m) ;
@@ -464,8 +466,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
 	offp = 2*cstro*wbfmm_coefficient_index_nm(n,  m) ;
 	offm = offp - 4*cstro*m ;
 	for ( j = 0 ; j < nq ; j ++ ) {
-	  Co[offp+2*j+0] += buf[4*j+0] ; Co[offp+2*j+1] += buf[4*j+1] ;
-	  Co[offm+2*j+0] += buf[4*j+2] ; Co[offm+2*j+1] += buf[4*j+3] ;
+	  /* Co[offp+2*j+0] += buf[4*j+0] ; Co[offp+2*j+1] += buf[4*j+1] ; */
+	  /* Co[offm+2*j+0] += buf[4*j+2] ; Co[offm+2*j+1] += buf[4*j+3] ; */
+	  Co[offp+2*j+0] = sc*Co[offp+2*j+0] + buf[4*j+0] ;
+	  Co[offp+2*j+1] = sc*Co[offp+2*j+1] + buf[4*j+1] ;
+	  Co[offm+2*j+0] = sc*Co[offm+2*j+0] + buf[4*j+2] ;
+	  Co[offm+2*j+1] = sc*Co[offm+2*j+1] + buf[4*j+3] ;
 	}
       }
       sgnn = -sgnn ;
@@ -477,6 +483,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
   for ( n = 0 ; n <= No ; n ++ ) {
     m = 0 ; offp = 2*cstro*wbfmm_coefficient_index_nm(n, m) ;
     sgn = sgnn ;
+    for ( j = 0 ; j < 2*nq ; j ++ ) Co[offp+j] *= sc ;
     for ( l = m ; l < n ; (l ++), (sgn = -sgn) ) {
       idxi = wbfmm_coefficient_index_nm(l, m) ;
       idxc = wbfmm_coaxial_index_lmn(n,m,l) ;
@@ -553,8 +560,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate_ref)(WBFMM_REAL *Co,
       offp = 2*cstro*wbfmm_coefficient_index_nm(n,  m) ;
       offm = offp - 4*cstro*m ;
       for ( j = 0 ; j < nq ; j ++ ) {
-	Co[offp+2*j+0] += buf[4*j+0] ; Co[offp+2*j+1] += buf[4*j+1] ;
-	Co[offm+2*j+0] += buf[4*j+2] ; Co[offm+2*j+1] += buf[4*j+3] ;
+	/* Co[offp+2*j+0] += buf[4*j+0] ; Co[offp+2*j+1] += buf[4*j+1] ; */
+	/* Co[offm+2*j+0] += buf[4*j+2] ; Co[offm+2*j+1] += buf[4*j+3] ; */
+	  Co[offp+2*j+0] = sc*Co[offp+2*j+0] + buf[4*j+0] ;
+	  Co[offp+2*j+1] = sc*Co[offp+2*j+1] + buf[4*j+1] ;
+	  Co[offm+2*j+0] = sc*Co[offm+2*j+0] + buf[4*j+2] ;
+	  Co[offm+2*j+1] = sc*Co[offm+2*j+1] + buf[4*j+3] ;
       }
       sgnm = -sgnm ;
     }

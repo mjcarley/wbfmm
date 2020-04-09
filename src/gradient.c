@@ -118,9 +118,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
   Pn   = &(Pnm1[2*(2*N+1)]) ;
   Pnp1 = &(Pn[2*(2*N+3)]) ;
 
-  memset(Pnm1, 0, 2*(2*N+1)*sizeof(WBFMM_REAL)) ;
-  memset(Pn  , 0, 2*(2*N+3)*sizeof(WBFMM_REAL)) ;
-  memset(Pnp1, 0, 2*(2*N+5)*sizeof(WBFMM_REAL)) ;
+  /* memset(Pnm1, 0, 2*(2*N+1)*sizeof(WBFMM_REAL)) ; */
+  /* memset(Pn  , 0, 2*(2*N+3)*sizeof(WBFMM_REAL)) ; */
+  /* memset(Pnp1, 0, 2*(2*N+5)*sizeof(WBFMM_REAL)) ; */
   
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
@@ -303,9 +303,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
   Pn   = &(Pnm1[2*(2*N+1)]) ;
   Pnp1 = &(Pn[2*(2*N+3)]) ;
 
-  memset(Pnm1, 0, 2*(2*N+1)*sizeof(WBFMM_REAL)) ;
-  memset(Pn  , 0, 2*(2*N+3)*sizeof(WBFMM_REAL)) ;
-  memset(Pnp1, 0, 2*(2*N+5)*sizeof(WBFMM_REAL)) ;
+  /* memset(Pnm1, 0, 2*(2*N+1)*sizeof(WBFMM_REAL)) ; */
+  /* memset(Pn  , 0, 2*(2*N+3)*sizeof(WBFMM_REAL)) ; */
+  /* memset(Pnp1, 0, 2*(2*N+5)*sizeof(WBFMM_REAL)) ; */
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 

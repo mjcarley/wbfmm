@@ -24,6 +24,7 @@ for i=4:2:size(dat,2)
   pf = [pf dat(:,i:i+1)*[1; j]] ;
 endfor
 
+if 0
 pc = 0*pd ;
 if ( ~grad ) 
   for i=1:length(xf)
@@ -46,4 +47,5 @@ else
     endfor
     pc(i,:) = tt ;
   endfor
+endif
 endif

@@ -66,7 +66,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
   
 {
   WBFMM_REAL r, th, ph, rn ;
-  WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cph, Sph, Cmph[64], Smph[64] ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cmph[64], Smph[64] ;
   gint n, m, idx, i ;
 
   g_assert(cstr >= nq) ;
@@ -75,12 +75,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ;
-  Cph = COS(ph) ; Sph = SIN(ph) ; 
 
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
-  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
-  Cmph[1] = Cph ; Smph[1] = Sph ;
+  Cmph[0] = 1.0     ; Smph[0] = 0.0 ;
+  Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
   
   n = 0 ; 
   m = 0 ;
@@ -107,8 +106,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
-    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
+    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
     
     m = 0 ; 
     idx = n*n ;
@@ -150,7 +149,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(WBFMM_REAL *x0,
   /*initialize recursions*/
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
-  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[0] = 1.0     ; Smph[0] = 0.0 ;
   Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
 
   /*first two terms by hand*/
@@ -224,7 +223,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
   /*initialize recursions*/
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
-  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[0] = 1.0     ; Smph[0] = 0.0 ;
   Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
 
   /*first two terms by hand*/
@@ -1175,6 +1174,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
 							guint field,
 							WBFMM_REAL *f,
 							gint fstr)
+  
 {
   switch ( field ) {
   default:

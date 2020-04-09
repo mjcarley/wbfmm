@@ -688,7 +688,7 @@ gint translation_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
   /*apply shift*/
   wbfmm_coaxial_translate_f(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
-			       FALSE) ;
+			       FALSE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -787,7 +787,7 @@ gint translation_local_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
   /*apply shift*/
   wbfmm_coaxial_translate_f(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
-			       TRUE) ;
+			       TRUE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -890,7 +890,7 @@ gint local_gradient_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
   /*apply shift*/
   wbfmm_coaxial_translate_f(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
-			       TRUE) ;
+			       TRUE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -989,7 +989,7 @@ gint rotation_test(gfloat *x0, gfloat *x1, gfloat *x2,
   /*apply the rotation to the coefficients*/
   fprintf(stderr, "%s reference rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch) ;
+  wbfmm_rotate_H_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
@@ -998,7 +998,7 @@ gint rotation_test(gfloat *x0, gfloat *x1, gfloat *x2,
   memset(Co, 0, 2*BUFSIZE*sizeof(gfloat)) ;
   fprintf(stderr, "%s AVX rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch) ;
+  wbfmm_rotate_H_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
@@ -1136,13 +1136,13 @@ gint shift_test(gfloat *x0, gfloat *x1, gfloat *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_f(Ca, cstr0, C0, cstr0, N, nq, H0, ph0, ch0) ;
+  wbfmm_rotate_H_f(Ca, cstr0, C0, cstr0, N, nq, H0, ph0, ch0, 0.0) ;
   /*translate by kr*/
   wbfmm_coaxial_translate_f(Cb, cstr1, N, Ca, cstr0, N, nq, shift, N,
-			       FALSE) ;
+			       FALSE, 0.0) ;
   /*rotate back*/
   /* wbfmm_rotate_H_f(C1, cstr1, N, Cb, cstr1, H1, ph1, ch1) ; */
-  wbfmm_rotate_H_f(C1, cstr1, Cb, cstr1, N, nq, H0, ch0, ph0) ;
+  wbfmm_rotate_H_f(C1, cstr1, Cb, cstr1, N, nq, H0, ch0, ph0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1603,7 +1603,7 @@ gint parent_child_test(gfloat *x0, gfloat *x1, gfloat *x2,
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   wbfmm_coaxial_translate_f(&(parent[2*pq*nq]), 8*nq, Np, child, 8*nq, Np,
-			       nq, SRshift, Np, TRUE) ;
+			       nq, SRshift, Np, TRUE, 0.0) ;
   
   /*wipe the child data*/
   memset(child, 0,
@@ -1748,16 +1748,16 @@ gint shift_local_test(gfloat *x0, gfloat *x1, gfloat *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_f(Ca, cstr0, C0, cstr0, N0, nq, H0, ph0, ch0) ;
+  wbfmm_rotate_H_f(Ca, cstr0, C0, cstr0, N0, nq, H0, ph0, ch0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients rotated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   /*translate by kr*/
   wbfmm_coaxial_translate_f(Cb, cstr1, N1, Ca, cstr0, N0, nq, shift, N1,
-			       TRUE) ;
+			       TRUE, 0.0) ;
   fprintf(stderr, "%s expansion coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   /*rotate back*/
-  wbfmm_rotate_H_f(C1, cstr1, Cb, cstr1, N1, nq, H0, ch0, ph0) ;
+  wbfmm_rotate_H_f(C1, cstr1, Cb, cstr1, N1, nq, H0, ch0, ph0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 

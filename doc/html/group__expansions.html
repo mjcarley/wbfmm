@@ -69,6 +69,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga982f9c432c30fc81403f28c004778d8b"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga982f9c432c30fc81403f28c004778d8b">wbfmm_expansion_j_evaluate</a> (gdouble k, gdouble *x0, gdouble *cfft, gint cstr, gint nq, gint N, gdouble *xf, gdouble *field, gint fstr, gdouble *work)</td></tr>
 <tr class="memdesc:ga982f9c432c30fc81403f28c004778d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="#ga982f9c432c30fc81403f28c004778d8b">More...</a><br /></td></tr>
 <tr class="separator:ga982f9c432c30fc81403f28c004778d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd153e5c154aac762685743c9cd36502"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#gadd153e5c154aac762685743c9cd36502">wbfmm_local_coefficients</a> (gdouble k, gdouble *x, gint N, guint field, gdouble *cfft, gdouble *work)</td></tr>
+<tr class="memdesc:gadd153e5c154aac762685743c9cd36502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga3c392ff4970f33bcd23d97148fdd84d7" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential...">wbfmm_expansion_apply</a>(...)  <a href="#gadd153e5c154aac762685743c9cd36502">More...</a><br /></td></tr>
+<tr class="separator:gadd153e5c154aac762685743c9cd36502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9f70b3fc245b3e3fcc94dc128fb0fa5c"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga9f70b3fc245b3e3fcc94dc128fb0fa5c">wbfmm_expansion_h_cfft_f</a> (gfloat k, gint N, gfloat *x0, gfloat *xs, gfloat *q, gint nq, gfloat *cfft, gint cstr, gfloat *work)</td></tr>
 <tr class="memdesc:ga9f70b3fc245b3e3fcc94dc128fb0fa5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generation of singular expansion coefficients for point source.  <a href="#ga9f70b3fc245b3e3fcc94dc128fb0fa5c">More...</a><br /></td></tr>
 <tr class="separator:ga9f70b3fc245b3e3fcc94dc128fb0fa5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,6 +93,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga83d0ee00089d4d1a520c1063b161d865"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga83d0ee00089d4d1a520c1063b161d865">wbfmm_expansion_j_evaluate_f</a> (gfloat k, gfloat *x0, gfloat *cfft, gint cstr, gint nq, gint N, gfloat *xf, gfloat *field, gint fstr, gfloat *work)</td></tr>
 <tr class="memdesc:ga83d0ee00089d4d1a520c1063b161d865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate a regular expansion.  <a href="#ga83d0ee00089d4d1a520c1063b161d865">More...</a><br /></td></tr>
 <tr class="separator:ga83d0ee00089d4d1a520c1063b161d865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4b46327e9fbdd20ecb6db19c46ba9975"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__expansions.html#ga4b46327e9fbdd20ecb6db19c46ba9975">wbfmm_local_coefficients_f</a> (gfloat k, gfloat *x, gint N, guint field, gfloat *cfft, gfloat *work)</td></tr>
+<tr class="memdesc:ga4b46327e9fbdd20ecb6db19c46ba9975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7c6b9fd356d7f13163d997f90e30f28c" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential...">wbfmm_expansion_apply_f</a>(...)  <a href="#ga4b46327e9fbdd20ecb6db19c46ba9975">More...</a><br /></td></tr>
+<tr class="separator:ga4b46327e9fbdd20ecb6db19c46ba9975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Generation of regular and singular expansions and evaluation of them at field points. </p>
@@ -1369,10 +1375,138 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gadd153e5c154aac762685743c9cd36502"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_local_coefficients </td>
+          <td>(</td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>cfft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga3c392ff4970f33bcd23d97148fdd84d7" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential...">wbfmm_expansion_apply</a>(...) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
+    <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">field</td><td>field specifier using <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a>; </td></tr>
+    <tr><td class="paramname">cfft</td><td>on exit contains evaluation coefficients; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4b46327e9fbdd20ecb6db19c46ba9975"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_local_coefficients_f </td>
+          <td>(</td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>cfft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7c6b9fd356d7f13163d997f90e30f28c" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential...">wbfmm_expansion_apply_f</a>(...) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">k</td><td>wavenumber; </td></tr>
+    <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">field</td><td>field specifier using <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a>; </td></tr>
+    <tr><td class="paramname">cfft</td><td>on exit contains evaluation coefficients; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 30 2020 15:29:30 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 7 2020 18:20:13 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

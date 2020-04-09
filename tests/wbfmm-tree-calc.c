@@ -218,7 +218,8 @@ gint main(gint argc, gchar **argv)
 
   fcstr = 2*nq ;
 
-  if ( fcstr | WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
+  if ( field & WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
+  
   f = (gdouble *)g_malloc0(nf*fcstr*sizeof(gdouble)) ;
   
   if ( fit_box ) {

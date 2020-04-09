@@ -217,6 +217,7 @@ typedef struct {
 #define wbfmm_box_index_first_child(_i) ((_i)*8)
 
 #define wbfmm_coefficient_index_nm(_n,_m) ((_n)*((_n)+1)+(_m))
+#define wbfmm_conjugate_index_nm(_n,_m) (((_n)*((_n)+1)/2)+(_m))
 
 gint wbfmm_cartesian_to_spherical(gdouble *x0, gdouble *x,
 				  gdouble *r, gdouble *th, gdouble *ph) ;
@@ -326,7 +327,7 @@ gint wbfmm_coaxial_translate_ref(gdouble *Co, gint cstro, gint No,
 				 gdouble *Ci, gint cstri, gint Ni,
 				 gint nq,
 				 gdouble *cfft, gint L,
-				 gboolean complex) ;
+				 gboolean complex, gdouble sc) ;
 
 gint wbfmm_rotation_angles(gdouble *ix, gdouble *iy, gdouble *iz, 
 			   gdouble *jx, gdouble *jy, gdouble *jz, 
@@ -338,13 +339,13 @@ gint wbfmm_rotate_H_ref(gdouble *Co, gint cstro,
 			gint N,
 			gint nq,
 			gdouble *H,
-			gdouble ph, gdouble ch) ;
+			gdouble ph, gdouble ch, gdouble sc) ;
 gint wbfmm_rotate_H_avx(gdouble *Co, gint cstro, 
 			gdouble *Ci, gint cstri,
 			gint N,
 			gint nq,
 			gdouble *H,
-			gdouble ph, gdouble ch) ;
+			gdouble ph, gdouble ch, gdouble sc) ;
 
 gint wbfmm_local_coefficients(gdouble k, gdouble *x, gint N,
 			      guint field, gdouble *cfft, gdouble *work) ;
@@ -805,7 +806,7 @@ gint wbfmm_coaxial_translate_ref_f(gfloat *Co, gint cstro, gint No,
 				   gfloat *Ci, gint cstri, gint Ni,
 				   gint nq,
 				   gfloat *cfft, gint L,
-				   gboolean complex) ;
+				   gboolean complex, gfloat sc) ;
 
 gint wbfmm_rotation_angles_f(gfloat *ix, gfloat *iy, gfloat *iz, 
 			   gfloat *jx, gfloat *jy, gfloat *jz, 
@@ -816,11 +817,11 @@ gint wbfmm_coefficients_H_rotation_f(gfloat *H, gint N, gfloat th,
 gint wbfmm_rotate_H_ref_f(gfloat *Co, gint cstro, 
 			  gfloat *Ci, gint cstri,
 			  gint N, gint nq, gfloat *H,
-			  gfloat ph, gfloat ch) ;
+			  gfloat ph, gfloat ch, gfloat sc) ;
 gint wbfmm_rotate_H_avx_f(gfloat *Co, gint cstro, 
 			  gfloat *Ci, gint cstri,
 			  gint N, gint nq, gfloat *H,
-			  gfloat ph, gfloat ch) ;
+			  gfloat ph, gfloat ch, gfloat sc) ;
 
 /*indexing and octrees*/
 guint64 wbfmm_point_index_3d_f(gfloat *x, gfloat *c, gfloat D) ;
@@ -953,29 +954,29 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 /*compile time switches for compiler options*/
 #ifdef WBFMM_USE_AVX
 
-#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
-  wbfmm_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
+  wbfmm_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
 
-#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
 
-#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
-#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
+#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
+  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
+#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
+  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
 
 #else
 
-#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
+#define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
+  wbfmm_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
 
-#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)	\
-  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch)
+#define wbfmm_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
+  wbfmm_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
 
-#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
-#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c) \
-  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c)
+#define wbfmm_coaxial_translate(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
+  wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
+#define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
+  wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
 
 #endif
 

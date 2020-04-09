@@ -22,6 +22,8 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate} (gdouble k, gdoub
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a regular expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+local\+\_\+coefficients} (gdouble k, gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga3c392ff4970f33bcd23d97148fdd84d7}(...) \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$fx, gfloat $\ast$fy, gfloat $\ast$fz, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
@@ -35,7 +37,9 @@ gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k,
 gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a regular expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat k, gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7c6b9fd356d7f13163d997f90e30f28c}(...) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -677,6 +681,74 @@ Generation of singular expansion coefficients for point dipole source defined as
 {\em nq} & number of source elements; \\
 \hline
 {\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+local\+\_\+coefficients}}
+\index{wbfmm\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+local\+\_\+coefficients}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\subsubsection[{wbfmm\+\_\+local\+\_\+coefficients}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+local\+\_\+coefficients (
+\begin{DoxyParamCaption}
+\item[{gdouble}]{k, }
+\item[{gdouble $\ast$}]{x, }
+\item[{gint}]{N, }
+\item[{guint}]{field, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__expansions_gadd153e5c154aac762685743c9cd36502}
+
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga3c392ff4970f33bcd23d97148fdd84d7}(...) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em x} & location of evaluation point relative to centre of expansion; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
+\hline
+{\em cfft} & on exit contains evaluation coefficients; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}}
+\index{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\subsubsection[{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+local\+\_\+coefficients\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat}]{k, }
+\item[{gfloat $\ast$}]{x, }
+\item[{gint}]{N, }
+\item[{guint}]{field, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__expansions_ga4b46327e9fbdd20ecb6db19c46ba9975}
+
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7c6b9fd356d7f13163d997f90e30f28c}(...) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & wavenumber; \\
+\hline
+{\em x} & location of evaluation point relative to centre of expansion; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
+\hline
+{\em cfft} & on exit contains evaluation coefficients; \\
+\hline
+{\em work} & workspace.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

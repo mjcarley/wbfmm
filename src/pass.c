@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2019, 2020 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -69,17 +69,15 @@ static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
     iph =  _wbfmm_shift_angles[4*idx4+2] ;
     ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
       
-    /*clear workspace*/
-    memset(wks, 0, 2*(ncs+ncr)*nq*sizeof(WBFMM_REAL)) ;
     /*rotate singular coefficients into wks*/
     WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, b[ilist[2*j+0]].mps, 8*nq,
-					Ns, nq, H, ph, ch) ;
+					Ns, nq, H, ph, ch, 0.0) ;
     /*translate into wkr*/
     WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr, wks, nq, Ns, nq,
-						 Cx, Nr, TRUE) ;
+						 Cx, Nr, TRUE, 0.0) ;
     /*rotate regular coefficients into mpr*/
     WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(b[ip].mpr, 8*nq, wkr, nq, Nr, nq,
-					H, ch, ph) ;
+					H, ch, ph, 1.0) ;
   }
   
   return ;
@@ -101,7 +99,7 @@ static inline void _wbfmm_shift_up(guint64 grid[], gint idx4,
   Cx = &(shifts[(ith*2+0)*necx]) ;
   WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
 					       bp[ic].mps, 8, Ns, nq,
-					       Cx, Nr, TRUE) ;
+					       Cx, Nr, TRUE, 1.0) ;
   grid[idx4] = 0 ;
 
   return ;
@@ -123,7 +121,7 @@ static inline void _wbfmm_shift_down(guint64 grid[], gint idx4,
   Cx = &(shifts[(ith*2+1)*necx]) ;
   WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
 					       bp[ic].mps, 8, Ns, nq,
-					       Cx, Nr, TRUE) ;
+					       Cx, Nr, TRUE, 1.0) ;
   grid[idx4] = 0 ;
 
   return ;
@@ -163,27 +161,24 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
   ith =  _wbfmm_shift_angles[4*idx4+2] ;
   ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
       
-  /*clear workspace*/
-  memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
   /*rotate singular coefficients into wks*/
   WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, nq,
-				      H, ph, ch) ;
+				      H, ph, ch, 0.0) ;
   /*translate into wkr*/
   WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-					       Cx, Nr, TRUE) ;
+					       Cx, Nr, TRUE, 0.0) ;
   if ( grid[342-idx4] != 0 ) {
-    memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
     ic = grid[342-idx4] - 1 ;
     WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, nq,
-					H, ph, ch) ;
+					H, ph, ch, 0.0) ;
     Cx = &(shifts[(2*ix+1)*necx]) ;
-    /* Cx = &(Cx[necx]) ; */
     WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-						 Cx, Nr, TRUE) ;
+						 Cx, Nr, TRUE, 1.0) ;
     grid[342-idx4] = 0 ;
   }
   /*rotate regular coefficients into mpr*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
+				      1.0) ;
   
   return ;
 }
@@ -199,8 +194,12 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
 					   gint nq)
 
 {
-  WBFMM_REAL *H, *Cx, ch, ph ;
+  WBFMM_REAL *H, *Cx, ch, ph, sc ;
   gint ith, ic, ix, i ;
+
+  if ( grid[idx4f[0]] == 0 && grid[idx4f[1]] == 0 &&
+       grid[idx4b[0]] == 0 && grid[idx4b[1]] == 0 )
+    return ;
 
   /*index of rotation operator, assuming indices are all compatible*/
   ith = _wbfmm_shift_angles[4*idx4f[0]+0] ;
@@ -211,7 +210,7 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
   ith =  _wbfmm_shift_angles[4*idx4f[0]+2] ;
   ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
   
-  memset(wks, 0, 2*(ncs+ncr)*sizeof(WBFMM_REAL)) ;
+  sc = 0.0 ;
   for ( i = 0 ; i < 2 ; i ++ ) {
     if ( grid[idx4f[i]] != 0 ) {
       ic = grid[idx4f[i]] - 1 ;
@@ -220,12 +219,12 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
       Cx = &(shifts[(2*ix+0)*necx]) ;
       /*rotate singular coefficients into wks*/
       WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
-					  Ns, nq, H, ph, ch) ;
+					  Ns, nq, H, ph, ch, 0.0) ;
       /*translate into wkr*/
       WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1,
-						   Ns, nq, Cx, Nr, TRUE) ;
+						   Ns, nq, Cx, Nr, TRUE, sc) ;
+      sc = 1.0 ;
       grid[idx4f[i]] = 0 ;
-      memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
     }
     if ( grid[idx4b[i]] != 0 ) {
       ic = grid[idx4b[i]] - 1 ;
@@ -234,17 +233,18 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
       Cx = &(shifts[(2*ix+1)*necx]) ;
       /*rotate singular coefficients into wks*/
       WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
-    					  Ns, nq, H, ph, ch) ;
+    					  Ns, nq, H, ph, ch, 0.0) ;
       /*translate into wkr*/
       WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-    						   Cx, Nr, TRUE) ;
+    						   Cx, Nr, TRUE, sc) ;
+      sc = 1.0 ;
       grid[idx4b[i]] = 0 ;
-      memset(wks, 0, 2*ncs*sizeof(WBFMM_REAL)) ;
     }
   }
 
   /*rotate regular coefficients into mpr*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph) ;
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
+				      1.0) ;
   
   return ;
 }
@@ -264,6 +264,9 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   guint idx4, idx4f[2], idx4b[2] ;
   guint64 grid[343] = {0} ;
 
+  if ( nq != 1 )
+    g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ;
+  
   /*locate boxes in interaction list*/
   wbfmm_box_interaction_grid_4(level, ip, grid) ;
   /*deal with special cases combining rotations*/

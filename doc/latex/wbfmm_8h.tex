@@ -129,18 +129,10 @@ gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field} ({\bf wbf
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace field from regular expansion in box. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$d, gint dstr, gboolean eval\+\_\+neighbours, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace field from regular expansion in box. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients} (gdouble $\ast$x, gint N, gboolean grad, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga86c7d6463c0ace8a302426b0170684cf}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, gboolean grad, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b122f591c063c5da235a4a857213346}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients} (gdouble $\ast$x, gint N, gboolean grad, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga86c7d6463c0ace8a302426b0170684cf}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, gboolean grad, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b122f591c063c5da235a4a857213346}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, gdouble $\ast$f)
-\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, gfloat $\ast$f)
-\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients} (gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga47ba7d434ef139feaa106258f7fe93b2}(...) \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7b393004c17cf291b6cc5adc6acc974b}(...) \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
@@ -171,6 +163,8 @@ gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+level} ({\bf wbfmm\+\_\+tree\+\_\+t} $\a
 \item 
 gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init} ({\bf wbfmm\+\_\+target\+\_\+list\+\_\+t} $\ast$l, guint field)
+\item 
 guint64 {\bf wbfmm\+\_\+point\+\_\+index\+\_\+3d} (gdouble $\ast$x, gdouble $\ast$c, gdouble D)
 \begin{DoxyCompactList}\small\item\em Find Morton index for point in a cubic domain. \end{DoxyCompactList}\item 
 {\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new} (gdouble $\ast$x, gdouble D, guint maxpoints)

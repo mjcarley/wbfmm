@@ -338,8 +338,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
       break ;
     }
   }
-
-  
   
   return 0 ;
 }

@@ -5,6 +5,8 @@
 \item 
 {\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf t}
 \item 
+guint {\bf field}
+\item 
 guint {\bf maxpoints}
 \item 
 guint {\bf npoints}
@@ -30,8 +32,6 @@ gint $\ast$ {\bf ics}
 gpointer {\bf cfft}
 \item 
 gpointer {\bf csrc}
-\item 
-gboolean {\bf grad}
 \end{DoxyCompactItemize}
 
 
@@ -45,13 +45,21 @@ Data type for target point lists
 box indices of points \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!cfft@{cfft}}
 \index{cfft@{cfft}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{cfft}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+target\+\_\+list\+\_\+t\+::cfft}\label{structwbfmm__target__list__t_a12bb5b8d5d13858490facfb5ba8c194c}
-coefficients of regular expansions in boxes \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!csrc@{csrc}}
+coefficients of regular expansions in boxes 
+
+Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init().
+
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!csrc@{csrc}}
 \index{csrc@{csrc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{csrc}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+target\+\_\+list\+\_\+t\+::csrc}\label{structwbfmm__target__list__t_ada73422907fc27f3ef9c28bf138a9771}
-coefficients of near-\/field (direct) interactions, point-\/by-\/point \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!grad@{grad}}
-\index{grad@{grad}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
-\subsubsection[{grad}]{\setlength{\rightskip}{0pt plus 5cm}gboolean wbfmm\+\_\+target\+\_\+list\+\_\+t\+::grad}\label{structwbfmm__target__list__t_ad11d85c28d4ea1a81adf6c53dad621e2}
-gradient computations included \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ibox@{ibox}}
+coefficients of near-\/field (direct) interactions, point-\/by-\/point \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!field@{field}}
+\index{field@{field}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
+\subsubsection[{field}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+target\+\_\+list\+\_\+t\+::field}\label{structwbfmm__target__list__t_a0e9876a0ab54c5553f118678887b2cc1}
+field specifier (see \doxyref{wbfmm\+\_\+tree\+\_\+box\+\_\+local\+\_\+field}{p.}{group__boxes_ga30fed6f06740bcad070aadaf1f499865}) 
+
+Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init().
+
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ibox@{ibox}}
 \index{ibox@{ibox}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{ibox}]{\setlength{\rightskip}{0pt plus 5cm}gint$\ast$ wbfmm\+\_\+target\+\_\+list\+\_\+t\+::ibox}\label{structwbfmm__target__list__t_a6d627c8decc0eb9c51a967ec88a5217c}
 start and end of source index lists for each box \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!ics@{ics}}
@@ -69,7 +77,11 @@ source index lists for each box \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm
 maximum number of points in target list \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!nc@{nc}}
 \index{nc@{nc}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{nc}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+target\+\_\+list\+\_\+t\+::nc}\label{structwbfmm__target__list__t_a036fc44fe30a5e3dd1e76dd82985903f}
-number of coefficients (size of blocks of coefficients) \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!npoints@{npoints}}
+number of coefficients (size of blocks of coefficients) 
+
+Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init().
+
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!npoints@{npoints}}
 \index{npoints@{npoints}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{npoints}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+target\+\_\+list\+\_\+t\+::npoints}\label{structwbfmm__target__list__t_a0e28c02fe05592065420861ece422658}
 number of points in target list \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!points@{points}}
@@ -81,7 +93,11 @@ point coordinates \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+
 stride in point data \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!size@{size}}
 \index{size@{size}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+target\+\_\+list\+\_\+t\+::size}\label{structwbfmm__target__list__t_a8a3765da21d5bc65aecdb430dba04af0}
-size of floating point type in data (float, double, etc) \index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!t@{t}}
+size of floating point type in data (float, double, etc) 
+
+Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init().
+
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}!t@{t}}
 \index{t@{t}!wbfmm\+\_\+target\+\_\+list\+\_\+t@{wbfmm\+\_\+target\+\_\+list\+\_\+t}}
 \subsubsection[{t}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+tree\+\_\+t}$\ast$ wbfmm\+\_\+target\+\_\+list\+\_\+t\+::t}\label{structwbfmm__target__list__t_a329c6de7e15dc5a69c7cb8fa6ee1ae5a}
 tree containing source data 

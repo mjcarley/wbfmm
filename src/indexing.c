@@ -355,16 +355,14 @@ gint wbfmm_box_interaction_list_4(guint level, guint64 idx,
       for ( kk = k0 ; kk <= k1 ; kk ++ ) {
 	if ( !_is_neighbour(i,j,k,ii,jj,kk) ) {
 	  list[2*n+0] = wbfmm_box_index(ii, jj, kk) ;
-	  wbfmm_box_location(list[2*n+0], &ic, &jc, &kc) ;
-	  g_assert((ic == ii) && (jc == jj) && (kc == kk)) ;
+	  /* wbfmm_box_location(list[2*n+0], &ic, &jc, &kc) ; */
+	  /* g_assert((ic == ii) && (jc == jj) && (kc == kk)) ; */
 	  /*index into shift angle table*/
 	  dx = ( ii > i ? ii - i : -(gint)(i-ii)) ;
 	  dy = ( jj > j ? jj - j : -(gint)(j-jj)) ;
 	  dz = ( kk > k ? kk - k : -(gint)(k-kk)) ;
 	  ishift = (guint64)((dx+3)*49+(dy+3)*7+dz+3) ;
 	  list[2*n+1] = ishift ;
-	  /* fprintf(stderr, "%lu %lu (%d %d %d)\n", */
-	  /* 	  list[2*n+0], list[2*n+1], dx, dy, dz) ; */
 	  n ++ ;
 	}
       }

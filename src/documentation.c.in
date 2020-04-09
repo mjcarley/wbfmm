@@ -105,7 +105,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix, WBFMM_REAL *iy,
  * @param H rotation coefficients for angle \f$\theta\f$, from
  * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
  * @param ph angle \f$\phi\f$ for rotation;
- * @param ch angle \f$\chi\f$ for rotation.
+ * @param ch angle \f$\chi\f$ for rotation;
+ * @param sc scaling of \a Co before adding rotated coefficients
+ * (usually 0 or 1). 
  *
  * @return 0 on success
  */
@@ -164,7 +166,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
 							gint L, WBFMM_REAL kr,
 							WBFMM_REAL *work) {}
 
-
 /**
  *
  * @ingroup translations
@@ -188,16 +189,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  * @param L maximum order of translation coefficients;
  * @param complex if TRUE treat \a cfft as complex
  * (e.g. for singular-to-regular translation); if FALSE treat as real
- * (e.g. regular-to-regular or singular-to-singular).
+ * (e.g. regular-to-regular or singular-to-singular);
+ * @param sc scaling applied to Co before addition of translated \a Ci.
  *
  * @return 0 on success
  */
+
  gint WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(WBFMM_REAL *Co,
 						   gint cstro, gint No,
 						   WBFMM_REAL *Ci,
 						   gint cstri, gint Ni,
 						   WBFMM_REAL *cfft,
-						   gint L, gboolean complex) {}
+						   gint L, gboolean complex,
+						   WBFMM_REAL sc) {}
  
 /**
  *
