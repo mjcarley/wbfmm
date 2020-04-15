@@ -89,9 +89,10 @@ POST_UNINSTALL = :
 build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
 bin_PROGRAMS = wbfmm-tests$(EXEEXT) wbfmm-tests-avx$(EXEEXT) \
-	wbfmm-tree-calc$(EXEEXT) wbfmm-tests-float$(EXEEXT) \
-	wbfmm-tree-calc-float$(EXEEXT) wbfmm-direct-calc$(EXEEXT) \
-	wbfmm-direct-calc-float$(EXEEXT) wbfmm-laplace-tests$(EXEEXT) \
+	wbfmm-tree-calc$(EXEEXT) wbfmm-tree-calc-avx$(EXEEXT) \
+	wbfmm-tests-float$(EXEEXT) wbfmm-tree-calc-float$(EXEEXT) \
+	wbfmm-direct-calc$(EXEEXT) wbfmm-direct-calc-float$(EXEEXT) \
+	wbfmm-laplace-tests$(EXEEXT) \
 	wbfmm-laplace-tests-float$(EXEEXT) \
 	wbfmm-laplace-tree-calc$(EXEEXT) \
 	wbfmm-laplace-tree-calc-float$(EXEEXT) \
@@ -183,6 +184,16 @@ wbfmm_tree_calc_SOURCES = wbfmm-tree-calc.c
 wbfmm_tree_calc_OBJECTS = wbfmm-tree-calc.$(OBJEXT)
 wbfmm_tree_calc_DEPENDENCIES = $(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+am_wbfmm_tree_calc_avx_OBJECTS =  \
+	wbfmm_tree_calc_avx-wbfmm-tree-calc.$(OBJEXT)
+wbfmm_tree_calc_avx_OBJECTS = $(am_wbfmm_tree_calc_avx_OBJECTS)
+wbfmm_tree_calc_avx_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_tree_calc_avx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(wbfmm_tree_calc_avx_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 wbfmm_tree_calc_float_SOURCES = wbfmm-tree-calc-float.c
 wbfmm_tree_calc_float_OBJECTS = wbfmm-tree-calc-float.$(OBJEXT)
 wbfmm_tree_calc_float_DEPENDENCIES =  \
@@ -227,13 +238,15 @@ SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
 	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
 	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
-	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
+	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
+	wbfmm-tree-calc-float.c
 DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
 	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
 	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
 	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
-	wbfmm-tree-calc.c wbfmm-tree-calc-float.c
+	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
+	wbfmm-tree-calc-float.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -466,6 +479,12 @@ wbfmm_tree_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_tree_calc_avx_SOURCES = wbfmm-tree-calc.c
+wbfmm_tree_calc_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tree_calc_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 wbfmm_tree_calc_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
@@ -634,6 +653,10 @@ wbfmm-tree-calc$(EXEEXT): $(wbfmm_tree_calc_OBJECTS) $(wbfmm_tree_calc_DEPENDENC
 	@rm -f wbfmm-tree-calc$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_tree_calc_OBJECTS) $(wbfmm_tree_calc_LDADD) $(LIBS)
 
+wbfmm-tree-calc-avx$(EXEEXT): $(wbfmm_tree_calc_avx_OBJECTS) $(wbfmm_tree_calc_avx_DEPENDENCIES) $(EXTRA_wbfmm_tree_calc_avx_DEPENDENCIES) 
+	@rm -f wbfmm-tree-calc-avx$(EXEEXT)
+	$(AM_V_CCLD)$(wbfmm_tree_calc_avx_LINK) $(wbfmm_tree_calc_avx_OBJECTS) $(wbfmm_tree_calc_avx_LDADD) $(LIBS)
+
 wbfmm-tree-calc-float$(EXEEXT): $(wbfmm_tree_calc_float_OBJECTS) $(wbfmm_tree_calc_float_DEPENDENCIES) $(EXTRA_wbfmm_tree_calc_float_DEPENDENCIES) 
 	@rm -f wbfmm-tree-calc-float$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_tree_calc_float_OBJECTS) $(wbfmm_tree_calc_float_LDADD) $(LIBS)
@@ -657,6 +680,7 @@ include ./$(DEPDIR)/wbfmm-tests.Po
 include ./$(DEPDIR)/wbfmm-tree-calc-float.Po
 include ./$(DEPDIR)/wbfmm-tree-calc.Po
 include ./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po
+include ./$(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Po
 
 .c.o:
 	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -695,6 +719,20 @@ wbfmm_tests_avx-wbfmm-tests.obj: wbfmm-tests.c
 #	$(AM_V_CC)source='wbfmm-tests.c' object='wbfmm_tests_avx-wbfmm-tests.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_tests_avx-wbfmm-tests.obj `if test -f 'wbfmm-tests.c'; then $(CYGPATH_W) 'wbfmm-tests.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-tests.c'; fi`
+
+wbfmm_tree_calc_avx-wbfmm-tree-calc.o: wbfmm-tree-calc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tree_calc_avx_CFLAGS) $(CFLAGS) -MT wbfmm_tree_calc_avx-wbfmm-tree-calc.o -MD -MP -MF $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Tpo -c -o wbfmm_tree_calc_avx-wbfmm-tree-calc.o `test -f 'wbfmm-tree-calc.c' || echo '$(srcdir)/'`wbfmm-tree-calc.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Tpo $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Po
+#	$(AM_V_CC)source='wbfmm-tree-calc.c' object='wbfmm_tree_calc_avx-wbfmm-tree-calc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tree_calc_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_tree_calc_avx-wbfmm-tree-calc.o `test -f 'wbfmm-tree-calc.c' || echo '$(srcdir)/'`wbfmm-tree-calc.c
+
+wbfmm_tree_calc_avx-wbfmm-tree-calc.obj: wbfmm-tree-calc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tree_calc_avx_CFLAGS) $(CFLAGS) -MT wbfmm_tree_calc_avx-wbfmm-tree-calc.obj -MD -MP -MF $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Tpo -c -o wbfmm_tree_calc_avx-wbfmm-tree-calc.obj `if test -f 'wbfmm-tree-calc.c'; then $(CYGPATH_W) 'wbfmm-tree-calc.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-tree-calc.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Tpo $(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Po
+#	$(AM_V_CC)source='wbfmm-tree-calc.c' object='wbfmm_tree_calc_avx-wbfmm-tree-calc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tree_calc_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_tree_calc_avx-wbfmm-tree-calc.obj `if test -f 'wbfmm-tree-calc.c'; then $(CYGPATH_W) 'wbfmm-tree-calc.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-tree-calc.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

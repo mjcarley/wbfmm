@@ -1,4 +1,4 @@
-libwbfmm_f_la-pass.lo: pass.c /usr/include/stdc-predef.h \
+libwbfmm_f_la-pass.lo: pass.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/math.h /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h /usr/include/bits/math-vector.h \
@@ -98,6 +98,8 @@ libwbfmm_f_la-pass.lo: pass.c /usr/include/stdc-predef.h \
  wbfmm-private.h
 
 /usr/include/stdc-predef.h:
+
+../config.h:
 
 /usr/include/math.h:
 

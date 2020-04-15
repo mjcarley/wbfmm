@@ -860,6 +860,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
  * boxes, a downward shift of the regular expansions to the child
  * boxes at the next level.
  *
+ * The function is available as a reference version
+ * WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(...) and an optimized version
+ * WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx)(...) which uses AVX
+ * optimizations if available. The compile time switch -DWBFMM_USE_AVX
+ * selects the AVX version. 
+ *
  * @param t an initialized octree which has had the upward pass performed;
  * @param op shift operators allocated for \a t;
  * @param level level at which to perform downward pass;

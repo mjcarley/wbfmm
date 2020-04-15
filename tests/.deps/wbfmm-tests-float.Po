@@ -99,7 +99,8 @@ wbfmm-tests-float.o: wbfmm-tests-float.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/deprecated/gthread.h /usr/include/pthread.h \
  /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/setjmp.h \
- /usr/include/glib-2.0/glib/glib-autocleanups.h ../src/wbfmm.h
+ /usr/include/glib-2.0/glib/glib-autocleanups.h ../src/wbfmm.h \
+ ../config.h
 
 /usr/include/stdc-predef.h:
 
@@ -410,3 +411,5 @@ wbfmm-tests-float.o: wbfmm-tests-float.c /usr/include/stdc-predef.h \
 /usr/include/glib-2.0/glib/glib-autocleanups.h:
 
 ../src/wbfmm.h:
+
+../config.h:

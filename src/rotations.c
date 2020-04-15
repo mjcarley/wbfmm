@@ -238,8 +238,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
 {
   gint nu, n, m, offp, offm ;
   WBFMM_REAL Cnph, Snph, Cch, Sch, Cph, Sph ;
-  __m256d rCch, rSch ;
-
+  __m256d rCch, rSch, rsgn ;
+  
   g_assert(nq == 1) ;
   
   /*initialize recursions*/
@@ -258,14 +258,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
    * `r' indicates AVX register corresponding to a given `normal'
    * variable
    */
-
-  /* fprintf(stderr, "AVX\n") ; */
   
   rCch = _mm256_set1_pd(Cch) ; rSch = _mm256_set1_pd(Sch) ;
+  rsgn = _mm256_set_pd(-1.0, 1.0, 1.0, -1.0) ;
 
   for ( n = 0 ; n <= N ; n ++ ) {
     __attribute__ ((aligned (32))) WBFMM_REAL tmul[4] ;
-    __m256d rtC, rtS, rCmch, rSmch, rHm, rHp, rtmul, rsgn ;
+    __m256d rtC, rtS, rCmch, rSmch, rHm, rHp, rtmul ;
 #ifndef HAVE_FMA_INSTRUCTIONS
     __m256d op1 ;
 #endif /*HAVE_FMA_INSTRUCTIONS*/
@@ -273,7 +272,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
     nu = 0 ; Cnph = 1.0 ; Snph = 0.0 ;
 
     m = 0 ; rCmch = _mm256_set1_pd(1.0) ; rSmch = _mm256_setzero_pd() ;
-    rsgn = _mm256_set_pd(-1.0, 1.0, 1.0, -1.0) ;
 
     rHp = _mm256_broadcast_sd(&(H[wbfmm_rotation_index_numn( nu,m,n)])) ;
 
@@ -321,8 +319,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
     _mm256_store_pd(tmul, rtmul) ;
     
     offp = 2*cstro*wbfmm_coefficient_index_nm(n, nu) ;
-    Co[offp+0] += tmul[0]*Cnph ;
-    Co[offp+1] += tmul[1]*Cnph ;
+    Co[offp+0] = sc*Co[offp+0] + tmul[0]*Cnph ;
+    Co[offp+1] = sc*Co[offp+1] + tmul[1]*Cnph ;
     
     for ( nu = 1 ; nu <= n ; nu ++ ) {
       wbfmm_cos_sin_recursion(Cnph,Snph,Cph,Sph) ;
@@ -389,16 +387,44 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
 
       _mm256_store_pd(tmul, rtmul) ;
 
-      Co[offp+0] += tmul[0]*Cnph + tmul[1]*Snph ;
-      Co[offp+1] += tmul[1]*Cnph - tmul[0]*Snph ;
-      Co[offm+0] += tmul[2]*Cnph - tmul[3]*Snph ;
-      Co[offm+1] += tmul[3]*Cnph + tmul[2]*Snph ;
+      Co[offp+0] = sc*Co[offp+0] + tmul[0]*Cnph + tmul[1]*Snph ;
+      Co[offp+1] = sc*Co[offp+1] + tmul[1]*Cnph - tmul[0]*Snph ;
+      Co[offm+0] = sc*Co[offm+0] + tmul[2]*Cnph - tmul[3]*Snph ;
+      Co[offm+1] = sc*Co[offm+1] + tmul[3]*Cnph + tmul[2]*Snph ;
     }
   }
   
   return 0 ;
 }
+
+#else /*WBFMM_SINGLE_PRECISION*/
+/*make the single-precision AVX function a call to the reference
+  function*/
+
+gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro, 
+					     WBFMM_REAL *Ci, gint cstri,
+					     gint N,
+					     gint nq,
+					     WBFMM_REAL *H,
+					     WBFMM_REAL ph, WBFMM_REAL ch,
+					     WBFMM_REAL sc)
+{
+  return WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(Co, cstro, Ci, cstri,
+						 N, nq, H, ph, ch, sc) ;
+}
 #endif /*WBFMM_SINGLE_PRECISION*/
+#else /*HAVE_AVX_INSTRUCTIONS*/
+gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(WBFMM_REAL *Co, gint cstro, 
+					     WBFMM_REAL *Ci, gint cstri,
+					     gint N,
+					     gint nq,
+					     WBFMM_REAL *H,
+					     WBFMM_REAL ph, WBFMM_REAL ch,
+					     WBFMM_REAL sc)
+{
+  return WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(Co, cstro, Ci, cstri,
+						 N, nq, H, ph, ch, sc) ;
+}
 #endif /*HAVE_AVX_INSTRUCTIONS*/
 
 gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro, 

@@ -14,6 +14,7 @@ bin_PROGRAMS = \
 	wbfmm-tests \
 	wbfmm-tests-avx \
 	wbfmm-tree-calc \
+	wbfmm-tree-calc-avx \
 	wbfmm-tests-float \
 	wbfmm-tree-calc-float \
 	wbfmm-direct-calc \
@@ -101,6 +102,13 @@ wbfmm_tests_float_LDADD = \
 wbfmm_tree_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tree_calc_avx_SOURCES = wbfmm-tree-calc.c
+wbfmm_tree_calc_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_tree_calc_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 
 wbfmm_tree_calc_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \

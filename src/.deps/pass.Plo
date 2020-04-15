@@ -1,5 +1,5 @@
-pass.lo: pass.c /usr/include/stdc-predef.h /usr/include/math.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
+pass.lo: pass.c /usr/include/stdc-predef.h ../config.h \
+ /usr/include/math.h /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h /usr/include/bits/huge_val.h \
@@ -98,6 +98,8 @@ pass.lo: pass.c /usr/include/stdc-predef.h /usr/include/math.h \
  wbfmm-private.h
 
 /usr/include/stdc-predef.h:
+
+../config.h:
 
 /usr/include/math.h:
 

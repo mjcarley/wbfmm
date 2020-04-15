@@ -24,6 +24,13 @@ for i=4:2:size(dat,2)
   pf = [pf dat(:,i:i+1)*[1; j]] ;
 endfor
 
+dat = load("monopole-avx.dat") ;
+xf = dat(:,1:3) ;
+pa = [] ;
+for i=4:2:size(dat,2)
+  pa = [pa dat(:,i:i+1)*[1; j]] ;
+endfor
+
 if 0
 pc = 0*pd ;
 if ( ~grad ) 

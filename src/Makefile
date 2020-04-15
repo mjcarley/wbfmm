@@ -150,8 +150,8 @@ libwbfmm_base_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
 	util.lo factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo \
-	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
-	rotations-laplace.lo targets.lo gradient.lo \
+	pass-avx.lo laplace.lo shift-laplace.lo shiftbw-laplace.lo \
+	pass-laplace.lo rotations-laplace.lo targets.lo gradient.lo \
 	gradient-laplace.lo local.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -433,6 +433,7 @@ libwbfmm_la_SOURCES = \
 	shift.c \
 	shiftbw.c \
 	pass.c \
+	pass-avx.c \
 	laplace.c \
 	shift-laplace.c \
 	shiftbw-laplace.c \
@@ -617,6 +618,7 @@ include ./$(DEPDIR)/libwbfmm_f_la-targets.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-translations.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-util.Plo
 include ./$(DEPDIR)/local.Plo
+include ./$(DEPDIR)/pass-avx.Plo
 include ./$(DEPDIR)/pass-laplace.Plo
 include ./$(DEPDIR)/pass.Plo
 include ./$(DEPDIR)/rotations-laplace.Plo

@@ -24,6 +24,8 @@
 
 #include <wbfmm.h>
 
+#include <config.h>
+
 #define BUFSIZE 131072
 /* 262144 */
 
@@ -989,16 +991,17 @@ gint rotation_test(gdouble *x0, gdouble *x1, gdouble *x2,
   /*apply the rotation to the coefficients*/
   fprintf(stderr, "%s reference rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   wbfmm_rotate_H(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
 
 #ifdef WBFMM_USE_AVX
-  memset(Co, 0, 2*BUFSIZE*sizeof(gdouble)) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   fprintf(stderr, "%s AVX rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_rotate_H_avx(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;

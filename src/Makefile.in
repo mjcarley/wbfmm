@@ -150,8 +150,8 @@ libwbfmm_base_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
 	util.lo factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo \
-	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
-	rotations-laplace.lo targets.lo gradient.lo \
+	pass-avx.lo laplace.lo shift-laplace.lo shiftbw-laplace.lo \
+	pass-laplace.lo rotations-laplace.lo targets.lo gradient.lo \
 	gradient-laplace.lo local.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -433,6 +433,7 @@ libwbfmm_la_SOURCES = \
 	shift.c \
 	shiftbw.c \
 	pass.c \
+	pass-avx.c \
 	laplace.c \
 	shift-laplace.c \
 	shiftbw-laplace.c \
@@ -617,6 +618,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libwbfmm_f_la-translations.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libwbfmm_f_la-util.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pass-avx.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pass-laplace.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pass.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rotations-laplace.Plo@am__quote@

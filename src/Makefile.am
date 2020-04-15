@@ -38,6 +38,7 @@ libwbfmm_la_SOURCES = \
 	shift.c \
 	shiftbw.c \
 	pass.c \
+	pass-avx.c \
 	laplace.c \
 	shift-laplace.c \
 	shiftbw-laplace.c \

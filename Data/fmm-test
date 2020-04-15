@@ -10,5 +10,9 @@ bw=
 			 ${gradient} -s monopoles.dat \
 			 -t 1e-3 > monopole-fmm.dat
 
+../tests/wbfmm-tree-calc-avx -b -d ${depth} -f field.dat -k ${k} ${bw} \
+			 ${gradient} -s monopoles.dat \
+			 -t 1e-3 > monopole-avx.dat
+
 ../tests/wbfmm-direct-calc -f field.dat -k ${k} ${gradient} \
                         -s monopoles.dat > monopole-direct.dat

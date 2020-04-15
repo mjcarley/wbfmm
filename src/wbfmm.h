@@ -637,9 +637,12 @@ gint wbfmm_shift_operators_coaxial_SS_init(wbfmm_shift_operators_t *w,
 gint wbfmm_upward_pass(wbfmm_tree_t *t,
 		       wbfmm_shift_operators_t *op,
 		       guint level, gdouble *work) ;
-gint wbfmm_downward_pass(wbfmm_tree_t *t,
-			 wbfmm_shift_operators_t *op,
-			 guint level, gdouble *work) ;
+gint wbfmm_downward_pass_ref(wbfmm_tree_t *t,
+			     wbfmm_shift_operators_t *op,
+			     guint level, gdouble *work) ;
+gint wbfmm_downward_pass_avx(wbfmm_tree_t *t,
+			     wbfmm_shift_operators_t *op,
+			     guint level, gdouble *work) ;
 gint wbfmm_tree_box_field(wbfmm_tree_t *t, guint level,
 			  guint b, gdouble k,
 			  gdouble *x, gdouble *f, gint fstr, gdouble *work) ;
@@ -894,9 +897,9 @@ gint wbfmm_shift_operators_coaxial_SS_init_f(wbfmm_shift_operators_t *w,
 gint wbfmm_upward_pass_f(wbfmm_tree_t *t,
 			 wbfmm_shift_operators_t *op,
 			 guint level, gfloat *work) ;
-gint wbfmm_downward_pass_f(wbfmm_tree_t *t,
-			   wbfmm_shift_operators_t *op,
-			   guint level, gfloat *work) ;
+gint wbfmm_downward_pass_ref_f(wbfmm_tree_t *t,
+			       wbfmm_shift_operators_t *op,
+			       guint level, gfloat *work) ;
 gint wbfmm_tree_box_field_f(wbfmm_tree_t *t, guint level,
 			    guint b, gfloat k,
 			    gfloat *x, gfloat *f, gint fstr, gfloat *work) ;
@@ -965,6 +968,11 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 #define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
   wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
 
+#define wbfmm_downward_pass(_t, _op, _level, _work)	\
+  wbfmm_downward_pass_avx(_t, _op, _level, _work)
+#define wbfmm_downward_pass_f(_t, _op, _level, _work)	\
+  wbfmm_downward_pass_ref_f(_t, _op, _level, _work)
+
 #else
 
 #define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
@@ -977,6 +985,11 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
   wbfmm_coaxial_translate_ref(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
 #define wbfmm_coaxial_translate_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc) \
   wbfmm_coaxial_translate_ref_f(_Co,_cstro,_No,_Ci,_cstri,_Ni,_nq,_cft,_L,_c,_sc)
+
+#define wbfmm_downward_pass(_t, _op, _level, _work) \
+  wbfmm_downward_pass_ref(_t, _op, _level, _work)
+#define wbfmm_downward_pass_f(_t, _op, _level, _work) \
+  wbfmm_downward_pass_ref_f(_t, _op, _level, _work)
 
 #endif
 

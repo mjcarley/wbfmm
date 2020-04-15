@@ -19,9 +19,9 @@
   calculations
 */
 
-#ifdef _HAVE_CONFIG_H_
+#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif /*_HAVE_CONFIG_H_*/
+#endif /*HAVE_CONFIG_H*/
 
 #include <math.h>
 #include <string.h>
@@ -337,10 +337,10 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   return ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass)(wbfmm_tree_t *t,
-					      wbfmm_shift_operators_t *op,
-					      guint level,
-					      WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
+						  wbfmm_shift_operators_t *op,
+						  guint level,
+						  WBFMM_REAL *work)
 
 {
   guint nb, Ns, Nr, nerot, necx, ncs, ncr, Nc, Np ;
