@@ -25,6 +25,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <glib.h>
 
@@ -693,7 +694,9 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
 
   /*rotations are the same at all levels, so allocate them here*/
   rotations = op->rotations = g_malloc(49*nerot*sizeof(WBFMM_REAL)) ;
-
+  /* posix_memalign(&(op->rotations), 32, 49*nerot*sizeof(WBFMM_REAL)) ; */
+  rotations = op->rotations ;
+  
   /*first (0,\pi) rotations, as listed in _wbfmm_shifts_th*/
   for ( i = 0 ; i < 49 ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(&(rotations[i*nerot]),

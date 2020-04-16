@@ -96,7 +96,7 @@ libwbfmm_f_la-rotations.lo: rotations.c /usr/include/stdc-predef.h \
  /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
  /usr/include/wchar.h /usr/include/bits/stdio_lim.h \
  /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
- wbfmm-private.h \
+ wbfmm-private.h wbfmm-avx.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/immintrin.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/mmintrin.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/xmmintrin.h \
@@ -427,6 +427,8 @@ wbfmm.h:
 /usr/include/bits/stdio.h:
 
 wbfmm-private.h:
+
+wbfmm-avx.h:
 
 /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/immintrin.h:
 

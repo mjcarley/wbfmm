@@ -11,6 +11,11 @@ gradient=
 				 -s monopoles.dat \
 				 -t 1e-6 > monopole-laplace-fmm.dat
 
-#../tests/wbfmm-laplace-direct-calc -f field.dat ${gradient} \
-#				   -s monopoles.dat > \
-#				   monopole-laplace-direct.dat
+../tests/wbfmm-laplace-tree-calc-avx -b -d ${depth} -f field.dat \
+				 -R 12 -S 12 ${bw} ${gradient} \
+				 -s monopoles.dat \
+				 -t 1e-6 > monopole-laplace-avx.dat
+
+../tests/wbfmm-laplace-direct-calc -f field.dat ${gradient} \
+				   -s monopoles.dat > \
+				   monopole-laplace-direct.dat

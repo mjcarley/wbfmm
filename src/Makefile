@@ -151,8 +151,8 @@ libwbfmm_la_LIBADD =
 am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
 	util.lo factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo \
 	pass-avx.lo laplace.lo shift-laplace.lo shiftbw-laplace.lo \
-	pass-laplace.lo rotations-laplace.lo targets.lo gradient.lo \
-	gradient-laplace.lo local.lo
+	pass-laplace.lo pass-laplace-avx.lo rotations-laplace.lo \
+	targets.lo gradient.lo gradient-laplace.lo local.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -418,6 +418,7 @@ libwbfmm_f_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
 libwbfmm_base_la_SOURCES = \
 	wbfmm-logging.c \
 	wbfmm-private.h \
+	wbfmm-avx.h \
 	indexing.c \
 	shifts.c \
 	tree.c 
@@ -438,6 +439,7 @@ libwbfmm_la_SOURCES = \
 	shift-laplace.c \
 	shiftbw-laplace.c \
 	pass-laplace.c \
+	pass-laplace-avx.c \
 	rotations-laplace.c \
 	targets.c \
 	gradient.c \
@@ -619,6 +621,7 @@ include ./$(DEPDIR)/libwbfmm_f_la-translations.Plo
 include ./$(DEPDIR)/libwbfmm_f_la-util.Plo
 include ./$(DEPDIR)/local.Plo
 include ./$(DEPDIR)/pass-avx.Plo
+include ./$(DEPDIR)/pass-laplace-avx.Plo
 include ./$(DEPDIR)/pass-laplace.Plo
 include ./$(DEPDIR)/pass.Plo
 include ./$(DEPDIR)/rotations-laplace.Plo

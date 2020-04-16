@@ -23,6 +23,7 @@ libwbfmm_f_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
 libwbfmm_base_la_SOURCES = \
 	wbfmm-logging.c \
 	wbfmm-private.h \
+	wbfmm-avx.h \
 	indexing.c \
 	shifts.c \
 	tree.c 
@@ -43,6 +44,7 @@ libwbfmm_la_SOURCES = \
 	shift-laplace.c \
 	shiftbw-laplace.c \
 	pass-laplace.c \
+	pass-laplace-avx.c \
 	rotations-laplace.c \
 	targets.c \
 	gradient.c \

@@ -122,9 +122,9 @@ typedef struct {
   x[24], /**< origin of tree domain cube */
     *points ; /**< point coordinates */
   gpointer 
-  *mps[WBFMM_TREE_MAX_DEPTH+1], 
+  mps[WBFMM_TREE_MAX_DEPTH+1], 
   /**< singular expansion data at each level */
-    *mpr[WBFMM_TREE_MAX_DEPTH+1] ; 
+    mpr[WBFMM_TREE_MAX_DEPTH+1] ; 
   /**< regular expansion data at each level */
   gsize
   size,  /**< size of floating point type in data (float, double, etc) */
@@ -453,16 +453,22 @@ gint wbfmm_laplace_coaxial_translate_SR(gdouble *Co, gint cstro, gint No,
 gint wbfmm_laplace_coaxial_translate_SR_f(gfloat *Co, gint cstro, gint No,
 					  gfloat *Ci, gint cstri, gint Ni,
 					  gint nq, gfloat t, gfloat sc) ;
-gint wbfmm_laplace_rotate_H(gdouble *Co, gint cstro,
-			    gdouble *Ci, gint cstri,
-			    gint N, gint nq,
-			    gdouble *H,
-			    gdouble ph, gdouble ch, gdouble sc) ;
-gint wbfmm_laplace_rotate_H_f(gfloat *Co, gint cstro,
-			      gfloat *Ci, gint cstri,
-			      gint N, gint nq,
-			      gfloat *H,
-			      gfloat ph, gfloat ch, gfloat sc) ;
+gint wbfmm_laplace_rotate_H_ref(gdouble *Co, gint cstro,
+				gdouble *Ci, gint cstri,
+				gint N, gint nq,
+				gdouble *H,
+				gdouble ph, gdouble ch, gdouble sc) ;
+gint wbfmm_laplace_rotate_H_ref_f(gfloat *Co, gint cstro,
+				  gfloat *Ci, gint cstri,
+				  gint N, gint nq,
+				  gfloat *H,
+				  gfloat ph, gfloat ch, gfloat sc) ;
+gint wbfmm_laplace_rotate_H_avx(gdouble *Co, gint cstro,
+				gdouble *Ci, gint cstri,
+				gint N, gint nq,
+				gdouble *H,
+				gdouble ph, gdouble ch, gdouble sc) ;
+
 gint wbfmm_laplace_child_parent_shift(gdouble *Cp, gint Np,
 				      gdouble *Cc, gint Nc,
 				      gint nq,
@@ -530,14 +536,18 @@ gint wbfmm_tree_laplace_leaf_expansions_f(wbfmm_tree_t *t,
 					  gint dstr,
 					  gboolean zero_expansions,
 					  gfloat *work) ;
-gint wbfmm_laplace_downward_pass(wbfmm_tree_t *t,
-				 wbfmm_shift_operators_t *op,
-				 guint level,
-				 gdouble *work) ;
-gint wbfmm_laplace_downward_pass_f(wbfmm_tree_t *t,
-				   wbfmm_shift_operators_t *op,
-				   guint level,
-				   gfloat *work) ;
+gint wbfmm_laplace_downward_pass_ref(wbfmm_tree_t *t,
+				     wbfmm_shift_operators_t *op,
+				     guint level,
+				     gdouble *work) ;
+gint wbfmm_laplace_downward_pass_avx(wbfmm_tree_t *t,
+				     wbfmm_shift_operators_t *op,
+				     guint level,
+				     gdouble *work) ;
+gint wbfmm_laplace_downward_pass_ref_f(wbfmm_tree_t *t,
+				       wbfmm_shift_operators_t *op,
+				       guint level,
+				       gfloat *work) ;
 gint wbfmm_laplace_upward_pass(wbfmm_tree_t *t,
 				 wbfmm_shift_operators_t *op,
 				 guint level,
@@ -973,6 +983,16 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 #define wbfmm_downward_pass_f(_t, _op, _level, _work)	\
   wbfmm_downward_pass_ref_f(_t, _op, _level, _work)
 
+#define wbfmm_laplace_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc) \
+  wbfmm_laplace_rotate_H_avx(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
+#define wbfmm_laplace_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc) \
+  wbfmm_laplace_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
+
+#define wbfmm_laplace_downward_pass(_t, _op, _level, _work)	\
+  wbfmm_laplace_downward_pass_avx(_t, _op, _level, _work)
+#define wbfmm_laplace_downward_pass_f(_t, _op, _level, _work)	\
+  wbfmm_laplace_downward_pass_ref_f(_t, _op, _level, _work)
+
 #else
 
 #define wbfmm_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)	\
@@ -990,6 +1010,16 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
   wbfmm_downward_pass_ref(_t, _op, _level, _work)
 #define wbfmm_downward_pass_f(_t, _op, _level, _work) \
   wbfmm_downward_pass_ref_f(_t, _op, _level, _work)
+
+#define wbfmm_laplace_rotate_H(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc) \
+  wbfmm_laplace_rotate_H_ref(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
+#define wbfmm_laplace_rotate_H_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc) \
+  wbfmm_laplace_rotate_H_ref_f(_Co,_cstro,_Ci,_cstri,_N,_nq,_H,_ph,_ch,_sc)
+
+#define wbfmm_laplace_downward_pass(_t, _op, _level, _work)	\
+  wbfmm_laplace_downward_pass_ref(_t, _op, _level, _work)
+#define wbfmm_laplace_downward_pass_f(_t, _op, _level, _work)	\
+  wbfmm_laplace_downward_pass_ref_f(_t, _op, _level, _work)
 
 #endif
 

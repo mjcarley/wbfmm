@@ -14,6 +14,10 @@ dat = load("monopole-laplace-fmm.dat") ;
 xf = dat(:,1:3) ;
 pf = dat(:,4:end) ;
 
+dat = load("monopole-laplace-avx.dat") ;
+xf = dat(:,1:3) ;
+pa = dat(:,4:end) ;
+
 if 1
 pc = 0*pd ;
 if ( ~grad ) 

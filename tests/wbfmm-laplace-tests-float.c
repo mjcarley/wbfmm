@@ -629,15 +629,16 @@ gint rotation_test(gint N,
 		   gfloat *xf, gint nfld)
 
 {
-  gfloat H[BUFSIZE], work[BUFSIZE], th, ph, ch ;
+  __attribute__ ((aligned (32)))
+    gfloat H[BUFSIZE], work[BUFSIZE], th, ph, ch ;
   gfloat ix0[3], iy0[3], iz0[3], y[3] ;
   __attribute__ ((aligned (32))) gfloat Ci[BUFSIZE] = {0.0},
     Co[BUFSIZE] = {0.0}, Cc[BUFSIZE] = {0.0} ;
-  gfloat fc[8]={0.0}, ff[8]={0.0}, fr[8]={0.0} ;
+  gfloat fc[32]={0.0}, ff[32]={0.0}, fr[32]={0.0} ;
   gint i, cstri, cstro, nq ;
   gdouble t0 ;
   
-  cstri = 3 ; cstro = 3 ; nq = 1 ;
+  cstri = 4 ; cstro = 4 ; nq = 2 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
@@ -673,13 +674,23 @@ gint rotation_test(gint N,
   wbfmm_coefficients_H_rotation_f(H, N, th, work) ;
 
   /*fill Co with rubbish to check pre-scaling*/
-  /* memset(Co, 1, BUFSIZE*sizeof(gfloat)) ; */
-  /* for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ; */
+  memset(Co, 1, BUFSIZE*sizeof(gfloat)) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+  /*apply the rotation to the coefficients*/
+  t0 = g_timer_elapsed(timer, NULL) ;
+  wbfmm_laplace_rotate_H_ref_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  t0 = g_timer_elapsed(timer, NULL) - t0 ;
+  fprintf(stderr, "rotation: time %lg\n", t0) ;
+
+#ifdef WBFMM_USE_AVX
+  memset(Co, 1, BUFSIZE*sizeof(gfloat)) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   /*apply the rotation to the coefficients*/
   t0 = g_timer_elapsed(timer, NULL) ;
   wbfmm_laplace_rotate_H_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   t0 = g_timer_elapsed(timer, NULL) - t0 ;
-  fprintf(stderr, "rotation: time %lg\n", t0) ;
+  fprintf(stderr, "avx rotation: time %lg\n", t0) ;
+#endif
   
   memset(Cc, 0, BUFSIZE*sizeof(gfloat)) ;
   /*reverse rotation as check*/
@@ -1108,7 +1119,7 @@ gint main(gint argc, gchar **argv)
   gchar ch, *ipfile ;
 
   N = 16 ; 
-  sstride = 2 ; xstride = 3 ; 
+  sstride = 4 ; xstride = 3 ; 
   nsrc = 1 ;
   nfld = 1 ;
   x = 0.025 ;

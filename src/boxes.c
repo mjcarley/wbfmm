@@ -21,6 +21,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <inttypes.h>
 
 #include <glib.h>
@@ -431,7 +432,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   /*number of coefficients in singular expansions*/
   if ( ns != 0 ) {
     nc = wbfmm_coefficient_index_nm(ns+1,0) ;
-    t->mps[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
+    /* t->mps[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ; */
+    posix_memalign(&(t->mps[l]), 32, nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
+
     c = (WBFMM_REAL *)(t->mps[l]) ;
     /*
       set box pointers to start of their coefficients, noting that
@@ -447,7 +450,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
 
   if ( nr != 0 ) {
     nc = wbfmm_coefficient_index_nm(nr+1,0) ;
-    t->mpr[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
+    /* t->mpr[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ; */
+    posix_memalign(&(t->mpr[l]), 32, nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mpr[l]) ;
     /*
       set box pointers to start of their coefficients, noting that

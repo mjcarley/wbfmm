@@ -1,0 +1,25 @@
+#ifdef HAVE_AVX_INSTRUCTIONS
+#include <immintrin.h>
+
+#ifdef HAVE_FMA_INSTRUCTIONS
+#define wbfmm_cos_sin_recursion_avx(_Cn,_Sn,_C,_S)	\
+  do { __m256d _rtmp = (_Cn), _op ;			\
+    (_Cn) = _mm256_mul_pd((_Cn), (_C)) ;		\
+    (_op) = _mm256_mul_pd((_Sn), (_S)) ;		\
+    (_Cn) = _mm256_sub_pd((_Cn), _op) ;			\
+    (_Sn) = _mm256_mul_pd((_Sn), (_C)) ;		\
+    (_Sn) = _mm256_fmadd_pd(_rtmp, (_S), (_Sn)) ;	\
+  } while (0)
+#else  /*HAVE_FMA_INSTRUCTIONS*/
+#define wbfmm_cos_sin_recursion_avx(_Cn,_Sn,_C,_S)	\
+  do { __m256d _rtmp = (_Cn), _op ;			\
+  _Cn = _mm256_mul_pd((_Cn), (_C)) ;			\
+  _op = _mm256_mul_pd((_Sn), (_S)) ;			\
+  (_Cn) = _mm256_sub_pd(_Cn, _op) ;			\
+  _Sn = _mm256_mul_pd((_Sn), (_C)) ;			\
+  _op = _mm256_mul_pd((_rtmp), (_S)) ;			\
+  (_Sn) = _mm256_add_pd(_Sn, _op) ;			\
+  } while (0)
+#endif  /*HAVE_FMA_INSTRUCTIONS*/
+
+#endif /*HAVE_AVX_INSTRUCTIONS*/

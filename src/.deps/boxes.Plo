@@ -14,7 +14,15 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/inttypes.h \
+ /usr/include/bits/stdio.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
+ /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/alloca.h /usr/include/bits/stdlib-bsearch.h \
+ /usr/include/bits/stdlib-float.h /usr/include/inttypes.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
@@ -27,17 +35,16 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/posix2_lim.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/float.h \
- /usr/include/glib-2.0/glib/gversionmacros.h /usr/include/time.h \
- /usr/include/bits/time.h /usr/include/glib-2.0/glib/garray.h \
+ /usr/include/glib-2.0/glib/gversionmacros.h \
+ /usr/include/glib-2.0/glib/garray.h \
  /usr/include/glib-2.0/glib/gasyncqueue.h \
  /usr/include/glib-2.0/glib/gthread.h \
  /usr/include/glib-2.0/glib/gatomic.h /usr/include/glib-2.0/glib/gerror.h \
  /usr/include/glib-2.0/glib/gquark.h /usr/include/glib-2.0/glib/gutils.h \
  /usr/include/glib-2.0/glib/gbacktrace.h /usr/include/signal.h \
- /usr/include/bits/sigset.h /usr/include/bits/signum.h \
- /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
- /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
- /usr/include/sys/ucontext.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/bits/signum.h /usr/include/bits/siginfo.h \
+ /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
+ /usr/include/bits/sigstack.h /usr/include/sys/ucontext.h \
  /usr/include/bits/sigthread.h /usr/include/glib-2.0/glib/gbase64.h \
  /usr/include/glib-2.0/glib/gbitlock.h \
  /usr/include/glib-2.0/glib/gbookmarkfile.h \
@@ -90,12 +97,9 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/glib-2.0/glib/deprecated/gcompletion.h \
  /usr/include/glib-2.0/glib/deprecated/gmain.h \
  /usr/include/glib-2.0/glib/deprecated/grel.h \
- /usr/include/glib-2.0/glib/deprecated/gthread.h /usr/include/sys/types.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/sys/sysmacros.h /usr/include/pthread.h /usr/include/sched.h \
- /usr/include/bits/sched.h /usr/include/bits/setjmp.h \
+ /usr/include/glib-2.0/glib/deprecated/gthread.h /usr/include/pthread.h \
+ /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/bits/setjmp.h \
  /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm.h wbfmm-private.h
 
 /usr/include/stdc-predef.h:
@@ -166,6 +170,40 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/bits/stdio.h:
 
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/bits/stdlib-bsearch.h:
+
+/usr/include/bits/stdlib-float.h:
+
 /usr/include/inttypes.h:
 
 /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdint.h:
@@ -202,10 +240,6 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/glib-2.0/glib/gversionmacros.h:
 
-/usr/include/time.h:
-
-/usr/include/bits/time.h:
-
 /usr/include/glib-2.0/glib/garray.h:
 
 /usr/include/glib-2.0/glib/gasyncqueue.h:
@@ -224,8 +258,6 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/signal.h:
 
-/usr/include/bits/sigset.h:
-
 /usr/include/bits/signum.h:
 
 /usr/include/bits/siginfo.h:
@@ -237,8 +269,6 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
 /usr/include/bits/sigstack.h:
 
 /usr/include/sys/ucontext.h:
-
-/usr/include/bits/pthreadtypes.h:
 
 /usr/include/bits/sigthread.h:
 
@@ -369,22 +399,6 @@ boxes.lo: boxes.c /usr/include/stdc-predef.h ../config.h \
 /usr/include/glib-2.0/glib/deprecated/grel.h:
 
 /usr/include/glib-2.0/glib/deprecated/gthread.h:
-
-/usr/include/sys/types.h:
-
-/usr/include/endian.h:
-
-/usr/include/bits/endian.h:
-
-/usr/include/bits/byteswap.h:
-
-/usr/include/bits/byteswap-16.h:
-
-/usr/include/sys/select.h:
-
-/usr/include/bits/select.h:
-
-/usr/include/sys/sysmacros.h:
 
 /usr/include/pthread.h:
 

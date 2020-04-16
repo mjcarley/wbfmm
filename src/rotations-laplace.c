@@ -27,6 +27,11 @@
 #include <wbfmm.h>
 
 #include "wbfmm-private.h"
+#include "wbfmm-avx.h"
+
+#ifdef HAVE_AVX_INSTRUCTIONS
+#include <immintrin.h>
+#endif /*HAVE_AVX_INSTRUCTIONS*/
 
 static gint _wbfmm_rotate_H_laplace_ref_nq(WBFMM_REAL *Co, gint cstro,
 					   WBFMM_REAL *Ci, gint cstri,
@@ -109,94 +114,140 @@ static gint _wbfmm_rotate_H_laplace_ref_nq(WBFMM_REAL *Co, gint cstro,
   return 0 ;
 }
 
-static gint _wbfmm_rotate_H_laplace_ref_1(WBFMM_REAL *Co, gint cstro,
-					  WBFMM_REAL *Ci, gint cstri,
-					  gint N,
-					  WBFMM_REAL *H,
-					  WBFMM_REAL ph, WBFMM_REAL ch,
-					  WBFMM_REAL sc)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
+						     WBFMM_REAL *Ci, gint cstri,
+						     gint N, gint nq,
+						     WBFMM_REAL *H,
+						     WBFMM_REAL ph,
+						     WBFMM_REAL ch,
+						     WBFMM_REAL sc)
 
 {
-  gint n, m, nu, idxi, idxo ;
-  WBFMM_REAL Cmch, Smch, Cnph, Snph, Cch, Sch, Cph, Sph ;
-  WBFMM_REAL Hp, Hm ;
-
-  /*initialize recursions*/
-  Cph = COS(ph) ; Sph = SIN(ph) ;
-  Cch = COS(ch) ; Sch = SIN(ch) ;
-
-  for ( n = 0 ; n <= N ; n ++ ) {
-    WBFMM_REAL tr ;
-
-    nu = 0 ; idxo = n*n ;
-    m = 0 ; idxi = n*n ;
-    Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
-
-    tr = Hp*Ci[cstri*idxi] ;
-    
-    Cmch = 1.0 ; Smch = 0.0 ;
-
-    /* idxi -- ; */
-    for ( m = 1 ; m <= n ; m ++ ) {
-      wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
-      /* idxi += 2 ; */
-      idxi = wbfmm_index_laplace_nm(n,m) ;
-      
-      Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
-      tr += 2.0*(Ci[cstri*(idxi+0)]*Cmch - Ci[cstri*(idxi+1)]*Smch)*Hp ;
-    }
-    Co[cstro*idxo] += tr ;
-  }
-  
-  for ( n = 0 ; n <= N ; n ++ ) {
-    Cnph = 1.0 ; Snph = 0.0 ;
-    idxo = n*n ;
-
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      WBFMM_REAL ti = 0.0, tr ;
-
-      wbfmm_cos_sin_recursion(Cnph,Snph,Cph,Sph) ;
-      idxo += 2 ;
-
-      m = 0 ; idxi = n*n ;
-      Hp = H[wbfmm_rotation_index_numn(nu,m,n)] ;
-
-      tr = Hp*Ci[cstri*idxi] ;
-      
-      Cmch = 1.0 ; Smch = 0.0 ;
-      /* idxi -- ; */
-      for ( m = 1 ; m <= n ; m ++ ) {
-	wbfmm_cos_sin_recursion(Cmch,Smch,Cch,Sch) ;
-	/* idxi += 2 ; */
-	idxi = wbfmm_index_laplace_nm(n,m) ;
-	
-	Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
-	Hm = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
-	tr += (Ci[cstri*(idxi+0)]*Cmch - Ci[cstri*(idxi+1)]*Smch)*(Hp+Hm) ;
-	ti += (Ci[cstri*(idxi+0)]*Smch + Ci[cstri*(idxi+1)]*Cmch)*(Hp-Hm) ;
-      }
-      Co[cstro*(idxo+0)] += Cnph*tr + Snph*ti ;
-      Co[cstro*(idxo+1)] += Cnph*ti - Snph*tr ;
-    }
-  }
-  
-  return 0 ;
-}
-
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(WBFMM_REAL *Co, gint cstro,
-						 WBFMM_REAL *Ci, gint cstri,
-						 gint N, gint nq,
-						 WBFMM_REAL *H,
-						 WBFMM_REAL ph, WBFMM_REAL ch,
-						 WBFMM_REAL sc)
-
-{
-  if ( nq == 1 ) 
-    return
-      _wbfmm_rotate_H_laplace_ref_nq(Co, cstro, Ci, cstri, N, 1, H, ph, ch, sc) ;
-
   return
     _wbfmm_rotate_H_laplace_ref_nq(Co, cstro, Ci, cstri, N, nq, H, ph, ch, sc) ;
   
   return 0 ;
 }
+
+#ifdef HAVE_AVX_INSTRUCTIONS
+#ifndef WBFMM_SINGLE_PRECISION
+/*only compile AVX for double precision functions, for now anyway*/
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
+						     WBFMM_REAL *Ci, gint cstri,
+						     gint N, gint nq,
+						     WBFMM_REAL *H,
+						     WBFMM_REAL ph,
+						     WBFMM_REAL ch,
+						     WBFMM_REAL sc)
+
+{
+  gint n, m, nu, idxi, idxo, i ;
+  WBFMM_REAL Cch, Sch, Cph, Sph ;
+  __attribute__ ((aligned (32))) WBFMM_REAL tr[4] ;
+  __attribute__ ((aligned (32))) WBFMM_REAL ti[4] ;
+  WBFMM_REAL Hp, Hm ;
+  __m256d rCch, rSch, rCmch, rSmch, rHm, rHp, rtr, rti, rC, op1 ;
+  __m256d rCph, rSph, rCnph, rSnph, op2 ; 
+  
+  g_assert(nq <= cstri) ;
+  g_assert(nq <= cstro) ;
+  g_assert(nq <= 4) ;
+
+  /*initialize recursions*/
+  Cph = COS(ph) ; Sph = SIN(ph) ;
+  Cch = COS(ch) ; Sch = SIN(ch) ;
+
+  rCch = _mm256_set1_pd(Cch) ; rSch = _mm256_set1_pd(Sch) ;
+  rCph = _mm256_set1_pd(Cph) ; rSph = _mm256_set1_pd(Sph) ;
+
+  for ( n = 0 ; n <= N ; n ++ ) {
+    nu = 0 ; idxo = n*n ;
+    m  = 0 ; idxi = n*n ;
+
+    Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+    rHp = _mm256_set1_pd(Hp) ;
+
+    rC    = _mm256_loadu_pd(&(Ci[cstri*idxi])) ;
+    rtr   = _mm256_mul_pd(rHp, rC) ;
+    rCmch = _mm256_set1_pd(1.0) ; rSmch = _mm256_setzero_pd() ;      
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idxi = wbfmm_index_laplace_nm(n,m) ;
+
+      wbfmm_cos_sin_recursion_avx(rCmch,rSmch,rCch,rSch) ;
+      Hp = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+      rHp = _mm256_set1_pd(Hp) ;
+
+      rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+0)])) ;
+      op1 = _mm256_mul_pd(rCmch, rC) ;
+      rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+1)])) ;
+      rC  = _mm256_mul_pd(rSmch, rC) ;
+      op1 = _mm256_sub_pd(op1, rC) ; /*\cos m\chi C_r - \sin m\chi C_i*/
+      op1 = _mm256_mul_pd(op1, rHp) ;
+      rtr = _mm256_add_pd(rtr, op1) ;
+      rtr = _mm256_add_pd(rtr, op1) ;
+    }
+
+    _mm256_store_pd(tr, rtr) ;
+    for ( i = 0 ; i < nq ; i ++ ) {
+      Co[cstro*idxo+i] = tr[i] + sc*Co[cstro*idxo+i] ;
+    }
+
+    rCnph = _mm256_set1_pd(1.0) ; rSnph = _mm256_setzero_pd() ;      
+    for ( nu = 1 ; nu <= n ; nu ++ ) {
+      wbfmm_cos_sin_recursion_avx(rCnph,rSnph,rCph,rSph) ;
+
+      idxo = wbfmm_index_laplace_nm(n,nu) ;
+      m = 0 ; idxi = n*n ;
+
+      Hp  = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+      rHp = _mm256_set1_pd(Hp) ;
+      rC  = _mm256_loadu_pd(&(Ci[cstri*idxi])) ;
+      rtr = _mm256_mul_pd(rHp, rC) ;
+
+      rti = _mm256_setzero_pd() ;
+      
+      rCmch = _mm256_set1_pd(1.0) ; rSmch = _mm256_setzero_pd() ;      
+      for ( m = 1 ; m <= n ; m ++ ) {
+	idxi = wbfmm_index_laplace_nm(n,m) ;
+	
+	wbfmm_cos_sin_recursion_avx(rCmch,rSmch,rCch,rSch) ;
+	Hp  = H[wbfmm_rotation_index_numn( nu,m,n)] ;
+	Hm  = H[wbfmm_rotation_index_numn(-nu,m,n)] ;
+	rHp = _mm256_set1_pd(Hp+Hm) ;
+	rHm = _mm256_set1_pd(Hp-Hm) ;
+
+	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+1)])) ;
+	op1 = _mm256_mul_pd(rCmch, rC) ;
+	op1 = _mm256_mul_pd(op1, rHm) ;
+	rti = _mm256_add_pd(rti, op1) ;
+	op1 = _mm256_mul_pd(rSmch, rC) ;
+	op1 = _mm256_mul_pd(op1, rHp) ;
+	rtr = _mm256_sub_pd(rtr, op1) ;
+
+	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+0)])) ;
+	op1 = _mm256_mul_pd(rCmch, rC) ;
+	op1 = _mm256_mul_pd(op1, rHp) ;
+	rtr = _mm256_add_pd(rtr, op1) ;
+	op1 = _mm256_mul_pd(rSmch, rC) ;
+	op1 = _mm256_mul_pd(op1, rHm) ;
+	rti = _mm256_add_pd(rti, op1) ;
+      }
+
+      op1 = _mm256_mul_pd(rtr,rCnph) ; op2 = _mm256_mul_pd(rti,rSnph) ;
+      op1 = _mm256_add_pd(op1,op2) ;
+      _mm256_store_pd(tr, op1) ;
+      op1 = _mm256_mul_pd(rti,rCnph) ; op2 = _mm256_mul_pd(rtr,rSnph) ;
+      op1 = _mm256_sub_pd(op1,op2) ;
+      _mm256_store_pd(ti, op1) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+      	Co[cstro*(idxo+0)+i] = sc*Co[cstro*(idxo+0)+i] + tr[i] ;
+      	Co[cstro*(idxo+1)+i] = sc*Co[cstro*(idxo+1)+i] + ti[i] ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+#endif
+#endif

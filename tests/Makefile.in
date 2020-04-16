@@ -92,9 +92,10 @@ bin_PROGRAMS = wbfmm-tests$(EXEEXT) wbfmm-tests-avx$(EXEEXT) \
 	wbfmm-tree-calc$(EXEEXT) wbfmm-tree-calc-avx$(EXEEXT) \
 	wbfmm-tests-float$(EXEEXT) wbfmm-tree-calc-float$(EXEEXT) \
 	wbfmm-direct-calc$(EXEEXT) wbfmm-direct-calc-float$(EXEEXT) \
-	wbfmm-laplace-tests$(EXEEXT) \
+	wbfmm-laplace-tests$(EXEEXT) wbfmm-laplace-tests-avx$(EXEEXT) \
 	wbfmm-laplace-tests-float$(EXEEXT) \
 	wbfmm-laplace-tree-calc$(EXEEXT) \
+	wbfmm-laplace-tree-calc-avx$(EXEEXT) \
 	wbfmm-laplace-tree-calc-float$(EXEEXT) \
 	wbfmm-laplace-direct-calc$(EXEEXT) \
 	wbfmm-laplace-direct-calc-float$(EXEEXT)
@@ -145,6 +146,17 @@ wbfmm_laplace_tests_OBJECTS = wbfmm-laplace-tests.$(OBJEXT)
 wbfmm_laplace_tests_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+am_wbfmm_laplace_tests_avx_OBJECTS =  \
+	wbfmm_laplace_tests_avx-wbfmm-laplace-tests.$(OBJEXT)
+wbfmm_laplace_tests_avx_OBJECTS =  \
+	$(am_wbfmm_laplace_tests_avx_OBJECTS)
+wbfmm_laplace_tests_avx_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tests_avx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(wbfmm_laplace_tests_avx_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 wbfmm_laplace_tests_float_SOURCES = wbfmm-laplace-tests-float.c
 wbfmm_laplace_tests_float_OBJECTS =  \
 	wbfmm-laplace-tests-float.$(OBJEXT)
@@ -156,6 +168,17 @@ wbfmm_laplace_tree_calc_OBJECTS = wbfmm-laplace-tree-calc.$(OBJEXT)
 wbfmm_laplace_tree_calc_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
+am_wbfmm_laplace_tree_calc_avx_OBJECTS =  \
+	wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.$(OBJEXT)
+wbfmm_laplace_tree_calc_avx_OBJECTS =  \
+	$(am_wbfmm_laplace_tree_calc_avx_OBJECTS)
+wbfmm_laplace_tree_calc_avx_DEPENDENCIES =  \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+wbfmm_laplace_tree_calc_avx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(wbfmm_laplace_tree_calc_avx_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 wbfmm_laplace_tree_calc_float_SOURCES =  \
 	wbfmm-laplace-tree-calc-float.c
 wbfmm_laplace_tree_calc_float_OBJECTS =  \
@@ -235,16 +258,20 @@ am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
-	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
-	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
-	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
+	wbfmm-laplace-tests.c $(wbfmm_laplace_tests_avx_SOURCES) \
+	wbfmm-laplace-tests-float.c wbfmm-laplace-tree-calc.c \
+	$(wbfmm_laplace_tree_calc_avx_SOURCES) \
+	wbfmm-laplace-tree-calc-float.c wbfmm-tests.c \
+	$(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
 	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
 	wbfmm-tree-calc-float.c
 DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
-	wbfmm-laplace-tests.c wbfmm-laplace-tests-float.c \
-	wbfmm-laplace-tree-calc.c wbfmm-laplace-tree-calc-float.c \
-	wbfmm-tests.c $(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
+	wbfmm-laplace-tests.c $(wbfmm_laplace_tests_avx_SOURCES) \
+	wbfmm-laplace-tests-float.c wbfmm-laplace-tree-calc.c \
+	$(wbfmm_laplace_tree_calc_avx_SOURCES) \
+	wbfmm-laplace-tree-calc-float.c wbfmm-tests.c \
+	$(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
 	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
 	wbfmm-tree-calc-float.c
 am__can_run_installinfo = \
@@ -501,6 +528,12 @@ wbfmm_laplace_tests_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_laplace_tests_avx_SOURCES = wbfmm-laplace-tests.c
+wbfmm_laplace_tests_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tests_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 wbfmm_laplace_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
@@ -509,6 +542,12 @@ wbfmm_laplace_tree_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_laplace_tree_calc_avx_SOURCES = wbfmm-laplace-tree-calc.c
+wbfmm_laplace_tree_calc_avx_LDADD = \
+	$(top_builddir)/src/.libs/libwbfmm.a \
+	$(top_builddir)/src/.libs/libwbfmm-base.a
+
+wbfmm_laplace_tree_calc_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 wbfmm_laplace_tree_calc_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
@@ -625,6 +664,10 @@ wbfmm-laplace-tests$(EXEEXT): $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tes
 	@rm -f wbfmm-laplace-tests$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_OBJECTS) $(wbfmm_laplace_tests_LDADD) $(LIBS)
 
+wbfmm-laplace-tests-avx$(EXEEXT): $(wbfmm_laplace_tests_avx_OBJECTS) $(wbfmm_laplace_tests_avx_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_avx_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tests-avx$(EXEEXT)
+	$(AM_V_CCLD)$(wbfmm_laplace_tests_avx_LINK) $(wbfmm_laplace_tests_avx_OBJECTS) $(wbfmm_laplace_tests_avx_LDADD) $(LIBS)
+
 wbfmm-laplace-tests-float$(EXEEXT): $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tests_float_DEPENDENCIES) 
 	@rm -f wbfmm-laplace-tests-float$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm_laplace_tests_float_LDADD) $(LIBS)
@@ -632,6 +675,10 @@ wbfmm-laplace-tests-float$(EXEEXT): $(wbfmm_laplace_tests_float_OBJECTS) $(wbfmm
 wbfmm-laplace-tree-calc$(EXEEXT): $(wbfmm_laplace_tree_calc_OBJECTS) $(wbfmm_laplace_tree_calc_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tree_calc_DEPENDENCIES) 
 	@rm -f wbfmm-laplace-tree-calc$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(wbfmm_laplace_tree_calc_OBJECTS) $(wbfmm_laplace_tree_calc_LDADD) $(LIBS)
+
+wbfmm-laplace-tree-calc-avx$(EXEEXT): $(wbfmm_laplace_tree_calc_avx_OBJECTS) $(wbfmm_laplace_tree_calc_avx_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tree_calc_avx_DEPENDENCIES) 
+	@rm -f wbfmm-laplace-tree-calc-avx$(EXEEXT)
+	$(AM_V_CCLD)$(wbfmm_laplace_tree_calc_avx_LINK) $(wbfmm_laplace_tree_calc_avx_OBJECTS) $(wbfmm_laplace_tree_calc_avx_LDADD) $(LIBS)
 
 wbfmm-laplace-tree-calc-float$(EXEEXT): $(wbfmm_laplace_tree_calc_float_OBJECTS) $(wbfmm_laplace_tree_calc_float_DEPENDENCIES) $(EXTRA_wbfmm_laplace_tree_calc_float_DEPENDENCIES) 
 	@rm -f wbfmm-laplace-tree-calc-float$(EXEEXT)
@@ -679,6 +726,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm-tests.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm-tree-calc-float.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm-tree-calc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wbfmm_tree_calc_avx-wbfmm-tree-calc.Po@am__quote@
 
@@ -705,6 +754,34 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+wbfmm_laplace_tests_avx-wbfmm-laplace-tests.o: wbfmm-laplace-tests.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tests_avx_CFLAGS) $(CFLAGS) -MT wbfmm_laplace_tests_avx-wbfmm-laplace-tests.o -MD -MP -MF $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Tpo -c -o wbfmm_laplace_tests_avx-wbfmm-laplace-tests.o `test -f 'wbfmm-laplace-tests.c' || echo '$(srcdir)/'`wbfmm-laplace-tests.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Tpo $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='wbfmm-laplace-tests.c' object='wbfmm_laplace_tests_avx-wbfmm-laplace-tests.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tests_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_laplace_tests_avx-wbfmm-laplace-tests.o `test -f 'wbfmm-laplace-tests.c' || echo '$(srcdir)/'`wbfmm-laplace-tests.c
+
+wbfmm_laplace_tests_avx-wbfmm-laplace-tests.obj: wbfmm-laplace-tests.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tests_avx_CFLAGS) $(CFLAGS) -MT wbfmm_laplace_tests_avx-wbfmm-laplace-tests.obj -MD -MP -MF $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Tpo -c -o wbfmm_laplace_tests_avx-wbfmm-laplace-tests.obj `if test -f 'wbfmm-laplace-tests.c'; then $(CYGPATH_W) 'wbfmm-laplace-tests.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-laplace-tests.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Tpo $(DEPDIR)/wbfmm_laplace_tests_avx-wbfmm-laplace-tests.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='wbfmm-laplace-tests.c' object='wbfmm_laplace_tests_avx-wbfmm-laplace-tests.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tests_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_laplace_tests_avx-wbfmm-laplace-tests.obj `if test -f 'wbfmm-laplace-tests.c'; then $(CYGPATH_W) 'wbfmm-laplace-tests.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-laplace-tests.c'; fi`
+
+wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o: wbfmm-laplace-tree-calc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tree_calc_avx_CFLAGS) $(CFLAGS) -MT wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o -MD -MP -MF $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Tpo -c -o wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o `test -f 'wbfmm-laplace-tree-calc.c' || echo '$(srcdir)/'`wbfmm-laplace-tree-calc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Tpo $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='wbfmm-laplace-tree-calc.c' object='wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tree_calc_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o `test -f 'wbfmm-laplace-tree-calc.c' || echo '$(srcdir)/'`wbfmm-laplace-tree-calc.c
+
+wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.obj: wbfmm-laplace-tree-calc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tree_calc_avx_CFLAGS) $(CFLAGS) -MT wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.obj -MD -MP -MF $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Tpo -c -o wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.obj `if test -f 'wbfmm-laplace-tree-calc.c'; then $(CYGPATH_W) 'wbfmm-laplace-tree-calc.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-laplace-tree-calc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Tpo $(DEPDIR)/wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='wbfmm-laplace-tree-calc.c' object='wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_laplace_tree_calc_avx_CFLAGS) $(CFLAGS) -c -o wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.obj `if test -f 'wbfmm-laplace-tree-calc.c'; then $(CYGPATH_W) 'wbfmm-laplace-tree-calc.c'; else $(CYGPATH_W) '$(srcdir)/wbfmm-laplace-tree-calc.c'; fi`
 
 wbfmm_tests_avx-wbfmm-tests.o: wbfmm-tests.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wbfmm_tests_avx_CFLAGS) $(CFLAGS) -MT wbfmm_tests_avx-wbfmm-tests.o -MD -MP -MF $(DEPDIR)/wbfmm_tests_avx-wbfmm-tests.Tpo -c -o wbfmm_tests_avx-wbfmm-tests.o `test -f 'wbfmm-tests.c' || echo '$(srcdir)/'`wbfmm-tests.c
