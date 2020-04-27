@@ -340,7 +340,8 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
 gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
 						  wbfmm_shift_operators_t *op,
 						  guint level,
-						  WBFMM_REAL *work)
+						  WBFMM_REAL *work,
+						  gint nthreads)
 
 {
   guint nb, Ns, Nr, nerot, necx, ncs, ncr, Nc, Np ;
@@ -390,8 +391,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
   if ( level == t-> depth ) return 0 ;
 
   /*rotation operators for parent-child shifts*/
-  /* H03 = &(rotations[12*nerot]) ; */
-  /* H47 = &(rotations[36*nerot]) ; */
   H03 = &(rotations[36*nerot]) ;
   H47 = &(rotations[12*nerot]) ;
   Np = t->order_r[level  ] ;
@@ -412,6 +411,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
 
   return 0 ;
 }
+
 
 gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 					    wbfmm_shift_operators_t *op,

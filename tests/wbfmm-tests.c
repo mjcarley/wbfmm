@@ -2130,10 +2130,12 @@ gint main(gint argc, gchar **argv)
   gdouble x0[3] = {0.0}, x1[3] = {0.0}, x2[3] = {0.0} ;
   gdouble ix[3] = {0}, iy[3] = {0}, iz[3] = {0} ;
   gint ns, nq, qstr, sstr, fstr, N, i, j, nf, test, quad ;
-  gchar ch, *ipfile ;
+  gchar ch, *ipfile, *progname ;
   guint level ;
   gboolean echo_data ;
 
+  progname = g_strdup(g_path_get_basename(argv[0])) ;
+  
   echo_data = FALSE ;
   k = 2.0 ; N = 16 ; 
   qstr = 2 ; sstr = 3 ; 
@@ -2166,6 +2168,12 @@ gint main(gint argc, gchar **argv)
     }
   }
 
+#ifdef _OPENMP
+  fprintf(stderr, "%s: OpenMP compiled\n", progname) ;
+#else
+  fprintf(stderr, "%s: OpenMP compiled\n", progname) ;
+#endif
+  
   timer = g_timer_new() ;
 
   if ( ipfile != NULL ) {

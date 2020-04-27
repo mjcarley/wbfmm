@@ -500,7 +500,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
   fp[0] = 0.5*k*(q[0]*normal[0] - q[1]*normal[1]) ;
   fp[1] = 0.5*k*(q[1]*normal[0] + q[0]*normal[1]) ;
   fz[0] = k*q[0]*normal[2] ; fz[1] = k*q[1]*normal[2] ;
-    
+
+  /* fm[0] = -fm[0] ; fm[1] = -fm[1] ;  */
+  /* fp[0] = -fp[0] ; fp[1] = -fp[1] ;  */
+  /* fz[0] = -fz[0] ; fz[1] = -fz[1] ;  */
+  
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;

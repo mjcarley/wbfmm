@@ -14,6 +14,18 @@ function [x,q,n,f]=readpts(file)
 
     x = dat(:, 1:3) ;
     q = dat(:, 4:end) ;
+    n = f = 0 ;
+  endif
+
+  if ( strcmp(cstr, "MN") )
+    dat = fscanf(fid, "%f", ns*(6+2*nq)) ;
+    
+    dat = reshape(dat, 6+2*nq, ns)' ;
+
+    x = dat(:, 1:3) ;
+    q = dat(:, 4:4+nq-1) ;
+    n = dat(:, 4+nq:4+nq+2) ;
+    f = dat(:, 4+nq+3:end) ;
   endif
 
   if ( strcmp(cstr, "F") )

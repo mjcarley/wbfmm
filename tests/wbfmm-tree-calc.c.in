@@ -83,6 +83,31 @@ gint read_points(gchar *file,
     return 0 ;
   }
 
+  if ( strcmp(code, "MN") == 0) {
+    /*monopole and normals, order:  */
+    /* x y z q0 q1 ... qn nx ny nz f0 f1 ... fn  */
+    /*   */
+    /*   */
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + 3 + 2*(*nq) ;
+    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%FLOATFMT", &(s[(*xstr)*i+j])) ;
+    }
+
+    *q = &(s[3])         ; *qstr = *xstr ;
+    *n = &(s[3+(*nq)])   ; *nstr = *xstr ;
+    *f = &(s[6+(*nq)])   ; *fstr = *xstr ;
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+
   if ( strcmp(code, "F") == 0) {
     *xstr = 3 ;
     s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
@@ -118,9 +143,10 @@ gint main(gint argc, gchar **argv)
   WBFMM_REAL k, D, xtree[3] = {0.0}, xtmax[3], *xs ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, i, j, fstr, nf, xstr, qstr, nstr, dstr, fcstr, nq ;
+  gint nthreads ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
-  guint sizew ;
+  guint sizew, nproc ;
   guint64 b ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box, shift_bw ;
@@ -131,6 +157,7 @@ gint main(gint argc, gchar **argv)
   field = WBFMM_FIELD_SCALAR ;
   nq = 1 ;
   depth = 2 ;
+  nthreads = 0 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   /* order_s = 8 ; order_r = 8 ; */
   order_s = order_r = 0 ;
@@ -141,9 +168,13 @@ gint main(gint argc, gchar **argv)
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
+  nproc = 1 ;
 
-
-  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gk:O:R:s:S:t:w")) != EOF ) {
+#ifdef _OPENMP
+  nproc = g_get_num_processors() ;
+#endif
+  
+  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gk:O:R:S:s:T:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -166,6 +197,7 @@ gint main(gint argc, gchar **argv)
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
 	      "  -t # tolerance (%FLOATFMT)\n"
+	      "  -T # (number of threads)\n"
 	      "  -w write source data to stdout\n",
 	      progname, depth, D, k, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
@@ -188,6 +220,7 @@ gint main(gint argc, gchar **argv)
     case 'S': order_s = atoi(optarg) ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
     case 't': tol = atof(optarg) ; break ;
+    case 'T': nthreads = atoi(optarg) ; break ;
     case 'w': write_sources = TRUE ; break ;
     }
   }
@@ -255,7 +288,7 @@ gint main(gint argc, gchar **argv)
 
   sizew = wbfmm_element_number_rotation(2*order_max) ;
   sizew = MAX(sizew, 64*nq*(wbfmm_coefficient_index_nm(order_max+1,0))) ;
-  work = (WBFMM_REAL *)g_malloc0(sizew*sizeof(WBFMM_REAL)) ;
+  work = (WBFMM_REAL *)g_malloc0(nproc*sizew*sizeof(WBFMM_REAL)) ;
 
   x = wbfmm_tree_origin(tree) ;
   fprintf(stderr, "%s: box origin: %FLOATFMT %FLOATFMT %FLOATFMT\n",
@@ -338,7 +371,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_downward_pass_PREC(tree, shifts, level, work) ;
+    wbfmm_downward_pass_PREC(tree, shifts, level, work, nthreads) ;
   }
 
   fprintf(stderr, "%s: downward pass completed; %lg\n",

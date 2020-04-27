@@ -126,6 +126,8 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 
 	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
 	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+	  /* f[0] += k*(h1[0]*fR[0] - h1[1]*fR[1]) ; */
+	  /* f[1] += k*(h1[0]*fR[1] + h1[1]*fR[0]) ; */
 	}
       }
     }
@@ -156,6 +158,8 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
 	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
 
+	  /* f[0] += k*(h1[0]*fR[0] - h1[1]*fR[1]) ; */
+	  /* f[1] += k*(h1[0]*fR[1] + h1[1]*fR[0]) ; */
 	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
 	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
 	}

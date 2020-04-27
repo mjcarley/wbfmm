@@ -144,4 +144,12 @@ gdouble recursion_bnm(gint n, gint m) ;
 gfloat recursion_anm_f(gint n, gint m) ;
 gfloat recursion_bnm_f(gint n, gint m) ;
 
+#define WBFMM_DOWNWARD_PASS_DATA_SIZE  8
+#define WBFMM_DOWNWARD_PASS_LEVEL      0
+#define WBFMM_DOWNWARD_PASS_WORK       1
+#define WBFMM_DOWNWARD_PASS_NQ         2
+#define WBFMM_DOWNWARD_PASS_NTHREAD    3
+#define WBFMM_DOWNWARD_PASS_TREE       4
+#define WBFMM_DOWNWARD_PASS_OP         5
+
 #endif /*_WBFMM_PRIVATE_H_INCLUDED_*/

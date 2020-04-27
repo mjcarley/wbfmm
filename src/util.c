@@ -240,40 +240,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
     return 0 ;
   }
 
-  g_assert_not_reached() ; /*following code needs modification*/
-  
-  if ( src == NULL && dipoles != NULL ) {
-    for ( i = 0 ; i < nsrc ; i ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
-						  &r, &th, &ph) ;
-      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-
-      fd[0] = normals[i*nstr+0]*dipoles[i*dstr+0] ;
-      fd[1] = normals[i*nstr+0]*dipoles[i*dstr+1] ;
-      fd[2] = normals[i*nstr+1]*dipoles[i*dstr+0] ;
-      fd[3] = normals[i*nstr+1]*dipoles[i*dstr+1] ;
-      fd[4] = normals[i*nstr+2]*dipoles[i*dstr+0] ;
-      fd[5] = normals[i*nstr+2]*dipoles[i*dstr+1] ;
-
-      fR[0]  = fd[0]*(xf[0] - xs[i*xstride+0]) ;
-      fR[1]  = fd[1]*(xf[0] - xs[i*xstride+0]) ;
-      fR[0] += fd[2]*(xf[1] - xs[i*xstride+1]) ;
-      fR[1] += fd[3]*(xf[1] - xs[i*xstride+1]) ;
-      fR[0] += fd[4]*(xf[2] - xs[i*xstride+2]) ;
-      fR[1] += fd[5]*(xf[2] - xs[i*xstride+2]) ;
-      
-      fR[0] /= r ; fR[1] /= r ;
-      
-      field[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
-      field[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
-    }
-
-    /*G&D normalization of Legendre polynomials*/
-    field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
-
-    return 0 ;
-  }
-
+  g_assert(nq == 1) ;
   if ( src != NULL && normals != NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
       WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
@@ -308,6 +275,41 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k,
 
     return 0 ;
   }
+
+  g_assert_not_reached() ; /*following code needs modification*/
+  
+  if ( src == NULL && dipoles != NULL ) {
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+						  &r, &th, &ph) ;
+      WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+
+      fd[0] = normals[i*nstr+0]*dipoles[i*dstr+0] ;
+      fd[1] = normals[i*nstr+0]*dipoles[i*dstr+1] ;
+      fd[2] = normals[i*nstr+1]*dipoles[i*dstr+0] ;
+      fd[3] = normals[i*nstr+1]*dipoles[i*dstr+1] ;
+      fd[4] = normals[i*nstr+2]*dipoles[i*dstr+0] ;
+      fd[5] = normals[i*nstr+2]*dipoles[i*dstr+1] ;
+
+      fR[0]  = fd[0]*(xf[0] - xs[i*xstride+0]) ;
+      fR[1]  = fd[1]*(xf[0] - xs[i*xstride+0]) ;
+      fR[0] += fd[2]*(xf[1] - xs[i*xstride+1]) ;
+      fR[1] += fd[3]*(xf[1] - xs[i*xstride+1]) ;
+      fR[0] += fd[4]*(xf[2] - xs[i*xstride+2]) ;
+      fR[1] += fd[5]*(xf[2] - xs[i*xstride+2]) ;
+      
+      fR[0] /= r ; fR[1] /= r ;
+      
+      field[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
+      field[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+    }
+
+    /*G&D normalization of Legendre polynomials*/
+    field[0] /= 4.0*M_PI ; field[1] /= 4.0*M_PI ;
+
+    return 0 ;
+  }
+
   
   return 0 ;
 }
@@ -833,6 +835,12 @@ gint wbfmm_library_config(wbfmm_library_config_t *c)
 #else
   c->avx2 = FALSE ;
 #endif /*HAVE_AVX_INSTRUCTIONS*/
+
+#ifdef _OPENMP
+  c->openmp = TRUE ;
+#else
+  c->openmp = FALSE ;
+#endif /*_OPENMP*/
 
   return 0 ;
 }

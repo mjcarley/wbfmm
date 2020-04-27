@@ -317,33 +317,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  g_assert_not_reached() ; /*following code needs modification*/
-  
-  if ( src == NULL && normals != NULL ) {
-    /*dipoles only, specified as normals and strengths*/
-    for ( i = 0 ; i < nb ; i ++ ) {
-      im = (guint64)i ;
-      WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
-						   wbfmm_tree_origin(t), 
-						   wbfmm_tree_width(t), xb, 
-						   &wb) ;
-      xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ; 
-
-      for ( j = 0 ; j < boxes[i].n ; j ++ ) {
-	idx = t->ip[boxes[i].i+j] ;
-	xs = wbfmm_tree_point_index(t,idx) ;
-	fd = &(dipoles[idx*dstr]) ;
-	n  = &(normals[idx*nstr]) ;
-	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs,
-							   n, fd, nq,
-							   boxes[i].mps,
-							   8, work) ;
-      }
-    }
-
-    return 0 ;
-  }
-
   if ( src != NULL && normals != NULL ) {
     /*mixed sources, dipoles specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
@@ -368,6 +341,55 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 						    boxes[i].mps, 8, work) ;
       }
     }
+
+    return 0 ;
+  }
+
+  /* g_assert_not_reached() ; /\*following code needs modification*\/ */
+  
+  if ( src == NULL && normals != NULL ) {
+    /*dipoles only, specified as normals and strengths*/
+    for ( i = 0 ; i < nb ; i ++ ) {
+      im = (guint64)i ;
+      WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
+						   wbfmm_tree_origin(t), 
+						   wbfmm_tree_width(t), xb, 
+						   &wb) ;
+      xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ; 
+
+      for ( j = 0 ; j < boxes[i].n ; j ++ ) {
+	idx = t->ip[boxes[i].i+j] ;
+	xs = wbfmm_tree_point_index(t,idx) ;
+	/* q = &(src[idx*sstr]) ; */
+	fd = &(dipoles[idx*dstr]) ;
+	n  = &(normals[idx*nstr]) ;
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs,
+							   n, fd, nq,
+							   boxes[i].mps, 8,
+							   work) ;
+	/* WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q, nq, */
+	/* 					    boxes[i].mps, 8, work) ; */
+      }
+    }
+    /* for ( i = 0 ; i < nb ; i ++ ) { */
+    /*   im = (guint64)i ; */
+    /*   WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d,  */
+    /* 						   wbfmm_tree_origin(t),  */
+    /* 						   wbfmm_tree_width(t), xb,  */
+    /* 						   &wb) ; */
+    /*   xb[0] += 0.5*wb ; xb[1] += 0.5*wb ; xb[2] += 0.5*wb ;  */
+
+    /*   for ( j = 0 ; j < boxes[i].n ; j ++ ) { */
+    /* 	idx = t->ip[boxes[i].i+j] ; */
+    /* 	xs = wbfmm_tree_point_index(t,idx) ; */
+    /* 	fd = &(dipoles[idx*dstr]) ; */
+    /* 	n  = &(normals[idx*nstr]) ; */
+    /* 	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs, */
+    /* 							   n, fd, nq, */
+    /* 							   boxes[i].mps, */
+    /* 							   8, work) ; */
+    /*   } */
+    /* } */
 
     return 0 ;
   }
