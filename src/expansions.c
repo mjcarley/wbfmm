@@ -617,6 +617,67 @@ static gint _wbfmm_local_coefficients_scalar(WBFMM_REAL kr,
   return 0 ;
 }
 
+static gint coefficients_j_grad_increment(gint n, gint m,
+					  WBFMM_REAL jn,
+					  WBFMM_REAL *Pn,
+					  WBFMM_REAL Cmph, WBFMM_REAL Smph,
+					  WBFMM_REAL *cfft)
+
+{
+  gint idx ;
+
+  idx = wbfmm_conjugate_index_nm(n,m) ;
+  cfft[2*idx+0] = Cmph*jn*Pn[m] ; cfft[2*idx+1] = Smph*jn*Pn[m] ;
+  
+  return 0 ;
+}
+
+static gint _wbfmm_local_coefficients_gradient(WBFMM_REAL kr,
+					       WBFMM_REAL *cfft,
+					       gint N,
+					       WBFMM_REAL Cth,
+					       WBFMM_REAL Sth,
+					       WBFMM_REAL Cph,
+					       WBFMM_REAL Sph,
+					       WBFMM_REAL *work)
+
+{
+  WBFMM_REAL jn, jnm1 ;
+  WBFMM_REAL *Pn, *Pnm1, Cmph[64], Smph[64] ;
+  gint n, m ;
+
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = Cph ; Smph[1] = Sph ;
+
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  coefficients_j_grad_increment(n, m, jnm1, Pnm1, Cmph[m], Smph[m], cfft) ;
+
+  n = 1 ;  
+  for ( m = 0 ; m <= n ; m ++ ) 
+    coefficients_j_grad_increment(n, m, jn, Pn, Cmph[m], Smph[m], cfft) ;
+
+  for ( n = 2 ; n <= N ; n ++ ) {
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
+    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
+    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+
+    for ( m = 0 ; m <= n ; m ++ ) 
+      coefficients_j_grad_increment(n, m, jn, Pn, Cmph[m], Smph[m], cfft) ;
+  }
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
 						   WBFMM_REAL *x,
 						   gint N,
@@ -640,10 +701,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
     return _wbfmm_local_coefficients_scalar(k*r, cfft, N, Cth, Sth,
 					    Cph, Sph, work) ;
     break ;
-  /* case WBFMM_FIELD_GRADIENT: */
-  /*   return _wbfmm_laplace_local_coefficients_gradient(cfft, N, r, Cth, Sth, */
-  /* 						      Cph, Sph, work) ; */
-  /*   break ; */
+  case WBFMM_FIELD_GRADIENT:
+    return _wbfmm_local_coefficients_gradient(k*r, cfft, N, Cth, Sth,
+					      Cph, Sph, work) ;
+    break ;
   }
 
   return 0 ;

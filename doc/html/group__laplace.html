@@ -57,9 +57,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad1ae28a297f0d11f67c982d1527025b0"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gad1ae28a297f0d11f67c982d1527025b0">wbfmm_expansion_laplace_grad_evaluate</a> (gdouble *x0, gdouble *cfft, gint cstr, gint N, gint nq, gdouble *xf, gdouble *field, gint fstr, gdouble *work)</td></tr>
 <tr class="memdesc:gad1ae28a297f0d11f67c982d1527025b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion for Laplace problem.  <a href="#gad1ae28a297f0d11f67c982d1527025b0">More...</a><br /></td></tr>
 <tr class="separator:gad1ae28a297f0d11f67c982d1527025b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga52d2376289622a76d27f1b7a256bbe04"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga52d2376289622a76d27f1b7a256bbe04">wbfmm_laplace_coaxial_translate_SS</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t)</td></tr>
-<tr class="memdesc:ga52d2376289622a76d27f1b7a256bbe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to singular translation for Laplace expansion.  <a href="#ga52d2376289622a76d27f1b7a256bbe04">More...</a><br /></td></tr>
-<tr class="separator:ga52d2376289622a76d27f1b7a256bbe04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacae20253eb3e163e92588d2c079d6a1a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gacae20253eb3e163e92588d2c079d6a1a">wbfmm_laplace_coaxial_translate_SS</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)</td></tr>
+<tr class="memdesc:gacae20253eb3e163e92588d2c079d6a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to singular translation for Laplace expansion.  <a href="#gacae20253eb3e163e92588d2c079d6a1a">More...</a><br /></td></tr>
+<tr class="separator:gacae20253eb3e163e92588d2c079d6a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa50dfe14f132dad7b782a84e36b9941"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gafa50dfe14f132dad7b782a84e36b9941">wbfmm_laplace_child_parent_shift</a> (gdouble *Cp, gint Np, gdouble *Cc, gint Nc, gint nq, gdouble *H03, gdouble *H47, gint Lh, gdouble wb, gdouble *work)</td></tr>
 <tr class="memdesc:gafa50dfe14f132dad7b782a84e36b9941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upward shift of singular expansion from eight children to common parent in Laplace problem.  <a href="#gafa50dfe14f132dad7b782a84e36b9941">More...</a><br /></td></tr>
 <tr class="separator:gafa50dfe14f132dad7b782a84e36b9941"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -70,13 +70,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:gac07f9988f8c38883e04573ab0b0b14c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downward shift of regular expansion from parent to eight children in Laplace problem.  <a href="#gac07f9988f8c38883e04573ab0b0b14c6">More...</a><br /></td></tr>
 <tr class="separator:gac07f9988f8c38883e04573ab0b0b14c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4e3a8a88f6a33bc6a0f3108607096db3"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga4e3a8a88f6a33bc6a0f3108607096db3">wbfmm_laplace_field_coefficients</a> (gdouble *x, gint N, gboolean grad, gdouble *cfft, gdouble *work)</td></tr>
-<tr class="memdesc:ga4e3a8a88f6a33bc6a0f3108607096db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga47ba7d434ef139feaa106258f7fe93b2" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...)  <a href="#ga4e3a8a88f6a33bc6a0f3108607096db3">More...</a><br /></td></tr>
+<tr class="memdesc:ga4e3a8a88f6a33bc6a0f3108607096db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga29d7788bc8870b15a52ff5516cfcaabc" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...)  <a href="#ga4e3a8a88f6a33bc6a0f3108607096db3">More...</a><br /></td></tr>
 <tr class="separator:ga4e3a8a88f6a33bc6a0f3108607096db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga47ba7d434ef139feaa106258f7fe93b2"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga47ba7d434ef139feaa106258f7fe93b2">wbfmm_laplace_expansion_apply</a> (gdouble *C, gint cstr, gint nq, gdouble *ec, gint N, guint field, gdouble *f)</td></tr>
-<tr class="memdesc:ga47ba7d434ef139feaa106258f7fe93b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm_laplace_field_coefficients) or wbfmm_laplace_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga47ba7d434ef139feaa106258f7fe93b2">More...</a><br /></td></tr>
-<tr class="separator:ga47ba7d434ef139feaa106258f7fe93b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga29d7788bc8870b15a52ff5516cfcaabc"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga29d7788bc8870b15a52ff5516cfcaabc">wbfmm_laplace_expansion_apply</a> (gdouble *C, gint cstr, gint nq, gdouble *ec, gint N, guint field, gdouble *f, gint fstr)</td></tr>
+<tr class="memdesc:ga29d7788bc8870b15a52ff5516cfcaabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm_laplace_field_coefficients) or wbfmm_laplace_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga29d7788bc8870b15a52ff5516cfcaabc">More...</a><br /></td></tr>
+<tr class="separator:ga29d7788bc8870b15a52ff5516cfcaabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00021e1ca6a8290ffc59675616d9cd28"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga00021e1ca6a8290ffc59675616d9cd28">wbfmm_laplace_local_coefficients</a> (gdouble *x, gint N, guint field, gdouble *cfft, gdouble *work)</td></tr>
-<tr class="memdesc:ga00021e1ca6a8290ffc59675616d9cd28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga47ba7d434ef139feaa106258f7fe93b2" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...)  <a href="#ga00021e1ca6a8290ffc59675616d9cd28">More...</a><br /></td></tr>
+<tr class="memdesc:ga00021e1ca6a8290ffc59675616d9cd28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga29d7788bc8870b15a52ff5516cfcaabc" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...)  <a href="#ga00021e1ca6a8290ffc59675616d9cd28">More...</a><br /></td></tr>
 <tr class="separator:ga00021e1ca6a8290ffc59675616d9cd28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga75282ffd6a87a40327921313a1176005"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga75282ffd6a87a40327921313a1176005">wbfmm_box_fields_laplace</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, gint level, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
 <tr class="memdesc:ga75282ffd6a87a40327921313a1176005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the Laplace field generated by all boxes on a given level of an octree.  <a href="#ga75282ffd6a87a40327921313a1176005">More...</a><br /></td></tr>
@@ -84,12 +84,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gac1cfbada4d0b8d90785b1da942651247"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gac1cfbada4d0b8d90785b1da942651247">wbfmm_laplace_coaxial_translate_init</a> (gint N)</td></tr>
 <tr class="memdesc:gac1cfbada4d0b8d90785b1da942651247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize lookup tables of Laplace translation coefficients.  <a href="#gac1cfbada4d0b8d90785b1da942651247">More...</a><br /></td></tr>
 <tr class="separator:gac1cfbada4d0b8d90785b1da942651247"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd8b385b16c529d7d1b75bcbd7772970"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gadd8b385b16c529d7d1b75bcbd7772970">wbfmm_laplace_coaxial_translate_SR</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t)</td></tr>
-<tr class="memdesc:gadd8b385b16c529d7d1b75bcbd7772970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to regular translation for Laplace expansion.  <a href="#gadd8b385b16c529d7d1b75bcbd7772970">More...</a><br /></td></tr>
-<tr class="separator:gadd8b385b16c529d7d1b75bcbd7772970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ce61bf3dc3492e673b452807211df2d"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga7ce61bf3dc3492e673b452807211df2d">wbfmm_laplace_coaxial_translate_RR</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t)</td></tr>
-<tr class="memdesc:ga7ce61bf3dc3492e673b452807211df2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regular to regular translation for Laplace expansion.  <a href="#ga7ce61bf3dc3492e673b452807211df2d">More...</a><br /></td></tr>
-<tr class="separator:ga7ce61bf3dc3492e673b452807211df2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed7a931ec70ba48d90e8a4349b0ff883"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaed7a931ec70ba48d90e8a4349b0ff883">wbfmm_laplace_coaxial_translate_SR</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)</td></tr>
+<tr class="memdesc:gaed7a931ec70ba48d90e8a4349b0ff883"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to regular translation for Laplace expansion.  <a href="#gaed7a931ec70ba48d90e8a4349b0ff883">More...</a><br /></td></tr>
+<tr class="separator:gaed7a931ec70ba48d90e8a4349b0ff883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27f781ed56f43a04c99b6aeec78936db"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga27f781ed56f43a04c99b6aeec78936db">wbfmm_laplace_coaxial_translate_RR</a> (gdouble *Co, gint cstro, gint No, gdouble *Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)</td></tr>
+<tr class="memdesc:ga27f781ed56f43a04c99b6aeec78936db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regular to regular translation for Laplace expansion.  <a href="#ga27f781ed56f43a04c99b6aeec78936db">More...</a><br /></td></tr>
+<tr class="separator:ga27f781ed56f43a04c99b6aeec78936db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7dcb4f7534309b9e6c43f8da584b4cba"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga7dcb4f7534309b9e6c43f8da584b4cba">wbfmm_laplace_field_grad</a> (gdouble *xs, gint xstride, gdouble *src, gint sstride, gint nq, gdouble *normals, gint nstr, gdouble *dipoles, gint dstr, gint nsrc, gdouble *xf, gdouble *field)</td></tr>
 <tr class="memdesc:ga7dcb4f7534309b9e6c43f8da584b4cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the Laplace field from a list of sources.  <a href="#ga7dcb4f7534309b9e6c43f8da584b4cba">More...</a><br /></td></tr>
 <tr class="separator:ga7dcb4f7534309b9e6c43f8da584b4cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,6 +97,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga12ac2edf679dfd52e1108f2f74ce505e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the gradient of a Laplace field from a list of sources.  <a href="#ga12ac2edf679dfd52e1108f2f74ce505e">More...</a><br /></td></tr>
 <tr class="separator:ga12ac2edf679dfd52e1108f2f74ce505e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9fe069b51c26672209dc655720654dff"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga9fe069b51c26672209dc655720654dff">wbfmm_laplace_expansion_local_evaluate</a> (gdouble *x0, gdouble *cfft, gint cstr, gint N, gint nq, gdouble *xf, gdouble *field, gdouble *work)</td></tr>
+<tr class="memdesc:ga9fe069b51c26672209dc655720654dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local Laplace expansion.  <a href="#ga9fe069b51c26672209dc655720654dff">More...</a><br /></td></tr>
 <tr class="separator:ga9fe069b51c26672209dc655720654dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c392ff4970f33bcd23d97148fdd84d7"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga3c392ff4970f33bcd23d97148fdd84d7">wbfmm_expansion_apply</a> (gdouble *C, gint cstr, gint nq, gdouble *ec, gint N, guint field, gdouble *f, gint fstr)</td></tr>
 <tr class="memdesc:ga3c392ff4970f33bcd23d97148fdd84d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm_field_coefficients) or wbfmm_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga3c392ff4970f33bcd23d97148fdd84d7">More...</a><br /></td></tr>
@@ -110,9 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3362baa745378c6b3ba4a69e3ccae457"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga3362baa745378c6b3ba4a69e3ccae457">wbfmm_expansion_laplace_grad_evaluate_f</a> (gfloat *x0, gfloat *cfft, gint cstr, gint N, gint nq, gfloat *xf, gfloat *field, gint fstr, gfloat *work)</td></tr>
 <tr class="memdesc:ga3362baa745378c6b3ba4a69e3ccae457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the gradient of a singular expansion for Laplace problem.  <a href="#ga3362baa745378c6b3ba4a69e3ccae457">More...</a><br /></td></tr>
 <tr class="separator:ga3362baa745378c6b3ba4a69e3ccae457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga21ef39eb485787ef866250ad006e92a3"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga21ef39eb485787ef866250ad006e92a3">wbfmm_laplace_coaxial_translate_SS_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t)</td></tr>
-<tr class="memdesc:ga21ef39eb485787ef866250ad006e92a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to singular translation for Laplace expansion.  <a href="#ga21ef39eb485787ef866250ad006e92a3">More...</a><br /></td></tr>
-<tr class="separator:ga21ef39eb485787ef866250ad006e92a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadabc5db9f2fae1d8962c58cea3556d77"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gadabc5db9f2fae1d8962c58cea3556d77">wbfmm_laplace_coaxial_translate_SS_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)</td></tr>
+<tr class="memdesc:gadabc5db9f2fae1d8962c58cea3556d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to singular translation for Laplace expansion.  <a href="#gadabc5db9f2fae1d8962c58cea3556d77">More...</a><br /></td></tr>
+<tr class="separator:gadabc5db9f2fae1d8962c58cea3556d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6114fc2de88f6c70a4f0e139c0e23e3d"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga6114fc2de88f6c70a4f0e139c0e23e3d">wbfmm_laplace_child_parent_shift_f</a> (gfloat *Cp, gint Np, gfloat *Cc, gint Nc, gint nq, gfloat *H03, gfloat *H47, gint Lh, gfloat wb, gfloat *work)</td></tr>
 <tr class="memdesc:ga6114fc2de88f6c70a4f0e139c0e23e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upward shift of singular expansion from eight children to common parent in Laplace problem.  <a href="#ga6114fc2de88f6c70a4f0e139c0e23e3d">More...</a><br /></td></tr>
 <tr class="separator:ga6114fc2de88f6c70a4f0e139c0e23e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,13 +124,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga903292e6494bb58e6eff57190a82fea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downward shift of regular expansion from parent to eight children in Laplace problem.  <a href="#ga903292e6494bb58e6eff57190a82fea5">More...</a><br /></td></tr>
 <tr class="separator:ga903292e6494bb58e6eff57190a82fea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga674cd0b67307ccf24d487bdf401d2d29"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga674cd0b67307ccf24d487bdf401d2d29">wbfmm_laplace_field_coefficients_f</a> (gfloat *x, gint N, gboolean grad, gfloat *cfft, gfloat *work)</td></tr>
-<tr class="memdesc:ga674cd0b67307ccf24d487bdf401d2d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7b393004c17cf291b6cc5adc6acc974b" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...)  <a href="#ga674cd0b67307ccf24d487bdf401d2d29">More...</a><br /></td></tr>
+<tr class="memdesc:ga674cd0b67307ccf24d487bdf401d2d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga6b9f7e5a6f34ec76b25669f2fa085888" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...)  <a href="#ga674cd0b67307ccf24d487bdf401d2d29">More...</a><br /></td></tr>
 <tr class="separator:ga674cd0b67307ccf24d487bdf401d2d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7b393004c17cf291b6cc5adc6acc974b"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga7b393004c17cf291b6cc5adc6acc974b">wbfmm_laplace_expansion_apply_f</a> (gfloat *C, gint cstr, gint nq, gfloat *ec, gint N, guint field, gfloat *f)</td></tr>
-<tr class="memdesc:ga7b393004c17cf291b6cc5adc6acc974b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm_laplace_field_coefficients) or wbfmm_laplace_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga7b393004c17cf291b6cc5adc6acc974b">More...</a><br /></td></tr>
-<tr class="separator:ga7b393004c17cf291b6cc5adc6acc974b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b9f7e5a6f34ec76b25669f2fa085888"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga6b9f7e5a6f34ec76b25669f2fa085888">wbfmm_laplace_expansion_apply_f</a> (gfloat *C, gint cstr, gint nq, gfloat *ec, gint N, guint field, gfloat *f, gint fstr)</td></tr>
+<tr class="memdesc:ga6b9f7e5a6f34ec76b25669f2fa085888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm_laplace_field_coefficients) or wbfmm_laplace_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga6b9f7e5a6f34ec76b25669f2fa085888">More...</a><br /></td></tr>
+<tr class="separator:ga6b9f7e5a6f34ec76b25669f2fa085888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga535b778c68860f194cdd45a7af43f16c"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga535b778c68860f194cdd45a7af43f16c">wbfmm_laplace_local_coefficients_f</a> (gfloat *x, gint N, guint field, gfloat *cfft, gfloat *work)</td></tr>
-<tr class="memdesc:ga535b778c68860f194cdd45a7af43f16c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7b393004c17cf291b6cc5adc6acc974b" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...)  <a href="#ga535b778c68860f194cdd45a7af43f16c">More...</a><br /></td></tr>
+<tr class="memdesc:ga535b778c68860f194cdd45a7af43f16c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga6b9f7e5a6f34ec76b25669f2fa085888" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...)  <a href="#ga535b778c68860f194cdd45a7af43f16c">More...</a><br /></td></tr>
 <tr class="separator:ga535b778c68860f194cdd45a7af43f16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36eb39f5b39cfdf390c83ad8dfed3dbd"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga36eb39f5b39cfdf390c83ad8dfed3dbd">wbfmm_box_fields_laplace_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, gint level, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
 <tr class="memdesc:ga36eb39f5b39cfdf390c83ad8dfed3dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the Laplace field generated by all boxes on a given level of an octree.  <a href="#ga36eb39f5b39cfdf390c83ad8dfed3dbd">More...</a><br /></td></tr>
@@ -137,12 +138,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaae8d33577f2f26b056d0048dbf131235"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaae8d33577f2f26b056d0048dbf131235">wbfmm_laplace_coaxial_translate_init_f</a> (gint N)</td></tr>
 <tr class="memdesc:gaae8d33577f2f26b056d0048dbf131235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize lookup tables of Laplace translation coefficients.  <a href="#gaae8d33577f2f26b056d0048dbf131235">More...</a><br /></td></tr>
 <tr class="separator:gaae8d33577f2f26b056d0048dbf131235"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4249973f25161e326425fdaaa071fdf5"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga4249973f25161e326425fdaaa071fdf5">wbfmm_laplace_coaxial_translate_SR_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t)</td></tr>
-<tr class="memdesc:ga4249973f25161e326425fdaaa071fdf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to regular translation for Laplace expansion.  <a href="#ga4249973f25161e326425fdaaa071fdf5">More...</a><br /></td></tr>
-<tr class="separator:ga4249973f25161e326425fdaaa071fdf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3da05f7df0c972a42b5dbc06424ee1a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaa3da05f7df0c972a42b5dbc06424ee1a">wbfmm_laplace_coaxial_translate_RR_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t)</td></tr>
-<tr class="memdesc:gaa3da05f7df0c972a42b5dbc06424ee1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regular to regular translation for Laplace expansion.  <a href="#gaa3da05f7df0c972a42b5dbc06424ee1a">More...</a><br /></td></tr>
-<tr class="separator:gaa3da05f7df0c972a42b5dbc06424ee1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf91169c2c8280f0a0a0e80892917f36a"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaf91169c2c8280f0a0a0e80892917f36a">wbfmm_laplace_coaxial_translate_SR_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)</td></tr>
+<tr class="memdesc:gaf91169c2c8280f0a0a0e80892917f36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singular to regular translation for Laplace expansion.  <a href="#gaf91169c2c8280f0a0a0e80892917f36a">More...</a><br /></td></tr>
+<tr class="separator:gaf91169c2c8280f0a0a0e80892917f36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa43ec602724f96c481e932915e991107"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaa43ec602724f96c481e932915e991107">wbfmm_laplace_coaxial_translate_RR_f</a> (gfloat *Co, gint cstro, gint No, gfloat *Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)</td></tr>
+<tr class="memdesc:gaa43ec602724f96c481e932915e991107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regular to regular translation for Laplace expansion.  <a href="#gaa43ec602724f96c481e932915e991107">More...</a><br /></td></tr>
+<tr class="separator:gaa43ec602724f96c481e932915e991107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1dd379d7e96367550b933a5d7a7f138"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gaa1dd379d7e96367550b933a5d7a7f138">wbfmm_laplace_field_grad_f</a> (gfloat *xs, gint xstride, gfloat *src, gint sstride, gint nq, gfloat *normals, gint nstr, gfloat *dipoles, gint dstr, gint nsrc, gfloat *xf, gfloat *field)</td></tr>
 <tr class="memdesc:gaa1dd379d7e96367550b933a5d7a7f138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the Laplace field from a list of sources.  <a href="#gaa1dd379d7e96367550b933a5d7a7f138">More...</a><br /></td></tr>
 <tr class="separator:gaa1dd379d7e96367550b933a5d7a7f138"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,6 +151,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga4c1182e5aac03f9fbaf2a1dabb29a957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct evaluation of the gradient of a Laplace field from a list of sources.  <a href="#ga4c1182e5aac03f9fbaf2a1dabb29a957">More...</a><br /></td></tr>
 <tr class="separator:ga4c1182e5aac03f9fbaf2a1dabb29a957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadd9581c4f0aa942e6772846508eefbe4"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gadd9581c4f0aa942e6772846508eefbe4">wbfmm_laplace_expansion_local_evaluate_f</a> (gfloat *x0, gfloat *cfft, gint cstr, gint N, gint nq, gfloat *xf, gfloat *field, gfloat *work)</td></tr>
+<tr class="memdesc:gadd9581c4f0aa942e6772846508eefbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate local Laplace expansion.  <a href="#gadd9581c4f0aa942e6772846508eefbe4">More...</a><br /></td></tr>
 <tr class="separator:gadd9581c4f0aa942e6772846508eefbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c6b9fd356d7f13163d997f90e30f28c"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga7c6b9fd356d7f13163d997f90e30f28c">wbfmm_expansion_apply_f</a> (gfloat *C, gint cstr, gint nq, gfloat *ec, gint N, guint field, gfloat *f, gint fstr)</td></tr>
 <tr class="memdesc:ga7c6b9fd356d7f13163d997f90e30f28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm_field_coefficients) or wbfmm_local_coefficients) for the field (singular) or local (regular) expansions respectively.  <a href="#ga7c6b9fd356d7f13163d997f90e30f28c">More...</a><br /></td></tr>
@@ -1164,7 +1166,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga7ce61bf3dc3492e673b452807211df2d"></a>
+<a class="anchor" id="ga27f781ed56f43a04c99b6aeec78936db"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1214,7 +1216,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gdouble&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1235,7 +1243,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1243,7 +1252,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gaa3da05f7df0c972a42b5dbc06424ee1a"></a>
+<a class="anchor" id="gaa43ec602724f96c481e932915e991107"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1293,7 +1302,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gfloat&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1314,7 +1329,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1322,7 +1338,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gadd8b385b16c529d7d1b75bcbd7772970"></a>
+<a class="anchor" id="gaed7a931ec70ba48d90e8a4349b0ff883"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1372,7 +1388,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gdouble&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1393,7 +1415,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1401,7 +1424,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga4249973f25161e326425fdaaa071fdf5"></a>
+<a class="anchor" id="gaf91169c2c8280f0a0a0e80892917f36a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1451,7 +1474,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gfloat&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1472,7 +1501,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1480,7 +1510,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga52d2376289622a76d27f1b7a256bbe04"></a>
+<a class="anchor" id="gacae20253eb3e163e92588d2c079d6a1a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1530,7 +1560,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gdouble&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1551,7 +1587,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1559,7 +1596,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga21ef39eb485787ef866250ad006e92a3"></a>
+<a class="anchor" id="gadabc5db9f2fae1d8962c58cea3556d77"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1609,7 +1646,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gfloat&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat&#160;</td>
+          <td class="paramname"><em>sc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1630,7 +1673,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">Ni</td><td>order of expansion in <em>Ci</em>; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms in expansion; </td></tr>
-    <tr><td class="paramname">t</td><td>distance to translate expansion.</td></tr>
+    <tr><td class="paramname">t</td><td>distance to translate expansion; </td></tr>
+    <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1638,7 +1682,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga47ba7d434ef139feaa106258f7fe93b2"></a>
+<a class="anchor" id="ga29d7788bc8870b15a52ff5516cfcaabc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1682,7 +1726,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gdouble *&#160;</td>
-          <td class="paramname"><em>f</em>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1710,7 +1760,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga7b393004c17cf291b6cc5adc6acc974b"></a>
+<a class="anchor" id="ga6b9f7e5a6f34ec76b25669f2fa085888"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1754,7 +1804,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">gfloat *&#160;</td>
-          <td class="paramname"><em>f</em>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1997,12 +2053,22 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluate local Laplace expansion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">x0</td><td>centre of expansion; </td></tr>
+    <tr><td class="paramname">cfft</td><td>local expansion coefficients; </td></tr>
+    <tr><td class="paramname">cstr</td><td>stride in <em>cfft</em>; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">nq</td><td>number of source components; </td></tr>
+    <tr><td class="paramname">xf</td><td>field point; </td></tr>
+    <tr><td class="paramname">field</td><td>field value; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
 
 </div>
 </div>
@@ -2065,12 +2131,22 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluate local Laplace expansion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">x0</td><td>centre of expansion; </td></tr>
+    <tr><td class="paramname">cfft</td><td>local expansion coefficients; </td></tr>
+    <tr><td class="paramname">cstr</td><td>stride in <em>cfft</em>; </td></tr>
+    <tr><td class="paramname">N</td><td>order of expansion; </td></tr>
+    <tr><td class="paramname">nq</td><td>number of source components; </td></tr>
+    <tr><td class="paramname">xf</td><td>field point; </td></tr>
+    <tr><td class="paramname">field</td><td>field value; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success </dd></dl>
 
 </div>
 </div>
@@ -2223,7 +2299,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga47ba7d434ef139feaa106258f7fe93b2" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...) </p>
+<p>Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga29d7788bc8870b15a52ff5516cfcaabc" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
@@ -2280,7 +2356,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7b393004c17cf291b6cc5adc6acc974b" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...) </p>
+<p>Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga6b9f7e5a6f34ec76b25669f2fa085888" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
@@ -2656,7 +2732,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga47ba7d434ef139feaa106258f7fe93b2" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...) </p>
+<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga29d7788bc8870b15a52ff5516cfcaabc" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply</a>(...) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
@@ -2713,7 +2789,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga7b393004c17cf291b6cc5adc6acc974b" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...) </p>
+<p>Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using <a class="el" href="group__laplace.html#ga6b9f7e5a6f34ec76b25669f2fa085888" title="Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential...">wbfmm_laplace_expansion_apply_f</a>(...) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>location of evaluation point relative to centre of expansion; </td></tr>
@@ -2917,7 +2993,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 7 2020 18:20:13 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 28 2020 10:02:25 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

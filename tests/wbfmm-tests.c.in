@@ -849,13 +849,17 @@ gint local_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 {
   WBFMM_REAL Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   WBFMM_REAL kr, work[BUFSIZE], xr[3], xt[3] ;
+  WBFMM_REAL eval[BUFSIZE] = {0.0} ;  
   WBFMM_REAL fl[32]={0.0}, fe[32]={0.0}, fc[32]={0.0} ;
   gint i, Ni, No, cstri, cstro ;
   gdouble t0 ;
+  guint field ;
 
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  field = WBFMM_FIELD_GRADIENT ;
 
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 
@@ -897,46 +901,62 @@ gint local_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*compute field in both frames*/
-    wbfmm_total_field_grad_PREC(k, xs, sstr, q, qstr,
-				NULL, 0, NULL, 0,
-				nq, ns, xr, fc, 6) ;
+  wbfmm_total_field_grad_PREC(k, xs, sstr, q, qstr,
+			      NULL, 0, NULL, 0,
+			      nq, ns, xr, fc, 6) ;
+  
+  fprintf(stdout, "direct:      %FLOATFMT+j*%FLOATFMT "
+	  "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
+	  fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
+  
+  wbfmm_expansion_h_grad_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, fe,
+				       fstr, work) ;
+  
+  fprintf(stdout, "h expansion: %FLOATFMT+j*%FLOATFMT "
+	  "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
+	  fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
 
-    fprintf(stdout, "direct:      %FLOATFMT+j*%FLOATFMT "
-	    "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
-	    fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
+  fprintf(stdout, "             %FLOATFMT %FLOATFMT %FLOATFMT\n",
+	  sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+	       (fe[1]-fc[1])*(fe[1]-fc[1])),
+	  sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
+	       (fe[3]-fc[3])*(fe[3]-fc[3])),
+	  sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
+	       (fe[5]-fc[5])*(fe[5]-fc[5]))
+	  ) ;
+  
+  wbfmm_expansion_j_grad_evaluate_PREC(k, xt, Co, cstro, No, nq, xr,
+				       fl, fstr, work) ;
+  
+  fprintf(stdout, "j expansion: %FLOATFMT+j*%FLOATFMT "
+	  "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
+	  fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]) ;
+  
+  fprintf(stdout, "             %FLOATFMT %FLOATFMT %FLOATFMT\n",
+	  sqrt((fl[0]-fc[0])*(fl[0]-fc[0]) +
+	       (fl[1]-fc[1])*(fl[1]-fc[1])),
+	  sqrt((fl[2]-fc[2])*(fl[2]-fc[2]) +
+	       (fl[3]-fc[3])*(fl[3]-fc[3])),
+	  sqrt((fl[4]-fc[4])*(fl[4]-fc[4]) +
+	       (fl[5]-fc[5])*(fl[5]-fc[5]))) ;
 
-    wbfmm_expansion_h_grad_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, fe,
-					 fstr, work) ;
+  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+  wbfmm_local_coefficients_PREC(k, xr, N, field, eval, work) ;
+  wbfmm_expansion_apply_PREC(Co, cstro, nq, eval, No, field, fe, fstr) ;
 
-    fprintf(stdout, "h expansion: %FLOATFMT+j*%FLOATFMT "
-	    "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
-	    fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
+  fprintf(stdout, "pre-computed: %FLOATFMT+j*%FLOATFMT "
+	  "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
+	  fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
 
-    fprintf(stdout, "             %FLOATFMT %FLOATFMT %FLOATFMT\n",
-  	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
-  		 (fe[1]-fc[1])*(fe[1]-fc[1])),
-  	    sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
-  		 (fe[3]-fc[3])*(fe[3]-fc[3])),
-  	    sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
-  		 (fe[5]-fc[5])*(fe[5]-fc[5]))
-	    ) ;
-
-    wbfmm_expansion_j_grad_evaluate_PREC(k, xt, Co, cstro, No, nq, xr,
-					 fl, fstr, work) ;
-
-    fprintf(stdout, "j expansion: %FLOATFMT+j*%FLOATFMT "
-	    "%FLOATFMT+j*%FLOATFMT %FLOATFMT+j*%FLOATFMT\n",
-	    fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]) ;
-
-    fprintf(stdout, "             %FLOATFMT %FLOATFMT %FLOATFMT\n",
-  	    sqrt((fl[0]-fc[0])*(fl[0]-fc[0]) +
-  		 (fl[1]-fc[1])*(fl[1]-fc[1])),
-  	    sqrt((fl[2]-fc[2])*(fl[2]-fc[2]) +
-  		 (fl[3]-fc[3])*(fl[3]-fc[3])),
-  	    sqrt((fl[4]-fc[4])*(fl[4]-fc[4]) +
-  		 (fl[5]-fc[5])*(fl[5]-fc[5]))
-	    ) ;
-
+  fprintf(stdout, "             %FLOATFMT %FLOATFMT %FLOATFMT\n",
+	  sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+	       (fe[1]-fc[1])*(fe[1]-fc[1])),
+	  sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
+	       (fe[3]-fc[3])*(fe[3]-fc[3])),
+	  sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
+	       (fe[5]-fc[5])*(fe[5]-fc[5]))
+	  ) ;
+  
   fprintf(stderr, "%s ends: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -2133,6 +2153,7 @@ gint main(gint argc, gchar **argv)
   gchar ch, *ipfile, *progname ;
   guint level ;
   gboolean echo_data ;
+  wbfmm_library_config_t lconfig ;
 
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   
@@ -2151,9 +2172,14 @@ gint main(gint argc, gchar **argv)
   wb = 1.0 ;
   level = 2 ;
 
-  while ( (ch = getopt(argc, argv, "ef:i:k:l:n:N:q:t:w:x:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "cef:i:k:l:n:N:q:t:w:x:")) != EOF ) {
     switch ( ch ) {
     default: g_assert_not_reached() ; break ;
+    case 'c':
+      wbfmm_library_config(&lconfig) ;  
+      wbfmm_library_config_print(&lconfig, stderr) ;
+      return 0 ;
+      break ;
     case 'e': echo_data = TRUE ; break ;
     case 'f': nf = atoi(optarg) ; break ;
     case 'i': ipfile = g_strdup(optarg) ; break ;

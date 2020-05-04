@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2020 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -64,14 +64,15 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
 
 {
   guint i, j ;
-  wbfmm_tree_t *t = data ;
+  wbfmm_target_list_t *l = data ;
+  wbfmm_tree_t *t = l->t ;
   guint64 mi, mj ;
   WBFMM_REAL *xi, *xj ;
 
   i = *((guint *)a) ; j = *((guint *)b) ;
 
-  xi = wbfmm_tree_point_index(t, i) ; 
-  xj = wbfmm_tree_point_index(t, j) ;
+  xi = wbfmm_target_list_point_index(l, i) ;
+  xj = wbfmm_target_list_point_index(l, j) ;
   /*Morton codes*/
   mi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
 						 wbfmm_tree_width(t)) ;
@@ -126,7 +127,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 
   /*sort points on the Morton index*/
   g_qsort_with_data(l->ip, npts, sizeof(guint), compare_morton_indexed, 
-		    (gpointer)t) ;
+		    (gpointer)l) ;
 
   for ( i = 0 ; i < npts ; i ++ ) {
     x = wbfmm_target_list_point_index(l, i) ;
@@ -163,7 +164,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list_t *l, WBFMM_REAL *work)
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_target_list_t *l, WBFMM_REAL *work)
 
 {
   gint i, j, k, npts, nr, nc, ns, idx ;
@@ -173,23 +174,22 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
   WBFMM_REAL xb[3], wb, xf[3], *x, *cfft ;
   WBFMM_REAL *csrc, r, *xs, nR[3] ;
 
+  g_assert(l->t->problem == WBFMM_PROBLEM_LAPLACE) ;
+
   level = t->depth ;
   nr = t->order_r[level] ;
   nc = l->nc ;
   cfft = (WBFMM_REAL *)(l->cfft) ;
-
-  if ( l->t->problem == WBFMM_PROBLEM_LAPLACE ) {
-    for ( i = 0 ; i < wbfmm_target_list_point_number(l) ; i ++ ) {
-      b = l->boxes[i] ;
-      x = wbfmm_target_list_point_index(l, i) ;
-      WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
-      xf[0] = x[0] - xb[0] ; xf[1] = x[1] - xb[1] ; xf[2] = x[2] - xb[2] ;
-      WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(xf, nr, l->field,
-							    &(cfft[i*nc]),
-							    work) ;
-    }
-  } else {
-    g_assert_not_reached() ;
+  l->complex = FALSE ;
+  
+  for ( i = 0 ; i < wbfmm_target_list_point_number(l) ; i ++ ) {
+    b = l->boxes[i] ;
+    x = wbfmm_target_list_point_index(l, i) ;
+    WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+    xf[0] = x[0] - xb[0] ; xf[1] = x[1] - xb[1] ; xf[2] = x[2] - xb[2] ;
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_local_coefficients)(xf, nr, l->field,
+							  &(cfft[i*nc]),
+							  work) ;
   }
 
   /*number of source coefficients*/
@@ -263,6 +263,117 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
   return 0 ;
 }
 
+gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list_t *l, WBFMM_REAL k, WBFMM_REAL *work)
+
+{
+  gint i, j, kk, npts, nr, nc, ns, idx ;
+  guint level ;
+  guint64 b ;
+  wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
+  WBFMM_REAL xb[3], wb, xf[3], *x, *cfft ;
+  WBFMM_REAL *csrc, r, *xs, nR[3], h0[2], h1[2] ;
+
+  g_assert(l->t->problem == WBFMM_PROBLEM_HELMHOLTZ) ;
+
+  level = t->depth ;
+  nr = t->order_r[level] ;
+  nc = l->nc ;
+  cfft = (WBFMM_REAL *)(l->cfft) ;
+  l->complex = TRUE ;
+
+  for ( i = 0 ; i < wbfmm_target_list_point_number(l) ; i ++ ) {
+    b = l->boxes[i] ;
+    x = wbfmm_target_list_point_index(l, i) ;
+    WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+    xf[0] = x[0] - xb[0] ; xf[1] = x[1] - xb[1] ; xf[2] = x[2] - xb[2] ;
+    WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(k, xf, nr, l->field,
+						  &(cfft[i*nc]),
+						  work) ;
+  }
+
+  /*number of source coefficients*/
+  npts = wbfmm_target_list_point_number(l) ;
+  ns = 0 ;
+  for ( i = 0 ; i < npts ; i ++ ) {
+    j = l->boxes[i] ;
+    ns += l->ibox[j+1] - l->ibox[j] ;
+  }
+  l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
+
+  if ( l->field == WBFMM_FIELD_SCALAR ) {
+    l->csrc =         g_malloc0(2*ns*sizeof(WBFMM_REAL)) ;
+
+    ns = 0 ;
+    for ( i = 0 ; i < npts ; i ++ ) {
+      l->ics[i] = ns ;
+      csrc = &(((WBFMM_REAL *)(l->csrc))[2*ns]) ;
+      kk = l->boxes[i] ;
+      x = wbfmm_target_list_point_index(l, i) ;
+      for ( j = 0 ; j < l->ibox[kk+1] - l->ibox[kk] ; j ++ ) {
+	idx = l->isrc[l->ibox[kk] + j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > 1e-12 ) {
+	  r = SQRT(r) ;
+	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
+	  csrc[2*j+0] = h0[0] ;
+	  csrc[2*j+1] = h0[1] ;
+	} else {
+	  csrc[2*j+0] = csrc[2*j+1] = 0.0 ;
+	}
+      }
+      ns += l->ibox[kk+1] - l->ibox[kk] ;
+    }
+    return 0 ;
+  }
+
+  if ( l->field == WBFMM_FIELD_GRADIENT ) {
+    l->csrc =         g_malloc0(6*ns*sizeof(WBFMM_REAL)) ;
+
+    ns = 0 ;
+    for ( i = 0 ; i < npts ; i ++ ) {
+      l->ics[i] = ns ;
+      csrc = &(((WBFMM_REAL *)(l->csrc))[6*ns]) ;
+      kk = l->boxes[i] ;
+      x = wbfmm_target_list_point_index(l, i) ;
+      for ( j = 0 ; j < l->ibox[kk+1] - l->ibox[kk] ; j ++ ) {
+  	idx = l->isrc[l->ibox[kk] + j] ;
+  	xs = wbfmm_tree_point_index(t, idx) ;
+  	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+  	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+  	if ( r > 1e-12 ) {
+  	  r = SQRT(r) ;
+  	  nR[0] = (x[0] - xs[0])/r*0.25*M_1_PI ;
+  	  nR[1] = (x[1] - xs[1])/r*0.25*M_1_PI ;
+  	  nR[2] = (x[2] - xs[2])/r*0.25*M_1_PI ;
+	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
+	  csrc[6*j+0] = -k*h1[0]*nR[0] ;
+	  csrc[6*j+1] = -k*h1[1]*nR[0] ;
+	  csrc[6*j+2] = -k*h1[0]*nR[1] ;
+	  csrc[6*j+3] = -k*h1[1]*nR[1] ;
+	  csrc[6*j+4] = -k*h1[0]*nR[2] ;
+	  csrc[6*j+5] = -k*h1[1]*nR[2] ;
+  	  /* csrc[3*j+0] = -1.0/r/r*nR[0] ; */
+  	  /* csrc[3*j+1] = -1.0/r/r*nR[1] ; */
+  	  /* csrc[3*j+2] = -1.0/r/r*nR[2] ; */
+  	} else {
+  	  csrc[6*j+0] = csrc[6*j+1] = csrc[6*j+2] = 
+	    csrc[6*j+3] = csrc[6*j+4] = csrc[6*j+5] = 0.0 ;
+  	}
+      }
+      ns += l->ibox[kk+1] - l->ibox[kk] ;
+    }
+      return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 							WBFMM_REAL *src,
 							gint sstr,
@@ -276,7 +387,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   wbfmm_box_t *boxes ;
   WBFMM_REAL *cfft, *eval, *csrc ;
   
-  g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ;
+  /* g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ; */
 
   nq = wbfmm_tree_source_size(t) ;
 
@@ -333,6 +444,80 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	    f[ib*fstr+3*k+2] += src[idx*sstr+k]*csrc[3*j+2] ;
 	  }
 	}
+      }
+      return 0 ;
+      break ;
+    }
+  }
+
+  if ( l->t->problem == WBFMM_PROBLEM_HELMHOLTZ ) {
+    switch ( l->field ) {
+    default:
+    g_error("%s: unrecognized field definition (%u)",
+	    __FUNCTION__, l->field) ;
+    break ;
+    case WBFMM_FIELD_SCALAR:
+      for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
+	b = l->boxes[ib] ;
+	cfft = boxes[b].mpr ;
+	WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(cfft,
+						   8*nq, nq,
+						   &(eval[ib*nc]), nr,
+						   l->field,
+						   &(f[ib*fstr]), 2) ;
+	/*direct contributions from neighbour boxes*/
+	csrc = &(((WBFMM_REAL *)(l->csrc))[2*(l->ics[ib])]) ;
+	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+	  idx = l->isrc[l->ibox[b]+j] ;
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[ib*fstr+2*k+0] +=
+	      csrc[2*j+0]*src[idx*sstr+2*k+0] - 
+	      csrc[2*j+1]*src[idx*sstr+2*k+1] ;
+	    f[ib*fstr+2*k+1] +=
+	      csrc[2*j+1]*src[idx*sstr+2*k+0] +
+	      csrc[2*j+0]*src[idx*sstr+2*k+1] ;
+	  }
+	}    
+      }
+      return 0 ;
+      break ;
+    case WBFMM_FIELD_GRADIENT:
+      for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
+    	b = l->boxes[ib] ;
+    	cfft = boxes[b].mpr ;
+    	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
+    							   8*nq, nq,
+    							   &(eval[ib*nc]), nr,
+    							   l->field,
+    							   &(f[ib*fstr]), 3) ;
+    	/*direct contributions from neighbour boxes*/
+    	csrc = &(((WBFMM_REAL *)(l->csrc))[6*(l->ics[ib])]) ;
+    	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+    	  idx = l->isrc[l->ibox[b]+j] ;
+    	  for ( k = 0 ; k < nq ; k ++ ) {
+    	    f[ib*fstr+6*k+0] +=
+	      csrc[6*j+0]*src[idx*sstr+2*k+0] - 
+	      csrc[6*j+1]*src[idx*sstr+2*k+1] ;
+    	    f[ib*fstr+6*k+1] +=
+	      csrc[6*j+1]*src[idx*sstr+2*k+0] - 
+	      csrc[6*j+0]*src[idx*sstr+2*k+1] ;
+
+    	    f[ib*fstr+6*k+2] +=
+	      csrc[6*j+2]*src[idx*sstr+2*k+0] - 
+	      csrc[6*j+3]*src[idx*sstr+2*k+1] ;
+    	    f[ib*fstr+6*k+3] +=
+	      csrc[6*j+3]*src[idx*sstr+2*k+0] + 
+	      csrc[6*j+2]*src[idx*sstr+2*k+1] ;
+
+    	    f[ib*fstr+6*k+4] +=
+	      csrc[6*j+4]*src[idx*sstr+2*k+0] - 
+	      csrc[6*j+5]*src[idx*sstr+2*k+1] ;
+    	    f[ib*fstr+6*k+5] +=
+	      csrc[6*j+5]*src[idx*sstr+2*k+0] + 
+	      csrc[6*j+4]*src[idx*sstr+2*k+1] ;
+	    
+    	  }
+    	}
       }
       return 0 ;
       break ;

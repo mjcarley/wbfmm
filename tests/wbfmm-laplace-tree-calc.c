@@ -312,7 +312,7 @@ gint main(gint argc, gchar **argv)
   targets = wbfmm_target_list_new(tree, nf) ;
   wbfmm_target_list_coefficients_init(targets, field) ;
   wbfmm_target_list_add_points(targets, xf, nf, fstr) ;
-  wbfmm_target_list_local_coefficients(targets, work) ;
+  wbfmm_laplace_target_list_local_coefficients(targets, work) ;
   fprintf(stderr, "%s: target point list initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   

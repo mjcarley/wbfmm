@@ -74,9 +74,9 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft} (gint N, gdouble $\ast$x0
 gint {\bf wbfmm\+\_\+laplace\+\_\+field} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
-\item 
+\begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
-\item 
+\begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init} (gint N)
 \begin{DoxyCompactList}\small\item\em Initialize lookup tables of Laplace translation coefficients. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f} (gint N)
@@ -85,22 +85,18 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f} (gint N, gfloat $\
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t)
+gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch)
-\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch)
-\begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble t, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat t, gfloat $\ast$work)
@@ -117,10 +113,6 @@ gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions} ({\bf wbfmm\+\
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree in the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree in the Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree for the Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree for the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree for the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
@@ -130,9 +122,13 @@ gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field} ({\bf wbf
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat $\ast$x, gfloat $\ast$f, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$d, gint dstr, gboolean eval\+\_\+neighbours, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace field from regular expansion in box. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients} (gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga47ba7d434ef139feaa106258f7fe93b2}(...) \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}(...) \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7b393004c17cf291b6cc5adc6acc974b}(...) \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}(...) \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
+\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
+\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
@@ -153,8 +149,6 @@ gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init} ({
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gdouble k, gdouble $\ast$x, gdouble $\ast$f, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+refine} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
@@ -245,8 +239,6 @@ gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f} (void)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+box\+\_\+field\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level, guint b, gfloat k, gfloat $\ast$x, gfloat $\ast$f, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate singular expansion about a box centre. \end{DoxyCompactList}\item 
 guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)

@@ -12,17 +12,17 @@ gint {\bf wbfmm\+\_\+rotation\+\_\+angles} (gdouble $\ast$ix, gdouble $\ast$iy, 
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint N, gdouble th, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch)
+gint {\bf wbfmm\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch)
+gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H} (gdouble $\ast$Co, gint cstro, gdouble $\ast$Ci, gint cstri, gint N, gint nq, gdouble $\ast$H, gdouble ph, gdouble ch, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+rotation\+\_\+angles\+\_\+f} (gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$jx, gfloat $\ast$jy, gfloat $\ast$jz, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch)
 \begin{DoxyCompactList}\small\item\em Compute the rotation angles $(\theta,\phi,\chi)$ between axes. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f} (gfloat $\ast$H, gint N, gfloat th, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Compute rotation coefficients for angle $\theta$. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch)
+gint {\bf wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch)
+gint {\bf wbfmm\+\_\+laplace\+\_\+rotate\+\_\+\+H\+\_\+f} (gfloat $\ast$Co, gint cstro, gfloat $\ast$Ci, gint cstri, gint N, gint nq, gfloat $\ast$H, gfloat ph, gfloat ch, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -104,9 +104,10 @@ Generate the coefficients required to rotate one multipole expansion to a new or
 \item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{H, }
 \item[{gdouble}]{ph, }
-\item[{gdouble}]{ch}
+\item[{gdouble}]{ch, }
+\item[{gdouble}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__rotations_ga5809d158cae1e88fcc8c01d8ec3bfd58}
+)}\label{group__rotations_ga25fd9810a925d7afcaf4a35b34f81749}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. 
@@ -135,7 +136,9 @@ This stride system allows for packing data more conveniently for upward and down
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline
-{\em ch} & angle $\chi$ for rotation.\\
+{\em ch} & angle $\chi$ for rotation; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -153,9 +156,10 @@ This stride system allows for packing data more conveniently for upward and down
 \item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{H, }
 \item[{gfloat}]{ph, }
-\item[{gfloat}]{ch}
+\item[{gfloat}]{ch, }
+\item[{gfloat}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__rotations_ga456e513e795ace0bfe61e21c4b70ffae}
+)}\label{group__rotations_ga66cc0a373a506d27b46907bfeb6f2969}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. 
@@ -184,7 +188,9 @@ This stride system allows for packing data more conveniently for upward and down
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline
-{\em ch} & angle $\chi$ for rotation.\\
+{\em ch} & angle $\chi$ for rotation; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -202,9 +208,10 @@ This stride system allows for packing data more conveniently for upward and down
 \item[{gint}]{nq, }
 \item[{gdouble $\ast$}]{H, }
 \item[{gdouble}]{ph, }
-\item[{gdouble}]{ch}
+\item[{gdouble}]{ch, }
+\item[{gdouble}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__rotations_ga9d732be8026e98bd34e2c339329a3e8b}
+)}\label{group__rotations_gaf8fa5febecee030fd80cdb59e535b7c3}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
@@ -235,7 +242,9 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline
-{\em ch} & angle $\chi$ for rotation.\\
+{\em ch} & angle $\chi$ for rotation; \\
+\hline
+{\em sc} & scaling of {\itshape Co} before adding rotated coefficients (usually 0 or 1).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -253,9 +262,10 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \item[{gint}]{nq, }
 \item[{gfloat $\ast$}]{H, }
 \item[{gfloat}]{ph, }
-\item[{gfloat}]{ch}
+\item[{gfloat}]{ch, }
+\item[{gfloat}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__rotations_gad6deed8944c6a3b37f62ae074073ffac}
+)}\label{group__rotations_ga7d544859568b7d6bf07143f921b9701a}
 
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
@@ -286,7 +296,9 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline
-{\em ch} & angle $\chi$ for rotation.\\
+{\em ch} & angle $\chi$ for rotation; \\
+\hline
+{\em sc} & scaling of {\itshape Co} before adding rotated coefficients (usually 0 or 1).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

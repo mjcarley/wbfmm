@@ -10,11 +10,11 @@ Translation of expansions.
 \item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial} (gdouble $\ast$cfft\+S\+R, gint L, gdouble kr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+coaxial\+\_\+translate} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gdouble $\ast$cfft, gint L, gboolean complex)
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gdouble $\ast$cfft, gint L, gboolean complex, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f} (gfloat $\ast$cfft\+S\+R, gint L, gfloat kr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial singular-\/to-\/regular translation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gfloat $\ast$cfft, gint L, gboolean complex)
+gint {\bf wbfmm\+\_\+coaxial\+\_\+translate\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gfloat $\ast$cfft, gint L, gboolean complex, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Perform coaxial translation of multipole expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial} (gdouble $\ast$cfft\+R\+R, gint L, gdouble kr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate coefficients for coaxial regular-\/to-\/regular translation. \end{DoxyCompactList}\item 
@@ -40,14 +40,15 @@ Translation of expansions.
 \item[{gint}]{Ni, }
 \item[{gdouble $\ast$}]{cfft, }
 \item[{gint}]{L, }
-\item[{gboolean}]{complex}
+\item[{gboolean}]{complex, }
+\item[{gdouble}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__translations_ga714821929cf569e85730a8bd5cd9656b}
+)}\label{group__translations_gab544b59a2ffafb5a862217dd829aed98}
 
 
 Perform coaxial translation of multipole expansion. 
 
-Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}{p.}{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}{p.}{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+\+H}{p.}{group__rotations_ga9d732be8026e98bd34e2c339329a3e8b}(...).
+Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial}{p.}{group__translations_gad75c944a2c9d97a0c1ddb1f499302182}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial}{p.}{group__translations_ga44b2720cdfc5da7a1eaefa7c57385142}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+\+H}{p.}{group__rotations_gaf8fa5febecee030fd80cdb59e535b7c3}(...).
 
 
 \begin{DoxyParams}{Parameters}
@@ -67,7 +68,9 @@ Compute the coaxial translation of a multipole expansion along its $z$ axis, usi
 \hline
 {\em L} & maximum order of translation coefficients; \\
 \hline
-{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
+{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular); \\
+\hline
+{\em sc} & scaling applied to Co before addition of translated {\itshape Ci}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -85,14 +88,15 @@ Compute the coaxial translation of a multipole expansion along its $z$ axis, usi
 \item[{gint}]{Ni, }
 \item[{gfloat $\ast$}]{cfft, }
 \item[{gint}]{L, }
-\item[{gboolean}]{complex}
+\item[{gboolean}]{complex, }
+\item[{gfloat}]{sc}
 \end{DoxyParamCaption}
-)}\label{group__translations_gaff03948aae90f52273ef2fed4a89811a}
+)}\label{group__translations_gaa33248ca8dad9930dcffc90ac2bb94f2}
 
 
 Perform coaxial translation of multipole expansion. 
 
-Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}{p.}{group__translations_ga458eb964fd44c38ac246f33c08e6c21c}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}{p.}{group__translations_gaffed55e0e62ccae0503030842675344a}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}{p.}{group__rotations_gad6deed8944c6a3b37f62ae074073ffac}(...).
+Compute the coaxial translation of a multipole expansion along its $z$ axis, using coefficients from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+S\+R\+\_\+coaxial\+\_\+f}{p.}{group__translations_ga458eb964fd44c38ac246f33c08e6c21c}(...) (complex) or \doxyref{wbfmm\+\_\+coefficients\+\_\+\+R\+R\+\_\+coaxial\+\_\+f}{p.}{group__translations_gaffed55e0e62ccae0503030842675344a}(...) (real). Input and output coefficients are strided data as described for \doxyref{wbfmm\+\_\+rotate\+\_\+\+H\+\_\+f}{p.}{group__rotations_ga7d544859568b7d6bf07143f921b9701a}(...).
 
 
 \begin{DoxyParams}{Parameters}
@@ -112,7 +116,9 @@ Compute the coaxial translation of a multipole expansion along its $z$ axis, usi
 \hline
 {\em L} & maximum order of translation coefficients; \\
 \hline
-{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular).\\
+{\em complex} & if T\+R\+U\+E treat {\itshape cfft} as complex (e.\+g. for singular-\/to-\/regular translation); if F\+A\+L\+S\+E treat as real (e.\+g. regular-\/to-\/regular or singular-\/to-\/singular); \\
+\hline
+{\em sc} & scaling applied to Co before addition of translated {\itshape Ci}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

@@ -1,5 +1,6 @@
-k = 1.5 ; grad = 0 ;
-sfile = "mixed" ;
+k = 1.5 ; grad = 1 ;
+##sfile = "mixed" ;
+sfile = "monopoles" ;
 
 [xs,qq,n,ff] = readpts([sfile ".dat"]) ;
 q = [] ; nq = size(qq,2) ;
@@ -27,14 +28,14 @@ for i=4:2:size(dat,2)
   pd = [pd dat(:,i:i+1)*[1; j]] ;
 endfor
 
-if 0
-dat = load("monopole-fmm.dat") ;
+#if 0
+dat = load([sfile "-fmm.dat"]) ;
 xf = dat(:,1:3) ;
 pf = [] ;
 for i=4:2:size(dat,2)
   pf = [pf dat(:,i:i+1)*[1; j]] ;
 endfor
-endif
+#endif
 
 dat = load([sfile "-avx.dat"]) ;
 xf = dat(:,1:3) ;

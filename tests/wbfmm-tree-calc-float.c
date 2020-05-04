@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2019, 2020 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -139,6 +139,7 @@ gint main(gint argc, gchar **argv)
 
 {
   wbfmm_tree_t *tree ;
+  wbfmm_target_list_t *targets ;
   wbfmm_shift_operators_t *shifts ;
   gfloat k, D, xtree[3] = {0.0}, xtmax[3], *xs ;
   gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
@@ -348,6 +349,15 @@ gint main(gint argc, gchar **argv)
     wbfmm_tree_coefficient_init_f(tree, i, order[2*i+1], order[2*i+0]) ;
   }
 
+  fprintf(stderr, "%s: initializing target point list; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
+  targets = wbfmm_target_list_new_f(tree, nf) ;
+  wbfmm_target_list_coefficients_init(targets, field) ;
+  wbfmm_target_list_add_points_f(targets, xf, nf, fstr*sizeof(gfloat)) ;
+  wbfmm_target_list_local_coefficients_f(targets, k, work) ;
+  fprintf(stderr, "%s: target point list initialized; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
+
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
@@ -381,17 +391,23 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-
-  for ( i = 0 ; i < nf ; i ++ ) {
-    b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ;
-    wbfmm_tree_box_local_field_f(tree, level, b, k, 
-				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr,
-				    q, qstr, normals, nstr, dipoles, dstr,
-				    TRUE, field, work) ;
-  }
-
+  wbfmm_target_list_local_field_f(targets, q, qstr, f, fcstr) ;
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
+
+  /* fprintf(stderr, "%s: computing fmm field; %lg\n", */
+  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
+
+  /* for ( i = 0 ; i < nf ; i ++ ) { */
+  /*   b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ; */
+  /*   wbfmm_tree_box_local_field_f(tree, level, b, k,  */
+  /* 				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr, */
+  /* 				    q, qstr, normals, nstr, dipoles, dstr, */
+  /* 				    TRUE, field, work) ; */
+  /* } */
+
+  /* fprintf(stderr, "%s: fmm field computed; %lg\n", */
+  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
 
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 

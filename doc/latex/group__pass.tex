@@ -8,7 +8,7 @@ Upward and downward pass operations in octrees.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
+gint {\bf wbfmm\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work, gint nthreads)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
@@ -16,7 +16,7 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree for the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+upward\+\_\+pass} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree for the Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
+gint {\bf wbfmm\+\_\+downward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work, gint nthreads)
 \begin{DoxyCompactList}\small\item\em Perform downward pass at one level of an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+upward\+\_\+pass\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$op, guint level, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Perform upward pass at one level of an octree. \end{DoxyCompactList}\item 
@@ -39,14 +39,17 @@ Upward and downward pass operations in octrees.
 \item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
 \item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
 \item[{guint}]{level, }
-\item[{gdouble $\ast$}]{work}
+\item[{gdouble $\ast$}]{work, }
+\item[{gint}]{nthreads}
 \end{DoxyParamCaption}
-)}\label{group__pass_gaef953124e3919459a1e8be0d150328d0}
+)}\label{group__pass_gab01aae880663f45f652f674ea26c1edf}
 
 
 Perform downward pass at one level of an octree. 
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
+
+The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref(...) and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx(...) which uses A\+V\+X optimizations if available. The compile time switch -\/\+D\+W\+B\+F\+M\+M\+\_\+\+U\+S\+E\+\_\+\+A\+V\+X selects the A\+V\+X version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+M\+P support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the C\+P\+U.
 
 
 \begin{DoxyParams}{Parameters}
@@ -56,7 +59,9 @@ Perform one stage of a downward pass for tree levels greater than or equal to tw
 \hline
 {\em level} & level at which to perform downward pass; \\
 \hline
-{\em work} & workspace\\
+{\em work} & workspace; \\
+\hline
+{\em nthreads} & number of threads to use in Open\+M\+P.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -69,14 +74,17 @@ Perform one stage of a downward pass for tree levels greater than or equal to tw
 \item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
 \item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{op, }
 \item[{guint}]{level, }
-\item[{gfloat $\ast$}]{work}
+\item[{gfloat $\ast$}]{work, }
+\item[{gint}]{nthreads}
 \end{DoxyParamCaption}
-)}\label{group__pass_ga151c7dea1801328f7bdd19926b2d3bb4}
+)}\label{group__pass_gacafbed9ee0bb378da7268e4519fb23f7}
 
 
 Perform downward pass at one level of an octree. 
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
+
+The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref\+\_\+f(...) and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx\+\_\+f(...) which uses A\+V\+X optimizations if available. The compile time switch -\/\+D\+W\+B\+F\+M\+M\+\_\+\+U\+S\+E\+\_\+\+A\+V\+X selects the A\+V\+X version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+M\+P support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the C\+P\+U.
 
 
 \begin{DoxyParams}{Parameters}
@@ -86,7 +94,9 @@ Perform one stage of a downward pass for tree levels greater than or equal to tw
 \hline
 {\em level} & level at which to perform downward pass; \\
 \hline
-{\em work} & workspace\\
+{\em work} & workspace; \\
+\hline
+{\em nthreads} & number of threads to use in Open\+M\+P.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

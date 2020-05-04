@@ -4,18 +4,22 @@ k=1.5
 depth=4
 bw=-B
 #bw=
-#gradient=-g
-job=mixed
-nthreads=0
+gradient=-g
+#gradient=
+##job=mixed
+job=monopoles
+#mixed
+nthreads=4
 
-#../tests/wbfmm-tree-calc -b -d ${depth} -f field.dat -k ${k} ${bw} \
-#			 ${gradient} -s ${input} \
-#			 -t 1e-3 > monopole-fmm.dat
+../tests/wbfmm-tree-calc -b -d ${depth} -f field.dat -k ${k} ${bw} \
+			 ${gradient} -s ${job}.dat \
+			 -S 0 -R 0 -T ${nthreads} \
+			 -t 1e-6 > ${job}-fmm.dat
 
 ../tests/wbfmm-tree-calc-avx -b -d ${depth} -f field.dat -k ${k} ${bw} \
 			     ${gradient} -s ${job}.dat \
 			     -S 0 -R 0 -T ${nthreads} \
 			     -t 1e-6 > ${job}-avx.dat
 
-#../tests/wbfmm-direct-calc -f field.dat -k ${k} ${gradient} \
-#                        -s ${job}.dat > ${job}-direct.dat
+../tests/wbfmm-direct-calc -f field.dat -k ${k} ${gradient} \
+                        -s ${job}.dat > ${job}-direct.dat

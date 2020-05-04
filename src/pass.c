@@ -337,6 +337,66 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   return ;
 }
 
+static gpointer downward_pass_thread(gpointer idata)
+
+{
+  gpointer *data = idata ;
+  gpointer *pdata = data[1] ;
+  guint nb, Ns, Nr, nerot, necx, ncs, ncr, level ;
+  WBFMM_REAL *rotations, *shifts, *work, *wkr, *wks ;
+  wbfmm_box_t *bp ;
+  wbfmm_tree_t *t ;
+  wbfmm_shift_operators_t *op ;
+  gint i, nq, nth ;
+  guint64 ip ;
+
+  i = GPOINTER_TO_INT(data[0]) ;
+
+  t     = pdata[WBFMM_DOWNWARD_PASS_TREE] ;
+  op    = pdata[WBFMM_DOWNWARD_PASS_OP] ;
+  level = *((guint *)pdata[WBFMM_DOWNWARD_PASS_LEVEL]) ;
+  work  = (WBFMM_REAL *)pdata[WBFMM_DOWNWARD_PASS_WORK] ;
+  nq    = *((gint *)pdata[WBFMM_DOWNWARD_PASS_NQ]) ;
+  nth   = *((gint *)pdata[WBFMM_DOWNWARD_PASS_NTHREAD]) ;
+
+  /*number of boxes at this level*/
+  nb = 1 << 3*(level) ;
+
+  /*singular and regular expansion orders at this level*/
+  Ns = t->order_s[level] ; Nr = t->order_r[level] ;
+  ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
+  ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
+  wks = work ; wkr = &(wks[2*ncs*nq]) ;
+
+  /*boxes at this level (parent)*/
+  bp = t->boxes[level] ;
+
+  nerot = op->nerot ;
+  /*rotation and shift operators*/
+  rotations = (WBFMM_REAL *)(op->rotations) ;
+  shifts    = (WBFMM_REAL *)(op->SR[level]) ;
+
+  /*number of elements in translation operators*/
+  necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ;
+
+  /* fprintf(stderr, "level %u; thread %d\n", level, i) ; */
+
+  wks = &(work[i*2*(ncr+ncs)*nq]) ; wkr = &(wks[2*ncs*nq]) ;
+  
+  if ( op->bw )
+    for ( ip = i ; ip < nb ; ip += nth ) {
+      _wbfmm_downward_pass_box_bw(level, ip, bp, Ns, Nr, rotations, nerot,
+  				  shifts, necx, wks, ncs, wkr, ncr, nq) ;
+    }
+  else
+    for ( ip = i ; ip < nb ; ip += nth ) {
+      _wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot,
+  			       shifts, necx, wks, ncs, wkr, ncr, nq) ;
+    }
+
+  return NULL ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
 						  wbfmm_shift_operators_t *op,
 						  guint level,
@@ -375,7 +435,47 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
   /*number of elements in translation operators*/
   necx  = 2*wbfmm_element_number_coaxial(op->L[level]) ;
 
-  /*interaction list 4, loop on boxes at this level*/
+#ifdef _OPENMP
+  if ( nthreads == 0 ) {
+    if ( op->bw )
+      for ( ip = 0 ; ip < nb ; ip ++ ) {
+	_wbfmm_downward_pass_box_bw(level, ip, bp, Ns, Nr, rotations, nerot,
+				    shifts, necx, wks, ncs, wkr, ncr, nq) ;
+      }
+    else
+      for ( ip = 0 ; ip < nb ; ip ++ ) {
+	_wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot,
+				 shifts, necx, wks, ncs, wkr, ncr, nq) ;
+      }
+  } else {
+    GThread *threads[WBFMM_THREAD_NUMBER_MAX] ;
+    gint nth, i ;
+    guint nproc ;
+    gpointer data[WBFMM_DOWNWARD_PASS_DATA_SIZE],
+      main_data[2*WBFMM_THREAD_NUMBER_MAX] ;
+
+    g_assert(nthreads < WBFMM_THREAD_NUMBER_MAX) ;
+    data[WBFMM_DOWNWARD_PASS_WORK] = work ;
+    data[WBFMM_DOWNWARD_PASS_LEVEL] = &level ;
+    data[WBFMM_DOWNWARD_PASS_NQ] = &nq ;
+    data[WBFMM_DOWNWARD_PASS_NTHREAD] = &nth ;
+    data[WBFMM_DOWNWARD_PASS_TREE] = t ;
+    data[WBFMM_DOWNWARD_PASS_OP] = op ;
+
+    nproc = g_get_num_processors() ;
+    if ( nthreads < 0 ) nth = nproc ; else nth = nthreads ;
+    if ( nth > nproc )
+      g_error("%s: not enough processes (%u) for requested number of "
+	      "threads (%d)", __FUNCTION__, nproc, nth) ;
+    for ( i = 0 ; i < nth ; i ++ ) {
+      main_data[2*i+0] = GINT_TO_POINTER(i) ;
+      main_data[2*i+1] = data ;
+      threads[i] = g_thread_new(NULL, downward_pass_thread, &(main_data[2*i])) ;
+    }
+    /*make sure all threads complete before we move on*/
+    for ( i = 0 ; i < nth ; i ++ ) g_thread_join(threads[i]) ;
+  }
+#else /*_OPENMP*/
   if ( op->bw )
     for ( ip = 0 ; ip < nb ; ip ++ ) {
       _wbfmm_downward_pass_box_bw(level, ip, bp, Ns, Nr, rotations, nerot,
@@ -386,6 +486,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
       _wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot,
 			       shifts, necx, wks, ncs, wkr, ncr, nq) ;
     }
+#endif /*_OPENMP*/
+  /* /\*interaction list 4, loop on boxes at this level*\/ */
+  /* if ( op->bw ) */
+  /*   for ( ip = 0 ; ip < nb ; ip ++ ) { */
+  /*     _wbfmm_downward_pass_box_bw(level, ip, bp, Ns, Nr, rotations, nerot, */
+  /* 				  shifts, necx, wks, ncs, wkr, ncr, nq) ; */
+  /*   } */
+  /* else */
+  /*   for ( ip = 0 ; ip < nb ; ip ++ ) { */
+  /*     _wbfmm_downward_pass_box(level, ip, bp, Ns, Nr, rotations, nerot, */
+  /* 			       shifts, necx, wks, ncs, wkr, ncr, nq) ; */
+  /*   } */
 
   /*no downward shift at the deepest level*/
   if ( level == t-> depth ) return 0 ;

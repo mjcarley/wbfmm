@@ -103,7 +103,7 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
     nc = (nr+1)*(nr+1) ;
     break ;
   case WBFMM_PROBLEM_HELMHOLTZ:
-    g_assert_not_reached() ; /*unchecked code*/
+    nc = 2*wbfmm_coefficient_index_nm(nr+1, 0) ;
     break ;
   }
 

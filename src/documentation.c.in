@@ -116,7 +116,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(WBFMM_REAL *Co, gint cstro,
 					 WBFMM_REAL *Ci, gint cstri,
 					 gint N, gint nq,
 					 WBFMM_REAL *H, WBFMM_REAL ph,
-					 WBFMM_REAL ch) {}
+					 WBFMM_REAL ch, WBFMM_REAL sc) {}
 
 /**     
  * @fn gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL
@@ -800,6 +800,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_grad_evaluate)(WBFMM_REAL k,
  * @param nq number of source elements;
  * @param xf field point;
  * @param field incremented with computed gradient;
+ * @param fstr stride in \a field;
  * @param work workspace
  *
  * @return 0 on success
@@ -1126,7 +1127,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k, WBFMM_REAL
 					    *src, gint sstride, gint nq,
 					    gint nsrc,
 					    WBFMM_REAL *xf, WBFMM_REAL
-					    *field) {}
+					    *field, gint fstr) {}
 
 /**
  *
@@ -1575,7 +1576,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
 							WBFMM_REAL *ec,
 							gint N,
 							guint field,
-							WBFMM_REAL *f) {}
+							WBFMM_REAL *f,
+							gint fstr) {}
 
 /** 
  * 
@@ -1930,14 +1932,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
  *
  * @ingroup laplace
  *
- * @brief 
+ * @brief Evaluate local Laplace expansion
  * 
- * @param 
- * @param 
- * @param 
- * @param 
- * @param 
- * @param 
+ * @param x0 centre of expansion;
+ * @param cfft local expansion coefficients;
+ * @param cstr stride in \a cfft;
+ * @param N order of expansion;
+ * @param nq number of source components;
+ * @param xf field point;
+ * @param field field value;
+ * @param work workspace.
  *
  * @return 0 on success
  *
@@ -2108,3 +2112,22 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
 						guint field,
 						WBFMM_REAL *f,
 						gint fstr) ;
+
+
+/**
+ * 
+ * @ingroup targets
+ *
+ * @brief Allocate a target list structure for efficient evaluation of
+ * fields
+ * 
+ * @param t tree to which target list is connected;
+ * @param npts maximum number of target points
+ *
+ * @return newly allocated :wbfmm_target_list_t for the requested
+ * number of target points
+ *
+*/
+
+wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
+								guint npts) ;

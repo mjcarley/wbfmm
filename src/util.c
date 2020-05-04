@@ -851,10 +851,12 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f)
   fprintf(f,
 	  "AVX extensions: %s\n"
 	  "FMA extensions: %s\n"
+	  "OpenMP:         %s\n"
 	  "precision:      %s\n"
 	  "compiler flags: %s\n",
 	  yes_if_true(c->avx),
 	  yes_if_true(c->fma),
+	  yes_if_true(c->openmp),
 #ifdef WBFMM_SINGLE_PRECISION
 	  "single",
 #else

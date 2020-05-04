@@ -48,6 +48,12 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaaa371992f189a2bb359c29e18f254bde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__targets.html#gaaa371992f189a2bb359c29e18f254bde">wbfmm_target_list_new</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint npts)</td></tr>
+<tr class="memdesc:gaaa371992f189a2bb359c29e18f254bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a target list structure for efficient evaluation of fields.  <a href="#gaaa371992f189a2bb359c29e18f254bde">More...</a><br /></td></tr>
+<tr class="separator:gaaa371992f189a2bb359c29e18f254bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa41cd40b34b93b80a26a74fa07081213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__targets.html#gaa41cd40b34b93b80a26a74fa07081213">wbfmm_target_list_new_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint npts)</td></tr>
+<tr class="memdesc:gaa41cd40b34b93b80a26a74fa07081213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a target list structure for efficient evaluation of fields.  <a href="#gaa41cd40b34b93b80a26a74fa07081213">More...</a><br /></td></tr>
+<tr class="separator:gaa41cd40b34b93b80a26a74fa07081213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac3240b10aa6b1df74c5eb31695ac5742"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__targets.html#gac3240b10aa6b1df74c5eb31695ac5742">wbfmm_target_list_coefficients_init</a> (<a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> *l, guint field)</td></tr>
 <tr class="separator:gac3240b10aa6b1df74c5eb31695ac5742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -79,7 +85,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">l</td><td>a <a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> generated using ::wbfmm_target_list_new or ::wbfmm_target_list_new_f; </td></tr>
+    <tr><td class="paramname">l</td><td>a <a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> generated using <a class="el" href="group__targets.html#gaaa371992f189a2bb359c29e18f254bde" title="Allocate a target list structure for efficient evaluation of fields. ">wbfmm_target_list_new</a> or <a class="el" href="group__targets.html#gaa41cd40b34b93b80a26a74fa07081213" title="Allocate a target list structure for efficient evaluation of fields. ">wbfmm_target_list_new_f</a>; </td></tr>
     <tr><td class="paramname">field</td><td>a field definition made up of <a class="el" href="group__boxes.html#ga72eefe6d21d0860d8c79c60291006a4e">wbfmm_field_t</a></td></tr>
   </table>
   </dd>
@@ -90,10 +96,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gaaa371992f189a2bb359c29e18f254bde"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a>* wbfmm_target_list_new </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>npts</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate a target list structure for efficient evaluation of fields. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>tree to which target list is connected; </td></tr>
+    <tr><td class="paramname">npts</td><td>maximum number of target points</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>newly allocated :<a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> for the requested number of target points </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaa41cd40b34b93b80a26a74fa07081213"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a>* wbfmm_target_list_new_f </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>npts</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate a target list structure for efficient evaluation of fields. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>tree to which target list is connected; </td></tr>
+    <tr><td class="paramname">npts</td><td>maximum number of target points</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>newly allocated :<a class="el" href="structwbfmm__target__list__t.html">wbfmm_target_list_t</a> for the requested number of target points </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 7 2020 18:20:13 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 28 2020 10:02:25 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

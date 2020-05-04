@@ -166,6 +166,8 @@ typedef struct {
   cfft,     /**< coefficients of regular expansions in boxes */
     csrc ;  /**< coefficients of near-field (direct) interactions, 
 	       point-by-point */
+  gboolean
+  complex ; /**< complex-valued field or real */
 } wbfmm_target_list_t ;
 
 #define wbfmm_target_list_field(_l) ((_l)->field)
@@ -936,9 +938,15 @@ gint wbfmm_target_list_add_points(wbfmm_target_list_t *l,
 gint wbfmm_target_list_add_points_f(wbfmm_target_list_t *l,
 				    gpointer pts, guint npts,
 				    gsize pstr) ;
+gint wbfmm_laplace_target_list_local_coefficients(wbfmm_target_list_t *l,
+					  gdouble *work) ;
+gint wbfmm_laplace_target_list_local_coefficients_f(wbfmm_target_list_t *l,
+					    gfloat *work) ;
 gint wbfmm_target_list_local_coefficients(wbfmm_target_list_t *l,
+					  gdouble k,
 					  gdouble *work) ;
 gint wbfmm_target_list_local_coefficients_f(wbfmm_target_list_t *l,
+					    gfloat k,
 					    gfloat *work) ;
 gint wbfmm_target_list_local_field(wbfmm_target_list_t *l,
 				   gdouble *src, gint sstr, gdouble *f,

@@ -29,7 +29,7 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion} (gdouble $\ast$hnm1, gdouble 
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+total\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+field} (gdouble k, gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field, gint fstr)
 \begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform} (gdouble $\ast$x, gdouble $\ast$ix, gdouble $\ast$iy, gdouble $\ast$iz, gdouble $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
@@ -61,7 +61,7 @@ gint {\bf wbfmm\+\_\+bessel\+\_\+h\+\_\+recursion\+\_\+f} (gfloat $\ast$hnm1, gf
 \begin{DoxyCompactList}\small\item\em Perform one step of spherical Hankel recursion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+total\+\_\+dipole\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Compute total field from dipole sources by direct evaluation. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+total\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+gint {\bf wbfmm\+\_\+total\+\_\+field\+\_\+f} (gfloat k, gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field, gint fstr)
 \begin{DoxyCompactList}\small\item\em Compute total field by direct evaluation. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+coordinate\+\_\+transform\+\_\+f} (gfloat $\ast$x, gfloat $\ast$ix, gfloat $\ast$iy, gfloat $\ast$iz, gfloat $\ast$y)
 \begin{DoxyCompactList}\small\item\em Transform coordinates to rotated axes. \end{DoxyCompactList}\item 
@@ -929,9 +929,10 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \item[{gint}]{nq, }
 \item[{gint}]{nsrc, }
 \item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field}
+\item[{gdouble $\ast$}]{field, }
+\item[{gint}]{fstr}
 \end{DoxyParamCaption}
-)}\label{group__util_gae4246a5542a4dd541356761aead1ecb4}
+)}\label{group__util_ga9e2d86423252212034147193f8588a8e}
 
 
 Compute total field by direct evaluation. 
@@ -976,9 +977,10 @@ Evaluate the field at some point $\mathbf{x}$ by direct evaluation of the sum ov
 \item[{gint}]{nq, }
 \item[{gint}]{nsrc, }
 \item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field}
+\item[{gfloat $\ast$}]{field, }
+\item[{gint}]{fstr}
 \end{DoxyParamCaption}
-)}\label{group__util_ga01f1ed85ea1e9d32fd12d39154fc0176}
+)}\label{group__util_ga027378bb284eeb8c5da6144a6c46fb57}
 
 
 Compute total field by direct evaluation. 

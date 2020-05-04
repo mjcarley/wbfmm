@@ -203,8 +203,8 @@ wbfmm_tests_float_OBJECTS = wbfmm-tests-float.$(OBJEXT)
 wbfmm_tests_float_DEPENDENCIES =  \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
-wbfmm_tree_calc_SOURCES = wbfmm-tree-calc.c
-wbfmm_tree_calc_OBJECTS = wbfmm-tree-calc.$(OBJEXT)
+am_wbfmm_tree_calc_OBJECTS = wbfmm-tree-calc.$(OBJEXT)
+wbfmm_tree_calc_OBJECTS = $(am_wbfmm_tree_calc_OBJECTS)
 wbfmm_tree_calc_DEPENDENCIES = $(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 am_wbfmm_tree_calc_avx_OBJECTS =  \
@@ -263,7 +263,7 @@ SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	$(wbfmm_laplace_tree_calc_avx_SOURCES) \
 	wbfmm-laplace-tree-calc-float.c wbfmm-tests.c \
 	$(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
-	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
+	$(wbfmm_tree_calc_SOURCES) $(wbfmm_tree_calc_avx_SOURCES) \
 	wbfmm-tree-calc-float.c
 DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	wbfmm-laplace-direct-calc.c wbfmm-laplace-direct-calc-float.c \
@@ -272,7 +272,7 @@ DIST_SOURCES = wbfmm-direct-calc.c wbfmm-direct-calc-float.c \
 	$(wbfmm_laplace_tree_calc_avx_SOURCES) \
 	wbfmm-laplace-tree-calc-float.c wbfmm-tests.c \
 	$(wbfmm_tests_avx_SOURCES) wbfmm-tests-float.c \
-	wbfmm-tree-calc.c $(wbfmm_tree_calc_avx_SOURCES) \
+	$(wbfmm_tree_calc_SOURCES) $(wbfmm_tree_calc_avx_SOURCES) \
 	wbfmm-tree-calc-float.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -310,7 +310,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -DWBFMM_USE_AVX -g -O2 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O2 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -502,6 +502,7 @@ wbfmm_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_tree_calc_SOURCES = wbfmm-tree-calc.c
 wbfmm_tree_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a

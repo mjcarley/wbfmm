@@ -101,6 +101,7 @@ wbfmm_tests_float_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm_f.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a
 
+wbfmm_tree_calc_SOURCES = wbfmm-tree-calc.c
 wbfmm_tree_calc_LDADD = \
 	$(top_builddir)/src/.libs/libwbfmm.a \
 	$(top_builddir)/src/.libs/libwbfmm-base.a

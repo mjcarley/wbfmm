@@ -8,6 +8,10 @@ Handling of pre-\/defined lists of target points for pre-\/computation of evalua
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\bf wbfmm\+\_\+target\+\_\+list\+\_\+t} $\ast$ {\bf wbfmm\+\_\+target\+\_\+list\+\_\+new} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint npts)
+\begin{DoxyCompactList}\small\item\em Allocate a target list structure for efficient evaluation of fields. \end{DoxyCompactList}\item 
+{\bf wbfmm\+\_\+target\+\_\+list\+\_\+t} $\ast$ {\bf wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint npts)
+\begin{DoxyCompactList}\small\item\em Allocate a target list structure for efficient evaluation of fields. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init} ({\bf wbfmm\+\_\+target\+\_\+list\+\_\+t} $\ast$l, guint field)
 \end{DoxyCompactItemize}
 
@@ -28,7 +32,7 @@ Handling of pre-\/defined lists of target points for pre-\/computation of evalua
 )}\label{group__targets_gac3240b10aa6b1df74c5eb31695ac5742}
 
 \begin{DoxyParams}{Parameters}
-{\em l} & a \doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+t}{p.}{structwbfmm__target__list__t} generated using \+::wbfmm\+\_\+target\+\_\+list\+\_\+new or \+::wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f; \\
+{\em l} & a \doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+t}{p.}{structwbfmm__target__list__t} generated using \doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+new}{p.}{group__targets_gaaa371992f189a2bb359c29e18f254bde} or \doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f}{p.}{group__targets_gaa41cd40b34b93b80a26a74fa07081213}; \\
 \hline
 {\em field} & a field definition made up of \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}\\
 \hline
@@ -40,3 +44,47 @@ Handling of pre-\/defined lists of target points for pre-\/computation of evalua
 
 References wbfmm\+\_\+target\+\_\+list\+\_\+t\+::cfft, wbfmm\+\_\+tree\+\_\+t\+::depth, wbfmm\+\_\+target\+\_\+list\+\_\+t\+::field, wbfmm\+\_\+target\+\_\+list\+\_\+t\+::nc, wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+r, wbfmm\+\_\+target\+\_\+list\+\_\+t\+::size, W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+G\+R\+A\+D\+I\+E\+N\+T, W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+S\+C\+A\+L\+A\+R, W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+H\+E\+L\+M\+H\+O\+L\+T\+Z, and W\+B\+F\+M\+M\+\_\+\+P\+R\+O\+B\+L\+E\+M\+\_\+\+L\+A\+P\+L\+A\+C\+E.
 
+\index{Target point lists@{Target point lists}!wbfmm\+\_\+target\+\_\+list\+\_\+new@{wbfmm\+\_\+target\+\_\+list\+\_\+new}}
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+new@{wbfmm\+\_\+target\+\_\+list\+\_\+new}!Target point lists@{Target point lists}}
+\subsubsection[{wbfmm\+\_\+target\+\_\+list\+\_\+new}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+target\+\_\+list\+\_\+t}$\ast$ wbfmm\+\_\+target\+\_\+list\+\_\+new (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint}]{npts}
+\end{DoxyParamCaption}
+)}\label{group__targets_gaaa371992f189a2bb359c29e18f254bde}
+
+
+Allocate a target list structure for efficient evaluation of fields. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & tree to which target list is connected; \\
+\hline
+{\em npts} & maximum number of target points\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+newly allocated \+:\doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+t}{p.}{structwbfmm__target__list__t} for the requested number of target points 
+\end{DoxyReturn}
+\index{Target point lists@{Target point lists}!wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f@{wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f}}
+\index{wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f@{wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f}!Target point lists@{Target point lists}}
+\subsubsection[{wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+target\+\_\+list\+\_\+t}$\ast$ wbfmm\+\_\+target\+\_\+list\+\_\+new\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint}]{npts}
+\end{DoxyParamCaption}
+)}\label{group__targets_gaa41cd40b34b93b80a26a74fa07081213}
+
+
+Allocate a target list structure for efficient evaluation of fields. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & tree to which target list is connected; \\
+\hline
+{\em npts} & maximum number of target points\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+newly allocated \+:\doxyref{wbfmm\+\_\+target\+\_\+list\+\_\+t}{p.}{structwbfmm__target__list__t} for the requested number of target points 
+\end{DoxyReturn}
