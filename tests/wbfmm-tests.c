@@ -247,7 +247,7 @@ static gint read_data(gchar *ipfile,
 
     if ( strcmp(tokens[0], "field:") == 0 ) {
       *nf = atoi(tokens[1]) ;
-      *fstr = 5 ;
+      *fstr = 6 ;
       *xf = (gdouble *)g_malloc((*nf)*(*fstr)*sizeof(gdouble)) ;
       for ( i = 0 ; i < *nf ; i ++ ) {
 	fscanf(f, "%lg %lg %lg",
@@ -392,70 +392,6 @@ gint besselh_test(gint N, gdouble x)
   return 0 ;
 }
 
-#if 0
-gint expansion_gradient_test(gdouble k, gint N, 
-			     gdouble *x0,
-			     gdouble *xs, gint xstride,
-			     gdouble *src, gint sstride,
-			     gint nsrc,
-			     gdouble *xf, gint nfld)
-
-{
-  gdouble cfft[4096] = {0}, work[1024] ;
-  gint i, cstr, fstr, nq ;
-  gdouble t0 ;
-
-  cstr = 2 ; fstr = 4 ; nq = 1 ;
-  t0 = g_timer_elapsed(timer, NULL) ;
-  fprintf(stderr, "%s start: %lg\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
-  for ( i = 0 ; i < nsrc ; i ++ ) {
-    wbfmm_expansion_h_cfft(k, N, x0, &(xs[i*xstride]), &(src[i*sstride]),
-				nq, cfft, cstr, work) ;
-  }
-
-  fprintf(stderr, "%s expansion generated: %lg\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
-  for ( i = 0 ; i < nfld ; i ++ ) {
-    gdouble field[6] = {0.0} ;
-
-    wbfmm_expansion_h_grad_evaluate(k, x0, cfft, cstr, N, nq,
-					 &(xf[i*xstride]), 
-					 field, fstr, work) ;
-
-    fprintf(stdout,
-	    "%lg+j*%lg %lg+j*%lg %lg+j*%lg\n",
-	    field[0], field[1], field[2], field[3], field[4], field[5]) ;
-
-    work[0] = work[1] = work[2] = work[3] = work[4] = work[5] = 0.0 ;
-    wbfmm_total_field_grad(k, xs, xstride, src, sstride,
-				NULL, 0, NULL, 0,			   
-				nsrc, &(xf[i*xstride]), work, 6) ;
-
-    fprintf(stdout,
-	    "%lg+j*%lg %lg+j*%lg %lg+j*%lg\n",
-	    work[0], work[1], work[2], work[3], work[4], work[5]) ;
-
-    fprintf(stdout,
-	    "%lg %lg %lg\n",
-	    sqrt((work[0]-field[0])*(work[0]-field[0]) +
-		 (work[1]-field[1])*(work[1]-field[1])),
-	    sqrt((work[2]-field[2])*(work[2]-field[2]) +
-		 (work[3]-field[3])*(work[3]-field[3])),
-	    sqrt((work[4]-field[4])*(work[4]-field[4]) +
-		 (work[5]-field[5])*(work[5]-field[5]))) ;  
-    
-  }
-
-  fprintf(stderr, "%s end: %lg\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
-  return 0 ;
-}
-#endif
-
 gint expansion_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 			     gdouble *ix, gdouble *iy, gdouble *iz,
 			     gdouble k,
@@ -470,7 +406,7 @@ gint expansion_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gint i, cstr ;
   gdouble t0 ;
 
-  cstr = 2 ;
+  cstr = nq ;
   t0 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -491,6 +427,7 @@ gint expansion_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 					 fe, fstr, work) ;
 
     fprintf(stdout,
+	    "expansion: "
 	    "%lg+j*%lg %lg+j*%lg "
 	    "%lg+j*%lg\n",
 	    fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
@@ -500,6 +437,7 @@ gint expansion_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 				nq, ns, &(xf[i*fstr]), fc, 6) ;
 
     fprintf(stdout,
+	    "direct:    "
 	    "%lg+j*%lg %lg+j*%lg "
 	    "%lg+j*%lg\n",
 	    fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
@@ -850,7 +788,7 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gdouble Ci[BUFSIZE] = {0}, Co[BUFSIZE] = {0.0}, shift[BUFSIZE] = {0.0} ;
   gdouble kr, work[BUFSIZE], xr[3], xt[3] ;
   gdouble eval[BUFSIZE] = {0.0} ;  
-  gdouble fl[32]={0.0}, fe[32]={0.0}, fc[32]={0.0} ;
+  gdouble fl[32]={0.0}, fe[32]={0.0}, fc[32]={0.0}, fp[32] = {0.0} ;
   gint i, Ni, No, cstri, cstro ;
   gdouble t0 ;
   guint field ;
@@ -863,8 +801,8 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 
-  cstri = 1 ;
-  cstro = 1 ;
+  cstri = nq ;
+  cstro = nq ;
 
   xt[0] = x0[0] ; xt[1] = x0[1] ; xt[2] = x0[2] + t ; 
   
@@ -873,7 +811,6 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
   xr[2] = xt[2] + x2[2] ;
 
   /*generate coaxial shift coefficients*/
-  /* kr = -k*(xc[2] - x0[2]) ; */
   kr = k*t ;
   wbfmm_coefficients_SR_coaxial(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
@@ -905,59 +842,65 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
   /*compute field in both frames*/
   wbfmm_total_field_grad(k, xs, sstr, q, qstr,
 			      NULL, 0, NULL, 0,
-			      nq, ns, xr, fc, 6) ;
-  
-  fprintf(stdout, "direct:      %lg+j*%lg "
-	  "%lg+j*%lg %lg+j*%lg\n",
-	  fc[0], fc[1], fc[2], fc[3], fc[4], fc[5]) ;
+			      nq, ns, xr, fc, fstr) ;
   
   wbfmm_expansion_h_grad_evaluate(k, x0, Ci, cstri, Ni, nq, xr, fe,
 				       fstr, work) ;
   
-  fprintf(stdout, "h expansion: %lg+j*%lg "
-	  "%lg+j*%lg %lg+j*%lg\n",
-	  fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
-
-  fprintf(stdout, "             %lg %lg %lg\n",
-	  sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
-	       (fe[1]-fc[1])*(fe[1]-fc[1])),
-	  sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
-	       (fe[3]-fc[3])*(fe[3]-fc[3])),
-	  sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
-	       (fe[5]-fc[5])*(fe[5]-fc[5]))
-	  ) ;
-  
   wbfmm_expansion_j_grad_evaluate(k, xt, Co, cstro, No, nq, xr,
 				       fl, fstr, work) ;
   
-  fprintf(stdout, "j expansion: %lg+j*%lg "
-	  "%lg+j*%lg %lg+j*%lg\n",
-	  fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]) ;
-  
-  fprintf(stdout, "             %lg %lg %lg\n",
-	  sqrt((fl[0]-fc[0])*(fl[0]-fc[0]) +
-	       (fl[1]-fc[1])*(fl[1]-fc[1])),
-	  sqrt((fl[2]-fc[2])*(fl[2]-fc[2]) +
-	       (fl[3]-fc[3])*(fl[3]-fc[3])),
-	  sqrt((fl[4]-fc[4])*(fl[4]-fc[4]) +
-	       (fl[5]-fc[5])*(fl[5]-fc[5]))) ;
-
   xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
   wbfmm_local_coefficients(k, xr, N, field, eval, work) ;
-  memset(fe, 0, 6*sizeof(gdouble)) ;
-  wbfmm_expansion_apply(Co, cstro, nq, eval, No, field, fe, fstr) ;
+  /* memset(fe, 0, 6*sizeof(gdouble)) ; */
+  wbfmm_expansion_apply(Co, cstro, nq, eval, No, field, fp, fstr) ;
 
-  fprintf(stdout, "pre-computed: %lg+j*%lg "
-	  "%lg+j*%lg %lg+j*%lg\n",
-	  fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    fprintf(stdout, "direct:      %lg+j*%lg "
+	    "%lg+j*%lg %lg+j*%lg\n",
+	    fc[i*fstr+0], fc[i*fstr+1], fc[i*fstr+2],
+	    fc[i*fstr+3], fc[i*fstr+4], fc[i*fstr+5]) ;
+  
+    fprintf(stdout, "h expansion: %lg+j*%lg "
+	    "%lg+j*%lg %lg+j*%lg\n",
+	    fe[i*fstr+0], fe[i*fstr+1], fe[i*fstr+2],
+	    fe[i*fstr+3], fe[i*fstr+4], fe[i*fstr+5]) ;
 
-  fprintf(stdout, "             %lg %lg %lg\n",
-	  sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
-	       (fe[1]-fc[1])*(fe[1]-fc[1])),
-	  sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
-	       (fe[3]-fc[3])*(fe[3]-fc[3])),
-	  sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
-	       (fe[5]-fc[5])*(fe[5]-fc[5]))) ;
+    fprintf(stdout, "             %lg %lg %lg\n",
+	    sqrt((fe[i*fstr+0]-fc[i*fstr+0])*(fe[i*fstr+0]-fc[i*fstr+0]) +
+		 (fe[i*fstr+1]-fc[i*fstr+1])*(fe[i*fstr+1]-fc[i*fstr+1])),
+	    sqrt((fe[i*fstr+2]-fc[i*fstr+2])*(fe[i*fstr+2]-fc[i*fstr+2]) +
+		 (fe[i*fstr+3]-fc[i*fstr+3])*(fe[i*fstr+3]-fc[i*fstr+3])),
+	    sqrt((fe[i*fstr+4]-fc[i*fstr+4])*(fe[i*fstr+4]-fc[i*fstr+4]) +
+		 (fe[i*fstr+5]-fc[i*fstr+5])*(fe[i*fstr+5]-fc[i*fstr+5]))) ;
+  
+    fprintf(stdout, "j expansion: %lg+j*%lg "
+	    "%lg+j*%lg %lg+j*%lg\n",
+	    fl[i*fstr+0], fl[i*fstr+1], fl[i*fstr+2],
+	    fl[i*fstr+3], fl[i*fstr+4], fl[i*fstr+5]) ;
+  
+    fprintf(stdout, "             %lg %lg %lg\n",
+	    sqrt((fl[i*fstr+0]-fc[i*fstr+0])*(fl[i*fstr+0]-fc[i*fstr+0]) +
+		 (fl[i*fstr+1]-fc[i*fstr+1])*(fl[i*fstr+1]-fc[i*fstr+1])),
+	    sqrt((fl[i*fstr+2]-fc[i*fstr+2])*(fl[i*fstr+2]-fc[i*fstr+2]) +
+		 (fl[i*fstr+3]-fc[i*fstr+3])*(fl[i*fstr+3]-fc[i*fstr+3])),
+	    sqrt((fl[i*fstr+4]-fc[i*fstr+4])*(fl[i*fstr+4]-fc[i*fstr+4]) +
+		 (fl[i*fstr+5]-fc[i*fstr+5])*(fl[i*fstr+5]-fc[i*fstr+5]))) ;
+
+    fprintf(stdout, "pre-computed: %lg+j*%lg "
+	    "%lg+j*%lg %lg+j*%lg\n",
+	    fp[i*fstr+0], fp[i*fstr+1], fp[i*fstr+2],
+	    fp[i*fstr+3], fp[i*fstr+4], fp[i*fstr+5]) ;
+
+    fprintf(stdout, "             %lg %lg %lg\n",
+	    sqrt((fp[i*fstr+0]-fc[i*fstr+0])*(fp[i*fstr+0]-fc[i*fstr+0]) +
+		 (fp[i*fstr+1]-fc[i*fstr+1])*(fp[i*fstr+1]-fc[i*fstr+1])),
+	    sqrt((fp[i*fstr+2]-fc[i*fstr+2])*(fp[i*fstr+2]-fc[i*fstr+2]) +
+		 (fp[i*fstr+3]-fc[i*fstr+3])*(fp[i*fstr+3]-fc[i*fstr+3])),
+	    sqrt((fp[i*fstr+4]-fc[i*fstr+4])*(fp[i*fstr+4]-fc[i*fstr+4]) +
+		 (fp[i*fstr+5]-fc[i*fstr+5])*(fp[i*fstr+5]-fc[i*fstr+5]))) ;
+    fprintf(stdout, "\n") ;
+  }
   
   fprintf(stderr, "%s ends: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
