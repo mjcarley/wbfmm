@@ -883,6 +883,8 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 	  x0[0], x0[1], x0[2]) ;
   fprintf(stderr, "shifted expansion: %lg %lg %lg\n", 
 	  xt[0], xt[1], xt[2]) ;
+  fprintf(stderr, "local field point: %lg %lg %lg\n", 
+	  xr[0], xr[1], xr[2]) ;
   fprintf(stderr, "coaxial translation: kr = %lg\n", kr) ;
 
   /*expand about origin*/
@@ -942,6 +944,7 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 
   xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
   wbfmm_local_coefficients(k, xr, N, field, eval, work) ;
+  memset(fe, 0, 6*sizeof(gdouble)) ;
   wbfmm_expansion_apply(Co, cstro, nq, eval, No, field, fe, fstr) ;
 
   fprintf(stdout, "pre-computed: %lg+j*%lg "
@@ -954,8 +957,7 @@ gint local_gradient_test(gdouble *x0, gdouble *x1, gdouble *x2,
 	  sqrt((fe[2]-fc[2])*(fe[2]-fc[2]) +
 	       (fe[3]-fc[3])*(fe[3]-fc[3])),
 	  sqrt((fe[4]-fc[4])*(fe[4]-fc[4]) +
-	       (fe[5]-fc[5])*(fe[5]-fc[5]))
-	  ) ;
+	       (fe[5]-fc[5])*(fe[5]-fc[5]))) ;
   
   fprintf(stderr, "%s ends: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;

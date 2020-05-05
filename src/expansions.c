@@ -617,22 +617,56 @@ static gint _wbfmm_local_coefficients_scalar(WBFMM_REAL kr,
   return 0 ;
 }
 
-static gint coefficients_j_grad_increment(gint n, gint m,
-					  WBFMM_REAL jn,
-					  WBFMM_REAL *Pn,
+static gint coefficients_j_grad_increment(gint n, gint m, gint sgn,
+					  WBFMM_REAL k,
+					  WBFMM_REAL jnm1, WBFMM_REAL jnp1,
+					  WBFMM_REAL *Pnm1, WBFMM_REAL *Pnp1,
+					  WBFMM_REAL Cmphm1, WBFMM_REAL Smphm1,
 					  WBFMM_REAL Cmph, WBFMM_REAL Smph,
+					  WBFMM_REAL Cmphp1, WBFMM_REAL Smphp1,
 					  WBFMM_REAL *cfft)
 
 {
-  gint idx ;
+  gint idx, mm1, mp1 ;
+  WBFMM_REAL tm, tp, a1, a2, b1, b2 ;
+  WBFMM_REAL d1r, d1i, d2r, d2i ;
+  
+  /*application of G&D (2004) equation 3.7*/  
+  idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
 
-  idx = wbfmm_conjugate_index_nm(n,m) ;
-  cfft[2*idx+0] = Cmph*jn*Pn[m] ; cfft[2*idx+1] = Smph*jn*Pn[m] ;
+  /*coefficient times j_{n-1}(kr), j_{n+1}(kr)*/
+  tm = k*jnm1 ; tp = k*jnp1 ;
+
+  /*z derivative*/
+  a1 = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, m) ;
+  a2 = WBFMM_FUNCTION_NAME(recursion_anm)(n  , m) ;
+
+  d1r = Cmph*(a1*tm*Pnm1[m] - a2*tp*Pnp1[m]) ;
+  d1i = Smph*(a1*tm*Pnm1[m] - a2*tp*Pnp1[m]) ;
+
+  cfft[6*idx+4] = d1r ; cfft[6*idx+5] = d1i ;
+  
+  mm1 = ABS(sgn*m-1) ; mp1 = ABS(sgn*m+1) ;
+  
+  /*x and y derivatives*/
+  b1 = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1)/2.0 ;
+  b2 = WBFMM_FUNCTION_NAME(recursion_bnm)(n  ,  sgn*m  )/2.0 ;
+  d1r = Cmphp1*(b1*tp*Pnp1[mp1] - b2*tm*Pnm1[mp1]) ;
+  d1i = Smphp1*(b1*tp*Pnp1[mp1] - b2*tm*Pnm1[mp1]) ;
+  b1 = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1,  sgn*m-1)/2.0 ;
+  b2 = WBFMM_FUNCTION_NAME(recursion_bnm)(n  , -sgn*m  )/2.0 ;
+  d2r = Cmphm1*(b1*tp*Pnp1[mm1] - b2*tm*Pnm1[mm1]) ;
+  d2i = Smphm1*(b1*tp*Pnp1[mm1] - b2*tm*Pnm1[mm1]) ;
+
+  cfft[6*idx+0] = d1r + d2r ;
+  cfft[6*idx+1] = d1i + d2i ;
+  cfft[6*idx+2] = d1i - d2i ;
+  cfft[6*idx+3] = d2r - d1r ;
   
   return 0 ;
 }
 
-static gint _wbfmm_local_coefficients_gradient(WBFMM_REAL kr,
+static gint _wbfmm_local_coefficients_gradient(WBFMM_REAL k, WBFMM_REAL r,
 					       WBFMM_REAL *cfft,
 					       gint N,
 					       WBFMM_REAL Cth,
@@ -642,37 +676,97 @@ static gint _wbfmm_local_coefficients_gradient(WBFMM_REAL kr,
 					       WBFMM_REAL *work)
 
 {
-  WBFMM_REAL jn, jnm1 ;
-  WBFMM_REAL *Pn, *Pnm1, Cmph[64], Smph[64] ;
+  WBFMM_REAL jn, jnm1, jnp1, kr ;
+  WBFMM_REAL *Pn, *Pnm1, *Pnp1, Cmph[64], Smph[64] ;
   gint n, m ;
 
-  Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
+  Pnm1 = &(work[0]) ;
+  Pn   = &(Pnm1[2*(2*N+1)]) ;
+  Pnp1 = &(Pn[2*(2*N+3)]) ;
+
+  kr = k*r ;
 
   /*initialize recursions*/
-  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jnm1, &jn) ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_init)(kr, &jn, &jnp1) ;
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
-					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+					   &(Pn[0]), &(Pnp1[0]), &(Pnp1[1])) ;
+
   Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
   Cmph[1] = Cph ; Smph[1] = Sph ;
-
+  jnm1 = 0.0 ;
   /*first two terms by hand*/
   n = 0 ; 
+  m = 0 ; 
+  coefficients_j_grad_increment(n, m,  1, k, jnm1, jnp1,
+				Pnm1, Pnp1,
+				Cmph[m+1], -Smph[m+1],  
+				Cmph[m  ],  Smph[m  ],
+				Cmph[m+1],  Smph[m+1],
+				cfft) ;
+  
+  jnm1 = jn ;
+  WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jn, &jnp1, kr, 1) ;
+  n = 1 ; 
   m = 0 ;
-  coefficients_j_grad_increment(n, m, jnm1, Pnm1, Cmph[m], Smph[m], cfft) ;
+  memcpy(Pnm1, Pn, (n+1)*sizeof(WBFMM_REAL)) ;
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pn, &Pnp1,
+						      1, Cth, Sth) ;
+  Cmph[n+1] = Cmph[n]*Cph - Smph[n]*Sph ;
+  Smph[n+1] = Smph[n]*Cph + Cmph[n]*Sph ;
 
-  n = 1 ;  
-  for ( m = 0 ; m <= n ; m ++ ) 
-    coefficients_j_grad_increment(n, m, jn, Pn, Cmph[m], Smph[m], cfft) ;
+  coefficients_j_grad_increment(n, m,  1, k, jnm1, jnp1,
+				Pnm1, Pnp1,
+				Cmph[m+1], -Smph[m+1],
+				Cmph[m  ],  Smph[m  ],
+				Cmph[m+1],  Smph[m+1],
+				cfft) ;
+
+  m = 1 ;
+  coefficients_j_grad_increment(n, m,  1, k, jnm1, jnp1,
+				Pnm1, Pnp1,
+				Cmph[m-1],  Smph[m-1],  
+				Cmph[m  ],  Smph[m  ],
+				Cmph[m+1],  Smph[m+1],
+				cfft) ;
+  coefficients_j_grad_increment(n, m, -1, k, jnm1, jnp1,
+				Pnm1, Pnp1,
+				Cmph[m+1], -Smph[m+1],  
+				Cmph[m  ], -Smph[m  ],
+				Cmph[m-1], -Smph[m-1],
+				cfft) ;
 
   for ( n = 2 ; n <= N ; n ++ ) {
-    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
-							n-1, Cth, Sth) ;
-    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jnm1, &jn, kr, n-1) ;
-    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
-    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+    memcpy(Pnm1, Pn, (n+1)*sizeof(WBFMM_REAL)) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pn, &Pnp1,
+							n, Cth, Sth) ;
+    jnm1 = jn ;
+    WBFMM_FUNCTION_NAME(wbfmm_bessel_j_recursion)(&jn, &jnp1, kr, n) ;
 
-    for ( m = 0 ; m <= n ; m ++ ) 
-      coefficients_j_grad_increment(n, m, jn, Pn, Cmph[m], Smph[m], cfft) ;
+    Cmph[n+1] = Cmph[n]*Cph - Smph[n]*Sph ;
+    Smph[n+1] = Smph[n]*Cph + Cmph[n]*Sph ;
+
+    m = 0 ; 
+    coefficients_j_grad_increment(n, m,  1, k, jnm1, jnp1,
+				  Pnm1, Pnp1,
+				  Cmph[m+1], -Smph[m+1],
+				  Cmph[m  ],  Smph[m  ],
+				  Cmph[m+1],  Smph[m+1],
+				  cfft) ;
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      coefficients_j_grad_increment(n, m,  1, k, jnm1, jnp1,
+				    Pnm1, Pnp1,
+				    Cmph[m-1],  Smph[m-1],  
+				    Cmph[m  ],  Smph[m  ],
+				    Cmph[m+1],  Smph[m+1],
+				    cfft) ;
+      coefficients_j_grad_increment(n, m, -1, k, jnm1, jnp1,
+				    Pnm1, Pnp1,
+				    Cmph[m+1], -Smph[m+1],
+				    Cmph[m  ], -Smph[m  ],
+				    Cmph[m-1], -Smph[m-1],
+				    cfft) ;
+    }
   }
   
   return 0 ;
@@ -702,7 +796,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
 					    Cph, Sph, work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
-    return _wbfmm_local_coefficients_gradient(k*r, cfft, N, Cth, Sth,
+    return _wbfmm_local_coefficients_gradient(k, r, cfft, N, Cth, Sth,
 					      Cph, Sph, work) ;
     break ;
   }
@@ -750,6 +844,66 @@ static gint _wbfmm_expansion_apply_scalar(WBFMM_REAL *C,
   return 0 ;
 }
 
+static gint _wbfmm_expansion_apply_gradient(WBFMM_REAL *C,
+					    gint cstr,
+					    gint nq,
+					    WBFMM_REAL *ec,
+					    gint N,
+					    WBFMM_REAL *f,
+					    gint fstr)
+{
+  gint n, m, idx, j, jdx ;
+  WBFMM_REAL *cp, *cm ;
+  
+  for ( n = 0 ; n <= N ; n ++ ) {
+    m = 0 ;
+    idx = 6*wbfmm_coefficient_index_nm(n,m) ;
+    cp = &(ec[idx]) ;
+    idx = 2*wbfmm_coefficient_index_nm(n,m) ;  
+
+    for ( j = 0 ; j < nq ; j ++ ) {
+      f[j*fstr+0] += C[idx*cstr+2*j+0]*cp[0] - C[idx*cstr+2*j+1]*cp[1] ;
+      f[j*fstr+1] += C[idx*cstr+2*j+0]*cp[1] + C[idx*cstr+2*j+1]*cp[0] ;
+      f[j*fstr+2] += C[idx*cstr+2*j+0]*cp[2] - C[idx*cstr+2*j+1]*cp[3] ;
+      f[j*fstr+3] += C[idx*cstr+2*j+0]*cp[3] + C[idx*cstr+2*j+1]*cp[2] ;
+      f[j*fstr+4] += C[idx*cstr+2*j+0]*cp[4] - C[idx*cstr+2*j+1]*cp[5] ;
+      f[j*fstr+5] += C[idx*cstr+2*j+0]*cp[5] + C[idx*cstr+2*j+1]*cp[4] ;
+    }
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = 6*wbfmm_coefficient_index_nm(n, m) ;
+      cp = &(ec[idx]) ;
+      idx = 6*wbfmm_coefficient_index_nm(n,-m) ;
+      cm = &(ec[idx]) ;
+      idx = 2*wbfmm_coefficient_index_nm(n,  m) ;  
+      jdx = 2*wbfmm_coefficient_index_nm(n, -m) ;  
+      for ( j = 0 ; j < nq ; j ++ ) {
+	f[j*fstr+0] +=
+	  C[idx*cstr+2*j+0]*cp[0] - C[idx*cstr+2*j+1]*cp[1] +
+	  C[jdx*cstr+2*j+0]*cm[0] - C[jdx*cstr+2*j+1]*cm[1] ;
+	f[j*fstr+1] +=
+	  C[idx*cstr+2*j+0]*cp[1] + C[idx*cstr+2*j+1]*cp[0] +
+	  C[jdx*cstr+2*j+0]*cm[1] + C[jdx*cstr+2*j+1]*cm[0] ;
+
+	f[j*fstr+2] +=
+	  C[idx*cstr+2*j+0]*cp[2] - C[idx*cstr+2*j+1]*cp[3] +
+	  C[jdx*cstr+2*j+0]*cm[2] - C[jdx*cstr+2*j+1]*cm[3] ;
+	f[j*fstr+3] +=
+	  C[idx*cstr+2*j+0]*cp[3] + C[idx*cstr+2*j+1]*cp[2] +
+	  C[jdx*cstr+2*j+0]*cm[3] + C[jdx*cstr+2*j+1]*cm[2] ;
+
+	f[j*fstr+4] +=
+	  C[idx*cstr+2*j+0]*cp[4] - C[idx*cstr+2*j+1]*cp[5] +
+	  C[jdx*cstr+2*j+0]*cm[4] - C[jdx*cstr+2*j+1]*cm[5] ;
+	f[j*fstr+5] +=
+	  C[idx*cstr+2*j+0]*cp[5] + C[idx*cstr+2*j+1]*cp[4] +
+	  C[jdx*cstr+2*j+0]*cm[5] + C[jdx*cstr+2*j+1]*cm[4] ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+ 
 gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
 						gint cstr,
 						gint nq,
@@ -766,9 +920,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
   case WBFMM_FIELD_SCALAR:
     return _wbfmm_expansion_apply_scalar(C, cstr, nq, ec, N, f, fstr) ;
     break ;
-  /* case WBFMM_FIELD_GRADIENT: */
-  /*   return _wbfmm_laplace_expansion_apply_gradient(C, cstr, nq, ec, N, f, */
-  /* 						   fstr) ; */
+  case WBFMM_FIELD_GRADIENT:
+    return _wbfmm_expansion_apply_gradient(C, cstr, nq, ec, N, f, fstr) ;
     break ;
   }
 

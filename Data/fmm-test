@@ -4,8 +4,8 @@ k=1.5
 depth=4
 bw=-B
 #bw=
-gradient=-g
-#gradient=
+#gradient=-g
+gradient=
 ##job=mixed
 job=monopoles
 #mixed

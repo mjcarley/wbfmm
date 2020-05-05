@@ -356,9 +356,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
 	  csrc[6*j+3] = -k*h1[1]*nR[1] ;
 	  csrc[6*j+4] = -k*h1[0]*nR[2] ;
 	  csrc[6*j+5] = -k*h1[1]*nR[2] ;
-  	  /* csrc[3*j+0] = -1.0/r/r*nR[0] ; */
-  	  /* csrc[3*j+1] = -1.0/r/r*nR[1] ; */
-  	  /* csrc[3*j+2] = -1.0/r/r*nR[2] ; */
   	} else {
   	  csrc[6*j+0] = csrc[6*j+1] = csrc[6*j+2] = 
 	    csrc[6*j+3] = csrc[6*j+4] = csrc[6*j+5] = 0.0 ;
@@ -386,8 +383,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
   wbfmm_box_t *boxes ;
   WBFMM_REAL *cfft, *eval, *csrc ;
-  
-  /* g_assert(wbfmm_tree_problem(t) == WBFMM_PROBLEM_LAPLACE) ; */
 
   nq = wbfmm_tree_source_size(t) ;
 
@@ -470,12 +465,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
 	  idx = l->isrc[l->ibox[b]+j] ;
 	  for ( k = 0 ; k < nq ; k ++ ) {
-	    f[ib*fstr+2*k+0] +=
-	      csrc[2*j+0]*src[idx*sstr+2*k+0] - 
-	      csrc[2*j+1]*src[idx*sstr+2*k+1] ;
-	    f[ib*fstr+2*k+1] +=
-	      csrc[2*j+1]*src[idx*sstr+2*k+0] +
-	      csrc[2*j+0]*src[idx*sstr+2*k+1] ;
+	    WBFMM_REAL sr, si ;
+	    sr = src[idx*sstr+2*k+0] ; si = src[idx*sstr+2*k+1] ;
+	    f[ib*fstr+2*k+0] += csrc[2*j+0]*sr - csrc[2*j+1]*si ;
+	    f[ib*fstr+2*k+1] += csrc[2*j+0]*si + csrc[2*j+1]*sr ;
 	  }
 	}    
       }
@@ -485,37 +478,26 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
       for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
     	b = l->boxes[ib] ;
     	cfft = boxes[b].mpr ;
-    	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
-    							   8*nq, nq,
-    							   &(eval[ib*nc]), nr,
-    							   l->field,
-    							   &(f[ib*fstr]), 3) ;
+    	WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(cfft,
+						   8*nq, nq,
+						   &(eval[ib*nc]), nr,
+						   l->field,
+						   &(f[ib*fstr]), 6) ;
     	/*direct contributions from neighbour boxes*/
     	csrc = &(((WBFMM_REAL *)(l->csrc))[6*(l->ics[ib])]) ;
     	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
     	  idx = l->isrc[l->ibox[b]+j] ;
     	  for ( k = 0 ; k < nq ; k ++ ) {
-    	    f[ib*fstr+6*k+0] +=
-	      csrc[6*j+0]*src[idx*sstr+2*k+0] - 
-	      csrc[6*j+1]*src[idx*sstr+2*k+1] ;
-    	    f[ib*fstr+6*k+1] +=
-	      csrc[6*j+1]*src[idx*sstr+2*k+0] - 
-	      csrc[6*j+0]*src[idx*sstr+2*k+1] ;
+	    WBFMM_REAL sr, si ;
+	    sr = src[idx*sstr+2*k+0] ; si = src[idx*sstr+2*k+1] ;
+    	    f[ib*fstr+6*k+0] += csrc[6*j+0]*sr - csrc[6*j+1]*si ;
+    	    f[ib*fstr+6*k+1] += csrc[6*j+1]*sr + csrc[6*j+0]*si ;
 
-    	    f[ib*fstr+6*k+2] +=
-	      csrc[6*j+2]*src[idx*sstr+2*k+0] - 
-	      csrc[6*j+3]*src[idx*sstr+2*k+1] ;
-    	    f[ib*fstr+6*k+3] +=
-	      csrc[6*j+3]*src[idx*sstr+2*k+0] + 
-	      csrc[6*j+2]*src[idx*sstr+2*k+1] ;
+    	    f[ib*fstr+6*k+2] += csrc[6*j+2]*sr - csrc[6*j+3]*si ;
+    	    f[ib*fstr+6*k+3] += csrc[6*j+3]*sr + csrc[6*j+2]*si ;
 
-    	    f[ib*fstr+6*k+4] +=
-	      csrc[6*j+4]*src[idx*sstr+2*k+0] - 
-	      csrc[6*j+5]*src[idx*sstr+2*k+1] ;
-    	    f[ib*fstr+6*k+5] +=
-	      csrc[6*j+5]*src[idx*sstr+2*k+0] + 
-	      csrc[6*j+4]*src[idx*sstr+2*k+1] ;
-	    
+    	    f[ib*fstr+6*k+4] += csrc[6*j+4]*sr - csrc[6*j+5]*si ;
+    	    f[ib*fstr+6*k+5] += csrc[6*j+5]*sr + csrc[6*j+4]*si ;	    
     	  }
     	}
       }

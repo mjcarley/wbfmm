@@ -1,4 +1,4 @@
-k = 1.5 ; grad = 1 ;
+k = 1.5 ; grad = 0 ;
 ##sfile = "mixed" ;
 sfile = "monopoles" ;
 

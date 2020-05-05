@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2020 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -229,7 +229,7 @@ static gint expansion_j_grad_increment(gint n, gint m, gint sgn,
   idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
   ar = k*cfft[2*idx*cstr+0] ; ai = k*cfft[2*idx*cstr+1] ;
 
-  /*coefficient times h_{n-1}(kr), h_{n+1}(kr)*/
+  /*coefficient times j_{n-1}(kr), n_{n+1}(kr)*/
   tm1r = ar*jnm1 ; tm1i = ai*jnm1 ;
   tp1r = ar*jnp1 ; tp1i = ai*jnp1 ;
 
@@ -386,8 +386,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
 				 field) ;
     }
   }
-#if 0
-#endif
   
   return 0 ;
 }
