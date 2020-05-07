@@ -229,58 +229,53 @@ static gint expansion_j_grad_increment(gint n, gint m, gint sgn,
 
 {
   gint idx, mm1, mp1, i ;
-  WBFMM_REAL ar, ai, tm1r[8], tm1i[8], tp1r[8], tp1i[8], a1, a2, b1, b2 ;
-  WBFMM_REAL d1r, d1i, d2r, d2i ;
+  WBFMM_REAL a1, a2, b1, b2, tm, tp, c[6] ;
   
   /*application of G&D (2004) equation 3.7*/  
   idx = wbfmm_coefficient_index_nm(n,sgn*m) ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    ar = k*cfft[2*idx*cstr+2*i+0] ;
-    ai = k*cfft[2*idx*cstr+2*i+1] ;
 
-    /*coefficient times j_{n-1}(kr), n_{n+1}(kr)*/
-    tm1r[i] = ar*jnm1 ; tm1i[i] = ai*jnm1 ;
-    tp1r[i] = ar*jnp1 ; tp1i[i] = ai*jnp1 ;
-  }
-  
-  /*z derivative*/
-  a1 = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, m) ;
-  a2 = WBFMM_FUNCTION_NAME(recursion_anm)(n  , m) ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    d1r = a1*(Cmph*tm1r[i] - Smph*tm1i[i])*Pnm1[m] -
-      a2*(Cmph*tp1r[i] - Smph*tp1i[i])*Pnp1[m] ;
-    d1i = a1*(Cmph*tm1i[i] + Smph*tm1r[i])*Pnm1[m] -
-      a2*(Cmph*tp1i[i] + Smph*tp1r[i])*Pnp1[m] ;
-    field[i*fstr+4] += d1r ; field[i*fstr+5] += d1i ;
-  }
-  
+  /*coefficient times j_{n-1}(kr), j_{n+1}(kr)*/
+  tm = k*jnm1 ; tp = k*jnp1 ;
+
   mm1 = ABS(sgn*m-1) ; mp1 = ABS(sgn*m+1) ;
   
   /*x and y derivatives*/
-  for ( i = 0 ; i < nq ; i ++ ) {
-    b1 = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1)/2.0 ;
-    b2 = WBFMM_FUNCTION_NAME(recursion_bnm)(n  ,  sgn*m  )/2.0 ;
-    d1r =
-      b1*(Cmphp1*tp1r[i] - Smphp1*tp1i[i])*Pnp1[mp1] -
-      b2*(Cmphp1*tm1r[i] - Smphp1*tm1i[i])*Pnm1[mp1] ;
-    d1i =
-      b1*(Cmphp1*tp1i[i] + Smphp1*tp1r[i])*Pnp1[mp1] -
-      b2*(Cmphp1*tm1i[i] + Smphp1*tm1r[i])*Pnm1[mp1] ;
-    b1 = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1,  sgn*m-1)/2.0 ;
-    b2 = WBFMM_FUNCTION_NAME(recursion_bnm)(n  , -sgn*m  )/2.0 ;
-    d2r =
-      b1*(Cmphm1*tp1r[i] - Smphm1*tp1i[i])*Pnp1[mm1] -
-      b2*(Cmphm1*tm1r[i] - Smphm1*tm1i[i])*Pnm1[mm1] ;
-    d2i =
-      b1*(Cmphm1*tp1i[i] + Smphm1*tp1r[i])*Pnp1[mm1] -
-      b2*(Cmphm1*tm1i[i] + Smphm1*tm1r[i])*Pnm1[mm1] ;
+  b1  = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1)/2.0 ;
+  b2  = WBFMM_FUNCTION_NAME(recursion_bnm)(n  ,  sgn*m  )/2.0 ;
+  c[0] = c[4] = Cmphp1*(b1*tp*Pnp1[mp1] - b2*tm*Pnm1[mp1]) ;
+  c[1] = c[5] = Smphp1*(b1*tp*Pnp1[mp1] - b2*tm*Pnm1[mp1]) ;
+  b1  = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1,  sgn*m-1)/2.0 ;
+  b2  = WBFMM_FUNCTION_NAME(recursion_bnm)(n  , -sgn*m  )/2.0 ;
+  c[3] =  Cmphm1*(b1*tp*Pnp1[mm1] - b2*tm*Pnm1[mm1]) ;
+  c[2] = -Smphm1*(b1*tp*Pnp1[mm1] - b2*tm*Pnm1[mm1]) ;
 
-    field[i*fstr+0] += d2r + d1r ;
-    field[i*fstr+1] += d2i + d1i ;
-    field[i*fstr+2] -= d2i - d1i ;
-    field[i*fstr+3] += d2r - d1r ;
+  c[0] += c[3] ; c[1] -= c[2] ;
+  c[2] += c[5] ; c[3] -= c[4] ;
+
+  /*z derivative*/
+  a1 = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, m) ;
+  a2 = WBFMM_FUNCTION_NAME(recursion_anm)(n  , m) ;
+
+  c[4] = Cmph*(a1*tm*Pnm1[m] - a2*tp*Pnp1[m]) ;
+  c[5] = Smph*(a1*tm*Pnm1[m] - a2*tp*Pnp1[m]) ;
+
+  for ( i = 0 ; i < nq ; i ++ ) {
+    field[i*fstr+0] +=
+      c[0]*cfft[2*idx*cstr+2*i+0] - c[1]*cfft[2*idx*cstr+2*i+1] ;
+    field[i*fstr+1] +=
+      c[0]*cfft[2*idx*cstr+2*i+1] + c[1]*cfft[2*idx*cstr+2*i+0] ;
+
+    field[i*fstr+2] +=
+      c[2]*cfft[2*idx*cstr+2*i+0] - c[3]*cfft[2*idx*cstr+2*i+1] ;
+    field[i*fstr+3] +=
+      c[2]*cfft[2*idx*cstr+2*i+1] + c[3]*cfft[2*idx*cstr+2*i+0] ;
+
+    field[i*fstr+4] +=
+      c[4]*cfft[2*idx*cstr+2*i+0] - c[5]*cfft[2*idx*cstr+2*i+1] ;
+    field[i*fstr+5] +=
+      c[4]*cfft[2*idx*cstr+2*i+1] + c[5]*cfft[2*idx*cstr+2*i+0] ;
   }
-  
+
   return 0 ;
 }
 
@@ -309,8 +304,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
 	    __FUNCTION__, fstr) ;
 
   Pnm1 = &(work[0]) ;
-  Pn   = &(Pnm1[2*(2*N+1)]) ;
-  Pnp1 = &(Pn[2*(2*N+3)]) ;
+  Pn   = &(Pnm1[N+1]) ;
+  Pnp1 = &(Pn  [N+3]) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
