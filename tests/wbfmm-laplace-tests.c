@@ -254,8 +254,8 @@ gint expansion_normal_test(gint N, gdouble *x0, gdouble *xs,
   
   nq = 1 ;
 
-  /* n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.6 ; */
-  n[0] = 0.0 ; n[1] = -0.0 ; n[2] = 1.0 ;
+  n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.6 ;
+  /* n[0] = 0.0 ; n[1] = 1.0 ; n[2] = 0.0 ; */
   
   fprintf(stderr, "expansion normal test\n") ;
   fprintf(stderr, "=====================\n") ;

@@ -3,13 +3,112 @@
 \usepackage{times}
 \usepackage{amsmath}
 
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\E}{\mathrm{e}}
+\newcommand{\J}{\mathrm{i}}
+
 \begin{document}
 
 Notes and derivations not given explicitly in referenced documents.
 
-Derivatives of regular Laplace expansions.
+Derivatives of regular Laplace expansions, assuming normalized
+Legendre functions and unit normalization constants ($\alpha$ and
+$\beta$ in G\&D). Identities for Legendre functions come from
+CS-TR-4264. 
 
+\begin{align}
+  \partial_{z} &= \mu\frac{\partial}{\partial r}
+                 + \frac{1-\mu^{2}}{r}\frac{\partial}{\partial \mu},\\
+  \partial_{xy} &= \frac{\partial}{\partial x} + \J
+                  \frac{\partial}{\partial y}\\
+               &=
+                 \frac{\E^{\J\phi}}{r(1-\mu^{2})^{1/2}}
+                 \left[
+                 (1-\mu^{2})
+                 \left(
+                 r\frac{\partial}{\partial r}
+                 -\mu\frac{\partial}{\partial \mu}
+                 \right)
+                 + \J\frac{\partial}{\partial \phi}
+                 \right],\\
+  \overline{\partial_{xy}}
+               &= \frac{\partial}{\partial x} - \J
+                  \frac{\partial}{\partial y}\\
+               &=
+                 \frac{\E^{-\J\phi}}{r(1-\mu^{2})^{1/2}}
+                 \left[
+                 (1-\mu^{2})
+                 \left(
+                 r\frac{\partial}{\partial r}
+                 -\mu\frac{\partial}{\partial \mu}
+                 \right)
+                 - \J\frac{\partial}{\partial \phi}
+                 \right],\\
+  \partial_{x} &= (\partial_{xy}+\overline{\partial_{xy}})/2,\\
+  \partial_{y} &= -\J(\partial_{xy}-\overline{\partial_{xy}})/2.
+\end{align}
 
+\begin{align}
+  R_{n}^{m} &= r^{n} N_{n}^{m}P_{n}^{|m|}\E^{\J m \phi},\\
+  \frac{\partial R_{n}^{m}}{\partial z}
+            &=
+              \left[
+              \mu n r^{n-1}P_{n}^{|m|} + r^{n-1}(1-\mu^{2})
+              \frac{\partial P_{n}^{|m|}}{\partial \mu}
+              \right]\E^{\J m \phi} N_{n}^{m},\\
+            &= r^{n-1}N_{n}^{m}P_{n-1}^{|m|}\E^{\J m \phi},\\
+            &= \frac{N_{n}^{m}}{N_{n-1}^{m}}R_{n-1}^{m},\\
+            &=
+              \left[
+              \frac{2n+1}{2n-1}
+              (n^{2}-m^{2})
+              \right]^{1/2}R_{n-1}^{m}.
+\end{align}
+
+\begin{align}
+  S_{n}^{m} &= r^{-n-1}N_{n}^{m}P_{n}^{|m|}\E^{\J m\phi},\\
+  \partial_{z} S_{n}^{m}
+            &=
+              -\left[
+              \mu (n+1) r^{-n-2}P_{n}^{|m|} + r^{-n-2}(1-\mu^{2})
+              \frac{\partial P_{n}^{|m|}}{\partial \mu}
+              \right]\E^{\J m \phi} N_{n}^{m},\\
+            &= -r^{-n-2}N_{n}^{m}(n-|m|+1)P_{n+1}^{|m|}\E^{\J m \phi},\\
+            &= -(n-|m|+1)\frac{N_{n}^{m}}{N_{n+1}^{m}}S_{n+1}^{m},\\
+            &=
+              -\left\{
+              \frac{2n+1}{2n+3}
+              \left[(n+1)^{2}-m^{2}\right]
+              \right\}^{1/2}S_{n+1}^{m},\\
+  \partial_{xy}S_{n}^{m}
+            &= 
+              \biggl\{
+              \left(1-\mu^{2}\right)^{1/2}
+              \left[
+              -(n+1)P_{n}^{|m|}(\mu)
+              -\mu\frac{\partial P_{n}^{|m|}}{\partial \mu}
+              \right]-\nonumber\\
+            &\frac{m}{\left(1-\mu^{2}\right)^{1/2}}
+              P_{n}^{|m|}(\mu)
+              \biggr\}N_{n}^{m}\E^{\J(m+1)\phi}r^{-n-2},\\
+            &= \left[
+              \frac{2n+1}{2n+3}(n+m+1)(n+m+2)
+              \right]^{1/2}S_{n+1}^{m+1},\\
+  \overline{\partial_{xy}}S_{n}^{m}
+            &= 
+              \biggl\{
+              \left(1-\mu^{2}\right)^{1/2}
+              \left[
+              -(n+1)P_{n}^{|m|}(\mu)
+              -\mu\frac{\partial P_{n}^{|m|}}{\partial \mu}
+              \right]+\nonumber\\
+            &\frac{m}{\left(1-\mu^{2}\right)^{1/2}}
+              P_{n}^{|m|}(\mu)
+              \biggr\}N_{n}^{m}\E^{\J(m-1)\phi}r^{-n-2},\\
+            &= -\left[
+              \frac{2n+1}{2n+3}(n-m+1)(n-m+2)
+              \right]^{1/2}S_{n+1}^{m-1}.
+\end{align}
 
 \end{document}
 
