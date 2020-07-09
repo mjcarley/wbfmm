@@ -1,0 +1,15 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{times}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -14,8 +14,8 @@
  * along with WBFMM.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _WBFMM_PRIVATE_H_INCLUDED_ 
-#define _WBFMM_PRIVATE_H_INCLUDED_ 
+#ifndef WBFMM_PRIVATE_H_INCLUDED 
+#define WBFMM_PRIVATE_H_INCLUDED
 
 #include <stdio.h>
 
@@ -152,4 +152,4 @@ gfloat recursion_bnm_f(gint n, gint m) ;
 #define WBFMM_DOWNWARD_PASS_TREE       4
 #define WBFMM_DOWNWARD_PASS_OP         5
 
-#endif /*_WBFMM_PRIVATE_H_INCLUDED_*/
+#endif /*WBFMM_PRIVATE_H_INCLUDED*/

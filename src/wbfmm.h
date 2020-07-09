@@ -25,8 +25,8 @@
  */
 
 
-#ifndef _WBFMM_H_INCLUDED_
-#define _WBFMM_H_INCLUDED_
+#ifndef WBFMM_H_INCLUDED
+#define WBFMM_H_INCLUDED
 
 #include <stdio.h>
 
@@ -368,6 +368,25 @@ gint wbfmm_laplace_expansion_cfft(gint N, gdouble *x0,
 				  gdouble *xs, gdouble *q, gint nq,
 				  gdouble *cfft, gint cstr,
 				  gdouble *work) ;
+gint wbfmm_laplace_expansion_normal_cfft(gint N, gdouble *x0,
+					 gdouble *xs,
+					 gdouble *normal,
+					 gdouble *q,
+					 gint nq,
+					 gdouble *cfft,
+					 gint cstr,
+					 gdouble *work) ;
+gint wbfmm_laplace_expansion_dipole_cfft(gint N,
+					 gdouble *x0,
+					 gdouble *xs,
+					 gdouble *fx,
+					 gdouble *fy,
+					 gdouble *fz,
+					 gint nq,
+					 gdouble *cfft,
+					 gint cstr,
+					 gdouble *work) ;
+
 gint wbfmm_laplace_field(gdouble *xs, gint xstride,
 			 gdouble *src, gint sstride,
 			 gint nq,
@@ -433,6 +452,24 @@ gint wbfmm_laplace_expansion_cfft_f(gint N, gfloat *x0,
 				    gfloat *xs, gfloat *q, gint nq,
 				    gfloat *cfft, gint cstr,
 				    gfloat *work) ;
+gint wbfmm_laplace_expansion_normal_cfft_f(gint N, gfloat *x0,
+					   gfloat *xs,
+					   gfloat *normal,
+					   gfloat *q,
+					   gint nq,
+					   gfloat *cfft,
+					   gint cstr,
+					   gfloat *work) ;
+gint wbfmm_laplace_expansion_dipole_cfft_f(gint N,
+					   gfloat *x0,
+					   gfloat *xs,
+					   gfloat *fx,
+					   gfloat *fy,
+					   gfloat *fz,
+					   gint nq,
+					   gfloat *cfft,
+					   gint cstr,
+					   gfloat *work) ;
 gint wbfmm_laplace_field_f(gfloat *xs, gint xstride,
 			   gfloat *src, gint sstride,
 			   gint nq,
@@ -1034,4 +1071,4 @@ gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
 
 #endif
 
-#endif /*_WBFMM_H_INCLUDED_*/
+#endif /*WBFMM_H_INCLUDED*/

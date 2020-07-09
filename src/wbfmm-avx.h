@@ -14,8 +14,8 @@
  * along with WBFMM.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _WBFMM_AVX_H_INCLUDED_
-#define _WBFMM_AVX_H_INCLUDED_
+#ifndef WBFMM_AVX_H_INCLUDED
+#define WBFMM_AVX_H_INCLUDED
 
 #ifdef HAVE_AVX_INSTRUCTIONS
 
@@ -42,4 +42,4 @@
 
 #endif /*HAVE_AVX_INSTRUCTIONS*/
 
-#endif /*_WBFMM_AVX_H_INCLUDED_*/
+#endif /*WBFMM_AVX_H_INCLUDED*/

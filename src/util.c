@@ -79,6 +79,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(WBFMM_REAL **Pnm1,
 
   /*Gumerov and Duraiswami normalization*/
   pnm1[n+1] = SQRT((2.0*n+3)/(2.0*n+2))*S*pn[n] ;
+  /* g_assert_not_reached() ; /\*next line not checked*\/ */
+  pn  [n+1] = 0.0 ;
   sq2np1 = SQRT(2.0*n+1) ;
 
   for ( m = 0 ; m <= n ; m ++ ) {

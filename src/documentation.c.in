@@ -1315,6 +1315,30 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
 						       gint cstr,
 							WBFMM_REAL *work) {}
 
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
+							      WBFMM_REAL *x0,
+							      WBFMM_REAL *xs,
+							      WBFMM_REAL
+							      *normal
+							      WBFMM_REAL *q,
+							      gint nq,
+							      WBFMM_REAL *cfft,
+							      gint cstr,
+							      WBFMM_REAL *work)
+
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_dipole_cfft)(gint N,
+							      WBFMM_REAL *x0,
+							      WBFMM_REAL *xs,
+							      WBFMM_REAL *fx,
+							      WBFMM_REAL *fy,
+							      WBFMM_REAL *fz,
+							      gint nq,
+							      WBFMM_REAL *cfft,
+							      gint cstr,
+							      WBFMM_REAL *work) ;
+
+
 /**
  *
  * @ingroup laplace
