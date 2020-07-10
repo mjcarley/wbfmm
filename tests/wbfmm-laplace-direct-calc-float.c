@@ -57,7 +57,6 @@ gint read_points(gchar *file,
     }
   }
 
-
   fscanf(input, "%d", nsrc) ;
   fscanf(input, "%d", &nqt) ;
   fscanf(input, "%s", code) ;
@@ -82,6 +81,33 @@ gint read_points(gchar *file,
     return 0 ;
   }
 
+  if ( strcmp(code, "N") == 0) {
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + *nq ;
+    *nstr = 3 ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
+    *n = (gfloat *)g_malloc0(3*(*nsrc)*sizeof(gfloat)) ;
+    *f = &(s[3]) ; *fstr = *xstr ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < 3 ; j ++ ) {
+	fscanf(input, "%g", &((*xs)[(*xstr)*i+j])) ;
+      }
+      for ( j = 0 ; j < 3 ; j ++ ) {
+	fscanf(input, "%g", &((*n)[(*nstr)*i+j])) ;
+      }
+      for ( j = 0 ; j < (*nq) ; j ++ ) {
+	fscanf(input, "%g", &((*f)[(*fstr)*i+j])) ;
+      }
+    }
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+  
   if ( strcmp(code, "F") == 0) {
     *xstr = 3 ;
     s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
@@ -176,7 +202,8 @@ gint main(gint argc, gchar **argv)
     }
   } else {
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_f(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+      wbfmm_laplace_field_f(xs, xstr, q, qstr, nq,
+			       normals, nstr, dipoles, dstr,
 			       nsrc, &(xf[i*strf]), &(f[nq*i])) ;
     }
   }

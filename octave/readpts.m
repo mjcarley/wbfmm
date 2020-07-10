@@ -28,6 +28,17 @@ function [x,q,n,f]=readpts(file)
     f = dat(:, 4+nq+3:end) ;
   endif
 
+  if ( strcmp(cstr, "N") )
+    dat = fscanf(fid, "%f", ns*(6+nq)) ;
+    
+    dat = reshape(dat, 6+nq, ns)' ;
+
+    x = dat(:, 1:3) ;
+    n = dat(:, 4:6) ;
+    f = dat(:, 7:end) ;
+    q = 0 ;
+  endif
+  
   if ( strcmp(cstr, "F") )
     dat = fscanf(fid, "%f", ns*(3+nq)) ;
     

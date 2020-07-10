@@ -536,29 +536,33 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_clear)(wbfmm_tree_t *t,
 						       guint l)
 
 {
-  guint nb, nc, ns, nr, nq ;
+  guint nb, ncs, ncr, ns, nr, nq ;
 
   g_assert(l <= wbfmm_tree_depth(t)) ;
 
   nq = wbfmm_tree_source_size(t) ;
+  ns = t->order_s[l] ; nr = t->order_r[l] ; 
 
-  if ( wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ ) nq *= 2 ;
+  if ( wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ ) {
+    nq *= 2 ; 
+    ncs = wbfmm_coefficient_index_nm(ns+1,0) ;
+    ncr = wbfmm_coefficient_index_nm(nr+1,0) ;
+  } else {
+    ncs = (ns+1)*(ns+1) ; 
+    ncr = (nr+1)*(nr+1) ; 
+  }
   
   /*number of boxes at level l*/
   nb = 1 << (3*l) ;
 
-  ns = t->order_s[l] ; nr = t->order_r[l] ; 
-
   /*number of coefficients in singular expansions*/
   if ( ns != 0 ) {
-    nc = wbfmm_coefficient_index_nm(ns+1,0) ;
-    memset(t->mps[l], 0, nb*nq*nc*sizeof(WBFMM_REAL)) ;
+    memset(t->mps[l], 0, nb*nq*ncs*sizeof(WBFMM_REAL)) ;
   }
 
   /*number of coefficients in regular expansions*/
   if ( nr != 0 ) {
-    nc = wbfmm_coefficient_index_nm(nr+1,0) ;
-    memset(t->mpr[l], 0, nb*nq*nc*sizeof(WBFMM_REAL)) ;
+    memset(t->mpr[l], 0, nb*nq*ncr*sizeof(WBFMM_REAL)) ;
   }
 
   return 0 ;

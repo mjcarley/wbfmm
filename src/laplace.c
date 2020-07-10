@@ -162,89 +162,154 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_dipole_cfft)(gint N,
 */
   
 {
-  WBFMM_REAL r, th, ph, rn ;
-  WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cmph[64], Smph[64] ;
-  WBFMM_REAL anm, b1, b2, Rnmm1, Rnm, Rnmp1 ;
-  gint n, m, idx, i ;
+  /* WBFMM_REAL r, th, ph, rn ; */
+  /* WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cmph[64], Smph[64] ; */
+  /* WBFMM_REAL anm, b1, b2, Rnmm1, Rnm, Rnmp1 ; */
+  /* gint n, m, idx, i ; */
 
-  g_assert(nq == 1) ;
-  g_assert(cstr >= nq) ;
+  /* g_assert(nq == 1) ; */
+  /* g_assert(cstr >= nq) ; */
   
-  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
+  /* Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ; */
 
-  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ;
-  Cth = COS(th) ; Sth = SIN(th) ;
+  /* WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xs, &r, &th, &ph) ; */
+  /* Cth = COS(th) ; Sth = SIN(th) ; */
 
-  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
-					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
-  Cmph[0] = 1.0 ; Cmph[1] = COS(ph) ; 
-  Smph[0] = 0.0 ; Smph[1] = SIN(ph) ;
+  /* WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth, */
+  /* 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ; */
+  /* Cmph[0] = 1.0 ; Cmph[1] = COS(ph) ;  */
+  /* Smph[0] = 0.0 ; Smph[1] = SIN(ph) ; */
 
   return 0 ;
 }
 
-gint expansion_dipole_increment_cfft(gint N, gint n, gint m,
+static gint expansion_dipole_increment_cfft(gint N, gint n, gint m,
 					    WBFMM_REAL rn,
 					    WBFMM_REAL *cfft, gint cstr,
 					    WBFMM_REAL *Pn,
-					    WBFMM_REAL *Cmph, WBFMM_REAL *Smph,
-					    WBFMM_REAL fx, 
-					    WBFMM_REAL fy, 
-					    WBFMM_REAL fz)
+					    WBFMM_REAL *Cmph,
+					    WBFMM_REAL *Smph,
+					    WBFMM_REAL *fx, 
+					    WBFMM_REAL *fy, 
+					    WBFMM_REAL *fz,
+					    gint nq)
 
 {
-  WBFMM_REAL Rnm, a0, a1 ;
-  gint idx ;
-  
-  if ( n >= N ) return 0 ;
+  WBFMM_REAL Rnm, a0, a1, a2 ;
+  gint idx, idxp, idxm, i ;
 
+  /* g_assert(n < N) ; */
+  /* g_assert(m != 0) ; */
+  /* g_assert(m != 1) ; */
+  
   Rnm = rn*Pn[m]/(2*n+1) ;
 
   a0 =  SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
   a1 = -SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
-  /*d/dx and d/dy*/
-  if ( m == 0 ) {
-    /*only fill in the m==1 case, leave m==-1 alone (picked up by the
-      conjugate)*/
-    idx = wbfmm_index_laplace_nm(n+1,m+1) ;
-    cfft[cstr*(idx+0)+0] += fx*0.5*a0*Rnm*Cmph[m] ;
-    cfft[cstr*(idx+1)+0] -= fx*0.5*a0*Rnm*Smph[m] ;
-    cfft[cstr*(idx+0)+0] -= fy*0.5*a0*Rnm*Smph[m] ;
-    cfft[cstr*(idx+1)+0] -= fy*0.5*a0*Rnm*Cmph[m] ;
-  } else {
-    idx = wbfmm_index_laplace_nm(n+1,m+1) ;
-    cfft[cstr*(idx+0)+0] += fx*0.5*a0*Rnm*Cmph[m] ;
-    cfft[cstr*(idx+1)+0] -= fx*0.5*a0*Rnm*Smph[m] ;
-    cfft[cstr*(idx+0)+0] -= fy*0.5*a0*Rnm*Smph[m] ;
-    cfft[cstr*(idx+1)+0] -= fy*0.5*a0*Rnm*Cmph[m] ;
+  a2 =  SQRT(((WBFMM_REAL)(n+1)*(n+1)-m*m)*(2*n+1)/(2*n+3)) ;
 
-    if ( m != 1 ) {
-      idx = wbfmm_index_laplace_nm(n+1,m-1) ;
-      cfft[cstr*(idx+0)+0] += fx*0.5*a1*Rnm*Cmph[m] ;
-      cfft[cstr*(idx+1)+0] -= fx*0.5*a1*Rnm*Smph[m] ;
-      cfft[cstr*(idx+0)+0] += fy*0.5*a1*Rnm*Smph[m] ;
-      cfft[cstr*(idx+1)+0] += fy*0.5*a1*Rnm*Cmph[m] ;
-    } else {
-      idx = (n+1)*(n+1) ;
-      cfft[cstr*(idx+0)+0] += fx*a1*Rnm*Cmph[m] ;
-      cfft[cstr*(idx+0)+0] += fy*a1*Rnm*Smph[m] ;
-    }
-  }
-  
-  /*d/dz*/
-  a0 = SQRT(((WBFMM_REAL)(n+1)*(n+1)-m*m)*(2*n+1)/(2*n+3)) ;
-  if ( m == 0 ) {
-    idx = (n+1)*(n+1) ;
-    cfft[cstr*idx+0] += fz*a0*Rnm ;
-  } else {
-    idx = wbfmm_index_laplace_nm(n+1,m) ;
-    cfft[cstr*(idx+0)+0] += fz*a0*Rnm*Cmph[m] ;
-    cfft[cstr*(idx+1)+0] -= fz*a0*Rnm*Smph[m] ;
+  idxp = wbfmm_index_laplace_nm(n+1,m+1) ;
+  idxm = wbfmm_index_laplace_nm(n+1,m-1) ;
+  idx = wbfmm_index_laplace_nm(n+1,m) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    /*d/dx and d/dy*/
+    cfft[cstr*(idxp+0)+i] += fx[i]*0.5*a0*Rnm*Cmph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fx[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+0)+i] -= fy[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fy[i]*0.5*a0*Rnm*Cmph[m] ;
+    cfft[cstr*(idxm+0)+i] += fx[i]*0.5*a1*Rnm*Cmph[m] ;
+    cfft[cstr*(idxm+1)+i] -= fx[i]*0.5*a1*Rnm*Smph[m] ;
+    cfft[cstr*(idxm+0)+i] += fy[i]*0.5*a1*Rnm*Smph[m] ;
+    cfft[cstr*(idxm+1)+i] += fy[i]*0.5*a1*Rnm*Cmph[m] ;
+    /*d/dz*/
+    cfft[cstr*(idx+0)+i] += fz[i]*a2*Rnm*Cmph[m] ;
+    cfft[cstr*(idx+1)+i] -= fz[i]*a2*Rnm*Smph[m] ;
   }
   
   return 0 ;
 }
+
+static gint expansion_dipole_increment_cfft_m0(gint N, gint n,
+					       WBFMM_REAL rn,
+					       WBFMM_REAL *cfft, gint cstr,
+					       WBFMM_REAL *Pn,
+					       WBFMM_REAL *Cmph,
+					       WBFMM_REAL *Smph,
+					       WBFMM_REAL *fx, 
+					       WBFMM_REAL *fy, 
+					       WBFMM_REAL *fz,
+					       gint nq)
+
+{
+  WBFMM_REAL Rnm, a0, a2 ;
+  gint idx, idxp, i, m = 0 ;
   
+  /* g_assert(n < N) ; */
+  /* g_assert(m == 0) ; */
+  
+  Rnm = rn*Pn[m]/(2*n+1) ;
+
+  a0 =  SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  a2 =  SQRT(((WBFMM_REAL)(n+1)*(n+1)-m*m)*(2*n+1)/(2*n+3)) ;
+  /*d/dx and d/dy*/
+  /*only fill in the m==1 case, leave m==-1 alone (picked up by the
+    conjugate)*/
+  idxp = wbfmm_index_laplace_nm(n+1,m+1) ;
+  idx  = (n+1)*(n+1) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    cfft[cstr*(idxp+0)+i] += fx[i]*0.5*a0*Rnm*Cmph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fx[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+0)+i] -= fy[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fy[i]*0.5*a0*Rnm*Cmph[m] ;
+    cfft[cstr*idx     +i] += fz[i]*a2*Rnm ;
+  }
+
+  return 0 ;
+}
+
+static gint expansion_dipole_increment_cfft_m1(gint N, gint n,
+					       WBFMM_REAL rn,
+					       WBFMM_REAL *cfft, gint cstr,
+					       WBFMM_REAL *Pn,
+					       WBFMM_REAL *Cmph,
+					       WBFMM_REAL *Smph,
+					       WBFMM_REAL *fx, 
+					       WBFMM_REAL *fy, 
+					       WBFMM_REAL *fz,
+					       gint nq)
+
+{
+  WBFMM_REAL Rnm, a0, a1, a2 ;
+  gint idx, idx0, idxp, i, m = 1 ;
+  
+  /* if ( n >= N ) return 0 ; */
+  /* g_assert(m == 1) ; */
+  
+  Rnm = rn*Pn[m]/(2*n+1) ;
+
+  a0 =  SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n+m+1)*(n+m+2)) ;
+  a1 = -SQRT((WBFMM_REAL)(2*n+1)/(2*n+3)*(n-m+1)*(n-m+2)) ;
+  a2 =  SQRT(((WBFMM_REAL)(n+1)*(n+1)-m*m)*(2*n+1)/(2*n+3)) ;
+  idxp = wbfmm_index_laplace_nm(n+1,m+1) ;
+  idx0 = (n+1)*(n+1) ;
+  idx = wbfmm_index_laplace_nm(n+1,m) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    /*d/dx and d/dy*/
+    cfft[cstr*(idxp+0)+i] += fx[i]*0.5*a0*Rnm*Cmph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fx[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+0)+i] -= fy[i]*0.5*a0*Rnm*Smph[m] ;
+    cfft[cstr*(idxp+1)+i] -= fy[i]*0.5*a0*Rnm*Cmph[m] ;
+    /*m=0 coefficient is real*/
+    cfft[cstr*(idx0+0)+i] += fx[i]*a1*Rnm*Cmph[m] ;
+    cfft[cstr*(idx0+0)+i] += fy[i]*a1*Rnm*Smph[m] ;
+    /*d/dz*/
+    cfft[cstr*(idx+0)+i] += fz[i]*a2*Rnm*Cmph[m] ;
+    cfft[cstr*(idx+1)+i] -= fz[i]*a2*Rnm*Smph[m] ;
+  }
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
 							      WBFMM_REAL *x0,
 							      WBFMM_REAL *xs,
@@ -283,11 +348,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
 {
   WBFMM_REAL r, th, ph, rn ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cmph[64], Smph[64] ;
-  WBFMM_REAL fx, fy, fz ;
-  gint n, m ;
+  WBFMM_REAL fx[8], fy[8], fz[8] ;
+  gint n, m, i ;
 
-  g_assert(nq == 1) ;
+  g_assert(nq < 9) ;
   g_assert(cstr >= nq) ;
+
+  if ( N == 0 ) return 0 ;
   
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
 
@@ -299,29 +366,35 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
   Cmph[0] = 1.0 ; Cmph[1] = COS(ph) ; 
   Smph[0] = 0.0 ; Smph[1] = SIN(ph) ;
 
-  fx = normal[0]*q[0] ; fy = normal[1]*q[0] ; fz = normal[2]*q[0] ; 
+  for ( i = 0 ; i < nq ; i ++ ) {
+    fx[i] = normal[0]*q[i] ; fy[i] = normal[1]*q[i] ; fz[i] = normal[2]*q[i] ;
+  }
   
   n = 0 ; 
   m = 0 ;
   rn = 1.0 ;
-  expansion_dipole_increment_cfft(N, n, m, rn, cfft, cstr, Pnm1, Cmph, Smph,
-				  fx, fy, fz) ;
+  expansion_dipole_increment_cfft_m0(N, n, rn, cfft, cstr, Pnm1, Cmph, Smph,
+				     fx, fy, fz, nq) ;
   
+  if ( N == 1 ) return 0 ;
+
   n = 1 ; 
   m = 0 ;
   rn *= r ;
   Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
   Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
 
-  expansion_dipole_increment_cfft(N, n, m, rn, cfft, cstr, Pn, Cmph, Smph,
-				  fx, fy, fz) ;
+  expansion_dipole_increment_cfft_m0(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
+				     fx, fy, fz, nq) ;
   
   m = 1 ; 
 
-  expansion_dipole_increment_cfft(N, n, m, rn, cfft, cstr, Pn, Cmph, Smph,
-				  fx, fy, fz) ;
+  expansion_dipole_increment_cfft_m1(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
+				     fx, fy, fz, nq) ;
 
-  for ( n = 2 ; n <= N ; n ++ ) {
+  if ( N == 2 ) return 0 ;
+
+  for ( n = 2 ; n < N ; n ++ ) {
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
   							n-1, Cth, Sth) ;
@@ -329,12 +402,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
     Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
     
     m = 0 ;
-    expansion_dipole_increment_cfft(N, n, m, rn, cfft, cstr, Pn, Cmph, Smph,
-				    fx, fy, fz) ;
+    expansion_dipole_increment_cfft_m0(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
+				       fx, fy, fz, nq) ;
+    m = 1  ;
+    expansion_dipole_increment_cfft_m1(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
+				       fx, fy, fz, nq) ;
     
-    for ( m = 1 ; m <= n ; m ++ ) {
+    for ( m = 2 ; m <= n ; m ++ ) {
       expansion_dipole_increment_cfft(N, n, m, rn, cfft, cstr, Pn, Cmph, Smph,
-				      fx, fy, fz) ;
+				      fx, fy, fz, nq) ;
     }
   }
 
@@ -966,6 +1042,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 
   if ( src == NULL && normals != NULL ) {
     /* dipoles only */
+    WBFMM_REAL *normal ;
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
       WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(im, d, 
@@ -977,10 +1054,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
       for ( j = 0 ; j < boxes[i].n ; j ++ ) {
 	idx = t->ip[boxes[i].i+j] ;
 	xs = wbfmm_tree_point_index(t,idx) ;
-	q = &(src[idx*sstr]) ;
-	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(ns, xb, xs, q, nq,
-							  boxes[i].mps, 8*nq,
-							  work) ;
+	normal = &(normals[nstr*idx]) ;
+	q = &(dipoles[idx*dstr]) ;
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(ns, xb, xs,
+								 normal, q,
+								 nq,
+								 boxes[i].mps,
+								 8*nq,
+								 work) ;
       }
     }
 
@@ -1091,7 +1172,29 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 
   if ( src == NULL && normals != NULL ) {
     /*dipoles only*/
-    g_assert_not_reached() ;
+    /* g_assert_not_reached() ; */
+    WBFMM_REAL th, ph, nr ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > 1e-6 ) {
+	  nr =
+	    (x[0] - xs[0])*normals[idx*nstr+0] +
+	    (x[1] - xs[1])*normals[idx*nstr+1] + 
+	    (x[2] - xs[2])*normals[idx*nstr+2] ;
+	  nr /= 4.0*M_PI*r*r*r ;
+	  for ( k = 0 ; k < nq ; k ++ ) f[k] += d[idx*dstr+k]*nr ;
+	}
+      }
+      
+    } 
+
+    return 0 ;
   }
   
   g_assert_not_reached() ; 

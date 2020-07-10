@@ -78,7 +78,6 @@ gint read_points(gchar *file,
     }
   }
 
-
   fscanf(input, "%d", nsrc) ;
   fscanf(input, "%d", &nqt) ;
   fscanf(input, "%s", code) ;
@@ -103,6 +102,33 @@ gint read_points(gchar *file,
     return 0 ;
   }
 
+  if ( strcmp(code, "N") == 0) {
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + *nq ;
+    *nstr = 3 ;
+    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    *n = (WBFMM_REAL *)g_malloc0(3*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    *f = &(s[3]) ; *fstr = *xstr ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < 3 ; j ++ ) {
+	fscanf(input, "%FLOATFMT", &((*xs)[(*xstr)*i+j])) ;
+      }
+      for ( j = 0 ; j < 3 ; j ++ ) {
+	fscanf(input, "%FLOATFMT", &((*n)[(*nstr)*i+j])) ;
+      }
+      for ( j = 0 ; j < (*nq) ; j ++ ) {
+	fscanf(input, "%FLOATFMT", &((*f)[(*fstr)*i+j])) ;
+      }
+    }
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+
   if ( strcmp(code, "F") == 0) {
     *xstr = 3 ;
     s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
@@ -117,6 +143,8 @@ gint read_points(gchar *file,
     return 0 ;
   }
 
+  
+  
   g_assert_not_reached() ;
   
   return 0 ;
@@ -340,12 +368,22 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  fprintf(stderr, "%s: computing fmm field; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_target_list_local_field_PREC(targets, q, qstr, f, fcstr) ;
-  fprintf(stderr, "%s: fmm field computed; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
+  /* fprintf(stderr, "%s: computing fmm field; %lg\n", */
+  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
+  /* wbfmm_target_list_local_field_PREC(targets, q, qstr, f, fcstr) ; */
+  /* fprintf(stderr, "%s: fmm field computed; %lg\n", */
+  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
 
+  for ( i = 0 ; i < nf ; i ++ ) {
+    guint64 box ;
+    box = wbfmm_point_box_PREC(tree, tree->depth, &(xf[i*strf])) ;
+    wbfmm_tree_laplace_box_local_field_PREC(tree, tree->depth, box,
+					    &(xf[i*strf]),
+					    &(f[i*fcstr]), q, qstr,
+					    normals, nstr,
+					    dipoles, dstr, TRUE, work) ;
+  }
+  
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 
 	    "%FLOATEXP %FLOATEXP %FLOATEXP",
