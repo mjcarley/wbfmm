@@ -7,18 +7,21 @@ bw=-B
 #gradient=-g
 gradient=
 ##job=mixed
+#job=normals
 job=monopoles
 #mixed
-nthreads=4
+nthreads=2
+orderS=16
+orderR=16
 
 ../tests/wbfmm-tree-calc -b -d ${depth} -f field.dat -k ${k} ${bw} \
 			 ${gradient} -s ${job}.dat \
-			 -S 0 -R 0 -T ${nthreads} \
+			 -S ${orderS} -R ${orderR} -T ${nthreads} \
 			 -t 1e-6 > ${job}-fmm.dat
 
 ../tests/wbfmm-tree-calc-avx -b -d ${depth} -f field.dat -k ${k} ${bw} \
 			     ${gradient} -s ${job}.dat \
-			     -S 0 -R 0 -T ${nthreads} \
+			     -S ${orderS} -R ${orderR} -T ${nthreads} \
 			     -t 1e-6 > ${job}-avx.dat
 
 ../tests/wbfmm-direct-calc -f field.dat -k ${k} ${gradient} \

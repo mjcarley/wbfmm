@@ -833,6 +833,69 @@ S["DX_RULES"]="## --------------------------------- ##\n"\
 "DX_CLEAN_HTML = $(DX_DOCDIR)/html\\\n"\
 "                $(DX_DOCDIR)/html\n"\
 "\n"\
+"## ----------------------------- ##\n"\
+"## Rules specific for PS output. ##\n"\
+"## ----------------------------- ##\n"\
+"\n"\
+"DX_CLEAN_PS = $(DX_DOCDIR)/$(PACKAGE).ps\\\n"\
+"              $(DX_DOCDIR)/$(PACKAGE).ps\n"\
+"\n"\
+"DX_PS_GOAL = doxygen-ps\n"\
+"\n"\
+"doxygen-ps: $(DX_CLEAN_PS)\n"\
+"\n"\
+"$(DX_DOCDIR)/$(PACKAGE).ps: $(DX_DOCDIR)/$(PACKAGE).tag\n"\
+"	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \\\n"\
+"	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \\\n"\
+"	$(DX_LATEX) refman.tex; \\\n"\
+"	$(DX_MAKEINDEX) refman.idx; \\\n"\
+"	$(DX_LATEX) refman.tex; \\\n"\
+"	countdown=5; \\\n"\
+"	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \\\n"\
+"	                  refman.log > /dev/null 2>&1 \\\n"\
+"	   && test $$countdown -gt 0; do \\\n"\
+"	    $(DX_LATEX) refman.tex; \\\n"\
+"            countdown=`expr $$countdown - 1`; \\\n"\
+"	done; \\\n"\
+"	$(DX_DVIPS) -o ../$(PACKAGE).ps refman.dvi\n"\
+"\n"\
+"## ------------------------------ ##\n"\
+"## Rules specific for PDF output. ##\n"\
+"## ------------------------------ ##\n"\
+"\n"\
+"DX_CLEAN_PDF = $(DX_DOCDIR)/$(PACKAGE).pdf\\\n"\
+"               $(DX_DOCDIR)/$(PACKAGE).pdf\n"\
+"\n"\
+"DX_PDF_GOAL = doxygen-pdf\n"\
+"\n"\
+"doxygen-pdf: $(DX_CLEAN_PDF)\n"\
+"\n"\
+"$(DX_DOCDIR)/$(PACKAGE).pdf: $(DX_DOCDIR)/$(PACKAGE).tag\n"\
+"	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \\\n"\
+"	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \\\n"\
+"	$(DX_PDFLATEX) refman.tex; \\\n"\
+"	$(DX_MAKEINDEX) refman.idx; \\\n"\
+"	$(DX_PDFLATEX) refman.tex; \\\n"\
+"	countdown=5; \\\n"\
+"	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \\\n"\
+"	                  refman.log > /dev/null 2>&1 \\\n"\
+"	   && test $$countdown -gt 0; do \\\n"\
+"	    $(DX_PDFLATEX) refman.tex; \\\n"\
+"	    countdown=`expr $$countdown - 1`; \\\n"\
+"	done; \\\n"\
+"	mv refman.pdf ../$(PACKAGE).pdf\n"\
+"\n"\
+"## ------------------------------------------------- ##\n"\
+"## Rules specific for LaTeX (shared for PS and PDF). ##\n"\
+"## ------------------------------------------------- ##\n"\
+"\n"\
+"DX_V_LATEX = $(_DX_v_LATEX_$(V))\n"\
+"_DX_v_LATEX_ = $(_DX_v_LATEX_$(AM_DEFAULT_VERBOSITY))\n"\
+"_DX_v_LATEX_0 = @echo \"  LATEX \" $@;\n"\
+"\n"\
+"DX_CLEAN_LATEX = $(DX_DOCDIR)/latex\\\n"\
+"                 $(DX_DOCDIR)/latex\n"\
+"\n"\
 "DX_V_DXGEN = $(_DX_v_DXGEN_$(V))\n"\
 "_DX_v_DXGEN_ = $(_DX_v_DXGEN_$(AM_DEFAULT_VERBOSITY))\n"\
 "_DX_v_DXGEN_0 = @echo \"  DXGEN \" $<;\n"\
@@ -865,14 +928,14 @@ S["DX_RULES"]="## --------------------------------- ##\n"\
 "	$(DX_CLEAN_LATEX)"
 S["PAPER_SIZE"]=""
 S["DOXYGEN_PAPER_SIZE"]=""
-S["GENERATE_LATEX"]="NO"
-S["DX_PDFLATEX"]=""
-S["DX_FLAG_pdf"]="0"
+S["GENERATE_LATEX"]="YES"
+S["DX_PDFLATEX"]="/usr/bin/pdflatex"
+S["DX_FLAG_pdf"]="1"
 S["DX_EGREP"]="/usr/bin/egrep"
-S["DX_DVIPS"]=""
-S["DX_MAKEINDEX"]=""
-S["DX_LATEX"]=""
-S["DX_FLAG_ps"]="0"
+S["DX_DVIPS"]="/usr/bin/dvips"
+S["DX_MAKEINDEX"]="/usr/bin/makeindex"
+S["DX_LATEX"]="/usr/bin/latex"
+S["DX_FLAG_ps"]="1"
 S["DX_FLAG_html"]="1"
 S["GENERATE_CHI"]="NO"
 S["DX_FLAG_chi"]="0"
@@ -898,7 +961,7 @@ S["DX_FLAG_doc"]="1"
 S["PROJECT"]="wbfmm"
 S["SRCDIR"]="."
 S["DX_ENV"]=" SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTM"\
-"LHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='NO'"
+"LHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='YES'"
 S["DX_DOCDIR"]="doc"
 S["DX_CONFIG"]="doxy/wbfmm.dxy"
 S["DX_PROJECT"]="wbfmm"

@@ -6,27 +6,25 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
  /usr/include/bits/inf.h /usr/include/bits/nan.h \
  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
- /usr/include/bits/mathinline.h /usr/include/string.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stddef.h \
- /usr/include/xlocale.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h /usr/include/stdlib.h \
- /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
- /usr/include/glib-2.0/glib/gtypes.h \
+ /usr/include/string.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/stddef.h \
+ /usr/include/xlocale.h /usr/include/glib-2.0/glib.h \
+ /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib64/glib-2.0/include/glibconfig.h \
  /usr/include/glib-2.0/glib/gmacros.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include-fixed/limits.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include-fixed/syslimits.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include-fixed/limits.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/posix2_lim.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/float.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/float.h \
  /usr/include/glib-2.0/glib/gversionmacros.h /usr/include/time.h \
  /usr/include/bits/time.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h /usr/include/glib-2.0/glib/garray.h \
  /usr/include/glib-2.0/glib/gasyncqueue.h \
  /usr/include/glib-2.0/glib/gthread.h \
  /usr/include/glib-2.0/glib/gatomic.h /usr/include/glib-2.0/glib/gerror.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdarg.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/stdarg.h \
  /usr/include/glib-2.0/glib/gquark.h /usr/include/glib-2.0/glib/gutils.h \
  /usr/include/glib-2.0/glib/gbacktrace.h /usr/include/signal.h \
  /usr/include/bits/sigset.h /usr/include/bits/signum.h \
@@ -94,8 +92,7 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm.h \
  /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
  /usr/include/wchar.h /usr/include/bits/stdio_lim.h \
- /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
- wbfmm-private.h
+ /usr/include/bits/sys_errlist.h wbfmm-private.h
 
 /usr/include/stdc-predef.h:
 
@@ -131,19 +128,11 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/bits/mathcalls.h:
 
-/usr/include/bits/mathinline.h:
-
 /usr/include/string.h:
 
-/usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stddef.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/stddef.h:
 
 /usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
-
-/usr/include/stdlib.h:
 
 /usr/include/glib-2.0/glib.h:
 
@@ -155,9 +144,9 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/glib-2.0/glib/gmacros.h:
 
-/usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include-fixed/limits.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include-fixed/limits.h:
 
-/usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include-fixed/syslimits.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include-fixed/syslimits.h:
 
 /usr/include/limits.h:
 
@@ -169,7 +158,7 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/bits/posix2_lim.h:
 
-/usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/float.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/float.h:
 
 /usr/include/glib-2.0/glib/gversionmacros.h:
 
@@ -191,7 +180,7 @@ libsub_la-shiftbw.lo: shiftbw.c /usr/include/stdc-predef.h ../config.h \
 
 /usr/include/glib-2.0/glib/gerror.h:
 
-/usr/lib64/gcc/x86_64-slackware-linux/5.4.0/include/stdarg.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/stdarg.h:
 
 /usr/include/glib-2.0/glib/gquark.h:
 
@@ -386,7 +375,5 @@ wbfmm.h:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:
 
 wbfmm-private.h:

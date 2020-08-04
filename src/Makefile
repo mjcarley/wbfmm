@@ -134,44 +134,36 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(includedir)"
-LTLIBRARIES = $(lib_LTLIBRARIES)
-libwbfmm_base_la_LIBADD =
-am_libwbfmm_base_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
-	tree.lo
-libwbfmm_base_la_OBJECTS = $(am_libwbfmm_base_la_OBJECTS)
+LTLIBRARIES = $(lib_LTLIBRARIES) $(noinst_LTLIBRARIES)
+libsub_la_LIBADD =
+am_libsub_la_OBJECTS = libsub_la-expansions.lo \
+	libsub_la-translations.lo libsub_la-rotations.lo \
+	libsub_la-util.lo libsub_la-boxes.lo libsub_la-shift.lo \
+	libsub_la-shiftbw.lo libsub_la-pass.lo libsub_la-laplace.lo \
+	libsub_la-shift-laplace.lo libsub_la-shiftbw-laplace.lo \
+	libsub_la-pass-laplace.lo libsub_la-rotations-laplace.lo \
+	libsub_la-targets.lo libsub_la-gradient.lo \
+	libsub_la-gradient-laplace.lo libsub_la-local.lo
+libsub_la_OBJECTS = $(am_libsub_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libwbfmm_base_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libwbfmm_base_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
-libwbfmm_la_LIBADD =
-am_libwbfmm_la_OBJECTS = expansions.lo translations.lo rotations.lo \
-	util.lo factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo \
-	pass-avx.lo laplace.lo shift-laplace.lo shiftbw-laplace.lo \
-	pass-laplace.lo pass-laplace-avx.lo rotations-laplace.lo \
-	targets.lo gradient.lo gradient-laplace.lo local.lo
+libsub_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libsub_la_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+libwbfmm_la_DEPENDENCIES = libsub.la
+am_libwbfmm_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
+	tree.lo expansions.lo translations.lo rotations.lo util.lo \
+	factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo pass-avx.lo \
+	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
+	pass-laplace-avx.lo rotations-laplace.lo targets.lo \
+	gradient.lo gradient-laplace.lo local.lo constants.lo \
+	config.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(libwbfmm_la_LDFLAGS) $(LDFLAGS) -o $@
-libwbfmm_f_la_LIBADD =
-am_libwbfmm_f_la_OBJECTS = libwbfmm_f_la-expansions.lo \
-	libwbfmm_f_la-translations.lo libwbfmm_f_la-rotations.lo \
-	libwbfmm_f_la-util.lo libwbfmm_f_la-factorial.lo \
-	libwbfmm_f_la-boxes.lo libwbfmm_f_la-shift.lo \
-	libwbfmm_f_la-shiftbw.lo libwbfmm_f_la-pass.lo \
-	libwbfmm_f_la-laplace.lo libwbfmm_f_la-shift-laplace.lo \
-	libwbfmm_f_la-shiftbw-laplace.lo libwbfmm_f_la-pass-laplace.lo \
-	libwbfmm_f_la-rotations-laplace.lo libwbfmm_f_la-targets.lo \
-	libwbfmm_f_la-gradient.lo libwbfmm_f_la-gradient-laplace.lo \
-	libwbfmm_f_la-local.lo
-libwbfmm_f_la_OBJECTS = $(am_libwbfmm_f_la_OBJECTS)
-libwbfmm_f_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libwbfmm_f_la_CFLAGS) \
-	$(CFLAGS) $(libwbfmm_f_la_LDFLAGS) $(LDFLAGS) -o $@
 SCRIPTS = $(bin_SCRIPTS)
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
@@ -207,10 +199,8 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libwbfmm_base_la_SOURCES) $(libwbfmm_la_SOURCES) \
-	$(libwbfmm_f_la_SOURCES)
-DIST_SOURCES = $(libwbfmm_base_la_SOURCES) $(libwbfmm_la_SOURCES) \
-	$(libwbfmm_f_la_SOURCES)
+SOURCES = $(libsub_la_SOURCES) $(libwbfmm_la_SOURCES)
+DIST_SOURCES = $(libsub_la_SOURCES) $(libwbfmm_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -263,23 +253,23 @@ DX_CONFIG = doxy/wbfmm.dxy
 DX_DOCDIR = doc
 DX_DOT = 
 DX_DOXYGEN = /usr/bin/doxygen
-DX_DVIPS = 
+DX_DVIPS = /usr/bin/dvips
 DX_EGREP = /usr/bin/egrep
-DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='NO'
+DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='YES'
 DX_FLAG_chi = 0
 DX_FLAG_chm = 0
 DX_FLAG_doc = 1
 DX_FLAG_dot = 0
 DX_FLAG_html = 1
 DX_FLAG_man = 0
-DX_FLAG_pdf = 0
-DX_FLAG_ps = 0
+DX_FLAG_pdf = 1
+DX_FLAG_ps = 1
 DX_FLAG_rtf = 0
 DX_FLAG_xml = 0
 DX_HHC = 
-DX_LATEX = 
-DX_MAKEINDEX = 
-DX_PDFLATEX = 
+DX_LATEX = /usr/bin/latex
+DX_MAKEINDEX = /usr/bin/makeindex
+DX_PDFLATEX = /usr/bin/pdflatex
 DX_PERL = /usr/bin/perl
 DX_PROJECT = wbfmm
 ECHO_C = 
@@ -405,25 +395,17 @@ BUILT_SOURCES = \
 	wbfmm-config \
 	documentation.c
 
-lib_LTLIBRARIES = libwbfmm-base.la libwbfmm.la libwbfmm_f.la
+lib_LTLIBRARIES = libwbfmm.la
 libwbfmm_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
 	-release $(LT_RELEASE) -export-dynamic
 
-libwbfmm_base_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
-	-release $(LT_RELEASE) -export-dynamic
-
-libwbfmm_f_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
-	-release $(LT_RELEASE) -export-dynamic
-
-libwbfmm_base_la_SOURCES = \
+libwbfmm_la_SOURCES = \
 	wbfmm-logging.c \
 	wbfmm-private.h \
 	wbfmm-avx.h \
 	indexing.c \
 	shifts.c \
-	tree.c 
-
-libwbfmm_la_SOURCES = \
+	tree.c \
 	wbfmm-private.h \
 	expansions.c \
 	translations.c \
@@ -444,15 +426,18 @@ libwbfmm_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
-	local.c
+	local.c \
+	constants.c \
+	config.c
 
-libwbfmm_f_la_SOURCES = \
+libwbfmm_la_LIBADD = libsub.la
+noinst_LTLIBRARIES = libsub.la
+libsub_la_SOURCES = \
 	wbfmm-private.h \
 	expansions.c \
 	translations.c \
 	rotations.c \
 	util.c \
-	factorial.c \
 	boxes.c \
 	shift.c \
 	shiftbw.c \
@@ -467,7 +452,7 @@ libwbfmm_f_la_SOURCES = \
 	gradient-laplace.c \
 	local.c
 
-libwbfmm_f_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
+libsub_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
 include_HEADERS = \
 	wbfmm.h
 
@@ -544,14 +529,22 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libwbfmm-base.la: $(libwbfmm_base_la_OBJECTS) $(libwbfmm_base_la_DEPENDENCIES) $(EXTRA_libwbfmm_base_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libwbfmm_base_la_LINK) -rpath $(libdir) $(libwbfmm_base_la_OBJECTS) $(libwbfmm_base_la_LIBADD) $(LIBS)
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
+
+libsub.la: $(libsub_la_OBJECTS) $(libsub_la_DEPENDENCIES) $(EXTRA_libsub_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libsub_la_LINK)  $(libsub_la_OBJECTS) $(libsub_la_LIBADD) $(LIBS)
 
 libwbfmm.la: $(libwbfmm_la_OBJECTS) $(libwbfmm_la_DEPENDENCIES) $(EXTRA_libwbfmm_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libwbfmm_la_LINK) -rpath $(libdir) $(libwbfmm_la_OBJECTS) $(libwbfmm_la_LIBADD) $(LIBS)
-
-libwbfmm_f.la: $(libwbfmm_f_la_OBJECTS) $(libwbfmm_f_la_DEPENDENCIES) $(EXTRA_libwbfmm_f_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libwbfmm_f_la_LINK) -rpath $(libdir) $(libwbfmm_f_la_OBJECTS) $(libwbfmm_f_la_LIBADD) $(LIBS)
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_SCRIPTS)'; test -n "$(bindir)" || list=; \
@@ -595,30 +588,31 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/boxes.Plo
+include ./$(DEPDIR)/config.Plo
+include ./$(DEPDIR)/constants.Plo
 include ./$(DEPDIR)/expansions.Plo
 include ./$(DEPDIR)/factorial.Plo
 include ./$(DEPDIR)/gradient-laplace.Plo
 include ./$(DEPDIR)/gradient.Plo
 include ./$(DEPDIR)/indexing.Plo
 include ./$(DEPDIR)/laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-boxes.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-expansions.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-factorial.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-gradient-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-gradient.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-local.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-pass.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-rotations.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-shift.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-shiftbw-laplace.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-shiftbw.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-targets.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-translations.Plo
-include ./$(DEPDIR)/libwbfmm_f_la-util.Plo
+include ./$(DEPDIR)/libsub_la-boxes.Plo
+include ./$(DEPDIR)/libsub_la-expansions.Plo
+include ./$(DEPDIR)/libsub_la-gradient-laplace.Plo
+include ./$(DEPDIR)/libsub_la-gradient.Plo
+include ./$(DEPDIR)/libsub_la-laplace.Plo
+include ./$(DEPDIR)/libsub_la-local.Plo
+include ./$(DEPDIR)/libsub_la-pass-laplace.Plo
+include ./$(DEPDIR)/libsub_la-pass.Plo
+include ./$(DEPDIR)/libsub_la-rotations-laplace.Plo
+include ./$(DEPDIR)/libsub_la-rotations.Plo
+include ./$(DEPDIR)/libsub_la-shift-laplace.Plo
+include ./$(DEPDIR)/libsub_la-shift.Plo
+include ./$(DEPDIR)/libsub_la-shiftbw-laplace.Plo
+include ./$(DEPDIR)/libsub_la-shiftbw.Plo
+include ./$(DEPDIR)/libsub_la-targets.Plo
+include ./$(DEPDIR)/libsub_la-translations.Plo
+include ./$(DEPDIR)/libsub_la-util.Plo
 include ./$(DEPDIR)/local.Plo
 include ./$(DEPDIR)/pass-avx.Plo
 include ./$(DEPDIR)/pass-laplace-avx.Plo
@@ -661,131 +655,124 @@ include ./$(DEPDIR)/wbfmm-logging.Plo
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LTCOMPILE) -c -o $@ $<
 
-libwbfmm_f_la-expansions.lo: expansions.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-expansions.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-expansions.Tpo -c -o libwbfmm_f_la-expansions.lo `test -f 'expansions.c' || echo '$(srcdir)/'`expansions.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-expansions.Tpo $(DEPDIR)/libwbfmm_f_la-expansions.Plo
-#	$(AM_V_CC)source='expansions.c' object='libwbfmm_f_la-expansions.lo' libtool=yes \
+libsub_la-expansions.lo: expansions.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-expansions.lo -MD -MP -MF $(DEPDIR)/libsub_la-expansions.Tpo -c -o libsub_la-expansions.lo `test -f 'expansions.c' || echo '$(srcdir)/'`expansions.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-expansions.Tpo $(DEPDIR)/libsub_la-expansions.Plo
+#	$(AM_V_CC)source='expansions.c' object='libsub_la-expansions.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-expansions.lo `test -f 'expansions.c' || echo '$(srcdir)/'`expansions.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-expansions.lo `test -f 'expansions.c' || echo '$(srcdir)/'`expansions.c
 
-libwbfmm_f_la-translations.lo: translations.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-translations.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-translations.Tpo -c -o libwbfmm_f_la-translations.lo `test -f 'translations.c' || echo '$(srcdir)/'`translations.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-translations.Tpo $(DEPDIR)/libwbfmm_f_la-translations.Plo
-#	$(AM_V_CC)source='translations.c' object='libwbfmm_f_la-translations.lo' libtool=yes \
+libsub_la-translations.lo: translations.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-translations.lo -MD -MP -MF $(DEPDIR)/libsub_la-translations.Tpo -c -o libsub_la-translations.lo `test -f 'translations.c' || echo '$(srcdir)/'`translations.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-translations.Tpo $(DEPDIR)/libsub_la-translations.Plo
+#	$(AM_V_CC)source='translations.c' object='libsub_la-translations.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-translations.lo `test -f 'translations.c' || echo '$(srcdir)/'`translations.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-translations.lo `test -f 'translations.c' || echo '$(srcdir)/'`translations.c
 
-libwbfmm_f_la-rotations.lo: rotations.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-rotations.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-rotations.Tpo -c -o libwbfmm_f_la-rotations.lo `test -f 'rotations.c' || echo '$(srcdir)/'`rotations.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-rotations.Tpo $(DEPDIR)/libwbfmm_f_la-rotations.Plo
-#	$(AM_V_CC)source='rotations.c' object='libwbfmm_f_la-rotations.lo' libtool=yes \
+libsub_la-rotations.lo: rotations.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-rotations.lo -MD -MP -MF $(DEPDIR)/libsub_la-rotations.Tpo -c -o libsub_la-rotations.lo `test -f 'rotations.c' || echo '$(srcdir)/'`rotations.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-rotations.Tpo $(DEPDIR)/libsub_la-rotations.Plo
+#	$(AM_V_CC)source='rotations.c' object='libsub_la-rotations.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-rotations.lo `test -f 'rotations.c' || echo '$(srcdir)/'`rotations.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-rotations.lo `test -f 'rotations.c' || echo '$(srcdir)/'`rotations.c
 
-libwbfmm_f_la-util.lo: util.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-util.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-util.Tpo -c -o libwbfmm_f_la-util.lo `test -f 'util.c' || echo '$(srcdir)/'`util.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-util.Tpo $(DEPDIR)/libwbfmm_f_la-util.Plo
-#	$(AM_V_CC)source='util.c' object='libwbfmm_f_la-util.lo' libtool=yes \
+libsub_la-util.lo: util.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-util.lo -MD -MP -MF $(DEPDIR)/libsub_la-util.Tpo -c -o libsub_la-util.lo `test -f 'util.c' || echo '$(srcdir)/'`util.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-util.Tpo $(DEPDIR)/libsub_la-util.Plo
+#	$(AM_V_CC)source='util.c' object='libsub_la-util.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-util.lo `test -f 'util.c' || echo '$(srcdir)/'`util.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-util.lo `test -f 'util.c' || echo '$(srcdir)/'`util.c
 
-libwbfmm_f_la-factorial.lo: factorial.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-factorial.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-factorial.Tpo -c -o libwbfmm_f_la-factorial.lo `test -f 'factorial.c' || echo '$(srcdir)/'`factorial.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-factorial.Tpo $(DEPDIR)/libwbfmm_f_la-factorial.Plo
-#	$(AM_V_CC)source='factorial.c' object='libwbfmm_f_la-factorial.lo' libtool=yes \
+libsub_la-boxes.lo: boxes.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-boxes.lo -MD -MP -MF $(DEPDIR)/libsub_la-boxes.Tpo -c -o libsub_la-boxes.lo `test -f 'boxes.c' || echo '$(srcdir)/'`boxes.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-boxes.Tpo $(DEPDIR)/libsub_la-boxes.Plo
+#	$(AM_V_CC)source='boxes.c' object='libsub_la-boxes.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-factorial.lo `test -f 'factorial.c' || echo '$(srcdir)/'`factorial.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-boxes.lo `test -f 'boxes.c' || echo '$(srcdir)/'`boxes.c
 
-libwbfmm_f_la-boxes.lo: boxes.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-boxes.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-boxes.Tpo -c -o libwbfmm_f_la-boxes.lo `test -f 'boxes.c' || echo '$(srcdir)/'`boxes.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-boxes.Tpo $(DEPDIR)/libwbfmm_f_la-boxes.Plo
-#	$(AM_V_CC)source='boxes.c' object='libwbfmm_f_la-boxes.lo' libtool=yes \
+libsub_la-shift.lo: shift.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-shift.lo -MD -MP -MF $(DEPDIR)/libsub_la-shift.Tpo -c -o libsub_la-shift.lo `test -f 'shift.c' || echo '$(srcdir)/'`shift.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-shift.Tpo $(DEPDIR)/libsub_la-shift.Plo
+#	$(AM_V_CC)source='shift.c' object='libsub_la-shift.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-boxes.lo `test -f 'boxes.c' || echo '$(srcdir)/'`boxes.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-shift.lo `test -f 'shift.c' || echo '$(srcdir)/'`shift.c
 
-libwbfmm_f_la-shift.lo: shift.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-shift.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-shift.Tpo -c -o libwbfmm_f_la-shift.lo `test -f 'shift.c' || echo '$(srcdir)/'`shift.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-shift.Tpo $(DEPDIR)/libwbfmm_f_la-shift.Plo
-#	$(AM_V_CC)source='shift.c' object='libwbfmm_f_la-shift.lo' libtool=yes \
+libsub_la-shiftbw.lo: shiftbw.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-shiftbw.lo -MD -MP -MF $(DEPDIR)/libsub_la-shiftbw.Tpo -c -o libsub_la-shiftbw.lo `test -f 'shiftbw.c' || echo '$(srcdir)/'`shiftbw.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-shiftbw.Tpo $(DEPDIR)/libsub_la-shiftbw.Plo
+#	$(AM_V_CC)source='shiftbw.c' object='libsub_la-shiftbw.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-shift.lo `test -f 'shift.c' || echo '$(srcdir)/'`shift.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-shiftbw.lo `test -f 'shiftbw.c' || echo '$(srcdir)/'`shiftbw.c
 
-libwbfmm_f_la-shiftbw.lo: shiftbw.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-shiftbw.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-shiftbw.Tpo -c -o libwbfmm_f_la-shiftbw.lo `test -f 'shiftbw.c' || echo '$(srcdir)/'`shiftbw.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-shiftbw.Tpo $(DEPDIR)/libwbfmm_f_la-shiftbw.Plo
-#	$(AM_V_CC)source='shiftbw.c' object='libwbfmm_f_la-shiftbw.lo' libtool=yes \
+libsub_la-pass.lo: pass.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-pass.lo -MD -MP -MF $(DEPDIR)/libsub_la-pass.Tpo -c -o libsub_la-pass.lo `test -f 'pass.c' || echo '$(srcdir)/'`pass.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-pass.Tpo $(DEPDIR)/libsub_la-pass.Plo
+#	$(AM_V_CC)source='pass.c' object='libsub_la-pass.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-shiftbw.lo `test -f 'shiftbw.c' || echo '$(srcdir)/'`shiftbw.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-pass.lo `test -f 'pass.c' || echo '$(srcdir)/'`pass.c
 
-libwbfmm_f_la-pass.lo: pass.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-pass.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-pass.Tpo -c -o libwbfmm_f_la-pass.lo `test -f 'pass.c' || echo '$(srcdir)/'`pass.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-pass.Tpo $(DEPDIR)/libwbfmm_f_la-pass.Plo
-#	$(AM_V_CC)source='pass.c' object='libwbfmm_f_la-pass.lo' libtool=yes \
+libsub_la-laplace.lo: laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-laplace.Tpo -c -o libsub_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-laplace.Tpo $(DEPDIR)/libsub_la-laplace.Plo
+#	$(AM_V_CC)source='laplace.c' object='libsub_la-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-pass.lo `test -f 'pass.c' || echo '$(srcdir)/'`pass.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
 
-libwbfmm_f_la-laplace.lo: laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-laplace.Tpo -c -o libwbfmm_f_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-laplace.Plo
-#	$(AM_V_CC)source='laplace.c' object='libwbfmm_f_la-laplace.lo' libtool=yes \
+libsub_la-shift-laplace.lo: shift-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-shift-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-shift-laplace.Tpo -c -o libsub_la-shift-laplace.lo `test -f 'shift-laplace.c' || echo '$(srcdir)/'`shift-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-shift-laplace.Tpo $(DEPDIR)/libsub_la-shift-laplace.Plo
+#	$(AM_V_CC)source='shift-laplace.c' object='libsub_la-shift-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-laplace.lo `test -f 'laplace.c' || echo '$(srcdir)/'`laplace.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-shift-laplace.lo `test -f 'shift-laplace.c' || echo '$(srcdir)/'`shift-laplace.c
 
-libwbfmm_f_la-shift-laplace.lo: shift-laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-shift-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-shift-laplace.Tpo -c -o libwbfmm_f_la-shift-laplace.lo `test -f 'shift-laplace.c' || echo '$(srcdir)/'`shift-laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-shift-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-shift-laplace.Plo
-#	$(AM_V_CC)source='shift-laplace.c' object='libwbfmm_f_la-shift-laplace.lo' libtool=yes \
+libsub_la-shiftbw-laplace.lo: shiftbw-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-shiftbw-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-shiftbw-laplace.Tpo -c -o libsub_la-shiftbw-laplace.lo `test -f 'shiftbw-laplace.c' || echo '$(srcdir)/'`shiftbw-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-shiftbw-laplace.Tpo $(DEPDIR)/libsub_la-shiftbw-laplace.Plo
+#	$(AM_V_CC)source='shiftbw-laplace.c' object='libsub_la-shiftbw-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-shift-laplace.lo `test -f 'shift-laplace.c' || echo '$(srcdir)/'`shift-laplace.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-shiftbw-laplace.lo `test -f 'shiftbw-laplace.c' || echo '$(srcdir)/'`shiftbw-laplace.c
 
-libwbfmm_f_la-shiftbw-laplace.lo: shiftbw-laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-shiftbw-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-shiftbw-laplace.Tpo -c -o libwbfmm_f_la-shiftbw-laplace.lo `test -f 'shiftbw-laplace.c' || echo '$(srcdir)/'`shiftbw-laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-shiftbw-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-shiftbw-laplace.Plo
-#	$(AM_V_CC)source='shiftbw-laplace.c' object='libwbfmm_f_la-shiftbw-laplace.lo' libtool=yes \
+libsub_la-pass-laplace.lo: pass-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-pass-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-pass-laplace.Tpo -c -o libsub_la-pass-laplace.lo `test -f 'pass-laplace.c' || echo '$(srcdir)/'`pass-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-pass-laplace.Tpo $(DEPDIR)/libsub_la-pass-laplace.Plo
+#	$(AM_V_CC)source='pass-laplace.c' object='libsub_la-pass-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-shiftbw-laplace.lo `test -f 'shiftbw-laplace.c' || echo '$(srcdir)/'`shiftbw-laplace.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-pass-laplace.lo `test -f 'pass-laplace.c' || echo '$(srcdir)/'`pass-laplace.c
 
-libwbfmm_f_la-pass-laplace.lo: pass-laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-pass-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-pass-laplace.Tpo -c -o libwbfmm_f_la-pass-laplace.lo `test -f 'pass-laplace.c' || echo '$(srcdir)/'`pass-laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-pass-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-pass-laplace.Plo
-#	$(AM_V_CC)source='pass-laplace.c' object='libwbfmm_f_la-pass-laplace.lo' libtool=yes \
+libsub_la-rotations-laplace.lo: rotations-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-rotations-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-rotations-laplace.Tpo -c -o libsub_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-rotations-laplace.Tpo $(DEPDIR)/libsub_la-rotations-laplace.Plo
+#	$(AM_V_CC)source='rotations-laplace.c' object='libsub_la-rotations-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-pass-laplace.lo `test -f 'pass-laplace.c' || echo '$(srcdir)/'`pass-laplace.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
 
-libwbfmm_f_la-rotations-laplace.lo: rotations-laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-rotations-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Tpo -c -o libwbfmm_f_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-rotations-laplace.Plo
-#	$(AM_V_CC)source='rotations-laplace.c' object='libwbfmm_f_la-rotations-laplace.lo' libtool=yes \
+libsub_la-targets.lo: targets.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-targets.lo -MD -MP -MF $(DEPDIR)/libsub_la-targets.Tpo -c -o libsub_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-targets.Tpo $(DEPDIR)/libsub_la-targets.Plo
+#	$(AM_V_CC)source='targets.c' object='libsub_la-targets.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-rotations-laplace.lo `test -f 'rotations-laplace.c' || echo '$(srcdir)/'`rotations-laplace.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
 
-libwbfmm_f_la-targets.lo: targets.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-targets.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-targets.Tpo -c -o libwbfmm_f_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-targets.Tpo $(DEPDIR)/libwbfmm_f_la-targets.Plo
-#	$(AM_V_CC)source='targets.c' object='libwbfmm_f_la-targets.lo' libtool=yes \
+libsub_la-gradient.lo: gradient.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-gradient.lo -MD -MP -MF $(DEPDIR)/libsub_la-gradient.Tpo -c -o libsub_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-gradient.Tpo $(DEPDIR)/libsub_la-gradient.Plo
+#	$(AM_V_CC)source='gradient.c' object='libsub_la-gradient.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-targets.lo `test -f 'targets.c' || echo '$(srcdir)/'`targets.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
 
-libwbfmm_f_la-gradient.lo: gradient.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-gradient.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-gradient.Tpo -c -o libwbfmm_f_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-gradient.Tpo $(DEPDIR)/libwbfmm_f_la-gradient.Plo
-#	$(AM_V_CC)source='gradient.c' object='libwbfmm_f_la-gradient.lo' libtool=yes \
+libsub_la-gradient-laplace.lo: gradient-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-gradient-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-gradient-laplace.Tpo -c -o libsub_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-gradient-laplace.Tpo $(DEPDIR)/libsub_la-gradient-laplace.Plo
+#	$(AM_V_CC)source='gradient-laplace.c' object='libsub_la-gradient-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-gradient.lo `test -f 'gradient.c' || echo '$(srcdir)/'`gradient.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
 
-libwbfmm_f_la-gradient-laplace.lo: gradient-laplace.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-gradient-laplace.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Tpo -c -o libwbfmm_f_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Tpo $(DEPDIR)/libwbfmm_f_la-gradient-laplace.Plo
-#	$(AM_V_CC)source='gradient-laplace.c' object='libwbfmm_f_la-gradient-laplace.lo' libtool=yes \
+libsub_la-local.lo: local.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-local.lo -MD -MP -MF $(DEPDIR)/libsub_la-local.Tpo -c -o libsub_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-local.Tpo $(DEPDIR)/libsub_la-local.Plo
+#	$(AM_V_CC)source='local.c' object='libsub_la-local.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
-
-libwbfmm_f_la-local.lo: local.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -MT libwbfmm_f_la-local.lo -MD -MP -MF $(DEPDIR)/libwbfmm_f_la-local.Tpo -c -o libwbfmm_f_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libwbfmm_f_la-local.Tpo $(DEPDIR)/libwbfmm_f_la-local.Plo
-#	$(AM_V_CC)source='local.c' object='libwbfmm_f_la-local.lo' libtool=yes \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libwbfmm_f_la_CFLAGS) $(CFLAGS) -c -o libwbfmm_f_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -940,7 +927,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
-	mostlyclean-am
+	clean-noinstLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -1012,16 +999,16 @@ uninstall-am: uninstall-binSCRIPTS uninstall-includeHEADERS \
 .MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-libLTLIBRARIES clean-libtool cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binSCRIPTS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-includeHEADERS install-info install-info-am \
-	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	clean-libLTLIBRARIES clean-libtool clean-noinstLTLIBRARIES \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binSCRIPTS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-includeHEADERS install-info \
+	install-info-am install-libLTLIBRARIES install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags tags-am uninstall uninstall-am uninstall-binSCRIPTS \

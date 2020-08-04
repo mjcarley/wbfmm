@@ -34,6 +34,27 @@
 #define _DATA_TREE        0
 /* #define _DATA_ */
 
+/* #define WBFMM_CHECK_ISNAN */
+
+#ifdef WBFMM_CHECK_ISNAN
+#include <stdlib.h>
+
+static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( isnan(f[i]) ) {
+      fprintf(stderr, "%s: NaN at element %d of %d\n", name, i, n) ;
+      exit(1) ;
+    }
+  }
+  
+  return 0 ;
+}
+#endif /*WBFMM_CHECK_ISNAN*/
+
 wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
 						  guint maxpoints)
 
@@ -314,6 +335,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
       }
     }
 
+#ifdef WBFMM_CHECK_ISNAN
+    check_isnan("leaf coefficients", t->mps[d], nb*nc*2*nq) ;
+#endif /*WBFMM_CHECK_ISNAN*/
+    
     return 0 ;
   }
 

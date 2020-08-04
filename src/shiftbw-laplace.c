@@ -34,15 +34,15 @@
 
 #include <stdio.h>
 
-/*table of \cos m\pi/4 for rotations on upward pass*/
-extern WBFMM_REAL CmPI_4[] ;
-/*table of \cos n\pi/2 for rotations*/
-extern WBFMM_REAL CnPI_2[] ;
+/* /\*table of \cos m\pi/4 for rotations on upward pass*\/ */
+/* extern WBFMM_REAL CmPI_4[] ; */
+/* /\*table of \cos n\pi/2 for rotations*\/ */
+/* extern WBFMM_REAL CnPI_2[] ; */
 
-#define cos_n_PI_4(_n) (CmPI_4[(_n)%8])
-#define sin_n_PI_4(_n) (CmPI_4[((_n)+6)%8])
-#define cos_n_PI_2(_n) (CnPI_2[(_n)%4])
-#define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4])
+/* #define cos_n_PI_4(_n) (CmPI_4[(_n)%8]) */
+/* #define sin_n_PI_4(_n) (CmPI_4[((_n)+6)%8]) */
+/* #define cos_n_PI_2(_n) (CnPI_2[(_n)%4]) */
+/* #define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4]) */
 
 static inline void increment_cfft_cp_real_bw(WBFMM_REAL *E0,
 					     WBFMM_REAL *Ci,

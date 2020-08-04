@@ -89,11 +89,11 @@
 #define wbfmm_coaxial_translation_SR_cfft(_n, _nd, _m)	\
   (_wbfmm_SR_coefficients_laplace[_wbfmm_SR_coefficient_index_nmnu((_n),(_m),(_nd))])
   
-extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace,
-  *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ;
-extern gint _wbfmm_translation_Nmax ;
-extern gint _wbfmm_shift_angles[] ;
-extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
+/* extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace, */
+/*   *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ; */
+/* extern gint _wbfmm_translation_Nmax ; */
+/* extern gint _wbfmm_shift_angles[] ; */
+/* extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ; */
 
 #define WBFMM_SHIFTS_R_NUMBER 15
 
@@ -116,9 +116,14 @@ extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ;
 /* ccccccccccccccccccccc */
 #define BITMASK_21BITS  UINT64_C(2097151)
 
-extern const WBFMM_REAL WBFMM_FACTORIALS[] ;
+extern const gdouble WBFMM_FACTORIALS[] ;
+extern const gfloat WBFMM_FACTORIALS_F[] ;
 
+#ifdef WBFMM_SINGLE_PRECISION
+#define wbfmm_factorial(_n) ((WBFMM_FACTORIALS_F[(_n)]))
+#else  /*WBFMM_SINGLE_PRECISION*/
 #define wbfmm_factorial(_n) ((WBFMM_FACTORIALS[(_n)]))
+#endif /*WBFMM_SINGLE_PRECISION*/
 
 #define wbfmm_coaxial_index_lmn(_l,_m,_n)		\
   ((_l)*((_l)+1)*((_l)+2)/6 + (_n)*((_n)+1)/2 + (_m))
@@ -134,7 +139,7 @@ extern const WBFMM_REAL WBFMM_FACTORIALS[] ;
 
 #define yes_if_true(_t)  ((_t) == TRUE ? "yes" : "no") 
 
-gint print_bits_uint(FILE *f, guint x) ;
+/* gint print_bits_uint(FILE *f, guint x) ; */
 
 gint _wbfmm_bessel_j_scaled_init(gdouble x, gdouble *j0, gdouble *j1) ;
 
@@ -151,5 +156,30 @@ gfloat recursion_bnm_f(gint n, gint m) ;
 #define WBFMM_DOWNWARD_PASS_NTHREAD    3
 #define WBFMM_DOWNWARD_PASS_TREE       4
 #define WBFMM_DOWNWARD_PASS_OP         5
+
+extern gdouble CmPI_4[], CnPI_2[] ;
+extern gfloat CmPI_4f[], CnPI_2f[] ;
+extern gdouble *_wbfmm_SS_coefficients_laplace,
+  *_wbfmm_RR_coefficients_laplace,
+  *_wbfmm_SR_coefficients_laplace ;
+extern gfloat *_wbfmm_SS_coefficients_laplace_f,
+  *_wbfmm_RR_coefficients_laplace_f,
+  *_wbfmm_SR_coefficients_laplace_f ;
+extern gint _wbfmm_translation_Nmax ;
+extern gdouble _wbfmm_shifts_th[], _wbfmm_shifts_ph[], _wbfmm_shifts_r[] ;
+extern gfloat _wbfmm_shifts_th_f[], _wbfmm_shifts_ph_f[], _wbfmm_shifts_r_f[] ;
+extern gint _wbfmm_shift_angles[] ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+#define cos_n_PI_4(_n) (CmPI_4f[(_n)%8])
+#define sin_n_PI_4(_n) (CmPI_4f[((_n)+6)%8])
+#define cos_n_PI_2(_n) (CnPI_2f[(_n)%4])
+#define sin_n_PI_2(_n) (CnPI_2f[((_n)+3)%4])
+#else /*WBFMM_SINGLE_PRECISION*/
+#define cos_n_PI_4(_n) (CmPI_4[(_n)%8])
+#define sin_n_PI_4(_n) (CmPI_4[((_n)+6)%8])
+#define cos_n_PI_2(_n) (CnPI_2[(_n)%4])
+#define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4])
+#endif
 
 #endif /*WBFMM_PRIVATE_H_INCLUDED*/

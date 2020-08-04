@@ -23,6 +23,7 @@
 #include <config.h>
 #endif /*HAVE_CONFIG_H*/
 
+#include <stdio.h>
 #include <math.h>
 #include <string.h>
 
@@ -32,18 +33,6 @@
 
 #include "wbfmm-private.h"
 
-#include <stdio.h>
-
-/*table of \cos m\pi/4 for rotations on upward pass*/
-WBFMM_REAL CmPI_4[] =
-  {1, M_SQRT1_2, 0, -M_SQRT1_2, -1, -M_SQRT1_2, 0, M_SQRT1_2, 1} ;
-/*table of \cos n\pi/2 for rotations*/
-WBFMM_REAL CnPI_2[] = {1.0, 0.0, -1.0, 0.0} ;
-
-#define cos_n_PI_4(_n) (CmPI_4[(_n)%8])
-#define sin_n_PI_4(_n) (CmPI_4[((_n)+6)%8])
-#define cos_n_PI_2(_n) (CnPI_2[(_n)%4])
-#define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4])
 
 #if 0
 static gboolean coefficient_check_laplace(WBFMM_REAL *C, gint cstr,

@@ -176,6 +176,21 @@ gint check_interaction_list_4(guint level, guint64 idx,
 			      guint64 *list, gint n) ;
 gint ilist4_test(guint level) ;
 
+static gint check_isnan(gchar *name, gfloat *f, gint n)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( isnan(f[i]) ) {
+      fprintf(stderr, "%s: NaN at element %d of %d\n", name, i, n) ;
+      exit(1) ;
+    }
+  }
+  
+  return 0 ;
+}
+
 static gint parse_test(gchar *arg)
 
 {
@@ -1557,21 +1572,27 @@ gint parent_child_test(gfloat *x0, gfloat *x1, gfloat *x2,
   wbfmm_coefficients_H_rotation_f(H47, Np, th47, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
+  check_isnan("H03", H03, wbfmm_element_number_rotation(Np)) ;
+  check_isnan("H47", H47, wbfmm_element_number_rotation(Np)) ;
+  
   wbfmm_coefficients_RR_coaxial_f(shift, Np, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+  check_isnan("shift", shift, wbfmm_element_number_coaxial(Np)) ;
 
   wbfmm_coefficients_SR_coaxial_f(SRshift, Np, k*len, work) ;
   fprintf(stderr, "%s (S|R) coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+  check_isnan("SRshift", SRshift, 2*wbfmm_element_number_coaxial(Np)) ;
 
   /*generate the source expansion in child for now*/
   wbfmm_expansion_h_cfft_f(k, Np, xs, xsrc, src, nq, child, nq, work) ;
+  check_isnan("expansion", child, 8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   wbfmm_coaxial_translate_f(&(parent[2*pq*nq]), 8*nq, Np, child, 8*nq, Np,
 			       nq, SRshift, Np, TRUE, 0.0) ;
+  check_isnan("parent", parent, 8*4*nq*wbfmm_coefficient_index_nm(Np+1,0)) ;
   
   /*wipe the child data*/
   memset(child, 0,

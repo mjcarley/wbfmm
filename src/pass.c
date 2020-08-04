@@ -32,6 +32,27 @@
 
 #include "wbfmm-private.h"
 
+/* #define WBFMM_CHECK_ISNAN */
+
+#ifdef WBFMM_CHECK_ISNAN
+#include <stdlib.h>
+
+static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( isnan(f[i]) ) {
+      fprintf(stderr, "%s: NaN at element %d of %d\n", name, i, n) ;
+      exit(1) ;
+    }
+  }
+  
+  return 0 ;
+}
+#endif /*WBFMM_CHECK_ISNAN*/
+
 static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
 					    wbfmm_box_t *b,
 					    guint Ns, guint Nr,
@@ -519,6 +540,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
 						  trans, Np,
 						  wbfmm_tree_source_size(t),
 						  work) ;
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("downward pass, parent-child shift",
+	      bc[ic].mpr, 2*wbfmm_coefficient_index_nm(Nc+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
+    
   }
 
   return 0 ;

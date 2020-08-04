@@ -1001,6 +1001,8 @@ guint64 wbfmm_box_parent(guint64 idx) ;
 guint64 wbfmm_box_first_child(guint64 idx) ;
 gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level,
 		      gboolean print_empty) ;
+gint wbfmm_tree_print_f(FILE *f, wbfmm_tree_t *t, guint level,
+			gboolean print_empty) ;
 gint wbfmm_logging_init(FILE *f, gchar *p, 
 			GLogLevelFlags log_level,
 			gpointer exit_func, gboolean timed) ;

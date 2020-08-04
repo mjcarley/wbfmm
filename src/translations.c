@@ -41,6 +41,27 @@
 
 /* #define CHECK_COEFFICIENTS */
 
+/* #define WBFMM_CHECK_ISNAN */
+
+#ifdef WBFMM_CHECK_ISNAN
+#include <stdlib.h>
+
+static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( isnan(f[i]) ) {
+      fprintf(stderr, "%s: NaN at element %d of %d\n", name, i, n) ;
+      exit(1) ;
+    }
+  }
+  
+  return 0 ;
+}
+#endif /*WBFMM_CHECK_ISNAN*/
+
 #ifdef CHECK_COEFFICIENTS
 #include <stdio.h>
 #endif
@@ -267,6 +288,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
 {
   gint l, m, n, idx, sgnl, sw = 1 ;
   WBFMM_REAL jlm1, jl, *cfft ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+  if ( L > 32 ) 
+    g_error("%s: cannot generate single-precision translations for L > 32 (L==%d)",
+	    __FUNCTION__, L) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
   
   if ( kr < 0 ) { kr = -kr ; sw = -1 ; }
 
@@ -295,6 +322,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(WBFMM_REAL *cfftRR,
 
   /*recursion is the same for either direction of translation*/
   coefficient_recursions_coaxial(cfft, L, 1) ;
+
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("RR coefficients", cfft, (L+1)*(L+2)*(L+3)/6) ;
+#endif /*WBFMM_CHECK_ISNAN*/
 
   /*copy to output array (probably not ideal, but better for development)*/
   memcpy(cfftRR, cfft, (L+1)*(L+2)*(L+3)/6*sizeof(WBFMM_REAL)) ;
@@ -326,6 +357,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
   gint l, m, n, idx, sgnl, sw = 1 ;
   WBFMM_REAL hlm1[2], hl[2], *cfft ;
   
+#ifdef WBFMM_SINGLE_PRECISION
+  if ( L > 32 ) 
+    g_error("%s: cannot generate single-precision translations for L > 32 (L==%d)",
+	    __FUNCTION__, L) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
+
   if ( kr < 0 ) { kr = -kr ; sw = -1 ; }
 
   g_assert(kr > 0.0) ;
@@ -357,6 +394,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
   /*recursion is the same for either direction of translation*/
   coefficient_recursions_coaxial(cfft, L, 2) ;
 
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("SR coefficients", cfft, 2*(L+1)*(L+2)*(L+3)/6) ;
+#endif /*WBFMM_CHECK_ISNAN*/
+  
   /*copy to output array (probably not ideal, but better for development)*/
   memcpy(cfftSR, cfft, 2*(L+1)*(L+2)*(L+3)/6*sizeof(WBFMM_REAL)) ;
 

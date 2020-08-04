@@ -28,10 +28,10 @@
 
 #include "wbfmm-private.h"
 
-WBFMM_REAL *_wbfmm_SS_coefficients_laplace = NULL,
-  *_wbfmm_RR_coefficients_laplace = NULL,
-  *_wbfmm_SR_coefficients_laplace = NULL ;
-gint _wbfmm_translation_Nmax = 0 ;
+/* WBFMM_REAL *_wbfmm_SS_coefficients_laplace = NULL, */
+/*   *_wbfmm_RR_coefficients_laplace = NULL, */
+/*   *_wbfmm_SR_coefficients_laplace = NULL ; */
+/* gint _wbfmm_translation_Nmax = 0 ; */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
 						       WBFMM_REAL *x0,
@@ -856,7 +856,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
   Nmax = _wbfmm_translation_Nmax = N + 1 ;
   
   ne = _wbfmm_SS_coefficient_index_nmnu(Nmax+1,0,0) ;
-  _wbfmm_SS_coefficients_laplace =
+  WBFMM_FUNCTION_NAME(_wbfmm_SS_coefficients_laplace) =
     (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
 
   for ( n = 0 ; n <= Nmax ; n ++ ) {
@@ -864,8 +864,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
       for ( nu = m ; nu <= n ; nu ++ ) {
 	i = _wbfmm_SS_coefficient_index_nmnu(n, m, nu) ;
 	g_assert(i < ne) ;
-  	g_assert(_wbfmm_SS_coefficients_laplace[i] == 0.0) ;
-	_wbfmm_SS_coefficients_laplace[i] =
+  	g_assert(WBFMM_FUNCTION_NAME(_wbfmm_SS_coefficients_laplace)[i]
+		 == 0.0) ;
+	WBFMM_FUNCTION_NAME(_wbfmm_SS_coefficients_laplace)[i] =
 	  coaxial_translation_SS_cfft(n, nu, m) ;
       }
     }
@@ -873,7 +874,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
 
   ne = (Nmax+2)*(Nmax+1)*(Nmax+1)/2 ;
   
-  _wbfmm_RR_coefficients_laplace =
+  WBFMM_FUNCTION_NAME(_wbfmm_RR_coefficients_laplace) =
     (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
 
   for ( m = 0 ; m <= Nmax ; m ++ ) {
@@ -881,8 +882,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
       for ( n = m ; n <= nu ; n ++ ) {
   	i = _wbfmm_RR_coefficient_index_nmnu(n, m, nu) ;
 	g_assert(i < ne) ;
-  	g_assert(_wbfmm_RR_coefficients_laplace[i] == 0.0) ;
-  	_wbfmm_RR_coefficients_laplace[i] =
+  	g_assert(WBFMM_FUNCTION_NAME(_wbfmm_RR_coefficients_laplace)[i]
+		 == 0.0) ;
+  	WBFMM_FUNCTION_NAME(_wbfmm_RR_coefficients_laplace)[i] =
   	  coaxial_translation_RR_cfft(n, nu, m) ;
       }
     }
@@ -891,7 +893,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
   ne = Nmax*(6*(Nmax+1)*(Nmax+2) + 1 - 3*(Nmax+1)*(2*Nmax+3) +
 	     2*(Nmax+1)*(Nmax+1)) ;    
   
-  _wbfmm_SR_coefficients_laplace =
+  WBFMM_FUNCTION_NAME(_wbfmm_SR_coefficients_laplace) =
     (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
   
   for ( m = 0 ; m <= Nmax ; m ++ ) {
@@ -899,8 +901,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
       for ( nu = m ; nu <= Nmax ; nu ++ ) {
   	i = _wbfmm_SR_coefficient_index_nmnu(n, m, nu) ;
 	g_assert(i < ne) ;
-  	g_assert(_wbfmm_SR_coefficients_laplace[i] == 0.0) ;
-  	_wbfmm_SR_coefficients_laplace[i] =
+  	g_assert(WBFMM_FUNCTION_NAME(_wbfmm_SR_coefficients_laplace)[i]
+		 == 0.0) ;
+  	WBFMM_FUNCTION_NAME(_wbfmm_SR_coefficients_laplace)[i] =
   	  coaxial_translation_SR_cfft(n, nu, m) ;
       }
     }

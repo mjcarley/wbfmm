@@ -3,6 +3,7 @@
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(includedir)
 
 DEPS = $(top_builddir)/src/libwbfmm.la
+LDADD =	$(top_builddir)/src/.libs/libwbfmm.a
 
 EXTRA_DIST = \
 	wbfmm-tests.c.in wbfmm-tree-calc.c.in \
@@ -87,78 +88,19 @@ wbfmm-laplace-direct-calc-float.c: wbfmm-laplace-direct-calc.c.in
 	./make-source-float wbfmm-laplace-direct-calc
 
 wbfmm_tests_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
+	$(top_builddir)/src/.libs/libwbfmm.a
 
 wbfmm_tests_avx_SOURCES = wbfmm-tests.c
-wbfmm_tests_avx_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
 wbfmm_tests_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 
-wbfmm_tests_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
 wbfmm_tree_calc_SOURCES = wbfmm-tree-calc.c
-wbfmm_tree_calc_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
 
 wbfmm_tree_calc_avx_SOURCES = wbfmm-tree-calc.c
-wbfmm_tree_calc_avx_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
 wbfmm_tree_calc_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 
-wbfmm_tree_calc_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_direct_calc_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_direct_calc_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_laplace_tests_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
 wbfmm_laplace_tests_avx_SOURCES = wbfmm-laplace-tests.c
-wbfmm_laplace_tests_avx_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
 wbfmm_laplace_tests_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
 
-wbfmm_laplace_tests_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_laplace_tree_calc_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
 wbfmm_laplace_tree_calc_avx_SOURCES = wbfmm-laplace-tree-calc.c
-wbfmm_laplace_tree_calc_avx_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
 
 wbfmm_laplace_tree_calc_avx_CFLAGS = -DWBFMM_USE_AVX $(AM_CFLAGS)
-
-wbfmm_laplace_tree_calc_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_laplace_direct_calc_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-
-wbfmm_laplace_direct_calc_float_LDADD = \
-	$(top_builddir)/src/.libs/libwbfmm_f.a \
-	$(top_builddir)/src/.libs/libwbfmm-base.a
-

@@ -35,10 +35,30 @@
 
 #include <stdio.h>
 
-WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ;
-WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ;
-/* WBFMM_REAL _wbfmm_shifts_r[19] = {0.0} ; */
-WBFMM_REAL _wbfmm_shifts_r[WBFMM_SHIFTS_R_NUMBER] = {0.0} ;
+/* WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ; */
+/* WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ; */
+/* WBFMM_REAL _wbfmm_shifts_r[WBFMM_SHIFTS_R_NUMBER] = {0.0} ; */
+
+/* #define WBFMM_CHECK_ISNAN */
+
+#ifdef WBFMM_CHECK_ISNAN
+#include <stdlib.h>
+
+static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+
+{
+  gint i ;
+
+  for ( i = 0 ; i < n ; i ++ ) {
+    if ( isnan(f[i]) ) {
+      fprintf(stderr, "%s: NaN at element %d of %d\n", name, i, n) ;
+      exit(1) ;
+    }
+  }
+  
+  return 0 ;
+}
+#endif /*WBFMM_CHECK_ISNAN*/
 
 static inline void sincos_recursion(WBFMM_REAL Epr[], WBFMM_REAL Epi[],
 				    WBFMM_REAL Enr[], WBFMM_REAL Eni[],
@@ -317,6 +337,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
       for ( i = 0 ; i < 16*nq ; i ++ ) work[off+i] = buf[i] ;
     }
   }
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("parent coefficients 2",
+	      work, 2*wbfmm_coefficient_index_nm(Np+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
 
   /*work now contains the rotated coefficients shifted to the centre
     of the parent box, which must be reverse rotated and summed into Cp*/
@@ -369,6 +393,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
     tmp = Cn3ch0 ;
     Cn3ch0 = S0*(-Cn3ch0 + Sn3ch0) ; Sn3ch0 = -S0*(tmp + Sn3ch0) ;
   }
+
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("parent coefficients 3",
+	      Cp, 2*wbfmm_coefficient_index_nm(Np+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
 
   return 0 ;
 }
@@ -423,6 +452,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 
       offp = 2*str*ip ;
       increment_buf_pc(Epr, Epi, &(Cp[offp]), H03[ih], H47[ih], buf, nq) ;
+      /* for ( i = 0 ; i < 16*nq ; i ++ ) */
+      /* 	if ( isnan(buf[i]) ) */
+      /* 	  g_error("%s: NaN at (nu,n,m) == (%d,%d,%d); Cp==%lg; H03=%lg", */
+      /* 		  __FUNCTION__, nu, n, m, Cp[offp], H03) ; */
 
       for ( m = 1 ; m <= n ; m ++ ) {
 	sincos_recursion(Epr, Epi, Enr, Eni, Cch, Sch) ;
@@ -449,6 +482,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
     tmp = Cnph0 ; Cnph0 = Snph0 ; Snph0 = -tmp ;
   }
 
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("child coefficients 1",
+	      Cr, 2*wbfmm_coefficient_index_nm(Np+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
+
   /*Cr now contains the rotated Cp coefficients, apply coaxial
     translation to all coefficients to shift to centre of child boxes*/
   for ( n = 0 ; n <= Nc ; n ++ ) {
@@ -461,10 +499,28 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 	ih = wbfmm_coaxial_index(l, m, n) ;
 	sgn = wbfmm_coaxial_index_sgn(l, m, n) ;
 	for ( i = 0 ; i < 16*nq ; i ++ ) buf[i] += trans[ih]*sgn*Cr[offp+i] ;
+#ifdef WBFMM_CHECK_ISNAN
+	for ( i = 0 ; i < 16*nq ; i ++ ) {
+	  if ( isnan(buf[i]) ) {
+	    g_error("%s: NaN error\n"
+		    "    n = %d, m = %d, l = %d\n"
+		    "    offp = %d, i = %d\n"
+		    "    trans[%d] = %lg\n"
+		    "    Cr[%d] = %lg\n",
+		    __FUNCTION__, n, m, l, offp, i, ih, trans[ih],
+		    offp+i, Cr[offp+i]) ;
+	  }
+	}
+#endif /*WBFMM_CHECK_ISNAN*/
       }
       for ( i = 0 ; i < 16*nq ; i ++ ) work[offc+i] = buf[i] ;
     }
   }
+
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("child coefficients 2",
+	      work, 2*wbfmm_coefficient_index_nm(Nc+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
 
   /*work now contains the rotated coefficients shifted to the centres
     of the child boxes, which must be reverse rotated and summed into
@@ -519,6 +575,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
     Cn3ch0 = S0*(-Cn3ch0 + Sn3ch0) ; Sn3ch0 = -S0*(tmp + Sn3ch0) ;
   }
 
+#ifdef WBFMM_CHECK_ISNAN
+  check_isnan("child coefficients 3",
+	      Cc, 2*wbfmm_coefficient_index_nm(Nc+1,0)) ;
+#endif /*WBFMM_CHECK_ISNAN*/
+
   return 0 ;
 }
 
@@ -572,56 +633,56 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(void)
     half
    */
 
-  _wbfmm_shifts_th[48] = ACOS(-SQRT(9.0/9)) ;
-  _wbfmm_shifts_th[47] = ACOS(-SQRT(9.0/10)) ;
-  _wbfmm_shifts_th[46] = ACOS(-SQRT(9.0/11)) ;
-  _wbfmm_shifts_th[45] = ACOS(-SQRT(4.0/5)) ;
-  _wbfmm_shifts_th[44] = ACOS(-SQRT(9.0/13)) ;
-  _wbfmm_shifts_th[43] = ACOS(-SQRT(4.0/6)) ;
-  _wbfmm_shifts_th[42] = ACOS(-SQRT(9.0/14)) ;
-  _wbfmm_shifts_th[41] = ACOS(-SQRT(9.0/17)) ;
-  _wbfmm_shifts_th[40] = ACOS(-SQRT(9.0/18)) ;
-  _wbfmm_shifts_th[39] = ACOS(-SQRT(9.0/19)) ;
-  _wbfmm_shifts_th[38] = ACOS(-SQRT(4.0/9)) ;
-  _wbfmm_shifts_th[37] = ACOS(-SQRT(9.0/22)) ;
-  _wbfmm_shifts_th[36] = ACOS(-SQRT(9.0/27)) ;
-  _wbfmm_shifts_th[35] = ACOS(-SQRT(4.0/13)) ;
-  _wbfmm_shifts_th[34] = ACOS(-SQRT(4.0/14)) ;
-  _wbfmm_shifts_th[33] = ACOS(-SQRT(4.0/17)) ;
-  _wbfmm_shifts_th[32] = ACOS(-SQRT(1.0/5)) ;
-  _wbfmm_shifts_th[31] = ACOS(-SQRT(4.0/22)) ;
-  _wbfmm_shifts_th[30] = ACOS(-SQRT(1.0/6)) ;
-  _wbfmm_shifts_th[29] = ACOS(-SQRT(1.0/9)) ;
-  _wbfmm_shifts_th[28] = ACOS(-SQRT(1.0/10)) ;
-  _wbfmm_shifts_th[27] = ACOS(-SQRT(1.0/11)) ;
-  _wbfmm_shifts_th[26] = ACOS(-SQRT(1.0/14)) ;
-  _wbfmm_shifts_th[25] = ACOS(-SQRT(1.0/19)) ;
-  _wbfmm_shifts_th[24] = ACOS( SQRT(0.0/18)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[48] = ACOS(-SQRT(9.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[47] = ACOS(-SQRT(9.0/10)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[46] = ACOS(-SQRT(9.0/11)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[45] = ACOS(-SQRT(4.0/5)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[44] = ACOS(-SQRT(9.0/13)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[43] = ACOS(-SQRT(4.0/6)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[42] = ACOS(-SQRT(9.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[41] = ACOS(-SQRT(9.0/17)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[40] = ACOS(-SQRT(9.0/18)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[39] = ACOS(-SQRT(9.0/19)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[38] = ACOS(-SQRT(4.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[37] = ACOS(-SQRT(9.0/22)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[36] = ACOS(-SQRT(9.0/27)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[35] = ACOS(-SQRT(4.0/13)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[34] = ACOS(-SQRT(4.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[33] = ACOS(-SQRT(4.0/17)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[32] = ACOS(-SQRT(1.0/5)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[31] = ACOS(-SQRT(4.0/22)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[30] = ACOS(-SQRT(1.0/6)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[29] = ACOS(-SQRT(1.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[28] = ACOS(-SQRT(1.0/10)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[27] = ACOS(-SQRT(1.0/11)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[26] = ACOS(-SQRT(1.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[25] = ACOS(-SQRT(1.0/19)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[24] = ACOS( SQRT(0.0/18)) ;
 
-  _wbfmm_shifts_th[23] = ACOS(SQRT(1.0/19)) ;
-  _wbfmm_shifts_th[22] = ACOS(SQRT(1.0/14)) ;
-  _wbfmm_shifts_th[21] = ACOS(SQRT(1.0/11)) ;
-  _wbfmm_shifts_th[20] = ACOS(SQRT(1.0/10)) ;
-  _wbfmm_shifts_th[19] = ACOS(SQRT(1.0/9)) ;
-  _wbfmm_shifts_th[18] = ACOS(SQRT(1.0/6)) ;
-  _wbfmm_shifts_th[17] = ACOS(SQRT(4.0/22)) ;
-  _wbfmm_shifts_th[16] = ACOS(SQRT(1.0/5)) ;
-  _wbfmm_shifts_th[15] = ACOS(SQRT(4.0/17)) ;
-  _wbfmm_shifts_th[14] = ACOS(SQRT(4.0/14)) ;
-  _wbfmm_shifts_th[13] = ACOS(SQRT(4.0/13)) ;
-  _wbfmm_shifts_th[12] = ACOS(SQRT(9.0/27)) ;
-  _wbfmm_shifts_th[11] = ACOS(SQRT(9.0/22)) ;
-  _wbfmm_shifts_th[10] = ACOS(SQRT(4.0/9)) ;
-  _wbfmm_shifts_th[ 9] = ACOS(SQRT(9.0/19)) ;
-  _wbfmm_shifts_th[ 8] = ACOS(SQRT(9.0/18)) ;
-  _wbfmm_shifts_th[ 7] = ACOS(SQRT(9.0/17)) ;
-  _wbfmm_shifts_th[ 6] = ACOS(SQRT(9.0/14)) ;
-  _wbfmm_shifts_th[ 5] = ACOS(SQRT(4.0/6)) ;
-  _wbfmm_shifts_th[ 4] = ACOS(SQRT(9.0/13)) ;
-  _wbfmm_shifts_th[ 3] = ACOS(SQRT(4.0/5)) ;
-  _wbfmm_shifts_th[ 2] = ACOS(SQRT(9.0/11)) ;
-  _wbfmm_shifts_th[ 1] = ACOS(SQRT(9.0/10)) ;
-  _wbfmm_shifts_th[ 0] = ACOS(SQRT(9.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[23] = ACOS(SQRT(1.0/19)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[22] = ACOS(SQRT(1.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[21] = ACOS(SQRT(1.0/11)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[20] = ACOS(SQRT(1.0/10)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[19] = ACOS(SQRT(1.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[18] = ACOS(SQRT(1.0/6)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[17] = ACOS(SQRT(4.0/22)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[16] = ACOS(SQRT(1.0/5)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[15] = ACOS(SQRT(4.0/17)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[14] = ACOS(SQRT(4.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[13] = ACOS(SQRT(4.0/13)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[12] = ACOS(SQRT(9.0/27)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[11] = ACOS(SQRT(9.0/22)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[10] = ACOS(SQRT(4.0/9)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 9] = ACOS(SQRT(9.0/19)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 8] = ACOS(SQRT(9.0/18)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 7] = ACOS(SQRT(9.0/17)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 6] = ACOS(SQRT(9.0/14)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 5] = ACOS(SQRT(4.0/6)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 4] = ACOS(SQRT(9.0/13)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 3] = ACOS(SQRT(4.0/5)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 2] = ACOS(SQRT(9.0/11)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 1] = ACOS(SQRT(9.0/10)) ;
+  WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[ 0] = ACOS(SQRT(9.0/9)) ;
 
   
   _wbfmm_shifts_ph[ 0] = 0.0 ;
@@ -684,7 +745,7 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
 
   op->bw = bw ;
   
-  if ( _wbfmm_shifts_th[1] == 0.0 ) 
+  if ( WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[1] == 0.0 ) 
     g_error("%s: rotation table not initiated; call "
 	    "wbfmm_shift_angle_table_init()", 
 	    __FUNCTION__) ;
@@ -700,7 +761,8 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
   /*first (0,\pi) rotations, as listed in _wbfmm_shifts_th*/
   for ( i = 0 ; i < 49 ; i ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(&(rotations[i*nerot]),
-						       L, _wbfmm_shifts_th[i],
+						       L,
+						       WBFMM_FUNCTION_NAME(_wbfmm_shifts_th)[i],
 						       work) ;
   }
 

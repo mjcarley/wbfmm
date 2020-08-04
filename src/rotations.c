@@ -37,6 +37,7 @@
 
 /* #define CHECK_COEFFICIENTS */
 
+
 #ifdef CHECK_COEFFICIENTS
 #include <stdio.h>
 #endif
@@ -163,6 +164,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H, gint N,
       idx  = wbfmm_rotation_index_numn( nu, m, n) ;
       idx1 = wbfmm_rotation_index_numn(-nu, m, n) ;
       h[idx] = h[idx1] = Pn[nu]/sqrt(2*n+1)*sqrt(4.0*M_PI) ;
+#ifdef WBFMM_CHECK_ISNAN
+      if ( isnan(h[idx]) )
+      	g_error("%s: NaN at (nu,m,n)==(%d,%d,%d)", __FUNCTION__, nu, m, n) ;
+#endif /*WBFMM_CHECK_ISNAN*/
     }
   }
 
@@ -181,6 +186,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H, gint N,
 	idx3 = wbfmm_rotation_index_numn(nu  , m  , n  ) ;
 	h[idx] = (0.5*(b1*(1.0 - Cth)*h[idx1] - b2*(1.0 + Cth)*h[idx2]) -
 		  a3*Sth*h[idx3])/b ;
+#ifdef WBFMM_CHECK_ISNAN
+	if ( isnan(h[idx]) )
+	  g_error("%s: NaN at (nu,m,n)==(%d,%d,%d)", __FUNCTION__, nu, m, n) ;
+#endif /*WBFMM_CHECK_ISNAN*/
       }
     }
   }

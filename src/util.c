@@ -543,16 +543,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
 
   iz[0] /= (*r) ; iz[1] /= (*r) ; iz[2] /= (*r) ;
 
-  /* if ( iz[0] != 0.0 ) { */
-  /*   ix[0] = iz[0] ; ix[1] = -iz[1] ; ix[2] = 0.0 ;  */
-  /* } else { */
-  /*   if ( iz[1] != 0.0 ) { */
-  /*     ix[0] = 1.0 ; ix[1] = iz[1] ; ix[2] = -iz[2] ; */
-  /*   } else { */
-  /*     ix[0] = 1.0 ; ix[1] = 0.0 ; ix[2] = 0.0 ; */
-  /*   } */
-  /* } */
-
   if ( iz[0] != 0.0 ) {
     ix[0] = iz[1] ; ix[1] = -iz[0] ; ix[2] = 0.0 ; 
   } else {
@@ -573,21 +563,21 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(WBFMM_REAL *x, WBFMM_REAL *y,
   return 0 ;
 }
 
-gint print_bits_uint(FILE *f, guint x)
+/* static gint print_bits_uint(FILE *f, guint x) */
 
-{
-  gint i ;
-  guint size = sizeof(guint) ;
-  guint maxPow = 1 << (size*8 - 1) ;
+/* { */
+/*   gint i ; */
+/*   guint size = sizeof(guint) ; */
+/*   guint maxPow = 1 << (size*8 - 1) ; */
 
-  for( i = 0 ; i < 8*size ; ++i ) {
-    /* print last bit and shift left. */
-    fprintf(f, "%u", (x & maxPow ? 1 : 0)) ;
-    x = x << 1 ;
-}
+/*   for( i = 0 ; i < 8*size ; ++i ) { */
+/*     /\* print last bit and shift left. *\/ */
+/*     fprintf(f, "%u", (x & maxPow ? 1 : 0)) ; */
+/*     x = x << 1 ; */
+/* } */
 
-  return 0 ;
-}
+/*   return 0 ; */
+/* } */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_box_location_from_index)(guint64 idx,
 							guint32 level,
@@ -655,8 +645,9 @@ static gint print_box(FILE *f, wbfmm_tree_t *t, guint64 idx,
   return 0 ;
 }
 
-gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level, 
-		      gboolean print_empty)
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_print)(FILE *f, wbfmm_tree_t *t,
+					   guint level, 
+					   gboolean print_empty)
 
 {
   guint i, nb, lv ;
@@ -811,61 +802,4 @@ gint WBFMM_FUNCTION_NAME(wbfmm_truncation_number)(wbfmm_tree_t *t,
   p = (gint)ceil(SQRT(SQRT(plo*plo*plo*plo + phi*phi*phi*phi))) ;
   
   return p ;
-}
-
-gint wbfmm_library_config(wbfmm_library_config_t *c)
-
-{
-  c->real_size = sizeof(WBFMM_REAL) ;
-
-  c->switches = WBFMM_COMPILER_FLAGS ;
-  
-#ifdef HAVE_FMA_INSTRUCTIONS
-  c->fma = TRUE ;
-#else
-  c->fma = FALSE ;
-#endif /*HAVE_FMA_INSTRUCTIONS*/
-
-#ifdef HAVE_AVX_INSTRUCTIONS
-  c->avx = TRUE ;
-#else
-  c->avx = FALSE ;
-#endif /*HAVE_AVX_INSTRUCTIONS*/
-
-#ifdef HAVE_AVX2_INSTRUCTIONS
-  c->avx2 = TRUE ;
-#else
-  c->avx2 = FALSE ;
-#endif /*HAVE_AVX_INSTRUCTIONS*/
-
-#ifdef _OPENMP
-  c->openmp = TRUE ;
-#else
-  c->openmp = FALSE ;
-#endif /*_OPENMP*/
-
-  return 0 ;
-}
-
-gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f)
-
-{
-  fprintf(f,
-	  "AVX extensions: %s\n"
-	  "FMA extensions: %s\n"
-	  "OpenMP:         %s\n"
-	  "precision:      %s\n"
-	  "compiler flags: %s\n",
-	  yes_if_true(c->avx),
-	  yes_if_true(c->fma),
-	  yes_if_true(c->openmp),
-#ifdef WBFMM_SINGLE_PRECISION
-	  "single",
-#else
-	  "double",
-#endif /*WBFMM_SINGLE_PRECISION*/
-	  c->switches
-	  ) ;
-  
-  return 0 ;
 }

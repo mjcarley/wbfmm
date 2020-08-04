@@ -231,23 +231,23 @@ DX_CONFIG = doxy/wbfmm.dxy
 DX_DOCDIR = doc
 DX_DOT = 
 DX_DOXYGEN = /usr/bin/doxygen
-DX_DVIPS = 
+DX_DVIPS = /usr/bin/dvips
 DX_EGREP = /usr/bin/egrep
-DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='NO'
+DX_ENV =  SRCDIR='.' PROJECT='wbfmm' VERSION='0.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='YES'
 DX_FLAG_chi = 0
 DX_FLAG_chm = 0
 DX_FLAG_doc = 1
 DX_FLAG_dot = 0
 DX_FLAG_html = 1
 DX_FLAG_man = 0
-DX_FLAG_pdf = 0
-DX_FLAG_ps = 0
+DX_FLAG_pdf = 1
+DX_FLAG_ps = 1
 DX_FLAG_rtf = 0
 DX_FLAG_xml = 0
 DX_HHC = 
-DX_LATEX = 
-DX_MAKEINDEX = 
-DX_PDFLATEX = 
+DX_LATEX = /usr/bin/latex
+DX_MAKEINDEX = /usr/bin/makeindex
+DX_PDFLATEX = /usr/bin/pdflatex
 DX_PERL = /usr/bin/perl
 DX_PROJECT = wbfmm
 ECHO_C = 
@@ -860,6 +860,69 @@ uninstall-am:
 
 DX_CLEAN_HTML = $(DX_DOCDIR)/html\
                 $(DX_DOCDIR)/html
+
+## ----------------------------- ##
+## Rules specific for PS output. ##
+## ----------------------------- ##
+
+DX_CLEAN_PS = $(DX_DOCDIR)/$(PACKAGE).ps\
+              $(DX_DOCDIR)/$(PACKAGE).ps
+
+DX_PS_GOAL = doxygen-ps
+
+doxygen-ps: $(DX_CLEAN_PS)
+
+$(DX_DOCDIR)/$(PACKAGE).ps: $(DX_DOCDIR)/$(PACKAGE).tag
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_LATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_LATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_LATEX) refman.tex; \
+            countdown=`expr $$countdown - 1`; \
+	done; \
+	$(DX_DVIPS) -o ../$(PACKAGE).ps refman.dvi
+
+## ------------------------------ ##
+## Rules specific for PDF output. ##
+## ------------------------------ ##
+
+DX_CLEAN_PDF = $(DX_DOCDIR)/$(PACKAGE).pdf\
+               $(DX_DOCDIR)/$(PACKAGE).pdf
+
+DX_PDF_GOAL = doxygen-pdf
+
+doxygen-pdf: $(DX_CLEAN_PDF)
+
+$(DX_DOCDIR)/$(PACKAGE).pdf: $(DX_DOCDIR)/$(PACKAGE).tag
+	$(DX_V_LATEX)cd $(DX_DOCDIR)/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_PDFLATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_PDFLATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_PDFLATEX) refman.tex; \
+	    countdown=`expr $$countdown - 1`; \
+	done; \
+	mv refman.pdf ../$(PACKAGE).pdf
+
+## ------------------------------------------------- ##
+## Rules specific for LaTeX (shared for PS and PDF). ##
+## ------------------------------------------------- ##
+
+DX_V_LATEX = $(_DX_v_LATEX_$(V))
+_DX_v_LATEX_ = $(_DX_v_LATEX_$(AM_DEFAULT_VERBOSITY))
+_DX_v_LATEX_0 = @echo "  LATEX " $@;
+
+DX_CLEAN_LATEX = $(DX_DOCDIR)/latex\
+                 $(DX_DOCDIR)/latex
 
 DX_V_DXGEN = $(_DX_v_DXGEN_$(V))
 _DX_v_DXGEN_ = $(_DX_v_DXGEN_$(AM_DEFAULT_VERBOSITY))

@@ -273,8 +273,8 @@ gint main(gint argc, gchar **argv)
     order[2*depth+1] = order_r ; 
     order_max = MAX(order_s, order_r) ;
     for ( i = depth-1 ; i > 0 ; i -- ) {
-      order[2*i+0] = order[2*(i+1)+0] + 4 ;
-      order[2*i+1] = order[2*(i+1)+1] + 4 ;
+      order[2*i+0] = order[2*(i+1)+0] + 2 ;
+      order[2*i+1] = order[2*(i+1)+1] + 2 ;
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
