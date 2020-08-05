@@ -6,4 +6,4 @@ DIST_SUBDIRS = src tests doc
 
 SUBDIRS = src tests
 
-@DX_RULES@
+##@DX_RULES@
