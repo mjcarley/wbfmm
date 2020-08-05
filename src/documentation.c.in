@@ -67,7 +67,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix, WBFMM_REAL *iy,
  *
  * @return 0 on success
  */
- gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H,
+
+gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H,
 							 gint N, WBFMM_REAL th,
 							 WBFMM_REAL *work) {}
  

@@ -707,11 +707,9 @@ gint rotation_test(gint N,
 		   gdouble *xf, gint nfld)
 
 {
-  __attribute__ ((aligned (32)))
-    gdouble H[BUFSIZE], work[BUFSIZE], th, ph, ch ;
+  gdouble H[BUFSIZE], work[BUFSIZE], th, ph, ch ;
   gdouble ix0[3], iy0[3], iz0[3], y[3] ;
-  __attribute__ ((aligned (32))) gdouble Ci[BUFSIZE] = {0.0},
-    Co[BUFSIZE] = {0.0}, Cc[BUFSIZE] = {0.0} ;
+  gdouble Ci[BUFSIZE] = {0.0}, Co[BUFSIZE] = {0.0}, Cc[BUFSIZE] = {0.0} ;
   gdouble fc[32]={0.0}, ff[32]={0.0}, fr[32]={0.0} ;
   gint i, cstri, cstro, nq ;
   gdouble t0 ;
@@ -1074,11 +1072,16 @@ gint parent_child_test(gint N, gdouble *x0, gdouble wb, gint quad,
 				      work) ;
   
   /*shift singular expansion to regular expansion about parent box*/
+  fprintf(stderr, "setting shift angles\n") ;
   wbfmm_shift_angles(x0, xp, &th, &ph, &ch, &r) ;
+  fprintf(stderr, "generating rotation coefficients\n") ;
   wbfmm_coefficients_H_rotation(H0, Np, th, work) ;
+  fprintf(stderr, "performing rotation\n") ;
   wbfmm_laplace_rotate_H(C1, nq, C0, nq, Np, nq, H0, ph, ch, 0.0) ;
   memset(C0, 0, sizeof(gdouble)*(Np+1)*(Np+1)*nq) ;
+  fprintf(stderr, "performing translation\n") ;
   wbfmm_laplace_coaxial_translate_SR(C0, nq, Np, C1, nq, Np, nq, r, 0.0) ;
+  fprintf(stderr, "performing reverse rotation\n") ;
   wbfmm_laplace_rotate_H(Cp, 8*nq, C0, nq, Np, nq, H0, ch, ph, 0.0) ;
 
   /*perform RR shift from parent centre to child centres*/
