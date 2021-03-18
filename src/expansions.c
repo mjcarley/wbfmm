@@ -68,6 +68,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N,
     g_error("%s: coefficient stride (cstr=%d) less than number of source"
 	    "elements (nq=%d)", __FUNCTION__, cstr, nq) ;
   
+  if ( N == 0 ) { return 0 ; }
+
   /*G&D (2.17)*/
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
@@ -88,6 +90,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(WBFMM_REAL k, gint N,
   expansion_h_increment_cfft(n, m,  1, jnm1, cfft, cstr, Pnm1, Cmph, Smph,
 			     q, nq) ;
   
+  if ( N == 1 ) { return 0 ; }
+
   n = 1 ; 
   m = 0 ; 
   expansion_h_increment_cfft(n, m,  1, jn, cfft, cstr, Pn, Cmph, Smph, q, nq) ;
@@ -167,6 +171,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
     g_error("%s: field stride (%d) must be greater than 1 for "
 	    "multi-component sources (nq=%d)", __FUNCTION__, fstr, nq) ;
 
+  if ( N == 0 ) { return 0 ; }
+
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
@@ -185,6 +191,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_h_evaluate)(WBFMM_REAL k,
   m = 0 ; 
   expansion_h_increment(n, m,  1, hnm1, cfft, cstr, 
 			Pnm1, Cmph[m], Smph[m], field, nq, fstr) ;
+
+  if ( N == 1 ) { return 0 ; }
 
   n = 1 ; 
   m = 0 ; 

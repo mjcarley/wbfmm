@@ -17,15 +17,15 @@ old_library='libsub.a'
 inherited_linker_flags=' -fopenmp'
 
 # Libraries that this one depends upon.
-dependency_libs=' /usr/lib64/libglib-2.0.la -lpthread -lm'
+dependency_libs=' /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../../../lib64/libglib-2.0.la -lpthread -lblas -L/usr/lib64/gcc/x86_64-slackware-linux/5.5.0 -L/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../../../x86_64-slackware-linux/lib -L/usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../.. /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../../../lib64/libgfortran.la /usr/lib64/../lib64/libquadmath.la /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/../../../../lib64/libquadmath.la -lm'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
 
 # Version information for libsub.
-current=4600
-age=4600
-revision=2
+current=0
+age=0
+revision=0
 
 # Is this an already installed library?
 installed=no

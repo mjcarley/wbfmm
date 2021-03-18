@@ -347,7 +347,9 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;  
   wbfmm_tree_laplace_leaf_expansions_PREC(tree,
-					  q, qstr, normals, nstr, dipoles, dstr,
+					  q, qstr, 1.0,
+					  normals, nstr,
+					  dipoles, dstr, 1.0,
 					  TRUE, work) ;  
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;

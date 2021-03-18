@@ -26,6 +26,8 @@
 
 #include <config.h>
 
+#include "wbfmm-private.h"
+
 #define BUFSIZE 131072
 /* 262144 */
 
@@ -55,6 +57,7 @@ gchar *tests[] = {"legendre",
 		  "expansion_normal",
 		  "expansion_gradient",
 		  "local_gradient",
+		  "rotation_matrix",
 		  ""} ;
 
 gint rotations_write(gint N, gdouble ix[], gdouble iy[],
@@ -1026,6 +1029,179 @@ gint rotation_test(gdouble *x0, gdouble *x1, gdouble *x2,
   
   return 0 ;
 }
+
+gint rotation_matrix_test(gdouble *x0, gdouble *x1, gdouble *x2,
+			  gdouble *ix, gdouble *iy, gdouble *iz,
+			  gdouble k,
+			  gdouble *xs, gint sstr, gint ns,
+			  gdouble *q , gint qstr, gint nq,
+			  gint N,
+			  gdouble t, gdouble wb, gint quad,
+			  gdouble *xf, gint fstr, gint nf)
+
+/*
+  x0: centre of expansion
+  ix,iy,iz: rotated axes
+*/
+		     
+{
+  gdouble H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
+  gdouble ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
+  gdouble Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
+  gdouble Hc[BUFSIZE*4] ;
+  gint i, j, cstri, cstro, fcstr, n, m, nu ;
+  gdouble t0, dt ;
+
+  
+  for ( n = 0 ; n <= N ; n ++ ) {
+    gint offp, offm, idxp, idxm, offpo, offmo ;
+    nu = 0 ;
+    m = 0 ;
+
+    offpo = wbfmm_coefficient_index_nm(n, nu) ;
+
+    offp = wbfmm_coefficient_index_nm(n,m) ;
+    idxp = wbfmm_rotation_index_numn(nu,m,n) ;
+
+    /*(output index) n nu (input index) (coefficient index)*/
+    fprintf(stdout,
+	    "%d %d %d %d %d\n",
+	    offpo, n, nu, offp, idxp) ;
+    
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
+      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
+
+      offp = wbfmm_coefficient_index_nm(n, m) ;
+      offm = wbfmm_coefficient_index_nm(n,-m) ;
+
+      /*(output index) n nu (input index) (coefficient index)*/
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offpo, n, nu, offp, idxp) ;
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offpo, n, nu, offm, idxm) ;
+    }
+
+    for ( nu = 1 ; nu <= n ; nu ++ ) {
+      m = 0 ;
+      offpo = wbfmm_coefficient_index_nm(n, nu) ;
+      offmo = wbfmm_coefficient_index_nm(n,-nu) ;
+
+      offp = wbfmm_coefficient_index_nm(n,m) ;
+      offm = wbfmm_coefficient_index_nm(n,m) ;
+
+      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
+      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offpo, n, nu, offp, idxp) ;
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offmo, n, nu, offm, idxm) ;
+      
+      for ( m = 1 ; m <= n ; m ++ ) {
+	/*rotation coefficients for \pm\nu*/
+	idxp = wbfmm_rotation_index_numn( nu,m,n) ;
+	idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
+
+	offp = wbfmm_coefficient_index_nm(n, m) ;
+	offm = wbfmm_coefficient_index_nm(n,-m) ;
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offpo, n, nu, offp, idxp) ;
+      fprintf(stdout,
+	      "%d %d %d %d %d\n",
+	      offmo, n, nu, offm, idxm) ;
+      }
+    }
+  }
+
+  return 0 ;
+  
+  cstri = nq ; cstro = nq ;
+  fcstr = 3 ;
+
+  ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
+  iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
+  iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
+
+  wbfmm_rotation_angles(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
+
+  fprintf(stderr, "rotation: (%lg,%lg,%lg)\n", th, ph, ch) ;
+  t0 = g_timer_elapsed(timer, NULL) ;
+  fprintf(stderr, "%s start: %lg\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+
+  /*expand about origin*/
+  for ( i = 0 ; i < ns ; i ++ ) {
+    wbfmm_expansion_h_cfft(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+				nq, Ci, cstri, work) ;
+  }
+  /*fill H with rubbish to make sure entries are being set in the
+    function call*/
+  wbfmm_coefficients_H_rotation(H, N, th, work) ;
+
+  /*apply the rotation to the coefficients*/
+  fprintf(stderr, "%s reference rotation: %lg\n",
+	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+  wbfmm_rotate_H(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  dt = g_timer_elapsed(timer, NULL) - dt ;
+  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+
+#ifdef WBFMM_USE_AVX
+  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+  fprintf(stderr, "%s AVX rotation: %lg\n",
+	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+  wbfmm_rotate_H_avx(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  dt = g_timer_elapsed(timer, NULL) - dt ;
+  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
+	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+#endif /*WBFMM_USE_AVX*/
+  
+  wbfmm_coordinate_transform(x0, ix, iy, iz, y0) ;
+
+  for ( i = 0 ; i < nf ; i ++ ) {
+    gdouble fu[64] = {0.0}, fr[64] = {0.0}, fc[64] = {0.0} ;
+
+    wbfmm_coordinate_transform(&(xf[i*fstr]), ix, iy, iz, y) ;
+
+    wbfmm_total_field(k, xs, sstr, q, qstr,
+			   NULL, 0, NULL, 0, nq,
+			   ns, &(xf[i*fstr]), fc, fcstr) ;
+    wbfmm_expansion_h_evaluate(k, y0, Co, cstro, N, nq, y, fr,
+				    fcstr, work) ;
+
+    /*computed field on unrotated coefficients*/
+    wbfmm_expansion_h_evaluate(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
+				    fu, fcstr, work) ;
+
+    for ( j = 0 ; j < nq ; j ++ ) {
+      fprintf(stdout, "%d: ", j) ;
+      fprintf(stdout, "%lg+j*%lg ",
+	      fu[j*fcstr+0], fu[j*fcstr+1]) ;
+
+      fprintf(stdout, "%lg+j*%lg ",
+	      fr[j*fcstr+0], fr[j*fcstr+1]) ;
+
+      fprintf(stdout, "(%lg, %lg)\n",
+	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+    }
+  }
+  
+  return 0 ;
+}
+
 
 gint shift_test(gdouble *x0, gdouble *x1, gdouble *x2,
 		gdouble *jx, gdouble *jy, gdouble *jz,
@@ -2377,6 +2553,12 @@ gint main(gint argc, gchar **argv)
     return 0 ;
   }
 
+  if ( test == 24 ) {
+    rotation_matrix_test(x0, x1, x2, ix, iy, iz, k,
+			 xs, sstr, ns, q, qstr, nq, N,
+			 x, wb, quad, xf, fstr, nf) ;
+    return 0 ;
+  }
   
   return 0 ;
 }

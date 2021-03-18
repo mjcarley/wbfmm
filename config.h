@@ -1,11 +1,31 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define to dummy `main' function (if any) required to link to the Fortran
+   libraries. */
+/* #undef F77_DUMMY_MAIN */
+
+/* Define to a macro mangling the given C identifier (in lower and upper
+   case), which must not contain underscores, for linking with Fortran. */
+#define F77_FUNC(name,NAME) name ## _
+
+/* As F77_FUNC, but for C identifiers containing underscores. */
+#define F77_FUNC_(name,NAME) name ## _
+
+/* Define if F77 and FC dummy `main' functions are identical. */
+/* #undef FC_DUMMY_MAIN_EQ_F77 */
+
+/* Define if you have an ATLAS BLAS library. */
+/* #undef HAVE_ATLAS_BLAS */
+
 /* Define if avx2 instructions are supported */
 /* #undef HAVE_AVX2_INSTRUCTIONS */
 
 /* Define if avx instructions are supported */
 #define HAVE_AVX_INSTRUCTIONS 1
+
+/* Define if you have a BLAS library. */
+#define HAVE_BLAS 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
