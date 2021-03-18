@@ -977,14 +977,12 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 							     WBFMM_REAL *src,
 							     gint sstr,
-							     WBFMM_REAL swt,
 							     WBFMM_REAL
 							     *normals,
 							     gint nstr,
 							     WBFMM_REAL
 							     *dipoles,
 							     gint dstr,
-							     WBFMM_REAL dwt,
 							     gboolean
 							     zero_expansions,
 							     WBFMM_REAL *work)
