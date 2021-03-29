@@ -10,15 +10,18 @@
  * 
  * @param t an existing ::wbfmm_tree_t;
  * @param pts an array containing point coordinates;
- * @param npts the number of points in \a pts;
- * @param pstr stride between points in bytes.
+ * @param pstr stride between points in bytes;
+ * @param normals normals at source points (can be NULL);
+ * @param nstr stride between normals in bytes;
+ * @param npts the number of points in \a pts.
  * 
  * @return 0 on success.
  */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
-						gpointer pts, guint npts,
-						gsize pstr) {}
+						gpointer pts, gsize pstr,
+						gpointer normals, gsize nstr,
+						guint npts) {}
 
 /** 
  * @ingroup rotations

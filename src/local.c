@@ -87,7 +87,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
@@ -114,7 +114,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
@@ -144,7 +144,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
@@ -232,7 +232,7 @@ static gint _wbfmm_tree_box_local_field_gradient(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  nR[0] = (x[0] - xs[0])/r*0.25*M_1_PI ;
 	  nR[1] = (x[1] - xs[1])/r*0.25*M_1_PI ;
@@ -353,7 +353,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
@@ -380,7 +380,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
@@ -408,7 +408,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-12 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;

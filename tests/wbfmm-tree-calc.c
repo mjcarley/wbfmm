@@ -58,7 +58,6 @@ gint read_points(gchar *file,
     }
   }
 
-
   fscanf(input, "%d", nsrc) ;
   fscanf(input, "%d", &nqt) ;
   fscanf(input, "%s", code) ;
@@ -334,7 +333,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: upward pass translation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_tree_add_points(tree, (gpointer)xs, nsrc, pstr) ;
+  wbfmm_tree_add_points(tree, (gpointer)xs, pstr, NULL, 0, nsrc) ;
 
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine(tree) ;
 
@@ -353,7 +352,9 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
   targets = wbfmm_target_list_new(tree, nf) ;
   wbfmm_target_list_coefficients_init(targets, field) ;
-  wbfmm_target_list_add_points(targets, xf, nf, fstr*sizeof(gdouble)) ;
+  wbfmm_target_list_add_points(targets, xf, fstr*sizeof(gdouble), nf) ;
+  /* wbfmm_target_list_add_points(targets, xf, fstr*sizeof(gdouble), */
+  /* 				    NULL, 0, nf) ; */
   wbfmm_target_list_local_coefficients(targets, k, work) ;
   fprintf(stderr, "%s: target point list initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -391,7 +392,7 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_target_list_local_field(targets, q, qstr, f, fcstr) ;
+  wbfmm_target_list_local_field(targets, q, qstr, NULL, 0, f, fcstr) ;
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 

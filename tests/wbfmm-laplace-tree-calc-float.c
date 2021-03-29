@@ -142,8 +142,31 @@ gint read_points(gchar *file,
 
     return 0 ;
   }
+ 
+  if ( strcmp(code, "MN") == 0) {
+    /*monopole and normals, order:  */
+    /* x y z q0 q1 ... qn nx ny nz f0 f1 ... fn  */
+    /*   */
+    /*   */
+    *xs = *q = *n = *f = NULL ;
 
-  
+    *nq = nqt ;
+    *xstr = 3 + 3 + 2*(*nq) ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
+    }
+
+    *q = &(s[3])         ; *qstr = *xstr ;
+    *n = &(s[3+(*nq)])   ; *nstr = *xstr ;
+    *f = &(s[6+(*nq)])   ; *fstr = *xstr ;
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
   
   g_assert_not_reached() ;
   
@@ -167,11 +190,11 @@ gint main(gint argc, gchar **argv)
   gfloat D, xtree[3] = {0.0}, xtmax[3], *xs ;
   gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr ;
-  gsize pstr ;
+  gsize pstr, pnstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
-  guint sizew, field ;
+  guint sizew, field, source ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean fit_box, shift_bw ;
+  gboolean fit_box, shift_bw, target_list ;
 
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ;
@@ -181,12 +204,15 @@ gint main(gint argc, gchar **argv)
   order_max = 0 ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
+  target_list = FALSE ;
   field = WBFMM_FIELD_SCALAR ;
-  
+  source = 0 ;
+  targets = NULL ;
+
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:gO:R:s:S:t:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:R:s:S:t:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -204,6 +230,7 @@ gint main(gint argc, gchar **argv)
 	      "  -D # width of octree (%g)\n"
 	      "  -f (field point name)\n"
 	      "  -g calculate gradient of field\n"
+	      "  -l use target lists to calculate field at points\n"
 	      "  -O #,#,# origin of octree (%g,%g,%g)\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
@@ -220,6 +247,7 @@ gint main(gint argc, gchar **argv)
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
     case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
+    case 'l': target_list = TRUE ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
     case 'S': order_s = atoi(optarg) ; break ;
@@ -265,9 +293,10 @@ gint main(gint argc, gchar **argv)
   }
 
   /*data strides and tree allocation*/
-  pstr = xstr*sizeof(gfloat) ;
-  fstr = strf*sizeof(gfloat) ;
-  tree = wbfmm_tree_new_f(xtree, D, 2*nsrc) ;
+  pstr  = xstr*sizeof(gfloat) ;
+  pnstr = nstr*sizeof(gfloat) ;
+  fstr  = strf*sizeof(gfloat) ;
+  tree  = wbfmm_tree_new_f(xtree, D, 2*nsrc) ;
 
   /*set expansion orders at each level of the tree*/
   if ( order_s != 0 && order_r != 0 ) {
@@ -324,7 +353,7 @@ gint main(gint argc, gchar **argv)
 
   /*add source points to the tree and refine to allocate sources to
     leaf boxes*/
-  wbfmm_tree_add_points_f(tree, (gpointer)xs, nsrc, pstr) ;
+  wbfmm_tree_add_points_f(tree, (gpointer)xs, pstr, normals, pnstr, nsrc) ;
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_f(tree) ;
 
   /*initialize memory for box coefficients at each level*/
@@ -335,14 +364,19 @@ gint main(gint argc, gchar **argv)
 					     order[2*i+1], order[2*i+0]) ;
   }
 
-  fprintf(stderr, "%s: initializing target point list; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-  targets = wbfmm_target_list_new_f(tree, nf) ;
-  wbfmm_target_list_coefficients_init(targets, field) ;
-  wbfmm_target_list_add_points_f(targets, xf, nf, fstr) ;
-  wbfmm_laplace_target_list_local_coefficients_f(targets, work) ;
-  fprintf(stderr, "%s: target point list initialized; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
+  if ( target_list ) {
+    fprintf(stderr, "%s: initializing target point list; %lg\n",
+	    progname, g_timer_elapsed(timer, NULL)) ;
+    if ( q != NULL ) source |= WBFMM_SOURCE_MONOPOLE ;
+    if ( normals != NULL ) source |= WBFMM_SOURCE_DIPOLE ;
+    targets = wbfmm_target_list_new_f(tree, nf) ;
+    wbfmm_target_list_coefficients_init(targets, field) ;
+    wbfmm_target_list_add_points_f(targets, xf, fstr, nf) ;
+    /* wbfmm_target_list_add_points_f(targets, xf, fstr, NULL, 0, nf) ; */
+    wbfmm_laplace_target_list_local_coefficients_f(targets, source, work) ;
+    fprintf(stderr, "%s: target point list initialized; %lg\n",
+	    progname, g_timer_elapsed(timer, NULL)) ;
+  }
   
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;  
@@ -368,21 +402,25 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  /* fprintf(stderr, "%s: computing fmm field; %lg\n", */
-  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
-  /* wbfmm_target_list_local_field_f(targets, q, qstr, f, fcstr) ; */
-  /* fprintf(stderr, "%s: fmm field computed; %lg\n", */
-  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
-
-  for ( i = 0 ; i < nf ; i ++ ) {
-    guint64 box ;
-    box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
-    wbfmm_tree_laplace_box_local_field_f(tree, tree->depth, box,
-					    &(xf[i*strf]),
-					    &(f[i*fcstr]), q, qstr,
-					    normals, nstr,
-					    dipoles, dstr, TRUE, work) ;
+  fprintf(stderr, "%s: computing fmm field; %lg\n",
+  	  progname, g_timer_elapsed(timer, NULL)) ;
+  if ( target_list ) {
+    wbfmm_target_list_local_field_f(targets, q, qstr, dipoles, dstr,
+				       f, fcstr) ;
+  } else {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      guint64 box ;
+      box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+      wbfmm_tree_laplace_box_local_field_f(tree, tree->depth, box,
+					      &(xf[i*strf]),
+					      &(f[i*fcstr]), q, qstr,
+					      normals, nstr,
+					      dipoles, dstr, TRUE, work) ;
+    }
   }
+
+  fprintf(stderr, "%s: fmm field computed; %lg\n",
+  	  progname, g_timer_elapsed(timer, NULL)) ;
   
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 

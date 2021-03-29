@@ -1510,7 +1510,7 @@ gint tree_test(gdouble *x0, gdouble D, guint npts)
     pts[i*str+2] = x0[2] + D*g_random_double_range(0,D) ;
   }
 
-  wbfmm_tree_add_points(t, (gpointer)pts, npts, pstr) ;
+  wbfmm_tree_add_points(t, (gpointer)pts, pstr, NULL, 0, npts) ;
 
   wbfmm_tree_refine(t) ;
   wbfmm_tree_refine(t) ;

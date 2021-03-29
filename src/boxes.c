@@ -74,7 +74,8 @@ wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
   /*array for sorted point indices*/
   t->ip = (guint32 *)g_malloc(maxpoints*sizeof(guint32)) ;
   t->npoints = 0 ;
-
+  t->points = t->normals = NULL ;
+  
   t->size = sizeof(WBFMM_REAL) ;
   
   for ( i = 0 ; i <= WBFMM_TREE_MAX_DEPTH ; i ++ ) t->boxes[i] = NULL ;
@@ -115,9 +116,9 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
-						gpointer pts, guint npts, 
-						gsize pstr)
-
+						gpointer pts, gsize pstr,
+						gpointer normals, gsize nstr,
+						guint npts)
 {
   gint i ;
   WBFMM_REAL *x, *xt, D ;
@@ -134,6 +135,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 
   wbfmm_tree_point_number(t) = npts ;
   t->points = (gchar *)pts ; t->pstr = pstr ;
+  t->normals = (gchar *)normals ; t->nstr = nstr ;
 
   xt = wbfmm_tree_origin(t) ;
   D = wbfmm_tree_width(t) ;

@@ -1510,7 +1510,7 @@ gint tree_test(WBFMM_REAL *x0, WBFMM_REAL D, guint npts)
     pts[i*str+2] = x0[2] + D*g_random_double_range(0,D) ;
   }
 
-  wbfmm_tree_add_points_PREC(t, (gpointer)pts, npts, pstr) ;
+  wbfmm_tree_add_points_PREC(t, (gpointer)pts, pstr, NULL, 0, npts) ;
 
   wbfmm_tree_refine_PREC(t) ;
   wbfmm_tree_refine_PREC(t) ;
