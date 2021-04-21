@@ -72,7 +72,6 @@ gint wbfmm_tree_add_level(wbfmm_tree_t *t)
 
 
 /** 
-
  *
  * @ingroup targets
  * 
@@ -117,6 +116,32 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
   
   l->nc = nc ;
   l->cfft = g_malloc0(nc*wbfmm_target_list_point_number_max(l)*(l->size)) ;
+
+  return 0 ;
+}
+
+/** 
+ *
+ * @ingroup boxes
+ * 
+ * Set the regular expansion coefficients at a level to zero, for when
+ * a tree is being reused.
+ *
+ * @param t a ::wbfmm_tree_t
+ * @param level a level of \a t
+ * 
+ * @return 0 on success.
+ */
+
+gint wbfmm_tree_coefficients_zero(wbfmm_tree_t *t, guint level)
+
+{
+  gint nb, nc ;
+
+  nb = 1 << (3*level) ;
+  nc = t->order_r[level] ;
+  nc = (nc+1)*(nc+1) ;
+  memset(t->mpr[level], 0, nb*nc*(t->nq)*(t->size)) ;
 
   return 0 ;
 }

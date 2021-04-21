@@ -213,6 +213,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
   }
   l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
 
+  /* fprintf(stderr, "ns = %d; npts = %d\n", ns, npts) ; */
   if ( l->field == WBFMM_FIELD_SCALAR ) {
     l->csrc =         g_malloc0(tstr*ns*sizeof(WBFMM_REAL)) ;
 
@@ -249,16 +250,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
 	x = wbfmm_target_list_point_index(l, i) ;
 	for ( j = 0 ; j < l->ibox[k+1] - l->ibox[k] ; j ++ ) {
 	  idx = l->isrc[l->ibox[k] + j] ;
+	  n = wbfmm_tree_normal_index(t, idx) ;
 	  xs = wbfmm_tree_point_index(t, idx) ;
 	  r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	    (xs[2]-x[2])*(xs[2]-x[2]) ;
 	  if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	    n = wbfmm_tree_normal_index(t, idx) ;
 	    r = SQRT(r) ;
 	    csrc[j*tstr+0] = 0.25*M_1_PI/r ;
 	    csrc[j*tstr+1] =
-	      ((x[0]-xs[0])*n[0] + (x[1]-xs[1])*n[1] + (x[2]-xs[2])*n[2])*
-	      0.25*M_1_PI/r/r/r ;	    
+	      ((x[0]-xs[0])*n[0] +
+	       (x[1]-xs[1])*n[1] +
+	       (x[2]-xs[2])*n[2])*0.25*M_1_PI/r/r/r ;
 	  } else {
 	    csrc[j*tstr+0] = csrc[j*tstr+1] = 0.0 ;
 	  }
@@ -266,6 +268,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
 	ns += l->ibox[k+1] - l->ibox[k] ;
       }
 
+  /* fprintf(stderr, "ns = %d; npts = %d\n", ns, npts) ; */
       return 0 ;
     }
     g_assert_not_reached() ;
@@ -439,7 +442,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   eval = (WBFMM_REAL *)(l->cfft) ;
   boxes = t->boxes[level] ;
 
-  memset(f, 0, nq*wbfmm_target_list_point_number(l)*sizeof(WBFMM_REAL)) ;
+  /* memset(f, 0, nq*wbfmm_target_list_point_number(l)*sizeof(WBFMM_REAL)) ; */
 
   if ( l->t->problem == WBFMM_PROBLEM_LAPLACE ) {
     switch ( l->field ) {

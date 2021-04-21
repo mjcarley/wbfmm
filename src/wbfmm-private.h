@@ -57,9 +57,9 @@
   (_Sn) = (_Sn)*(_C) + (_tmp)*(_S) ;		\
   } while (0)
 
-#define wbfmm_tree_point_index(_t,_i)		\
+#define wbfmm_tree_point_index(_t,_i)			\
   ((WBFMM_REAL *)(&((_t)->points[(_i)*((_t)->pstr)])))
-#define wbfmm_tree_normal_index(_t,_i)		\
+#define wbfmm_tree_normal_index(_t,_i)			\
   ((WBFMM_REAL *)(&((_t)->normals[(_i)*((_t)->nstr)])))
 #define wbfmm_target_list_point_index(_t,_i)		\
   ((WBFMM_REAL *)(&((_t)->points[(_i)*((_t)->pstr)])))

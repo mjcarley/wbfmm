@@ -854,10 +854,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
 
 {
   gint n, m, nu, i, Nmax, ne ;
+
+  /* fprintf(stderr, "N = %d\n", N) ; */
   
   Nmax = _wbfmm_translation_Nmax = N + 1 ;
-  
+
   ne = _wbfmm_SS_coefficient_index_nmnu(Nmax+1,0,0) ;
+
   WBFMM_FUNCTION_NAME(_wbfmm_SS_coefficients_laplace) =
     (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
 
@@ -893,7 +896,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(gint N)
   }
 
   ne = Nmax*(6*(Nmax+1)*(Nmax+2) + 1 - 3*(Nmax+1)*(2*Nmax+3) +
-	     2*(Nmax+1)*(Nmax+1)) ;    
+  	     2*(Nmax+1)*(Nmax+1)) ;
   
   WBFMM_FUNCTION_NAME(_wbfmm_SR_coefficients_laplace) =
     (WBFMM_REAL *)g_malloc0(ne*sizeof(WBFMM_REAL)) ;
@@ -1196,7 +1199,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > 1e-6 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r)*4.0*M_PI ;
 	  for ( k = 0 ; k < nq ; k ++ ) {
 	    f[k] += src[idx*sstr+k]/r ;
@@ -1220,7 +1223,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 
 	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
-	if ( r > 1e-6 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  nr =
 	    (x[0] - xs[0])*normals[idx*nstr+0] +
 	    (x[1] - xs[1])*normals[idx*nstr+1] + 
@@ -1246,7 +1249,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t, idx) ;
 
 	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
-	if ( r > 1e-6 ) {
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  nr =
 	    (x[0] - xs[0])*normals[idx*nstr+0] +
 	    (x[1] - xs[1])*normals[idx*nstr+1] + 

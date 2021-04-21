@@ -35,10 +35,6 @@
 
 #include <stdio.h>
 
-/* WBFMM_REAL _wbfmm_shifts_th[49] = {0.0} ; */
-/* WBFMM_REAL _wbfmm_shifts_ph[17] = {0.0} ; */
-/* WBFMM_REAL _wbfmm_shifts_r[WBFMM_SHIFTS_R_NUMBER] = {0.0} ; */
-
 /* #define WBFMM_CHECK_ISNAN */
 
 #ifdef WBFMM_CHECK_ISNAN

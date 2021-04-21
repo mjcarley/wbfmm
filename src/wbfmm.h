@@ -83,10 +83,11 @@ typedef struct {
  *
  */
 
-typedef enum {
-	      WBFMM_PROBLEM_LAPLACE = 1, /**< Laplace equation */
-	      WBFMM_PROBLEM_HELMHOLTZ = 2 /**< Helmholtz equation */	      
-} wbfmm_problem_t ; 
+typedef enum
+  {
+   WBFMM_PROBLEM_LAPLACE = 1, /**< Laplace equation */
+   WBFMM_PROBLEM_HELMHOLTZ = 2 /**< Helmholtz equation */	      
+  } wbfmm_problem_t ; 
 
 /** 
  * Selection of field to be calculated
@@ -1032,6 +1033,7 @@ gint wbfmm_box_interaction_grid_4(guint level, guint64 idx, guint64 list[]) ;
 gint wbfmm_box_interaction_index(gint i, gint j, gint k) ;
 gint wbfmm_library_config(wbfmm_library_config_t *c) ;
 gint wbfmm_library_config_print(wbfmm_library_config_t *c, FILE *f) ;
+gint wbfmm_tree_coefficients_zero(wbfmm_tree_t *t, guint level) ;
 
 /*compile time switches for compiler options*/
 #ifdef WBFMM_USE_AVX
