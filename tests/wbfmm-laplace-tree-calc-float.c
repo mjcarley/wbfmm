@@ -195,10 +195,12 @@ gint main(gint argc, gchar **argv)
   guint sizew, field, source ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean fit_box, shift_bw, target_list ;
-
+  gint nthreads, nproc ;
+  
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ;
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
+  nthreads = 0 ;
   /* order_s = 8 ; order_r = 8 ; */
   order_s = order_r = 0 ;
   order_max = 0 ;
@@ -212,7 +214,12 @@ gint main(gint argc, gchar **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:R:s:S:t:")) != EOF ) {
+  nproc = 1 ;
+#ifdef _OPENMP
+  nproc = g_get_num_processors() ;
+#endif
+  
+  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:R:s:S:T:t:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -235,6 +242,7 @@ gint main(gint argc, gchar **argv)
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
+	      "  -T # (number of threads)\n"
 	      "  -t # tolerance (%g)\n",
 	      progname, depth, D, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
@@ -252,6 +260,7 @@ gint main(gint argc, gchar **argv)
     case 'R': order_r = atoi(optarg) ; break ;
     case 'S': order_s = atoi(optarg) ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
+    case 'T': nthreads = atoi(optarg) ; break ;
     case 't': tol = atof(optarg) ; break ;
     }
   }
@@ -397,7 +406,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_laplace_downward_pass_f(tree, shifts, level, work) ;
+    wbfmm_laplace_downward_pass_f(tree, shifts, level, work, nthreads) ;
   }
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;

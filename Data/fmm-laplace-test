@@ -8,17 +8,18 @@ gradient=
 #-g
 job=monopoles
 #job=normals
+nthreads=4
 
-../tests/wbfmm-laplace-tree-calc -b -d ${depth} -f field.dat \
-				 -R 12 -S 12 ${bw} ${gradient} \
-				 -s ${job}.dat \
-				 -t 1e-6 > ${job}-laplace-fmm.dat
+#../tests/wbfmm-laplace-tree-calc -b -d ${depth} -f field.dat \
+#				 -R 12 -S 12 ${bw} ${gradient} \
+#				 -s ${job}.dat \
+#				 -t 1e-6 > ${job}-laplace-fmm.dat
 
 ../tests/wbfmm-laplace-tree-calc-avx -b -d ${depth} -f field.dat \
 				 -R 12 -S 12 ${bw} ${gradient} \
-				 -s ${job}.dat \
+				 -s ${job}.dat -T ${nthreads} \
 				 -t 1e-6 > ${job}-laplace-avx.dat
 
-../tests/wbfmm-laplace-direct-calc -f field.dat ${gradient} \
-				   -s ${job}.dat > \
-				   ${job}-laplace-direct.dat
+#../tests/wbfmm-laplace-direct-calc -f field.dat ${gradient} \
+#				   -s ${job}.dat > \
+#				   ${job}-laplace-direct.dat

@@ -335,10 +335,11 @@ static inline void _wbfmm_laplace_downward_pass_bw(guint level, guint64 ip,
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_ref)(wbfmm_tree_t *t,
-						      wbfmm_shift_operators_t
+							  wbfmm_shift_operators_t
 						      *op,
-						      guint level,
-						      WBFMM_REAL *work)
+							  guint level,
+							  WBFMM_REAL *work,
+							  gint nthreads)
 
 {
   guint nb, Ns, Nr, nerot, ncr, Nc, Np, nq ;

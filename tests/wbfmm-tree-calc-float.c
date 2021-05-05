@@ -196,8 +196,8 @@ gint main(gint argc, gchar **argv)
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
-	      "  -t # tolerance (%g)\n"
 	      "  -T # (number of threads)\n"
+	      "  -t # tolerance (%g)\n"
 	      "  -w write source data to stdout\n",
 	      progname, depth, D, k, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;

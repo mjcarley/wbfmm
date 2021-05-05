@@ -550,7 +550,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-
 gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
 					    wbfmm_shift_operators_t *op,
 					    guint level, WBFMM_REAL *work)
