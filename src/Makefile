@@ -144,7 +144,8 @@ am_libsub_la_OBJECTS = libsub_la-expansions.lo \
 	libsub_la-shift-laplace.lo libsub_la-shiftbw-laplace.lo \
 	libsub_la-pass-laplace.lo libsub_la-rotations-laplace.lo \
 	libsub_la-targets.lo libsub_la-gradient.lo \
-	libsub_la-gradient-laplace.lo libsub_la-local.lo
+	libsub_la-gradient-laplace.lo libsub_la-curl-laplace.lo \
+	libsub_la-local.lo
 libsub_la_OBJECTS = $(am_libsub_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -159,8 +160,8 @@ am_libwbfmm_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
 	factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo pass-avx.lo \
 	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
 	pass-laplace-avx.lo rotations-laplace.lo targets.lo \
-	gradient.lo gradient-laplace.lo local.lo constants.lo \
-	config.lo
+	gradient.lo gradient-laplace.lo curl-laplace.lo local.lo \
+	constants.lo config.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -305,7 +306,7 @@ PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = /usr/local/lib64/pkgconfig:/usr/local/share/pkgconfig:/usr/lib64/pkgconfig:/usr/share/pkgconfig:/usr/local/lib64/pkgconfig:/usr/local/share/pkgconfig
+PKG_CONFIG_PATH = /usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/local/share/pkgconfig:/usr/lib64/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/local/share/pkgconfig
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
@@ -408,6 +409,7 @@ libwbfmm_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
+	curl-laplace.c \
 	local.c \
 	constants.c \
 	config.c
@@ -432,6 +434,7 @@ libsub_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
+	curl-laplace.c \
 	local.c
 
 libsub_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
@@ -572,6 +575,7 @@ distclean-compile:
 include ./$(DEPDIR)/boxes.Plo
 include ./$(DEPDIR)/config.Plo
 include ./$(DEPDIR)/constants.Plo
+include ./$(DEPDIR)/curl-laplace.Plo
 include ./$(DEPDIR)/expansions.Plo
 include ./$(DEPDIR)/factorial.Plo
 include ./$(DEPDIR)/gradient-laplace.Plo
@@ -579,6 +583,7 @@ include ./$(DEPDIR)/gradient.Plo
 include ./$(DEPDIR)/indexing.Plo
 include ./$(DEPDIR)/laplace.Plo
 include ./$(DEPDIR)/libsub_la-boxes.Plo
+include ./$(DEPDIR)/libsub_la-curl-laplace.Plo
 include ./$(DEPDIR)/libsub_la-expansions.Plo
 include ./$(DEPDIR)/libsub_la-gradient-laplace.Plo
 include ./$(DEPDIR)/libsub_la-gradient.Plo
@@ -748,6 +753,13 @@ libsub_la-gradient-laplace.lo: gradient-laplace.c
 #	$(AM_V_CC)source='gradient-laplace.c' object='libsub_la-gradient-laplace.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
+
+libsub_la-curl-laplace.lo: curl-laplace.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-curl-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-curl-laplace.Tpo -c -o libsub_la-curl-laplace.lo `test -f 'curl-laplace.c' || echo '$(srcdir)/'`curl-laplace.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-curl-laplace.Tpo $(DEPDIR)/libsub_la-curl-laplace.Plo
+#	$(AM_V_CC)source='curl-laplace.c' object='libsub_la-curl-laplace.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-curl-laplace.lo `test -f 'curl-laplace.c' || echo '$(srcdir)/'`curl-laplace.c
 
 libsub_la-local.lo: local.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-local.lo -MD -MP -MF $(DEPDIR)/libsub_la-local.Tpo -c -o libsub_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c

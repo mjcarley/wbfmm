@@ -43,6 +43,7 @@ libwbfmm_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
+	curl-laplace.c \
 	local.c \
 	constants.c \
 	config.c
@@ -78,6 +79,7 @@ libsub_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
+	curl-laplace.c \
 	local.c
 
 libsub_la_CFLAGS = -DWBFMM_SINGLE_PRECISION

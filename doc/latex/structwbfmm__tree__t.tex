@@ -21,6 +21,8 @@ guint {\bf order\+\_\+r} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+
 \item 
 gchar {\bf x} [24]
 \item 
+gchar $\ast$ {\bf normals}
+\item 
 gchar $\ast$ {\bf points}
 \item 
 gpointer {\bf mps} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
@@ -28,6 +30,8 @@ gpointer {\bf mps} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+
 gpointer {\bf mpr} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
 \item 
 gsize {\bf size}
+\item 
+gsize {\bf nstr}
 \item 
 gsize {\bf pstr}
 \item 
@@ -65,21 +69,35 @@ indices of points, sorted by Morton index \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+
 maximum number of points in tree \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mpr@{mpr}}
 \index{mpr@{mpr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{mpr}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+tree\+\_\+t\+::mpr[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a466a0bd76fd6539f493ce257df47dfad}
-regular expansion data at each level \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mps@{mps}}
+regular expansion data at each level 
+
+Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+
+\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mps@{mps}}
 \index{mps@{mps}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{mps}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+tree\+\_\+t\+::mps[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_abea428ae644531258ba6d138ad727d29}
-singular expansion data at each level \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!npoints@{npoints}}
+singular expansion data at each level \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!normals@{normals}}
+\index{normals@{normals}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
+\subsubsection[{normals}]{\setlength{\rightskip}{0pt plus 5cm}gchar $\ast$ wbfmm\+\_\+tree\+\_\+t\+::normals}\label{structwbfmm__tree__t_aaf95aaece28a4f1b4c89e504af4cfa76}
+normal coordinates \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!npoints@{npoints}}
 \index{npoints@{npoints}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{npoints}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::npoints}\label{structwbfmm__tree__t_a05dd3977f0f6f9266dfe5b4de1fd94ea}
 number of points in tree \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!nq@{nq}}
 \index{nq@{nq}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{nq}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::nq}\label{structwbfmm__tree__t_a4201af7a54bb9d81e588ab619cecabbd}
-number of source components \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+r@{order\+\_\+r}}
+number of source components 
+
+Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+
+\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!nstr@{nstr}}
+\index{nstr@{nstr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
+\subsubsection[{nstr}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+tree\+\_\+t\+::nstr}\label{structwbfmm__tree__t_a08a9529a7fa528397018d63951c647a4}
+stride in normal data \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+r@{order\+\_\+r}}
 \index{order\+\_\+r@{order\+\_\+r}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{order\+\_\+r}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+r[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a3977c9974da5fbeaa66a9b1eea6fd235}
 order of regular expansions at each level 
 
-Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init().
+Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init(), and wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
 
 \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+s@{order\+\_\+s}}
 \index{order\+\_\+s@{order\+\_\+s}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
@@ -93,7 +111,11 @@ point coordinates \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!pstr@{p
 stride in point data \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!size@{size}}
 \index{size@{size}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+tree\+\_\+t\+::size}\label{structwbfmm__tree__t_a4bed752b3596b13ad7db8699d4f70060}
-size of floating point type in data (float, double, etc) \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!x@{x}}
+size of floating point type in data (float, double, etc) 
+
+Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+
+\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!x@{x}}
 \index{x@{x}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
 \subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}gchar wbfmm\+\_\+tree\+\_\+t\+::x[24]}\label{structwbfmm__tree__t_a44e44f2c0eabe36743d1f975b0d0798c}
 origin of tree domain cube 

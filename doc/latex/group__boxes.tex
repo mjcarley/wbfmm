@@ -31,7 +31,7 @@ enum {\bf wbfmm\+\_\+field\+\_\+t} \{ {\bf W\+B\+F\+M\+M\+\_\+\+F\+I\+E\+L\+D\+\
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize pstr)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, gsize pstr, gpointer normals, gsize nstr, guint npts)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 {\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new} (gdouble $\ast$x, gdouble D, guint maxpoints)
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
@@ -51,7 +51,7 @@ gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field} ({\bf wbf
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace field from regular expansion in box. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gdouble $\ast$src, gint sstr, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree in the Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize pstr)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, gsize pstr, gpointer normals, gsize nstr, guint npts)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 {\bf wbfmm\+\_\+tree\+\_\+t} $\ast$ {\bf wbfmm\+\_\+tree\+\_\+new\+\_\+f} (gfloat $\ast$x, gfloat D, guint maxpoints)
 \begin{DoxyCompactList}\small\item\em Allocate a new octree. \end{DoxyCompactList}\item 
@@ -72,6 +72,8 @@ gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field\+\_\+f} ({
 gint {\bf wbfmm\+\_\+tree\+\_\+laplace\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gfloat $\ast$src, gint sstr, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gboolean zero\+\_\+expansions, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree in the Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+level} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
+\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level)
 \end{DoxyCompactItemize}
 
 
@@ -187,10 +189,12 @@ References wbfmm\+\_\+tree\+\_\+t\+::boxes, and wbfmm\+\_\+tree\+\_\+t\+::depth.
 \begin{DoxyParamCaption}
 \item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
 \item[{gpointer}]{pts, }
-\item[{guint}]{npts, }
-\item[{gsize}]{pstr}
+\item[{gsize}]{pstr, }
+\item[{gpointer}]{normals, }
+\item[{gsize}]{nstr, }
+\item[{guint}]{npts}
 \end{DoxyParamCaption}
-)}\label{group__boxes_ga0880268a175e624f6dab06dd2c4dc5bc}
+)}\label{group__boxes_ga86b70d3065a53ce7b6d08d14eb4070ae}
 
 
 Add points to an octree. 
@@ -203,9 +207,13 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \hline
 {\em pts} & an array containing point coordinates; \\
 \hline
-{\em npts} & the number of points in {\itshape pts}; \\
+{\em pstr} & stride between points in bytes; \\
 \hline
-{\em pstr} & stride between points in bytes.\\
+{\em normals} & normals at source points (can be N\+U\+L\+L); \\
+\hline
+{\em nstr} & stride between normals in bytes; \\
+\hline
+{\em npts} & the number of points in {\itshape pts}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -217,10 +225,12 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \begin{DoxyParamCaption}
 \item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
 \item[{gpointer}]{pts, }
-\item[{guint}]{npts, }
-\item[{gsize}]{pstr}
+\item[{gsize}]{pstr, }
+\item[{gpointer}]{normals, }
+\item[{gsize}]{nstr, }
+\item[{guint}]{npts}
 \end{DoxyParamCaption}
-)}\label{group__boxes_gaa555067e43de3f96cdc7c2b912908eee}
+)}\label{group__boxes_gaf21384551e9fd1ff26d85e3712a903b0}
 
 
 Add points to an octree. 
@@ -233,9 +243,13 @@ Add a set of source points to an octree. The points are assumed to be in an arra
 \hline
 {\em pts} & an array containing point coordinates; \\
 \hline
-{\em npts} & the number of points in {\itshape pts}; \\
+{\em pstr} & stride between points in bytes; \\
 \hline
-{\em pstr} & stride between points in bytes.\\
+{\em normals} & normals at source points (can be N\+U\+L\+L); \\
+\hline
+{\em nstr} & stride between normals in bytes; \\
+\hline
+{\em npts} & the number of points in {\itshape pts}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -481,6 +495,30 @@ Initialize expansion coefficient data in an octree.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
+\index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero@{wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero}}
+\index{wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero@{wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero}!Boxes and octrees@{Boxes and octrees}}
+\subsubsection[{wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero (
+\begin{DoxyParamCaption}
+\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
+\item[{guint}]{level}
+\end{DoxyParamCaption}
+)}\label{group__boxes_ga706d8fc70c084ec74f2d26c650dd593b}
+Set the regular expansion coefficients at a level to zero, for when a tree is being reused.
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & a \doxyref{wbfmm\+\_\+tree\+\_\+t}{p.}{structwbfmm__tree__t} \\
+\hline
+{\em level} & a level of {\itshape t} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success. 
+\end{DoxyReturn}
+
+
+References wbfmm\+\_\+tree\+\_\+t\+::mpr, wbfmm\+\_\+tree\+\_\+t\+::nq, wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+r, and wbfmm\+\_\+tree\+\_\+t\+::size.
+
 \index{Boxes and octrees@{Boxes and octrees}!wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field@{wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field}}
 \index{wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field@{wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field}!Boxes and octrees@{Boxes and octrees}}
 \subsubsection[{wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+tree\+\_\+laplace\+\_\+box\+\_\+local\+\_\+field (
@@ -610,7 +648,7 @@ Evaluate local Laplace field from regular expansion in box.
 
 Generate leaf expansions for a tree in the Laplace problem. 
 
-Generate leaf expansions for a tree for the Laplace problem given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_ga0880268a175e624f6dab06dd2c4dc5bc}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree for the Laplace problem given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_ga86b70d3065a53ce7b6d08d14eb4070ae}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 
@@ -659,7 +697,7 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 
 Generate leaf expansions for a tree in the Laplace problem. 
 
-Generate leaf expansions for a tree for the Laplace problem given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_gaa555067e43de3f96cdc7c2b912908eee}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree for the Laplace problem given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_gaf21384551e9fd1ff26d85e3712a903b0}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 
@@ -709,7 +747,7 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 
 Generate leaf expansions for a tree. 
 
-Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_ga0880268a175e624f6dab06dd2c4dc5bc}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points}{p.}{group__boxes_ga86b70d3065a53ce7b6d08d14eb4070ae}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 
@@ -761,7 +799,7 @@ where $(n_{x1},n_{y1},n_{z1})$ is the first normal vector and $a_{1}$ and $b_{1}
 
 Generate leaf expansions for a tree. 
 
-Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_gaa555067e43de3f96cdc7c2b912908eee}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
+Generate leaf expansions for a tree given some combination of monopole and dipole sources. Source positions are those in the point list attached to the tree using \doxyref{wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f}{p.}{group__boxes_gaf21384551e9fd1ff26d85e3712a903b0}(...) and indexing in the array must correspond to that in the point list. Input arrays may be N\+U\+L\+L\+: if {\itshape src} is not N\+U\+L\+L, it is interpreted as a list of complex monopole strengths; if {\itshape normals} is not N\+U\+L\+L, {\itshape dipoles} may not be N\+U\+L\+L and they are interpreted respectively as a vector (`normal\textquotesingle{}) at each source position and a scalar complex amplitude (this corresponds to surface normal and a normal velocity amplitude in a boundary element method calculation); if {\itshape normals} is N\+U\+L\+L and {\itshape dipoles} is not N\+U\+L\+L, {\itshape dipoles} is interpreted as a three-\/element complex vector specifying the dipole strength. The strides {\itshape sstr}, {\itshape nstr}, and {\itshape dstr} are the number of scalar elements between successive entries in the arrays, with the elements of each entry densely packed. For example, a list of normals might read\+:
 
 $[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
 

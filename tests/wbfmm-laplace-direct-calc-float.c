@@ -134,14 +134,14 @@ gint main(gint argc, gchar **argv)
   gfloat *xf, *f, *q, *normals, *dipoles ;
   gint nsrc, i, j, xstr, strf, nf, qstr, nq, nstr, dstr, fcstr, nfc ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean gradient ;
+  gboolean gradient, curl ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  nq = 1 ; gradient = FALSE ;
+  nq = 1 ; gradient = FALSE ; curl = FALSE ;
   
-  while ( (ch = getopt(argc, argv, "hf:gk:s:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hcf:gk:s:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -151,12 +151,14 @@ gint main(gint argc, gchar **argv)
 	      "field points using\n"
 	      "direct evaluation method\n"
 	      "Options:\n\n"
+	      "  -c calculate curl of field\n"
 	      "  -f (field point name)\n"
 	      "  -g calculate field gradient\n"
 	      "  -s (source file name)\n",
 	      progname) ;
       return 0 ;
       break ;
+    case 'c': curl = TRUE ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;
     case 'g': gradient = TRUE ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
@@ -185,9 +187,20 @@ gint main(gint argc, gchar **argv)
     return 1 ;
   }
 
+  if ( gradient && curl ) {
+    fprintf(stderr, "%s: cannot compute curl and gradient\n", progname) ;
+    return 1 ;
+  }
+  
   nfc = nq ; fcstr = nq ;
   if ( gradient ) {
     nfc *= 3 ; fcstr *= 3 ;
+  }
+
+  if ( curl && nq < 3  ) {
+    fprintf(stderr, "%s: not enough source terms (%d) for curl calculation\n",
+	    progname, nq) ;
+    return 1 ;
   }
   
   fprintf(stderr, "%s: computing direct field; %lg\n",
@@ -200,7 +213,16 @@ gint main(gint argc, gchar **argv)
       wbfmm_laplace_field_grad_f(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
 				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
     }
-  } else {
+  }
+
+  if ( curl ) {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      wbfmm_laplace_field_curl_f(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
+    }
+  }
+
+  if ( !gradient && !curl ) {
     for ( i = 0 ; i < nf ; i ++ ) {
       wbfmm_laplace_field_f(xs, xstr, q, qstr, nq,
 			       normals, nstr, dipoles, dstr,

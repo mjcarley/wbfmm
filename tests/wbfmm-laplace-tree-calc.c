@@ -233,6 +233,7 @@ gint main(gint argc, gchar **argv)
 	      "  -H print some more detailed information and exit\n"
 	      "  -B use backward shift algorithm\n"
 	      "  -b fit octree box to sources\n"
+	      "  -c calculate curl of vector field\n"
 	      "  -d # depth of octree (%d)\n"
 	      "  -D # width of octree (%lg)\n"
 	      "  -f (field point name)\n"
@@ -251,6 +252,7 @@ gint main(gint argc, gchar **argv)
     case 'H': print_longer_help(progname) ;  return 0 ; break ;
     case 'B': shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
+    case 'c': field = WBFMM_FIELD_CURL ; break ;
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
@@ -374,6 +376,7 @@ gint main(gint argc, gchar **argv)
   }
 
   if ( target_list ) {
+    g_assert(field != WBFMM_FIELD_CURL) ;
     fprintf(stderr, "%s: initializing target point list; %lg\n",
 	    progname, g_timer_elapsed(timer, NULL)) ;
     if ( q != NULL ) source |= WBFMM_SOURCE_MONOPOLE ;
@@ -381,7 +384,6 @@ gint main(gint argc, gchar **argv)
     targets = wbfmm_target_list_new(tree, nf) ;
     wbfmm_target_list_coefficients_init(targets, field) ;
     wbfmm_target_list_add_points(targets, xf, fstr, nf) ;
-    /* wbfmm_target_list_add_points(targets, xf, fstr, NULL, 0, nf) ; */
     wbfmm_laplace_target_list_local_coefficients(targets, source, work) ;
     fprintf(stderr, "%s: target point list initialized; %lg\n",
 	    progname, g_timer_elapsed(timer, NULL)) ;
@@ -417,14 +419,30 @@ gint main(gint argc, gchar **argv)
     wbfmm_target_list_local_field(targets, q, qstr, dipoles, dstr,
 				       f, fcstr) ;
   } else {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      guint64 box ;
-      box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
-      wbfmm_tree_laplace_box_local_field(tree, tree->depth, box,
-					      &(xf[i*strf]),
-					      &(f[i*fcstr]), q, qstr,
-					      normals, nstr,
-					      dipoles, dstr, TRUE, work) ;
+    switch ( field ) {
+    default: g_assert_not_reached() ; break ;
+    case WBFMM_FIELD_SCALAR:
+      for ( i = 0 ; i < nf ; i ++ ) {
+	guint64 box ;
+	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_field(tree, tree->depth, box,
+						&(xf[i*strf]),
+						&(f[i*fcstr]), q, qstr,
+						normals, nstr,
+						dipoles, dstr, TRUE, work) ;
+      }
+      break ;
+    case WBFMM_FIELD_GRADIENT:
+      for ( i = 0 ; i < nf ; i ++ ) {
+	guint64 box ;
+	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_grad(tree, tree->depth, box,
+					       &(xf[i*strf]),
+					       &(f[i*fcstr]), 3, q, qstr,
+					       normals, nstr,
+					       dipoles, dstr, TRUE, work) ;
+      }
+      break ;
     }
   }
 

@@ -155,7 +155,7 @@ gint {\bf wbfmm\+\_\+tree\+\_\+refine} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+level} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$tree)
 \item 
-gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, gsize pstr, gpointer normals, gsize nstr, guint npts)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init} ({\bf wbfmm\+\_\+target\+\_\+list\+\_\+t} $\ast$l, guint field)
 \item 
@@ -219,7 +219,7 @@ gint {\bf wbfmm\+\_\+tree\+\_\+leaf\+\_\+expansions\+\_\+f} ({\bf wbfmm\+\_\+tre
 \begin{DoxyCompactList}\small\item\em Generate leaf expansions for a tree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+tree\+\_\+refine\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t)
 \begin{DoxyCompactList}\small\item\em Refine an existing octree by adding a level and redistributing points attached to the tree to the boxes at the new level. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, guint npts, gsize stride)
+gint {\bf wbfmm\+\_\+tree\+\_\+add\+\_\+points\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gpointer pts, gsize pstr, gpointer normals, gsize nstr, guint npts)
 \begin{DoxyCompactList}\small\item\em Add points to an octree. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+box\+\_\+location\+\_\+from\+\_\+index\+\_\+f} (guint64 i, guint32 level, gfloat $\ast$x0, gfloat D, gfloat $\ast$x, gfloat $\ast$wb)
 \begin{DoxyCompactList}\small\item\em Find the coordinates of a box from its Morton index. \end{DoxyCompactList}\item 
@@ -246,7 +246,9 @@ guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
 gint {\bf wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)
 \item 
 gint {\bf wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4} (guint level, guint64 idx, guint64 $\ast$list, gboolean sort)
-\begin{DoxyCompactList}\small\item\em Find the local interaction list for a specified box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Find the local interaction list for a specified box. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, guint level)
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}

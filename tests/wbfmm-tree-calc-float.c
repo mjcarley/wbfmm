@@ -147,7 +147,6 @@ gint main(gint argc, gchar **argv)
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, nproc ;
-  guint64 b ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box, shift_bw ;
   wbfmm_library_config_t lconfig ;

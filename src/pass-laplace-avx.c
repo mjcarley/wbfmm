@@ -339,7 +339,7 @@ static gpointer downward_pass_thread(gpointer idata)
 {
   gpointer *data = idata ;
   gpointer *pdata = data[1] ;
-  guint nb, Ns, Nr, nerot, ncs, ncr, level ;
+  guint nb, Ns, Nr, nerot, ncr, level ;
   WBFMM_REAL *rotations, *work, *wkr, *wks, wb ;
   wbfmm_box_t *bp ;
   wbfmm_tree_t *t ;

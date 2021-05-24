@@ -1030,14 +1030,14 @@ gint rotation_test(gdouble *x0, gdouble *x1, gdouble *x2,
   return 0 ;
 }
 
-gint rotation_matrix_test(gdouble *x0, gdouble *x1, gdouble *x2,
-			  gdouble *ix, gdouble *iy, gdouble *iz,
-			  gdouble k,
-			  gdouble *xs, gint sstr, gint ns,
-			  gdouble *q , gint qstr, gint nq,
-			  gint N,
-			  gdouble t, gdouble wb, gint quad,
-			  gdouble *xf, gint fstr, gint nf)
+static gint rotation_matrix_test(gdouble *x0, gdouble *x1, gdouble *x2,
+				 gdouble *ix, gdouble *iy, gdouble *iz,
+				 gdouble k,
+				 gdouble *xs, gint sstr, gint ns,
+				 gdouble *q , gint qstr, gint nq,
+				 gint N,
+				 gdouble t, gdouble wb, gint quad,
+				 gdouble *xf, gint fstr, gint nf)
 
 /*
   x0: centre of expansion
@@ -1048,7 +1048,6 @@ gint rotation_matrix_test(gdouble *x0, gdouble *x1, gdouble *x2,
   gdouble H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   gdouble ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
   gdouble Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
-  gdouble Hc[BUFSIZE*4] ;
   gint i, j, cstri, cstro, fcstr, n, m, nu ;
   gdouble t0, dt ;
 

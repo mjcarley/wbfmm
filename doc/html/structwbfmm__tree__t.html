@@ -70,6 +70,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a3977c9974da5fbeaa66a9b1eea6fd235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44e44f2c0eabe36743d1f975b0d0798c"><td class="memItemLeft" align="right" valign="top">gchar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a44e44f2c0eabe36743d1f975b0d0798c">x</a> [24]</td></tr>
 <tr class="separator:a44e44f2c0eabe36743d1f975b0d0798c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf95aaece28a4f1b4c89e504af4cfa76"><td class="memItemLeft" align="right" valign="top">gchar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#aaf95aaece28a4f1b4c89e504af4cfa76">normals</a></td></tr>
+<tr class="separator:aaf95aaece28a4f1b4c89e504af4cfa76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82a6af6a6d054522a860e1a536f6a105"><td class="memItemLeft" align="right" valign="top">gchar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a82a6af6a6d054522a860e1a536f6a105">points</a></td></tr>
 <tr class="separator:a82a6af6a6d054522a860e1a536f6a105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abea428ae644531258ba6d138ad727d29"><td class="memItemLeft" align="right" valign="top">gpointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#abea428ae644531258ba6d138ad727d29">mps</a> [WBFMM_TREE_MAX_DEPTH+1]</td></tr>
@@ -78,6 +80,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a466a0bd76fd6539f493ce257df47dfad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bed752b3596b13ad7db8699d4f70060"><td class="memItemLeft" align="right" valign="top">gsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a4bed752b3596b13ad7db8699d4f70060">size</a></td></tr>
 <tr class="separator:a4bed752b3596b13ad7db8699d4f70060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08a9529a7fa528397018d63951c647a4"><td class="memItemLeft" align="right" valign="top">gsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a08a9529a7fa528397018d63951c647a4">nstr</a></td></tr>
+<tr class="separator:a08a9529a7fa528397018d63951c647a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96d1d01546cca1baf4a6a8c953ad1252"><td class="memItemLeft" align="right" valign="top">gsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a96d1d01546cca1baf4a6a8c953ad1252">pstr</a></td></tr>
 <tr class="separator:a96d1d01546cca1baf4a6a8c953ad1252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f8ee26d3fe9c69bb5ba7583711c2175"><td class="memItemLeft" align="right" valign="top">gdouble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwbfmm__tree__t.html#a3f8ee26d3fe9c69bb5ba7583711c2175">D</a></td></tr>
@@ -166,6 +170,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>regular expansion data at each level </p>
 
+<p>Referenced by <a class="el" href="group__boxes.html#ga706d8fc70c084ec74f2d26c650dd593b">wbfmm_tree_coefficients_zero()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abea428ae644531258ba6d138ad727d29"></a>
@@ -178,6 +184,19 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>singular expansion data at each level </p>
+
+</div>
+</div>
+<a class="anchor" id="aaf95aaece28a4f1b4c89e504af4cfa76"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gchar * wbfmm_tree_t::normals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>normal coordinates </p>
 
 </div>
 </div>
@@ -205,6 +224,21 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>number of source components </p>
 
+<p>Referenced by <a class="el" href="group__boxes.html#ga706d8fc70c084ec74f2d26c650dd593b">wbfmm_tree_coefficients_zero()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a08a9529a7fa528397018d63951c647a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gsize wbfmm_tree_t::nstr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>stride in normal data </p>
+
 </div>
 </div>
 <a class="anchor" id="a3977c9974da5fbeaa66a9b1eea6fd235"></a>
@@ -218,7 +252,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>order of regular expansions at each level </p>
 
-<p>Referenced by <a class="el" href="group__targets.html#gac3240b10aa6b1df74c5eb31695ac5742">wbfmm_target_list_coefficients_init()</a>.</p>
+<p>Referenced by <a class="el" href="group__targets.html#gac3240b10aa6b1df74c5eb31695ac5742">wbfmm_target_list_coefficients_init()</a>, and <a class="el" href="group__boxes.html#ga706d8fc70c084ec74f2d26c650dd593b">wbfmm_tree_coefficients_zero()</a>.</p>
 
 </div>
 </div>
@@ -272,6 +306,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>size of floating point type in data (float, double, etc) </p>
 
+<p>Referenced by <a class="el" href="group__boxes.html#ga706d8fc70c084ec74f2d26c650dd593b">wbfmm_tree_coefficients_zero()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a44e44f2c0eabe36743d1f975b0d0798c"></a>
@@ -290,7 +326,7 @@ Data Fields</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 5 2020 15:28:19 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 5 2021 16:57:43 for WBFMM by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
