@@ -72,11 +72,19 @@ gint {\bf wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation} (gdouble $\ast$H, gint
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
-\begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field, gint fstr)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field, gint fstr)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init} (gint N)
 \begin{DoxyCompactList}\small\item\em Initialize lookup tables of Laplace translation coefficients. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f} (gint N)
@@ -84,7 +92,7 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f} (gint
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
-\begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)

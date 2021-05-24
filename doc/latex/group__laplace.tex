@@ -36,12 +36,16 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R} (gdouble $
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
-\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field, gint fstr)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
@@ -72,12 +76,16 @@ gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f} (gf
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
-\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field, gint fstr)
+\begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
+gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
 gint {\bf wbfmm\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -1134,6 +1142,152 @@ Evaluate local Laplace expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}}
+\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{x0, }
+\item[{gdouble $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{N, }
+\item[{gint}]{nq, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field, }
+\item[{gint}]{fstr, }
+\item[{gdouble $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gadfe8c674faab64768e4a0a562b870cea}
+
+
+Evaluate gradient of local Laplace expansion. 
+
+Evaluate curl of local Laplace expansion.
+
+Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in 
+\begin{DoxyParams}{Parameters}
+{\em field.} & \\
+\hline
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success
+\end{DoxyReturn}
+Evaluate the curl $\nabla\times\phi$ for first three components in expansion, returning curl vector in field.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components (must be at least three, first three terms are taken as vector field whose curl is to be taken); \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & ignored; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}}
+\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{x0, }
+\item[{gfloat $\ast$}]{cfft, }
+\item[{gint}]{cstr, }
+\item[{gint}]{N, }
+\item[{gint}]{nq, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field, }
+\item[{gint}]{fstr, }
+\item[{gfloat $\ast$}]{work}
+\end{DoxyParamCaption}
+)}\label{group__laplace_ga4478e7d11ad3fb7577d689a1c939e0b7}
+
+
+Evaluate gradient of local Laplace expansion. 
+
+Evaluate curl of local Laplace expansion.
+
+Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in 
+\begin{DoxyParams}{Parameters}
+{\em field.} & \\
+\hline
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success
+\end{DoxyReturn}
+Evaluate the curl $\nabla\times\phi$ for first three components in expansion, returning curl vector in field.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components (must be at least three, first three terms are taken as vector field whose curl is to be taken); \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & ignored; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
 \index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}}
 \index{wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
 \subsubsection[{wbfmm\+\_\+laplace\+\_\+field}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field (
@@ -1154,7 +1308,7 @@ Evaluate local Laplace expansion.
 )}\label{group__laplace_ga12ac2edf679dfd52e1108f2f74ce505e}
 
 
-Direct evaluation of the gradient of a Laplace field from a list of sources. 
+Direct evaluation of the Laplace field from a list of sources. 
 
 Direct evaluation of the Laplace from a list of sources.
 
@@ -1250,6 +1404,120 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+curl@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}}
+\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl (
+\begin{DoxyParamCaption}
+\item[{gdouble $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gdouble $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nq, }
+\item[{gdouble $\ast$}]{normals, }
+\item[{gint}]{nstr, }
+\item[{gdouble $\ast$}]{dipoles, }
+\item[{gint}]{dstr, }
+\item[{gint}]{nsrc, }
+\item[{gdouble $\ast$}]{xf, }
+\item[{gdouble $\ast$}]{field, }
+\item[{gint}]{fstr}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gaf433de73d09569c16580d96ddab86fdf}
+
+
+Direct evaluation of the curl of a Laplace field from a list of sources. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xs} & source positions; \\
+\hline
+{\em xstride} & source array stride; \\
+\hline
+{\em src} & source strengths; \\
+\hline
+{\em sstride} & source strength array stride; \\
+\hline
+{\em nq} & number of source components (must be at least three); \\
+\hline
+{\em normals} & normals at source positions; \\
+\hline
+{\em nstr} & normal stride; \\
+\hline
+{\em dipoles} & dipole components; \\
+\hline
+{\em dstr} & dipole stride; \\
+\hline
+{\em nsrc} & number of sources; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & on output incremented with computed curl; \\
+\hline
+{\em fstr} & stride in \\
+\hline
+{\em field} & (ignored).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}}
+\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f (
+\begin{DoxyParamCaption}
+\item[{gfloat $\ast$}]{xs, }
+\item[{gint}]{xstride, }
+\item[{gfloat $\ast$}]{src, }
+\item[{gint}]{sstride, }
+\item[{gint}]{nq, }
+\item[{gfloat $\ast$}]{normals, }
+\item[{gint}]{nstr, }
+\item[{gfloat $\ast$}]{dipoles, }
+\item[{gint}]{dstr, }
+\item[{gint}]{nsrc, }
+\item[{gfloat $\ast$}]{xf, }
+\item[{gfloat $\ast$}]{field, }
+\item[{gint}]{fstr}
+\end{DoxyParamCaption}
+)}\label{group__laplace_gac719b8bfb5bc28f8613425e2827bb0d9}
+
+
+Direct evaluation of the curl of a Laplace field from a list of sources. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xs} & source positions; \\
+\hline
+{\em xstride} & source array stride; \\
+\hline
+{\em src} & source strengths; \\
+\hline
+{\em sstride} & source strength array stride; \\
+\hline
+{\em nq} & number of source components (must be at least three); \\
+\hline
+{\em normals} & normals at source positions; \\
+\hline
+{\em nstr} & normal stride; \\
+\hline
+{\em dipoles} & dipole components; \\
+\hline
+{\em dstr} & dipole stride; \\
+\hline
+{\em nsrc} & number of sources; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & on output incremented with computed curl; \\
+\hline
+{\em fstr} & stride in \\
+\hline
+{\em field} & (ignored).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
 \index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}}
 \index{wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
 \subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+f (
@@ -1270,7 +1538,7 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 )}\label{group__laplace_ga4c1182e5aac03f9fbaf2a1dabb29a957}
 
 
-Direct evaluation of the gradient of a Laplace field from a list of sources. 
+Direct evaluation of the Laplace field from a list of sources. 
 
 Direct evaluation of the Laplace from a list of sources.
 
@@ -1324,7 +1592,7 @@ Direct evaluation of the Laplace from a list of sources.
 )}\label{group__laplace_ga7dcb4f7534309b9e6c43f8da584b4cba}
 
 
-Direct evaluation of the Laplace field from a list of sources. 
+Direct evaluation of the gradient of a Laplace field from a list of sources. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1376,7 +1644,7 @@ Direct evaluation of the Laplace field from a list of sources.
 )}\label{group__laplace_gaa1dd379d7e96367550b933a5d7a7f138}
 
 
-Direct evaluation of the Laplace field from a list of sources. 
+Direct evaluation of the gradient of a Laplace field from a list of sources. 
 
 
 \begin{DoxyParams}{Parameters}

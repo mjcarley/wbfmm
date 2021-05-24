@@ -50,3 +50,6 @@
 \form#49:$i$
 \form#50:$s$
 \form#51:$C_{n}$
+\form#52:$\nabla\phi_{i}$
+\form#53:$i=0,\ldots n_{q}-1$
+\form#54:$\nabla\times\phi$
