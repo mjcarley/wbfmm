@@ -471,6 +471,16 @@ gint wbfmm_laplace_expansion_local_grad_evaluate_f(gfloat *x0, gfloat *cfft,
 						   gint nq, gfloat *xf,
 						   gfloat *field,
 						   gint fstr, gfloat *work) ;
+gint wbfmm_laplace_expansion_local_curl_evaluate(gdouble *x0, gdouble *cfft,
+						 gint cstr, gint N,
+						 gint nq, gdouble *xf,
+						 gdouble *field,
+						 gint fstr, gdouble *work) ;
+gint wbfmm_laplace_expansion_local_curl_evaluate_f(gfloat *x0, gfloat *cfft,
+						   gint cstr, gint N,
+						   gint nq, gfloat *xf,
+						   gfloat *field,
+						   gint fstr, gfloat *work) ;
 
 gint wbfmm_laplace_coaxial_translate_init(gint N) ;
 gint wbfmm_laplace_coaxial_translate_init_f(gint N) ;
@@ -681,6 +691,31 @@ gint wbfmm_tree_laplace_box_local_grad_f(wbfmm_tree_t *t,
 					 gfloat *d, gint dstr,
 					 gboolean eval_neighbours,
 					 gfloat *work) ;
+gint wbfmm_tree_laplace_box_local_curl(wbfmm_tree_t *t,
+				       guint level,
+				       guint b,
+				       gdouble *x,
+				       gdouble *f,
+				       gint fstr,
+				       gdouble *src, gint sstr,
+				       gdouble *normals,
+				       gint nstr,
+				       gdouble *d, gint dstr,
+				       gboolean eval_neighbours,
+				       gdouble *work) ;
+gint wbfmm_tree_laplace_box_local_curl_f(wbfmm_tree_t *t,
+					 guint level,
+					 guint b,
+					 gfloat *x,
+					 gfloat *f,
+					 gint fstr,
+					 gfloat *src, gint sstr,
+					 gfloat *normals,
+					 gint nstr,
+					 gfloat *d, gint dstr,
+					 gboolean eval_neighbours,
+					 gfloat *work) ;
+
 gint wbfmm_laplace_local_coefficients(gdouble *x, gint N,
 				      guint field, gdouble *cfft,
 				      gdouble *work) ;

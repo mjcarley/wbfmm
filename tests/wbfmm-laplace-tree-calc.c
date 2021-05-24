@@ -443,20 +443,43 @@ gint main(gint argc, gchar **argv)
 					       dipoles, dstr, TRUE, work) ;
       }
       break ;
+    case WBFMM_FIELD_CURL:
+      for ( i = 0 ; i < nf ; i ++ ) {
+	guint64 box ;
+	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_curl(tree, tree->depth, box,
+					       &(xf[i*strf]),
+					       &(f[i*fcstr]), 3, q, qstr,
+					       normals, nstr,
+					       dipoles, dstr, TRUE, work) ;
+      }
+      break ;
     }
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
   	  progname, g_timer_elapsed(timer, NULL)) ;
-  
-  for ( i = 0 ; i < nf ; i ++ ) {
-    fprintf(stdout, 
-	    "%1.16e %1.16e %1.16e",
-	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
-    for ( j = 0 ; j < fcstr ; j ++ ) {
-      fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
+
+  if ( field != WBFMM_FIELD_CURL ) {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      fprintf(stdout, 
+	      "%1.16e %1.16e %1.16e",
+	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
+      for ( j = 0 ; j < fcstr ; j ++ ) {
+	fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
+      }
+      fprintf(stdout, "\n") ;
     }
-    fprintf(stdout, "\n") ;
+  } else {
+    for ( i = 0 ; i < nf ; i ++ ) {
+      fprintf(stdout, 
+	      "%1.16e %1.16e %1.16e",
+	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
+      for ( j = 0 ; j < 3 ; j ++ ) {
+	fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
+      }
+      fprintf(stdout, "\n") ;
+    }
   }
 
   g_free(ffile) ; g_free(sfile) ; g_free(progname) ;

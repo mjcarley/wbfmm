@@ -10,7 +10,7 @@ fmmfile=fmm.dat
 
 bw=-B
 depth=4
-nthread=2
+nthread=1
 order_r=12
 order_s=12
 curl=-g

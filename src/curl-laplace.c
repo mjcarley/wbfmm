@@ -46,15 +46,22 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL r, th, ph, rn, anm, b1, b2, cr, ci ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
   WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
+  WBFMM_REAL ddxr, ddxi, ddyr, ddyi, ddzr, ddzi ;
   gint n, m, idx, i ;
+
+  /*
+    fstr is ignored: the curl based on the first three components of
+    the source is placed into the first three components of f
+   */
+
   
   if ( nq < 3 )
     g_error("%s: not enough source components (%d) for curl calculation",
 	    __FUNCTION__, nq) ;
   
-  if ( fstr < 3 )
-    g_error("%s: field data stride (%d) must be greater than two",
-	    __FUNCTION__, fstr) ;
+  /* if ( fstr < 3 ) */
+  /*   g_error("%s: field data stride (%d) must be greater than two", */
+  /* 	    __FUNCTION__, fstr) ; */
 
   if ( N == 0 ) return 0 ;
 
@@ -80,12 +87,14 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
 
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
   Rnm = rn*Pnm1[m]*anm ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    cr = cfft[cstr*idx+i] ;
-    
-    field[fstr*i+2] += cfft[cstr*idx+i]*Rnm ;
-  }
-
+  
+  ddzr = Rnm ;
+  
+  cr = cfft[cstr*idx+0] ;
+  field[0] -= ddzr*cr ;
+  cr = cfft[cstr*idx+1] ;
+  field[1] += ddzr*cr ;
+  
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
@@ -94,17 +103,22 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
   Rnmm1 = rn*Pnm1[m-1]*b2 ;
   Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
   Rnmp1 = rn*Pnm1[m+1]*b1 ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
 
-    field[fstr*i+0] -= Rnmp1*(cr*Cmph[m+1] - ci*Smph[m+1]) ;
-    field[fstr*i+0] += Rnmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;
+  ddxr = -Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
+  ddxi = +Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
 
-    field[fstr*i+1] -= Rnmp1*(cr*Smph[m+1] + ci*Cmph[m+1]) ;
-    field[fstr*i+1] -= Rnmm1*(cr*Smph[m-1] + ci*Cmph[m-1]) ;
-    
-    field[fstr*i+2] += Rnm  *(cr*Cmph[m+0] - ci*Smph[m+0]) ;
-  }
+  ddyr = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+  ddyi = -Rnmp1*Cmph[m+1] - Rnmm1*Cmph[m-1] ;
+
+  ddzr = +Rnm*Cmph[m+0] ;
+  ddzi = -Rnm*Smph[m+0] ;
+  
+  cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
+  field[0] += (ddyr - ddzr)*cr + (ddyi - ddzi)*ci ;
+  cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
+  field[1] += (ddzr - ddxr)*cr + (ddzi - ddxi)*ci ;
+  cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
+  field[2] += (ddxr - ddyr)*cr + (ddxi - ddyi)*ci ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
     rn *= r ;
@@ -121,14 +135,18 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
     Rnmm1 = rn*Pnm1[m+1]*b2 ;
     Rnm = rn*Pnm1[m]*anm ;
     Rnmp1 = rn*Pnm1[m+1]*b1 ;
-    for ( i = 0 ; i < nq ; i ++ ) {
-      cr = cfft[cstr*idx+i] ;
 
-      field[fstr*i+0] -= cr*Rnmp1*Cmph[m+1] ;
-      field[fstr*i+1] -= cr*Rnmp1*Smph[m+1] ;      
-      field[fstr*i+2] += cr*Rnm ;
-    }
+    ddxr = -Rnmp1*Cmph[m+1] ;
+    ddyr = -Rnmp1*Smph[m+1] ;
+    ddzr = Rnm ;
 
+    cr = cfft[cstr*idx+0] ;
+    field[0] += (ddyr - ddzr)*cr ;
+    cr = cfft[cstr*idx+1] ;
+    field[1] += (ddzr - ddxr)*cr ;
+    cr = cfft[cstr*idx+2] ;
+    field[2] += (ddxr - ddyr)*cr ;
+    
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
       anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
@@ -137,17 +155,21 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
       Rnmm1 = rn*Pnm1[m-1]*b2 ;
       Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
       Rnmp1 = rn*Pnm1[m+1]*b1 ;
-      for ( i = 0 ; i < nq ; i ++ ) {
-	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
-	
-	field[fstr*i+0] -= Rnmp1*(cr*Cmph[m+1] - ci*Smph[m+1]) ;
-	field[fstr*i+0] += Rnmm1*(cr*Cmph[m-1] - ci*Smph[m-1]) ;
-    
-	field[fstr*i+1] -= Rnmp1*(cr*Smph[m+1] + ci*Cmph[m+1]) ;
-	field[fstr*i+1] -= Rnmm1*(cr*Smph[m-1] + ci*Cmph[m-1]) ;
+      ddxr = -Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
+      ddxi = +Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+      
+      ddyr = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+      ddyi = -Rnmp1*Cmph[m+1] - Rnmm1*Cmph[m-1] ;
+      
+      ddzr = +Rnm*Cmph[m+0] ;
+      ddzi = -Rnm*Smph[m+0] ;
 
-	field[fstr*i+2] += Rnm  *(cr*Cmph[m+0] - ci*Smph[m+0]) ;
-      }
+      cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
+      field[0] += (ddyr - ddzr)*cr + (ddyi - ddzi)*ci ;
+      cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
+      field[1] += (ddzr - ddxr)*cr + (ddzi - ddxi)*ci ;
+      cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
+      field[2] += (ddxr - ddyr)*cr + (ddxi - ddyi)*ci ;
     }
   }
   
@@ -182,6 +204,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_curl_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL *Cmph, *Smph, cr, ci ;
   gint n, m, idx, i ;
 
+  g_assert_not_reached() ;
+  
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
@@ -338,17 +362,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(WBFMM_REAL *xs,
     for ( i = 0 ; i < nsrc ; i ++ ) {
       WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 							&r, &th, &ph) ;
-      nR[0] = (xf[0] - xs[i*xstride+0])/r/r/r*0.25*M_1_PI ;
-      nR[1] = (xf[1] - xs[i*xstride+1])/r/r/r*0.25*M_1_PI ;
-      nR[2] = (xf[2] - xs[i*xstride+2])/r/r/r*0.25*M_1_PI ;
-      field[0] -= src[i*sstride+0]*(nR[1] - nR[2]) ;
-      field[1] -= src[i*sstride+1]*(nR[2] - nR[0]) ;
-      field[2] -= src[i*sstride+2]*(nR[0] - nR[1]) ;
-      /* for ( j = 0 ; j < nq ; j ++ ) { */
-      /* 	field[fstr*j+0] -= src[i*sstride+j]/r/r*nR[0] ; */
-      /* 	field[fstr*j+1] -= src[i*sstride+j]/r/r*nR[1] ; */
-      /* 	field[fstr*j+2] -= src[i*sstride+j]/r/r*nR[2] ; */
-      /* } */
+      if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	nR[0] = (xf[0] - xs[i*xstride+0])/r/r/r*0.25*M_1_PI ;
+	nR[1] = (xf[1] - xs[i*xstride+1])/r/r/r*0.25*M_1_PI ;
+	nR[2] = (xf[2] - xs[i*xstride+2])/r/r/r*0.25*M_1_PI ;
+	field[0] -= src[i*sstride+0]*(nR[1] - nR[2]) ;
+	field[1] -= src[i*sstride+1]*(nR[2] - nR[0]) ;
+	field[2] -= src[i*sstride+2]*(nR[0] - nR[1]) ;
+      }
     }
 
     return 0 ;
@@ -358,3 +379,144 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(WBFMM_REAL *xs,
   
   return 0 ;
 }
+
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
+							    guint level,
+							    guint b,
+							    WBFMM_REAL *x,
+							    WBFMM_REAL *f,
+							    gint fstr,
+							    WBFMM_REAL *src,
+							    gint sstr,
+							    WBFMM_REAL
+							    *normals,
+							    gint nstr,
+							    WBFMM_REAL *d,
+							    gint dstr,
+							    gboolean
+							    eval_neighbours,
+							    WBFMM_REAL *work)
+
+{
+  WBFMM_REAL xb[3], wb, *C, *xs, r, nR[3] ;
+  wbfmm_box_t *boxes, box ;
+  guint64 neighbours[27] ;
+  gint nnbr, i, j, k, idx, nq ;
+
+  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+
+  nq = wbfmm_tree_source_size(t) ;
+
+  boxes = t->boxes[level] ;
+  C = boxes[b].mpr ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  
+  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(xb, C, 8*nq,
+  								   t->order_r[level],
+  								   nq, x, f,
+  								   fstr,
+  								   work) ;
+  
+  if ( !eval_neighbours ) return 0 ;
+
+  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
+  
+  if ( normals != NULL && d == NULL ) {
+    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+	    __FUNCTION__) ;
+  }
+
+  /*add the contribution from sources in neighbour boxes*/
+  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
+  g_assert(nnbr >= 0 && nnbr < 28) ;
+
+  if ( normals == NULL && d == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nR[0] = (x[0] - xs[0])/r ;
+	  nR[1] = (x[1] - xs[1])/r ;
+	  nR[2] = (x[2] - xs[2])/r ;
+	  r = SQRT(r)*4.0*M_PI ;
+	  nR[0] /= r ; nR[1] /= r ; nR[2] /= r ;
+	  f[0] -= src[idx*sstr+0]*(nR[1] - nR[2]) ;
+	  f[1] -= src[idx*sstr+1]*(nR[2] - nR[0]) ;
+	  f[2] -= src[idx*sstr+2]*(nR[0] - nR[1]) ;
+	}
+      }
+    }
+    
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
+  if ( src == NULL && normals != NULL ) {
+    /*dipoles only*/
+    /* g_assert_not_reached() ; */
+    WBFMM_REAL th, ph, nr ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nr =
+	    (x[0] - xs[0])*normals[idx*nstr+0] +
+	    (x[1] - xs[1])*normals[idx*nstr+1] + 
+	    (x[2] - xs[2])*normals[idx*nstr+2] ;
+	  nr /= 4.0*M_PI*r*r*r ;
+	  for ( k = 0 ; k < nq ; k ++ ) f[k] += d[idx*dstr+k]*nr ;
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+  
+  if ( src != NULL && normals != NULL ) {
+    /*sources and dipoles*/
+    WBFMM_REAL th, ph, nr, g ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nr =
+	    (x[0] - xs[0])*normals[idx*nstr+0] +
+	    (x[1] - xs[1])*normals[idx*nstr+1] + 
+	    (x[2] - xs[2])*normals[idx*nstr+2] ;
+	  g = 0.25*M_1_PI/r ;
+	  /* nr /= 4.0*M_PI*r*r*r ; */
+	  /* nr *= g/r/r ; /\* 4.0*M_PI*r*r*r ; *\/ */
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
+	  }
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ; 
+  
+  return 0 ;
+}
+
