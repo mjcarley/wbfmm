@@ -100,7 +100,8 @@ wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o: \
  /usr/include/glib-2.0/glib/deprecated/gthread.h /usr/include/pthread.h \
  /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/setjmp.h \
- /usr/include/glib-2.0/glib/glib-autocleanups.h ../src/wbfmm.h
+ /usr/include/glib-2.0/glib/glib-autocleanups.h ../config.h \
+ ../src/wbfmm.h
 
 /usr/include/stdc-predef.h:
 
@@ -409,5 +410,7 @@ wbfmm_laplace_tree_calc_avx-wbfmm-laplace-tree-calc.o: \
 /usr/include/bits/setjmp.h:
 
 /usr/include/glib-2.0/glib/glib-autocleanups.h:
+
+../config.h:
 
 ../src/wbfmm.h:

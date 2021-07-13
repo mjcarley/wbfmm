@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2019, 2021 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -22,9 +22,17 @@
 
 #include <glib.h>
 
-#include <wbfmm.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /*HAVE_CONFIG_H*/
 
-#define BUFSIZE 131072
+/* #ifdef HAVE_AVX_INSTRUCTIONS */
+/* #define WBFMM_USE_AVX */
+/* #endif /\*HAVE_AVX_INSTRUCTIONS*\/ */
+
+/*include wbfmm.h here so it picks up the WBFMM_USE_AVX #define */
+
+#include <wbfmm.h>
 
 GTimer *timer ;
 gchar *progname ;

@@ -1875,13 +1875,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
  *
 */
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs, gint xstride,
-						   WBFMM_REAL *src, gint sstride,
-						   gint nq,
-						   WBFMM_REAL *normals, gint nstr,
-						   WBFMM_REAL *dipoles, gint dstr,
-						   gint nsrc,
-						   WBFMM_REAL *xf, WBFMM_REAL *field) {}
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
+					      WBFMM_REAL *src, gint sstride,
+					      gint nq,
+					      WBFMM_REAL *normals, gint nstr,
+					      WBFMM_REAL *dipoles, gint dstr,
+					      gint nsrc,
+					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
 
 /**
  * 
@@ -1907,14 +1907,57 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs, gint xstride,
  *
 */
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
-					      WBFMM_REAL *src, gint sstride,
-					      gint nq,
-					      WBFMM_REAL *normals, gint nstr,
-					      WBFMM_REAL *dipoles, gint dstr,
-					      gint nsrc,
-					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
+						   gint xstride,
+						   WBFMM_REAL *src,
+						   gint sstride,
+						   gint nq,
+						   WBFMM_REAL *normals,
+						   gint nstr,
+						   WBFMM_REAL *dipoles,
+						   gint dstr,
+						   gint nsrc,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field) {}
 
+/**
+ * 
+ * @ingroup laplace
+ *
+ * @brief Direct evaluation of the curl of a Laplace field from a
+ * list of sources
+ * 
+ * @param xs source positions;
+ * @param xstride source array stride;
+ * @param src source strengths;
+ * @param sstride source strength array stride;
+ * @param nq number of source components (must be at least three);
+ * @param normals normals at source positions;
+ * @param nstr normal stride;
+ * @param dipoles dipole components;
+ * @param dstr dipole stride;
+ * @param nsrc number of sources;
+ * @param xf field point;
+ * @param field on output incremented with computed curl;
+ * @param fstr stride in \param field (ignored).
+ *
+ * @return 0 on success
+ *
+*/
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(WBFMM_REAL *xs,
+						   gint xstride,
+						   WBFMM_REAL *src,
+						   gint sstride,
+						   gint nq,
+						   WBFMM_REAL *normals,
+						   gint nstr,
+						   WBFMM_REAL *dipoles,
+						   gint dstr,
+						   gint nsrc,
+						   WBFMM_REAL *xf,
+						   WBFMM_REAL *field,
+						   gint fstr) {}
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_RR)(WBFMM_REAL *Co,
 							     gint cstro,
@@ -1987,6 +2030,81 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
 								 *field,
 								 WBFMM_REAL
 								 *work) {}
+
+/** 
+ *
+ * @ingroup laplace
+ *
+ * @brief Evaluate gradient of local Laplace expansion
+ *
+ * Evaluate the gradient \f$\nabla\phi_{i}\f$ for source components 
+ * \f$i=0,\ldots n_{q}-1\f$, packing gradient vectors in \param field. 
+ * 
+ * @param x0 centre of expansion;
+ * @param cfft local expansion coefficients;
+ * @param cstr stride in \a cfft;
+ * @param N order of expansion;
+ * @param nq number of source components;
+ * @param xf field point;
+ * @param field field value;
+ * @param fstr stride between start of gradient vectors (must be at least 3);
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+ */
+
+gint
+WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
+								 WBFMM_REAL
+								 *cfft,
+								 gint cstr, 
+								 gint N,
+								 gint nq,
+								 WBFMM_REAL *xf,
+								 WBFMM_REAL
+								 *field,
+								 gint fstr,
+								 WBFMM_REAL
+								 *work) {} ;
+
+/** 
+ *
+ * @ingroup laplace
+ *
+ * @brief Evaluate curl of local Laplace expansion
+ *
+ * Evaluate the curl \f$\nabla\times\phi\f$ for first three components
+ * in expansion, returning curl vector in field.
+ * 
+ * @param x0 centre of expansion;
+ * @param cfft local expansion coefficients;
+ * @param cstr stride in \a cfft;
+ * @param N order of expansion;
+ * @param nq number of source components (must be at least three, first
+ * three terms are taken as vector field whose curl is to be taken);
+ * @param xf field point;
+ * @param field field value;
+ * @param fstr ignored;
+ * @param work workspace.
+ *
+ * @return 0 on success
+ *
+ */
+
+gint
+WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
+								 WBFMM_REAL
+								 *cfft,
+								 gint cstr, 
+								 gint N,
+								 gint nq,
+								 WBFMM_REAL *xf,
+								 WBFMM_REAL
+								 *field,
+								 gint fstr,
+								 WBFMM_REAL
+								 *work) {} ;
 
 /**
  * @ingroup rotations

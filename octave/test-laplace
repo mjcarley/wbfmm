@@ -10,10 +10,10 @@ fmmfile=fmm.dat
 
 bw=-B
 depth=4
-nthread=1
-order_r=12
-order_s=12
-curl=-g
+nthread=4
+order_r=20
+order_s=20
+curl=-c
 
 ${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
 
