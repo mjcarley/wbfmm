@@ -390,9 +390,10 @@ static gpointer downward_pass_thread(gpointer idata)
 
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_avx)(wbfmm_tree_t *t,
-						      wbfmm_shift_operators_t
-						      *op,
-						      guint level,
+							  wbfmm_shift_operators_t
+							  
+							  *op,
+							  guint level,
 							  WBFMM_REAL *work,
 							  gint nthreads)
 

@@ -523,36 +523,45 @@ guint64 WBFMM_FUNCTION_NAME(wbfmm_point_box)(wbfmm_tree_t *t, guint level,
 {
   guint64 b ;
   guint nb, i, j, k ;
-  WBFMM_REAL wb, *x0, dx ;
-
-  nb = 1 << level ;
-  wb = t->D/nb ;
+  WBFMM_REAL wb, *x0, D ;
 
   x0 = wbfmm_tree_origin(t) ;
-  dx = (x[0] - x0[0])/wb ;
-  if ( dx < 0.0 || dx > nb )
+  D = wbfmm_tree_width(t) ;
+
+  if ( x[0] < x0[0] || x[0] > x0[0]+D ||
+       x[1] < x0[1] || x[1] > x0[1]+D ||
+       x[2] < x0[2] || x[2] > x0[2]+D )
     g_error("%s: point (%g,%g,%g) not in octree",
 	    __FUNCTION__, x[0], x[1], x[2]) ;
-  else
-    i = (guint32)floor(dx) ;
+  
+  /* wb = t->D/nb ; */
 
-  dx = (x[1] - x0[1])/wb ;
-  if ( dx < 0.0 || dx > nb )
-    g_error("%s: point (%g,%g,%g) not in octree",
-	    __FUNCTION__, x[0], x[1], x[2]) ;
-  else
-    j = (guint32)floor(dx) ;
+  nb = 1 << level ;
+  wb = D/nb ;
+  /* dx = (x[0] - x0[0])/wb ; */
+  /* if ( dx < 0.0 || dx > nb ) */
+  /*   g_error("%s: point (%g,%g,%g) not in octree", */
+  /* 	    __FUNCTION__, x[0], x[1], x[2]) ; */
+  /* else */
+  /* i = (guint32)floor(dx) ; */
 
-  dx = (x[2] - x0[2])/wb ;
-  if ( dx < 0.0 || dx > nb )
-    g_error("%s: point (%g,%g,%g) not in octree",
-	    __FUNCTION__, x[0], x[1], x[2]) ;
-  else
-    k = (guint32)floor(dx) ;
+  /* dx = (x[1] - x0[1])/wb ; */
+  /* if ( dx < 0.0 || dx > nb ) */
+  /*   g_error("%s: point (%g,%g,%g) not in octree", */
+  /* 	    __FUNCTION__, x[0], x[1], x[2]) ; */
+  /* else */
+  /*   j = (guint32)floor(dx) ; */
 
-  /* i = (guint32)floor((x[0] - x0[0])/wb) ; */
-  /* j = (guint32)floor((x[1] - x0[1])/wb) ; */
-  /* k = (guint32)floor((x[2] - x0[2])/wb) ; */
+  /* dx = (x[2] - x0[2])/wb ; */
+  /* if ( dx < 0.0 || dx > nb ) */
+  /*   g_error("%s: point (%g,%g,%g) not in octree", */
+  /* 	    __FUNCTION__, x[0], x[1], x[2]) ; */
+  /* else */
+    /* k = (guint32)floor(dx) ; */
+
+  i = (guint32)floor((x[0] - x0[0])/wb) ;
+  j = (guint32)floor((x[1] - x0[1])/wb) ;
+  k = (guint32)floor((x[2] - x0[2])/wb) ;
 
   b = wbfmm_box_index(i, j, k) ;
 

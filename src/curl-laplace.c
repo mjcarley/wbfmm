@@ -53,7 +53,6 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
     fstr is ignored: the curl based on the first three components of
     the source is placed into the first three components of f
    */
-
   
   if ( nq < 3 )
     g_error("%s: not enough source components (%d) for curl calculation",
@@ -113,20 +112,36 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
   ddzr = +Rnm*Cmph[m+0] ;
   ddzi = -Rnm*Smph[m+0] ;
   
+  /* cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ; */
+  /* field[0] += ddyr*cr + ddyi*ci ; */
+  /* cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ; */
+  /* field[0] -= ddzr*cr + ddzi*ci ; */
+
+  /* cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ; */
+  /* field[1] += ddzr*cr + ddzi*ci ; */
+  /* cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ; */
+  /* field[1] -= ddxr*cr + ddxi*ci ; */
+  
+  /* cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ; */
+  /* field[2] += ddxr*cr + ddxi*ci ; */
+  /* cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ; */
+  /* field[2] -= ddyr*cr + ddyi*ci ; */
+
   cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
   field[0] += ddyr*cr + ddyi*ci ;
+  field[1] -= ddxr*cr + ddxi*ci ;
+
   cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
   field[0] -= ddzr*cr + ddzi*ci ;
+  field[2] += ddxr*cr + ddxi*ci ;
 
   cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
   field[1] += ddzr*cr + ddzi*ci ;
-  cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
-  field[1] -= ddxr*cr + ddxi*ci ;
-  
-  cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
-  field[2] += ddxr*cr + ddxi*ci ;
-  cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
   field[2] -= ddyr*cr + ddyi*ci ;
+  /* cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ; */
+  
+  /* cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ; */
+  /* cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ; */
   
   for ( n = 2 ; n <= N ; n ++ ) {
     rn *= r ;
@@ -148,19 +163,31 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
     ddyr = -Rnmp1*Smph[m+1] ;
     ddzr = Rnm ;
 
+    /* cr = cfft[cstr*idx+2] ; */
+    /* field[0] += ddyr*cr ; */
+    /* cr = cfft[cstr*idx+1] ; */
+    /* field[0] -= ddzr*cr ; */
+
+    /* cr = cfft[cstr*idx+0] ; */
+    /* field[1] += ddzr*cr ; */
+    /* cr = cfft[cstr*idx+2] ; */
+    /* field[1] -= ddxr*cr ; */
+    
+    /* cr = cfft[cstr*idx+1] ; */
+    /* field[2] += ddxr*cr ; */
+    /* cr = cfft[cstr*idx+0] ; */
+    /* field[2] -= ddyr*cr ; */
+
     cr = cfft[cstr*idx+2] ;
     field[0] += ddyr*cr ;
+    field[1] -= ddxr*cr ;
+
     cr = cfft[cstr*idx+1] ;
     field[0] -= ddzr*cr ;
+    field[2] += ddxr*cr ;
 
     cr = cfft[cstr*idx+0] ;
     field[1] += ddzr*cr ;
-    cr = cfft[cstr*idx+2] ;
-    field[1] -= ddxr*cr ;
-    
-    cr = cfft[cstr*idx+1] ;
-    field[2] += ddxr*cr ;
-    cr = cfft[cstr*idx+0] ;
     field[2] -= ddyr*cr ;
 
     for ( m = 1 ; m <= n ; m ++ ) {
@@ -180,19 +207,31 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
       ddzr = +Rnm*Cmph[m+0] ;
       ddzi = -Rnm*Smph[m+0] ;
 
+      /* cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ; */
+      /* field[0] += ddyr*cr + ddyi*ci ; */
+      /* cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ; */
+      /* field[0] -= ddzr*cr + ddzi*ci ; */
+
+      /* cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ; */
+      /* field[1] += ddzr*cr + ddzi*ci ; */
+      /* cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ; */
+      /* field[1] -= ddxr*cr + ddxi*ci ; */
+  
+      /* cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ; */
+      /* field[2] += ddxr*cr + ddxi*ci ; */
+      /* cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ; */
+      /* field[2] -= ddyr*cr + ddyi*ci ; */
+
       cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
       field[0] += ddyr*cr + ddyi*ci ;
+      field[1] -= ddxr*cr + ddxi*ci ;
+
       cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
       field[0] -= ddzr*cr + ddzi*ci ;
+      field[2] += ddxr*cr + ddxi*ci ;
 
       cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
       field[1] += ddzr*cr + ddzi*ci ;
-      cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
-      field[1] -= ddxr*cr + ddxi*ci ;
-  
-      cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
-      field[2] += ddxr*cr + ddxi*ci ;
-      cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
       field[2] -= ddyr*cr + ddyi*ci ;
     }
   }
