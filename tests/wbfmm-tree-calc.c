@@ -148,7 +148,7 @@ gint main(gint argc, gchar **argv)
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, nproc ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean write_sources, fit_box, shift_bw ;
+  gboolean write_sources, fit_box, shift_bw, sort_points ;
   wbfmm_library_config_t lconfig ;
   wbfmm_field_t field ;
   
@@ -164,6 +164,7 @@ gint main(gint argc, gchar **argv)
   write_sources = FALSE ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
+  sort_points = FALSE ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
@@ -332,7 +333,8 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: upward pass translation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_tree_add_points(tree, (gpointer)xs, pstr, NULL, 0, nsrc) ;
+  wbfmm_tree_add_points(tree, (gpointer)xs, pstr, NULL, 0, nsrc,
+			     sort_points) ;
 
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine(tree) ;
 

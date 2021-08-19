@@ -115,6 +115,7 @@ typedef struct {
   wbfmm_problem_t problem ;
   wbfmm_box_t *boxes[WBFMM_TREE_MAX_DEPTH+1] ; 
   /**< arrays of boxes at each level */
+  gboolean sorted ;
   guint 
   maxpoints, /**< maximum number of points in tree */
     npoints, /**< number of points in tree */
@@ -184,6 +185,7 @@ typedef struct {
 } wbfmm_target_list_t ;
 
 #define wbfmm_target_list_field(_l) ((_l)->field)
+#define wbfmm_target_point_box(_l,_i) ((_l)->boxes[(_i)])
 
 /**
  * @struct wbfmm_shift_operators_t
@@ -426,6 +428,15 @@ gint wbfmm_laplace_expansion_grad_evaluate(gdouble *x0, gdouble *cfft,
 					   gdouble *xf, gdouble *field,
 					   gint fstr,
 					   gdouble *work) ;
+gint wbfmm_laplace_expansion_curl_evaluate(gdouble *x0, gdouble *cfft,
+					   gint cstr, gint N, gint nq,
+					   gdouble *xf, gdouble *field,
+					   gint fstr, gdouble *work) ;
+gint wbfmm_laplace_expansion_curl_evaluate_f(gfloat *x0, gfloat *cfft,
+					     gint cstr, gint N, gint nq,
+					     gfloat *xf, gfloat *field,
+					     gint fstr, gfloat *work) ;
+
 gint wbfmm_laplace_field_grad_f(gfloat *xs, gint xstride,
 				gfloat *src, gint sstride,
 				gint nq,
@@ -800,7 +811,10 @@ gint wbfmm_tree_add_level(wbfmm_tree_t *tree) ;
 gint wbfmm_tree_add_points(wbfmm_tree_t *t, 
 			   gpointer pts, gsize pstr,
 			   gpointer normals, gsize nstr,
-			   guint npts) ;
+			   guint npts, gboolean sorted) ;
+gint wbfmm_tree_sort_points(wbfmm_tree_t *t, 
+			    gpointer pts, gsize psize,
+			    guint npts) ;
 gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
 					 guint field) ;
 
@@ -984,7 +998,10 @@ gint wbfmm_tree_refine_f(wbfmm_tree_t *t) ;
 gint wbfmm_tree_add_points_f(wbfmm_tree_t *t, 
 			     gpointer pts, gsize pstr,
 			     gpointer normals, gsize nstr,
-			     guint npts) ;
+			     guint npts, gboolean sorted) ;
+gint wbfmm_tree_sort_points_f(wbfmm_tree_t *t, 
+			      gpointer pts, gsize psize,
+			      guint npts) ;
 gint wbfmm_truncation_number_f(wbfmm_tree_t *t, gfloat k, guint level,
 			       gfloat tol) ;
 

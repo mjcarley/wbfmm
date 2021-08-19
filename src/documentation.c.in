@@ -13,7 +13,10 @@
  * @param pstr stride between points in bytes;
  * @param normals normals at source points (can be NULL);
  * @param nstr stride between normals in bytes;
- * @param npts the number of points in \a pts.
+ * @param npts the number of points in \a pts;
+ * @param sorted if TRUE, the source points are assumed to be sorted in 
+ * Morton index order and any source data used in subsequent calculations
+ * likewise.
  * 
  * @return 0 on success.
  */
@@ -21,7 +24,7 @@
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
 						gpointer pts, gsize pstr,
 						gpointer normals, gsize nstr,
-						guint npts) {}
+						guint npts, gboolean sorted) {}
 
 /** 
  * @ingroup rotations

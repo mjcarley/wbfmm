@@ -202,7 +202,7 @@ gint main(gint argc, gchar **argv)
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, field, source ;
   gchar ch, *sfile = NULL, *ffile = NULL ;
-  gboolean fit_box, shift_bw, target_list ;
+  gboolean fit_box, shift_bw, target_list, sort_sources ;
   gint nthreads, nproc ;
   
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
@@ -215,10 +215,11 @@ gint main(gint argc, gchar **argv)
   fit_box = FALSE ;
   shift_bw = FALSE ;
   target_list = FALSE ;
+  sort_sources = FALSE ;
   field = WBFMM_FIELD_SCALAR ;
   source = 0 ;
   targets = NULL ;
-
+  
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
@@ -227,7 +228,7 @@ gint main(gint argc, gchar **argv)
   nproc = g_get_num_processors() ;
 #endif
   
-  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:R:s:S:T:t:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:pR:s:S:T:t:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -248,6 +249,7 @@ gint main(gint argc, gchar **argv)
 	      "  -g calculate gradient of field\n"
 	      "  -l use target lists to calculate field at points\n"
 	      "  -O #,#,# origin of octree (%lg,%lg,%lg)\n"
+	      "  -p sort source points before generating tree\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
@@ -267,6 +269,7 @@ gint main(gint argc, gchar **argv)
     case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
     case 'l': target_list = TRUE ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
+    case 'p': sort_sources = TRUE ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
     case 'S': order_s = atoi(optarg) ; break ;
     case 's': sfile = g_strdup(optarg) ; break ;
@@ -317,6 +320,9 @@ gint main(gint argc, gchar **argv)
   fstr  = strf*sizeof(gdouble) ;
   tree  = wbfmm_tree_new(xtree, D, 2*nsrc) ;
 
+  if ( sort_sources ) 
+    wbfmm_tree_sort_points(tree, xs, pstr, nsrc) ;
+  
   /*set expansion orders at each level of the tree*/
   if ( order_s != 0 && order_r != 0 ) {
     order[2*depth+0] = order_s ; 
@@ -372,9 +378,10 @@ gint main(gint argc, gchar **argv)
 
   /*add source points to the tree and refine to allocate sources to
     leaf boxes*/
-  wbfmm_tree_add_points(tree, (gpointer)xs, pstr, normals, pnstr, nsrc) ;
+  wbfmm_tree_add_points(tree, (gpointer)xs, pstr, normals, pnstr,
+			     nsrc, sort_sources) ;
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine(tree) ;
-
+  
   /*initialize memory for box coefficients at each level*/
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
   wbfmm_tree_source_size(tree) = nq ;
@@ -390,8 +397,8 @@ gint main(gint argc, gchar **argv)
     if ( q != NULL ) source |= WBFMM_SOURCE_MONOPOLE ;
     if ( normals != NULL ) source |= WBFMM_SOURCE_DIPOLE ;
     targets = wbfmm_target_list_new(tree, nf) ;
-    wbfmm_target_list_coefficients_init(targets, field) ;
     wbfmm_target_list_add_points(targets, xf, fstr, nf) ;
+    wbfmm_target_list_coefficients_init(targets, field) ;
     wbfmm_laplace_target_list_local_coefficients(targets, source, work) ;
     fprintf(stderr, "%s: target point list initialized; %lg\n",
 	    progname, g_timer_elapsed(timer, NULL)) ;

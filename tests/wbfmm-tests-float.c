@@ -1495,7 +1495,9 @@ gint tree_test(gfloat *x0, gfloat D, guint npts)
   gfloat *pts ;
   gsize pstr ;
   gint i, str ;
+  gboolean sort_points ;
 
+  sort_points = FALSE ;
   t = wbfmm_tree_new_f(x0, D, npts) ;
   str = 7 ;
 
@@ -1509,7 +1511,8 @@ gint tree_test(gfloat *x0, gfloat D, guint npts)
     pts[i*str+2] = x0[2] + D*g_random_double_range(0,D) ;
   }
 
-  wbfmm_tree_add_points_f(t, (gpointer)pts, pstr, NULL, 0, npts) ;
+  wbfmm_tree_add_points_f(t, (gpointer)pts, pstr, NULL, 0,
+			     npts, sort_points) ;
 
   wbfmm_tree_refine_f(t) ;
   wbfmm_tree_refine_f(t) ;

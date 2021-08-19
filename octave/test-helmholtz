@@ -1,0 +1,35 @@
+#!/bin/bash
+
+BIN=../tests
+
+sfile=monopoles-hh.dat
+##sfile=curl.dat
+##sfile=dipoles.dat
+ffile=field.dat
+dfile=direct.dat
+fmmfile=fmm.dat
+avxfile=avx.dat
+##swfile=swfmm.dat
+bw=-B
+depth=4
+nthread=1
+order_r=8
+order_s=8
+targets=
+curl=
+k=1.3
+
+${BIN}/wbfmm-direct-calc ${curl} -k ${k} -f ${ffile} -s ${sfile} > ${dfile}
+
+${BIN}/wbfmm-tree-calc-avx ${curl}  -k ${k} -b ${bw} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} \
+      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+
+${BIN}/wbfmm-tree-calc ${curl}  -k ${k} -b ${bw} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} \
+      -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
+
+##${BIN}/wbfmm-tree-calc ${curl} -b ${bw} -d ${depth} \
+##      -R ${order_r} -S ${order_s} -T ${nthread} \
+##      -f ${ffile} -s curl-sw.dat > ${swfile}
+

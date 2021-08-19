@@ -122,6 +122,31 @@ gint read_points(gchar *file,
     return 0 ;
   }
 
+  if ( strcmp(code, "MN") == 0) {
+    /*monopole and normals, order:  */
+    /* x y z q0 q1 ... qn nx ny nz f0 f1 ... fn  */
+    /*   */
+    /*   */
+    *xs = *q = *n = *f = NULL ;
+
+    *nq = nqt ;
+    *xstr = 3 + 3 + 2*(*nq) ;
+    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+
+    for ( i = 0 ; i < *nsrc ; i ++ ) {
+      for ( j = 0 ; j < *xstr ; j ++ )
+	fscanf(input, "%FLOATFMT", &(s[(*xstr)*i+j])) ;
+    }
+
+    *q = &(s[3])         ; *qstr = *xstr ;
+    *n = &(s[3+(*nq)])   ; *nstr = *xstr ;
+    *f = &(s[6+(*nq)])   ; *fstr = *xstr ;
+    
+    if ( file != NULL ) fclose(input) ;
+
+    return 0 ;
+  }
+
   g_assert_not_reached() ;
   
   return 0 ;

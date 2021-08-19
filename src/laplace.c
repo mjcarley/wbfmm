@@ -614,6 +614,25 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
     return 0 ;
   }
 
+  if ( src != NULL && normals != NULL ) {
+    /*monopoles and dipoles*/
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+							&r, &th, &ph) ;
+      nr =
+	(xf[0] - xs[i*xstride+0])*normals[i*nstr+0] +
+	(xf[1] - xs[i*xstride+1])*normals[i*nstr+1] + 
+	(xf[2] - xs[i*xstride+2])*normals[i*nstr+2] ;
+      nr /= r*r*r ;
+      for ( j = 0 ; j < nq ; j ++ )
+	field[j] += dipoles[i*dstr+j]*nr + src[i*sstride+j]/r ;
+    }
+    
+    for ( j = 0 ; j < nq ; j ++ ) field[j] /= 4.0*M_PI ;
+
+    return 0 ;
+  }
+  
   g_assert_not_reached() ;
   
   return 0 ;

@@ -429,7 +429,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 
 {
   guint level ;
-  gint ib, b, j, k, nc, nq, nr, idx, tstr ;
+  gint ib, b, j, k, nc, nq, nr, idx, tstr, nf ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
   wbfmm_box_t *boxes ;
   WBFMM_REAL *cfft, *eval, *csrc ;
@@ -442,25 +442,21 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   eval = (WBFMM_REAL *)(l->cfft) ;
   boxes = t->boxes[level] ;
 
-  /* memset(f, 0, nq*wbfmm_target_list_point_number(l)*sizeof(WBFMM_REAL)) ; */
-
   if ( l->t->problem == WBFMM_PROBLEM_LAPLACE ) {
+    if ( !( l->field  == WBFMM_FIELD_SCALAR ||
+	    l->field  == WBFMM_FIELD_GRADIENT ||
+	    l->field  == WBFMM_FIELD_CURL ) ) {
+      g_error("%s: field type %d not implemented for Laplace problem",
+	      __FUNCTION__, l->field) ;
+    }
+    
     switch ( l->field ) {
-    default:
-    g_error("%s: unrecognized field definition (%u)",
-	    __FUNCTION__, l->field) ;
-    break ;
     case WBFMM_FIELD_SCALAR:
+      nf = 1 ;
       if ( l->source == WBFMM_SOURCE_MONOPOLE ) {
 	tstr = 1 ;
 	for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
 	  b = l->boxes[ib] ;
-	  cfft = boxes[b].mpr ;
-	  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
-							     8*nq, nq,
-							     &(eval[ib*nc]), nr,
-							     l->field,
-							     &(f[ib*fstr]), 1) ;
 	  /*direct contributions from neighbour boxes*/
 	  csrc = &(((WBFMM_REAL *)(l->csrc))[tstr*(l->ics[ib])]) ;
 	  for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
@@ -470,18 +466,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	    }
 	  }
 	}
-	return 0 ;
       }
       if ( l->source == (WBFMM_SOURCE_MONOPOLE | WBFMM_SOURCE_DIPOLE) ) {
 	tstr = 2 ;
 	for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
 	  b = l->boxes[ib] ;
-	  cfft = boxes[b].mpr ;
-	  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
-							     8*nq, nq,
-							     &(eval[ib*nc]), nr,
-							     l->field,
-							     &(f[ib*fstr]), 1) ;
 	  /*direct contributions from neighbour boxes*/
 	  csrc = &(((WBFMM_REAL *)(l->csrc))[tstr*(l->ics[ib])]) ;
 	  for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
@@ -492,50 +481,67 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	    }
 	  }
 	}
-	return 0 ;
       }
-      g_assert_not_reached() ;
       break ;
     case WBFMM_FIELD_GRADIENT:
+      nf = 3 ;
+      g_assert_not_reached() ; /*unchecked code*/
       for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
-	b = l->boxes[ib] ;
-	cfft = boxes[b].mpr ;
-	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
-							   8*nq, nq,
-							   &(eval[ib*nc]), nr,
-							   l->field,
-							   &(f[ib*fstr]), 3) ;
-	/*direct contributions from neighbour boxes*/
-	csrc = &(((WBFMM_REAL *)(l->csrc))[3*(l->ics[ib])]) ;
-	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
-	  idx = l->isrc[l->ibox[b]+j] ;
-	  for ( k = 0 ; k < nq ; k ++ ) {
-	    f[ib*fstr+3*k+0] += src[idx*sstr+k]*csrc[3*j+0] ;
-	    f[ib*fstr+3*k+1] += src[idx*sstr+k]*csrc[3*j+1] ;
-	    f[ib*fstr+3*k+2] += src[idx*sstr+k]*csrc[3*j+2] ;
-	  }
-	}
+      	b = l->boxes[ib] ;
+      	/*direct contributions from neighbour boxes*/
+      	csrc = &(((WBFMM_REAL *)(l->csrc))[3*(l->ics[ib])]) ;
+      	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+      	  idx = l->isrc[l->ibox[b]+j] ;
+      	  for ( k = 0 ; k < nq ; k ++ ) {
+      	    f[ib*fstr+3*k+0] += src[idx*sstr+k]*csrc[3*j+0] ;
+      	    f[ib*fstr+3*k+1] += src[idx*sstr+k]*csrc[3*j+1] ;
+      	    f[ib*fstr+3*k+2] += src[idx*sstr+k]*csrc[3*j+2] ;
+      	  }
+      	}
       }
-      return 0 ;
+    case WBFMM_FIELD_CURL:
+      nf = 3 ;
+      g_assert_not_reached() ; /*unchecked code*/
+      for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
+      	b = l->boxes[ib] ;
+      	/*direct contributions from neighbour boxes*/
+      	csrc = &(((WBFMM_REAL *)(l->csrc))[3*(l->ics[ib])]) ;
+      	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+      	  idx = l->isrc[l->ibox[b]+j] ;
+      	  for ( k = 0 ; k < nq ; k ++ ) {
+      	    f[ib*fstr+3*k+0] += src[idx*sstr+k]*csrc[3*j+0] ;
+      	    f[ib*fstr+3*k+1] += src[idx*sstr+k]*csrc[3*j+1] ;
+      	    f[ib*fstr+3*k+2] += src[idx*sstr+k]*csrc[3*j+2] ;
+      	  }
+      	}
+      }      
       break ;
     }
-  }
 
+    for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
+      b = l->boxes[ib] ; cfft = boxes[b].mpr ;
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(cfft,
+							 8*nq, nq,
+							 &(eval[ib*nc]), nr,
+							 l->field,
+							 &(f[ib*fstr]), nf) ;
+    }
+    
+    return 0 ;
+  }
+  
   if ( l->t->problem == WBFMM_PROBLEM_HELMHOLTZ ) {
+    if ( !( l->field  == WBFMM_FIELD_SCALAR ||
+	    l->field  == WBFMM_FIELD_GRADIENT ) ) {
+      g_error("%s: field type %d not implemented for Helmholtz problem",
+	      __FUNCTION__, l->field) ;
+    }
+    
     switch ( l->field ) {
-    default:
-    g_error("%s: unrecognized field definition (%u)",
-	    __FUNCTION__, l->field) ;
-    break ;
     case WBFMM_FIELD_SCALAR:
+      nf = 2 ;
       for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
 	b = l->boxes[ib] ;
-	cfft = boxes[b].mpr ;
-	WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(cfft,
-						   8*nq, nq,
-						   &(eval[ib*nc]), nr,
-						   l->field,
-						   &(f[ib*fstr]), 2) ;
 	/*direct contributions from neighbour boxes*/
 	csrc = &(((WBFMM_REAL *)(l->csrc))[2*(l->ics[ib])]) ;
 	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
@@ -548,41 +554,48 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
 	  }
 	}    
       }
-      return 0 ;
       break ;
     case WBFMM_FIELD_GRADIENT:
+      nf = 6 ;
+      g_assert_not_reached() ; /*unchecked code*/
       for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
-    	b = l->boxes[ib] ;
-    	cfft = boxes[b].mpr ;
-    	WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(cfft,
-						   8*nq, nq,
-						   &(eval[ib*nc]), nr,
-						   l->field,
-						   &(f[ib*fstr]), 6) ;
-    	/*direct contributions from neighbour boxes*/
-    	csrc = &(((WBFMM_REAL *)(l->csrc))[6*(l->ics[ib])]) ;
-    	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
-    	  idx = l->isrc[l->ibox[b]+j] ;
-    	  for ( k = 0 ; k < nq ; k ++ ) {
-	    WBFMM_REAL sr, si ;
-	    sr = src[idx*sstr+2*k+0] ; si = src[idx*sstr+2*k+1] ;
-    	    f[ib*fstr+6*k+0] += csrc[6*j+0]*sr - csrc[6*j+1]*si ;
-    	    f[ib*fstr+6*k+1] += csrc[6*j+1]*sr + csrc[6*j+0]*si ;
+      	b = l->boxes[ib] ;
+      	/*direct contributions from neighbour boxes*/
+      	csrc = &(((WBFMM_REAL *)(l->csrc))[6*(l->ics[ib])]) ;
+      	for ( j = 0 ; j < l->ibox[b+1]-l->ibox[b] ; j ++ ) {
+      	  idx = l->isrc[l->ibox[b]+j] ;
+      	  for ( k = 0 ; k < nq ; k ++ ) {
+      	    WBFMM_REAL sr, si ;
+      	    sr = src[idx*sstr+2*k+0] ; si = src[idx*sstr+2*k+1] ;
+      	    f[ib*fstr+6*k+0] += csrc[6*j+0]*sr - csrc[6*j+1]*si ;
+      	    f[ib*fstr+6*k+1] += csrc[6*j+1]*sr + csrc[6*j+0]*si ;
 
-    	    f[ib*fstr+6*k+2] += csrc[6*j+2]*sr - csrc[6*j+3]*si ;
-    	    f[ib*fstr+6*k+3] += csrc[6*j+3]*sr + csrc[6*j+2]*si ;
+      	    f[ib*fstr+6*k+2] += csrc[6*j+2]*sr - csrc[6*j+3]*si ;
+      	    f[ib*fstr+6*k+3] += csrc[6*j+3]*sr + csrc[6*j+2]*si ;
 
-    	    f[ib*fstr+6*k+4] += csrc[6*j+4]*sr - csrc[6*j+5]*si ;
-    	    f[ib*fstr+6*k+5] += csrc[6*j+5]*sr + csrc[6*j+4]*si ;	    
-    	  }
-    	}
+      	    f[ib*fstr+6*k+4] += csrc[6*j+4]*sr - csrc[6*j+5]*si ;
+      	    f[ib*fstr+6*k+5] += csrc[6*j+5]*sr + csrc[6*j+4]*si ;
+      	  }
+      	}
       }
-      return 0 ;
       break ;
     }
+    
+    for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
+      b = l->boxes[ib] ;
+      cfft = boxes[b].mpr ;
+      WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(cfft,
+						 8*nq, nq,
+						 &(eval[ib*nc]), nr,
+						 l->field,
+						 &(f[ib*fstr]), nf) ;
+    }
+
+    return 0 ;
   }
 
-  g_assert_not_reached() ;
+  g_error("%s: problem type %d not recognized",
+	  __FUNCTION__, l->t->problem) ;
   
   return 0 ;
 }

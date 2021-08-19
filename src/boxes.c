@@ -65,7 +65,7 @@ wbfmm_tree_t *WBFMM_FUNCTION_NAME(wbfmm_tree_new)(WBFMM_REAL *x, WBFMM_REAL D,
 
   t = (wbfmm_tree_t *)g_malloc0(sizeof(wbfmm_tree_t)) ;
 
-  t->problem = 0 ;
+  t->problem = 0 ; t->sorted = FALSE ;
   /*maximum number of points in tree*/
   t->maxpoints = maxpoints ;
   /*number of components in tree sources (set when coefficients are
@@ -118,7 +118,8 @@ static gint compare_morton_indexed(gconstpointer a, gconstpointer b,
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t, 
 						gpointer pts, gsize pstr,
 						gpointer normals, gsize nstr,
-						guint npts)
+						guint npts, gboolean sorted)
+
 {
   gint i ;
   WBFMM_REAL *x, *xt, D ;
@@ -137,6 +138,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
   t->points = (gchar *)pts ; t->pstr = pstr ;
   t->normals = (gchar *)normals ; t->nstr = nstr ;
 
+  t->sorted = sorted ;
+  
   xt = wbfmm_tree_origin(t) ;
   D = wbfmm_tree_width(t) ;
 
@@ -158,6 +161,46 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 
   t->boxes[0][0].i = 0 ; 
   t->boxes[0][0].n = npts ; 
+
+  return 0 ;
+}
+
+static gint compare_points_morton(gconstpointer a, gconstpointer b,
+				  gpointer data)
+
+{
+  wbfmm_tree_t *t = data ;
+  guint64 mi, mj ;
+  WBFMM_REAL *xi, *xj ;
+  
+  xi = (WBFMM_REAL *)a ; xj = (WBFMM_REAL *)b ;
+
+  /*Morton codes*/
+  mi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xi, wbfmm_tree_origin(t), 
+						 wbfmm_tree_width(t)) ;
+  mj = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(xj, wbfmm_tree_origin(t), 
+						 wbfmm_tree_width(t)) ;
+
+  if ( mi < mj ) return -1 ;
+  if ( mi > mj ) return  1 ;
+
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_tree_sort_points)(wbfmm_tree_t *t, 
+						 gpointer pts, gsize psize,
+						 guint npts)
+
+{
+  if ( t->size != sizeof(WBFMM_REAL) )
+    g_error("%s: mixed precision not implemented\n"
+	    "  (size of tree data type (%lu) not equal to "
+	    "size of requested target type (%lu))",
+	    __FUNCTION__, t->size, sizeof(WBFMM_REAL)) ;
+
+  /*sort points on the Morton index*/
+  g_qsort_with_data((gpointer)pts, npts, psize, compare_points_morton,
+		    (gpointer)t) ;
 
   return 0 ;
 }
