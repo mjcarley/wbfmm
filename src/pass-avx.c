@@ -366,8 +366,10 @@ static gpointer downward_pass_thread(gpointer idata)
 
   /*singular and regular expansion orders at this level*/
   Ns = t->order_s[level] ; Nr = t->order_r[level] ;
-  ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
-  ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
+  /* ncs = wbfmm_coefficient_index_nm(Ns+1,0) ; */
+  /* ncr = wbfmm_coefficient_index_nm(Nr+1,0) ; */
+  ncs = wbfmm_coefficient_number(Ns) ;
+  ncr = wbfmm_coefficient_number(Nr) ;
   wks = work ; wkr = &(wks[2*ncs*nq]) ;
 
   /*boxes at this level (parent)*/
@@ -422,8 +424,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx)(wbfmm_tree_t *t,
 
   /*singular and regular expansion orders at this level*/
   Ns = t->order_s[level] ; Nr = t->order_r[level] ;
-  ncs = wbfmm_coefficient_index_nm(Ns+1,0) ;
-  ncr = wbfmm_coefficient_index_nm(Nr+1,0) ;
+  /* ncs = wbfmm_coefficient_index_nm(Ns+1,0) ; */
+  /* ncr = wbfmm_coefficient_index_nm(Nr+1,0) ; */
+  ncs = wbfmm_coefficient_number(Ns) ;
+  ncr = wbfmm_coefficient_number(Nr) ;
   wks = work ; wkr = &(wks[2*ncs*nq]) ;
 
   /*boxes at this level (parent)*/

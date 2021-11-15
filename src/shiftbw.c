@@ -218,7 +218,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
 
   Cnph0 = 1.0 ; Snph0 = 0.0 ; S0 = 1.0 ;
   /*used to store the rotated child coefficients*/
-  Cr = &(work[8*2*wbfmm_coefficient_index_nm(Np+1,0)]) ;
+  /* Cr = &(work[8*2*wbfmm_coefficient_index_nm(Np+1,0)]) ; */
+  Cr = &(work[8*2*wbfmm_coefficient_number(Np)]) ;
 
   /*rotate child box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Nc ; n ++ ) {

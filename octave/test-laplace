@@ -20,15 +20,15 @@ targets=
 curl=-c
 sort=-p
 
-#${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
+${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
 
-${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
-      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
-      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+#${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
+#      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
+#      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
 
-${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
-      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
-      -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
+#${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
+#      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
+#      -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
 
 ##${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \

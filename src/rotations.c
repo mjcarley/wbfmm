@@ -26,6 +26,8 @@
 
 #include <glib.h>
 
+#include <blaswrap.h>
+
 #include <wbfmm.h>
 
 #include "wbfmm-private.h"
@@ -590,4 +592,93 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
   return 0 ;
 }
 
+gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_to_T)(WBFMM_REAL *H, gint N,
+						    WBFMM_REAL th, 
+						    WBFMM_REAL ph, 
+						    WBFMM_REAL ch,
+						    WBFMM_REAL *T)
+
+/*
+ * minimum size of T is 2*wbfmm_T_rotation_matrix_size(N)
+ */
+  
+{
+  gint n, m, nu, sizet, offm, offp, offn ;
+  WBFMM_REAL Hp, Hm, *Tn ;
+
+  for ( n = 0 ; n <= N ; n ++ ) {
+    /*start of T matrix for coefficients of order n is end of
+      coefficients for n-1*/
+    offn = 2*wbfmm_T_rotation_matrix_size(n-1) ;
+    Tn = &(T[offn]) ;
+    /*size of matrix*/
+    sizet = 2*n + 1 ;
+
+    m = 0 ;
+    offp = 2*(n+m)*sizet ;
+    for ( nu = -n ; nu <= n ; nu ++ ) {
+      /* off = wbfmm_rotation_index_numn(nu, m, n) ; */
+      Hp = H[wbfmm_rotation_index_numn(nu, m, n)] ;
+      Tn[offp + 2*(nu+n)+0] =
+	Hp*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+      Tn[offp + 2*(nu+n)+1] =
+	Hp*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+    }
+    
+    for ( m = 1 ; m <= n ; m ++ ) {
+      offp = 2*(n+m)*sizet ; offm = 2*(n-m)*sizet ;
+      for ( nu = -n ; nu <= n ; nu ++ ) {
+	/* off = wbfmm_rotation_index_numn(nu, m, n) ; */
+	Hp = H[wbfmm_rotation_index_numn(nu, m, n)] ;
+	Tn[offp + 2*(nu+n)+0] =
+	  Hp*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+	Tn[offp + 2*(nu+n)+1] =
+	  Hp*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+
+	/* off = wbfmm_rotation_index_numn(-nu, m, n) ; */
+	Hm = H[wbfmm_rotation_index_numn(-nu, m, n)] ;
+	Tn[offm + 2*(nu+n)+0] =
+	  Hm*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(-m*ph)) ;
+	Tn[offm + 2*(nu+n)+1] =
+	  Hm*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(-m*ph)) ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_rotate_T)(WBFMM_REAL *Co, gint cstro, 
+					 WBFMM_REAL *Ci, gint cstri,
+					 gint N, gint nq,
+					 WBFMM_REAL *T,
+					 WBFMM_REAL *sc)
+
+
+{
+  gint n, lda, ldb, ldc, sizet, offn, offi, offo ;
+  WBFMM_REAL *Tn, al[] = {1, 0} ;
+  
+  lda = cstri ; ldc = cstro ;
+  for ( n = 0 ; n <= N ; n ++ ) {
+    /*select matrix for rotation of order n coefficients*/
+    offn = 2*wbfmm_T_rotation_matrix_size(n-1) ;
+    Tn = &(T[offn]) ;
+    /*size of matrix and leading dimension*/
+    ldb = sizet = 2*n + 1 ;
+    /*offsets to input and output coefficients*/
+    offi = 2*cstri*(wbfmm_coefficient_index_nm(n,-n)) ;
+    offo = 2*cstro*(wbfmm_coefficient_index_nm(n,-n)) ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+    cgemm_("N", "N", &nq, &sizet, &sizet, al, &(Ci[offi]), &lda,
+	   Tn, &ldb, sc, &(Co[offo]), &ldc) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+    zgemm_("N", "N", &nq, &sizet, &sizet, al, &(Ci[offi]), &lda,
+	   Tn, &ldb, sc, &(Co[offo]), &ldc) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
+  }
+
+  return 0 ;
+}
 /* @} */

@@ -230,6 +230,7 @@ typedef struct {
   ( ((_N)+1)*((_N)+2)*((_N)+3)/6 + ((_N)+1)*((_N)+2)/2 + (_N)+1)
 #define wbfmm_element_number_rotation(_N)			\
   ((((_N)+1)*(4*(_N)+3)*((_N)+2)/6 + (((_N)+1)+((_N+1)))*((_N+1)+1) + (_N)))
+#define wbfmm_T_rotation_matrix_size(_n) (((_n)+1)*(2*(_n)+1)*(2*(_n)+3)/3)
 
 /*index of parent in previous level*/
 #define wbfmm_box_index_parent(_i) ((_i)/8)
@@ -237,6 +238,8 @@ typedef struct {
 #define wbfmm_box_index_first_child(_i) ((_i)*8)
 
 #define wbfmm_coefficient_index_nm(_n,_m) ((_n)*((_n)+1)+(_m))
+#define wbfmm_coefficient_number(_n) \
+  wbfmm_coefficient_index_nm(((_n)+1), (-((_n)+1)))
 #define wbfmm_conjugate_index_nm(_n,_m) (((_n)*((_n)+1)/2)+(_m))
 
 gint wbfmm_cartesian_to_spherical(gdouble *x0, gdouble *x,
@@ -354,6 +357,17 @@ gint wbfmm_rotation_angles(gdouble *ix, gdouble *iy, gdouble *iz,
 			   gdouble *th, gdouble *ph, gdouble *ch) ;
 gint wbfmm_coefficients_H_rotation(gdouble *H, gint N, gdouble th,
 				   gdouble *work) ;
+gint wbfmm_coefficients_H_to_T(gdouble *H, gint N,
+			       gdouble th, 
+			       gdouble ph, 
+			       gdouble ch,
+			       gdouble *T) ;
+gint wbfmm_coefficients_H_to_T_f(gfloat *H, gint N,
+				 gfloat th, 
+				 gfloat ph, 
+				 gfloat ch,
+				 gfloat *T) ;
+  
 gint wbfmm_rotate_H_ref(gdouble *Co, gint cstro, 
 			gdouble *Ci, gint cstri,
 			gint N,
@@ -366,6 +380,10 @@ gint wbfmm_rotate_H_avx(gdouble *Co, gint cstro,
 			gint nq,
 			gdouble *H,
 			gdouble ph, gdouble ch, gdouble sc) ;
+gint wbfmm_rotate_T(gdouble *Co, gint cstro, gdouble *Ci, gint cstri,
+		    gint N, gint nq, gdouble *T, gdouble *sc) ;
+gint wbfmm_rotate_T_f(gfloat *Co, gint cstro, gfloat *Ci, gint cstri,
+		      gint N, gint nq, gfloat *T, gfloat *sc) ;
 
 gint wbfmm_local_coefficients(gdouble k, gdouble *x, gint N,
 			      guint field, gdouble *cfft, gdouble *work) ;

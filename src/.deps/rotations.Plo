@@ -91,11 +91,11 @@ rotations.lo: rotations.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
  /usr/include/sys/sysmacros.h /usr/include/pthread.h /usr/include/sched.h \
  /usr/include/bits/sched.h /usr/include/bits/setjmp.h \
- /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm.h \
- /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/wchar.h /usr/include/bits/stdio_lim.h \
- /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
- wbfmm-private.h wbfmm-avx.h \
+ /usr/include/glib-2.0/glib/glib-autocleanups.h \
+ /home/michael/Codes/include/blaswrap.h wbfmm.h /usr/include/stdio.h \
+ /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h wbfmm-private.h wbfmm-avx.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/immintrin.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/mmintrin.h \
  /usr/lib64/gcc/x86_64-slackware-linux/5.5.0/include/xmmintrin.h \
@@ -408,6 +408,8 @@ rotations.lo: rotations.c /usr/include/stdc-predef.h ../config.h \
 /usr/include/bits/setjmp.h:
 
 /usr/include/glib-2.0/glib/glib-autocleanups.h:
+
+/home/michael/Codes/include/blaswrap.h:
 
 wbfmm.h:
 

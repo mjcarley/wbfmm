@@ -346,8 +346,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
   /*number of boxes*/
   nb = 1 << (3*d) ;
   /*number of coefficients*/
-  nc = wbfmm_coefficient_index_nm(ns+1,0) ;
-
+  /* nc = wbfmm_coefficient_index_nm(ns+1,0) ; */
+  nc = wbfmm_coefficient_number(ns) ;
+  
   /*zero the coefficients before accumulating*/
   if ( zero_expansions )
     memset(t->mps[d], 0, nb*nc*2*nq*sizeof(WBFMM_REAL)) ;
@@ -523,7 +524,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
 
   /*number of coefficients in singular expansions*/
   if ( ns != 0 ) {
-    nc = wbfmm_coefficient_index_nm(ns+1,0) ;
+    /* nc = wbfmm_coefficient_index_nm(ns+1,0) ; */
+    nc = wbfmm_coefficient_number(ns) ;
     /* t->mps[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ; */
     posix_memalign(&(t->mps[l]), 32, nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
 
@@ -541,7 +543,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_init)(wbfmm_tree_t *t,
   }
 
   if ( nr != 0 ) {
-    nc = wbfmm_coefficient_index_nm(nr+1,0) ;
+    /* nc = wbfmm_coefficient_index_nm(nr+1,0) ; */
+    nc = wbfmm_coefficient_number(nr) ;
     /* t->mpr[l] = g_malloc0(nb*2*nc*nq*sizeof(WBFMM_REAL)) ; */
     posix_memalign(&(t->mpr[l]), 32, nb*2*nc*nq*sizeof(WBFMM_REAL)) ;
     c = (WBFMM_REAL *)(t->mpr[l]) ;
@@ -624,8 +627,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_coefficient_clear)(wbfmm_tree_t *t,
 
   if ( wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ ) {
     nq *= 2 ; 
-    ncs = wbfmm_coefficient_index_nm(ns+1,0) ;
-    ncr = wbfmm_coefficient_index_nm(nr+1,0) ;
+    /* ncs = wbfmm_coefficient_index_nm(ns+1,0) ; */
+    ncs = wbfmm_coefficient_number(ns) ;
+    /* ncr = wbfmm_coefficient_index_nm(nr+1,0) ; */
+    ncr = wbfmm_coefficient_number(ns) ;
   } else {
     ncs = (ns+1)*(ns+1) ; 
     ncr = (nr+1)*(nr+1) ; 

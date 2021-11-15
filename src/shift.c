@@ -272,7 +272,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
 
   Cnph0 = 1.0 ; Snph0 = 0.0 ; S0 = 1.0 ;
   /*used to store the rotated child coefficients*/
-  Cr = &(work[8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)]) ;
+  /* Cr = &(work[8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)]) ; */
+  Cr = &(work[8*2*nq*wbfmm_coefficient_number(Np)]) ;
 
   /*rotate child box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Nc ; n ++ ) {
@@ -334,6 +335,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
     }
   }
 #ifdef WBFMM_CHECK_ISNAN
+  g_assert_not_reached() ;
   check_isnan("parent coefficients 2",
 	      work, 2*wbfmm_coefficient_index_nm(Np+1,0)) ;
 #endif /*WBFMM_CHECK_ISNAN*/
@@ -431,7 +433,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
 
   Cnph0 = 1.0 ; Snph0 = 0.0 ; S0 = 1.0 ;
   /*used to store the rotated parent coefficients*/
-  Cr = &(work[8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)]) ;
+  /* Cr = &(work[8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)]) ; */
+  Cr = &(work[8*2*nq*wbfmm_coefficient_number(Nc)]) ;
 
   /*rotate parent box coefficients using Cr as temporary storage*/
   for ( n = 0 ; n <= Np ; n ++ ) {
@@ -479,6 +482,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
   }
 
 #ifdef WBFMM_CHECK_ISNAN
+  g_assert_not_reached() ;
   check_isnan("child coefficients 1",
 	      Cr, 2*wbfmm_coefficient_index_nm(Np+1,0)) ;
 #endif /*WBFMM_CHECK_ISNAN*/
@@ -514,6 +518,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_parent_child_shift)(WBFMM_REAL *Cc, gint Nc,
   }
 
 #ifdef WBFMM_CHECK_ISNAN
+  g_assert_not_reached() ;
   check_isnan("child coefficients 2",
 	      work, 2*wbfmm_coefficient_index_nm(Nc+1,0)) ;
 #endif /*WBFMM_CHECK_ISNAN*/
