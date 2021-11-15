@@ -307,8 +307,8 @@ gint main(gint argc, gchar **argv)
 
   /*fitting the bounding box to the field and source points*/
   if ( fit_box ) {
-    wbfmm_points_origin_width_PREC(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
-    wbfmm_points_origin_width_PREC(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
+    wbfmm_points_origin_width_FLOAT(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
+    wbfmm_points_origin_width_FLOAT(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
 
     xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
     D += 2.0*del ;
@@ -318,10 +318,10 @@ gint main(gint argc, gchar **argv)
   pstr  = xstr*sizeof(WBFMM_REAL) ;
   pnstr = nstr*sizeof(WBFMM_REAL) ;
   fstr  = strf*sizeof(WBFMM_REAL) ;
-  tree  = wbfmm_tree_new_PREC(xtree, D, 2*nsrc) ;
+  tree  = wbfmm_tree_new_FLOAT(xtree, D, 2*nsrc) ;
 
   if ( sort_sources ) 
-    wbfmm_tree_sort_points_PREC(tree, xs, pstr, nsrc) ;
+    wbfmm_tree_sort_points_FLOAT(tree, xs, pstr, nsrc) ;
   
   /*set expansion orders at each level of the tree*/
   if ( order_s != 0 && order_r != 0 ) {
@@ -365,28 +365,28 @@ gint main(gint argc, gchar **argv)
   
   fprintf(stderr, "%s: initializing shift rotation operators; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_shift_angle_table_init_PREC() ;
-  shifts = wbfmm_shift_operators_new_PREC(order_max, shift_bw, work) ;
+  wbfmm_shift_angle_table_init_FLOAT() ;
+  shifts = wbfmm_shift_operators_new_FLOAT(order_max, shift_bw, work) ;
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   fprintf(stderr, "%s: initializing coaxial translation coefficients; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_laplace_coaxial_translate_init_PREC(order_max+2) ;
+  wbfmm_laplace_coaxial_translate_init_FLOAT(order_max+2) ;
   fprintf(stderr, "%s: coaxial translation coefficients initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   /*add source points to the tree and refine to allocate sources to
     leaf boxes*/
-  wbfmm_tree_add_points_PREC(tree, (gpointer)xs, pstr, normals, pnstr,
+  wbfmm_tree_add_points_FLOAT(tree, (gpointer)xs, pstr, normals, pnstr,
 			     nsrc, sort_sources) ;
-  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_PREC(tree) ;
+  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_FLOAT(tree) ;
   
   /*initialize memory for box coefficients at each level*/
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
   wbfmm_tree_source_size(tree) = nq ;
   for ( i = 1 ; i <= depth ; i ++ ) {
-    wbfmm_tree_laplace_coefficient_init_PREC(tree, i,
+    wbfmm_tree_laplace_coefficient_init_FLOAT(tree, i,
 					     order[2*i+1], order[2*i+0]) ;
   }
 
@@ -396,17 +396,17 @@ gint main(gint argc, gchar **argv)
 	    progname, g_timer_elapsed(timer, NULL)) ;
     if ( q != NULL ) source |= WBFMM_SOURCE_MONOPOLE ;
     if ( normals != NULL ) source |= WBFMM_SOURCE_DIPOLE ;
-    targets = wbfmm_target_list_new_PREC(tree, nf) ;
-    wbfmm_target_list_add_points_PREC(targets, xf, fstr, nf) ;
+    targets = wbfmm_target_list_new_FLOAT(tree, nf) ;
+    wbfmm_target_list_add_points_FLOAT(targets, xf, fstr, nf) ;
     wbfmm_target_list_coefficients_init(targets, field) ;
-    wbfmm_laplace_target_list_local_coefficients_PREC(targets, source, work) ;
+    wbfmm_laplace_target_list_local_coefficients_FLOAT(targets, source, work) ;
     fprintf(stderr, "%s: target point list initialized; %lg\n",
 	    progname, g_timer_elapsed(timer, NULL)) ;
   }
   
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;  
-  wbfmm_tree_laplace_leaf_expansions_PREC(tree,
+  wbfmm_tree_laplace_leaf_expansions_FLOAT(tree,
 					  q, qstr, normals, nstr, dipoles, dstr,
 					  TRUE, work) ;  
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
@@ -415,7 +415,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: upward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   for ( level = depth ; level >= 3 ; level -- ) {
-    wbfmm_laplace_upward_pass_PREC(tree, shifts, level, work) ;
+    wbfmm_laplace_upward_pass_FLOAT(tree, shifts, level, work) ;
   }  
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -423,7 +423,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_laplace_downward_pass_PREC(tree, shifts, level, work, nthreads) ;
+    wbfmm_laplace_downward_pass_FLOAT(tree, shifts, level, work, nthreads) ;
   }
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -431,7 +431,7 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
   	  progname, g_timer_elapsed(timer, NULL)) ;
   if ( target_list ) {
-    wbfmm_target_list_local_field_PREC(targets, q, qstr, dipoles, dstr,
+    wbfmm_target_list_local_field_FLOAT(targets, q, qstr, dipoles, dstr,
 				       f, fcstr) ;
   } else {
     switch ( field ) {
@@ -439,8 +439,8 @@ gint main(gint argc, gchar **argv)
     case WBFMM_FIELD_SCALAR:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_PREC(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_field_PREC(tree, tree->depth, box,
+	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_field_FLOAT(tree, tree->depth, box,
 						&(xf[i*strf]),
 						&(f[i*fcstr]), q, qstr,
 						normals, nstr,
@@ -450,8 +450,8 @@ gint main(gint argc, gchar **argv)
     case WBFMM_FIELD_GRADIENT:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_PREC(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_grad_PREC(tree, tree->depth, box,
+	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_grad_FLOAT(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
 					       normals, nstr,
@@ -461,8 +461,8 @@ gint main(gint argc, gchar **argv)
     case WBFMM_FIELD_CURL:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_PREC(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_curl_PREC(tree, tree->depth, box,
+	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_curl_FLOAT(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
 					       normals, nstr,

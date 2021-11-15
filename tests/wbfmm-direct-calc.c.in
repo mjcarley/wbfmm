@@ -199,14 +199,14 @@ gint main(gint argc, gchar **argv)
 
   if ( gradient )
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_total_field_grad_PREC(k, xs, xstr,
+      wbfmm_total_field_grad_FLOAT(k, xs, xstr,
 				  q, qstr, normals, nstr, dipoles, dstr,
 				  nq, nsrc,
 				  &(xf[i*fstr]), &(f[fcstr*i]), 6) ;
     }
   else
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_total_field_PREC(k, xs, xstr,
+      wbfmm_total_field_FLOAT(k, xs, xstr,
 			     q, qstr, normals, nstr, dipoles, dstr, nq,
 			     nsrc,
 			     &(xf[i*fstr]), &(f[fcstr*i]), nq) ;

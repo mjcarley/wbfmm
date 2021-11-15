@@ -199,22 +199,22 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   field = WBFMM_FIELD_SCALAR ;
   
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   cstr = 2 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, cfft, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, cfft, cstr, N, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, cfft, cstr, N, nq, xf, ff, work) ;
 
   /*check pre-computed evaluation method*/
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
-  wbfmm_laplace_field_coefficients_PREC(xf, N, field, eval, work) ;
-  wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, field, fe, 1) ;
+  wbfmm_laplace_field_coefficients_FLOAT(xf, N, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_FLOAT(cfft, cstr, nq, eval, N, field, fe, 1) ;
   
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -272,23 +272,23 @@ gint expansion_normal_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   field = WBFMM_FIELD_SCALAR ;
   
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, NULL, sstride, nq, n, 3, src, nq,
+  wbfmm_laplace_field_FLOAT(xs, xstride, NULL, sstride, nq, n, 3, src, nq,
 			   nsrc, xf, fc) ;
 
   cstr = 2 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_normal_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_normal_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 					     n, &(src[i*sstride]), nq,
 					     cfft, cstr,
 					     work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, cfft, cstr, N, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, cfft, cstr, N, nq, xf, ff, work) ;
 
   /*check pre-computed evaluation method*/
   /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
-  /* wbfmm_laplace_field_coefficients_PREC(xf, N, field, eval, work) ; */
-  /* wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, field, fe, 1) ; */
+  /* wbfmm_laplace_field_coefficients_FLOAT(xf, N, field, eval, work) ; */
+  /* wbfmm_laplace_expansion_apply_FLOAT(cfft, cstr, nq, eval, N, field, fe, 1) ; */
   
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -335,23 +335,23 @@ gint expansion_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], nsrc) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_grad_PREC(xs, xstride, src, sstride, nq,
+  wbfmm_laplace_field_grad_FLOAT(xs, xstride, src, sstride, nq,
 				NULL, 0, NULL, 0, nsrc, xf, fc, fstr) ;
 
   cstr = 3 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, cfft, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_grad_evaluate_PREC(x0, cfft, cstr, N, nq, xf,
+  wbfmm_laplace_expansion_grad_evaluate_FLOAT(x0, cfft, cstr, N, nq, xf,
 					     ff, fstr, work) ;
 
   /*check pre-computed evaluation method*/
   /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
-  /* wbfmm_laplace_field_coefficients_PREC(xf, N, FALSE, eval, work) ; */
-  /* wbfmm_laplace_expansion_apply_PREC(cfft, cstr, nq, eval, N, fe) ; */
+  /* wbfmm_laplace_field_coefficients_FLOAT(xf, N, FALSE, eval, work) ; */
+  /* wbfmm_laplace_expansion_apply_FLOAT(cfft, cstr, nq, eval, N, fe) ; */
   
   fprintf(stderr, "exact:     ") ;
   for ( i = 0 ; i < nq ; i ++ )
@@ -397,25 +397,25 @@ gint translation_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Ci, cstr, N, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Ci, cstr, N, nq, xf, ff, work) ;
 
   /*translate the expansion*/
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  wbfmm_laplace_coaxial_translate_SS_PREC(Co, cstr, N, Ci, cstr, N, nq, t,
+  wbfmm_laplace_coaxial_translate_SS_FLOAT(Co, cstr, N, Ci, cstr, N, nq, t,
 					  0.0) ;
 
   x0[2] += t ;  
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Co, cstr, N, nq, xf, ft, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Co, cstr, N, nq, xf, ft, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
   fprintf(stderr, "\n") ;
@@ -461,25 +461,25 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(Ns, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(Ns, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Ci, cstr, Ns, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Ci, cstr, Ns, nq, xf, ff, work) ;
 
   /*translate the expansion*/
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  wbfmm_laplace_coaxial_translate_SR_PREC(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
+  wbfmm_laplace_coaxial_translate_SR_FLOAT(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
 					  0.0) ;
 
   x0[2] += t ;  
-  wbfmm_laplace_expansion_local_evaluate_PREC(x0, Co, cstr, Nr, nq,
+  wbfmm_laplace_expansion_local_evaluate_FLOAT(x0, Co, cstr, Nr, nq,
 					      xf, ft, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -529,35 +529,35 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  N0, N1, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N0, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N0, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Ci, cstr, N0, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Ci, cstr, N0, nq, xf, ff, work) ;
 
   /*translate the expansion, singular to regular*/
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  wbfmm_laplace_coaxial_translate_SR_PREC(Co, cstr, N0, Ci, cstr, N0, nq,
+  wbfmm_laplace_coaxial_translate_SR_FLOAT(Co, cstr, N0, Ci, cstr, N0, nq,
 					  t*0.9, 0.0) ;
   /*translate the expansion, regular to regular*/
   for ( i = 0 ; i < 1024 ; i ++ ) Cr[i] = -13.0 ;
-  wbfmm_laplace_coaxial_translate_RR_PREC(Cr, cstr, N1, Co, cstr, N0, nq,
+  wbfmm_laplace_coaxial_translate_RR_FLOAT(Cr, cstr, N1, Co, cstr, N0, nq,
 					  t*0.1, 0.0) ;  
 
   x0[2] += t ;  
-  wbfmm_laplace_expansion_local_evaluate_PREC(x0, Cr, cstr, N1, nq,
+  wbfmm_laplace_expansion_local_evaluate_FLOAT(x0, Cr, cstr, N1, nq,
 					      xf, ft, work) ;
 
   /*check pre-computed evaluation method*/
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
-  wbfmm_laplace_local_coefficients_PREC(xf, N1, field, eval, work) ;
-  wbfmm_laplace_expansion_apply_PREC(Cr, cstr, nq, eval, N1, field, fe, 1) ;
+  wbfmm_laplace_local_coefficients_FLOAT(xf, N1, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_FLOAT(Cr, cstr, nq, eval, N1, field, fe, 1) ;
 					
   fprintf(stderr, "exact:      ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -628,30 +628,30 @@ gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_grad_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_grad_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 				nsrc, xf, fc, fstr) ;
 
   cstr = 4 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(Ns, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(Ns, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_grad_evaluate_PREC(x0, Ci, cstr, Ns, nq, xf,
+  wbfmm_laplace_expansion_grad_evaluate_FLOAT(x0, Ci, cstr, Ns, nq, xf,
 					     ff, fstr, work) ;
 
   /*translate the expansion*/
-  wbfmm_laplace_coaxial_translate_SR_PREC(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
+  wbfmm_laplace_coaxial_translate_SR_FLOAT(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
 					  0.0) ;
 
   x0[2] += t ;
-  wbfmm_laplace_expansion_local_grad_evaluate_PREC(x0, Co, cstr, Nr, nq,
+  wbfmm_laplace_expansion_local_grad_evaluate_FLOAT(x0, Co, cstr, Nr, nq,
   						   xf, ft, fstr, work) ;
 
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
-  wbfmm_laplace_local_coefficients_PREC(xf, N, field, eval, work) ;
-  wbfmm_laplace_expansion_apply_PREC(Co, cstr, nq, eval, N, field, fe, fstr) ;
+  wbfmm_laplace_local_coefficients_FLOAT(xf, N, field, eval, work) ;
+  wbfmm_laplace_expansion_apply_FLOAT(Co, cstr, nq, eval, N, field, fe, fstr) ;
 
   fprintf(stderr, "exact:       ") ;
   for ( i = 0 ; i < nq ; i ++ )
@@ -730,31 +730,31 @@ gint rotation_test(gint N,
 	  "nq = %d\n",
 	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], nsrc, nq) ;
 
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
   fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th, ph, ch) ;
 
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstri,
 				      work) ;
 
   /*field from unrotated coefficients*/
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Ci, cstri, N, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Ci, cstri, N, nq, xf, ff, work) ;
 
-  wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H, N, th, work) ;
 
   /*fill Co with rubbish to check pre-scaling*/
   memset(Co, 1, BUFSIZE*sizeof(WBFMM_REAL)) ;
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   /*apply the rotation to the coefficients*/
   t0 = g_timer_elapsed(timer, NULL) ;
-  wbfmm_laplace_rotate_H_ref_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_laplace_rotate_H_ref_FLOAT(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   t0 = g_timer_elapsed(timer, NULL) - t0 ;
   fprintf(stderr, "rotation: time %lg\n", t0) ;
 
@@ -763,22 +763,22 @@ gint rotation_test(gint N,
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   /*apply the rotation to the coefficients*/
   t0 = g_timer_elapsed(timer, NULL) ;
-  wbfmm_laplace_rotate_H_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   t0 = g_timer_elapsed(timer, NULL) - t0 ;
   fprintf(stderr, "avx rotation: time %lg\n", t0) ;
 #endif
   
   memset(Cc, 0, BUFSIZE*sizeof(WBFMM_REAL)) ;
   /*reverse rotation as check*/
-  /* wbfmm_laplace_rotate_H_PREC(Cc, cstro, Co, cstro, N, nq, H, ch, ph) ; */
+  /* wbfmm_laplace_rotate_H_FLOAT(Cc, cstro, Co, cstro, N, nq, H, ch, ph) ; */
 
   /* for ( i = 0 ; i < 32 ; i ++ ) */
   /*   fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATEXP\n", */
   /* 	    Ci[cstri*i], Cc[cstro*i], fabs(Ci[cstri*i]-Cc[cstro*i])) ; */
   
   /*from rotated coefficients*/
-  wbfmm_coordinate_transform_PREC(xf, ix, iy, iz, y) ;
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Co, cstro, N, nq, y, fr, work) ;
+  wbfmm_coordinate_transform_FLOAT(xf, ix, iy, iz, y) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Co, cstro, N, nq, y, fr, work) ;
 
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
   fprintf(stderr, "\n") ;
@@ -824,38 +824,38 @@ gint shift_test(gint N, WBFMM_REAL *xc, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   Ni = N ; No = Ni + 5 ;
   /*reference calculation*/
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fc) ;
 
   cstri = 1 ; cstro = 1 ;
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(Ni, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(Ni, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, Ci, cstri,
 				      work) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Ci, cstri, Ni, nq, xf, ff, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Ci, cstri, Ni, nq, xf, ff, work) ;
 
   /*shift coordinates*/
-  wbfmm_shift_angles_PREC(x0, xc, &th, &ph, &ch, &r) ;
+  wbfmm_shift_angles_FLOAT(x0, xc, &th, &ph, &ch, &r) ;
 
   fprintf(stderr, "rotation: (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n",
 	  th, ph, ch) ;
   
   /*rotation operator*/
-  wbfmm_coefficients_H_rotation_PREC(H1, MAX(Ni, No), th, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H1, MAX(Ni, No), th, work) ;
 
   /*rotate expansion*/
-  wbfmm_laplace_rotate_H_PREC(Cr1, cstri, Ci, cstri, Ni, nq, H1, ph, ch, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(Cr1, cstri, Ci, cstri, Ni, nq, H1, ph, ch, 0.0) ;
   
   /*translate the expansion, singular to singular*/
-  wbfmm_laplace_coaxial_translate_SS_PREC(Cr2, cstro, No, Cr1, cstri, Ni,
+  wbfmm_laplace_coaxial_translate_SS_FLOAT(Cr2, cstro, No, Cr1, cstri, Ni,
 					  nq, r, 0.0) ;
 
   /*reverse rotation*/
-  wbfmm_laplace_rotate_H_PREC(Co, cstro, Cr2, cstro, No, nq, H1, ch, ph, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(Co, cstro, Cr2, cstro, No, nq, H1, ch, ph, 0.0) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(xc, Co, cstro, No, nq,
+  wbfmm_laplace_expansion_evaluate_FLOAT(xc, Co, cstro, No, nq,
 					xf, ft, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -945,51 +945,51 @@ gint child_parent_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   /* xsc[0] = x0[0]; xsc[1] = x0[1] ; xsc[2] = x0[2] ; */
   /* xsc[0] = xc[0]; xsc[1] = xc[1] ; xsc[2] = xc[2] ; */
 
-  wbfmm_laplace_expansion_cfft_PREC(Nc, xc, xsc, src, nq,
+  wbfmm_laplace_expansion_cfft_FLOAT(Nc, xc, xsc, src, nq,
 				    &(Cc[quad*nq]), nq*8, work) ;
-  wbfmm_laplace_expansion_evaluate_PREC(xc, &(Cc[quad*nq]), nq*8,
+  wbfmm_laplace_expansion_evaluate_FLOAT(xc, &(Cc[quad*nq]), nq*8,
 					Nc, nq, xf, fc, work) ;
-  wbfmm_laplace_field_PREC(xsc, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xsc, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xf, fr) ;
 
   /*rotations and translations for child-parent shift*/
   th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ;
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th03, work) ;
-  wbfmm_coefficients_H_rotation_PREC(H47, Np, th47, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th03, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H47, Np, th47, work) ;
 
   /* Np = Nc = 0 ; */
   fprintf(stderr, "child parent shift:\n") ;
   t0 = g_timer_elapsed(timer, NULL) ;
   for ( i = 0 ; i < 1024 ; i ++ ) Cp[i] = -13.0 ;
   for ( i = 0 ; i < 1024 ; i ++ ) work[8*nq*(Np+1)*(Np+1)] = -13.0 ;
-  wbfmm_laplace_child_parent_shift_PREC(Cp, Np, Cc, Nc, nq, H03, H47, Np,
+  wbfmm_laplace_child_parent_shift_FLOAT(Cp, Np, Cc, Nc, nq, H03, H47, Np,
   					wb, work) ;
   t1 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "shift completed (%lg);\n", t1 - t0) ;
   memset(work, 0, BUFSIZE*sizeof(WBFMM_REAL)) ;
 
   t0 = g_timer_elapsed(timer, NULL) ;  
-  wbfmm_laplace_child_parent_shift_bw_PREC(Cpbw, Np, Cc, Nc, nq, H03, Np,
+  wbfmm_laplace_child_parent_shift_bw_FLOAT(Cpbw, Np, Cc, Nc, nq, H03, Np,
 					   wb, work) ;
   t1 = g_timer_elapsed(timer, NULL) ;
   fprintf(stderr, "bw shift completed (%lg);\n", t1 - t0) ;
   memset(work, 0, BUFSIZE*sizeof(WBFMM_REAL)) ;
 
   /*same thing using a sequence of reference functions*/
-  wbfmm_shift_angles_PREC(xc, x0, &th, &ph, &ch, &r) ;
+  wbfmm_shift_angles_FLOAT(xc, x0, &th, &ph, &ch, &r) ;
   /* ph = 0.5*M_PI ; */
   fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ;
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th, work) ;
-  wbfmm_laplace_rotate_H_PREC(cr, nq, &(Cc[quad*nq]), 8*nq, Nc, nq, H03,
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th, work) ;
+  wbfmm_laplace_rotate_H_FLOAT(cr, nq, &(Cc[quad*nq]), 8*nq, Nc, nq, H03,
 			      ph, ch, 0.0) ;
 
-  wbfmm_laplace_coaxial_translate_SS_PREC(ct, nq, Np, cr, nq, Nc, nq, r, 0.0) ;
+  wbfmm_laplace_coaxial_translate_SS_FLOAT(ct, nq, Np, cr, nq, Nc, nq, r, 0.0) ;
 
-  wbfmm_laplace_rotate_H_PREC(crr, nq, ct, nq, Np, nq, H03, ch, ph, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(crr, nq, ct, nq, Np, nq, H03, ch, ph, 0.0) ;
 
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Cp, nq*8, Np, nq, xf, fp, work) ;
-  wbfmm_laplace_expansion_evaluate_PREC(x0, Cpbw, nq*8, Np, nq, xf, fb, work) ;
-  wbfmm_laplace_expansion_evaluate_PREC(x0, crr, nq, Np, nq, xf, fs, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Cp, nq*8, Np, nq, xf, fp, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, Cpbw, nq*8, Np, nq, xf, fb, work) ;
+  wbfmm_laplace_expansion_evaluate_FLOAT(x0, crr, nq, Np, nq, xf, fs, work) ;
 
   fprintf(stderr, "ref:   ") ;
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fr[i]) ;
@@ -1067,29 +1067,29 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
 
   /*generate source expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
-    wbfmm_laplace_expansion_cfft_PREC(N, x0, &(xs[i*xstride]),
+    wbfmm_laplace_expansion_cfft_FLOAT(N, x0, &(xs[i*xstride]),
 				      &(src[i*sstride]), nq, C0, nq,
 				      work) ;
   
   /*shift singular expansion to regular expansion about parent box*/
   fprintf(stderr, "setting shift angles\n") ;
-  wbfmm_shift_angles_PREC(x0, xp, &th, &ph, &ch, &r) ;
+  wbfmm_shift_angles_FLOAT(x0, xp, &th, &ph, &ch, &r) ;
   fprintf(stderr, "generating rotation coefficients\n") ;
-  wbfmm_coefficients_H_rotation_PREC(H0, Np, th, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H0, Np, th, work) ;
   fprintf(stderr, "performing rotation\n") ;
-  wbfmm_laplace_rotate_H_PREC(C1, nq, C0, nq, Np, nq, H0, ph, ch, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(C1, nq, C0, nq, Np, nq, H0, ph, ch, 0.0) ;
   memset(C0, 0, sizeof(WBFMM_REAL)*(Np+1)*(Np+1)*nq) ;
   fprintf(stderr, "performing translation\n") ;
-  wbfmm_laplace_coaxial_translate_SR_PREC(C0, nq, Np, C1, nq, Np, nq, r, 0.0) ;
+  wbfmm_laplace_coaxial_translate_SR_FLOAT(C0, nq, Np, C1, nq, Np, nq, r, 0.0) ;
   fprintf(stderr, "performing reverse rotation\n") ;
-  wbfmm_laplace_rotate_H_PREC(Cp, 8*nq, C0, nq, Np, nq, H0, ch, ph, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(Cp, 8*nq, C0, nq, Np, nq, H0, ch, ph, 0.0) ;
 
   /*perform RR shift from parent centre to child centres*/
   th47 = acos(sqrt(1.0/3.0)) ; th03 = M_PI - th47 ;
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th03, work) ;
-  wbfmm_coefficients_H_rotation_PREC(H47, Np, th47, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th03, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H47, Np, th47, work) ;
   fprintf(stderr, "parent child shift:\n") ;
-  wbfmm_laplace_parent_child_shift_PREC(Cc, Nc, Cp, Np, nq, H03, H47, Np,
+  wbfmm_laplace_parent_child_shift_FLOAT(Cc, Nc, Cp, Np, nq, H03, H47, Np,
   					wb, work) ;
 
   /*evaluate field in child box, wb is the parent box width so child
@@ -1124,18 +1124,18 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   
   xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.05*wb ; xe[2] = xc[2] + 0.1*wb ;
   /* xe[0] = xc[0] ; xe[1] = xc[1] ; xe[2] = xc[2] ; */
-  wbfmm_laplace_expansion_local_evaluate_PREC(xp, Cp, 8*nq,
+  wbfmm_laplace_expansion_local_evaluate_FLOAT(xp, Cp, 8*nq,
 					      Np, nq, xe, fp, work) ;
 
   /*rotation checks*/
-  wbfmm_shift_angles_PREC(xp, xc, &th, &ph, &ch, &r) ;  
+  wbfmm_shift_angles_FLOAT(xp, xc, &th, &ph, &ch, &r) ;  
   fprintf(stderr, "th = %lg; ph = %lg; ch = %lg;\n", th, ph, ch) ;
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th, work) ;
-  wbfmm_laplace_rotate_H_PREC(cr, nq, Cp, 8*nq, Np, nq, H03, ph, ch, 0.0) ;
-  wbfmm_laplace_coaxial_translate_RR_PREC(ct, nq, Nc, cr, nq, Np, nq, r, 0.0) ;
-  wbfmm_laplace_rotate_H_PREC(crr, nq, ct, nq, Nc, nq, H03, ch, ph, 0.0) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th, work) ;
+  wbfmm_laplace_rotate_H_FLOAT(cr, nq, Cp, 8*nq, Np, nq, H03, ph, ch, 0.0) ;
+  wbfmm_laplace_coaxial_translate_RR_FLOAT(ct, nq, Nc, cr, nq, Np, nq, r, 0.0) ;
+  wbfmm_laplace_rotate_H_FLOAT(crr, nq, ct, nq, Nc, nq, H03, ch, ph, 0.0) ;
 
-  wbfmm_laplace_expansion_local_evaluate_PREC(xc, crr, nq,
+  wbfmm_laplace_expansion_local_evaluate_FLOAT(xc, crr, nq,
 					      Nc, nq, xe, fs, work) ;
     
   /* check = crr ; */
@@ -1155,9 +1155,9 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   /*   } */
   /* } */
   
-  wbfmm_laplace_expansion_local_evaluate_PREC(xc, &(Cc[quad*nq]), nq*8,
+  wbfmm_laplace_expansion_local_evaluate_FLOAT(xc, &(Cc[quad*nq]), nq*8,
 					      Nc, nq, xe, fc, work) ;
-  wbfmm_laplace_field_PREC(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
+  wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			   nsrc, xe, fr) ;
 
   fprintf(stderr, "ref:    ") ;
@@ -1242,7 +1242,7 @@ gint main(gint argc, gchar **argv)
 
   timer = g_timer_new() ;
 
-  wbfmm_laplace_coaxial_translate_init_PREC(N+2) ;
+  wbfmm_laplace_coaxial_translate_init_FLOAT(N+2) ;
   
   if ( ipfile != NULL ) {
     read_data(ipfile, xc, x0, &xs, &src, &nsrc, &xstride, &sstride,

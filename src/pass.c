@@ -118,8 +118,8 @@ static inline void _wbfmm_shift_up(guint64 grid[], gint idx4,
   ic = grid[idx4] - 1 ;
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   Cx = &(shifts[(ith*2+0)*necx]) ;
-  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
-					       bp[ic].mps, 8, Ns, nq,
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8*nq, Nr,
+					       bp[ic].mps, 8*nq, Ns, nq,
 					       Cx, Nr, TRUE, 1.0) ;
   grid[idx4] = 0 ;
 
@@ -140,8 +140,8 @@ static inline void _wbfmm_shift_down(guint64 grid[], gint idx4,
   ic = grid[idx4] - 1 ;
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   Cx = &(shifts[(ith*2+1)*necx]) ;
-  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
-					       bp[ic].mps, 8, Ns, nq,
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8*nq, Nr,
+					       bp[ic].mps, 8*nq, Ns, nq,
 					       Cx, Nr, TRUE, 1.0) ;
   grid[idx4] = 0 ;
 
@@ -183,22 +183,24 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
   ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
       
   /*rotate singular coefficients into wks*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, nq,
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, bp[ic].mps, 8*nq, Ns, nq,
 				      H, ph, ch, 0.0) ;
   /*translate into wkr*/
-  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
+  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr,
+					       wks, nq, Ns, nq,
 					       Cx, Nr, TRUE, 0.0) ;
   if ( grid[342-idx4] != 0 ) {
     ic = grid[342-idx4] - 1 ;
-    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8, Ns, nq,
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, bp[ic].mps, 8*nq, Ns, nq,
 					H, ph, ch, 0.0) ;
     Cx = &(shifts[(2*ix+1)*necx]) ;
-    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-						 Cx, Nr, TRUE, 1.0) ;
+    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr,
+						 wks, nq, Ns,
+						 nq, Cx, Nr, TRUE, 1.0) ;
     grid[342-idx4] = 0 ;
   }
   /*rotate regular coefficients into mpr*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8*nq, wkr, nq, Nr, nq, H, ch, ph,
 				      1.0) ;
   
   return ;
@@ -239,11 +241,12 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
       ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
       Cx = &(shifts[(2*ix+0)*necx]) ;
       /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, bp[ic].mps, 8*nq,
 					  Ns, nq, H, ph, ch, 0.0) ;
       /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1,
-						   Ns, nq, Cx, Nr, TRUE, sc) ;
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr,
+						   wks, nq, Ns,
+						   nq, Cx, Nr, TRUE, sc) ;
       sc = 1.0 ;
       grid[idx4f[i]] = 0 ;
     }
@@ -253,10 +256,11 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
       ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
       Cx = &(shifts[(2*ix+1)*necx]) ;
       /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, 1, bp[ic].mps, 8,
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(wks, nq, bp[ic].mps, 8*nq,
     					  Ns, nq, H, ph, ch, 0.0) ;
       /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, nq, Nr,
+						   wks, nq, Ns, nq,
     						   Cx, Nr, TRUE, sc) ;
       sc = 1.0 ;
       grid[idx4b[i]] = 0 ;
@@ -264,7 +268,7 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
   }
 
   /*rotate regular coefficients into mpr*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
+  WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(target, 8*nq, wkr, nq, Nr, nq, H, ch, ph,
 				      1.0) ;
   
   return ;
@@ -285,8 +289,8 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   guint idx4, idx4f[2], idx4b[2] ;
   guint64 grid[343] = {0} ;
 
-  if ( nq != 1 )
-    g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ;
+  /* if ( nq != 1 ) */
+  /*   g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ; */
   
   /*locate boxes in interaction list*/
   wbfmm_box_interaction_grid_4(level, ip, grid) ;

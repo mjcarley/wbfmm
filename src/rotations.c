@@ -439,7 +439,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
 	    " components (%d)", __FUNCTION__, cstro, nq) ;
   if ( cstri < nq )
     g_error("%s: input coefficient stride (%d) less than number of source "
-	    " components (%d)", __FUNCTION__, cstro, nq) ;
+	    " components (%d)", __FUNCTION__, cstri, nq) ;
   
   /*initialize recursions*/
   Cph = COS(ph) ; Sph = SIN(ph) ;

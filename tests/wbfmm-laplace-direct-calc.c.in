@@ -235,21 +235,21 @@ gint main(gint argc, gchar **argv)
 
   if ( gradient ) {
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_grad_PREC(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+      wbfmm_laplace_field_grad_FLOAT(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
 				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
     }
   }
 
   if ( curl ) {
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_curl_PREC(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
+      wbfmm_laplace_field_curl_FLOAT(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
 				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
     }
   }
 
   if ( !gradient && !curl ) {
     for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_PREC(xs, xstr, q, qstr, nq,
+      wbfmm_laplace_field_FLOAT(xs, xstr, q, qstr, nq,
 			       normals, nstr, dipoles, dstr,
 			       nsrc, &(xf[i*strf]), &(f[nq*i])) ;
     }
