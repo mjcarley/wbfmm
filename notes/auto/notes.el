@@ -12,6 +12,9 @@
    (TeX-add-symbols
     "D"
     "E"
-    "J"))
+    "J")
+   (LaTeX-add-bibliographies
+    "abbrev"
+    "maths"))
  :latex)
 

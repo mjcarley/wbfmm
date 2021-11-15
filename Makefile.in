@@ -163,6 +163,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
+DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
 	COPYING ChangeLog INSTALL NEWS README TODO compile \
 	config.guess config.sub depcomp install-sh ltmain.sh missing
@@ -216,6 +217,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BLASWRAP = @BLASWRAP@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -347,8 +349,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-DIST_SUBDIRS = src tests doc
-SUBDIRS = src tests
+SUBDIRS = src tests doc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

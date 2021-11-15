@@ -450,7 +450,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(WBFMM_REAL *Co, gint cstro,
    * Cnph = COS(nu*ph) ; Snph = SIN(nu*ph) ;
    * 
    * offX (X = `p', `m') = offset into array, `p' for `plus' indices,
-   * `m' for `minus'
+   * `m' for `minus' (+/-m)
+   *
+   * rotation coefficients for combinations of \nu and m are
+   * 
+   * Hp = H_{n}^{+\nu, +m} = H_{n}^{-\nu, -m}
+   * Hm = H_{n}^{-\nu, +m} = H_{n}^{+\nu, -m}
+   * 
+   * using the symmetries in G&D
    */
 
   for ( n = 0 ; n <= N ; n ++ ) {

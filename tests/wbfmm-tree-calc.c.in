@@ -256,15 +256,15 @@ gint main(gint argc, gchar **argv)
   f = (WBFMM_REAL *)g_malloc0(nf*fcstr*sizeof(WBFMM_REAL)) ;
   
   if ( fit_box ) {
-    wbfmm_points_origin_width_PREC(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
-    wbfmm_points_origin_width_PREC(xf, fstr, nf, xtree, xtmax, &D, FALSE) ;
+    wbfmm_points_origin_width_FLOAT(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
+    wbfmm_points_origin_width_FLOAT(xf, fstr, nf, xtree, xtmax, &D, FALSE) ;
 
     xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
     D += 2.0*del ;
   }
 
   pstr = xstr*sizeof(WBFMM_REAL) ;
-  tree = wbfmm_tree_new_PREC(xtree, D, 2*nsrc) ;
+  tree = wbfmm_tree_new_FLOAT(xtree, D, 2*nsrc) ;
   wbfmm_tree_source_size(tree) = nq ;
   
   if ( order_s != 0 && order_r != 0 ) {
@@ -280,7 +280,7 @@ gint main(gint argc, gchar **argv)
   } else {
     for ( i = 1 ; i <= depth ; i ++ ) {
       order[2*i+0] = order[2*i+1] =
-	wbfmm_truncation_number_PREC(tree, k, i, tol) ;
+	wbfmm_truncation_number_FLOAT(tree, k, i, tol) ;
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
@@ -303,9 +303,9 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: initializing shift rotation operators; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_shift_angle_table_init_PREC() ;
+  wbfmm_shift_angle_table_init_FLOAT() ;
 
-  shifts = wbfmm_shift_operators_new_PREC(order_max, shift_bw, work) ;
+  shifts = wbfmm_shift_operators_new_FLOAT(order_max, shift_bw, work) ;
 
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -314,7 +314,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( i = 1 ; i <= depth ; i ++ ) {
-    wbfmm_shift_operators_coaxial_SR_init_PREC(shifts, D, i, order[2*i+0], 
+    wbfmm_shift_operators_coaxial_SR_init_FLOAT(shifts, D, i, order[2*i+0], 
 					       k, work) ;
   }
 
@@ -325,7 +325,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_shift_operators_coaxial_SS_init_PREC(shifts, D, level, 
+    wbfmm_shift_operators_coaxial_SS_init_FLOAT(shifts, D, level, 
 					       order[2*(level-1)+0], 
 					       k, work) ;
   }
@@ -333,37 +333,37 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: upward pass translation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_tree_add_points_PREC(tree, (gpointer)xs, pstr, NULL, 0, nsrc,
+  wbfmm_tree_add_points_FLOAT(tree, (gpointer)xs, pstr, NULL, 0, nsrc,
 			     sort_points) ;
 
-  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_PREC(tree) ;
+  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_FLOAT(tree) ;
 
   if ( write_sources ) {
-    wbfmm_tree_write_sources_PREC(tree, &(xs[3]), xstr, stderr) ;
+    wbfmm_tree_write_sources_FLOAT(tree, &(xs[3]), xstr, stderr) ;
     
     return 0 ;
   }
 
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_HELMHOLTZ ;
   for ( i = 1 ; i <= depth ; i ++ ) {
-    wbfmm_tree_coefficient_init_PREC(tree, i, order[2*i+1], order[2*i+0]) ;
+    wbfmm_tree_coefficient_init_FLOAT(tree, i, order[2*i+1], order[2*i+0]) ;
   }
 
   fprintf(stderr, "%s: initializing target point list; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  targets = wbfmm_target_list_new_PREC(tree, nf) ;
+  targets = wbfmm_target_list_new_FLOAT(tree, nf) ;
   wbfmm_target_list_coefficients_init(targets, field) ;
-  wbfmm_target_list_add_points_PREC(targets, xf, fstr*sizeof(WBFMM_REAL), nf) ;
-  /* wbfmm_target_list_add_points_PREC(targets, xf, fstr*sizeof(WBFMM_REAL), */
+  wbfmm_target_list_add_points_FLOAT(targets, xf, fstr*sizeof(WBFMM_REAL), nf) ;
+  /* wbfmm_target_list_add_points_FLOAT(targets, xf, fstr*sizeof(WBFMM_REAL), */
   /* 				    NULL, 0, nf) ; */
-  wbfmm_target_list_local_coefficients_PREC(targets, k, work) ;
+  wbfmm_target_list_local_coefficients_FLOAT(targets, k, work) ;
   fprintf(stderr, "%s: target point list initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
-  wbfmm_tree_leaf_expansions_PREC(tree, k,
+  wbfmm_tree_leaf_expansions_FLOAT(tree, k,
 				  q, qstr, normals, nstr, dipoles, dstr,
 				  TRUE, work) ;
   
@@ -374,7 +374,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( level = depth ; level >= 3 ; level -- ) 
-    wbfmm_upward_pass_PREC(tree, shifts, level, work) ;
+    wbfmm_upward_pass_FLOAT(tree, shifts, level, work) ;
 
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -383,7 +383,7 @@ gint main(gint argc, gchar **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_downward_pass_PREC(tree, shifts, level, work, nthreads) ;
+    wbfmm_downward_pass_FLOAT(tree, shifts, level, work, nthreads) ;
   }
 
   fprintf(stderr, "%s: downward pass completed; %lg\n",
@@ -393,7 +393,7 @@ gint main(gint argc, gchar **argv)
 
   fprintf(stderr, "%s: computing fmm field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_target_list_local_field_PREC(targets, q, qstr, NULL, 0, f, fcstr) ;
+  wbfmm_target_list_local_field_FLOAT(targets, q, qstr, NULL, 0, f, fcstr) ;
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -401,8 +401,8 @@ gint main(gint argc, gchar **argv)
   /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
 
   /* for ( i = 0 ; i < nf ; i ++ ) { */
-  /*   b = wbfmm_point_box_PREC(tree, level, &(xf[i*fstr])) ; */
-  /*   wbfmm_tree_box_local_field_PREC(tree, level, b, k,  */
+  /*   b = wbfmm_point_box_FLOAT(tree, level, &(xf[i*fstr])) ; */
+  /*   wbfmm_tree_box_local_field_FLOAT(tree, level, b, k,  */
   /* 				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr, */
   /* 				    q, qstr, normals, nstr, dipoles, dstr, */
   /* 				    TRUE, field, work) ; */

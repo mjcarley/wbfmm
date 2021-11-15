@@ -1,5 +1,8 @@
 Add:
-	curl operators;
 	normal derivative operators;
 
+"Source-free" calculations (no storage of source data for when sources
+greatly outnumber targets)
+
+Test BLAS implementation of rotation operators
 

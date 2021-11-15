@@ -26,6 +26,8 @@
 
 #include <config.h>
 
+#include <blaswrap.h>
+
 #include "wbfmm-private.h"
 
 #define BUFSIZE 131072
@@ -1031,13 +1033,13 @@ gint rotation_test(gfloat *x0, gfloat *x1, gfloat *x2,
 }
 
 static gint rotation_matrix_test(gfloat *x0, gfloat *x1, gfloat *x2,
-				 gfloat *ix, gfloat *iy, gfloat *iz,
-				 gfloat k,
-				 gfloat *xs, gint sstr, gint ns,
-				 gfloat *q , gint qstr, gint nq,
-				 gint N,
-				 gfloat t, gfloat wb, gint quad,
-				 gfloat *xf, gint fstr, gint nf)
+		   gfloat *ix, gfloat *iy, gfloat *iz,
+		   gfloat k,
+		   gfloat *xs, gint sstr, gint ns,
+		   gfloat *q , gint qstr, gint nq,
+		   gint N,
+		   gfloat t, gfloat wb, gint quad,
+		   gfloat *xf, gint fstr, gint nf)
 
 /*
   x0: centre of expansion
@@ -1048,78 +1050,11 @@ static gint rotation_matrix_test(gfloat *x0, gfloat *x1, gfloat *x2,
   gfloat H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   gfloat ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
   gfloat Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
-  gint i, j, cstri, cstro, fcstr, n, m, nu ;
+  gfloat *T, Cc[512] ;
+  gint i, j, cstri, cstro, fcstr, tsize ;
   gdouble t0, dt ;
-
   
-  for ( n = 0 ; n <= N ; n ++ ) {
-    gint offp, offm, idxp, idxm, offpo, offmo ;
-    nu = 0 ;
-    m = 0 ;
-
-    offpo = wbfmm_coefficient_index_nm(n, nu) ;
-
-    offp = wbfmm_coefficient_index_nm(n,m) ;
-    idxp = wbfmm_rotation_index_numn(nu,m,n) ;
-
-    /*(output index) n nu (input index) (coefficient index)*/
-    fprintf(stdout,
-	    "%d %d %d %d %d\n",
-	    offpo, n, nu, offp, idxp) ;
-    
-    for ( m = 1 ; m <= n ; m ++ ) {
-      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-
-      offp = wbfmm_coefficient_index_nm(n, m) ;
-      offm = wbfmm_coefficient_index_nm(n,-m) ;
-
-      /*(output index) n nu (input index) (coefficient index)*/
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offm, idxm) ;
-    }
-
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      m = 0 ;
-      offpo = wbfmm_coefficient_index_nm(n, nu) ;
-      offmo = wbfmm_coefficient_index_nm(n,-nu) ;
-
-      offp = wbfmm_coefficient_index_nm(n,m) ;
-      offm = wbfmm_coefficient_index_nm(n,m) ;
-
-      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offmo, n, nu, offm, idxm) ;
-      
-      for ( m = 1 ; m <= n ; m ++ ) {
-	/*rotation coefficients for \pm\nu*/
-	idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-	idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-
-	offp = wbfmm_coefficient_index_nm(n, m) ;
-	offm = wbfmm_coefficient_index_nm(n,-m) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offmo, n, nu, offm, idxm) ;
-      }
-    }
-  }
-
-  return 0 ;
-  
-  cstri = nq ; cstro = nq ;
+  cstri = nq+2 ; cstro = nq+1 ;
   fcstr = 3 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
@@ -1128,21 +1063,25 @@ static gint rotation_matrix_test(gfloat *x0, gfloat *x1, gfloat *x2,
 
   wbfmm_rotation_angles_f(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
+  fprintf(stderr, "%s: nq = %d\n", __FUNCTION__, nq) ;
   fprintf(stderr, "rotation: (%g,%g,%g)\n", th, ph, ch) ;
   t0 = g_timer_elapsed(timer, NULL) ;
+
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
     wbfmm_expansion_h_cfft_f(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
-  /*fill H with rubbish to make sure entries are being set in the
-    function call*/
+
+  /*real rotation coefficients*/
   wbfmm_coefficients_H_rotation_f(H, N, th, work) ;
 
-  /*apply the rotation to the coefficients*/
+  /* memset(&(Ci[2]), 0, 6*sizeof(gdouble)) ; */
+  /* Ci[2] = Ci[3] = Ci[4] = Ci[5] = Ci[6] = Ci[7] = 1.0 ; */
+  
+  /*apply the H rotation to the coefficients*/
   fprintf(stderr, "%s reference rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
@@ -1151,16 +1090,80 @@ static gint rotation_matrix_test(gfloat *x0, gfloat *x1, gfloat *x2,
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
 
-#ifdef WBFMM_USE_AVX
-  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  fprintf(stderr, "%s AVX rotation: %lg\n",
-	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H_avx_f(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
-  dt = g_timer_elapsed(timer, NULL) - dt ;
-  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
-#endif /*WBFMM_USE_AVX*/
+  tsize = (2*N*(N+2) + 1)*(2*N+1) ;
+  T = (gfloat *)g_malloc(2*tsize*sizeof(gfloat)) ;
   
+  /*generate the matrix rotation*/
+  gint n ;
+  for ( n = 0 ; n <= N  ; n ++ ) {
+    gint off, nu, m, ntc, offp, offm, lda, ldb, ldc ;
+
+    /*size of T matrix*/
+    ntc = 2*n + 1 ;
+
+    m = 0 ;
+    offp = 2*(n+m)*ntc ;
+    for ( nu = -n ; nu <= n ; nu ++ ) {
+      off = wbfmm_rotation_index_numn(nu, m, n) ;
+      T[offp + 2*(nu+n)+0] =
+	H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+      T[offp + 2*(nu+n)+1] =
+	H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+    }
+    
+    for ( m = 1 ; m <= n ; m ++ ) {
+      offp = 2*(n+m)*ntc ; offm = 2*(n-m)*ntc ;
+      for ( nu = -n ; nu <= n ; nu ++ ) {
+	off = wbfmm_rotation_index_numn(nu, m, n) ;
+	T[offp + 2*(nu+n)+0] =
+	  H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+	T[offp + 2*(nu+n)+1] =
+	  H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+
+	off = wbfmm_rotation_index_numn(-nu, m, n) ;
+	T[offm + 2*(nu+n)+0] =
+	  H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(-m*ph)) ;
+	T[offm + 2*(nu+n)+1] =
+	  H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(-m*ph)) ;
+      }
+    }
+    
+    memset(Cc, 0, 512*sizeof(gfloat)) ;
+    off = 2*cstri*(wbfmm_coefficient_index_nm(n,-n)) ;
+    
+    gfloat al[] = {1, 0}, bt[] = {0, 0} ;
+
+    lda = cstri ; ldb = ntc ; ldc = cstro ;
+
+    if ( sizeof(gfloat) == sizeof(gfloat) )
+/* #ifdef WBFMM_SINGLE_PRECISION */
+    cgemm_("N", "N", &nq, &ntc, &ntc, al, &(Ci[off]), &lda, T, &ldb,
+	   bt, Cc, &ldc) ;
+    else
+/* #else */
+    zgemm_("N", "N", &nq, &ntc, &ntc, al, &(Ci[off]), &lda, T, &ldb,
+	   bt, Cc, &ldc) ;
+/* #endif /\*WBFMM_SINGLE_PRECISION*\/ */
+    
+    for ( m = -n ; m <= n ; m ++ ) {
+      fprintf(stderr, "%d %d\n", n, m) ;
+      off = 2*cstro*wbfmm_coefficient_index_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ )
+	fprintf(stderr, " %+1.2e %+1.2e",
+		Cc[2*(m+n)*cstro+2*i+0], Cc[2*(m+n)*cstro+2*i+1]) ;
+      fprintf(stderr, "\n") ;
+      for ( i = 0 ; i < nq ; i ++ )
+	fprintf(stderr, " %+1.2e %+1.2e",
+		fabs(Cc[2*(m+n)*cstro+2*i+0]-Co[off+2*i+0]),
+		fabs(Cc[2*(m+n)*cstro+2*i+1]-Co[off+2*i+1])) ;
+      fprintf(stderr, "\n") ;
+    }
+
+    fprintf(stderr, "\n") ;
+  }
+  
+  return 0 ;
+
   wbfmm_coordinate_transform_f(x0, ix, iy, iz, y0) ;
 
   for ( i = 0 ; i < nf ; i ++ ) {
@@ -2358,7 +2361,8 @@ gint main(gint argc, gchar **argv)
       
     ns = 4 ; sstr = 5 ;
     xs = (gfloat *)g_malloc(ns*sstr*sizeof(gfloat)) ;
-    nq = 2 ; qstr = 3 ;
+    /* nq = 2 ; qstr = 3 ; */
+    qstr = nq + 1 ;
     q = (gfloat *)g_malloc(ns*qstr*sizeof(gfloat)) ;
 
     for ( i = 0 ; i < ns ; i ++ ) {

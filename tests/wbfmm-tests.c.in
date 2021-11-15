@@ -26,6 +26,8 @@
 
 #include <config.h>
 
+#include <blaswrap.h>
+
 #include "wbfmm-private.h"
 
 #define BUFSIZE 131072
@@ -357,14 +359,14 @@ gint legendre_test(gint N, WBFMM_REAL C)
   
   S = sqrt(1-C*C) ;
 
-  wbfmm_legendre_init_PREC(C, S, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  wbfmm_legendre_init_FLOAT(C, S, &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
 
   fprintf(stdout, "0 0 %1.16e %1.16e\n", C, Pnm1[0]) ;
   fprintf(stdout, "1 0 %1.16e %1.16e\n", C, Pn[0]) ;
   fprintf(stdout, "1 1 %1.16e %1.16e\n", C, Pn[1]) ;
 
   for ( n = 2 ; n < N ; n ++ ) {
-    wbfmm_legendre_recursion_array_PREC(&Pnm1, &Pn, n-1, C, S) ;
+    wbfmm_legendre_recursion_array_FLOAT(&Pnm1, &Pn, n-1, C, S) ;
     for ( m = 0 ; m <= n ; m ++ ) 
       fprintf(stdout, "%d %d %1.16e %1.16e\n", n, m, C, Pn[m]) ;
   }
@@ -378,13 +380,13 @@ gint besselj_test(gint N, WBFMM_REAL x)
   WBFMM_REAL jn, jnm1 ;
   gint n ;
 
-  wbfmm_bessel_j_init_PREC(x, &jnm1, &jn) ;
+  wbfmm_bessel_j_init_FLOAT(x, &jnm1, &jn) ;
   
   fprintf(stdout, "0 %1.16e %1.16e\n", x, jnm1) ;
   fprintf(stdout, "1 %1.16e %1.16e\n", x, jn) ;
 
   for ( n = 2 ; n < N ; n ++ ) {
-    wbfmm_bessel_j_recursion_PREC(&jnm1, &jn, x, n-1) ;
+    wbfmm_bessel_j_recursion_FLOAT(&jnm1, &jn, x, n-1) ;
     fprintf(stdout, "%d %1.16e %1.16e\n", n, x, jn) ;
   }
 
@@ -397,13 +399,13 @@ gint besselh_test(gint N, WBFMM_REAL x)
   WBFMM_REAL hn[2], hnm1[2] ;
   gint n ;
 
-  wbfmm_bessel_h_init_PREC(x, hnm1, hn) ;
+  wbfmm_bessel_h_init_FLOAT(x, hnm1, hn) ;
 
   fprintf(stdout, "0 %1.16e %1.16e %1.16e\n", x, hnm1[0], hnm1[1]) ;
   fprintf(stdout, "1 %1.16e %1.16e %1.16e\n", x, hn[0], hn[1]) ;
 
   for ( n = 2 ; n < N ; n ++ ) {
-    wbfmm_bessel_h_recursion_PREC(hnm1, hn, x, n-1) ;
+    wbfmm_bessel_h_recursion_FLOAT(hnm1, hn, x, n-1) ;
     fprintf(stdout, "%d %1.16e %1.16e %1.16e\n", n, x, hn[0], hn[1]) ;
   }
 
@@ -430,7 +432,7 @@ gint expansion_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, cfft, cstr, work) ;
   }
 
@@ -440,7 +442,7 @@ gint expansion_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fe[32] = {0.0}, fc[32] = {0.0} ;
 
-    wbfmm_expansion_h_grad_evaluate_PREC(k, x0, cfft, cstr, N, nq,
+    wbfmm_expansion_h_grad_evaluate_FLOAT(k, x0, cfft, cstr, N, nq,
 					 &(xf[i*fstr]), 
 					 fe, fstr, work) ;
 
@@ -450,7 +452,7 @@ gint expansion_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	    "%FLOATFMT+j*%FLOATFMT\n",
 	    fe[0], fe[1], fe[2], fe[3], fe[4], fe[5]) ;
 
-    wbfmm_total_field_grad_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_grad_FLOAT(k, xs, sstr, q, qstr,
 				NULL, 0, NULL, 0,			   
 				nq, ns, &(xf[i*fstr]), fc, 6) ;
 
@@ -508,7 +510,7 @@ gint expansion_dipole_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_dipole_h_cfft_PREC(k, N, x0,
+    wbfmm_expansion_dipole_h_cfft_FLOAT(k, N, x0,
 				       &(xs[i*sstr]), fx, fy, fz,
 				       nq, 
 				       cfft, cstr, work) ;
@@ -519,12 +521,12 @@ gint expansion_dipole_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fe[32]={0.0}, fc[32]={0.0} ;
-    wbfmm_expansion_h_evaluate_PREC(k, x0, cfft, cstr, N, nq, &(xf[i*fstr]), 
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, cfft, cstr, N, nq, &(xf[i*fstr]), 
 				    fe, 2, work) ;
 
     fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", fe[0], fe[1]) ;
 
-    wbfmm_total_dipole_field_PREC(k, xs, sstr, dipole, 6, ns,
+    wbfmm_total_dipole_field_FLOAT(k, xs, sstr, dipole, 6, ns,
 				  &(xf[i*fstr]), fc) ;
 
     fprintf(stdout, "%FLOATFMT+j*%FLOATFMT (%FLOATFMT)\n", fc[0], fc[1], 
@@ -561,7 +563,7 @@ gint expansion_normal_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /* for ( i = 0 ; i < ns ; i ++ ) { */
   i = 0 ;
-  wbfmm_expansion_normal_h_cfft_PREC(k, N, x0,
+  wbfmm_expansion_normal_h_cfft_FLOAT(k, N, x0,
 				     &(xs[i*sstr]), n, q, nq,
 				     cfft, cstr, work) ;
   /* } */
@@ -571,13 +573,13 @@ gint expansion_normal_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fe[32]={0.0}, fc[32]={0.0} ;
-    wbfmm_expansion_h_evaluate_PREC(k, x0, cfft, cstr, N, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, cfft, cstr, N, nq,
 				    &(xf[i*fstr]), 
 				    fe, 2, work) ;
 
     fprintf(stdout, "%FLOATFMT+j*%FLOATFMT ", fe[0], fe[1]) ;
 
-    wbfmm_total_normal_field_PREC(k, xs, sstr, n, 1, q, 1, ns,
+    wbfmm_total_normal_field_FLOAT(k, xs, sstr, n, 1, q, 1, ns,
     				  &(xf[i*fstr]), fc) ;
     fprintf(stdout, "%FLOATFMT+j*%FLOATFMT (%FLOATFMT)\n", fc[0], fc[1], 
 	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
@@ -625,7 +627,7 @@ gint translation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   /*generate coaxial shift coefficients*/
   kr = k*t ;
   x1[0] = x0[0] ; x1[1] = x0[1] ; x1[2] = x0[2] + t ; 
-  wbfmm_coefficients_RR_coaxial_PREC(shift, N, kr, work) ;
+  wbfmm_coefficients_RR_coaxial_FLOAT(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -637,7 +639,7 @@ gint translation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
 
@@ -645,7 +647,7 @@ gint translation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply shift*/
-  wbfmm_coaxial_translate_PREC(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
+  wbfmm_coaxial_translate_FLOAT(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
 			       FALSE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
@@ -654,11 +656,11 @@ gint translation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL f0[64] = {0.0}, fs[64] = {0.0}, fc[64] = {0.0} ;
 
-    wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, &(xf[i*fstr]),
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, Ci, cstri, Ni, nq, &(xf[i*fstr]),
 				    f0, fcstr, work) ;
-    wbfmm_expansion_h_evaluate_PREC(k, x1, Co, cstro, No, nq, &(xf[i*fstr]),
+    wbfmm_expansion_h_evaluate_FLOAT(k, x1, Co, cstro, No, nq, &(xf[i*fstr]),
 				    fs, fcstr, work) ;
-    wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq, 
 			   ns, &(xf[i*fstr]), fc, fcstr) ;
 
@@ -724,7 +726,7 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*generate coaxial shift coefficients*/
   kr = k*t ;
-  wbfmm_coefficients_SR_coaxial_PREC(shift, N, kr, work) ;
+  wbfmm_coefficients_SR_coaxial_FLOAT(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -736,7 +738,7 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
 
@@ -744,24 +746,24 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply shift*/
-  wbfmm_coaxial_translate_PREC(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
+  wbfmm_coaxial_translate_FLOAT(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
 			       TRUE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*compute field in both frames*/
-  wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, f0, fcstr,
+  wbfmm_expansion_h_evaluate_FLOAT(k, x0, Ci, cstri, Ni, nq, xr, f0, fcstr,
 				  work) ;
-  wbfmm_expansion_j_evaluate_PREC(k, xt, Co, cstro, No, nq, xr, ft, fcstr,
+  wbfmm_expansion_j_evaluate_FLOAT(k, xt, Co, cstro, No, nq, xr, ft, fcstr,
 				  work) ;
-  wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+  wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			 NULL, 0, NULL, 0, nq,
 			 ns, xr, fc, fcstr) ;
 
   /*check pre-computed evaluation method*/
   xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
-  wbfmm_local_coefficients_PREC(k, xr, No, field, eval, work) ;
-  wbfmm_expansion_apply_PREC(Co, cstro, nq, eval, No, field, fe, fcstr) ;
+  wbfmm_local_coefficients_FLOAT(k, xr, No, field, eval, work) ;
+  wbfmm_expansion_apply_FLOAT(Co, cstro, nq, eval, No, field, fe, fcstr) ;
   
   for ( j = 0 ; j < nq ; j ++ ) {
     fprintf(stdout, "source %d:\n", j) ;
@@ -830,7 +832,7 @@ gint local_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*generate coaxial shift coefficients*/
   kr = k*t ;
-  wbfmm_coefficients_SR_coaxial_PREC(shift, N, kr, work) ;
+  wbfmm_coefficients_SR_coaxial_FLOAT(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -844,7 +846,7 @@ gint local_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, Ni, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
 
@@ -852,26 +854,26 @@ gint local_gradient_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply shift*/
-  wbfmm_coaxial_translate_PREC(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
+  wbfmm_coaxial_translate_FLOAT(Co, cstro, No, Ci, cstri, Ni, nq, shift, N,
 			       TRUE, 0.0) ;
   fprintf(stderr, "%s coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*compute field in both frames*/
-  wbfmm_total_field_grad_PREC(k, xs, sstr, q, qstr,
+  wbfmm_total_field_grad_FLOAT(k, xs, sstr, q, qstr,
 			      NULL, 0, NULL, 0,
 			      nq, ns, xr, fc, fstr) ;
   
-  wbfmm_expansion_h_grad_evaluate_PREC(k, x0, Ci, cstri, Ni, nq, xr, fe,
+  wbfmm_expansion_h_grad_evaluate_FLOAT(k, x0, Ci, cstri, Ni, nq, xr, fe,
 				       fstr, work) ;
   
-  wbfmm_expansion_j_grad_evaluate_PREC(k, xt, Co, cstro, No, nq, xr,
+  wbfmm_expansion_j_grad_evaluate_FLOAT(k, xt, Co, cstro, No, nq, xr,
 				       fl, fstr, work) ;
   
   xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
-  wbfmm_local_coefficients_PREC(k, xr, N, field, eval, work) ;
+  wbfmm_local_coefficients_FLOAT(k, xr, N, field, eval, work) ;
   /* memset(fe, 0, 6*sizeof(WBFMM_REAL)) ; */
-  wbfmm_expansion_apply_PREC(Co, cstro, nq, eval, No, field, fp, fstr) ;
+  wbfmm_expansion_apply_FLOAT(Co, cstro, nq, eval, No, field, fp, fstr) ;
 
   for ( i = 0 ; i < nq ; i ++ ) {
     fprintf(stdout, "direct:      %FLOATFMT+j*%FLOATFMT "
@@ -955,7 +957,7 @@ gint rotation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
 
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
   fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th, ph, ch) ;
   t0 = g_timer_elapsed(timer, NULL) ;
@@ -964,18 +966,18 @@ gint rotation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
   /*fill H with rubbish to make sure entries are being set in the
     function call*/
-  wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H, N, th, work) ;
 
   /*apply the rotation to the coefficients*/
   fprintf(stderr, "%s reference rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  wbfmm_rotate_H_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_rotate_H_FLOAT(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
@@ -984,27 +986,27 @@ gint rotation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
   fprintf(stderr, "%s AVX rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H_avx_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_rotate_H_avx_FLOAT(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
 #endif /*WBFMM_USE_AVX*/
   
-  wbfmm_coordinate_transform_PREC(x0, ix, iy, iz, y0) ;
+  wbfmm_coordinate_transform_FLOAT(x0, ix, iy, iz, y0) ;
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fu[64] = {0.0}, fr[64] = {0.0}, fc[64] = {0.0} ;
 
-    wbfmm_coordinate_transform_PREC(&(xf[i*fstr]), ix, iy, iz, y) ;
+    wbfmm_coordinate_transform_FLOAT(&(xf[i*fstr]), ix, iy, iz, y) ;
 
-    wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq,
 			   ns, &(xf[i*fstr]), fc, fcstr) ;
-    wbfmm_expansion_h_evaluate_PREC(k, y0, Co, cstro, N, nq, y, fr,
+    wbfmm_expansion_h_evaluate_FLOAT(k, y0, Co, cstro, N, nq, y, fr,
 				    fcstr, work) ;
 
     /*computed field on unrotated coefficients*/
-    wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
 				    fu, fcstr, work) ;
 
     for ( j = 0 ; j < nq ; j ++ ) {
@@ -1031,13 +1033,13 @@ gint rotation_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 }
 
 static gint rotation_matrix_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
-				 WBFMM_REAL *ix, WBFMM_REAL *iy, WBFMM_REAL *iz,
-				 WBFMM_REAL k,
-				 WBFMM_REAL *xs, gint sstr, gint ns,
-				 WBFMM_REAL *q , gint qstr, gint nq,
-				 gint N,
-				 WBFMM_REAL t, WBFMM_REAL wb, gint quad,
-				 WBFMM_REAL *xf, gint fstr, gint nf)
+		   WBFMM_REAL *ix, WBFMM_REAL *iy, WBFMM_REAL *iz,
+		   WBFMM_REAL k,
+		   WBFMM_REAL *xs, gint sstr, gint ns,
+		   WBFMM_REAL *q , gint qstr, gint nq,
+		   gint N,
+		   WBFMM_REAL t, WBFMM_REAL wb, gint quad,
+		   WBFMM_REAL *xf, gint fstr, gint nf)
 
 /*
   x0: centre of expansion
@@ -1048,134 +1050,132 @@ static gint rotation_matrix_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   WBFMM_REAL H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   WBFMM_REAL ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
   WBFMM_REAL Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ;
-  gint i, j, cstri, cstro, fcstr, n, m, nu ;
+  WBFMM_REAL *T, Cc[512] ;
+  gint i, j, cstri, cstro, fcstr, tsize ;
   gdouble t0, dt ;
-
   
-  for ( n = 0 ; n <= N ; n ++ ) {
-    gint offp, offm, idxp, idxm, offpo, offmo ;
-    nu = 0 ;
-    m = 0 ;
-
-    offpo = wbfmm_coefficient_index_nm(n, nu) ;
-
-    offp = wbfmm_coefficient_index_nm(n,m) ;
-    idxp = wbfmm_rotation_index_numn(nu,m,n) ;
-
-    /*(output index) n nu (input index) (coefficient index)*/
-    fprintf(stdout,
-	    "%d %d %d %d %d\n",
-	    offpo, n, nu, offp, idxp) ;
-    
-    for ( m = 1 ; m <= n ; m ++ ) {
-      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-
-      offp = wbfmm_coefficient_index_nm(n, m) ;
-      offm = wbfmm_coefficient_index_nm(n,-m) ;
-
-      /*(output index) n nu (input index) (coefficient index)*/
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offm, idxm) ;
-    }
-
-    for ( nu = 1 ; nu <= n ; nu ++ ) {
-      m = 0 ;
-      offpo = wbfmm_coefficient_index_nm(n, nu) ;
-      offmo = wbfmm_coefficient_index_nm(n,-nu) ;
-
-      offp = wbfmm_coefficient_index_nm(n,m) ;
-      offm = wbfmm_coefficient_index_nm(n,m) ;
-
-      idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-      idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offmo, n, nu, offm, idxm) ;
-      
-      for ( m = 1 ; m <= n ; m ++ ) {
-	/*rotation coefficients for \pm\nu*/
-	idxp = wbfmm_rotation_index_numn( nu,m,n) ;
-	idxm = wbfmm_rotation_index_numn(-nu,m,n) ;
-
-	offp = wbfmm_coefficient_index_nm(n, m) ;
-	offm = wbfmm_coefficient_index_nm(n,-m) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offpo, n, nu, offp, idxp) ;
-      fprintf(stdout,
-	      "%d %d %d %d %d\n",
-	      offmo, n, nu, offm, idxm) ;
-      }
-    }
-  }
-
-  return 0 ;
-  
-  cstri = nq ; cstro = nq ;
+  cstri = nq+2 ; cstro = nq+1 ;
   fcstr = 3 ;
 
   ix0[0] = 1.0 ; ix0[1] = 0.0 ; ix0[2] = 0.0 ;
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
 
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
+  fprintf(stderr, "%s: nq = %d\n", __FUNCTION__, nq) ;
   fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th, ph, ch) ;
   t0 = g_timer_elapsed(timer, NULL) ;
+
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-
   /*expand about origin*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, Ci, cstri, work) ;
   }
-  /*fill H with rubbish to make sure entries are being set in the
-    function call*/
-  wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
 
-  /*apply the rotation to the coefficients*/
+  /*real rotation coefficients*/
+  wbfmm_coefficients_H_rotation_FLOAT(H, N, th, work) ;
+
+  /* memset(&(Ci[2]), 0, 6*sizeof(gdouble)) ; */
+  /* Ci[2] = Ci[3] = Ci[4] = Ci[5] = Ci[6] = Ci[7] = 1.0 ; */
+  
+  /*apply the H rotation to the coefficients*/
   fprintf(stderr, "%s reference rotation: %lg\n",
 	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
   for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  wbfmm_rotate_H_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
+  wbfmm_rotate_H_FLOAT(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
   dt = g_timer_elapsed(timer, NULL) - dt ;
   fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
 
-#ifdef WBFMM_USE_AVX
-  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
-  fprintf(stderr, "%s AVX rotation: %lg\n",
-	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
-  wbfmm_rotate_H_avx_PREC(Co, cstro, Ci, cstri, N, nq, H, ph, ch, 0.0) ;
-  dt = g_timer_elapsed(timer, NULL) - dt ;
-  fprintf(stderr, "%s rotation complete: %lg (%lg)\n",
-	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
-#endif /*WBFMM_USE_AVX*/
+  tsize = (2*N*(N+2) + 1)*(2*N+1) ;
+  T = (WBFMM_REAL *)g_malloc(2*tsize*sizeof(WBFMM_REAL)) ;
   
-  wbfmm_coordinate_transform_PREC(x0, ix, iy, iz, y0) ;
+  /*generate the matrix rotation*/
+  gint n ;
+  for ( n = 0 ; n <= N  ; n ++ ) {
+    gint off, nu, m, ntc, offp, offm, lda, ldb, ldc ;
+
+    /*size of T matrix*/
+    ntc = 2*n + 1 ;
+
+    m = 0 ;
+    offp = 2*(n+m)*ntc ;
+    for ( nu = -n ; nu <= n ; nu ++ ) {
+      off = wbfmm_rotation_index_numn(nu, m, n) ;
+      T[offp + 2*(nu+n)+0] =
+	H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+      T[offp + 2*(nu+n)+1] =
+	H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+    }
+    
+    for ( m = 1 ; m <= n ; m ++ ) {
+      offp = 2*(n+m)*ntc ; offm = 2*(n-m)*ntc ;
+      for ( nu = -n ; nu <= n ; nu ++ ) {
+	off = wbfmm_rotation_index_numn(nu, m, n) ;
+	T[offp + 2*(nu+n)+0] =
+	  H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(m*ph)) ;
+	T[offp + 2*(nu+n)+1] =
+	  H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(m*ph)) ;
+
+	off = wbfmm_rotation_index_numn(-nu, m, n) ;
+	T[offm + 2*(nu+n)+0] =
+	  H[off]*(cos(nu*ch)*cos(m*ph) + sin(nu*ch)*sin(-m*ph)) ;
+	T[offm + 2*(nu+n)+1] =
+	  H[off]*(sin(nu*ch)*cos(m*ph) - cos(nu*ch)*sin(-m*ph)) ;
+      }
+    }
+    
+    memset(Cc, 0, 512*sizeof(WBFMM_REAL)) ;
+    off = 2*cstri*(wbfmm_coefficient_index_nm(n,-n)) ;
+    
+    WBFMM_REAL al[] = {1, 0}, bt[] = {0, 0} ;
+
+    lda = cstri ; ldb = ntc ; ldc = cstro ;
+
+    if ( sizeof(WBFMM_REAL) == sizeof(gfloat) )
+    cgemm_("N", "N", &nq, &ntc, &ntc, al, &(Ci[off]), &lda, T, &ldb,
+	   bt, Cc, &ldc) ;
+    else
+    zgemm_("N", "N", &nq, &ntc, &ntc, al, &(Ci[off]), &lda, T, &ldb,
+	   bt, Cc, &ldc) ;
+
+    for ( m = -n ; m <= n ; m ++ ) {
+      fprintf(stderr, "%d %d\n", n, m) ;
+      off = 2*cstro*wbfmm_coefficient_index_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ )
+	fprintf(stderr, " %+1.2e %+1.2e",
+		Cc[2*(m+n)*cstro+2*i+0], Cc[2*(m+n)*cstro+2*i+1]) ;
+      fprintf(stderr, "\n") ;
+      for ( i = 0 ; i < nq ; i ++ )
+	fprintf(stderr, " %+1.2e %+1.2e",
+		fabs(Cc[2*(m+n)*cstro+2*i+0]-Co[off+2*i+0]),
+		fabs(Cc[2*(m+n)*cstro+2*i+1]-Co[off+2*i+1])) ;
+      fprintf(stderr, "\n") ;
+    }
+
+    fprintf(stderr, "\n") ;
+  }
+  
+  return 0 ;
+
+  wbfmm_coordinate_transform_FLOAT(x0, ix, iy, iz, y0) ;
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fu[64] = {0.0}, fr[64] = {0.0}, fc[64] = {0.0} ;
 
-    wbfmm_coordinate_transform_PREC(&(xf[i*fstr]), ix, iy, iz, y) ;
+    wbfmm_coordinate_transform_FLOAT(&(xf[i*fstr]), ix, iy, iz, y) ;
 
-    wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq,
 			   ns, &(xf[i*fstr]), fc, fcstr) ;
-    wbfmm_expansion_h_evaluate_PREC(k, y0, Co, cstro, N, nq, y, fr,
+    wbfmm_expansion_h_evaluate_FLOAT(k, y0, Co, cstro, N, nq, y, fr,
 				    fcstr, work) ;
 
     /*computed field on unrotated coefficients*/
-    wbfmm_expansion_h_evaluate_PREC(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, Ci, cstri, N, nq, &(xf[i*fstr]), 
 				    fu, fcstr, work) ;
 
     for ( j = 0 ; j < nq ; j ++ ) {
@@ -1262,21 +1262,21 @@ gint shift_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
 
-  wbfmm_shift_coordinates_PREC(x0, x1, ix, iy, iz, &kr) ;
+  wbfmm_shift_coordinates_FLOAT(x0, x1, ix, iy, iz, &kr) ;
   kr *= k ;
 
   /*generate rotation coefficients in each direction and translation*/
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th0, &ph0, &ch0) ;
-  wbfmm_coefficients_H_rotation_PREC(H0, N, th0, work) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th0, &ph0, &ch0) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H0, N, th0, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_RR_coaxial_PREC(shift, N, kr, work) ;
+  wbfmm_coefficients_RR_coaxial_FLOAT(shift, N, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_rotation_angles_PREC(ix, iy, iz, ix0, iy0, iz0, &th1, &ph1, &ch1) ;
-  wbfmm_coefficients_H_rotation_PREC(H1, N, th1, work) ;
+  wbfmm_rotation_angles_FLOAT(ix, iy, iz, ix0, iy0, iz0, &th1, &ph1, &ch1) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H1, N, th1, work) ;
   fprintf(stderr, "%s inverse rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1287,33 +1287,33 @@ gint shift_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about x0*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, C0, cstr0, work) ;
   }
   fprintf(stderr, "%s expansion coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_PREC(Ca, cstr0, C0, cstr0, N, nq, H0, ph0, ch0, 0.0) ;
+  wbfmm_rotate_H_FLOAT(Ca, cstr0, C0, cstr0, N, nq, H0, ph0, ch0, 0.0) ;
   /*translate by kr*/
-  wbfmm_coaxial_translate_PREC(Cb, cstr1, N, Ca, cstr0, N, nq, shift, N,
+  wbfmm_coaxial_translate_FLOAT(Cb, cstr1, N, Ca, cstr0, N, nq, shift, N,
 			       FALSE, 0.0) ;
   /*rotate back*/
-  /* wbfmm_rotate_H_PREC(C1, cstr1, N, Cb, cstr1, H1, ph1, ch1) ; */
-  wbfmm_rotate_H_PREC(C1, cstr1, Cb, cstr1, N, nq, H0, ch0, ph0, 0.0) ;
+  /* wbfmm_rotate_H_FLOAT(C1, cstr1, N, Cb, cstr1, H1, ph1, ch1) ; */
+  wbfmm_rotate_H_FLOAT(C1, cstr1, Cb, cstr1, N, nq, H0, ch0, ph0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL f0[64] = {0.0}, f1[64] = {0.0}, fc[64] = {0.0} ;
-    wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq, ns,
 			   &(xf[i*fstr]), fc, fcstr) ;
     /*computed field on unshifted coefficients*/
-    wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, C0, cstr0, N, nq,
 				    &(xf[i*fstr]), f0, fcstr, work) ;
     /*computed field on shifted coefficients*/
-    wbfmm_expansion_h_evaluate_PREC(k, x1, C1, cstr1, N, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, x1, C1, cstr1, N, nq,
 				    &(xf[i*fstr]), f1, fcstr, work) ;
 
     for ( j = 0 ; j < nq ; j ++ ) {
@@ -1364,12 +1364,12 @@ gint location_test(WBFMM_REAL *x0, WBFMM_REAL D)
     xb[2] = x0[2] + g_random_int_range(0, nb)*wb ;
     xb[0] = xb[1] = xb[2] = 0.5 ;
     xb[0] = 0 ;
-    bi = wbfmm_point_index_3d_PREC(xb, x0, D) ;
+    bi = wbfmm_point_index_3d_FLOAT(xb, x0, D) ;
 
     x[0] = xb[0] + g_random_double_range(0, wb) ;
     x[1] = xb[1] + g_random_double_range(0, wb) ;
     x[2] = xb[2] + g_random_double_range(0, wb) ;
-    xi = wbfmm_point_index_3d_PREC(x, x0, D) ;
+    xi = wbfmm_point_index_3d_FLOAT(x, x0, D) ;
     box = wbfmm_point_locate_box(xi, level) ;
     fprintf(stderr, "(%FLOATFMT,%FLOATFMT,%FLOATFMT) (%FLOATFMT,%FLOATFMT,%FLOATFMT) (%lu,%lu,%lu,",
 	    xb[0], xb[1], xb[2],
@@ -1404,7 +1404,7 @@ gint box_index_test(WBFMM_REAL *x0, WBFMM_REAL D, guint level)
       for ( k = 0 ; k < nb ; k ++ ) {
 	x[2] = x0[2] + (0.5+k)*wb ;
 	idx = wbfmm_box_index(i, j, k) ;
-	wbfmm_box_location_from_index_PREC(idx, level, x0, D, x, &w) ;
+	wbfmm_box_location_from_index_FLOAT(idx, level, x0, D, x, &w) ;
 	fprintf(stdout, "%lu %u %u %u %u %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT\n",
 		idx, level, i, j, k, x[0], x[1], x[2], w) ;
       }
@@ -1436,11 +1436,11 @@ gint box_parent_test(WBFMM_REAL *x0, WBFMM_REAL D, guint level)
       for ( k = 0 ; k < nb ; k ++ ) {
 	x[2] = x0[2] + (0.5+k)*wb ;
 	idx = wbfmm_box_index(i, j, k) ;
-	wbfmm_box_location_from_index_PREC(idx, level, x0, D, x, &w) ;
+	wbfmm_box_location_from_index_FLOAT(idx, level, x0, D, x, &w) ;
 	fprintf(stdout, "%lu %u %u %u %u %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT ",
 		idx, level, i, j, k, x[0], x[1], x[2], w) ;
 	p = wbfmm_box_parent(idx) ;
-	wbfmm_box_location_from_index_PREC(p, level-1, x0, D, x, &w) ;
+	wbfmm_box_location_from_index_FLOAT(p, level-1, x0, D, x, &w) ;
 	fprintf(stdout, "%lu %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT\n", 
 		p, x[0], x[1], x[2], w) ;
       }
@@ -1470,10 +1470,10 @@ gint box_children_test(WBFMM_REAL *x0, WBFMM_REAL D, guint level)
       for ( k = 0 ; k < nb ; k ++ ) {
 	x[2] = x0[2] + (0.5+k)*wb ;
 	idx = wbfmm_box_index(i, j, k) ;
-	wbfmm_box_location_from_index_PREC(idx, level, x0, D, x, &w) ;
+	wbfmm_box_location_from_index_FLOAT(idx, level, x0, D, x, &w) ;
 	p = wbfmm_box_first_child(idx) ;
 	for ( c = 0 ; c < 8 ; c ++ ) {
-	  wbfmm_box_location_from_index_PREC(p, level+1, x0, D, xp, &wc) ;
+	  wbfmm_box_location_from_index_FLOAT(p, level+1, x0, D, xp, &wc) ;
 	  fprintf(stdout, 
 		  "%lu %u %u %u %u %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT "
 		  "%lu %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT\n",
@@ -1498,7 +1498,7 @@ gint tree_test(WBFMM_REAL *x0, WBFMM_REAL D, guint npts)
   gboolean sort_points ;
 
   sort_points = FALSE ;
-  t = wbfmm_tree_new_PREC(x0, D, npts) ;
+  t = wbfmm_tree_new_FLOAT(x0, D, npts) ;
   str = 7 ;
 
   /*stride of str to test strided data*/
@@ -1511,11 +1511,11 @@ gint tree_test(WBFMM_REAL *x0, WBFMM_REAL D, guint npts)
     pts[i*str+2] = x0[2] + D*g_random_double_range(0,D) ;
   }
 
-  wbfmm_tree_add_points_PREC(t, (gpointer)pts, pstr, NULL, 0,
+  wbfmm_tree_add_points_FLOAT(t, (gpointer)pts, pstr, NULL, 0,
 			     npts, sort_points) ;
 
-  wbfmm_tree_refine_PREC(t) ;
-  wbfmm_tree_refine_PREC(t) ;
+  wbfmm_tree_refine_FLOAT(t) ;
+  wbfmm_tree_refine_FLOAT(t) ;
 
   wbfmm_tree_print(stdout, t, 0, TRUE) ;
 
@@ -1608,30 +1608,30 @@ gint child_parent_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th03, work) ;
-  wbfmm_coefficients_H_rotation_PREC(H47, Np, th47, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th03, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H47, Np, th47, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_RR_coaxial_PREC(shiftf, Np,  kr, work) ;
-  wbfmm_coefficients_RR_coaxial_PREC(shiftb, Np, -kr, work) ;
+  wbfmm_coefficients_RR_coaxial_FLOAT(shiftf, Np,  kr, work) ;
+  wbfmm_coefficients_RR_coaxial_FLOAT(shiftb, Np, -kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*generate the child box expansions*/
-  wbfmm_expansion_h_cfft_PREC(k, Nc, xb, xsrc, src, nq,
+  wbfmm_expansion_h_cfft_FLOAT(k, Nc, xb, xsrc, src, nq,
 			      &(child[2*nq*quad]), 8*nq, work) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   t1 = g_timer_elapsed(timer, NULL) ;
-  wbfmm_child_parent_shift_PREC(parent, Np, child, Nc, H03, H47, Np,
+  wbfmm_child_parent_shift_FLOAT(parent, Np, child, Nc, H03, H47, Np,
   				shiftf, Np, nq, work) ;
   fprintf(stderr, "%s child expansions shifted to parent: %lg (%lg)\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,
 	  g_timer_elapsed(timer, NULL) - t1) ;
   /* t1 = g_timer_elapsed(timer, NULL) ; */
-  /* wbfmm_child_parent_shift_bw_PREC(parent, Np, child, Nc, H03, Np, */
+  /* wbfmm_child_parent_shift_bw_FLOAT(parent, Np, child, Nc, H03, Np, */
   /* 				   shiftf, shiftb, Np, work) ; */
 
   /* fprintf(stderr, "%s child expansions shifted to parent (BW): %lg (%lg)\n", */
@@ -1641,11 +1641,11 @@ gint child_parent_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   /*calculate child, parent, and exact fields*/
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fc[32] = {0.0}, fp[32] = {0.0}, fe[32] = {0.0} ;
-    wbfmm_expansion_h_evaluate_PREC(k, xb, &(child[2*nq*quad]), 8*nq, Nc, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, xb, &(child[2*nq*quad]), 8*nq, Nc, nq,
 				    &(xf[i*fstr]), fc, fcstr, work) ;
-    wbfmm_expansion_h_evaluate_PREC(k, x0, &(parent[0]), 8*nq, Np, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, &(parent[0]), 8*nq, Np, nq,
 				    &(xf[i*fstr]), fp, fcstr, work) ;
-    wbfmm_total_field_PREC(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq, 1,
+    wbfmm_total_field_FLOAT(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq, 1,
 			   &(xf[i*fstr]), fe, fcstr) ;
 
     for ( j = 0 ; j < nq ; j ++ ) {
@@ -1746,29 +1746,29 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_H_rotation_PREC(H03, Np, th03, work) ;
-  wbfmm_coefficients_H_rotation_PREC(H47, Np, th47, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H03, Np, th03, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H47, Np, th47, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   check_isnan("H03", H03, wbfmm_element_number_rotation(Np)) ;
   check_isnan("H47", H47, wbfmm_element_number_rotation(Np)) ;
   
-  wbfmm_coefficients_RR_coaxial_PREC(shift, Np, kr, work) ;
+  wbfmm_coefficients_RR_coaxial_FLOAT(shift, Np, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   check_isnan("shift", shift, wbfmm_element_number_coaxial(Np)) ;
 
-  wbfmm_coefficients_SR_coaxial_PREC(SRshift, Np, k*len, work) ;
+  wbfmm_coefficients_SR_coaxial_FLOAT(SRshift, Np, k*len, work) ;
   fprintf(stderr, "%s (S|R) coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   check_isnan("SRshift", SRshift, 2*wbfmm_element_number_coaxial(Np)) ;
 
   /*generate the source expansion in child for now*/
-  wbfmm_expansion_h_cfft_PREC(k, Np, xs, xsrc, src, nq, child, nq, work) ;
+  wbfmm_expansion_h_cfft_FLOAT(k, Np, xs, xsrc, src, nq, child, nq, work) ;
   check_isnan("expansion", child, 8*2*nq*wbfmm_coefficient_index_nm(Np+1,0)) ;
   fprintf(stderr, "%s child expansion generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
-  wbfmm_coaxial_translate_PREC(&(parent[2*pq*nq]), 8*nq, Np, child, 8*nq, Np,
+  wbfmm_coaxial_translate_FLOAT(&(parent[2*pq*nq]), 8*nq, Np, child, 8*nq, Np,
 			       nq, SRshift, Np, TRUE, 0.0) ;
   check_isnan("parent", parent, 8*4*nq*wbfmm_coefficient_index_nm(Np+1,0)) ;
   
@@ -1777,7 +1777,7 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	 8*2*nq*wbfmm_coefficient_index_nm(Nc+1,0)*sizeof(WBFMM_REAL)) ;
 
   /*the parent box now holds the data for the shift to the children*/
-  wbfmm_parent_child_shift_PREC(child, Nc, &(parent[2*nq*pq]), Np, H03, H47, Np,
+  wbfmm_parent_child_shift_FLOAT(child, Nc, &(parent[2*nq*pq]), Np, H03, H47, Np,
   				shift, Np, nq, work) ;
 
   fprintf(stderr, "%s parent expansion shifted to children: %lg\n",
@@ -1792,11 +1792,11 @@ gint parent_child_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
     xf[1] = xb[3*i+1] - wb*0.05 ; 
     xf[2] = xb[3*i+2] + wb*0.1 ; 
 
-    wbfmm_total_field_PREC(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq,
+    wbfmm_total_field_FLOAT(k, xsrc, 3, src, 2, NULL, 0, NULL, 0, nq,
 			   1, xf, fe, fcstr) ;
-    wbfmm_expansion_j_evaluate_PREC(k, x0, &(parent[2*nq*pq]), 8*nq, Np, nq,
+    wbfmm_expansion_j_evaluate_FLOAT(k, x0, &(parent[2*nq*pq]), 8*nq, Np, nq,
 				    xf, fp, fcstr, work) ;
-    wbfmm_expansion_j_evaluate_PREC(k, &(xb[3*i]), &(child[2*nq*i]), 8*nq,
+    wbfmm_expansion_j_evaluate_FLOAT(k, &(xb[3*i]), &(child[2*nq*i]), 8*nq,
 				    Nc, nq,
 				    xf, fc, fcstr, work) ;
     for ( j = 0 ; j < nq ; j ++ ) {
@@ -1887,19 +1887,19 @@ gint shift_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   xr[1] = x1[1] + x2[1] ;
   xr[2] = x1[2] + x2[2] ;
 
-  wbfmm_shift_coordinates_PREC(x0, x1, ix, iy, iz, &kr) ;
+  wbfmm_shift_coordinates_FLOAT(x0, x1, ix, iy, iz, &kr) ;
   kr *= k ;
 
   /*generate rotation coefficients in each direction and translation*/
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th0, &ph0, &ch0) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th0, &ph0, &ch0) ;
 
-  wbfmm_shift_angles_PREC(x0, x1, &th0, &ph0, &ch0, &kr) ;
+  wbfmm_shift_angles_FLOAT(x0, x1, &th0, &ph0, &ch0, &kr) ;
   kr *= k ;
-  wbfmm_coefficients_H_rotation_PREC(H0, N0, th0, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H0, N0, th0, work) ;
   fprintf(stderr, "%s rotation coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_coefficients_SR_coaxial_PREC(shift, N1, kr, work) ;
+  wbfmm_coefficients_SR_coaxial_FLOAT(shift, N1, kr, work) ;
   fprintf(stderr, "%s coaxial coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
@@ -1908,33 +1908,33 @@ gint shift_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   /*expand about x0*/
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N0, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N0, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, C0, cstr0, work) ;
   }
   fprintf(stderr, "%s expansion coefficients generated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   /*apply the rotation to the coefficients*/
-  wbfmm_rotate_H_PREC(Ca, cstr0, C0, cstr0, N0, nq, H0, ph0, ch0, 0.0) ;
+  wbfmm_rotate_H_FLOAT(Ca, cstr0, C0, cstr0, N0, nq, H0, ph0, ch0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients rotated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   /*translate by kr*/
-  wbfmm_coaxial_translate_PREC(Cb, cstr1, N1, Ca, cstr0, N0, nq, shift, N1,
+  wbfmm_coaxial_translate_FLOAT(Cb, cstr1, N1, Ca, cstr0, N0, nq, shift, N1,
 			       TRUE, 0.0) ;
   fprintf(stderr, "%s expansion coefficients translated: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
   /*rotate back*/
-  wbfmm_rotate_H_PREC(C1, cstr1, Cb, cstr1, N1, nq, H0, ch0, ph0, 0.0) ;
+  wbfmm_rotate_H_FLOAT(C1, cstr1, Cb, cstr1, N1, nq, H0, ch0, ph0, 0.0) ;
   fprintf(stderr, "%s expansion coefficients shifted: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  wbfmm_total_field_PREC(k, xs, sstr, q, qstr, NULL, 0, NULL, 0, nq,
+  wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr, NULL, 0, NULL, 0, nq,
 			 ns, xr, fc, fcstr) ;
   /*computed field on unshifted coefficients*/
-  wbfmm_expansion_h_evaluate_PREC(k, x0, C0, cstr0, N0, nq, xr, f0, fcstr,
+  wbfmm_expansion_h_evaluate_FLOAT(k, x0, C0, cstr0, N0, nq, xr, f0, fcstr,
 				  work) ;
   /*computed field on shifted coefficients*/
-  wbfmm_expansion_j_evaluate_PREC(k, x1, C1, cstr1, N1, nq, xr, f1, fcstr,
+  wbfmm_expansion_j_evaluate_FLOAT(k, x1, C1, cstr1, N1, nq, xr, f1, fcstr,
 				  work) ;
   
 
@@ -2144,7 +2144,7 @@ gint interaction_shift_test(WBFMM_REAL wb)
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
 
-  wbfmm_shift_angle_table_init_PREC() ;
+  wbfmm_shift_angle_table_init_FLOAT() ;
   emax = 0.0 ;
 
   for ( i = -3 ; i <= 3 ; i ++ ) {
@@ -2156,11 +2156,11 @@ gint interaction_shift_test(WBFMM_REAL wb)
 	idx = (i+3)*49+(j+3)*7+k+3 ;
 	/*shift is from xb to x0*/
 	if ( i != 0 || j != 0 || k != 0 ) {
-	  wbfmm_shift_coordinates_PREC(xb, x0, ix, iy, iz, &r) ;
-	  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, 
+	  wbfmm_shift_coordinates_FLOAT(xb, x0, ix, iy, iz, &r) ;
+	  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, 
 				     &th0, &ph0, &ch0) ;
-	  wbfmm_shift_angles_list4_PREC(i, j, k, &th1, &ph1, &ch1, &rs) ;
-	  /* wbfmm_rotation_angles_PREC(ix, iy, iz, ix0, iy0, iz0,  */
+	  wbfmm_shift_angles_list4_FLOAT(i, j, k, &th1, &ph1, &ch1, &rs) ;
+	  /* wbfmm_rotation_angles_FLOAT(ix, iy, iz, ix0, iy0, iz0,  */
 	  /* 			     &th1, &ph1, &ch1) ; */
 	  fprintf(stdout, 
 		  "%d %d %d %d %FLOATFMT %FLOATFMT %FLOATFMT %FLOATFMT\n",
@@ -2209,13 +2209,13 @@ gint rotations_write(gint N, WBFMM_REAL ix[], WBFMM_REAL iy[],
   iy0[0] = 0.0 ; iy0[1] = 1.0 ; iy0[2] = 0.0 ;
   iz0[0] = 0.0 ; iz0[1] = 0.0 ; iz0[2] = 1.0 ;
 
-  wbfmm_rotation_angles_PREC(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
+  wbfmm_rotation_angles_FLOAT(ix0, iy0, iz0, ix, iy, iz, &th, &ph, &ch) ;
 
   fprintf(stderr, "rotation: (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n", th, ph, ch) ;
 
-  wbfmm_coefficients_H_rotation_PREC(H, N, th, work) ;
+  wbfmm_coefficients_H_rotation_FLOAT(H, N, th, work) ;
 
-  wbfmm_rotation_write_coefficients_PREC(H, N, stdout) ;
+  wbfmm_rotation_write_coefficients_FLOAT(H, N, stdout) ;
 
   return 0 ;
 }
@@ -2248,7 +2248,7 @@ gint expansion_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
   for ( i = 0 ; i < ns ; i ++ ) {
-    wbfmm_expansion_h_cfft_PREC(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
+    wbfmm_expansion_h_cfft_FLOAT(k, N, x0, &(xs[i*sstr]), &(q[i*qstr]),
 				nq, cfft, cstr, work) ;
   }
 
@@ -2257,10 +2257,10 @@ gint expansion_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
 
   for ( i = 0 ; i < nf ; i ++ ) {
     WBFMM_REAL fe[64] = {0.0}, fc[64] = {0.0} ;
-    wbfmm_expansion_h_evaluate_PREC(k, x0, cfft, cstr, N, nq,
+    wbfmm_expansion_h_evaluate_FLOAT(k, x0, cfft, cstr, N, nq,
 				    &(xf[i*fstr]), 
 				    fe, fcstr, work) ;
-    wbfmm_total_field_PREC(k, xs, sstr, q, qstr,
+    wbfmm_total_field_FLOAT(k, xs, sstr, q, qstr,
 			   NULL, 0, NULL, 0, nq,		   
 			   ns, &(xf[i*fstr]), fc, fcstr) ;
 
@@ -2358,7 +2358,8 @@ gint main(gint argc, gchar **argv)
       
     ns = 4 ; sstr = 5 ;
     xs = (WBFMM_REAL *)g_malloc(ns*sstr*sizeof(WBFMM_REAL)) ;
-    nq = 2 ; qstr = 3 ;
+    /* nq = 2 ; qstr = 3 ; */
+    qstr = nq + 1 ;
     q = (WBFMM_REAL *)g_malloc(ns*qstr*sizeof(WBFMM_REAL)) ;
 
     for ( i = 0 ; i < ns ; i ++ ) {

@@ -100,7 +100,8 @@ wbfmm_tests_avx-wbfmm-tests.o: wbfmm-tests.c /usr/include/stdc-predef.h \
  /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/setjmp.h \
  /usr/include/glib-2.0/glib/glib-autocleanups.h ../src/wbfmm.h \
- ../config.h ../src/wbfmm-private.h
+ ../config.h /home/michael/Codes/include/blaswrap.h \
+ ../src/wbfmm-private.h
 
 /usr/include/stdc-predef.h:
 
@@ -413,5 +414,7 @@ wbfmm_tests_avx-wbfmm-tests.o: wbfmm-tests.c /usr/include/stdc-predef.h \
 ../src/wbfmm.h:
 
 ../config.h:
+
+/home/michael/Codes/include/blaswrap.h:
 
 ../src/wbfmm-private.h:

@@ -163,6 +163,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
+DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
 	COPYING ChangeLog INSTALL NEWS README TODO compile \
 	config.guess config.sub depcomp install-sh ltmain.sh missing
@@ -216,10 +217,11 @@ AUTOCONF = autoconf
 AUTOHEADER = autoheader
 AUTOMAKE = automake-1.15
 AWK = gawk
+BLASWRAP = yes
 BLAS_LIBS = -lblas
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -O3 -g -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+CFLAGS = -g -O2 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -347,8 +349,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-DIST_SUBDIRS = src tests doc
-SUBDIRS = src tests
+SUBDIRS = src tests doc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

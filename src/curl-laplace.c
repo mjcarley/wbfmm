@@ -449,7 +449,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(WBFMM_REAL *xs,
   return 0 ;
 }
 
-static gint box_curl_evaluate(wbfmm_tree_t *t,
+static void box_curl_evaluate(wbfmm_tree_t *t,
 			      gint i0, gint i1,
 			      WBFMM_REAL *src, gint sstr,
 			      WBFMM_REAL *x, WBFMM_REAL *f)
@@ -472,10 +472,10 @@ static gint box_curl_evaluate(wbfmm_tree_t *t,
     }
   }
 
-  return 0 ;
+  return ;
 }
 
-static gint gradient_evaluate4(WBFMM_REAL r[12])
+static void gradient_evaluate4(WBFMM_REAL r[12])
 
 /*
  * vectorized evaluation of gradient elements
@@ -555,10 +555,10 @@ static gint gradient_evaluate4(WBFMM_REAL r[12])
   r[4*0+3] *= R[3] ; r[4*1+3] *= R[3] ; r[4*2+3] *= R[3] ; 
 #endif /*WBFMM_SINGLE_PRECISION*/
 
-  return 0 ;
+  return ;
 }
 
-static gint box_curl_evaluate4(wbfmm_tree_t *t,
+static void box_curl_evaluate4(wbfmm_tree_t *t,
 			       gint i,
 			       WBFMM_REAL *src, gint sstr,
 			       WBFMM_REAL *x, WBFMM_REAL *f)
@@ -587,10 +587,10 @@ static gint box_curl_evaluate4(wbfmm_tree_t *t,
 	     src[idx[j]*sstr+0]*r[4*1+j])*0.25*M_1_PI ;
   }
 
-  return 0 ;
+  return ;
 }
 
-static gint box_curl_evaluate4_sorted(gchar *y, gsize ysize,
+static void box_curl_evaluate4_sorted(gchar *y, gsize ysize,
 				      WBFMM_REAL *src, gint sstr,
 				      WBFMM_REAL *x, WBFMM_REAL *f)
 
@@ -614,7 +614,7 @@ static gint box_curl_evaluate4_sorted(gchar *y, gsize ysize,
     f[2] -= (src[j*sstr+1]*r[4*0+j] - src[j*sstr+0]*r[4*1+j])*0.25*M_1_PI ;
   }
 
-  return 0 ;
+  return ;
 }
 
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,

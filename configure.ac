@@ -134,6 +134,23 @@ else
   fi
 fi
 
+AC_CHECK_PROG(BLASWRAP, blaswrap-config, yes, no)
+if test x$BLASWRAP = xyes ; then
+   AC_DEFINE(HAVE_BLASWRAP, 1, [BLAS wrapper header available])
+   blaswrap_cflags=`blaswrap-config --cflags`
+   blaswrap_libs=`blaswrap-config --libs`
+else
+  echo \#################################################################
+  echo \#
+  echo \# BLAS wrapper library not installed or not properly installed.
+  echo \# You can get it from
+  echo \#
+  echo \# https://github.com/mjcarley/blaswrap
+  echo \#
+  echo \#################################################################
+  exit
+fi
+
 AX_GCC_X86_CPU_SUPPORTS(avx, hasavx=yes) 
 AX_GCC_X86_CPU_SUPPORTS(avx2, hasavx2=yes) 
 AX_GCC_X86_CPU_SUPPORTS(fma, hasfma=yes) 
@@ -178,9 +195,10 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 src/wbfmm-config
-tests/Makefile])
-
-#doc/Makefile])
+tests/Makefile
+doc/Makefile
+doc/html/Makefile
+])
 
 #doc/html/Makefile])
 

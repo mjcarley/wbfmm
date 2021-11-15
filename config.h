@@ -27,6 +27,9 @@
 /* Define if you have a BLAS library. */
 #define HAVE_BLAS 1
 
+/* BLAS wrapper header available */
+#define HAVE_BLASWRAP 1
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
