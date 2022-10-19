@@ -255,7 +255,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
   return 0 ;
 }
 
-
 static inline guint64 morton_encode(guint32 xsrc, guint32 ysrc, guint32 zsrc)
 
 {

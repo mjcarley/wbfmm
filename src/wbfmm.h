@@ -70,7 +70,6 @@ typedef struct {
       n ;  /**< number of points in box */
   gpointer mps, /**< pointer to singular multipole expansion data */
     mpr ;   /**< pointer to regular multipole expansion data */
-
 } wbfmm_box_t ;
 
 /*maximum depth of an octree*/
