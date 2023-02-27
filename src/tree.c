@@ -140,11 +140,13 @@ gint wbfmm_tree_coefficients_zero(wbfmm_tree_t *t, guint level)
 
   nb = 1 << (3*level) ;
   nc = t->order_r[level] ;
-  nc = (nc+1)*(nc+1) ;
+  /* nc = (nc+1)*(nc+1) ; */
+  nc = wbfmm_coefficient_number(nc) ;
+  if ( wbfmm_tree_problem(t) == WBFMM_PROBLEM_HELMHOLTZ ) nc *= 2 ;
   memset(t->mpr[level], 0, nb*nc*(t->nq)*(t->size)) ;
-  nc = t->order_s[level] ;
-  nc = (nc+1)*(nc+1) ;
-  memset(t->mps[level], 0, nb*nc*(t->nq)*(t->size)) ;
+  /* nc = t->order_s[level] ; */
+  /* nc = (nc+1)*(nc+1) ; */
+  /* memset(t->mps[level], 0, nb*nc*(t->nq)*(t->size)) ; */
 
   return 0 ;
 }
