@@ -1259,7 +1259,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
   
   if ( src != NULL && normals != NULL ) {
     /*sources and dipoles*/
-    WBFMM_REAL th, ph, nr, g ;
+    /* WBFMM_REAL th, ph, nr, g ; */
+    WBFMM_REAL rr[3], nr, g ;
     
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
@@ -1267,12 +1268,20 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	idx = t->ip[box.i+j] ;
 	xs = wbfmm_tree_point_index(t, idx) ;
 
-	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
-	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	/* WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ; */
+	rr[0] = x[0] - xs[0] ; 
+	rr[1] = x[1] - xs[1] ; 
+	rr[2] = x[2] - xs[2] ;
+	r = rr[0]*rr[0] + rr[1]*rr[1] + rr[2]*rr[2] ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  r = SQRT(r) ;
 	  nr =
-	    (x[0] - xs[0])*normals[idx*nstr+0] +
-	    (x[1] - xs[1])*normals[idx*nstr+1] + 
-	    (x[2] - xs[2])*normals[idx*nstr+2] ;
+	    rr[0]*normals[idx*nstr+0] + 
+	    rr[1]*normals[idx*nstr+1] + 
+	    rr[2]*normals[idx*nstr+2] ;
+	    /* (x[0] - xs[0])*normals[idx*nstr+0] + */
+	    /* (x[1] - xs[1])*normals[idx*nstr+1] +  */
+	    /* (x[2] - xs[2])*normals[idx*nstr+2] ; */
 	  g = 0.25*M_1_PI/r ;
 	  /* nr /= 4.0*M_PI*r*r*r ; */
 	  /* nr *= g/r/r ; /\* 4.0*M_PI*r*r*r ; *\/ */

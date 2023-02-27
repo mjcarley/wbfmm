@@ -335,7 +335,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
   WBFMM_REAL *xs, *q, *fd, *n, xb[3], wb ;
   gint nq = wbfmm_tree_source_size(t) ;
   
-  /* g_assert(nq == 1) ; */
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
 
   /*depth of leaves*/
@@ -345,7 +344,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
   /*number of boxes*/
   nb = 1 << (3*d) ;
   /*number of coefficients*/
-  /* nc = wbfmm_coefficient_index_nm(ns+1,0) ; */
   nc = wbfmm_coefficient_number(ns) ;
   
   /*zero the coefficients before accumulating*/

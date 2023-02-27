@@ -10,6 +10,11 @@
 ## don't include emacs backups
 *~
 
+## don't include intermediate data files
+*.dat
+
 ## scratch directory
 scratch
 
+## m4 cache
+autom4te.cache

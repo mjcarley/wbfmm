@@ -315,7 +315,7 @@ gint main(gint argc, gchar **argv)
 
   for ( i = 1 ; i <= depth ; i ++ ) {
     wbfmm_shift_operators_coaxial_SR_init_FLOAT(shifts, D, i, order[2*i+0], 
-					       k, work) ;
+						k, work) ;
   }
 
   fprintf(stderr, "%s: shift translation operators initialized; %lg\n",

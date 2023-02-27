@@ -169,9 +169,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_target_list_t *l, guint source, WBFMM_REAL *work)
 
 {
-  gint i, j, k, npts, nr, nc, ns, idx, tstr ;
+  gint i, j, k, npts, nr, nc, idx, tstr ;
   guint level ;
-  guint64 b ;
+  guint64 b, ns ;
   wbfmm_tree_t *t = wbfmm_target_list_tree(l) ;
   WBFMM_REAL xb[3], wb, xf[3], *x, *cfft ;
   WBFMM_REAL *csrc, r, *xs, *n, nR[3] ;
@@ -209,11 +209,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
   ns = 0 ;
   for ( i = 0 ; i < npts ; i ++ ) {
     j = l->boxes[i] ;
+    /* g_assert(l->ibox[j+1] >= l->ibox[j]) ; */
     ns += l->ibox[j+1] - l->ibox[j] ;
+    /* fprintf(stderr, "%d: %lu %d\n", i, ns, l->ibox[j+1] - l->ibox[j]) ; */
   }
   l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
 
-  /* fprintf(stderr, "ns = %d; npts = %d\n", ns, npts) ; */
+  /* fprintf(stderr, "ns = %lu; npts = %d\n", ns, npts) ; */
   if ( l->field == WBFMM_FIELD_SCALAR ) {
     l->csrc =         g_malloc0(tstr*ns*sizeof(WBFMM_REAL)) ;
 
@@ -244,6 +246,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
 
     if ( source == (WBFMM_SOURCE_MONOPOLE | WBFMM_SOURCE_DIPOLE) ) {
       for ( i = 0 ; i < npts ; i ++ ) {
+	/* fprintf(stderr, "%d\n", i) ; */
 	l->ics[i] = ns ;
 	csrc = &(((WBFMM_REAL *)(l->csrc))[ns*tstr]) ;
 	k = l->boxes[i] ;

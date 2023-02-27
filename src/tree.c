@@ -142,6 +142,9 @@ gint wbfmm_tree_coefficients_zero(wbfmm_tree_t *t, guint level)
   nc = t->order_r[level] ;
   nc = (nc+1)*(nc+1) ;
   memset(t->mpr[level], 0, nb*nc*(t->nq)*(t->size)) ;
+  nc = t->order_s[level] ;
+  nc = (nc+1)*(nc+1) ;
+  memset(t->mps[level], 0, nb*nc*(t->nq)*(t->size)) ;
 
   return 0 ;
 }
