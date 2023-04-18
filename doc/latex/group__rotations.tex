@@ -50,7 +50,7 @@ Generate the coefficients required to rotate one multipole expansion to a new or
 \hline
 {\em N} & maximum order of coefficients to compute; \\
 \hline
-{\em th} & rotation angle $\theta$, from \doxyref{wbfmm\+\_\+rotation\+\_\+angles}{p.}{group__rotations_ga37773f36d6609f618a982e0a67446354}; \\
+{\em th} & rotation angle $\theta$, from wbfmm\+\_\+rotation\+\_\+angles; \\
 \hline
 {\em work} & workspace\\
 \hline
@@ -76,7 +76,7 @@ Generate the coefficients required to rotate one multipole expansion to a new or
 \hline
 {\em N} & maximum order of coefficients to compute; \\
 \hline
-{\em th} & rotation angle $\theta$, from \doxyref{wbfmm\+\_\+rotation\+\_\+angles}{p.}{group__rotations_ga37773f36d6609f618a982e0a67446354}; \\
+{\em th} & rotation angle $\theta$, from wbfmm\+\_\+rotation\+\_\+angles\+\_\+f; \\
 \hline
 {\em work} & workspace\\
 \hline
@@ -136,7 +136,7 @@ This stride system allows for packing data more conveniently for upward and down
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients for the Laplace problem. 
 
-Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36} rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
+Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac} rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
 
 $[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
 
@@ -156,7 +156,7 @@ This stride system allows for packing data more conveniently for upward and down
 \hline
 {\em nq} & number of source terms; \\
 \hline
-{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}; \\
+{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}; \\
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline
@@ -184,7 +184,7 @@ $[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})
 
 This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.
 
-The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+ref) and an optimized version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version.
+The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+ref and an optimized version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+avx which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version.
 
 
 \begin{DoxyParams}{Parameters}
@@ -222,13 +222,13 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 
 Apply rotation $(\theta,\phi\,\chi)$ to multipole coefficients. 
 
-Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}, rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
+Given the rotation coefficients {\itshape H} for angle $\theta$ from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}, rotate input coefficients to new system of axes, using {\itshape H} and angles $\phi$ and $\chi$. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as {\itshape cstri} and {\itshape cstro} elements respectively. Thus, {\itshape Co} for example is packed as\+:
 
 $[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
 
 This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.
 
-The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+ref) and an optimized version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version.
+The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+ref\+\_\+f and an optimized version wbfmm\+\_\+rotate\+\_\+\+H\+\_\+avx\+\_\+f which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version.
 
 
 \begin{DoxyParams}{Parameters}
@@ -244,7 +244,7 @@ The function is available as a reference version wbfmm\+\_\+rotate\+\_\+\+H\+\_\
 \hline
 {\em nq} & number of source components; \\
 \hline
-{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation}{p.}{group__rotations_gaee61391dcfdfc4e506460c232d6ceb36}; \\
+{\em H} & rotation coefficients for angle $\theta$, from \doxyref{wbfmm\+\_\+coefficients\+\_\+\+H\+\_\+rotation\+\_\+f}{p.}{group__rotations_ga55f0a1ed8e64ccf659120622db8d29ac}; \\
 \hline
 {\em ph} & angle $\phi$ for rotation; \\
 \hline

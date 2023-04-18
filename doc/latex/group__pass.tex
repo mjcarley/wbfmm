@@ -44,7 +44,7 @@ Perform downward pass at one level of an octree.
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
 
-The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref) and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors).
+The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors).
 
 
 \begin{DoxyParams}{Parameters}
@@ -74,7 +74,7 @@ Perform downward pass at one level of an octree.
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
 
-The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref) and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors).
+The function is available as a reference version wbfmm\+\_\+downward\+\_\+pass\+\_\+ref\+\_\+f and an optimized version wbfmm\+\_\+downward\+\_\+pass\+\_\+avx\+\_\+f which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors).
 
 
 \begin{DoxyParams}{Parameters}
@@ -104,7 +104,7 @@ Perform downward pass at one level of an octree for the Laplace problem.
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
 
-The function is available as a reference version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+ref) and an optimized version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.
+The function is available as a reference version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+ref and an optimized version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+avx which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.
 
 
 \begin{DoxyParams}{Parameters}
@@ -134,7 +134,7 @@ Perform downward pass at one level of an octree for the Laplace problem.
 
 Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-\/leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.
 
-The function is available as a reference version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+ref) and an optimized version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+avx) which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.
+The function is available as a reference version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+ref\+\_\+f and an optimized version wbfmm\+\_\+laplace\+\_\+downward\+\_\+pass\+\_\+avx\+\_\+f which uses AVX optimizations if available. The compile time switch -\/DWBFMM\+\_\+\+USE\+\_\+\+AVX selects the AVX version. The parameter {\itshape nthreads} is ignored if the library does not have Open\+MP support. Otherwise, if {\itshape nthreads=0}, the unthreaded version is used, if {\itshape nthreads$>$0} it is treated as the number of threads, and if {\itshape nthreads$<$0}, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.
 
 
 \begin{DoxyParams}{Parameters}

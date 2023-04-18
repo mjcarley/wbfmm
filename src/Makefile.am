@@ -54,16 +54,12 @@ documentation.c: documentation.c.in
 	date >> documentation.c ; \
 	echo -e " * -------------------------------\\n */\\n\\n" \
 	>> documentation.c ; \
-	sed -e s/WBFMM_REAL/gdouble/g -e s/WBFMM_FUNCTION_NAME\(//g \
+	sed -e s/WBFMM_REAL/gdouble/g -e s/_FLOAT//g \
 	documentation.c.in \
-	| sed -e s/\)\(/\(/ >> documentation.c ; \
-	sed -e s/WBFMM_REAL/gfloat/g -e s/WBFMM_FUNCTION_NAME\(//g \
+	>> documentation.c ; \
+	sed -e s/WBFMM_REAL/gfloat/g -e s/_FLOAT/_f/g \
 	documentation.c.in \
-	| sed -e s/\)\(/_f\(/ >> documentation.c
-
-#	  -e s/\)\(/\(/ documentation.c.in >> documentation.c ; \
-#sed -e s/WBFMM_REAL/gfloat/g -e s/WBFMM_FUNCTION_NAME\(//g \
-#  -e s/\)\(/_f\(/ documentation.c.in >> documentation.c
+	>> documentation.c ;
 
 libwbfmm_la_LIBADD = libsub.la
 noinst_LTLIBRARIES = libsub.la

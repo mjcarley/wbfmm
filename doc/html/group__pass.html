@@ -124,7 +124,7 @@ Functions</h2></td></tr>
 
 <p>Perform downward pass at one level of an octree. </p>
 <p >Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.</p>
-<p >The function is available as a reference version wbfmm_downward_pass_ref) and an optimized version wbfmm_downward_pass_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors).</p>
+<p >The function is available as a reference version wbfmm_downward_pass_ref and an optimized version wbfmm_downward_pass_avx which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>an initialized octree which has had the upward pass performed; </td></tr>
@@ -185,7 +185,7 @@ Functions</h2></td></tr>
 
 <p>Perform downward pass at one level of an octree. </p>
 <p >Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.</p>
-<p >The function is available as a reference version wbfmm_downward_pass_ref) and an optimized version wbfmm_downward_pass_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors).</p>
+<p >The function is available as a reference version wbfmm_downward_pass_ref_f and an optimized version wbfmm_downward_pass_avx_f which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>an initialized octree which has had the upward pass performed; </td></tr>
@@ -246,7 +246,7 @@ Functions</h2></td></tr>
 
 <p>Perform downward pass at one level of an octree for the Laplace problem. </p>
 <p >Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.</p>
-<p >The function is available as a reference version wbfmm_laplace_downward_pass_ref) and an optimized version wbfmm_laplace_downward_pass_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.</p>
+<p >The function is available as a reference version wbfmm_laplace_downward_pass_ref and an optimized version wbfmm_laplace_downward_pass_avx which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>an initialized octree which has had the upward pass performed; </td></tr>
@@ -307,7 +307,7 @@ Functions</h2></td></tr>
 
 <p>Perform downward pass at one level of an octree for the Laplace problem. </p>
 <p >Perform one stage of a downward pass for tree levels greater than or equal to two. The actions performed are the evaluation of the list 4 contribution to the regular expansion and, for non-leaf boxes, a downward shift of the regular expansions to the child boxes at the next level.</p>
-<p >The function is available as a reference version wbfmm_laplace_downward_pass_ref) and an optimized version wbfmm_laplace_downward_pass_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.</p>
+<p >The function is available as a reference version wbfmm_laplace_downward_pass_ref_f and an optimized version wbfmm_laplace_downward_pass_avx_f which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version. The parameter <em>nthreads</em> is ignored if the library does not have OpenMP support. Otherwise, if <em>nthreads=0</em>, the unthreaded version is used, if <em>nthreads&gt;0</em> it is treated as the number of threads, and if <em>nthreads&lt;0</em>, the number of threads is determined by the CPU (usually the number of processors). Threading is not implemented on the reference version.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>an initialized octree which has had the upward pass performed; </td></tr>
@@ -537,7 +537,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 18 2023 12:10:47 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Tue Apr 18 2023 16:43:06 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

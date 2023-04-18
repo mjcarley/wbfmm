@@ -444,10 +444,6 @@ libwbfmm_la_SOURCES = \
 	constants.c \
 	config.c
 
-
-#	  -e s/\)\(/\(/ documentation.c.in >> documentation.c ; \
-#sed -e s/WBFMM_REAL/gfloat/g -e s/WBFMM_FUNCTION_NAME\(//g \
-#  -e s/\)\(/_f\(/ documentation.c.in >> documentation.c
 libwbfmm_la_LIBADD = libsub.la
 noinst_LTLIBRARIES = libsub.la
 libsub_la_SOURCES = \
@@ -1151,12 +1147,12 @@ documentation.c: documentation.c.in
 	date >> documentation.c ; \
 	echo -e " * -------------------------------\\n */\\n\\n" \
 	>> documentation.c ; \
-	sed -e s/WBFMM_REAL/gdouble/g -e s/WBFMM_FUNCTION_NAME\(//g \
+	sed -e s/WBFMM_REAL/gdouble/g -e s/_FLOAT//g \
 	documentation.c.in \
-	| sed -e s/\)\(/\(/ >> documentation.c ; \
-	sed -e s/WBFMM_REAL/gfloat/g -e s/WBFMM_FUNCTION_NAME\(//g \
+	>> documentation.c ; \
+	sed -e s/WBFMM_REAL/gfloat/g -e s/_FLOAT/_f/g \
 	documentation.c.in \
-	| sed -e s/\)\(/_f\(/ >> documentation.c
+	>> documentation.c ;
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -123,7 +123,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">H</td><td>on output rotation coefficients; </td></tr>
     <tr><td class="paramname">N</td><td>maximum order of coefficients to compute; </td></tr>
-    <tr><td class="paramname">th</td><td>rotation angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#ga37773f36d6609f618a982e0a67446354" title="Compute the rotation angles  between axes.">wbfmm_rotation_angles</a>; </td></tr>
+    <tr><td class="paramname">th</td><td>rotation angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from wbfmm_rotation_angles; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
   </dd>
@@ -176,7 +176,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">H</td><td>on output rotation coefficients; </td></tr>
     <tr><td class="paramname">N</td><td>maximum order of coefficients to compute; </td></tr>
-    <tr><td class="paramname">th</td><td>rotation angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#ga37773f36d6609f618a982e0a67446354" title="Compute the rotation angles  between axes.">wbfmm_rotation_angles</a>; </td></tr>
+    <tr><td class="paramname">th</td><td>rotation angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from wbfmm_rotation_angles_f; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
   </dd>
@@ -357,7 +357,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients for the Laplace problem. </p>
-<p >Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation</a> rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
+<p >Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation_f</a> rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
 <p ><img class="formulaInl" alt="$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$" src="form_10.png"/></p>
 <p >This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -368,7 +368,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>, in number of complex elements; </td></tr>
     <tr><td class="paramname">N</td><td>maximum order of coefficients; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source terms; </td></tr>
-    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation</a>; </td></tr>
+    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation_f</a>; </td></tr>
     <tr><td class="paramname">ph</td><td>angle <img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation; </td></tr>
     <tr><td class="paramname">ch</td><td>angle <img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation; </td></tr>
     <tr><td class="paramname">sc</td><td>scaling factor to premultiply <em>Co</em>.</td></tr>
@@ -457,7 +457,7 @@ Functions</h2></td></tr>
 <p >Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation</a>, rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
 <p ><img class="formulaInl" alt="$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$" src="form_10.png"/></p>
 <p >This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.</p>
-<p >The function is available as a reference version wbfmm_rotate_H_ref) and an optimized version wbfmm_rotate_H_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version.</p>
+<p >The function is available as a reference version wbfmm_rotate_H_ref and an optimized version wbfmm_rotate_H_avx which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Co</td><td>on output contains rotated coefficients; </td></tr>
@@ -552,10 +552,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Apply rotation <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> to multipole coefficients. </p>
-<p >Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation</a>, rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
+<p >Given the rotation coefficients <em>H</em> for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/> from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation_f</a>, rotate input coefficients to new system of axes, using <em>H</em> and angles <img class="formulaInl" alt="$\phi$" src="form_7.png"/> and <img class="formulaInl" alt="$\chi$" src="form_8.png"/>. Input and output are strided arrays of dense complex data with spacing between adjacent complex values given as <em>cstri</em> and <em>cstro</em> elements respectively. Thus, <em>Co</em> for example is packed as:</p>
 <p ><img class="formulaInl" alt="$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$" src="form_10.png"/></p>
 <p >This stride system allows for packing data more conveniently for upward and downward passes in the FMM proper.</p>
-<p >The function is available as a reference version wbfmm_rotate_H_ref) and an optimized version wbfmm_rotate_H_avx) which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version.</p>
+<p >The function is available as a reference version wbfmm_rotate_H_ref_f and an optimized version wbfmm_rotate_H_avx_f which uses AVX optimizations if available. The compile time switch -DWBFMM_USE_AVX selects the AVX version.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Co</td><td>on output contains rotated coefficients; </td></tr>
@@ -564,7 +564,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cstri</td><td>stride in <em>Ci</em>, in number of complex elements; </td></tr>
     <tr><td class="paramname">N</td><td>maximum order of coefficients; </td></tr>
     <tr><td class="paramname">nq</td><td>number of source components; </td></tr>
-    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#gaee61391dcfdfc4e506460c232d6ceb36" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation</a>; </td></tr>
+    <tr><td class="paramname">H</td><td>rotation coefficients for angle <img class="formulaInl" alt="$\theta$" src="form_6.png"/>, from <a class="el" href="group__rotations.html#ga55f0a1ed8e64ccf659120622db8d29ac" title="Compute rotation coefficients for angle .">wbfmm_coefficients_H_rotation_f</a>; </td></tr>
     <tr><td class="paramname">ph</td><td>angle <img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation; </td></tr>
     <tr><td class="paramname">ch</td><td>angle <img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation; </td></tr>
     <tr><td class="paramname">sc</td><td>scaling of <em>Co</em> before adding rotated coefficients (usually 0 or 1).</td></tr>
@@ -754,7 +754,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 18 2023 12:10:47 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Tue Apr 18 2023 16:43:06 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>
