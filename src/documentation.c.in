@@ -68,7 +68,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(WBFMM_REAL *ix, WBFMM_REAL *iy,
  * @param H on output rotation coefficients;
  * @param N maximum order of coefficients to compute;
  * @param th rotation angle \f$\theta\f$, from 
- * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(...);
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles;
  * @param work workspace
  *
  * @return 0 on success
@@ -84,7 +84,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H,
  * coefficients
  * 
  * Given the rotation coefficients \a H for angle \f$\theta\f$ from 
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...), rotate input
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation, rotate input
  * coefficients to new system of axes, using \a H and angles
  * \f$\phi\f$ and \f$\chi\f$. Input and output are strided arrays of
  * dense complex data with spacing between adjacent complex values
@@ -98,8 +98,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H,
  * upward and downward passes in the FMM proper. 
  *
  * The function is available as a reference version
- * WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref)(...) and an optimized version
- * WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(...) which uses AVX
+ * WBFMM_FUNCTION_NAME(wbfmm_rotate_H_ref) and an optimized version
+ * WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx) which uses AVX
  * optimizations if available. The compile time switch -DWBFMM_USE_AVX
  * selects the AVX version. 
  *
@@ -110,7 +110,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(WBFMM_REAL *H,
  * @param N maximum order of coefficients;
  * @param nq number of source components;
  * @param H rotation coefficients for angle \f$\theta\f$, from
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation;
  * @param ph angle \f$\phi\f$ for rotation;
  * @param ch angle \f$\chi\f$ for rotation;
  * @param sc scaling of \a Co before adding rotated coefficients
@@ -181,10 +181,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  *
  * Compute the coaxial translation of a multipole expansion along its
  * \f$z\f$ axis, using coefficients from
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(...) (complex) or
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial)(...) (real). Input
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial (complex) or
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_RR_coaxial (real). Input
  * and output coefficients are strided data as described for
- * ::WBFMM_FUNCTION_NAME(wbfmm_rotate_H)(...).
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotate_H.
  *
  * @param Co on output contains translated multipole expansion;
  * @param cstro stride for output data in number of complex elements;
@@ -235,7 +235,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_coefficients_SR_coaxial)(WBFMM_REAL *cfftSR,
  * Generate leaf expansions for a tree given some combination of
  * monopole and dipole sources. Source positions are those in the
  * point list attached to the tree using
- * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in the
+ * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points and indexing in the
  * array must correspond to that in the point list. Input arrays may
  * be NULL: if \a src is not NULL, it is interpreted as a list of
  * complex monopole strengths; if \a normals is not NULL, \a dipoles
@@ -446,7 +446,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(WBFMM_REAL *Cp, gint Np,
  * with a stride of eight elements so that all expansion coefficients
  * of a given order are contiguous in memory, ordered by Morton
  * index. The method is the same as for
- * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(...), except that
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift, except that
  * the child boxes with Morton indices 4-7 are rotated in the same
  * sense as the diagonally opposite child boxes 0-3 and a reverse
  * (negative distance) coaxial translation is used to combine them
@@ -489,10 +489,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
  *
  * Shift the (regular) expansion data from a parent box to each of its
  * child boxes, assuming the same packing as in
- * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(...). Note that the
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift. Note that the
  * rotation matrices for this function are switched relative to the
  * rotations of the same name in
- * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)(...), because the `upper'
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift, because the `upper'
  * children rotate `down' to be shifted to the parent centre but the
  * rotation is `up' to shift from the parent to those children, and
  * similarly for the `lower' children.
@@ -530,7 +530,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
  * Find the rotation angles \f$(\theta,\phi\,\chi)\f$ between a box at
  * integer coordinates \f$(i,j,k)\f$, using a look-up table which
  * should be initialized with
- * ::WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_angle_table_init
  *
  * @param i integer \f$x\f$ coordinate of box on interaction list;
  * @param j integer \f$y\f$ coordinate of box on interaction list;
@@ -557,7 +557,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(WBFMM_REAL *Cp, gint Np,
  *
  * This function must be called before any interaction calculations
  * are performed, in particular before any call to
- * ::WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...), in order to
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new, in order to
  * initialize the look-up table of orientations between boxes in
  * interaction lists.
  *
@@ -598,7 +598,7 @@ WBFMM_FUNCTION_NAME(*wbfmm_shift_operators_new)(guint L,
  * @brief Initialize singular-to-regular translation operators
  *
  * @param w a ::wbfmm_shift_operators_t allocated with 
- * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...);
+ * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new);
  * @param D width of the problem domain;
  * @param level level for which to generate translations;
  * @param L order of translations;
@@ -621,7 +621,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  * translation operators
  *
  * @param w a ::wbfmm_shift_operators_t allocated with 
- * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new)(...);
+ * WBFMM_FUNCTION_NAME(wbfmm_shift_operators_new);
  * @param D width of the problem domain;
  * @param level level for which to generate translations;
  * @param L order of translations;
@@ -713,7 +713,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_shift_operators_coaxial_SR_init)
  * @param nq number of source elements;
  * @param cfft incremented with expansion coefficients;
  * @param cstr stride in \a cfft, in number of complex elements;
- * @param nq number of source elements;
  * @param work workspace
  *
  * @return 0 on success
@@ -869,8 +868,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_j_grad_evaluate)(WBFMM_REAL k,
  * boxes at the next level.
  *
  * The function is available as a reference version
- * WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(...) and an optimized
- * version WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx)(...) which
+ * WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref) and an optimized
+ * version WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx) which
  * uses AVX optimizations if available. The compile time switch
  * -DWBFMM_USE_AVX selects the AVX version. The parameter \a nthreads
  * is ignored if the library does not have OpenMP support. Otherwise,
@@ -1255,8 +1254,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_total_field)(WBFMM_REAL k, WBFMM_REAL
  * @brief Compute angles and distance to shift expansion between two points
  *
  * This is a combination of a call to
- * ::WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates)(...) and 
- * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_shift_coordinates and 
+ * ::WBFMM_FUNCTION_NAME(wbfmm_rotation_angles
  *
  * @param xi origin of shift;
  * @param xj destination of shift;
@@ -1366,7 +1365,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_dipole_cfft)(gint N,
  *
  */
 
-gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(WBFMM_REAL *x0,
 							   WBFMM_REAL *cfft,
 							   gint cstr, gint N,
 							   gint nq,
@@ -1394,14 +1393,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_evaluate)(WBFMM_REAL *x0,
  *
  */
 
-gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_grad_evaluate)(WBFMM_REAL *x0,
-								WBFMM_REAL *cfft,
-								gint cstr, gint N,
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
+								WBFMM_REAL
+								*cfft,
+								gint cstr,
+								gint N,
 								gint nq,
 								WBFMM_REAL *xf,
-								WBFMM_REAL *field,
+								WBFMM_REAL
+								*field,
 								gint fstr,
-								WBFMM_REAL *work) {}
+								WBFMM_REAL
+								*work) {}
 
 /**
  *
@@ -1413,7 +1416,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_laplace_grad_evaluate)(WBFMM_REAL *x0,
  * \f$z\f$ axis to a singular expansion about a new centre.  Before
  * any Laplace translation function is called, the translation
  * coefficients must be initialized with a call to
- * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init
  *
  * @param Co on output, expansion about new centre;
  * @param cstro stride in \a Co;
@@ -1488,7 +1491,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_child_parent_shift)(WBFMM_REAL *Cp,
  * with a stride of eight elements so that all expansion coefficients
  * of a given order are contiguous in memory, ordered by Morton index,
  * using the backward translation method of
- * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift_bw
  *
  * @param Cp parent expansion array;
  * @param Np order of parent expansion;
@@ -1560,7 +1563,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_parent_child_shift)(WBFMM_REAL *Cc,
  * @brief Generate coefficients for evaluation of field from
  * (singular) expansion coefficients in the Laplace problem. The
  * coefficients from this function can be applied to an expansion
- * using ::WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(...)
+ * using ::WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply
  * 
  * @param x location of evaluation point relative to centre of expansion;
  * @param N order of expansion;
@@ -1618,7 +1621,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
  * @brief Generate coefficients for evaluation of local field from
  * (regular) expansion coefficients in the Laplace problem. The
  * coefficients from this function can be applied to an expansion
- * using ::WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(...)
+ * using ::WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply
  * 
  * @param x location of evaluation point relative to centre of expansion;
  * @param N order of expansion;
@@ -1709,7 +1712,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_box_fields_laplace)(wbfmm_tree_t *t,
  * Generate leaf expansions for a tree for the Laplace problem given
  * some combination of monopole and dipole sources. Source positions
  * are those in the point list attached to the tree using
- * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(...) and indexing in
+ * ::WBFMM_FUNCTION_NAME(wbfmm_tree_add_points and indexing in
  * the array must correspond to that in the point list. Input arrays
  * may be NULL: if \a src is not NULL, it is interpreted as a list of
  * monopole strengths; if \a normals is not NULL, \a dipoles may not
@@ -1793,7 +1796,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_coefficient_init)(wbfmm_tree_t *t,
  * the \f$z\f$ axis to a regular expansion about a new centre. Before
  * any Laplace translation function is called, the translation
  * coefficients must be initialized with a call to
- * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init
  *
  * @param Co on output, expansion about new centre;
  * @param cstro stride in \a Co;
@@ -1829,7 +1832,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(WBFMM_REAL *Co,
  * the \f$z\f$ axis to a regular expansion about a new centre. Before
  * any Laplace translation function is called, the translation
  * coefficients must be initialized with a call to
- * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init)(...)
+ * ::WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_init
  *
  * @param Co on output, expansion about new centre;
  * @param cstro stride in \a Co;
@@ -1942,7 +1945,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
  * @param nsrc number of sources;
  * @param xf field point;
  * @param field on output incremented with computed curl;
- * @param fstr stride in \param field (ignored).
+ * @param fstr stride in \a field (ignored).
  *
  * @return 0 on success
  *
@@ -2041,7 +2044,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
  * @brief Evaluate gradient of local Laplace expansion
  *
  * Evaluate the gradient \f$\nabla\phi_{i}\f$ for source components 
- * \f$i=0,\ldots n_{q}-1\f$, packing gradient vectors in \param field. 
+ * \f$i=0,\ldots n_{q}-1\f$, packing gradient vectors in \a field. 
  * 
  * @param x0 centre of expansion;
  * @param cfft local expansion coefficients;
@@ -2059,17 +2062,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
 
 gint
 WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
-								 WBFMM_REAL
-								 *cfft,
+								 WBFMM_REAL *cfft,
 								 gint cstr, 
 								 gint N,
 								 gint nq,
 								 WBFMM_REAL *xf,
-								 WBFMM_REAL
-								 *field,
+								 WBFMM_REAL *field,
 								 gint fstr,
-								 WBFMM_REAL
-								 *work) {} ;
+								 WBFMM_REAL *work) {} ;
 
 /** 
  *
@@ -2096,7 +2096,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
  */
 
 gint
-WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
+WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(WBFMM_REAL *x0,
 								 WBFMM_REAL
 								 *cfft,
 								 gint cstr, 
@@ -2115,7 +2115,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
  * coefficients for the Laplace problem
  * 
  * Given the rotation coefficients \a H for angle \f$\theta\f$ from 
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...), rotate input
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation rotate input
  * coefficients to new system of axes, using \a H and angles
  * \f$\phi\f$ and \f$\chi\f$. Input and output are strided arrays of
  * dense complex data with spacing between adjacent complex values
@@ -2135,7 +2135,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
  * @param N maximum order of coefficients;
  * @param nq number of source terms;
  * @param H rotation coefficients for angle \f$\theta\f$, from
- * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation)(...);
+ * ::WBFMM_FUNCTION_NAME(wbfmm_coefficients_H_rotation;
  * @param ph angle \f$\phi\f$ for rotation;
  * @param ch angle \f$\chi\f$ for rotation;
  * @param sc scaling factor to premultiply \a Co.
@@ -2164,8 +2164,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(WBFMM_REAL *Co, gint cstro,
  * boxes at the next level.
  *
  * The function is available as a reference version
- * WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_ref)(...) and an optimized
- * version WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_avx)(...) which
+ * WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_ref) and an optimized
+ * version WBFMM_FUNCTION_NAME(wbfmm_laplace_downward_pass_avx) which
  * uses AVX optimizations if available. The compile time switch
  * -DWBFMM_USE_AVX selects the AVX version. The parameter \a nthreads
  * is ignored if the library does not have OpenMP support. Otherwise,
@@ -2223,7 +2223,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_upward_pass)(wbfmm_tree_t *t,
  * @brief Generate coefficients for evaluation of local field from
  * (regular) expansion coefficients in the Helmholtz problem. The
  * coefficients from this function can be applied to an expansion
- * using ::WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(...)
+ * using ::WBFMM_FUNCTION_NAME(wbfmm_expansion_apply
  * 
  * @param k wavenumber;
  * @param x location of evaluation point relative to centre of expansion;
@@ -2245,14 +2245,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
 
 /**
  * 
- * @ingroup laplace
+ * @ingroup expansions
  *
  * @brief Apply evaluation coefficients to coefficients of an
- * expansion to evaluate the Helmholtz potential. Evaluation
- * coefficients can be evaluated using
- * WBFMM_FUNCTION_NAME(wbfmm_field_coefficients) or
- * WBFMM_FUNCTION_NAME(wbfmm_local_coefficients) for the field
- * (singular) or local (regular) expansions respectively.
+ * expansion to evaluate the Helmholtz potential.
  * 
  * @param C coefficients of expansion;
  * @param cstr stride in \a C;

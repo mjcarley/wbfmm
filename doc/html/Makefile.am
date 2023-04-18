@@ -4,4 +4,4 @@ EXTRA_DIST = \
 	$(docs_DATA)
 
 docs_DATA = \
-	*.html *.css *.png
+	*.html *.css *.png *.js *.svg

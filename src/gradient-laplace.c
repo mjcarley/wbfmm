@@ -196,7 +196,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL *Cmph, *Smph, cr, ci ;
   gint n, m, idx, i ;
 
-  if ( fstr < 3 )
+  if ( fstr < 3 && nq != 1 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
   

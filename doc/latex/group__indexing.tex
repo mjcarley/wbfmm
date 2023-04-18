@@ -1,115 +1,14 @@
-\section{Indexing and lookup operations}
+\doxysection{Indexing and lookup operations}
 \label{group__indexing}\index{Indexing and lookup operations@{Indexing and lookup operations}}
 
 
 Indexing functions for accessing tree data structures.  
 
 
-\subsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-guint64 {\bf wbfmm\+\_\+box\+\_\+index} (guint32 i, guint32 j, guint32 k)
-\item 
-gint {\bf wbfmm\+\_\+box\+\_\+location} (guint64 idx, guint32 $\ast$i, guint32 $\ast$j, guint32 $\ast$k)
-\item 
-gint {\bf wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4} (guint level, guint64 idx, guint64 $\ast$list, gboolean sort)
-\begin{DoxyCompactList}\small\item\em Find the local interaction list for a specified box. \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\subsection{Detailed Description}
 Indexing functions for accessing tree data structures. 
 
 Functions for indexing and lookup in tree data structures, including finding neighbours and interaction lists, based on the methods of Gumerov, Duraiswami, and Borovikov, Data Structures, Optimal Choice of Parameters, and Complexity Results for Generalized Multilevel Fast Multipole Methods in d Dimensions, 2003
 
-{\tt http\+://users.\+umiacs.\+umd.\+edu/$\sim$gumerov/\+P\+D\+Fs/cs-\/tr-\/4458.\+pdf}
+{\texttt{ http\+://users.\+umiacs.\+umd.\+edu/$\sim$gumerov/\+PDFs/cs-\/tr-\/4458.\+pdf}}
 
-Code for Morton indexing operations is taken from\+: {\tt https\+://www.\+forceflow.\+be/2013/10/07/morton-\/encodingdecoding-\/through-\/bit-\/interleaving-\/implementations/} 
-
-\subsection{Function Documentation}
-\index{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}}
-\index{wbfmm\+\_\+box\+\_\+index@{wbfmm\+\_\+box\+\_\+index}!Indexing and lookup operations@{Indexing and lookup operations}}
-\subsubsection[{wbfmm\+\_\+box\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}guint64 wbfmm\+\_\+box\+\_\+index (
-\begin{DoxyParamCaption}
-\item[{guint32}]{i, }
-\item[{guint32}]{j, }
-\item[{guint32}]{k}
-\end{DoxyParamCaption}
-)}\label{group__indexing_ga772ce9b74a28e167382adbf10f332fbf}
-Generate a Morton index for a box with corner at integer coordinates (i,j,k).
-
-
-\begin{DoxyParams}{Parameters}
-{\em i} & x index of bottom left hand corner; \\
-\hline
-{\em j} & y index of bottom left hand corner; \\
-\hline
-{\em k} & z index of bottom left hand corner.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Morton index for ({\itshape i}, {\itshape j}, {\itshape k}). 
-\end{DoxyReturn}
-
-
-Referenced by wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4().
-
-\index{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4@{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}}
-\index{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4@{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}!Indexing and lookup operations@{Indexing and lookup operations}}
-\subsubsection[{wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+interaction\+\_\+list\+\_\+4 (
-\begin{DoxyParamCaption}
-\item[{guint}]{level, }
-\item[{guint64}]{idx, }
-\item[{guint64 $\ast$}]{list, }
-\item[{gboolean}]{sort}
-\end{DoxyParamCaption}
-)}\label{group__indexing_ga289943cd11d9771f29c81e26694485b9}
-
-
-Find the local interaction list for a specified box. 
-
-Find the indices of boxes on a given level of a tree which interact directly with a specified box (list 4 in Gumerov and Duraiswami\textquotesingle{}s notation). These are boxes which are children of neighbours of the parent of the specified box, and separated from it by at least one box. On exit {\itshape list} contains entries made up of two integers, a box index and the index for looking up rotation and translation operations.
-
-
-\begin{DoxyParams}{Parameters}
-{\em level} & tree level for list; \\
-\hline
-{\em idx} & index of box whose interaction list is to be found; \\
-\hline
-{\em list} & on exit contains list of interacting boxes and specification of rotation required; \\
-\hline
-{\em sort} & if T\+R\+U\+E, sort {\itshape list} so that boxes with the same rotation angles are grouped together\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-number of entries in {\itshape list} 
-\end{DoxyReturn}
-
-
-References wbfmm\+\_\+box\+\_\+index().
-
-\index{Indexing and lookup operations@{Indexing and lookup operations}!wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}}
-\index{wbfmm\+\_\+box\+\_\+location@{wbfmm\+\_\+box\+\_\+location}!Indexing and lookup operations@{Indexing and lookup operations}}
-\subsubsection[{wbfmm\+\_\+box\+\_\+location}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+location (
-\begin{DoxyParamCaption}
-\item[{guint64}]{idx, }
-\item[{guint32 $\ast$}]{i, }
-\item[{guint32 $\ast$}]{j, }
-\item[{guint32 $\ast$}]{k}
-\end{DoxyParamCaption}
-)}\label{group__indexing_ga5a0d2671f306bcc38f59557730fe11c9}
-Compute indices for bottom left hand corner of box defined by its Morton index, as generated by \doxyref{wbfmm\+\_\+box\+\_\+index}{p.}{group__indexing_ga772ce9b74a28e167382adbf10f332fbf}
-
-
-\begin{DoxyParams}{Parameters}
-{\em idx} & index of box corner; \\
-\hline
-{\em i} & on output, x index of bottom left hand corner of box; \\
-\hline
-{\em j} & on output, y index of bottom left hand corner of box; \\
-\hline
-{\em k} & on output, z index of bottom left hand corner of box.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success. 
-\end{DoxyReturn}
+Code for Morton indexing operations is taken from\+: {\texttt{ https\+://www.\+forceflow.\+be/2013/10/07/morton-\/encodingdecoding-\/through-\/bit-\/interleaving-\/implementations/}} 

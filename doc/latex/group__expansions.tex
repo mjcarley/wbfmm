@@ -1,70 +1,128 @@
-\section{Generation and evaluation of expansions}
+\doxysection{Generation and evaluation of expansions}
 \label{group__expansions}\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}}
 
 
 Generation of regular and singular expansions and evaluation of them at field points.  
 
 
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$fx, gdouble $\ast$fy, gdouble $\ast$fz, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$fx, gdouble $\ast$fy, gdouble $\ast$fz, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$normal, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft} (gdouble k, gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$normal, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source defined as normal and strength. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a regular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate} (gdouble k, gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint nq, gint N, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+local\+\_\+coefficients} (gdouble k, gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga3c392ff4970f33bcd23d97148fdd84d7}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+local\+\_\+coefficients} (gdouble k, gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__expansions_ga3c392ff4970f33bcd23d97148fdd84d7}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
+\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$fx, gfloat $\ast$fy, gfloat $\ast$fz, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$fx, gfloat $\ast$fy, gfloat $\ast$fz, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$normal, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f} (gfloat k, gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$normal, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point dipole source defined as normal and strength. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a regular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f} (gfloat k, gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint nq, gint N, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a regular expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat k, gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7c6b9fd356d7f13163d997f90e30f28c}(...) \end{DoxyCompactList}\end{DoxyCompactItemize}
+gint \textbf{ wbfmm\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat k, gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__expansions_ga3c392ff4970f33bcd23d97148fdd84d7}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
+\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Generation of regular and singular expansions and evaluation of them at field points. 
 
-The functions described here handle spherical harmonic expansions of complex variables, solutions of the Helmholtz equations. Expansions of real variables are dealt with in a separate set of functions, for the Laplace equation (\doxyref{Evaluation of the Laplace potential}{p.}{group__laplace}). The expansion coefficients are packed in single-\/ or double-\/precision arrays with the index of coefficient $C_{n}^{m}$, $-n\leq m \leq n$ given by $i=n(n+1)+m$. Coefficients are represented as real and imaginary parts, so that the coefficient is given by array entries $C_{si+0}+jC_{si+1}$ where $i$ is the index, $s$ is a stride allowing interleaved packing of data, and $C_{n}$ is an array entry. 
+The functions described here handle spherical harmonic expansions of complex variables, solutions of the Helmholtz equations. Expansions of real variables are dealt with in a separate set of functions, for the Laplace equation (\doxyref{Evaluation of the Laplace potential}{p.}{group__laplace}). The expansion coefficients are packed in single-\/ or double-\/precision arrays with the index of coefficient $C_{n}^{m}$, $-n\leq m \leq n$ given by $i=n(n+1)+m$. Coefficients are represented as real and imaginary parts, so that the coefficient is given by array entries $C_{si+0}+jC_{si+1}$ where $i$ is the index, $s$ is a stride allowing interleaved packing of data, and $C_{n}$ is an array entry. ~\newline
+ 
 
-\subsection{Function Documentation}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}}
-\index{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gint}]{N, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{xs, }
-\item[{gdouble $\ast$}]{fx, }
-\item[{gdouble $\ast$}]{fy, }
-\item[{gdouble $\ast$}]{fz, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga6d076ca091d09df650a755196e85c60f}
+\doxysubsection{Function Documentation}
+\mbox{\label{group__expansions_ga3c392ff4970f33bcd23d97148fdd84d7}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_apply@{wbfmm\_expansion\_apply}}
+\index{wbfmm\_expansion\_apply@{wbfmm\_expansion\_apply}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_apply()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+apply (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{C,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{ec,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gdouble $\ast$}]{f,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
+
+
+
+Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em C} & coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape C}; \\
+\hline
+{\em nq} & number of source terms in {\itshape C}; \\
+\hline
+{\em ec} & evaluation coefficients; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
+\hline
+{\em f} & on exit contains evaluated field; \\
+\hline
+{\em fstr} & stride in {\itshape f}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__expansions_ga7c6b9fd356d7f13163d997f90e30f28c}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_apply\_f@{wbfmm\_expansion\_apply\_f}}
+\index{wbfmm\_expansion\_apply\_f@{wbfmm\_expansion\_apply\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_apply\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+apply\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{C,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{ec,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gfloat $\ast$}]{f,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
+
+
+
+Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em C} & coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape C}; \\
+\hline
+{\em nq} & number of source terms in {\itshape C}; \\
+\hline
+{\em ec} & evaluation coefficients; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
+\hline
+{\em f} & on exit contains evaluated field; \\
+\hline
+{\em fstr} & stride in {\itshape f}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__expansions_ga6d076ca091d09df650a755196e85c60f}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_dipole\_h\_cfft@{wbfmm\_expansion\_dipole\_h\_cfft}}
+\index{wbfmm\_expansion\_dipole\_h\_cfft@{wbfmm\_expansion\_dipole\_h\_cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_dipole\_h\_cfft()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gint}]{N,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{xs,  }\item[{gdouble $\ast$}]{fx,  }\item[{gdouble $\ast$}]{fy,  }\item[{gdouble $\ast$}]{fz,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point dipole source. 
@@ -97,23 +155,12 @@ Generation of singular expansion coefficients for point dipole source.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gint}]{N, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{xs, }
-\item[{gfloat $\ast$}]{fx, }
-\item[{gfloat $\ast$}]{fy, }
-\item[{gfloat $\ast$}]{fz, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga8dd610fb6102ce0df359b4fa0967f01a}
+\mbox{\label{group__expansions_ga8dd610fb6102ce0df359b4fa0967f01a}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_dipole\_h\_cfft\_f@{wbfmm\_expansion\_dipole\_h\_cfft\_f}}
+\index{wbfmm\_expansion\_dipole\_h\_cfft\_f@{wbfmm\_expansion\_dipole\_h\_cfft\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_dipole\_h\_cfft\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+dipole\+\_\+h\+\_\+cfft\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gint}]{N,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{xs,  }\item[{gfloat $\ast$}]{fx,  }\item[{gfloat $\ast$}]{fy,  }\item[{gfloat $\ast$}]{fz,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point dipole source. 
@@ -146,21 +193,12 @@ Generation of singular expansion coefficients for point dipole source.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gint}]{N, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{xs, }
-\item[{gdouble $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_gab7f021617751991c28566db91fdef72b}
+\mbox{\label{group__expansions_gab7f021617751991c28566db91fdef72b}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_cfft@{wbfmm\_expansion\_h\_cfft}}
+\index{wbfmm\_expansion\_h\_cfft@{wbfmm\_expansion\_h\_cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_cfft()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gint}]{N,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{xs,  }\item[{gdouble $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point source. 
@@ -189,21 +227,12 @@ Generation of singular expansion coefficients for point source.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gint}]{N, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{xs, }
-\item[{gfloat $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga9f70b3fc245b3e3fcc94dc128fb0fa5c}
+\mbox{\label{group__expansions_ga9f70b3fc245b3e3fcc94dc128fb0fa5c}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_cfft\_f@{wbfmm\_expansion\_h\_cfft\_f}}
+\index{wbfmm\_expansion\_h\_cfft\_f@{wbfmm\_expansion\_h\_cfft\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_cfft\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+cfft\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gint}]{N,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{xs,  }\item[{gfloat $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point source. 
@@ -232,22 +261,12 @@ Generation of singular expansion coefficients for point source.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_gaaf42f51f76f5c33eb66ac52cb46c09b9}
+\mbox{\label{group__expansions_gaaf42f51f76f5c33eb66ac52cb46c09b9}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_evaluate@{wbfmm\_expansion\_h\_evaluate}}
+\index{wbfmm\_expansion\_h\_evaluate@{wbfmm\_expansion\_h\_evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a singular expansion. 
@@ -278,22 +297,12 @@ Evaluate a singular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga8c57a7c0da561601523f734b3c16eea1}
+\mbox{\label{group__expansions_ga8c57a7c0da561601523f734b3c16eea1}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_evaluate\_f@{wbfmm\_expansion\_h\_evaluate\_f}}
+\index{wbfmm\_expansion\_h\_evaluate\_f@{wbfmm\_expansion\_h\_evaluate\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a singular expansion. 
@@ -324,21 +333,12 @@ Evaluate a singular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga908f9ce89e6a34a655f5b6de79e2bfa7}
+\mbox{\label{group__expansions_ga908f9ce89e6a34a655f5b6de79e2bfa7}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_grad\_evaluate@{wbfmm\_expansion\_h\_grad\_evaluate}}
+\index{wbfmm\_expansion\_h\_grad\_evaluate@{wbfmm\_expansion\_h\_grad\_evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_grad\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a singular expansion. 
@@ -367,21 +367,12 @@ Evaluate the gradient of a singular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga187d9da79f4b197559fa8a5a74f8c6d0}
+\mbox{\label{group__expansions_ga187d9da79f4b197559fa8a5a74f8c6d0}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_h\_grad\_evaluate\_f@{wbfmm\_expansion\_h\_grad\_evaluate\_f}}
+\index{wbfmm\_expansion\_h\_grad\_evaluate\_f@{wbfmm\_expansion\_h\_grad\_evaluate\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_h\_grad\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+h\+\_\+grad\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a singular expansion. 
@@ -410,22 +401,12 @@ Evaluate the gradient of a singular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gint}]{N, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga982f9c432c30fc81403f28c004778d8b}
+\mbox{\label{group__expansions_ga982f9c432c30fc81403f28c004778d8b}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_j\_evaluate@{wbfmm\_expansion\_j\_evaluate}}
+\index{wbfmm\_expansion\_j\_evaluate@{wbfmm\_expansion\_j\_evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_j\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gint}]{N,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a regular expansion. 
@@ -456,22 +437,12 @@ Evaluate a regular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gint}]{N, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga83d0ee00089d4d1a520c1063b161d865}
+\mbox{\label{group__expansions_ga83d0ee00089d4d1a520c1063b161d865}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_j\_evaluate\_f@{wbfmm\_expansion\_j\_evaluate\_f}}
+\index{wbfmm\_expansion\_j\_evaluate\_f@{wbfmm\_expansion\_j\_evaluate\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_j\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+j\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gint}]{N,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a regular expansion. 
@@ -502,22 +473,12 @@ Evaluate a regular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga89f2aa927b3103c66b6cd3f8f1537dbe}
+\mbox{\label{group__expansions_ga89f2aa927b3103c66b6cd3f8f1537dbe}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_j\_grad\_evaluate@{wbfmm\_expansion\_j\_grad\_evaluate}}
+\index{wbfmm\_expansion\_j\_grad\_evaluate@{wbfmm\_expansion\_j\_grad\_evaluate}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_j\_grad\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a regular expansion. 
@@ -548,22 +509,12 @@ Evaluate the gradient of a regular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga2bc48b9256dade59e88e6f5100b0ef6c}
+\mbox{\label{group__expansions_ga2bc48b9256dade59e88e6f5100b0ef6c}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_j\_grad\_evaluate\_f@{wbfmm\_expansion\_j\_grad\_evaluate\_f}}
+\index{wbfmm\_expansion\_j\_grad\_evaluate\_f@{wbfmm\_expansion\_j\_grad\_evaluate\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_j\_grad\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+j\+\_\+grad\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a regular expansion. 
@@ -594,22 +545,12 @@ Evaluate the gradient of a regular expansion.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft}}
-\index{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft@{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gint}]{N, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{xs, }
-\item[{gdouble $\ast$}]{normal, }
-\item[{gdouble $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_gae53cb9a080080b1c72a4bea0776453a1}
+\mbox{\label{group__expansions_gae53cb9a080080b1c72a4bea0776453a1}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_normal\_h\_cfft@{wbfmm\_expansion\_normal\_h\_cfft}}
+\index{wbfmm\_expansion\_normal\_h\_cfft@{wbfmm\_expansion\_normal\_h\_cfft}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_normal\_h\_cfft()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gint}]{N,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{xs,  }\item[{gdouble $\ast$}]{normal,  }\item[{gdouble $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point dipole source defined as normal and strength. 
@@ -634,30 +575,18 @@ Generation of singular expansion coefficients for point dipole source defined as
 \hline
 {\em cstr} & stride in {\itshape cfft}, in number of complex elements; \\
 \hline
-{\em nq} & number of source elements; \\
-\hline
 {\em work} & workspace\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f@{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gint}]{N, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{xs, }
-\item[{gfloat $\ast$}]{normal, }
-\item[{gfloat $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga6fe41b2e22177a33742d47998ecde8f0}
+\mbox{\label{group__expansions_ga6fe41b2e22177a33742d47998ecde8f0}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_expansion\_normal\_h\_cfft\_f@{wbfmm\_expansion\_normal\_h\_cfft\_f}}
+\index{wbfmm\_expansion\_normal\_h\_cfft\_f@{wbfmm\_expansion\_normal\_h\_cfft\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_expansion\_normal\_h\_cfft\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+expansion\+\_\+normal\+\_\+h\+\_\+cfft\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gint}]{N,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{xs,  }\item[{gfloat $\ast$}]{normal,  }\item[{gfloat $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Generation of singular expansion coefficients for point dipole source defined as normal and strength. 
@@ -682,29 +611,21 @@ Generation of singular expansion coefficients for point dipole source defined as
 \hline
 {\em cstr} & stride in {\itshape cfft}, in number of complex elements; \\
 \hline
-{\em nq} & number of source elements; \\
-\hline
 {\em work} & workspace\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+local\+\_\+coefficients}}
-\index{wbfmm\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+local\+\_\+coefficients}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+local\+\_\+coefficients}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+local\+\_\+coefficients (
-\begin{DoxyParamCaption}
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_gadd153e5c154aac762685743c9cd36502}
+\mbox{\label{group__expansions_gadd153e5c154aac762685743c9cd36502}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_local\_coefficients@{wbfmm\_local\_coefficients}}
+\index{wbfmm\_local\_coefficients@{wbfmm\_local\_coefficients}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_local\_coefficients()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+local\+\_\+coefficients (\begin{DoxyParamCaption}\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{x,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga3c392ff4970f33bcd23d97148fdd84d7}(...) 
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__expansions_ga3c392ff4970f33bcd23d97148fdd84d7}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -724,21 +645,15 @@ Generate coefficients for evaluation of local field from (regular) expansion coe
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}}
-\index{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
-\subsubsection[{wbfmm\+\_\+local\+\_\+coefficients\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+local\+\_\+coefficients\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__expansions_ga4b46327e9fbdd20ecb6db19c46ba9975}
+\mbox{\label{group__expansions_ga4b46327e9fbdd20ecb6db19c46ba9975}} 
+\index{Generation and evaluation of expansions@{Generation and evaluation of expansions}!wbfmm\_local\_coefficients\_f@{wbfmm\_local\_coefficients\_f}}
+\index{wbfmm\_local\_coefficients\_f@{wbfmm\_local\_coefficients\_f}!Generation and evaluation of expansions@{Generation and evaluation of expansions}}
+\doxysubsubsection{wbfmm\_local\_coefficients\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+local\+\_\+coefficients\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{x,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga7c6b9fd356d7f13163d997f90e30f28c}(...) 
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Helmholtz problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+expansion\+\_\+apply}{p.}{group__expansions_ga3c392ff4970f33bcd23d97148fdd84d7}. 
 
 
 \begin{DoxyParams}{Parameters}

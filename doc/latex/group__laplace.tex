@@ -1,112 +1,107 @@
-\section{Evaluation of the Laplace potential}
+\doxysection{Evaluation of the Laplace potential}
 \label{group__laplace}\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
 
 
-Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace equation.  
+Variants on standard functions to allow WBFMM to be used for the Laplace equation.  
 
 
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft} (gint N, gdouble $\ast$x0, gdouble $\ast$xs, gdouble $\ast$q, gint nq, gdouble $\ast$cfft, gint cstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SS} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gint Lh, gdouble wb, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gint nq, gdouble $\ast$H03, gint Lh, gdouble wb, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gint nq, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble wb, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients} (gdouble $\ast$x, gint N, gboolean grad, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients} (gdouble $\ast$x, gint N, gboolean grad, gdouble $\ast$cfft, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients} (gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+box\+\_\+fields\+\_\+laplace} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gint level, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients} (gdouble $\ast$x, gint N, guint field, gdouble $\ast$cfft, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+box\+\_\+fields\+\_\+laplace} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gint level, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the Laplace field generated by all boxes on a given level of an octree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init} (gint N)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init} (gint N)
 \begin{DoxyCompactList}\small\item\em Initialize lookup tables of Laplace translation coefficients. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SR} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+RR} (gdouble $\ast$Co, gint cstro, gint No, gdouble $\ast$Ci, gint cstri, gint Ni, gint nq, gdouble t, gdouble sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+grad} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field, gint fstr)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+curl} (gdouble $\ast$xs, gint xstride, gdouble $\ast$src, gint sstride, gint nq, gdouble $\ast$normals, gint nstr, gdouble $\ast$dipoles, gint dstr, gint nsrc, gdouble $\ast$xf, gdouble $\ast$field, gint fstr)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+apply} (gdouble $\ast$C, gint cstr, gint nq, gdouble $\ast$ec, gint N, guint field, gdouble $\ast$f, gint fstr)
-\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+curl\+\_\+evaluate} (gdouble $\ast$x0, gdouble $\ast$cfft, gint cstr, gint N, gint nq, gdouble $\ast$xf, gdouble $\ast$field, gint fstr, gdouble $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate curl of local Laplace expansion. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f} (gint N, gfloat $\ast$x0, gfloat $\ast$xs, gfloat $\ast$q, gint nq, gfloat $\ast$cfft, gint cstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Generation of singular expansion coefficients for point source in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the gradient of a singular expansion for Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SS\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Singular to singular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gint Lh, gfloat wb, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gint nq, gfloat $\ast$H03, gint Lh, gfloat wb, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gint nq, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat wb, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of regular expansion from parent to eight children in Laplace problem. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, gboolean grad, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, gboolean grad, gfloat $\ast$cfft, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
 \begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
-\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}(...) \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f} ({\bf wbfmm\+\_\+tree\+\_\+t} $\ast$t, gint level, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f} (gfloat $\ast$x, gint N, guint field, gfloat $\ast$cfft, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. \end{DoxyCompactList}\item 
+gint \textbf{ wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f} (\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$t, gint level, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate the Laplace field generated by all boxes on a given level of an octree. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f} (gint N)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f} (gint N)
 \begin{DoxyCompactList}\small\item\em Initialize lookup tables of Laplace translation coefficients. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SR\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Singular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+RR\+\_\+f} (gfloat $\ast$Co, gint cstro, gint No, gfloat $\ast$Ci, gint cstri, gint Ni, gint nq, gfloat t, gfloat sc)
 \begin{DoxyCompactList}\small\item\em Regular to regular translation for Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the gradient of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field, gint fstr)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f} (gfloat $\ast$xs, gint xstride, gfloat $\ast$src, gint sstride, gint nq, gfloat $\ast$normals, gint nstr, gfloat $\ast$dipoles, gint dstr, gint nsrc, gfloat $\ast$xf, gfloat $\ast$field, gint fstr)
 \begin{DoxyCompactList}\small\item\em Direct evaluation of the curl of a Laplace field from a list of sources. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate local Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Evaluate gradient of local Laplace expansion. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+expansion\+\_\+apply\+\_\+f} (gfloat $\ast$C, gint cstr, gint nq, gfloat $\ast$ec, gint N, guint field, gfloat $\ast$f, gint fstr)
-\begin{DoxyCompactList}\small\item\em Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. \end{DoxyCompactList}\end{DoxyCompactItemize}
+gint \textbf{ wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+curl\+\_\+evaluate\+\_\+f} (gfloat $\ast$x0, gfloat $\ast$cfft, gint cstr, gint N, gint nq, gfloat $\ast$xf, gfloat $\ast$field, gint fstr, gfloat $\ast$work)
+\begin{DoxyCompactList}\small\item\em Evaluate curl of local Laplace expansion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Variants on standard functions to allow W\+B\+F\+M\+M to be used for the Laplace equation. 
+\doxysubsection{Detailed Description}
+Variants on standard functions to allow WBFMM to be used for the Laplace equation. 
 
 
 
-\subsection{Function Documentation}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}}
-\index{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+fields\+\_\+laplace (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
-\item[{gint}]{level, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga75282ffd6a87a40327921313a1176005}
+\doxysubsection{Function Documentation}
+\mbox{\label{group__laplace_ga75282ffd6a87a40327921313a1176005}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_box\_fields\_laplace@{wbfmm\_box\_fields\_laplace}}
+\index{wbfmm\_box\_fields\_laplace@{wbfmm\_box\_fields\_laplace}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_box\_fields\_laplace()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+box\+\_\+fields\+\_\+laplace (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gint}]{level,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the Laplace field generated by all boxes on a given level of an octree. 
@@ -127,17 +122,12 @@ Evaluate the Laplace field generated by all boxes on a given level of an octree.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}}
-\index{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f@{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t, }
-\item[{gint}]{level, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga36eb39f5b39cfdf390c83ad8dfed3dbd}
+\mbox{\label{group__laplace_ga36eb39f5b39cfdf390c83ad8dfed3dbd}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_box\_fields\_laplace\_f@{wbfmm\_box\_fields\_laplace\_f}}
+\index{wbfmm\_box\_fields\_laplace\_f@{wbfmm\_box\_fields\_laplace\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_box\_fields\_laplace\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+box\+\_\+fields\+\_\+laplace\+\_\+f (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+tree\+\_\+t} $\ast$}]{t,  }\item[{gint}]{level,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the Laplace field generated by all boxes on a given level of an octree. 
@@ -158,23 +148,419 @@ Evaluate the Laplace field generated by all boxes on a given level of an octree.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+expansion\+\_\+apply}}
-\index{wbfmm\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+expansion\+\_\+apply}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+apply}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+apply (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{C, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{ec, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gdouble $\ast$}]{f, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga3c392ff4970f33bcd23d97148fdd84d7}
+\mbox{\label{group__laplace_gafa50dfe14f132dad7b782a84e36b9941}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_child\_parent\_shift@{wbfmm\_laplace\_child\_parent\_shift}}
+\index{wbfmm\_laplace\_child\_parent\_shift@{wbfmm\_laplace\_child\_parent\_shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_child\_parent\_shift()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{H03,  }\item[{gdouble $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gdouble}]{wb,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
+\hline
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga83660257c91ebb703a9ab93c4b2a3fd8}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_child\_parent\_shift\_bw@{wbfmm\_laplace\_child\_parent\_shift\_bw}}
+\index{wbfmm\_laplace\_child\_parent\_shift\_bw@{wbfmm\_laplace\_child\_parent\_shift\_bw}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_child\_parent\_shift\_bw()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{H03,  }\item[{gint}]{Lh,  }\item[{gdouble}]{wb,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}{p.}{group__shift_ga6e64de67ce14325af5dc16012717063a}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga9bffd76c3897a803aaa04026c291af2c}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_child\_parent\_shift\_bw\_f@{wbfmm\_laplace\_child\_parent\_shift\_bw\_f}}
+\index{wbfmm\_laplace\_child\_parent\_shift\_bw\_f@{wbfmm\_laplace\_child\_parent\_shift\_bw\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_child\_parent\_shift\_bw\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{H03,  }\item[{gint}]{Lh,  }\item[{gfloat}]{wb,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}{p.}{group__shift_ga6e64de67ce14325af5dc16012717063a}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga6114fc2de88f6c70a4f0e139c0e23e3d}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_child\_parent\_shift\_f@{wbfmm\_laplace\_child\_parent\_shift\_f}}
+\index{wbfmm\_laplace\_child\_parent\_shift\_f@{wbfmm\_laplace\_child\_parent\_shift\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_child\_parent\_shift\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{H03,  }\item[{gfloat $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gfloat}]{wb,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Upward shift of singular expansion from eight children to common parent in Laplace problem. 
+
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Cp} & parent expansion array; \\
+\hline
+{\em Np} & order of parent expansion; \\
+\hline
+{\em Cc} & child expansion array; \\
+\hline
+{\em Nc} & order of child expansions; \\
+\hline
+{\em nq} & number of elements in source; \\
+\hline
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
+\hline
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
+\hline
+{\em Lh} & maximum order of rotation coefficients; \\
+\hline
+{\em wb} & child box width; \\
+\hline
+{\em work} & workspace\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gac1cfbada4d0b8d90785b1da942651247}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_init@{wbfmm\_laplace\_coaxial\_translate\_init}}
+\index{wbfmm\_laplace\_coaxial\_translate\_init@{wbfmm\_laplace\_coaxial\_translate\_init}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_init()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init (\begin{DoxyParamCaption}\item[{gint}]{N }\end{DoxyParamCaption})}
+
+
+
+Initialize lookup tables of Laplace translation coefficients. 
+
+Initialize lookup tables of Laplace translation coefficients for use in coaxial translation of Laplace expansions. This function must be called before any coaxial translation is performed in a Laplace problem.
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & maximum order of expansion to be translated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gaae8d33577f2f26b056d0048dbf131235}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_init\_f@{wbfmm\_laplace\_coaxial\_translate\_init\_f}}
+\index{wbfmm\_laplace\_coaxial\_translate\_init\_f@{wbfmm\_laplace\_coaxial\_translate\_init\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_init\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{gint}]{N }\end{DoxyParamCaption})}
+
+
+
+Initialize lookup tables of Laplace translation coefficients. 
+
+Initialize lookup tables of Laplace translation coefficients for use in coaxial translation of Laplace expansions. This function must be called before any coaxial translation is performed in a Laplace problem.
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & maximum order of expansion to be translated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga27f781ed56f43a04c99b6aeec78936db}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_RR@{wbfmm\_laplace\_coaxial\_translate\_RR}}
+\index{wbfmm\_laplace\_coaxial\_translate\_RR@{wbfmm\_laplace\_coaxial\_translate\_RR}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_RR()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+RR (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gdouble $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gdouble}]{t,  }\item[{gdouble}]{sc }\end{DoxyParamCaption})}
+
+
+
+Regular to regular translation for Laplace expansion. 
+
+Translate a regular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gaa43ec602724f96c481e932915e991107}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_RR\_f@{wbfmm\_laplace\_coaxial\_translate\_RR\_f}}
+\index{wbfmm\_laplace\_coaxial\_translate\_RR\_f@{wbfmm\_laplace\_coaxial\_translate\_RR\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_RR\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+RR\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gfloat $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gfloat}]{t,  }\item[{gfloat}]{sc }\end{DoxyParamCaption})}
+
+
+
+Regular to regular translation for Laplace expansion. 
+
+Translate a regular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gaed7a931ec70ba48d90e8a4349b0ff883}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_SR@{wbfmm\_laplace\_coaxial\_translate\_SR}}
+\index{wbfmm\_laplace\_coaxial\_translate\_SR@{wbfmm\_laplace\_coaxial\_translate\_SR}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_SR()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SR (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gdouble $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gdouble}]{t,  }\item[{gdouble}]{sc }\end{DoxyParamCaption})}
+
+
+
+Singular to regular translation for Laplace expansion. 
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gaf91169c2c8280f0a0a0e80892917f36a}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_SR\_f@{wbfmm\_laplace\_coaxial\_translate\_SR\_f}}
+\index{wbfmm\_laplace\_coaxial\_translate\_SR\_f@{wbfmm\_laplace\_coaxial\_translate\_SR\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_SR\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SR\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gfloat $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gfloat}]{t,  }\item[{gfloat}]{sc }\end{DoxyParamCaption})}
+
+
+
+Singular to regular translation for Laplace expansion. 
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gacae20253eb3e163e92588d2c079d6a1a}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_SS@{wbfmm\_laplace\_coaxial\_translate\_SS}}
+\index{wbfmm\_laplace\_coaxial\_translate\_SS@{wbfmm\_laplace\_coaxial\_translate\_SS}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_SS()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SS (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gdouble $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gdouble}]{t,  }\item[{gdouble}]{sc }\end{DoxyParamCaption})}
+
+
+
+Singular to singular translation for Laplace expansion. 
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gadabc5db9f2fae1d8962c58cea3556d77}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_coaxial\_translate\_SS\_f@{wbfmm\_laplace\_coaxial\_translate\_SS\_f}}
+\index{wbfmm\_laplace\_coaxial\_translate\_SS\_f@{wbfmm\_laplace\_coaxial\_translate\_SS\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_coaxial\_translate\_SS\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+SS\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Co,  }\item[{gint}]{cstro,  }\item[{gint}]{No,  }\item[{gfloat $\ast$}]{Ci,  }\item[{gint}]{cstri,  }\item[{gint}]{Ni,  }\item[{gint}]{nq,  }\item[{gfloat}]{t,  }\item[{gfloat}]{sc }\end{DoxyParamCaption})}
+
+
+
+Singular to singular translation for Laplace expansion. 
+
+Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Co} & on output, expansion about new centre; \\
+\hline
+{\em cstro} & stride in {\itshape Co}; \\
+\hline
+{\em No} & order of expansion in {\itshape Co}; \\
+\hline
+{\em Ci} & input expansion coefficients; \\
+\hline
+{\em cstri} & stride in {\itshape Ci}; \\
+\hline
+{\em Ni} & order of expansion in {\itshape Ci}; \\
+\hline
+{\em nq} & number of source terms in expansion; \\
+\hline
+{\em t} & distance to translate expansion; \\
+\hline
+{\em sc} & scaling factor to premultiply {\itshape Co}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_apply@{wbfmm\_laplace\_expansion\_apply}}
+\index{wbfmm\_laplace\_expansion\_apply@{wbfmm\_laplace\_expansion\_apply}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_apply()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{C,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{ec,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gdouble $\ast$}]{f,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
+
+
+
+Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -198,23 +584,15 @@ Apply evaluation coefficients to coefficients of an expansion to evaluate the He
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+apply\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+apply\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{C, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{ec, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gfloat $\ast$}]{f, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga7c6b9fd356d7f13163d997f90e30f28c}
+\mbox{\label{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_apply\_f@{wbfmm\_laplace\_expansion\_apply\_f}}
+\index{wbfmm\_laplace\_expansion\_apply\_f@{wbfmm\_laplace\_expansion\_apply\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_apply\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{C,  }\item[{gint}]{cstr,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{ec,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gfloat $\ast$}]{f,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
 
 
-Apply evaluation coefficients to coefficients of an expansion to evaluate the Helmholtz potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
+
+Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -238,20 +616,76 @@ Apply evaluation coefficients to coefficients of an expansion to evaluate the He
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaaf9b6ffb511b748e4001ad8556dd3dc2}
+\mbox{\label{group__laplace_gad0f2457911b1324fe39bab1044dd8c9a}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_cfft@{wbfmm\_laplace\_expansion\_cfft}}
+\index{wbfmm\_laplace\_expansion\_cfft@{wbfmm\_laplace\_expansion\_cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_cfft()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft (\begin{DoxyParamCaption}\item[{gint}]{N,  }\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{xs,  }\item[{gdouble $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Generation of singular expansion coefficients for point source in Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & order of expansion; \\
+\hline
+{\em x0} & origin of expansion; \\
+\hline
+{\em xs} & source position; \\
+\hline
+{\em q} & source strength(s); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gad2f28f1b407481b0f9c21e3893b75ef8}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_cfft\_f@{wbfmm\_laplace\_expansion\_cfft\_f}}
+\index{wbfmm\_laplace\_expansion\_cfft\_f@{wbfmm\_laplace\_expansion\_cfft\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_cfft\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f (\begin{DoxyParamCaption}\item[{gint}]{N,  }\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{xs,  }\item[{gfloat $\ast$}]{q,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Generation of singular expansion coefficients for point source in Laplace problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N} & order of expansion; \\
+\hline
+{\em x0} & origin of expansion; \\
+\hline
+{\em xs} & source position; \\
+\hline
+{\em q} & source strength(s); \\
+\hline
+{\em nq} & number of components in {\itshape q}; \\
+\hline
+{\em cfft} & on output, incremented with coefficients of expansion; \\
+\hline
+{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gae32fdb64a9915347d63212e298a6979e}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_evaluate@{wbfmm\_laplace\_expansion\_evaluate}}
+\index{wbfmm\_laplace\_expansion\_evaluate@{wbfmm\_laplace\_expansion\_evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a singular expansion for Laplace problem. 
@@ -278,20 +712,12 @@ Evaluate a singular expansion for Laplace problem.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga5bbfd64e1e3c623eca03de88005f9298}
+\mbox{\label{group__laplace_ga444b17c69db3f15c005cc2d208ab936e}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_evaluate\_f@{wbfmm\_laplace\_expansion\_evaluate\_f}}
+\index{wbfmm\_laplace\_expansion\_evaluate\_f@{wbfmm\_laplace\_expansion\_evaluate\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate a singular expansion for Laplace problem. 
@@ -318,21 +744,12 @@ Evaluate a singular expansion for Laplace problem.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate}}
-\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gad1ae28a297f0d11f67c982d1527025b0}
+\mbox{\label{group__laplace_gad85fb5c269e7875d5562f6e54ee3f7e1}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_grad\_evaluate@{wbfmm\_laplace\_expansion\_grad\_evaluate}}
+\index{wbfmm\_laplace\_expansion\_grad\_evaluate@{wbfmm\_laplace\_expansion\_grad\_evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_grad\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+grad\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a singular expansion for Laplace problem. 
@@ -361,21 +778,12 @@ Evaluate the gradient of a singular expansion for Laplace problem.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+expansion\+\_\+laplace\+\_\+grad\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga3362baa745378c6b3ba4a69e3ccae457}
+\mbox{\label{group__laplace_ga5b185d2a63ed5547d56c7342797148f6}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_grad\_evaluate\_f@{wbfmm\_laplace\_expansion\_grad\_evaluate\_f}}
+\index{wbfmm\_laplace\_expansion\_grad\_evaluate\_f@{wbfmm\_laplace\_expansion\_grad\_evaluate\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_grad\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+grad\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Evaluate the gradient of a singular expansion for Laplace problem. 
@@ -404,791 +812,16 @@ Evaluate the gradient of a singular expansion for Laplace problem.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}}
-\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gdouble $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gdouble}]{wb, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gafa50dfe14f132dad7b782a84e36b9941}
+\mbox{\label{group__laplace_ga04d62f413683de32fd7dd319120df790}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_curl\_evaluate@{wbfmm\_laplace\_expansion\_local\_curl\_evaluate}}
+\index{wbfmm\_laplace\_expansion\_local\_curl\_evaluate@{wbfmm\_laplace\_expansion\_local\_curl\_evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_curl\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+curl\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Upward shift of singular expansion from eight children to common parent in Laplace problem. 
 
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
+Evaluate curl of local Laplace expansion. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em Cp} & parent expansion array; \\
-\hline
-{\em Np} & order of parent expansion; \\
-\hline
-{\em Cc} & child expansion array; \\
-\hline
-{\em Nc} & order of child expansions; \\
-\hline
-{\em nq} & number of elements in source; \\
-\hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
-\hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
-\hline
-{\em Lh} & maximum order of rotation coefficients; \\
-\hline
-{\em wb} & child box width; \\
-\hline
-{\em work} & workspace\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}}
-\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gint}]{Lh, }
-\item[{gdouble}]{wb, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga83660257c91ebb703a9ab93c4b2a3fd8}
-
-
-Upward shift of singular expansion from eight children to common parent in Laplace problem. 
-
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}{p.}{group__shift_ga6e64de67ce14325af5dc16012717063a}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Cp} & parent expansion array; \\
-\hline
-{\em Np} & order of parent expansion; \\
-\hline
-{\em Cc} & child expansion array; \\
-\hline
-{\em Nc} & order of child expansions; \\
-\hline
-{\em nq} & number of elements in source; \\
-\hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
-\hline
-{\em Lh} & maximum order of rotation coefficients; \\
-\hline
-{\em wb} & child box width; \\
-\hline
-{\em work} & workspace\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gint}]{Lh, }
-\item[{gfloat}]{wb, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga9bffd76c3897a803aaa04026c291af2c}
-
-
-Upward shift of singular expansion from eight children to common parent in Laplace problem. 
-
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index, using the backward translation method of \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}{p.}{group__shift_gaa53172531f0e173daa38866b6f73023a}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Cp} & parent expansion array; \\
-\hline
-{\em Np} & order of parent expansion; \\
-\hline
-{\em Cc} & child expansion array; \\
-\hline
-{\em Nc} & order of child expansions; \\
-\hline
-{\em nq} & number of elements in source; \\
-\hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
-\hline
-{\em Lh} & maximum order of rotation coefficients; \\
-\hline
-{\em wb} & child box width; \\
-\hline
-{\em work} & workspace\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gfloat $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gfloat}]{wb, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga6114fc2de88f6c70a4f0e139c0e23e3d}
-
-
-Upward shift of singular expansion from eight children to common parent in Laplace problem. 
-
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index.
-
-
-\begin{DoxyParams}{Parameters}
-{\em Cp} & parent expansion array; \\
-\hline
-{\em Np} & order of parent expansion; \\
-\hline
-{\em Cc} & child expansion array; \\
-\hline
-{\em Nc} & order of child expansions; \\
-\hline
-{\em nq} & number of elements in source; \\
-\hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
-\hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
-\hline
-{\em Lh} & maximum order of rotation coefficients; \\
-\hline
-{\em wb} & child box width; \\
-\hline
-{\em work} & workspace\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{gint}]{N}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gac1cfbada4d0b8d90785b1da942651247}
-
-
-Initialize lookup tables of Laplace translation coefficients. 
-
-Initialize lookup tables of Laplace translation coefficients for use in coaxial translation of Laplace expansions. This function must be called before any coaxial translation is performed in a Laplace problem.
-
-
-\begin{DoxyParams}{Parameters}
-{\em N} & maximum order of expansion to be translated.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gint}]{N}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaae8d33577f2f26b056d0048dbf131235}
-
-
-Initialize lookup tables of Laplace translation coefficients. 
-
-Initialize lookup tables of Laplace translation coefficients for use in coaxial translation of Laplace expansions. This function must be called before any coaxial translation is performed in a Laplace problem.
-
-
-\begin{DoxyParams}{Parameters}
-{\em N} & maximum order of expansion to be translated.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gdouble $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gdouble}]{t, }
-\item[{gdouble}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga27f781ed56f43a04c99b6aeec78936db}
-
-
-Regular to regular translation for Laplace expansion. 
-
-Translate a regular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+R\+R\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gfloat $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gfloat}]{t, }
-\item[{gfloat}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaa43ec602724f96c481e932915e991107}
-
-
-Regular to regular translation for Laplace expansion. 
-
-Translate a regular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}{p.}{group__laplace_gaae8d33577f2f26b056d0048dbf131235}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gdouble $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gdouble}]{t, }
-\item[{gdouble}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaed7a931ec70ba48d90e8a4349b0ff883}
-
-
-Singular to regular translation for Laplace expansion. 
-
-Translate a singular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+R\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gfloat $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gfloat}]{t, }
-\item[{gfloat}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaf91169c2c8280f0a0a0e80892917f36a}
-
-
-Singular to regular translation for Laplace expansion. 
-
-Translate a singular expansion for the Laplace problem along the $z$ axis to a regular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}{p.}{group__laplace_gaae8d33577f2f26b056d0048dbf131235}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gdouble $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gdouble}]{t, }
-\item[{gdouble}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gacae20253eb3e163e92588d2c079d6a1a}
-
-
-Singular to singular translation for Laplace expansion. 
-
-Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init}{p.}{group__laplace_gac1cfbada4d0b8d90785b1da942651247}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f@{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+\+S\+S\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Co, }
-\item[{gint}]{cstro, }
-\item[{gint}]{No, }
-\item[{gfloat $\ast$}]{Ci, }
-\item[{gint}]{cstri, }
-\item[{gint}]{Ni, }
-\item[{gint}]{nq, }
-\item[{gfloat}]{t, }
-\item[{gfloat}]{sc}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gadabc5db9f2fae1d8962c58cea3556d77}
-
-
-Singular to singular translation for Laplace expansion. 
-
-Translate a singular expansion for the Laplace problem along the $z$ axis to a singular expansion about a new centre. Before any Laplace translation function is called, the translation coefficients must be initialized with a call to \doxyref{wbfmm\+\_\+laplace\+\_\+coaxial\+\_\+translate\+\_\+init\+\_\+f}{p.}{group__laplace_gaae8d33577f2f26b056d0048dbf131235}(...)
-
-
-\begin{DoxyParams}{Parameters}
-{\em Co} & on output, expansion about new centre; \\
-\hline
-{\em cstro} & stride in {\itshape Co}; \\
-\hline
-{\em No} & order of expansion in {\itshape Co}; \\
-\hline
-{\em Ci} & input expansion coefficients; \\
-\hline
-{\em cstri} & stride in {\itshape Ci}; \\
-\hline
-{\em Ni} & order of expansion in {\itshape Ci}; \\
-\hline
-{\em nq} & number of source terms in expansion; \\
-\hline
-{\em t} & distance to translate expansion; \\
-\hline
-{\em sc} & scaling factor to premultiply {\itshape Co}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{C, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{ec, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gdouble $\ast$}]{f, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}
-
-
-Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em C} & coefficients of expansion; \\
-\hline
-{\em cstr} & stride in {\itshape C}; \\
-\hline
-{\em nq} & number of source terms in {\itshape C}; \\
-\hline
-{\em ec} & evaluation coefficients; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
-\hline
-{\em f} & on exit contains evaluated field; \\
-\hline
-{\em fstr} & stride in {\itshape f}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{C, }
-\item[{gint}]{cstr, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{ec, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gfloat $\ast$}]{f, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}
-
-
-Apply evaluation coefficients to coefficients of an expansion to evaluate the Laplace potential. Evaluation coefficients can be evaluated using wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients) or wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients) for the field (singular) or local (regular) expansions respectively. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em C} & coefficients of expansion; \\
-\hline
-{\em cstr} & stride in {\itshape C}; \\
-\hline
-{\em nq} & number of source terms in {\itshape C}; \\
-\hline
-{\em ec} & evaluation coefficients; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em field} & field specifier using \doxyref{wbfmm\+\_\+field\+\_\+t}{p.}{group__boxes_ga72eefe6d21d0860d8c79c60291006a4e}; \\
-\hline
-{\em f} & on exit contains evaluated field; \\
-\hline
-{\em fstr} & stride in {\itshape f}.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft (
-\begin{DoxyParamCaption}
-\item[{gint}]{N, }
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{xs, }
-\item[{gdouble $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gad0f2457911b1324fe39bab1044dd8c9a}
-
-
-Generation of singular expansion coefficients for point source in Laplace problem. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em N} & order of expansion; \\
-\hline
-{\em x0} & origin of expansion; \\
-\hline
-{\em xs} & source position; \\
-\hline
-{\em q} & source strength(s); \\
-\hline
-{\em nq} & number of components in {\itshape q}; \\
-\hline
-{\em cfft} & on output, incremented with coefficients of expansion; \\
-\hline
-{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+cfft\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gint}]{N, }
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{xs, }
-\item[{gfloat $\ast$}]{q, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gad2f28f1b407481b0f9c21e3893b75ef8}
-
-
-Generation of singular expansion coefficients for point source in Laplace problem. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em N} & order of expansion; \\
-\hline
-{\em x0} & origin of expansion; \\
-\hline
-{\em xs} & source position; \\
-\hline
-{\em q} & source strength(s); \\
-\hline
-{\em nq} & number of components in {\itshape q}; \\
-\hline
-{\em cfft} & on output, incremented with coefficients of expansion; \\
-\hline
-{\em cstr} & stride in {\itshape cfft} (must be at least equal to {\itshape nq}); \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga9fe069b51c26672209dc655720654dff}
-
-
-Evaluate local Laplace expansion. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x0} & centre of expansion; \\
-\hline
-{\em cfft} & local expansion coefficients; \\
-\hline
-{\em cstr} & stride in {\itshape cfft}; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em nq} & number of source components; \\
-\hline
-{\em xf} & field point; \\
-\hline
-{\em field} & field value; \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gadd9581c4f0aa942e6772846508eefbe4}
-
-
-Evaluate local Laplace expansion. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x0} & centre of expansion; \\
-\hline
-{\em cfft} & local expansion coefficients; \\
-\hline
-{\em cstr} & stride in {\itshape cfft}; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em nq} & number of source components; \\
-\hline
-{\em xf} & field point; \\
-\hline
-{\em field} & field value; \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x0, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gadfe8c674faab64768e4a0a562b870cea}
-
-
-Evaluate gradient of local Laplace expansion. 
-
-Evaluate curl of local Laplace expansion.
-
-Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in 
-\begin{DoxyParams}{Parameters}
-{\em field.} & \\
-\hline
-{\em x0} & centre of expansion; \\
-\hline
-{\em cfft} & local expansion coefficients; \\
-\hline
-{\em cstr} & stride in {\itshape cfft}; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em nq} & number of source components; \\
-\hline
-{\em xf} & field point; \\
-\hline
-{\em field} & field value; \\
-\hline
-{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success
-\end{DoxyReturn}
 Evaluate the curl $\nabla\times\phi$ for first three components in expansion, returning curl vector in field.
 
 
@@ -1215,53 +848,16 @@ Evaluate the curl $\nabla\times\phi$ for first three components in expansion, re
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f@{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x0, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gint}]{cstr, }
-\item[{gint}]{N, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga4478e7d11ad3fb7577d689a1c939e0b7}
+\mbox{\label{group__laplace_ga8068bcf3fa004efd750d25e962bf9248}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_curl\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_curl\_evaluate\_f}}
+\index{wbfmm\_laplace\_expansion\_local\_curl\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_curl\_evaluate\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_curl\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+curl\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Evaluate gradient of local Laplace expansion. 
 
-Evaluate curl of local Laplace expansion.
+Evaluate curl of local Laplace expansion. 
 
-Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in 
-\begin{DoxyParams}{Parameters}
-{\em field.} & \\
-\hline
-{\em x0} & centre of expansion; \\
-\hline
-{\em cfft} & local expansion coefficients; \\
-\hline
-{\em cstr} & stride in {\itshape cfft}; \\
-\hline
-{\em N} & order of expansion; \\
-\hline
-{\em nq} & number of source components; \\
-\hline
-{\em xf} & field point; \\
-\hline
-{\em field} & field value; \\
-\hline
-{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
-\hline
-{\em work} & workspace.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 on success
-\end{DoxyReturn}
 Evaluate the curl $\nabla\times\phi$ for first three components in expansion, returning curl vector in field.
 
 
@@ -1288,24 +884,148 @@ Evaluate the curl $\nabla\times\phi$ for first three components in expansion, re
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}}
-\index{wbfmm\+\_\+laplace\+\_\+field@{wbfmm\+\_\+laplace\+\_\+field}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gdouble $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gdouble $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga12ac2edf679dfd52e1108f2f74ce505e}
+\mbox{\label{group__laplace_ga9fe069b51c26672209dc655720654dff}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_evaluate@{wbfmm\_laplace\_expansion\_local\_evaluate}}
+\index{wbfmm\_laplace\_expansion\_local\_evaluate@{wbfmm\_laplace\_expansion\_local\_evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Evaluate local Laplace expansion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gadd9581c4f0aa942e6772846508eefbe4}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_evaluate\_f}}
+\index{wbfmm\_laplace\_expansion\_local\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_evaluate\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Evaluate local Laplace expansion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_gadfe8c674faab64768e4a0a562b870cea}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_grad\_evaluate@{wbfmm\_laplace\_expansion\_local\_grad\_evaluate}}
+\index{wbfmm\_laplace\_expansion\_local\_grad\_evaluate@{wbfmm\_laplace\_expansion\_local\_grad\_evaluate}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_grad\_evaluate()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x0,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Evaluate gradient of local Laplace expansion. 
+
+Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in {\itshape field}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga4478e7d11ad3fb7577d689a1c939e0b7}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_expansion\_local\_grad\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_grad\_evaluate\_f}}
+\index{wbfmm\_laplace\_expansion\_local\_grad\_evaluate\_f@{wbfmm\_laplace\_expansion\_local\_grad\_evaluate\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_expansion\_local\_grad\_evaluate\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+expansion\+\_\+local\+\_\+grad\+\_\+evaluate\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x0,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gint}]{cstr,  }\item[{gint}]{N,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
+
+
+Evaluate gradient of local Laplace expansion. 
+
+Evaluate the gradient $\nabla\phi_{i}$ for source components $i=0,\ldots n_{q}-1$, packing gradient vectors in {\itshape field}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & centre of expansion; \\
+\hline
+{\em cfft} & local expansion coefficients; \\
+\hline
+{\em cstr} & stride in {\itshape cfft}; \\
+\hline
+{\em N} & order of expansion; \\
+\hline
+{\em nq} & number of source components; \\
+\hline
+{\em xf} & field point; \\
+\hline
+{\em field} & field value; \\
+\hline
+{\em fstr} & stride between start of gradient vectors (must be at least 3); \\
+\hline
+{\em work} & workspace.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__laplace_ga12ac2edf679dfd52e1108f2f74ce505e}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field@{wbfmm\_laplace\_field}}
+\index{wbfmm\_laplace\_field@{wbfmm\_laplace\_field}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gdouble $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gdouble $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the Laplace field from a list of sources. 
@@ -1342,20 +1062,15 @@ Direct evaluation of the Laplace from a list of sources.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{gboolean}]{grad, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga4e3a8a88f6a33bc6a0f3108607096db3}
+\mbox{\label{group__laplace_ga4e3a8a88f6a33bc6a0f3108607096db3}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_coefficients@{wbfmm\_laplace\_field\_coefficients}}
+\index{wbfmm\_laplace\_field\_coefficients@{wbfmm\_laplace\_field\_coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_coefficients()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gint}]{N,  }\item[{gboolean}]{grad,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}(...) 
+
+Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1363,7 +1078,7 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 \hline
 {\em N} & order of expansion; \\
 \hline
-{\em grad} & if T\+R\+U\+E generate coefficients for gradient of field; \\
+{\em grad} & if TRUE generate coefficients for gradient of field; \\
 \hline
 {\em cfft} & on exit contains evaluation coefficients; \\
 \hline
@@ -1373,20 +1088,15 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{gboolean}]{grad, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga674cd0b67307ccf24d487bdf401d2d29}
+\mbox{\label{group__laplace_ga674cd0b67307ccf24d487bdf401d2d29}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_coefficients\_f@{wbfmm\_laplace\_field\_coefficients\_f}}
+\index{wbfmm\_laplace\_field\_coefficients\_f@{wbfmm\_laplace\_field\_coefficients\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_coefficients\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+coefficients\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gint}]{N,  }\item[{gboolean}]{grad,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}(...) 
+
+Generate coefficients for evaluation of field from (singular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1394,7 +1104,7 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 \hline
 {\em N} & order of expansion; \\
 \hline
-{\em grad} & if T\+R\+U\+E generate coefficients for gradient of field; \\
+{\em grad} & if TRUE generate coefficients for gradient of field; \\
 \hline
 {\em cfft} & on exit contains evaluation coefficients; \\
 \hline
@@ -1404,25 +1114,12 @@ Generate coefficients for evaluation of field from (singular) expansion coeffici
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+curl@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gdouble $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gdouble $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaf433de73d09569c16580d96ddab86fdf}
+\mbox{\label{group__laplace_gaf433de73d09569c16580d96ddab86fdf}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_curl@{wbfmm\_laplace\_field\_curl}}
+\index{wbfmm\_laplace\_field\_curl@{wbfmm\_laplace\_field\_curl}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_curl()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gdouble $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gdouble $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the curl of a Laplace field from a list of sources. 
@@ -1453,33 +1150,18 @@ Direct evaluation of the curl of a Laplace field from a list of sources.
 \hline
 {\em field} & on output incremented with computed curl; \\
 \hline
-{\em fstr} & stride in \\
-\hline
-{\em field} & (ignored).\\
+{\em fstr} & stride in {\itshape field} (ignored).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gfloat $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gfloat $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field, }
-\item[{gint}]{fstr}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gac719b8bfb5bc28f8613425e2827bb0d9}
+\mbox{\label{group__laplace_gac719b8bfb5bc28f8613425e2827bb0d9}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_curl\_f@{wbfmm\_laplace\_field\_curl\_f}}
+\index{wbfmm\_laplace\_field\_curl\_f@{wbfmm\_laplace\_field\_curl\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_curl\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+curl\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gfloat $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gfloat $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field,  }\item[{gint}]{fstr }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the curl of a Laplace field from a list of sources. 
@@ -1510,32 +1192,18 @@ Direct evaluation of the curl of a Laplace field from a list of sources.
 \hline
 {\em field} & on output incremented with computed curl; \\
 \hline
-{\em fstr} & stride in \\
-\hline
-{\em field} & (ignored).\\
+{\em fstr} & stride in {\itshape field} (ignored).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gfloat $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gfloat $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga4c1182e5aac03f9fbaf2a1dabb29a957}
+\mbox{\label{group__laplace_ga4c1182e5aac03f9fbaf2a1dabb29a957}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_f@{wbfmm\_laplace\_field\_f}}
+\index{wbfmm\_laplace\_field\_f@{wbfmm\_laplace\_field\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gfloat $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gfloat $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the Laplace field from a list of sources. 
@@ -1572,24 +1240,12 @@ Direct evaluation of the Laplace from a list of sources.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+grad@{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad@{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+grad (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gdouble $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gdouble $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gdouble $\ast$}]{xf, }
-\item[{gdouble $\ast$}]{field}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga7dcb4f7534309b9e6c43f8da584b4cba}
+\mbox{\label{group__laplace_ga7dcb4f7534309b9e6c43f8da584b4cba}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_grad@{wbfmm\_laplace\_field\_grad}}
+\index{wbfmm\_laplace\_field\_grad@{wbfmm\_laplace\_field\_grad}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_grad()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+grad (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gdouble $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gdouble $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gdouble $\ast$}]{xf,  }\item[{gdouble $\ast$}]{field }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the gradient of a Laplace field from a list of sources. 
@@ -1624,24 +1280,12 @@ Direct evaluation of the gradient of a Laplace field from a list of sources.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f@{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{xs, }
-\item[{gint}]{xstride, }
-\item[{gfloat $\ast$}]{src, }
-\item[{gint}]{sstride, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{normals, }
-\item[{gint}]{nstr, }
-\item[{gfloat $\ast$}]{dipoles, }
-\item[{gint}]{dstr, }
-\item[{gint}]{nsrc, }
-\item[{gfloat $\ast$}]{xf, }
-\item[{gfloat $\ast$}]{field}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gaa1dd379d7e96367550b933a5d7a7f138}
+\mbox{\label{group__laplace_gaa1dd379d7e96367550b933a5d7a7f138}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_field\_grad\_f@{wbfmm\_laplace\_field\_grad\_f}}
+\index{wbfmm\_laplace\_field\_grad\_f@{wbfmm\_laplace\_field\_grad\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_field\_grad\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+field\+\_\+grad\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{xs,  }\item[{gint}]{xstride,  }\item[{gfloat $\ast$}]{src,  }\item[{gint}]{sstride,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{normals,  }\item[{gint}]{nstr,  }\item[{gfloat $\ast$}]{dipoles,  }\item[{gint}]{dstr,  }\item[{gint}]{nsrc,  }\item[{gfloat $\ast$}]{xf,  }\item[{gfloat $\ast$}]{field }\end{DoxyParamCaption})}
+
 
 
 Direct evaluation of the gradient of a Laplace field from a list of sources. 
@@ -1676,20 +1320,15 @@ Direct evaluation of the gradient of a Laplace field from a list of sources.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}}
-\index{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gdouble $\ast$}]{cfft, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga00021e1ca6a8290ffc59675616d9cd28}
+\mbox{\label{group__laplace_ga00021e1ca6a8290ffc59675616d9cd28}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_local\_coefficients@{wbfmm\_laplace\_local\_coefficients}}
+\index{wbfmm\_laplace\_local\_coefficients@{wbfmm\_laplace\_local\_coefficients}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_local\_coefficients()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{x,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gdouble $\ast$}]{cfft,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}(...) 
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1707,20 +1346,15 @@ Generate coefficients for evaluation of local field from (regular) expansion coe
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f@{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{x, }
-\item[{gint}]{N, }
-\item[{guint}]{field, }
-\item[{gfloat $\ast$}]{cfft, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga535b778c68860f194cdd45a7af43f16c}
+\mbox{\label{group__laplace_ga535b778c68860f194cdd45a7af43f16c}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_local\_coefficients\_f@{wbfmm\_laplace\_local\_coefficients\_f}}
+\index{wbfmm\_laplace\_local\_coefficients\_f@{wbfmm\_laplace\_local\_coefficients\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_local\_coefficients\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+local\+\_\+coefficients\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{x,  }\item[{gint}]{N,  }\item[{guint}]{field,  }\item[{gfloat $\ast$}]{cfft,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
 
 
-Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply\+\_\+f}{p.}{group__laplace_ga6b9f7e5a6f34ec76b25669f2fa085888}(...) 
+
+Generate coefficients for evaluation of local field from (regular) expansion coefficients in the Laplace problem. The coefficients from this function can be applied to an expansion using \doxyref{wbfmm\+\_\+laplace\+\_\+expansion\+\_\+apply}{p.}{group__laplace_ga29d7788bc8870b15a52ff5516cfcaabc}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1738,22 +1372,12 @@ Generate coefficients for evaluation of local field from (regular) expansion coe
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}}
-\index{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gdouble $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gdouble}]{wb, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_gac07f9988f8c38883e04573ab0b0b14c6}
+\mbox{\label{group__laplace_gac07f9988f8c38883e04573ab0b0b14c6}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_parent\_child\_shift@{wbfmm\_laplace\_parent\_child\_shift}}
+\index{wbfmm\_laplace\_parent\_child\_shift@{wbfmm\_laplace\_parent\_child\_shift}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_parent\_child\_shift()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{H03,  }\item[{gdouble $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gdouble}]{wb,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Downward shift of regular expansion from parent to eight children in Laplace problem. 
@@ -1772,9 +1396,9 @@ Shift the expansion of a parent box to its eight child boxes. This function assu
 \hline
 {\em nq} & number of elements in source; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -1786,22 +1410,12 @@ Shift the expansion of a parent box to its eight child boxes. This function assu
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}
-\index{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
-\subsubsection[{wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gfloat $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gfloat}]{wb, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__laplace_ga903292e6494bb58e6eff57190a82fea5}
+\mbox{\label{group__laplace_ga903292e6494bb58e6eff57190a82fea5}} 
+\index{Evaluation of the Laplace potential@{Evaluation of the Laplace potential}!wbfmm\_laplace\_parent\_child\_shift\_f@{wbfmm\_laplace\_parent\_child\_shift\_f}}
+\index{wbfmm\_laplace\_parent\_child\_shift\_f@{wbfmm\_laplace\_parent\_child\_shift\_f}!Evaluation of the Laplace potential@{Evaluation of the Laplace potential}}
+\doxysubsubsection{wbfmm\_laplace\_parent\_child\_shift\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+laplace\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{H03,  }\item[{gfloat $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gfloat}]{wb,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Downward shift of regular expansion from parent to eight children in Laplace problem. 
@@ -1820,9 +1434,9 @@ Shift the expansion of a parent box to its eight child boxes. This function assu
 \hline
 {\em nq} & number of elements in source; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline

@@ -1,70 +1,59 @@
-\section{Shift operations}
+\doxysection{Shift operations}
 \label{group__shift}\index{Shift operations@{Shift operations}}
 
 
 Shift operations (combined rotation and translation) for upward and downward passes, and same-\/level interactions.  
 
 
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+child\+\_\+parent\+\_\+shift} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw} (gdouble $\ast$Cp, gint Np, gdouble $\ast$Cc, gint Nc, gdouble $\ast$H03, gint Lh, gdouble $\ast$transf, gdouble $\ast$transb, gint Ls, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+parent\+\_\+child\+\_\+shift} (gdouble $\ast$Cc, gint Nc, gdouble $\ast$Cp, gint Np, gdouble $\ast$H03, gdouble $\ast$H47, gint Lh, gdouble $\ast$trans, gint Ls, gint nq, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of parent expansion to child box centres. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4} (gint i, gint j, gint k, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$rs)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+list4} (gint i, gint j, gint k, gdouble $\ast$th, gdouble $\ast$ph, gdouble $\ast$ch, gdouble $\ast$rs)
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init} (void)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gboolean bw, gdouble $\ast$work)
+\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+new} (guint L, gboolean bw, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SR\+\_\+init} (\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SS\+\_\+init} (\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gdouble D, guint level, guint L, gdouble k, gdouble $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f} (gfloat $\ast$Cp, gint Np, gfloat $\ast$Cc, gint Nc, gfloat $\ast$H03, gint Lh, gfloat $\ast$transf, gfloat $\ast$transb, gint Ls, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Upward shift of singular expansion from eight children to common parent, using backward translations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f} (gfloat $\ast$Cc, gint Nc, gfloat $\ast$Cp, gint Np, gfloat $\ast$H03, gfloat $\ast$H47, gint Lh, gfloat $\ast$trans, gint Ls, gint nq, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Downward shift of parent expansion to child box centres. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f} (gint i, gint j, gint k, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$rs)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f} (gint i, gint j, gint k, gfloat $\ast$th, gfloat $\ast$ph, gfloat $\ast$ch, gfloat $\ast$rs)
 \begin{DoxyCompactList}\small\item\em Extract the rotation angles for boxes on interaction list 4. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f} (void)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f} (void)
 \begin{DoxyCompactList}\small\item\em Initialize table of angles for shift operations. \end{DoxyCompactList}\item 
-{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gboolean bw, gfloat $\ast$work)
+\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f} (guint L, gboolean bw, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Allocate shift operators and initialize rotations. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gfloat D, guint level, guint L, gfloat k, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SR\+\_\+init} (\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gfloat D, guint level, guint L, gfloat k, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/regular translation operators. \end{DoxyCompactList}\item 
-gint {\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init} ({\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gfloat D, guint level, guint L, gfloat k, gfloat $\ast$work)
+gint \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SS\+\_\+init} (\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$w, gfloat D, guint level, guint L, gfloat k, gfloat $\ast$work)
 \begin{DoxyCompactList}\small\item\em Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Shift operations (combined rotation and translation) for upward and downward passes, and same-\/level interactions. 
 
 
 
-\subsection{Function Documentation}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}}
-\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gdouble $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gdouble $\ast$}]{trans, }
-\item[{gint}]{Ls, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}
+\doxysubsection{Function Documentation}
+\mbox{\label{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}} 
+\index{Shift operations@{Shift operations}!wbfmm\_child\_parent\_shift@{wbfmm\_child\_parent\_shift}}
+\index{wbfmm\_child\_parent\_shift@{wbfmm\_child\_parent\_shift}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_child\_parent\_shift()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gdouble $\ast$}]{H03,  }\item[{gdouble $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gdouble $\ast$}]{trans,  }\item[{gint}]{Ls,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Upward shift of singular expansion from eight children to common parent. 
@@ -81,9 +70,9 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \hline
 {\em Nc} & order of child expansions; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -99,27 +88,17 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}}
-\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gint}]{Lh, }
-\item[{gdouble $\ast$}]{transf, }
-\item[{gdouble $\ast$}]{transb, }
-\item[{gint}]{Ls, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga6e64de67ce14325af5dc16012717063a}
+\mbox{\label{group__shift_ga6e64de67ce14325af5dc16012717063a}} 
+\index{Shift operations@{Shift operations}!wbfmm\_child\_parent\_shift\_bw@{wbfmm\_child\_parent\_shift\_bw}}
+\index{wbfmm\_child\_parent\_shift\_bw@{wbfmm\_child\_parent\_shift\_bw}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_child\_parent\_shift\_bw()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gdouble $\ast$}]{H03,  }\item[{gint}]{Lh,  }\item[{gdouble $\ast$}]{transf,  }\item[{gdouble $\ast$}]{transb,  }\item[{gint}]{Ls,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Upward shift of singular expansion from eight children to common parent, using backward translations. 
 
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}, except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
 
 
 \begin{DoxyParams}{Parameters}
@@ -131,7 +110,7 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \hline
 {\em Nc} & order of child expansions; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -147,27 +126,17 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}}
-\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gint}]{Lh, }
-\item[{gfloat $\ast$}]{transf, }
-\item[{gfloat $\ast$}]{transb, }
-\item[{gint}]{Ls, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_gaa53172531f0e173daa38866b6f73023a}
+\mbox{\label{group__shift_gaa53172531f0e173daa38866b6f73023a}} 
+\index{Shift operations@{Shift operations}!wbfmm\_child\_parent\_shift\_bw\_f@{wbfmm\_child\_parent\_shift\_bw\_f}}
+\index{wbfmm\_child\_parent\_shift\_bw\_f@{wbfmm\_child\_parent\_shift\_bw\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_child\_parent\_shift\_bw\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+bw\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gfloat $\ast$}]{H03,  }\item[{gint}]{Lh,  }\item[{gfloat $\ast$}]{transf,  }\item[{gfloat $\ast$}]{transb,  }\item[{gint}]{Ls,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Upward shift of singular expansion from eight children to common parent, using backward translations. 
 
-Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...), except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
+Shift the expansion of eight child boxes to their parent and sum into the parent expansion. This function assumes data are packed with a stride of eight elements so that all expansion coefficients of a given order are contiguous in memory, ordered by Morton index. The method is the same as for \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}, except that the child boxes with Morton indices 4-\/7 are rotated in the same sense as the diagonally opposite child boxes 0-\/3 and a reverse (negative distance) coaxial translation is used to combine them with the lower child box data with the same rotation. The reverse rotation is then applied to the summed data meaning that only four reverse rotations rather than eight are required to transfer the data to the parent box orientation.
 
 
 \begin{DoxyParams}{Parameters}
@@ -179,7 +148,7 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \hline
 {\em Nc} & order of child expansions; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -195,23 +164,12 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}}
-\index{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f@{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gfloat $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gfloat $\ast$}]{trans, }
-\item[{gint}]{Ls, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}
+\mbox{\label{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}} 
+\index{Shift operations@{Shift operations}!wbfmm\_child\_parent\_shift\_f@{wbfmm\_child\_parent\_shift\_f}}
+\index{wbfmm\_child\_parent\_shift\_f@{wbfmm\_child\_parent\_shift\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_child\_parent\_shift\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gfloat $\ast$}]{H03,  }\item[{gfloat $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gfloat $\ast$}]{trans,  }\item[{gint}]{Ls,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Upward shift of singular expansion from eight children to common parent. 
@@ -228,9 +186,9 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \hline
 {\em Nc} & order of child expansions; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -246,28 +204,17 @@ Shift the expansion of eight child boxes to their parent and sum into the parent
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}}
-\index{wbfmm\+\_\+parent\+\_\+child\+\_\+shift@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+parent\+\_\+child\+\_\+shift}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+parent\+\_\+child\+\_\+shift (
-\begin{DoxyParamCaption}
-\item[{gdouble $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gdouble $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gdouble $\ast$}]{H03, }
-\item[{gdouble $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gdouble $\ast$}]{trans, }
-\item[{gint}]{Ls, }
-\item[{gint}]{nq, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga54498ecb6a5d89dae071b3039f305e4c}
+\mbox{\label{group__shift_ga54498ecb6a5d89dae071b3039f305e4c}} 
+\index{Shift operations@{Shift operations}!wbfmm\_parent\_child\_shift@{wbfmm\_parent\_child\_shift}}
+\index{wbfmm\_parent\_child\_shift@{wbfmm\_parent\_child\_shift}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_parent\_child\_shift()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+parent\+\_\+child\+\_\+shift (\begin{DoxyParamCaption}\item[{gdouble $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gdouble $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gdouble $\ast$}]{H03,  }\item[{gdouble $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gdouble $\ast$}]{trans,  }\item[{gint}]{Ls,  }\item[{gint}]{nq,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Downward shift of parent expansion to child box centres. 
 
-Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
+Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}. Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}, because the `upper' children rotate `down' to be shifted to the parent centre but the rotation is `up' to shift from the parent to those children, and similarly for the `lower' children.
 
 
 \begin{DoxyParams}{Parameters}
@@ -279,9 +226,9 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 \hline
 {\em Np} & order of parent expansion; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -297,28 +244,17 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}}
-\index{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f@{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gfloat $\ast$}]{Cc, }
-\item[{gint}]{Nc, }
-\item[{gfloat $\ast$}]{Cp, }
-\item[{gint}]{Np, }
-\item[{gfloat $\ast$}]{H03, }
-\item[{gfloat $\ast$}]{H47, }
-\item[{gint}]{Lh, }
-\item[{gfloat $\ast$}]{trans, }
-\item[{gint}]{Ls, }
-\item[{gint}]{nq, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_gae539e4b2ab750c3c0b761cfd180cfd75}
+\mbox{\label{group__shift_gae539e4b2ab750c3c0b761cfd180cfd75}} 
+\index{Shift operations@{Shift operations}!wbfmm\_parent\_child\_shift\_f@{wbfmm\_parent\_child\_shift\_f}}
+\index{wbfmm\_parent\_child\_shift\_f@{wbfmm\_parent\_child\_shift\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_parent\_child\_shift\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+parent\+\_\+child\+\_\+shift\+\_\+f (\begin{DoxyParamCaption}\item[{gfloat $\ast$}]{Cc,  }\item[{gint}]{Nc,  }\item[{gfloat $\ast$}]{Cp,  }\item[{gint}]{Np,  }\item[{gfloat $\ast$}]{H03,  }\item[{gfloat $\ast$}]{H47,  }\item[{gint}]{Lh,  }\item[{gfloat $\ast$}]{trans,  }\item[{gint}]{Ls,  }\item[{gint}]{nq,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Downward shift of parent expansion to child box centres. 
 
-Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...). Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift\+\_\+f}{p.}{group__shift_gaa00b8bf4b558b3b8d4497cf788ae6cdc}(...), because the `upper\textquotesingle{} children rotate `down\textquotesingle{} to be shifted to the parent centre but the rotation is `up\textquotesingle{} to shift from the parent to those children, and similarly for the `lower\textquotesingle{} children.
+Shift the (regular) expansion data from a parent box to each of its child boxes, assuming the same packing as in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}. Note that the rotation matrices for this function are switched relative to the rotations of the same name in \doxyref{wbfmm\+\_\+child\+\_\+parent\+\_\+shift}{p.}{group__shift_ga17f80c1e987612eeb62a6f9ad07c2ea2}, because the `upper' children rotate `down' to be shifted to the parent centre but the rotation is `up' to shift from the parent to those children, and similarly for the `lower' children.
 
 
 \begin{DoxyParams}{Parameters}
@@ -330,9 +266,9 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 \hline
 {\em Np} & order of parent expansion; \\
 \hline
-{\em H03} & rotation coefficients for `lower\textquotesingle{} children (Morton index 0-\/3); \\
+{\em H03} & rotation coefficients for `lower' children (Morton index 0-\/3); \\
 \hline
-{\em H47} & rotation coefficients for `upper\textquotesingle{} children (Morton index 4-\/7); \\
+{\em H47} & rotation coefficients for `upper' children (Morton index 4-\/7); \\
 \hline
 {\em Lh} & maximum order of rotation coefficients; \\
 \hline
@@ -348,56 +284,47 @@ Shift the (regular) expansion data from a parent box to each of its child boxes,
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}}
-\index{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{void}]{}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga11db3f07271691eac210a96531e88fff}
+\mbox{\label{group__shift_ga11db3f07271691eac210a96531e88fff}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_angle\_table\_init@{wbfmm\_shift\_angle\_table\_init}}
+\index{wbfmm\_shift\_angle\_table\_init@{wbfmm\_shift\_angle\_table\_init}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_angle\_table\_init()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
-
-Initialize table of angles for shift operations. 
-
-This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}{p.}{group__shift_gaa426a9e484fa29145c2cac93a22a65ba}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
-
-\begin{DoxyReturn}{Returns}
-0 on success 
-\end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}}
-\index{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f@{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{void}]{}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga4539d9cd56e8aa5aeb10fec80ea20b9b}
 
 
 Initialize table of angles for shift operations. 
 
-This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}{p.}{group__shift_ga106d7c318a67fc042c18ec8577109dd6}(...), in order to initialize the look-\/up table of orientations between boxes in interaction lists.
+This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}{p.}{group__shift_ga31ca34cc65ce9b621027139cf8b71240}, in order to initialize the look-\/up table of orientations between boxes in interaction lists.
 
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}}
-\index{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angles\+\_\+list4 (
-\begin{DoxyParamCaption}
-\item[{gint}]{i, }
-\item[{gint}]{j, }
-\item[{gint}]{k, }
-\item[{gdouble $\ast$}]{th, }
-\item[{gdouble $\ast$}]{ph, }
-\item[{gdouble $\ast$}]{ch, }
-\item[{gdouble $\ast$}]{rs}
-\end{DoxyParamCaption}
-)}\label{group__shift_gaa40178da843d4cb52e7bfaa0943ce4f9}
+\mbox{\label{group__shift_ga4539d9cd56e8aa5aeb10fec80ea20b9b}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_angle\_table\_init\_f@{wbfmm\_shift\_angle\_table\_init\_f}}
+\index{wbfmm\_shift\_angle\_table\_init\_f@{wbfmm\_shift\_angle\_table\_init\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_angle\_table\_init\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize table of angles for shift operations. 
+
+This function must be called before any interaction calculations are performed, in particular before any call to \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}{p.}{group__shift_ga31ca34cc65ce9b621027139cf8b71240}, in order to initialize the look-\/up table of orientations between boxes in interaction lists.
+
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\label{group__shift_gaa40178da843d4cb52e7bfaa0943ce4f9}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_angles\_list4@{wbfmm\_shift\_angles\_list4}}
+\index{wbfmm\_shift\_angles\_list4@{wbfmm\_shift\_angles\_list4}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_angles\_list4()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angles\+\_\+list4 (\begin{DoxyParamCaption}\item[{gint}]{i,  }\item[{gint}]{j,  }\item[{gint}]{k,  }\item[{gdouble $\ast$}]{th,  }\item[{gdouble $\ast$}]{ph,  }\item[{gdouble $\ast$}]{ch,  }\item[{gdouble $\ast$}]{rs }\end{DoxyParamCaption})}
+
 
 
 Extract the rotation angles for boxes on interaction list 4. 
 
-Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordinates $(i,j,k)$, using a look-\/up table which should be initialized with \doxyref{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}{p.}{group__shift_ga11db3f07271691eac210a96531e88fff}(...)
+Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordinates $(i,j,k)$, using a look-\/up table which should be initialized with \doxyref{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}{p.}{group__shift_ga11db3f07271691eac210a96531e88fff}
 
 
 \begin{DoxyParams}{Parameters}
@@ -419,24 +346,17 @@ Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordina
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}}
-\index{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f@{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{gint}]{i, }
-\item[{gint}]{j, }
-\item[{gint}]{k, }
-\item[{gfloat $\ast$}]{th, }
-\item[{gfloat $\ast$}]{ph, }
-\item[{gfloat $\ast$}]{ch, }
-\item[{gfloat $\ast$}]{rs}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga4b35b119dfc23a825662bd31c26b0da1}
+\mbox{\label{group__shift_ga4b35b119dfc23a825662bd31c26b0da1}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_angles\_list4\_f@{wbfmm\_shift\_angles\_list4\_f}}
+\index{wbfmm\_shift\_angles\_list4\_f@{wbfmm\_shift\_angles\_list4\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_angles\_list4\_f()}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+angles\+\_\+list4\+\_\+f (\begin{DoxyParamCaption}\item[{gint}]{i,  }\item[{gint}]{j,  }\item[{gint}]{k,  }\item[{gfloat $\ast$}]{th,  }\item[{gfloat $\ast$}]{ph,  }\item[{gfloat $\ast$}]{ch,  }\item[{gfloat $\ast$}]{rs }\end{DoxyParamCaption})}
+
 
 
 Extract the rotation angles for boxes on interaction list 4. 
 
-Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordinates $(i,j,k)$, using a look-\/up table which should be initialized with \doxyref{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init\+\_\+f}{p.}{group__shift_ga4539d9cd56e8aa5aeb10fec80ea20b9b}(...)
+Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordinates $(i,j,k)$, using a look-\/up table which should be initialized with \doxyref{wbfmm\+\_\+shift\+\_\+angle\+\_\+table\+\_\+init}{p.}{group__shift_ga11db3f07271691eac210a96531e88fff}
 
 
 \begin{DoxyParams}{Parameters}
@@ -458,25 +378,19 @@ Find the rotation angles $(\theta,\phi\,\chi)$ between a box at integer coordina
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w, }
-\item[{gdouble}]{D, }
-\item[{guint}]{level, }
-\item[{guint}]{L, }
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga07acc7a66f9e66337f360e01853994a9}
+\mbox{\label{group__shift_ga07acc7a66f9e66337f360e01853994a9}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_coaxial\_SR\_init@{wbfmm\_shift\_operators\_coaxial\_SR\_init}}
+\index{wbfmm\_shift\_operators\_coaxial\_SR\_init@{wbfmm\_shift\_operators\_coaxial\_SR\_init}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_coaxial\_SR\_init()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SR\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w,  }\item[{gdouble}]{D,  }\item[{guint}]{level,  }\item[{guint}]{L,  }\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Initialize singular-\/to-\/regular translation operators. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new(...); \\
+{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new); \\
 \hline
 {\em D} & width of the problem domain; \\
 \hline
@@ -492,25 +406,19 @@ Initialize singular-\/to-\/regular translation operators.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+R\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w, }
-\item[{gfloat}]{D, }
-\item[{guint}]{level, }
-\item[{guint}]{L, }
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga4382fd5f3956fa194b56f2400c40698c}
+\mbox{\label{group__shift_ga4382fd5f3956fa194b56f2400c40698c}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_coaxial\_SR\_init@{wbfmm\_shift\_operators\_coaxial\_SR\_init}}
+\index{wbfmm\_shift\_operators\_coaxial\_SR\_init@{wbfmm\_shift\_operators\_coaxial\_SR\_init}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_coaxial\_SR\_init()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SR\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w,  }\item[{gfloat}]{D,  }\item[{guint}]{level,  }\item[{guint}]{L,  }\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Initialize singular-\/to-\/regular translation operators. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f(...); \\
+{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new); \\
 \hline
 {\em D} & width of the problem domain; \\
 \hline
@@ -526,25 +434,19 @@ Initialize singular-\/to-\/regular translation operators.
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w, }
-\item[{gdouble}]{D, }
-\item[{guint}]{level, }
-\item[{guint}]{L, }
-\item[{gdouble}]{k, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga981010b613d0e0a9ff236784e508c46a}
+\mbox{\label{group__shift_ga981010b613d0e0a9ff236784e508c46a}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_coaxial\_SS\_init@{wbfmm\_shift\_operators\_coaxial\_SS\_init}}
+\index{wbfmm\_shift\_operators\_coaxial\_SS\_init@{wbfmm\_shift\_operators\_coaxial\_SS\_init}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_coaxial\_SS\_init()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SS\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w,  }\item[{gdouble}]{D,  }\item[{guint}]{level,  }\item[{guint}]{L,  }\item[{gdouble}]{k,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new(...); \\
+{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new); \\
 \hline
 {\em D} & width of the problem domain; \\
 \hline
@@ -560,25 +462,19 @@ Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operato
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init@{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+S\+S\+\_\+init (
-\begin{DoxyParamCaption}
-\item[{{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w, }
-\item[{gfloat}]{D, }
-\item[{guint}]{level, }
-\item[{guint}]{L, }
-\item[{gfloat}]{k, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga40505b9fb0efda2bf8df1856ad9ff12c}
+\mbox{\label{group__shift_ga40505b9fb0efda2bf8df1856ad9ff12c}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_coaxial\_SS\_init@{wbfmm\_shift\_operators\_coaxial\_SS\_init}}
+\index{wbfmm\_shift\_operators\_coaxial\_SS\_init@{wbfmm\_shift\_operators\_coaxial\_SS\_init}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_coaxial\_SS\_init()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily gint wbfmm\+\_\+shift\+\_\+operators\+\_\+coaxial\+\_\+\+SS\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$}]{w,  }\item[{gfloat}]{D,  }\item[{guint}]{level,  }\item[{guint}]{L,  }\item[{gfloat}]{k,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operators. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f(...); \\
+{\em w} & a \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm__shift__operators__t} allocated with wbfmm\+\_\+shift\+\_\+operators\+\_\+new); \\
 \hline
 {\em D} & width of the problem domain; \\
 \hline
@@ -594,15 +490,12 @@ Initialize singular-\/to-\/singular (regular-\/to-\/regular) translation operato
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+new@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+new@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+new}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}$\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new (
-\begin{DoxyParamCaption}
-\item[{guint}]{L, }
-\item[{gboolean}]{bw, }
-\item[{gdouble $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_gaa426a9e484fa29145c2cac93a22a65ba}
+\mbox{\label{group__shift_ga31ca34cc65ce9b621027139cf8b71240}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_new@{wbfmm\_shift\_operators\_new}}
+\index{wbfmm\_shift\_operators\_new@{wbfmm\_shift\_operators\_new}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_new()}
+{\footnotesize\ttfamily \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new (\begin{DoxyParamCaption}\item[{guint}]{L,  }\item[{gboolean}]{bw,  }\item[{gdouble $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Allocate shift operators and initialize rotations. 
@@ -613,7 +506,7 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 \begin{DoxyParams}{Parameters}
 {\em L} & maximum order of expansions; \\
 \hline
-{\em bw} & if T\+R\+U\+E generate operators for backward translation algorithm; \\
+{\em bw} & if TRUE generate operators for backward translation algorithm; \\
 \hline
 {\em work} & workspace.\\
 \hline
@@ -621,15 +514,12 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 \begin{DoxyReturn}{Returns}
 0 on success 
 \end{DoxyReturn}
-\index{Shift operations@{Shift operations}!wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}}
-\index{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f@{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}!Shift operations@{Shift operations}}
-\subsubsection[{wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+shift\+\_\+operators\+\_\+t}$\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f (
-\begin{DoxyParamCaption}
-\item[{guint}]{L, }
-\item[{gboolean}]{bw, }
-\item[{gfloat $\ast$}]{work}
-\end{DoxyParamCaption}
-)}\label{group__shift_ga106d7c318a67fc042c18ec8577109dd6}
+\mbox{\label{group__shift_gab9810fe4097b477be60c9ffb13c2eead}} 
+\index{Shift operations@{Shift operations}!wbfmm\_shift\_operators\_new\_f@{wbfmm\_shift\_operators\_new\_f}}
+\index{wbfmm\_shift\_operators\_new\_f@{wbfmm\_shift\_operators\_new\_f}!Shift operations@{Shift operations}}
+\doxysubsubsection{wbfmm\_shift\_operators\_new\_f()}
+{\footnotesize\ttfamily \textbf{ wbfmm\+\_\+shift\+\_\+operators\+\_\+t} $\ast$ wbfmm\+\_\+shift\+\_\+operators\+\_\+new\+\_\+f (\begin{DoxyParamCaption}\item[{guint}]{L,  }\item[{gboolean}]{bw,  }\item[{gfloat $\ast$}]{work }\end{DoxyParamCaption})}
+
 
 
 Allocate shift operators and initialize rotations. 
@@ -640,7 +530,7 @@ Allocate a new \doxyref{wbfmm\+\_\+shift\+\_\+operators\+\_\+t}{p.}{structwbfmm_
 \begin{DoxyParams}{Parameters}
 {\em L} & maximum order of expansions; \\
 \hline
-{\em bw} & if T\+R\+U\+E generate operators for backward translation algorithm; \\
+{\em bw} & if TRUE generate operators for backward translation algorithm; \\
 \hline
 {\em work} & workspace.\\
 \hline

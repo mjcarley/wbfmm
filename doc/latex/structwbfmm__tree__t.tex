@@ -1,121 +1,160 @@
-\section{wbfmm\+\_\+tree\+\_\+t Struct Reference}
-\label{structwbfmm__tree__t}\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsection*{Data Fields}
+\doxysection{wbfmm\+\_\+tree\+\_\+t Struct Reference}
+\label{structwbfmm__tree__t}\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+
+
+{\ttfamily \#include $<$wbfmm.\+h$>$}
+
+\doxysubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-{\bf wbfmm\+\_\+box\+\_\+t} $\ast$ {\bf boxes} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
+\textbf{ wbfmm\+\_\+box\+\_\+t} $\ast$ \textbf{ boxes} [WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]
 \item 
-guint {\bf maxpoints}
+guint \textbf{ maxpoints}
 \item 
-guint {\bf npoints}
+guint \textbf{ npoints}
 \item 
-guint $\ast$ {\bf ip}
+guint $\ast$ \textbf{ ip}
 \item 
-guint {\bf nq}
+guint \textbf{ nq}
 \item 
-guint {\bf depth}
+guint \textbf{ depth}
 \item 
-guint {\bf order\+\_\+s} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
+guint \textbf{ order\+\_\+s} [WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]
 \item 
-guint {\bf order\+\_\+r} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
+guint \textbf{ order\+\_\+r} [WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]
 \item 
-gchar {\bf x} [24]
+gchar \textbf{ x} [24]
 \item 
-gchar $\ast$ {\bf normals}
+gchar $\ast$ \textbf{ normals}
 \item 
-gchar $\ast$ {\bf points}
+gchar $\ast$ \textbf{ points}
 \item 
-gpointer {\bf mps} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
+gpointer \textbf{ mps} [WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]
 \item 
-gpointer {\bf mpr} [W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]
+gpointer \textbf{ mpr} [WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]
 \item 
-gsize {\bf size}
+gsize \textbf{ size}
 \item 
-gsize {\bf nstr}
+gsize \textbf{ nstr}
 \item 
-gsize {\bf pstr}
+gsize \textbf{ pstr}
 \item 
-gdouble {\bf D}
+gdouble \textbf{ D}
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Data type for octrees 
 
-\subsection{Field Documentation}
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!boxes@{boxes}}
-\index{boxes@{boxes}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{boxes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf wbfmm\+\_\+box\+\_\+t}$\ast$ wbfmm\+\_\+tree\+\_\+t\+::boxes[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a2cec33cf396af727261fdb357e2a4de2}
-arrays of boxes at each level 
+\doxysubsection{Field Documentation}
+\mbox{\label{structwbfmm__tree__t_a2cec33cf396af727261fdb357e2a4de2}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!boxes@{boxes}}
+\index{boxes@{boxes}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{boxes}
+{\footnotesize\ttfamily \textbf{ wbfmm\+\_\+box\+\_\+t}$\ast$ wbfmm\+\_\+tree\+\_\+t\+::boxes[WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]}
 
-Referenced by wbfmm\+\_\+tree\+\_\+add\+\_\+level().
+arrays of boxes at each level \mbox{\label{structwbfmm__tree__t_a3f8ee26d3fe9c69bb5ba7583711c2175}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!D@{D}}
+\index{D@{D}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{D}
+{\footnotesize\ttfamily gdouble wbfmm\+\_\+tree\+\_\+t\+::D}
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!D@{D}}
-\index{D@{D}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{D}]{\setlength{\rightskip}{0pt plus 5cm}gdouble wbfmm\+\_\+tree\+\_\+t\+::\+D}\label{structwbfmm__tree__t_a3f8ee26d3fe9c69bb5ba7583711c2175}
-width of domain cube \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!depth@{depth}}
-\index{depth@{depth}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{depth}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::depth}\label{structwbfmm__tree__t_ad6a069db29489d75083169ca0bca9901}
+width of domain cube \mbox{\label{structwbfmm__tree__t_ad6a069db29489d75083169ca0bca9901}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!depth@{depth}}
+\index{depth@{depth}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{depth}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::depth}
+
 depth of tree 
 
-Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init(), and wbfmm\+\_\+tree\+\_\+add\+\_\+level().
+Referenced by \textbf{ wbfmm\+\_\+tree\+\_\+add\+\_\+level()}.
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!ip@{ip}}
-\index{ip@{ip}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{ip}]{\setlength{\rightskip}{0pt plus 5cm}guint $\ast$ wbfmm\+\_\+tree\+\_\+t\+::ip}\label{structwbfmm__tree__t_ad1b0ef45823888a234d18840d655f8e0}
-indices of points, sorted by Morton index \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!maxpoints@{maxpoints}}
-\index{maxpoints@{maxpoints}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{maxpoints}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::maxpoints}\label{structwbfmm__tree__t_a81074e586538485590e38b9bc9274326}
-maximum number of points in tree \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mpr@{mpr}}
-\index{mpr@{mpr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{mpr}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+tree\+\_\+t\+::mpr[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a466a0bd76fd6539f493ce257df47dfad}
-regular expansion data at each level 
+\mbox{\label{structwbfmm__tree__t_ad1b0ef45823888a234d18840d655f8e0}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!ip@{ip}}
+\index{ip@{ip}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{ip}
+{\footnotesize\ttfamily guint $\ast$ wbfmm\+\_\+tree\+\_\+t\+::ip}
 
-Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+indices of points, sorted by Morton index \mbox{\label{structwbfmm__tree__t_a81074e586538485590e38b9bc9274326}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!maxpoints@{maxpoints}}
+\index{maxpoints@{maxpoints}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{maxpoints}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::maxpoints}
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!mps@{mps}}
-\index{mps@{mps}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{mps}]{\setlength{\rightskip}{0pt plus 5cm}gpointer wbfmm\+\_\+tree\+\_\+t\+::mps[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_abea428ae644531258ba6d138ad727d29}
-singular expansion data at each level \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!normals@{normals}}
-\index{normals@{normals}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{normals}]{\setlength{\rightskip}{0pt plus 5cm}gchar $\ast$ wbfmm\+\_\+tree\+\_\+t\+::normals}\label{structwbfmm__tree__t_aaf95aaece28a4f1b4c89e504af4cfa76}
-normal coordinates \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!npoints@{npoints}}
-\index{npoints@{npoints}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{npoints}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::npoints}\label{structwbfmm__tree__t_a05dd3977f0f6f9266dfe5b4de1fd94ea}
-number of points in tree \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!nq@{nq}}
-\index{nq@{nq}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{nq}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::nq}\label{structwbfmm__tree__t_a4201af7a54bb9d81e588ab619cecabbd}
-number of source components 
+maximum number of points in tree \mbox{\label{structwbfmm__tree__t_a466a0bd76fd6539f493ce257df47dfad}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!mpr@{mpr}}
+\index{mpr@{mpr}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{mpr}
+{\footnotesize\ttfamily gpointer wbfmm\+\_\+tree\+\_\+t\+::mpr[WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]}
 
-Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+regular expansion data at each level \mbox{\label{structwbfmm__tree__t_abea428ae644531258ba6d138ad727d29}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!mps@{mps}}
+\index{mps@{mps}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{mps}
+{\footnotesize\ttfamily gpointer wbfmm\+\_\+tree\+\_\+t\+::mps[WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]}
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!nstr@{nstr}}
-\index{nstr@{nstr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{nstr}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+tree\+\_\+t\+::nstr}\label{structwbfmm__tree__t_a08a9529a7fa528397018d63951c647a4}
-stride in normal data \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+r@{order\+\_\+r}}
-\index{order\+\_\+r@{order\+\_\+r}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{order\+\_\+r}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+r[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a3977c9974da5fbeaa66a9b1eea6fd235}
+singular expansion data at each level \mbox{\label{structwbfmm__tree__t_aaf95aaece28a4f1b4c89e504af4cfa76}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!normals@{normals}}
+\index{normals@{normals}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{normals}
+{\footnotesize\ttfamily gchar $\ast$ wbfmm\+\_\+tree\+\_\+t\+::normals}
+
+normal coordinates \mbox{\label{structwbfmm__tree__t_a05dd3977f0f6f9266dfe5b4de1fd94ea}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!npoints@{npoints}}
+\index{npoints@{npoints}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{npoints}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::npoints}
+
+number of points in tree \mbox{\label{structwbfmm__tree__t_a4201af7a54bb9d81e588ab619cecabbd}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!nq@{nq}}
+\index{nq@{nq}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{nq}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::nq}
+
+number of source components \mbox{\label{structwbfmm__tree__t_a08a9529a7fa528397018d63951c647a4}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!nstr@{nstr}}
+\index{nstr@{nstr}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{nstr}
+{\footnotesize\ttfamily gsize wbfmm\+\_\+tree\+\_\+t\+::nstr}
+
+stride in normal data \mbox{\label{structwbfmm__tree__t_a3977c9974da5fbeaa66a9b1eea6fd235}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!order\_r@{order\_r}}
+\index{order\_r@{order\_r}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{order\_r}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+r[WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]}
+
 order of regular expansions at each level 
 
-Referenced by wbfmm\+\_\+target\+\_\+list\+\_\+coefficients\+\_\+init(), and wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+Referenced by \textbf{ wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero()}.
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!order\+\_\+s@{order\+\_\+s}}
-\index{order\+\_\+s@{order\+\_\+s}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{order\+\_\+s}]{\setlength{\rightskip}{0pt plus 5cm}guint wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+s[W\+B\+F\+M\+M\+\_\+\+T\+R\+E\+E\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H+1]}\label{structwbfmm__tree__t_a4dcb4eecb4b78afa20215a391db8ab0e}
-order of singular expansions at each level \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!points@{points}}
-\index{points@{points}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{points}]{\setlength{\rightskip}{0pt plus 5cm}gchar $\ast$ wbfmm\+\_\+tree\+\_\+t\+::points}\label{structwbfmm__tree__t_a82a6af6a6d054522a860e1a536f6a105}
-point coordinates \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!pstr@{pstr}}
-\index{pstr@{pstr}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{pstr}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+tree\+\_\+t\+::pstr}\label{structwbfmm__tree__t_a96d1d01546cca1baf4a6a8c953ad1252}
-stride in point data \index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!size@{size}}
-\index{size@{size}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}gsize wbfmm\+\_\+tree\+\_\+t\+::size}\label{structwbfmm__tree__t_a4bed752b3596b13ad7db8699d4f70060}
-size of floating point type in data (float, double, etc) 
+\mbox{\label{structwbfmm__tree__t_a4dcb4eecb4b78afa20215a391db8ab0e}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!order\_s@{order\_s}}
+\index{order\_s@{order\_s}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{order\_s}
+{\footnotesize\ttfamily guint wbfmm\+\_\+tree\+\_\+t\+::order\+\_\+s[WBFMM\+\_\+\+TREE\+\_\+\+MAX\+\_\+\+DEPTH+1]}
 
-Referenced by wbfmm\+\_\+tree\+\_\+coefficients\+\_\+zero().
+order of singular expansions at each level \mbox{\label{structwbfmm__tree__t_a82a6af6a6d054522a860e1a536f6a105}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!points@{points}}
+\index{points@{points}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{points}
+{\footnotesize\ttfamily gchar $\ast$ wbfmm\+\_\+tree\+\_\+t\+::points}
 
-\index{wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}!x@{x}}
-\index{x@{x}!wbfmm\+\_\+tree\+\_\+t@{wbfmm\+\_\+tree\+\_\+t}}
-\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}gchar wbfmm\+\_\+tree\+\_\+t\+::x[24]}\label{structwbfmm__tree__t_a44e44f2c0eabe36743d1f975b0d0798c}
+point coordinates \mbox{\label{structwbfmm__tree__t_a96d1d01546cca1baf4a6a8c953ad1252}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!pstr@{pstr}}
+\index{pstr@{pstr}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{pstr}
+{\footnotesize\ttfamily gsize wbfmm\+\_\+tree\+\_\+t\+::pstr}
+
+stride in point data \mbox{\label{structwbfmm__tree__t_a4bed752b3596b13ad7db8699d4f70060}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!size@{size}}
+\index{size@{size}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{size}
+{\footnotesize\ttfamily gsize wbfmm\+\_\+tree\+\_\+t\+::size}
+
+size of floating point type in data (float, double, etc) \mbox{\label{structwbfmm__tree__t_a44e44f2c0eabe36743d1f975b0d0798c}} 
+\index{wbfmm\_tree\_t@{wbfmm\_tree\_t}!x@{x}}
+\index{x@{x}!wbfmm\_tree\_t@{wbfmm\_tree\_t}}
+\doxysubsubsection{x}
+{\footnotesize\ttfamily gchar wbfmm\+\_\+tree\+\_\+t\+::x[24]}
+
 origin of tree domain cube 
