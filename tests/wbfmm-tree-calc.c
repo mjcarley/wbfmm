@@ -143,7 +143,7 @@ gint main(gint argc, gchar **argv)
   gdouble k, D, xtree[3] = {0.0}, xtmax[3], *xs ;
   gdouble del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, i, j, fstr, nf, xstr, qstr, nstr, dstr, fcstr, nq ;
-  gint nthreads ;
+  gint nthreads, order_inc ;
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, nproc ;
@@ -160,6 +160,7 @@ gint main(gint argc, gchar **argv)
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   /* order_s = 8 ; order_r = 8 ; */
   order_s = order_r = 0 ;
+  order_inc = 0 ;
   order_max = 0 ;
   write_sources = FALSE ;
   fit_box = FALSE ;
@@ -174,7 +175,7 @@ gint main(gint argc, gchar **argv)
   nproc = g_get_num_processors() ;
 #endif
   
-  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gk:O:R:S:s:T:t:w")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hBbcD:d:f:gi:k:O:R:S:s:T:t:w")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -191,6 +192,7 @@ gint main(gint argc, gchar **argv)
 	      "  -D # width of octree (%lg)\n"
 	      "  -f (field point name)\n"
 	      "  -g calculate gradient of field\n"
+	      "  -i increment of order with level (%d)\n"
 	      "  -k # wavenumber (%lg)\n"
 	      "  -O #,#,# origin of octree (%lg,%lg,%lg)\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
@@ -199,7 +201,7 @@ gint main(gint argc, gchar **argv)
 	      "  -T # (number of threads)\n"
 	      "  -t # tolerance (%lg)\n"
 	      "  -w write source data to stdout\n",
-	      progname, depth, D, k, xtree[0], xtree[1], xtree[2],
+	      progname, depth, D, order_inc, k, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
       return 0 ;
       break ;
@@ -214,6 +216,7 @@ gint main(gint argc, gchar **argv)
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
     case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
+    case 'i': order_inc = atoi(optarg) ; break ;
     case 'k': k = atof(optarg) ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'R': order_r = atoi(optarg) ; break ;
@@ -272,8 +275,8 @@ gint main(gint argc, gchar **argv)
     order[2*depth+1] = order_r ; 
     order_max = MAX(order_s, order_r) ;
     for ( i = depth-1 ; i > 0 ; i -- ) {
-      order[2*i+0] = order[2*(i+1)+0] + 2 ;
-      order[2*i+1] = order[2*(i+1)+1] + 2 ;
+      order[2*i+0] = order[2*(i+1)+0] + order_inc ;
+      order[2*i+1] = order[2*(i+1)+1] + order_inc ;
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;
     }
@@ -354,8 +357,6 @@ gint main(gint argc, gchar **argv)
   targets = wbfmm_target_list_new(tree, nf) ;
   wbfmm_target_list_coefficients_init(targets, field) ;
   wbfmm_target_list_add_points(targets, xf, fstr*sizeof(gdouble), nf) ;
-  /* wbfmm_target_list_add_points(targets, xf, fstr*sizeof(gdouble), */
-  /* 				    NULL, 0, nf) ; */
   wbfmm_target_list_local_coefficients(targets, k, work) ;
   fprintf(stderr, "%s: target point list initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -397,11 +398,11 @@ gint main(gint argc, gchar **argv)
   fprintf(stderr, "%s: fmm field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  /* fprintf(stderr, "%s: computing fmm field; %lg\n", */
-  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
+  fprintf(stderr, "%s: computing fmm field; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
 
   /* for ( i = 0 ; i < nf ; i ++ ) { */
-  /*   b = wbfmm_point_box(tree, level, &(xf[i*fstr])) ; */
+  /*   guint b = wbfmm_point_box(tree, level, &(xf[i*fstr])) ; */
   /*   wbfmm_tree_box_local_field(tree, level, b, k,  */
   /* 				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr, */
   /* 				    q, qstr, normals, nstr, dipoles, dstr, */

@@ -288,8 +288,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">Nc</td><td>order of child expansions; </td></tr>
     <tr><td class="paramname">H03</td><td>rotation coefficients for &lsquo;lower&rsquo; children (Morton index 0-3); </td></tr>
     <tr><td class="paramname">Lh</td><td>maximum order of rotation coefficients; </td></tr>
-    <tr><td class="paramname">transf</td><td>forward ( <img class="formulaInl" alt="$+kr$" src="form_18.png"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
-    <tr><td class="paramname">transb</td><td>backward ( <img class="formulaInl" alt="$-kr$" src="form_19.png"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
+    <tr><td class="paramname">transf</td><td>forward ( <img class="formulaInl" alt="$+kr$" src="form_18.png" width="23" height="11"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
+    <tr><td class="paramname">transb</td><td>backward ( <img class="formulaInl" alt="$-kr$" src="form_19.png" width="23" height="10"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
     <tr><td class="paramname">Ls</td><td>order of <em>trans</em>; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
@@ -383,8 +383,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">Nc</td><td>order of child expansions; </td></tr>
     <tr><td class="paramname">H03</td><td>rotation coefficients for &lsquo;lower&rsquo; children (Morton index 0-3); </td></tr>
     <tr><td class="paramname">Lh</td><td>maximum order of rotation coefficients; </td></tr>
-    <tr><td class="paramname">transf</td><td>forward ( <img class="formulaInl" alt="$+kr$" src="form_18.png"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
-    <tr><td class="paramname">transb</td><td>backward ( <img class="formulaInl" alt="$-kr$" src="form_19.png"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
+    <tr><td class="paramname">transf</td><td>forward ( <img class="formulaInl" alt="$+kr$" src="form_18.png" width="23" height="11"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
+    <tr><td class="paramname">transb</td><td>backward ( <img class="formulaInl" alt="$-kr$" src="form_19.png" width="23" height="10"/>) coaxial translation operator for distance between child and parent box centres; </td></tr>
     <tr><td class="paramname">Ls</td><td>order of <em>trans</em>; </td></tr>
     <tr><td class="paramname">work</td><td>workspace</td></tr>
   </table>
@@ -801,15 +801,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Extract the rotation angles for boxes on interaction list 4. </p>
-<p >Find the rotation angles <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> between a box at integer coordinates <img class="formulaInl" alt="$(i,j,k)$" src="form_20.png"/>, using a look-up table which should be initialized with <a class="el" href="group__shift.html#ga11db3f07271691eac210a96531e88fff" title="Initialize table of angles for shift operations.">wbfmm_shift_angle_table_init</a></p>
+<p >Find the rotation angles <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png" width="38" height="14"/> between a box at integer coordinates <img class="formulaInl" alt="$(i,j,k)$" src="form_20.png" width="36" height="14"/>, using a look-up table which should be initialized with <a class="el" href="group__shift.html#ga11db3f07271691eac210a96531e88fff" title="Initialize table of angles for shift operations.">wbfmm_shift_angle_table_init</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i</td><td>integer <img class="formulaInl" alt="$x$" src="form_3.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">j</td><td>integer <img class="formulaInl" alt="$y$" src="form_4.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">k</td><td>integer <img class="formulaInl" alt="$z$" src="form_5.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">th</td><td><img class="formulaInl" alt="$\theta$" src="form_6.png"/> for rotation between boxes; </td></tr>
-    <tr><td class="paramname">ph</td><td><img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation between boxes; </td></tr>
-    <tr><td class="paramname">ch</td><td><img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">i</td><td>integer <img class="formulaInl" alt="$x$" src="form_3.png" width="8" height="6"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">j</td><td>integer <img class="formulaInl" alt="$y$" src="form_4.png" width="8" height="9"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">k</td><td>integer <img class="formulaInl" alt="$z$" src="form_5.png" width="6" height="6"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">th</td><td><img class="formulaInl" alt="$\theta$" src="form_6.png" width="6" height="10"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">ph</td><td><img class="formulaInl" alt="$\phi$" src="form_7.png" width="8" height="13"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">ch</td><td><img class="formulaInl" alt="$\chi$" src="form_8.png" width="9" height="9"/> for rotation between boxes; </td></tr>
     <tr><td class="paramname">rs</td><td>scaling factor for distance between box centres, distance is <em>rs</em> multiplied by box width.</td></tr>
   </table>
   </dd>
@@ -875,15 +875,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Extract the rotation angles for boxes on interaction list 4. </p>
-<p >Find the rotation angles <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png"/> between a box at integer coordinates <img class="formulaInl" alt="$(i,j,k)$" src="form_20.png"/>, using a look-up table which should be initialized with <a class="el" href="group__shift.html#ga4539d9cd56e8aa5aeb10fec80ea20b9b" title="Initialize table of angles for shift operations.">wbfmm_shift_angle_table_init_f</a></p>
+<p >Find the rotation angles <img class="formulaInl" alt="$(\theta,\phi\,\chi)$" src="form_9.png" width="38" height="14"/> between a box at integer coordinates <img class="formulaInl" alt="$(i,j,k)$" src="form_20.png" width="36" height="14"/>, using a look-up table which should be initialized with <a class="el" href="group__shift.html#ga4539d9cd56e8aa5aeb10fec80ea20b9b" title="Initialize table of angles for shift operations.">wbfmm_shift_angle_table_init_f</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i</td><td>integer <img class="formulaInl" alt="$x$" src="form_3.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">j</td><td>integer <img class="formulaInl" alt="$y$" src="form_4.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">k</td><td>integer <img class="formulaInl" alt="$z$" src="form_5.png"/> coordinate of box on interaction list; </td></tr>
-    <tr><td class="paramname">th</td><td><img class="formulaInl" alt="$\theta$" src="form_6.png"/> for rotation between boxes; </td></tr>
-    <tr><td class="paramname">ph</td><td><img class="formulaInl" alt="$\phi$" src="form_7.png"/> for rotation between boxes; </td></tr>
-    <tr><td class="paramname">ch</td><td><img class="formulaInl" alt="$\chi$" src="form_8.png"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">i</td><td>integer <img class="formulaInl" alt="$x$" src="form_3.png" width="8" height="6"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">j</td><td>integer <img class="formulaInl" alt="$y$" src="form_4.png" width="8" height="9"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">k</td><td>integer <img class="formulaInl" alt="$z$" src="form_5.png" width="6" height="6"/> coordinate of box on interaction list; </td></tr>
+    <tr><td class="paramname">th</td><td><img class="formulaInl" alt="$\theta$" src="form_6.png" width="6" height="10"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">ph</td><td><img class="formulaInl" alt="$\phi$" src="form_7.png" width="8" height="13"/> for rotation between boxes; </td></tr>
+    <tr><td class="paramname">ch</td><td><img class="formulaInl" alt="$\chi$" src="form_8.png" width="9" height="9"/> for rotation between boxes; </td></tr>
     <tr><td class="paramname">rs</td><td>scaling factor for distance between box centres, distance is <em>rs</em> multiplied by box width.</td></tr>
   </table>
   </dd>
@@ -1251,7 +1251,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 18 2023 16:43:06 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Fri Sep 8 2023 16:19:05 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

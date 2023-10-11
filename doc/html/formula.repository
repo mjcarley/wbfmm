@@ -1,55 +1,55 @@
-\_form#0:$(\theta,\phi,\chi)$
-\_form#1:$(\mathbf{i}_{x}, \mathbf{i}_{y}, \mathbf{i}_{z})$
-\_form#2:$(\mathbf{j}_{x}, \mathbf{j}_{y}, \mathbf{j}_{z})$
-\_form#3:$x$
-\_form#4:$y$
-\_form#5:$z$
-\_form#6:$\theta$
-\_form#7:$\phi$
-\_form#8:$\chi$
-\_form#9:$(\theta,\phi\,\chi)$
-\_form#10:$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
-\_form#11:$r$
-\_form#12:$k$
-\_form#13:$[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
-\_form#14:$(n_{x1},n_{y1},n_{z1})$
-\_form#15:$a_{1}$
-\_form#16:$b_{1}$
-\_form#17:$n_{xi}$
-\_form#18:$+kr$
-\_form#19:$-kr$
-\_form#20:$(i,j,k)$
-\_form#21:$(r,\theta,\phi)$
-\_form#22:$P_{n-1}^{m}(\cos\theta)$
-\_form#23:$0\leq m\leq n-1$
-\_form#24:$P_{n}^{m}(\cos\theta)$
-\_form#25:$0\leq m \leq n$
-\_form#26:$n$
-\_form#27:$n-1$
-\_form#28:$\cos\theta$
-\_form#29:$\sin\theta$
-\_form#30:$P_{0}^{0}(\cos\theta)$
-\_form#31:$P_{1}^{0}(\cos\theta)$
-\_form#32:$P_{1}^{1}(\cos\theta)$
-\_form#33:$j_{n}(x)$
-\_form#34:$j_{n-1}(x)$
-\_form#35:$j_{0}(x)$
-\_form#36:$j_{1}(x)$
-\_form#37:$h_{n}(x)$
-\_form#38:$h_{0}(x)$
-\_form#39:$h_{1}(x)$
-\_form#40:$h_{n-1}(x)$
-\_form#41:$\mathbf{x}$
-\_form#42:$\mathbf{x}_{n}$
-\_form#43:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
-\_form#44:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
-\_form#45:$\nabla\phi_{i}$
-\_form#46:$i=0,\ldots n_{q}-1$
-\_form#47:$\nabla\times\phi$
-\_form#48:$C_{n}^{m}$
-\_form#49:$-n\leq m \leq n$
-\_form#50:$i=n(n+1)+m$
-\_form#51:$C_{si+0}+jC_{si+1}$
-\_form#52:$i$
-\_form#53:$s$
-\_form#54:$C_{n}$
+\_form#0=41x14:$(\theta,\phi,\chi)$
+\_form#1=50x14:$(\mathbf{i}_{x}, \mathbf{i}_{y}, \mathbf{i}_{z})$
+\_form#2=51x14:$(\mathbf{j}_{x}, \mathbf{j}_{y}, \mathbf{j}_{z})$
+\_form#3=8x6:$x$
+\_form#4=8x9:$y$
+\_form#5=6x6:$z$
+\_form#6=6x10:$\theta$
+\_form#7=8x13:$\phi$
+\_form#8=9x9:$\chi$
+\_form#9=38x14:$(\theta,\phi\,\chi)$
+\_form#10=300x14:$[\Re(C_{00})\quad \Im(C_{00}) \ldots (2\times\mbox{cstro}) \ldots \Re(C_{0,-1})\quad \Im(C_{0,-1})]$
+\_form#11=8x6:$r$
+\_form#12=6x10:$k$
+\_form#13=181x14:$[n_{x1}\quad n_{y1}\quad n_{z1}\quad a_{1}\quad b_{1}\quad n_{x2} \ldots]$
+\_form#14=75x14:$(n_{x1},n_{y1},n_{z1})$
+\_form#15=11x9:$a_{1}$
+\_form#16=10x13:$b_{1}$
+\_form#17=18x9:$n_{xi}$
+\_form#18=23x11:$+kr$
+\_form#19=23x10:$-kr$
+\_form#20=36x14:$(i,j,k)$
+\_form#21=39x14:$(r,\theta,\phi)$
+\_form#22=61x14:$P_{n-1}^{m}(\cos\theta)$
+\_form#23=80x11:$0\leq m\leq n-1$
+\_form#24=53x14:$P_{n}^{m}(\cos\theta)$
+\_form#25=59x11:$0\leq m \leq n$
+\_form#26=9x6:$n$
+\_form#27=30x9:$n-1$
+\_form#28=26x10:$\cos\theta$
+\_form#29=25x10:$\sin\theta$
+\_form#30=49x15:$P_{0}^{0}(\cos\theta)$
+\_form#31=49x15:$P_{1}^{0}(\cos\theta)$
+\_form#32=49x15:$P_{1}^{1}(\cos\theta)$
+\_form#33=29x14:$j_{n}(x)$
+\_form#34=41x14:$j_{n-1}(x)$
+\_form#35=28x14:$j_{0}(x)$
+\_form#36=28x14:$j_{1}(x)$
+\_form#37=30x14:$h_{n}(x)$
+\_form#38=29x14:$h_{0}(x)$
+\_form#39=29x14:$h_{1}(x)$
+\_form#40=43x14:$h_{n-1}(x)$
+\_form#41=9x6:$\mathbf{x}$
+\_form#42=15x9:$\mathbf{x}_{n}$
+\_form#43=139x18:$\sum_{n=1}^{N}\mathbf{f}_{n}.\nabla h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\_form#44=126x18:$\sum_{n=1}^{N}s_{n}h_{0}(\mathbf{x}-\mathbf{x}_{n})/4\pi$
+\_form#45=21x13:$\nabla\phi_{i}$
+\_form#46=84x13:$i=0,\ldots n_{q}-1$
+\_form#47=33x13:$\nabla\times\phi$
+\_form#48=19x14:$C_{n}^{m}$
+\_form#49=69x11:$-n\leq m \leq n$
+\_form#50=94x14:$i=n(n+1)+m$
+\_form#51=80x14:$C_{si+0}+jC_{si+1}$
+\_form#52=5x9:$i$
+\_form#53=5x6:$s$
+\_form#54=15x13:$C_{n}$

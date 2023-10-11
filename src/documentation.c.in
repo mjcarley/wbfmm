@@ -22,9 +22,9 @@
  */
 
 gint wbfmm_tree_add_points_FLOAT(wbfmm_tree_t *t, 
-						gpointer pts, gsize pstr,
-						gpointer normals, gsize nstr,
-						guint npts, gboolean sorted) {}
+				 gpointer pts, gsize pstr,
+				 gpointer normals, gsize nstr,
+				 guint npts, gboolean sorted) {}
 
 /** 
  * @ingroup rotations
@@ -51,10 +51,10 @@ gint wbfmm_tree_add_points_FLOAT(wbfmm_tree_t *t,
  */
 
 gint wbfmm_rotation_angles_FLOAT(WBFMM_REAL *ix, WBFMM_REAL *iy,
-						WBFMM_REAL *iz, WBFMM_REAL *jx,
-						WBFMM_REAL *jy, WBFMM_REAL *jz,
-						WBFMM_REAL *th, WBFMM_REAL *ph,
-						WBFMM_REAL *ch) {}
+				 WBFMM_REAL *iz, WBFMM_REAL *jx,
+				 WBFMM_REAL *jy, WBFMM_REAL *jz,
+				 WBFMM_REAL *th, WBFMM_REAL *ph,
+				 WBFMM_REAL *ch) {}
 
 /**
  * @ingroup rotations
@@ -119,10 +119,10 @@ gint wbfmm_coefficients_H_rotation_FLOAT(WBFMM_REAL *H,
  */
 
 gint wbfmm_rotate_H_FLOAT(WBFMM_REAL *Co, gint cstro,
-					 WBFMM_REAL *Ci, gint cstri,
-					 gint N, gint nq,
-					 WBFMM_REAL *H, WBFMM_REAL ph,
-					 WBFMM_REAL ch, WBFMM_REAL sc) {}
+			  WBFMM_REAL *Ci, gint cstri,
+			  gint N, gint nq,
+			  WBFMM_REAL *H, WBFMM_REAL ph,
+			  WBFMM_REAL ch, WBFMM_REAL sc) {}
 
 /**     
  * @fn gint wbfmm_coefficients_RR_coaxial_FLOAT(WBFMM_REAL
@@ -169,8 +169,8 @@ gint wbfmm_rotate_H_FLOAT(WBFMM_REAL *Co, gint cstro,
  */
 
 gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR, 
-							gint L, WBFMM_REAL kr,
-							WBFMM_REAL *work) {}
+					 gint L, WBFMM_REAL kr,
+					 WBFMM_REAL *work) {}
 
 /**
  *
@@ -202,12 +202,12 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  */
 
  gint wbfmm_coaxial_translate_FLOAT(WBFMM_REAL *Co,
-						   gint cstro, gint No,
-						   WBFMM_REAL *Ci,
-						   gint cstri, gint Ni,
-						   WBFMM_REAL *cfft,
-						   gint L, gboolean complex,
-						   WBFMM_REAL sc) {}
+				    gint cstro, gint No,
+				    WBFMM_REAL *Ci,
+				    gint cstri, gint Ni,
+				    WBFMM_REAL *cfft,
+				    gint L, gboolean complex,
+				    WBFMM_REAL sc) {}
  
 /**
  *
@@ -222,8 +222,8 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  * @return pointer to newly allocated tree.
  */
  wbfmm_tree_t *wbfmm_tree_new_FLOAT(WBFMM_REAL *x,
-						   WBFMM_REAL D,
-						   guint maxpoints) {}
+				    WBFMM_REAL D,
+				    guint maxpoints) {}
 
 /**
  *
@@ -274,15 +274,15 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  */
 
  gint wbfmm_tree_leaf_expansions_FLOAT(wbfmm_tree_t *t,
-						      WBFMM_REAL k,
-						      WBFMM_REAL *src,
-						      gint sstr, 
-						      WBFMM_REAL *normals,
-						      gint nstr,
-						      WBFMM_REAL *dipoles,
-						      gint dstr,
-						      gboolean zero_expansions,
-						      WBFMM_REAL *work) {}
+				       WBFMM_REAL k,
+				       WBFMM_REAL *src,
+				       gint sstr, 
+				       WBFMM_REAL *normals,
+				       gint nstr,
+				       WBFMM_REAL *dipoles,
+				       gint dstr,
+				       gboolean zero_expansions,
+				       WBFMM_REAL *work) {}
 
 /**
  *
@@ -303,10 +303,10 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  */
 
  gint wbfmm_tree_box_field_FLOAT(wbfmm_tree_t *t, guint
-						level, guint b, WBFMM_REAL k,
-						WBFMM_REAL *x, WBFMM_REAL *f,
-						gint fstr,
-						WBFMM_REAL *work) {}
+				 level, guint b, WBFMM_REAL k,
+				 WBFMM_REAL *x, WBFMM_REAL *f,
+				 gint fstr,
+				 WBFMM_REAL *work) {}
 
 /**
  *
@@ -333,16 +333,16 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  */
 
  gint wbfmm_tree_box_local_field_FLOAT(wbfmm_tree_t *t,
-						      guint level,
-						      guint b, WBFMM_REAL k,
-						      WBFMM_REAL *x,
-						      WBFMM_REAL *f,
-						      gint fstr,
-						      WBFMM_REAL *src,
-						      gint sstr,
-						      gboolean eval_neighbours,
-						      guint field,
-						      WBFMM_REAL *work) {}
+				       guint level,
+				       guint b, WBFMM_REAL k,
+				       WBFMM_REAL *x,
+				       WBFMM_REAL *f,
+				       gint fstr,
+				       WBFMM_REAL *src,
+				       gint sstr,
+				       gboolean eval_neighbours,
+				       guint field,
+				       WBFMM_REAL *work) {}
 
 
 /**
@@ -359,8 +359,8 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  */
 
  guint64 wbfmm_point_index_3d_FLOAT(WBFMM_REAL *x,
-						   WBFMM_REAL *c,
-						   WBFMM_REAL D) {}
+				    WBFMM_REAL *c,
+				    WBFMM_REAL D) {}
 
 /**
  *
@@ -376,9 +376,9 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  * @return 0 on success
  */
 
-gint wbfmm_tree_coefficient_init_FLOAT(wbfmm_tree_t
-						      *t, guint l, guint nr,
-						      guint ns) {}
+gint wbfmm_tree_coefficient_init_FLOAT(wbfmm_tree_t *t,
+				       guint l, guint nr,
+				       guint ns) {}
 
 /** 
  *
@@ -426,12 +426,12 @@ gint wbfmm_tree_refine_FLOAT(wbfmm_tree_t *t) {}
  */
 
 gint wbfmm_child_parent_shift_FLOAT(WBFMM_REAL *Cp, gint Np,
-						   WBFMM_REAL *Cc, gint Nc,
-						   WBFMM_REAL *H03, 
-						   WBFMM_REAL *H47, gint Lh,
-						   WBFMM_REAL *trans, gint Ls,
-						   gint nq,
-						   WBFMM_REAL *work) {}
+				    WBFMM_REAL *Cc, gint Nc,
+				    WBFMM_REAL *H03, 
+				    WBFMM_REAL *H47, gint Lh,
+				    WBFMM_REAL *trans, gint Ls,
+				    gint nq,
+				    WBFMM_REAL *work) {}
 
 /**
  *
@@ -473,12 +473,12 @@ gint wbfmm_child_parent_shift_FLOAT(WBFMM_REAL *Cp, gint Np,
 
 
 gint wbfmm_child_parent_shift_bw_FLOAT(WBFMM_REAL *Cp, gint Np,
-						      WBFMM_REAL *Cc, gint Nc,
-						      WBFMM_REAL *H03, gint Lh,
-						      WBFMM_REAL *transf,
-						      WBFMM_REAL *transb,
-						      gint Ls,
-						      WBFMM_REAL *work) {}
+				       WBFMM_REAL *Cc, gint Nc,
+				       WBFMM_REAL *H03, gint Lh,
+				       WBFMM_REAL *transf,
+				       WBFMM_REAL *transb,
+				       gint Ls,
+				       WBFMM_REAL *work) {}
 
 /**
  *
@@ -513,12 +513,12 @@ gint wbfmm_child_parent_shift_bw_FLOAT(WBFMM_REAL *Cp, gint Np,
  */
 
   gint wbfmm_parent_child_shift_FLOAT(WBFMM_REAL *Cc, gint Nc,
-						   WBFMM_REAL *Cp, gint Np,
-						   WBFMM_REAL *H03, 
-						   WBFMM_REAL *H47, gint Lh,
-						   WBFMM_REAL *trans, gint Ls,
-						   gint nq,
-						   WBFMM_REAL *work) {}
+				      WBFMM_REAL *Cp, gint Np,
+				      WBFMM_REAL *H03, 
+				      WBFMM_REAL *H47, gint Lh,
+				      WBFMM_REAL *trans, gint Ls,
+				      gint nq,
+				      WBFMM_REAL *work) {}
 
 /**
  * @ingroup shift
@@ -543,8 +543,8 @@ gint wbfmm_child_parent_shift_bw_FLOAT(WBFMM_REAL *Cp, gint Np,
  */
 
  gint wbfmm_shift_angles_list4_FLOAT(gint i, gint j, gint k,
-					     WBFMM_REAL *th, WBFMM_REAL *ph,
-					     WBFMM_REAL *ch, WBFMM_REAL *rs) {} 
+				     WBFMM_REAL *th, WBFMM_REAL *ph,
+				     WBFMM_REAL *ch, WBFMM_REAL *rs) {} 
 
 /**
  *
@@ -582,9 +582,7 @@ gint wbfmm_shift_angle_table_init_FLOAT(void) {}
  */
 
 wbfmm_shift_operators_t
-*wbfmm_shift_operators_new_FLOAT(guint L,
-						gboolean bw,
-						WBFMM_REAL *work) {}
+*wbfmm_shift_operators_new_FLOAT(guint L, gboolean bw, WBFMM_REAL *work) {}
 
 /**
  *
@@ -605,8 +603,8 @@ wbfmm_shift_operators_t
  */
 
 gint wbfmm_shift_operators_coaxial_SR_init_FLOAT
-     (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, guint L,
-      WBFMM_REAL k, WBFMM_REAL *work) {}
+(wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, guint L,
+ WBFMM_REAL k, WBFMM_REAL *work) {}
 
 /**
  *
@@ -627,8 +625,8 @@ gint wbfmm_shift_operators_coaxial_SR_init_FLOAT
  *
  */
 
- gint wbfmm_shift_operators_coaxial_SS_init)
-     (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, 
+ gint wbfmm_shift_operators_coaxial_SS_init
+ (wbfmm_shift_operators_t *w, WBFMM_REAL D, guint level, 
       guint L, WBFMM_REAL k, WBFMM_REAL *work) {}
 
  /**
@@ -652,11 +650,11 @@ gint wbfmm_shift_operators_coaxial_SR_init_FLOAT
  */
 
  gint wbfmm_expansion_h_cfft_FLOAT(WBFMM_REAL k, gint N, 
-                                                  WBFMM_REAL *x0,
-						  WBFMM_REAL *xs,
-						  WBFMM_REAL *q, gint nq,
-						  WBFMM_REAL *cfft, gint cstr,
-						  WBFMM_REAL *work) {}
+				   WBFMM_REAL *x0,
+				   WBFMM_REAL *xs,
+				   WBFMM_REAL *q, gint nq,
+				   WBFMM_REAL *cfft, gint cstr,
+				   WBFMM_REAL *work) {}
 
  /**
  *
@@ -681,15 +679,15 @@ gint wbfmm_shift_operators_coaxial_SR_init_FLOAT
  */
 
  gint wbfmm_expansion_dipole_h_cfft_FLOAT(WBFMM_REAL k, gint N, 
-							 WBFMM_REAL *x0,
-							 WBFMM_REAL *xs,
-							 WBFMM_REAL *fx,
-							 WBFMM_REAL *fy,
-							 WBFMM_REAL *fz,
-							 gint nq,
-							 WBFMM_REAL *cfft,
-							 gint cstr,
-							 WBFMM_REAL *work) {}
+					  WBFMM_REAL *x0,
+					  WBFMM_REAL *xs,
+					  WBFMM_REAL *fx,
+					  WBFMM_REAL *fy,
+					  WBFMM_REAL *fz,
+					  gint nq,
+					  WBFMM_REAL *cfft,
+					  gint cstr,
+					  WBFMM_REAL *work) {}
 
 
  /**
@@ -715,14 +713,14 @@ gint wbfmm_shift_operators_coaxial_SR_init_FLOAT
  */
 
 gint wbfmm_expansion_normal_h_cfft_FLOAT(WBFMM_REAL k, gint N, 
-							WBFMM_REAL *x0,
-							WBFMM_REAL *xs,
-							WBFMM_REAL *normal,
-							WBFMM_REAL *q,
-							gint nq,
-							WBFMM_REAL *cfft,
-							gint cstr,
-							WBFMM_REAL *work) ;
+					 WBFMM_REAL *x0,
+					 WBFMM_REAL *xs,
+					 WBFMM_REAL *normal,
+					 WBFMM_REAL *q,
+					 gint nq,
+					 WBFMM_REAL *cfft,
+					 gint cstr,
+					 WBFMM_REAL *work) ;
 
 /**
  *
@@ -746,15 +744,15 @@ gint wbfmm_expansion_normal_h_cfft_FLOAT(WBFMM_REAL k, gint N,
  */
 
 gint wbfmm_expansion_h_evaluate_FLOAT(WBFMM_REAL k, 
-						     WBFMM_REAL *x0,
-						     WBFMM_REAL *cfft,
-						     gint cstr,
-						     gint N, 
-						     gint nq,
-						     WBFMM_REAL *xf, 
-						     WBFMM_REAL *field,
-						     gint fstr,
-						     WBFMM_REAL *work) {}
+				      WBFMM_REAL *x0,
+				      WBFMM_REAL *cfft,
+				      gint cstr,
+				      gint N, 
+				      gint nq,
+				      WBFMM_REAL *xf, 
+				      WBFMM_REAL *field,
+				      gint fstr,
+				      WBFMM_REAL *work) {}
 
 /**
  *
@@ -777,15 +775,14 @@ gint wbfmm_expansion_h_evaluate_FLOAT(WBFMM_REAL k,
  */
 
 gint wbfmm_expansion_h_grad_evaluate_FLOAT(WBFMM_REAL k, 
-							  WBFMM_REAL *x0,
-							  WBFMM_REAL *cfft,
-							  gint cstr,
-							  gint N, 
-							  gint nq,
-							  WBFMM_REAL *xf, 
-							  WBFMM_REAL *field,
-							  WBFMM_REAL *work) {}
-
+					   WBFMM_REAL *x0,
+					   WBFMM_REAL *cfft,
+					   gint cstr,
+					   gint N, 
+					   gint nq,
+					   WBFMM_REAL *xf, 
+					   WBFMM_REAL *field,
+					   WBFMM_REAL *work) {}
 
 /**
  *
@@ -809,15 +806,15 @@ gint wbfmm_expansion_h_grad_evaluate_FLOAT(WBFMM_REAL k,
  */
 
 gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
-							  WBFMM_REAL *x0,
-							  WBFMM_REAL *cfft,
-							  gint cstr,
-							  gint N, 
-							  gint nq,
-							  WBFMM_REAL *xf, 
-							  WBFMM_REAL *field,
-							  gint fstr,
-							  WBFMM_REAL *work) ;
+					   WBFMM_REAL *x0,
+					   WBFMM_REAL *cfft,
+					   gint cstr,
+					   gint N, 
+					   gint nq,
+					   WBFMM_REAL *xf, 
+					   WBFMM_REAL *field,
+					   gint fstr,
+					   WBFMM_REAL *work) ;
 
 /**
  *
@@ -841,14 +838,14 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  */
 
  gint wbfmm_expansion_j_evaluate_FLOAT(WBFMM_REAL k,
-                                                      WBFMM_REAL *x0,
-						      WBFMM_REAL *cfft,
-						      gint cstr, gint nq,
-						      gint N, 
-						      WBFMM_REAL *xf, 
-						      WBFMM_REAL *field,
-						      gint fstr, 
-						      WBFMM_REAL *work) {}
+				       WBFMM_REAL *x0,
+				       WBFMM_REAL *cfft,
+				       gint cstr, gint nq,
+				       gint N, 
+				       WBFMM_REAL *xf, 
+				       WBFMM_REAL *field,
+				       gint fstr, 
+				       WBFMM_REAL *work) {}
 
  /**
  *
@@ -882,9 +879,9 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
  gint wbfmm_downward_pass_FLOAT(wbfmm_tree_t *t,
-					       wbfmm_shift_operators_t *op,
-					       guint level, WBFMM_REAL *work,
-					       gint nthreads) {}
+				wbfmm_shift_operators_t *op,
+				guint level, WBFMM_REAL *work,
+				gint nthreads) {}
 
 /**
  *
@@ -905,8 +902,8 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
  gint wbfmm_upward_pass_FLOAT(wbfmm_tree_t *t,
-					     wbfmm_shift_operators_t *op,
-					     guint level, WBFMM_REAL *work) {}
+			      wbfmm_shift_operators_t *op,
+			      guint level, WBFMM_REAL *work) {}
 
 /**
  *
@@ -924,11 +921,10 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
 
- gint wbfmm_cartesian_to_spherical_FLOAT(WBFMM_REAL
-							*x0, WBFMM_REAL *x,
-							WBFMM_REAL *r,
-							WBFMM_REAL *th,
-							WBFMM_REAL *ph) {}
+ gint wbfmm_cartesian_to_spherical_FLOAT(WBFMM_REAL*x0, WBFMM_REAL *x,
+					 WBFMM_REAL *r,
+					 WBFMM_REAL *th,
+					 WBFMM_REAL *ph) {}
 
 /**
  *
@@ -956,10 +952,10 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  */
 
  gint wbfmm_legendre_recursion_array_FLOAT(WBFMM_REAL **Pnm1,
-							  WBFMM_REAL **Pn,
-							  gint n,
-							  WBFMM_REAL C,
-							  WBFMM_REAL S) {}
+					   WBFMM_REAL **Pn,
+					   gint n,
+					   WBFMM_REAL C,
+					   WBFMM_REAL S) {}
 
  /**
  *
@@ -977,8 +973,8 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
  gint wbfmm_legendre_init_FLOAT(WBFMM_REAL C, WBFMM_REAL S, 
-					       WBFMM_REAL *P0, WBFMM_REAL *P10,
-					       WBFMM_REAL *P11) {}
+				WBFMM_REAL *P0, WBFMM_REAL *P10,
+				WBFMM_REAL *P11) {}
 
 /**
  *
@@ -1002,8 +998,8 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
  gint wbfmm_bessel_j_recursion_FLOAT(WBFMM_REAL *jnm1,
-						    WBFMM_REAL *jn,
-						    WBFMM_REAL x, gint n) {}
+				     WBFMM_REAL *jn,
+				     WBFMM_REAL x, gint n) {}
 
 /**
  *
@@ -1020,7 +1016,7 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  */
 
  gint wbfmm_bessel_j_init_FLOAT(WBFMM_REAL x,
-					       WBFMM_REAL *j0, WBFMM_REAL *j1)
+				WBFMM_REAL *j0, WBFMM_REAL *j1)
  {}
 
  /**
@@ -1036,9 +1032,8 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  * @return 0 on success
  *
  */
- gint wbfmm_bessel_h_init_FLOAT(WBFMM_REAL x,
-					       WBFMM_REAL *h0,
-					       WBFMM_REAL *h1) {}
+ gint wbfmm_bessel_h_init_FLOAT(WBFMM_REAL x, WBFMM_REAL *h0,
+				WBFMM_REAL *h1) {}
 
 /**
  *
@@ -1062,8 +1057,8 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
  gint wbfmm_bessel_h_recursion_FLOAT(WBFMM_REAL *hnm1,
-						    WBFMM_REAL *hn,
-						    WBFMM_REAL x, gint n) {}
+				     WBFMM_REAL *hn,
+				     WBFMM_REAL x, gint n) {}
 
 /**
  *
@@ -1091,13 +1086,13 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  */
 
  gint wbfmm_total_dipole_field_FLOAT(WBFMM_REAL k,
-						    WBFMM_REAL *xs,
-						    gint xstride,
-						    WBFMM_REAL *src,
-						    gint sstride,
-						    gint nsrc,
-						    WBFMM_REAL *xf,
-						    WBFMM_REAL *field) {}
+				     WBFMM_REAL *xs,
+				     gint xstride,
+				     WBFMM_REAL *src,
+				     gint sstride,
+				     gint nsrc,
+				     WBFMM_REAL *xf,
+				     WBFMM_REAL *field) {}
    
 /**
  *
@@ -1124,11 +1119,11 @@ gint wbfmm_expansion_j_grad_evaluate_FLOAT(WBFMM_REAL k,
  *
  */
 gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
-					    *xs, gint xstride, WBFMM_REAL
-					    *src, gint sstride, gint nq,
-					    gint nsrc,
-					    WBFMM_REAL *xf, WBFMM_REAL
-					    *field, gint fstr) {}
+			     *xs, gint xstride, WBFMM_REAL
+			     *src, gint sstride, gint nq,
+			     gint nsrc,
+			     WBFMM_REAL *xf, WBFMM_REAL
+			     *field, gint fstr) {}
 
 /**
  *
@@ -1147,10 +1142,10 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  */
 
  gint wbfmm_coordinate_transform_FLOAT(WBFMM_REAL *x,
-						      WBFMM_REAL *ix,
-						      WBFMM_REAL *iy,
-						      WBFMM_REAL *iz,
-						      WBFMM_REAL *y) {}
+				       WBFMM_REAL *ix,
+				       WBFMM_REAL *iy,
+				       WBFMM_REAL *iz,
+				       WBFMM_REAL *y) {}
 
  /**
  *
@@ -1170,11 +1165,11 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  */
 
  gint wbfmm_shift_coordinates_FLOAT(WBFMM_REAL *x,
-						   WBFMM_REAL *y,
-						   WBFMM_REAL *ix,
-						   WBFMM_REAL *iy,
-						   WBFMM_REAL *iz,
-						   WBFMM_REAL *r) {}
+				    WBFMM_REAL *y,
+				    WBFMM_REAL *ix,
+				    WBFMM_REAL *iy,
+				    WBFMM_REAL *iz,
+				    WBFMM_REAL *r) {}
 
  /**
  *
@@ -1193,11 +1188,11 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  *
  */
  gint wbfmm_box_location_from_index_FLOAT(guint64 idx,
-							 guint32 level,
-							 WBFMM_REAL *x0,
-							 WBFMM_REAL D,
-							 WBFMM_REAL *x,
-							 WBFMM_REAL *wb) {}
+					  guint32 level,
+					  WBFMM_REAL *x0,
+					  WBFMM_REAL D,
+					  WBFMM_REAL *x,
+					  WBFMM_REAL *wb) {}
 
 /**
  *
@@ -1216,8 +1211,8 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  */
 
  gint wbfmm_tree_box_centre_FLOAT(wbfmm_tree_t *t, guint32 level,
-						 guint64 b, WBFMM_REAL *xb,
-						 WBFMM_REAL *wb) {}
+				  guint64 b, WBFMM_REAL *xb,
+				  WBFMM_REAL *wb) {}
 
 /**
  *
@@ -1236,10 +1231,10 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  *
  */
  gint wbfmm_points_origin_width_FLOAT(WBFMM_REAL *x,
-						     gint str, gint n,
-						     WBFMM_REAL *xmin,
-						     WBFMM_REAL *D,
-						     gboolean init_limits) {}
+				      gint str, gint n,
+				      WBFMM_REAL *xmin,
+				      WBFMM_REAL *D,
+				      gboolean init_limits) {}
 
 /**
  *
@@ -1263,8 +1258,8 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  */
 
  gint wbfmm_shift_angles_FLOAT(WBFMM_REAL *xi, WBFMM_REAL *xj,
-					      WBFMM_REAL *th, WBFMM_REAL *ph,
-					      WBFMM_REAL *ch, WBFMM_REAL *r) {}
+			       WBFMM_REAL *th, WBFMM_REAL *ph,
+			       WBFMM_REAL *ch, WBFMM_REAL *r) {}
 
  /**
  *
@@ -1286,8 +1281,8 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  *
  */
  gint wbfmm_tree_write_sources_FLOAT(wbfmm_tree_t *t,
-						    WBFMM_REAL *q, gint stride,
-						    FILE *f) {}
+				     WBFMM_REAL *q, gint stride,
+				     FILE *f) {}
 
 /**
  *
@@ -1309,35 +1304,35 @@ gint wbfmm_total_field_FLOAT(WBFMM_REAL k, WBFMM_REAL
  *
  */
 gint wbfmm_laplace_expansion_cfft_FLOAT(gint N,
-						       WBFMM_REAL *x0,
-						       WBFMM_REAL *xs,
-						       WBFMM_REAL *q, gint nq,
-						       WBFMM_REAL *cfft,
-						       gint cstr,
-							WBFMM_REAL *work) {}
+					WBFMM_REAL *x0,
+					WBFMM_REAL *xs,
+					WBFMM_REAL *q, gint nq,
+					WBFMM_REAL *cfft,
+					gint cstr,
+					WBFMM_REAL *work) {}
 
 gint wbfmm_laplace_expansion_normal_cfft_FLOAT(gint N,
-							      WBFMM_REAL *x0,
-							      WBFMM_REAL *xs,
-							      WBFMM_REAL
-							      *normal
-							      WBFMM_REAL *q,
-							      gint nq,
-							      WBFMM_REAL *cfft,
-							      gint cstr,
-							      WBFMM_REAL *work)
+					       WBFMM_REAL *x0,
+					       WBFMM_REAL *xs,
+					       WBFMM_REAL
+					       *normal
+					       WBFMM_REAL *q,
+					       gint nq,
+					       WBFMM_REAL *cfft,
+					       gint cstr,
+					       WBFMM_REAL *work)
 
 
 gint wbfmm_laplace_expansion_dipole_cfft_FLOAT(gint N,
-							      WBFMM_REAL *x0,
-							      WBFMM_REAL *xs,
-							      WBFMM_REAL *fx,
-							      WBFMM_REAL *fy,
-							      WBFMM_REAL *fz,
-							      gint nq,
-							      WBFMM_REAL *cfft,
-							      gint cstr,
-							      WBFMM_REAL *work) ;
+					       WBFMM_REAL *x0,
+					       WBFMM_REAL *xs,
+					       WBFMM_REAL *fx,
+					       WBFMM_REAL *fy,
+					       WBFMM_REAL *fz,
+					       gint nq,
+					       WBFMM_REAL *cfft,
+					       gint cstr,
+					       WBFMM_REAL *work) ;
 
 
 /**
@@ -1360,12 +1355,12 @@ gint wbfmm_laplace_expansion_dipole_cfft_FLOAT(gint N,
  */
 
 gint wbfmm_laplace_expansion_evaluate_FLOAT(WBFMM_REAL *x0,
-							   WBFMM_REAL *cfft,
-							   gint cstr, gint N,
-							   gint nq,
-							   WBFMM_REAL *xf,
-							   WBFMM_REAL *field,
-							   WBFMM_REAL *work) {}
+					    WBFMM_REAL *cfft,
+					    gint cstr, gint N,
+					    gint nq,
+					    WBFMM_REAL *xf,
+					    WBFMM_REAL *field,
+					    WBFMM_REAL *work) {}
 
 /**
  *
@@ -1388,17 +1383,14 @@ gint wbfmm_laplace_expansion_evaluate_FLOAT(WBFMM_REAL *x0,
  */
 
 gint wbfmm_laplace_expansion_grad_evaluate_FLOAT(WBFMM_REAL *x0,
-								WBFMM_REAL
-								*cfft,
-								gint cstr,
-								gint N,
-								gint nq,
-								WBFMM_REAL *xf,
-								WBFMM_REAL
-								*field,
-								gint fstr,
-								WBFMM_REAL
-								*work) {}
+						 WBFMM_REAL *cfft,
+						 gint cstr,
+						 gint N,
+						 gint nq,
+						 WBFMM_REAL *xf,
+						 WBFMM_REAL *field,
+						 gint fstr,
+						 WBFMM_REAL *work) {}
 
 /**
  *
@@ -1427,14 +1419,14 @@ gint wbfmm_laplace_expansion_grad_evaluate_FLOAT(WBFMM_REAL *x0,
  **/
 
 gint wbfmm_laplace_coaxial_translate_SS_FLOAT(WBFMM_REAL *Co,
-							     gint cstro,
-							     gint No,
-							     WBFMM_REAL *Ci,
-							     gint cstri,
-							     gint Ni,
-							     gint nq,
-							     WBFMM_REAL t,
-							     WBFMM_REAL sc) {}
+					      gint cstro,
+					      gint No,
+					      WBFMM_REAL *Ci,
+					      gint cstri,
+					      gint Ni,
+					      gint nq,
+					      WBFMM_REAL t,
+					      WBFMM_REAL sc) {}
 
 /** 
  * 
@@ -1463,15 +1455,15 @@ gint wbfmm_laplace_coaxial_translate_SS_FLOAT(WBFMM_REAL *Co,
  */
 
 gint wbfmm_laplace_child_parent_shift_FLOAT(WBFMM_REAL *Cp,
-							   gint Np,
-							   WBFMM_REAL *Cc,
-							   gint Nc,
-							   gint nq,
-							   WBFMM_REAL *H03, 
-							   WBFMM_REAL *H47,
-							   gint Lh,
-							   WBFMM_REAL wb,
-							   WBFMM_REAL *work) {}
+					    gint Np,
+					    WBFMM_REAL *Cc,
+					    gint Nc,
+					    gint nq,
+					    WBFMM_REAL *H03, 
+					    WBFMM_REAL *H47,
+					    gint Lh,
+					    WBFMM_REAL wb,
+					    WBFMM_REAL *work) {}
 
 /** 
  * 
@@ -1501,15 +1493,14 @@ gint wbfmm_laplace_child_parent_shift_FLOAT(WBFMM_REAL *Cp,
  */
 
 gint wbfmm_laplace_child_parent_shift_bw_FLOAT(WBFMM_REAL *Cp,
-							      gint Np,
-							      WBFMM_REAL *Cc,
-							      gint Nc,
-							      gint nq,
-							      WBFMM_REAL *H03, 
-							      gint Lh,
-							      WBFMM_REAL wb,
-							      WBFMM_REAL
-							      *work) {} ;
+					       gint Np,
+					       WBFMM_REAL *Cc,
+					       gint Nc,
+					       gint nq,
+					       WBFMM_REAL *H03, 
+					       gint Lh,
+					       WBFMM_REAL wb,
+					       WBFMM_REAL *work) {} ;
 
 /** 
  * 
@@ -1540,15 +1531,15 @@ gint wbfmm_laplace_child_parent_shift_bw_FLOAT(WBFMM_REAL *Cp,
  */
 
 gint wbfmm_laplace_parent_child_shift_FLOAT(WBFMM_REAL *Cc,
-							   gint Nc,
-							   WBFMM_REAL *Cp,
-							   gint Np,
-							   gint nq,
-							   WBFMM_REAL *H03, 
-							   WBFMM_REAL *H47,
-							   gint Lh,
-							   WBFMM_REAL wb,
-							   WBFMM_REAL *work) {}
+					    gint Nc,
+					    WBFMM_REAL *Cp,
+					    gint Np,
+					    gint nq,
+					    WBFMM_REAL *H03, 
+					    WBFMM_REAL *H47,
+					    gint Lh,
+					    WBFMM_REAL wb,
+					    WBFMM_REAL *work) {}
 
 /**
  * 
@@ -1570,10 +1561,10 @@ gint wbfmm_laplace_parent_child_shift_FLOAT(WBFMM_REAL *Cc,
 */
 
 gint wbfmm_laplace_field_coefficients_FLOAT(WBFMM_REAL *x,
-							   gint N,
-							   gboolean grad,
-							   WBFMM_REAL *cfft,
-							   WBFMM_REAL *work) {}
+					    gint N,
+					    gboolean grad,
+					    WBFMM_REAL *cfft,
+					    WBFMM_REAL *work) {}
 
 /**
  * 
@@ -1600,13 +1591,13 @@ gint wbfmm_laplace_field_coefficients_FLOAT(WBFMM_REAL *x,
 */
 
 gint wbfmm_laplace_expansion_apply_FLOAT(WBFMM_REAL *C,
-							gint cstr,
-							gint nq,
-							WBFMM_REAL *ec,
-							gint N,
-							guint field,
-							WBFMM_REAL *f,
-							gint fstr) {}
+					 gint cstr,
+					 gint nq,
+					 WBFMM_REAL *ec,
+					 gint N,
+					 guint field,
+					 WBFMM_REAL *f,
+					 gint fstr) {}
 
 /** 
  * 
@@ -1628,10 +1619,10 @@ gint wbfmm_laplace_expansion_apply_FLOAT(WBFMM_REAL *C,
 */
 
 gint wbfmm_laplace_local_coefficients_FLOAT(WBFMM_REAL *x,
-							   gint N,
-							   guint field,
-							   WBFMM_REAL *cfft,
-							   WBFMM_REAL *work) {}
+					    gint N,
+					    guint field,
+					    WBFMM_REAL *cfft,
+					    WBFMM_REAL *work) {}
 
 /**
  *
@@ -1658,20 +1649,18 @@ gint wbfmm_laplace_local_coefficients_FLOAT(WBFMM_REAL *x,
  */
 
 gint wbfmm_tree_laplace_box_local_field_FLOAT(wbfmm_tree_t *t,
-							     guint level,
-							     guint b,
-							     WBFMM_REAL *x,
-							     WBFMM_REAL *f,
-							     WBFMM_REAL *src,
-							     gint sstr,
-							     WBFMM_REAL
-							     *normals,
-							     gint nstr,
-							     WBFMM_REAL *d,
-							     gint dstr,
-							     gboolean
-							     eval_neighbours,
-							     WBFMM_REAL *work) {}
+					      guint level,
+					      guint b,
+					      WBFMM_REAL *x,
+					      WBFMM_REAL *f,
+					      WBFMM_REAL *src,
+					      gint sstr,
+					      WBFMM_REAL *normals,
+					      gint nstr,
+					      WBFMM_REAL *d,
+					      gint dstr,
+					      gboolean eval_neighbours,
+					      WBFMM_REAL *work) {}
 
 /** 
  * 
@@ -1692,10 +1681,10 @@ gint wbfmm_tree_laplace_box_local_field_FLOAT(wbfmm_tree_t *t,
 */
 
 gint wbfmm_box_fields_laplace_FLOAT(wbfmm_tree_t *t,
-						   gint level,
-						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field,
-						   WBFMM_REAL *work) {}
+				    gint level,
+				    WBFMM_REAL *xf,
+				    WBFMM_REAL *field,
+				    WBFMM_REAL *work) {}
 
 /**
  *
@@ -1744,17 +1733,14 @@ gint wbfmm_box_fields_laplace_FLOAT(wbfmm_tree_t *t,
  */
 
 gint wbfmm_tree_laplace_leaf_expansions_FLOAT(wbfmm_tree_t *t,
-							     WBFMM_REAL *src,
-							     gint sstr,
-							     WBFMM_REAL
-							     *normals,
-							     gint nstr,
-							     WBFMM_REAL
-							     *dipoles,
-							     gint dstr,
-							     gboolean
-							     zero_expansions,
-							     WBFMM_REAL *work) {}
+					      WBFMM_REAL *src,
+					      gint sstr,
+					      WBFMM_REAL *normals,
+					      gint nstr,
+					      WBFMM_REAL *dipoles,
+					      gint dstr,
+					      gboolean zero_expansions,
+					      WBFMM_REAL *work) {}
 
 gint wbfmm_tree_laplace_coefficient_init_FLOAT(wbfmm_tree_t *t,
 							      guint l, 
@@ -1807,14 +1793,14 @@ gint wbfmm_tree_laplace_coefficient_init_FLOAT(wbfmm_tree_t *t,
  **/
 
 gint wbfmm_laplace_coaxial_translate_SR_FLOAT(WBFMM_REAL *Co,
-							     gint cstro,
-							     gint No,
-							     WBFMM_REAL *Ci,
-							     gint cstri,
-							     gint Ni,
-							     gint nq,
-							     WBFMM_REAL t,
-							     WBFMM_REAL sc) {}
+					      gint cstro,
+					      gint No,
+					      WBFMM_REAL *Ci,
+					      gint cstri,
+					      gint Ni,
+					      gint nq,
+					      WBFMM_REAL t,
+					      WBFMM_REAL sc) {}
 
 /**
  *
@@ -1843,14 +1829,14 @@ gint wbfmm_laplace_coaxial_translate_SR_FLOAT(WBFMM_REAL *Co,
  **/
 
 gint wbfmm_laplace_coaxial_translate_RR_FLOAT(WBFMM_REAL *Co,
-							     gint cstro,
-							     gint No,
-							     WBFMM_REAL *Ci,
-							     gint cstri,
-							     gint Ni,
-							     gint nq,
-							     WBFMM_REAL t,
-							     WBFMM_REAL sc) {}
+					      gint cstro,
+					      gint No,
+					      WBFMM_REAL *Ci,
+					      gint cstri,
+					      gint Ni,
+					      gint nq,
+					      WBFMM_REAL t,
+					      WBFMM_REAL sc) {}
 
 /**
  * 
@@ -1876,12 +1862,12 @@ gint wbfmm_laplace_coaxial_translate_RR_FLOAT(WBFMM_REAL *Co,
 */
 
 gint wbfmm_laplace_field_FLOAT(WBFMM_REAL *xs, gint xstride,
-					      WBFMM_REAL *src, gint sstride,
-					      gint nq,
-					      WBFMM_REAL *normals, gint nstr,
-					      WBFMM_REAL *dipoles, gint dstr,
-					      gint nsrc,
-					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
+			       WBFMM_REAL *src, gint sstride,
+			       gint nq,
+			       WBFMM_REAL *normals, gint nstr,
+			       WBFMM_REAL *dipoles, gint dstr,
+			       gint nsrc,
+			       WBFMM_REAL *xf, WBFMM_REAL *field) {}
 
 /**
  * 
@@ -1908,17 +1894,17 @@ gint wbfmm_laplace_field_FLOAT(WBFMM_REAL *xs, gint xstride,
 */
 
 gint wbfmm_laplace_field_grad_FLOAT(WBFMM_REAL *xs,
-						   gint xstride,
-						   WBFMM_REAL *src,
-						   gint sstride,
-						   gint nq,
-						   WBFMM_REAL *normals,
-						   gint nstr,
-						   WBFMM_REAL *dipoles,
-						   gint dstr,
-						   gint nsrc,
-						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field) {}
+				    gint xstride,
+				    WBFMM_REAL *src,
+				    gint sstride,
+				    gint nq,
+				    WBFMM_REAL *normals,
+				    gint nstr,
+				    WBFMM_REAL *dipoles,
+				    gint dstr,
+				    gint nsrc,
+				    WBFMM_REAL *xf,
+				    WBFMM_REAL *field) {}
 
 /**
  * 
@@ -1946,27 +1932,27 @@ gint wbfmm_laplace_field_grad_FLOAT(WBFMM_REAL *xs,
 */
 
 gint wbfmm_laplace_field_curl_FLOAT(WBFMM_REAL *xs,
-						   gint xstride,
-						   WBFMM_REAL *src,
-						   gint sstride,
-						   gint nq,
-						   WBFMM_REAL *normals,
-						   gint nstr,
-						   WBFMM_REAL *dipoles,
-						   gint dstr,
-						   gint nsrc,
-						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field,
-						   gint fstr) {}
+				    gint xstride,
+				    WBFMM_REAL *src,
+				    gint sstride,
+				    gint nq,
+				    WBFMM_REAL *normals,
+				    gint nstr,
+				    WBFMM_REAL *dipoles,
+				    gint dstr,
+				    gint nsrc,
+				    WBFMM_REAL *xf,
+				    WBFMM_REAL *field,
+				    gint fstr) {}
 
 gint wbfmm_laplace_coaxial_translate_RR_FLOAT(WBFMM_REAL *Co,
-							     gint cstro,
-							     gint No,
-							     WBFMM_REAL *Ci,
-							     gint cstri,
-							     gint Ni,
-							     gint nq,
-							     WBFMM_REAL t) {}
+					      gint cstro,
+					      gint No,
+					      WBFMM_REAL *Ci,
+					      gint cstri,
+					      gint Ni,
+					      gint nq,
+					      WBFMM_REAL t) {}
 
 /**
  * 
@@ -1992,12 +1978,12 @@ gint wbfmm_laplace_coaxial_translate_RR_FLOAT(WBFMM_REAL *Co,
 */
 
 gint wbfmm_laplace_field_FLOAT(WBFMM_REAL *xs, gint xstride,
-					      WBFMM_REAL *src, gint sstride,
-					      gint nq,
-					      WBFMM_REAL *normals, gint nstr,
-					      WBFMM_REAL *dipoles, gint dstr,
-					      gint nsrc,
-					      WBFMM_REAL *xf, WBFMM_REAL *field) {}
+			       WBFMM_REAL *src, gint sstride,
+			       gint nq,
+			       WBFMM_REAL *normals, gint nstr,
+			       WBFMM_REAL *dipoles, gint dstr,
+			       gint nsrc,
+			       WBFMM_REAL *xf, WBFMM_REAL *field) {}
 
 
 /** 
@@ -2020,16 +2006,13 @@ gint wbfmm_laplace_field_FLOAT(WBFMM_REAL *xs, gint xstride,
 */
 
 gint wbfmm_laplace_expansion_local_evaluate_FLOAT(WBFMM_REAL *x0,
-								 WBFMM_REAL
-								 *cfft,
-								 gint cstr, 
-								 gint N,
-								 gint nq,
-								 WBFMM_REAL *xf,
-								 WBFMM_REAL
-								 *field,
-								 WBFMM_REAL
-								 *work) {}
+						  WBFMM_REAL *cfft,
+						  gint cstr, 
+						  gint N,
+						  gint nq,
+						  WBFMM_REAL *xf,
+						  WBFMM_REAL *field,
+						  WBFMM_REAL *work) {}
 
 /** 
  *
@@ -2056,14 +2039,14 @@ gint wbfmm_laplace_expansion_local_evaluate_FLOAT(WBFMM_REAL *x0,
 
 gint
 wbfmm_laplace_expansion_local_grad_evaluate_FLOAT(WBFMM_REAL *x0,
-								 WBFMM_REAL *cfft,
-								 gint cstr, 
-								 gint N,
-								 gint nq,
-								 WBFMM_REAL *xf,
-								 WBFMM_REAL *field,
-								 gint fstr,
-								 WBFMM_REAL *work) {} ;
+						  WBFMM_REAL *cfft,
+						  gint cstr, 
+						  gint N,
+						  gint nq,
+						  WBFMM_REAL *xf,
+						  WBFMM_REAL *field,
+						  gint fstr,
+						  WBFMM_REAL *work) {} ;
 
 /** 
  *
@@ -2091,17 +2074,14 @@ wbfmm_laplace_expansion_local_grad_evaluate_FLOAT(WBFMM_REAL *x0,
 
 gint
 wbfmm_laplace_expansion_local_curl_evaluate_FLOAT(WBFMM_REAL *x0,
-								 WBFMM_REAL
-								 *cfft,
-								 gint cstr, 
-								 gint N,
-								 gint nq,
-								 WBFMM_REAL *xf,
-								 WBFMM_REAL
-								 *field,
-								 gint fstr,
-								 WBFMM_REAL
-								 *work) {} ;
+						  WBFMM_REAL *cfft,
+						  gint cstr, 
+						  gint N,
+						  gint nq,
+						  WBFMM_REAL *xf,
+						  WBFMM_REAL *field,
+						  gint fstr,
+						  WBFMM_REAL *work) {} ;
 
 /**
  * @ingroup rotations
@@ -2138,11 +2118,11 @@ wbfmm_laplace_expansion_local_curl_evaluate_FLOAT(WBFMM_REAL *x0,
  */
 
 gint wbfmm_laplace_rotate_H_FLOAT(WBFMM_REAL *Co, gint cstro,
-						 WBFMM_REAL *Ci, gint cstri,
-						 gint N, gint nq,
-						 WBFMM_REAL *H,
-						 WBFMM_REAL ph, WBFMM_REAL ch,
-						 WBFMM_REAL sc) {}
+				  WBFMM_REAL *Ci, gint cstri,
+				  gint N, gint nq,
+				  WBFMM_REAL *H,
+				  WBFMM_REAL ph, WBFMM_REAL ch,
+				  WBFMM_REAL sc) {}
 
  /**
  *
@@ -2179,11 +2159,10 @@ gint wbfmm_laplace_rotate_H_FLOAT(WBFMM_REAL *Co, gint cstro,
  */
 
 gint wbfmm_laplace_downward_pass_FLOAT(wbfmm_tree_t *t,
-						      wbfmm_shift_operators_t
-						      *op,
-						      guint level,
-						      WBFMM_REAL *work,
-						      gint nthreads) {}
+				       wbfmm_shift_operators_t *op,
+				       guint level,
+				       WBFMM_REAL *work,
+				       gint nthreads) {}
 /**
  *
  * @ingroup pass
@@ -2205,10 +2184,9 @@ gint wbfmm_laplace_downward_pass_FLOAT(wbfmm_tree_t *t,
  */
 
 gint wbfmm_laplace_upward_pass_FLOAT(wbfmm_tree_t *t,
-						    wbfmm_shift_operators_t *op,
-						    guint level,
-						    WBFMM_REAL *work) {}
-
+				     wbfmm_shift_operators_t *op,
+				     guint level,
+				     WBFMM_REAL *work) {}
 
 /** 
  * 
@@ -2231,11 +2209,11 @@ gint wbfmm_laplace_upward_pass_FLOAT(wbfmm_tree_t *t,
 */
 
 gint wbfmm_local_coefficients_FLOAT(WBFMM_REAL k,
-						   WBFMM_REAL *x,
-						   gint N,
-						   guint field,
-						   WBFMM_REAL *cfft,
-						   WBFMM_REAL *work) ;
+				    WBFMM_REAL *x,
+				    gint N,
+				    guint field,
+				    WBFMM_REAL *cfft,
+				    WBFMM_REAL *work) ;
 
 /**
  * 
@@ -2258,14 +2236,13 @@ gint wbfmm_local_coefficients_FLOAT(WBFMM_REAL k,
 */
 
 gint wbfmm_expansion_apply_FLOAT(WBFMM_REAL *C,
-						gint cstr,
-						gint nq,
-						WBFMM_REAL *ec,
-						gint N,
-						guint field,
-						WBFMM_REAL *f,
-						gint fstr) ;
-
+				 gint cstr,
+				 gint nq,
+				 WBFMM_REAL *ec,
+				 gint N,
+				 guint field,
+				 WBFMM_REAL *f,
+				 gint fstr) ;
 
 /**
  * 

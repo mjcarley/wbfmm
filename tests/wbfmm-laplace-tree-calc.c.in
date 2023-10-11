@@ -198,6 +198,7 @@ gint main(gint argc, gchar **argv)
   WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *xs ;
   WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr ;
+  gint order_inc ;
   gsize pstr, pnstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, field, source ;
@@ -210,7 +211,7 @@ gint main(gint argc, gchar **argv)
   xtree[0] = xtree[1] = xtree[2] = 0.0 ;
   nthreads = 0 ;
   /* order_s = 8 ; order_r = 8 ; */
-  order_s = order_r = 0 ;
+  order_s = order_r = 0 ; order_inc = 0 ;
   order_max = 0 ;
   fit_box = FALSE ;
   shift_bw = FALSE ;
@@ -228,7 +229,7 @@ gint main(gint argc, gchar **argv)
   nproc = g_get_num_processors() ;
 #endif
   
-  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:glO:pR:s:S:T:t:")) != EOF ) {
+  while ( (ch = getopt(argc, argv, "hHBbcD:d:f:gi:lO:pR:s:S:T:t:")) != EOF ) {
     switch ( ch ) {
     default:
     case 'h':
@@ -247,6 +248,7 @@ gint main(gint argc, gchar **argv)
 	      "  -D # width of octree (%FLOATFMT)\n"
 	      "  -f (field point name)\n"
 	      "  -g calculate gradient of field\n"
+	      "  -i increment of order with level (%d)\n"
 	      "  -l use target lists to calculate field at points\n"
 	      "  -O #,#,# origin of octree (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n"
 	      "  -p sort source points before generating tree\n"
@@ -255,7 +257,7 @@ gint main(gint argc, gchar **argv)
 	      "  -s (source file name)\n"
 	      "  -T # (number of threads)\n"
 	      "  -t # tolerance (%FLOATFMT)\n",
-	      progname, depth, D, xtree[0], xtree[1], xtree[2],
+	      progname, depth, D, order_inc, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
       return 0 ;
       break ;
@@ -267,6 +269,7 @@ gint main(gint argc, gchar **argv)
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
     case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
+    case 'i': order_inc = atoi(optarg) ; break ;
     case 'l': target_list = TRUE ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
     case 'p': sort_sources = TRUE ; break ;
@@ -329,9 +332,8 @@ gint main(gint argc, gchar **argv)
     order[2*depth+1] = order_r ; 
     order_max = MAX(order_s, order_r) ;
     for ( i = depth-1 ; i > 0 ; i -- ) {
-      order[2*i+0] = order[2*(i+1)+0] ;
-      order[2*i+0] = order[2*(i+1)+0] + 4 ;
-      order[2*i+1] = order[2*(i+1)+1] + 4 ;
+      order[2*i+0] = order[2*(i+1)+0] + order_inc ;
+      order[2*i+1] = order[2*(i+1)+1] + order_inc ;
       /* order[2*i+1] = order[2*(i+1)+1] ; */
       order_max = MAX(order_max, order[2*i+0]) ;
       order_max = MAX(order_max, order[2*i+1]) ;

@@ -69,7 +69,7 @@ static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
   guint64 ilist[378] ;
   gint j, iph, ith ;
   WBFMM_REAL ph, ch, *H, *Cx ;
-  
+
   ni = wbfmm_box_interaction_list_4(level, ip, ilist, TRUE) ;
   /*loop on interaction list and compute SR-shifted fields*/
   for ( j = 0 ; j < ni ; j ++ ) {
@@ -595,16 +595,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_upward_pass)(wbfmm_tree_t *t,
   g_assert(H47 != NULL) ;
   g_assert(trans != NULL) ;
   for ( ip = 0 ; ip < np ; ip ++ ) {
-    /*locate first child of parent box*/
-    ic = wbfmm_box_first_child(ip) ;
-    WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps),
-						  Np,
-						  (WBFMM_REAL *)(bc[ic].mps),
-						  Nc,
-						  H03, H47, Np, 
-						  trans, Np,
-						  wbfmm_tree_source_size(t),
-						  work) ;
+    /* if ( bp[ip].n != 0 ) { */
+      /*locate first child of parent box*/
+      ic = wbfmm_box_first_child(ip) ;
+      WBFMM_FUNCTION_NAME(wbfmm_child_parent_shift)((WBFMM_REAL *)(bp[ip].mps),
+						    Np,
+						    (WBFMM_REAL *)(bc[ic].mps),
+						    Nc,
+						    H03, H47, Np, 
+						    trans, Np,
+						    wbfmm_tree_source_size(t),
+						    work) ;
+    /* } */
   }
 
   return 0 ;

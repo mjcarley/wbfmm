@@ -210,7 +210,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 {
   guint level = wbfmm_tree_depth(t) ;
   wbfmm_box_t *parents, *children ;
-  guint np, j ;
+  guint np, j, n ;
   guint64 idx, child, xi, box ;
   WBFMM_REAL *x ;
 
@@ -231,7 +231,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
     children[child].n = 0 ;
     /*start at first parent index*/
     j = parents[idx].i ;
-    while ( parents[idx].n != 0 ) {
+    n = parents[idx].n ;
+    /* while ( parents[idx].n != 0 ) { */
+    while ( n != 0 ) {
       /*check if current point is in box*/
       x = wbfmm_tree_point_index(t, t->ip[j]) ;
       xi = WBFMM_FUNCTION_NAME(wbfmm_point_index_3d)(x, wbfmm_tree_origin(t), 
@@ -239,7 +241,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
       box = wbfmm_point_locate_box(xi, level+1) ;
       /* g_assert(box >= child && box < child+8) ; */
       if ( box == child ) {
-	parents[idx].n -- ;
+	/* parents[idx].n -- ; */
+	n -- ;
 	parents[idx].i ++ ;
 	children[child].n ++ ;
 	j ++ ;
@@ -249,7 +252,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 	children[child].i = parents[idx].i ;
       }
     }
-    g_assert(parents[idx].n == 0) ;
+    /* g_assert(parents[idx].n == 0) ; */
+    g_assert(n == 0) ;
   }
 
   return 0 ;
