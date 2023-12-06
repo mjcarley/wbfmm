@@ -1,4 +1,4 @@
-AC_INIT([wbfmm], 0.1)
+AC_INIT([wbfmm],[0.1])
 AC_CONFIG_SRCDIR([src/wbfmm.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -45,7 +45,7 @@ AC_DEFINE_UNQUOTED(WBFMM_INTERFACE_AGE, $WBFMM_INTERFACE_AGE, [Interface age])
 AC_DEFINE_UNQUOTED(WBFMM_BINARY_AGE, $WBFMM_BINARY_AGE, [Binary age])
 
 dnl Initialize libtool
-AM_PROG_LIBTOOL
+LT_INIT
 
 dnl Initialize maintainer mode
 #AM_MAINTAINER_MODE
@@ -58,7 +58,7 @@ if test x$GCC = xyes ; then
 fi
 
 AC_PROG_AWK
-AC_ISC_POSIX
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_HEADER_STDC
 
 AM_PATH_GLIB_2_0(2.4.0, has_glib2=yes, has_glib2=no, gthread gmodule)
