@@ -1,7 +1,7 @@
 #!/bin/sh
 # @configure_input@
 
-blas_libs="@blas_libs@"
+wbfmm_cflags="@CFLAGS@"
 wbfmm_cppflags="@CPPFLAGS@"
 openmp_cflags="@OPENMP_CFLAGS@"
 
@@ -103,7 +103,7 @@ if test "$echo_exec_prefix" = "yes"; then
 	echo $exec_prefix
 fi
 if test "$echo_cflags" = "yes"; then
-    wbfmm_cflags="$openmp_cflags -I${prefix}/include"
+    wbfmm_cflags="$wbfmm_cflags -I${prefix}/include"
     wbfmm_cflags=`uniquify "$wbfmm_cflags"`
     echo $wbfmm_cppflags $wbfmm_cflags
 fi
