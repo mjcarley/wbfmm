@@ -16,6 +16,7 @@
 *.mat
 *.nbi
 *.log
+*.geo
 
 # autotools
 
@@ -51,6 +52,7 @@ bigfiles
 scratch
 ## directory for writing manual
 latex
+notes
 
 ## m4 cache
 autom4te.cache
