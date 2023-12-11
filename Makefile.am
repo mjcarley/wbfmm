@@ -4,6 +4,8 @@
 
 ##DIST_SUBDIRS = src tests doc
 
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = src tests
 
 ##@DX_RULES@
