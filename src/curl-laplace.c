@@ -498,9 +498,9 @@ static void gradient_evaluate4(WBFMM_REAL r[12])
 #ifdef HAVE_AVX_INSTRUCTIONS
   __m256d rrx, rry, rrz, rR, op1 ;
 
-  rrx = _mm256_load_pd(&r[0]) ;
-  rry = _mm256_load_pd(&r[4]) ;
-  rrz = _mm256_load_pd(&r[8]) ;
+  rrx = _mm256_loadu_pd(&r[0]) ;
+  rry = _mm256_loadu_pd(&r[4]) ;
+  rrz = _mm256_loadu_pd(&r[8]) ;
 
   rR = _mm256_mul_pd(rrx, rrx) ;
   /*this could be done with FMA when I get to a machine that has it*/
@@ -515,9 +515,9 @@ static void gradient_evaluate4(WBFMM_REAL r[12])
   rrx = _mm256_div_pd(rrx, rR) ;
   rry = _mm256_div_pd(rry, rR) ;
   rrz = _mm256_div_pd(rrz, rR) ;
-  _mm256_store_pd(&(r[0]), rrx) ;  
-  _mm256_store_pd(&(r[4]), rry) ;  
-  _mm256_store_pd(&(r[8]), rrz) ;  
+  _mm256_storeu_pd(&(r[0]), rrx) ;  
+  _mm256_storeu_pd(&(r[4]), rry) ;  
+  _mm256_storeu_pd(&(r[8]), rrz) ;  
 
 #else /*HAVE_AVX_INSTRUCTIONS*/
   WBFMM_REAL R[4] ;
