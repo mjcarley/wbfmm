@@ -61,7 +61,18 @@ AC_PROG_AWK
 AC_SEARCH_LIBS([strerror],[cposix])
 AC_HEADER_STDC
 
-PKG_CHECK_MODULES([GLIB], [glib-2.0])
+PKG_CHECK_MODULES([GLIB], [glib-2.0], [],
+[
+  echo \#################################################################
+  echo \# 
+  echo \# GLIB-2.0 not installed. You can install it using your 
+  echo \# distribution's package manager or from:
+  echo \#
+  echo \# https://gitlab.gnome.org/GNOME/glib/
+  echo \#
+  echo \#################################################################
+  exit
+])
 
 AC_CHECK_PROG(BLASWRAP, blaswrap-config, yes, no)
 if test x$BLASWRAP = xyes ; then
