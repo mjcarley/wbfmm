@@ -2,7 +2,7 @@
 # src/wbfmm-config.  Generated from wbfmm-config.in by configure.
 
 wbfmm_cflags="-g -O2 -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/home/michael/Codes/include"
-wbfmm_cppflags=""
+wbfmm_cppflags="-I/home/michael/Codes/include"
 openmp_cflags="-fopenmp"
 
 prefix=/home/michael/Codes
@@ -108,7 +108,7 @@ if test "$echo_cflags" = "yes"; then
     echo $wbfmm_cppflags $wbfmm_cflags
 fi
 if test "$echo_libs" = "yes"; then
-    wbfmm_libs="-L${exec_prefix}/lib -lwbfmm -lglib-2.0 -lglib-2.0 -lblas -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../.. -lgfortran -lquadmath -lm  -lm   -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../.. -lgfortran -lm -lquadmath -lm $wbfmm_libs"
+    wbfmm_libs="-L${exec_prefix}/lib -lwbfmm -lglib-2.0 -lglib-2.0 -lblas -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../.. -lgfortran -lquadmath -lm  -lm   -L/home/michael/Codes/lib -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/../../.. -lgfortran -lm -lquadmath -lm $wbfmm_libs"
     wbfmm_libs=`uniquify "$wbfmm_libs"`
     echo ${wbfmm_libs}
 fi
