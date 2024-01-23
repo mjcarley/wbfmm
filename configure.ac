@@ -50,6 +50,7 @@ LT_INIT
 dnl Initialize maintainer mode
 #AM_MAINTAINER_MODE
 
+CFLAGS="$CFLAGS -g -O3"
 AC_PROG_CC
 AM_PROG_CC_C_O
 
