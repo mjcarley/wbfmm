@@ -2,6 +2,9 @@ AC_INIT([wbfmm],[0.1])
 AC_CONFIG_SRCDIR([src/wbfmm.h])
 AC_CONFIG_MACRO_DIR([m4])
 
+## this optimization is pretty much essential for WBFMM to be useful
+: ${CFLAGS=-O3 -g} 
+
 WBFMM_MAJOR_VERSION=0
 WBFMM_MINOR_VERSION=1
 WBFMM_MICRO_VERSION=1
@@ -50,7 +53,6 @@ LT_INIT
 dnl Initialize maintainer mode
 #AM_MAINTAINER_MODE
 
-CFLAGS="$CFLAGS -g -O3"
 AC_PROG_CC
 AM_PROG_CC_C_O
 

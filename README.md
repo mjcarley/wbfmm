@@ -26,19 +26,21 @@ usual autotools configure process
 
 `./configure (options)`
 
-It is very strongly recommended to compile wbfmm with the highest
-level (-O3) of optimization. It makes a very big difference to the
-performance, even compared to using the -O2 flag. You can do this with
+# Default optimization
 
-`CFLAGS="-O3 -g" ./configure ...`
+WBFMM gives quite poor performance with the default `-O2` optimization
+from `autotools`. The default compiler flags in the configuration are
+`-O3 -g`. If you want to override this default (for debugging, for
+example), you can use the `CFLAGS` variable. For example, to switch
+off all optimization and use debugging:
 
-(remove -g to switch off debugging support)
+`./configure CFLAGS="-O0 -g" ...`
 
 If you want to use code optimized with AVX extensions (this is
 experimental but does give a performance improvement in the code where
 it is in use) pass the compiler flag WBFMM_USE_AVX. For example:
 
-`CFLAGS="-O3 -g -DWBFMM_USE_AVX" ./configure ...`
+`./configure CFLAGS="-O3 -g -DWBFMM_USE_AVX" ...`
 
 To compile the code:
 
