@@ -1059,9 +1059,8 @@ static gint rotation_matrix_test(gfloat *x0, gfloat *x1, gfloat *x2,
 {
   gfloat H[BUFSIZE*2], work[BUFSIZE], th, ph, ch ;
   gfloat ix0[3], iy0[3], iz0[3], y[3], y0[3] ;
-  /* gfloat Ci[BUFSIZE*2] = {0}, Co[BUFSIZE*2] = {0.0} ; */
-  gfloat *T, *Cc, *Ci, *Co, bt[] = {0, 0} ;
-  gint i, j, cstri, cstro, fcstr, n, m, off ;
+  gfloat *T, *Ci, *Co, bt[] = {0, 0} ;
+  gint i, j, cstri, cstro, fcstr ;
   gdouble t0, dt ;
   
   cstri = nq+1 ; cstro = nq+2 ;

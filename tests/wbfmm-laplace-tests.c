@@ -248,10 +248,8 @@ gint expansion_normal_test(gint N, gdouble *x0, gdouble *xs,
 {
   gint i, nq, cstr ;
   gdouble cfft[BUFSIZE]={0.0}, work[8192]={0.0}, fc[8]={0.0}, ff[8]={0.0} ;
-  gdouble eval[BUFSIZE] = {0.0}, fe[8]={0.0} ;
   gdouble n[3] ;
-  guint field ;
-  
+
   nq = 2 ;
 
   n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.6 ;
@@ -269,7 +267,6 @@ gint expansion_normal_test(gint N, gdouble *x0, gdouble *xs,
 	  x0[0], x0[1], x0[2],
 	  n[0],  n[1],  n[2], 
 	  xf[0], xf[1], xf[2], nsrc) ;
-  field = WBFMM_FIELD_SCALAR ;
   
   /*reference calculation*/
   wbfmm_laplace_field(xs, xstride, NULL, sstride, nq, n, 3, src, nq,

@@ -281,6 +281,9 @@ gint main(gint argc, gchar **argv)
     }
   }
 
+  fprintf(stderr, "%s: using %d threads (%d processes)\n",
+	  progname, nthreads, nproc) ;
+  
   if ( sfile != NULL ) {
     read_points(sfile,
 		&xs, &xstr,
