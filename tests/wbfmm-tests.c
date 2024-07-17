@@ -35,7 +35,7 @@
 
 GTimer *timer ;
 
-gchar *tests[] = {"legendre",
+char *tests[] = {"legendre",
 		  "besselj",
 		  "besselh",
 		  "expansion",
@@ -181,7 +181,7 @@ gint check_interaction_list_4(guint level, guint64 idx,
 			      guint64 *list, gint n) ;
 gint ilist4_test(guint level) ;
 
-static gint check_isnan(gchar *name, gdouble *f, gint n)
+static gint check_isnan(char *name, gdouble *f, gint n)
 
 {
   gint i ;
@@ -196,7 +196,7 @@ static gint check_isnan(gchar *name, gdouble *f, gint n)
   return 0 ;
 }
 
-static gint parse_test(gchar *arg)
+static gint parse_test(char *arg)
 
 {
   gint i = 0 ;
@@ -209,7 +209,7 @@ static gint parse_test(gchar *arg)
   return -1 ;
 }
 
-static gint read_data(gchar *ipfile,
+static gint read_data(char *ipfile,
 		      gdouble *x0, gdouble *x1, gdouble *x2,
 		      gdouble **xs, gint *sstr, gint *ns,
 		      gdouble **q,  gint *qstr, gint *nq,
@@ -218,7 +218,7 @@ static gint read_data(gchar *ipfile,
 
 {
   FILE *f ;
-  gchar line[1024], **tokens ;
+  char line[1024], **tokens ;
   gint i, j ;
 
   f = fopen(ipfile, "r") ;
@@ -2233,7 +2233,7 @@ gint expansion_test(gdouble *x0, gdouble *x1, gdouble *x2,
   return 0 ;
 }
 
-gint main(gint argc, gchar **argv)
+gint main(gint argc, char **argv)
 
 {
   gdouble *xs, *q, *xf, wb ;
@@ -2241,7 +2241,7 @@ gint main(gint argc, gchar **argv)
   gdouble x0[3] = {0.0}, x1[3] = {0.0}, x2[3] = {0.0} ;
   gdouble ix[3] = {0}, iy[3] = {0}, iz[3] = {0} ;
   gint ns, nq, qstr, sstr, fstr, N, i, j, nf, test, quad ;
-  gchar ch, *ipfile, *progname ;
+  char ch, *ipfile, *progname ;
   guint level ;
   gboolean echo_data ;
   wbfmm_library_config_t lconfig ;

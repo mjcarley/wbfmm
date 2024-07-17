@@ -39,12 +39,12 @@
 #define WBFMM_LOGGING_DATA_EXIT_FUNC 3
 #define WBFMM_LOGGING_DATA_TIMER     4
 
-void wbfmm_logging_func(const gchar *log_domain,
+void wbfmm_logging_func(const char *log_domain,
 		       GLogLevelFlags log_level,
-		       const gchar *message,
+		       const char *message,
 		       gpointer data[]) ;
 
-const gchar *wbfmm_logging_string(GLogLevelFlags level) ;
+const char *wbfmm_logging_string(GLogLevelFlags level) ;
 
 /** 
  * Return a string describing the log level of the message.
@@ -54,10 +54,10 @@ const gchar *wbfmm_logging_string(GLogLevelFlags level) ;
  * @return string describing level.
  */
 
-const gchar *wbfmm_logging_string(GLogLevelFlags level)
+const char *wbfmm_logging_string(GLogLevelFlags level)
 
 {
-  const gchar *strings[] = {"RECURSION", 
+  const char *strings[] = {"RECURSION", 
 			    "FATAL",
 			    "ERROR",
 			    "CRITICAL",
@@ -85,14 +85,14 @@ const gchar *wbfmm_logging_string(GLogLevelFlags level)
  * @param data array containing logging data, set by ::wbfmm_logging_init. 
  */
 
-void wbfmm_logging_func(const gchar *log_domain,
+void wbfmm_logging_func(const char *log_domain,
 		       GLogLevelFlags log_level,
-		       const gchar *message,
+		       const char *message,
 		       gpointer data[])
 
 {
   FILE *f = (FILE *)data[WBFMM_LOGGING_DATA_FID] ;
-  gchar *p = (gchar *)data[WBFMM_LOGGING_DATA_PREFIX] ;
+  char *p = (char *)data[WBFMM_LOGGING_DATA_PREFIX] ;
   GLogLevelFlags level = *(GLogLevelFlags *)data[WBFMM_LOGGING_DATA_LEVEL] ;
   gint (*exit_func)(void) = data[WBFMM_LOGGING_DATA_EXIT_FUNC] ;
   GTimer *timer = data[WBFMM_LOGGING_DATA_TIMER] ;
@@ -127,7 +127,7 @@ void wbfmm_logging_func(const gchar *log_domain,
  * @return 0 on success
  */
 
-gint wbfmm_logging_init(FILE *f, gchar *p, 
+gint wbfmm_logging_init(FILE *f, char *p, 
 		      GLogLevelFlags log_level,
 		      gpointer exit_func, gboolean timed)
 

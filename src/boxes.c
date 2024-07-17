@@ -39,7 +39,7 @@
 #ifdef WBFMM_CHECK_ISNAN
 #include <stdlib.h>
 
-static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+static gint check_isnan(char *name, WBFMM_REAL *f, gint n)
 
 {
   gint i ;
@@ -135,8 +135,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_add_points)(wbfmm_tree_t *t,
 	    __FUNCTION__, npts, wbfmm_tree_point_number_max(t)) ;
 
   wbfmm_tree_point_number(t) = npts ;
-  t->points = (gchar *)pts ; t->pstr = pstr ;
-  t->normals = (gchar *)normals ; t->nstr = nstr ;
+  t->points  = (char *)pts ;     t->pstr = pstr ;
+  t->normals = (char *)normals ; t->nstr = nstr ;
 
   t->sorted = sorted ;
   

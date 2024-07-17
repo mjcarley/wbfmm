@@ -590,7 +590,7 @@ static void box_curl_evaluate4(wbfmm_tree_t *t,
   return ;
 }
 
-static void box_curl_evaluate4_sorted(gchar *y, gsize ysize,
+static void box_curl_evaluate4_sorted(char *y, gsize ysize,
 				      WBFMM_REAL *src, gint sstr,
 				      WBFMM_REAL *x, WBFMM_REAL *f)
 
@@ -672,7 +672,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
     /* monopoles only */
     if ( t->sorted ) {
       for ( i = 0 ; i < nnbr ; i ++ ) {
-	gchar *y ;
+	char *y ;
 	gsize ysize = t->pstr ;
 	WBFMM_REAL *sy ;
 	box = &(boxes[neighbours[i]]) ;

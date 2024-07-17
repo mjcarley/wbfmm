@@ -109,8 +109,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_add_points)(wbfmm_target_list_t *l,
 	    __FUNCTION__, npts, wbfmm_target_list_point_number_max(l)) ;
 
   wbfmm_target_list_point_number(l) = npts ;
-  l->points = (gchar *)pts ; l->pstr = pstr ;
-  /* l->normals = (gchar *)normals ; l->nstr = nstr ; */
+  l->points = (char *)pts ; l->pstr = pstr ;
+  /* l->normals = (char *)normals ; l->nstr = nstr ; */
   
   xt = wbfmm_tree_origin(t) ;
   D = wbfmm_tree_width(t) ;

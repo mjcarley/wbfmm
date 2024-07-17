@@ -27,17 +27,17 @@
 #define BUFSIZE 131072
 
 GTimer *timer ;
-gchar *progname ;
+char *progname ;
 
-gint parse_origin(gfloat *x, gchar *str) ;
-gint read_points(gchar *file,
+gint parse_origin(gfloat *x, char *str) ;
+gint read_points(char *file,
 		 gfloat **xs, gint *xstr,
 		 gfloat **q,  gint *qstr, gint *nq,
 		 gfloat **n,  gint *nstr, 
 		 gfloat **f,  gint *fstr,
 		 gint *nsrc) ;
 
-gint read_points(gchar *file,
+gint read_points(char *file,
 		 gfloat **xs, gint *xstr,
 		 gfloat **q,  gint *qstr, gint *nq,
 		 gfloat **n,  gint *nstr, 
@@ -47,7 +47,7 @@ gint read_points(gchar *file,
 {
   FILE *input = stdin ;
   gfloat *s ;
-  gchar code[8] ;
+  char code[8] ;
   gint i, j, nqt ;
 
   if ( file != NULL ) {
@@ -126,7 +126,7 @@ gint read_points(gchar *file,
   return 0 ;
 }
 
-gint parse_origin(gfloat *x, gchar *str)
+gint parse_origin(gfloat *x, char *str)
 
 {
   sscanf(str, "%g,%g,%g", &(x[0]), &(x[1]), &(x[2])) ;
@@ -134,7 +134,7 @@ gint parse_origin(gfloat *x, gchar *str)
   return 0 ;
 }
 
-gint main(gint argc, gchar **argv)
+gint main(gint argc, char **argv)
 
 {
   wbfmm_tree_t *tree ;
@@ -147,7 +147,7 @@ gint main(gint argc, gchar **argv)
   gsize pstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, nproc ;
-  gchar ch, *sfile = NULL, *ffile = NULL ;
+  char ch, *sfile = NULL, *ffile = NULL ;
   gboolean write_sources, fit_box, shift_bw, sort_points ;
   wbfmm_library_config_t lconfig ;
   wbfmm_field_t field ;

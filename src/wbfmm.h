@@ -52,7 +52,7 @@ typedef struct {
     avx2,
     fma,
     openmp ;
-  gchar *switches ;
+  char *switches ;
   gsize
   real_size ;
 } wbfmm_library_config_t ;
@@ -125,7 +125,7 @@ typedef struct {
   /**< order of singular expansions at each level */
     order_r[WBFMM_TREE_MAX_DEPTH+1] ; 
   /**< order of regular expansions at each level */
-  gchar 
+  char 
   x[24], /**< origin of tree domain cube */
     *normals, /**< normal coordinates */
     *points ; /**< point coordinates */
@@ -166,7 +166,7 @@ typedef struct {
     nc ;     /**< number of coefficients (size of blocks of coefficients) */
   guint32
   *boxes ;   /**< box indices of points */
-  gchar 
+  char 
   *points ; /**< field point coordinates */
   gsize
   size,      /**< size of floating point type in data (float, double, etc) */
@@ -1130,7 +1130,7 @@ gint wbfmm_tree_print(FILE *f, wbfmm_tree_t *t, guint level,
 		      gboolean print_empty) ;
 gint wbfmm_tree_print_f(FILE *f, wbfmm_tree_t *t, guint level,
 			gboolean print_empty) ;
-gint wbfmm_logging_init(FILE *f, gchar *p, 
+gint wbfmm_logging_init(FILE *f, char *p, 
 			GLogLevelFlags log_level,
 			gpointer exit_func, gboolean timed) ;
 gint wbfmm_box_neighbours(guint level, guint64 idx, guint64 *neighbours) ;

@@ -27,16 +27,16 @@
 #define BUFSIZE 131072
 
 GTimer *timer ;
-gchar *progname ;
+char *progname ;
 
-gint read_points(gchar *file,
+gint read_points(char *file,
 		 gfloat **xs, gint *xstr,
 		 gfloat **q,  gint *qstr, gint *nq,
 		 gfloat **n,  gint *nstr, 
 		 gfloat **f,  gint *fstr,
 		 gint *nsrc) ;
 
-gint read_points(gchar *file,
+gint read_points(char *file,
 		 gfloat **xs, gint *xstr,
 		 gfloat **q,  gint *qstr, gint *nq,
 		 gfloat **n,  gint *nstr, 
@@ -46,7 +46,7 @@ gint read_points(gchar *file,
 {
   FILE *input = stdin ;
   gfloat *s ;
-  gchar code[8] ;
+  char code[8] ;
   gint i, j, nqt ;
 
   if ( file != NULL ) {
@@ -125,13 +125,13 @@ gint read_points(gchar *file,
   return 0 ;
 }
 
-gint main(gint argc, gchar **argv)
+gint main(gint argc, char **argv)
 
 {
   gfloat k, *xs ;
   gfloat *xf, *f, *q, *normals, *dipoles ;
   gint nsrc, i, j, xstr, fstr, nf, qstr, dstr, nstr, fcstr, nq ;
-  gchar ch, *sfile = NULL, *ffile = NULL ;
+  char ch, *sfile = NULL, *ffile = NULL ;
   gboolean gradient ;
 
   k = 1.0 ; nq = 1 ;

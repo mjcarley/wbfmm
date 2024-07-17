@@ -28,7 +28,7 @@
 
 GTimer *timer ;
 
-gchar *tests[] = {"expansion",
+char *tests[] = {"expansion",
 		  "translation",
 		  "rotation",
 		  "translationSR",
@@ -84,7 +84,7 @@ gint local_gradient_test(gint N, gdouble *x0, gdouble *xs,
 			 gint xstride, gdouble *src, gint sstride,
 			 gint nsrc, gdouble *xf, gint nfld, gdouble t) ;
 
-static gint parse_test(gchar *arg)
+static gint parse_test(char *arg)
 
 {
   gint i = 0 ;
@@ -97,7 +97,7 @@ static gint parse_test(gchar *arg)
   return -1 ;
 }
 
-static gint read_data(gchar *ipfile, gdouble *xc, gdouble *x0, 
+static gint read_data(char *ipfile, gdouble *xc, gdouble *x0, 
 		      gdouble **xs, gdouble **src, 
 		      gint *nsrc, gint *xstride, gint *sstride,
 		      gdouble **xf, gint *fstride, gint *nfld,
@@ -105,7 +105,7 @@ static gint read_data(gchar *ipfile, gdouble *xc, gdouble *x0,
 
 {
   FILE *f ;
-  gchar line[1024] ;
+  char line[1024] ;
   gint i ;
 
   f = fopen(ipfile, "r") ;
@@ -1187,14 +1187,14 @@ gint parent_child_test(gint N, gdouble *x0, gdouble wb, gint quad,
 }
 
 
-gint main(gint argc, gchar **argv)
+gint main(gint argc, char **argv)
 
 {
   gdouble *xs, *src, *xf, wb ;
   gdouble x, x0[3] = {0.0}, xc[3] = {0.0}, defaults[128] ;
   gdouble ix[3] = {0}, iy[3] = {0}, iz[3] = {0} ;
   gint nsrc, sstride, xstride, fstride, N, nfld, test, quad ;
-  gchar ch, *ipfile ;
+  char ch, *ipfile ;
 
   N = 16 ; 
   sstride = 4 ; xstride = 3 ; 

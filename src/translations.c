@@ -46,7 +46,7 @@
 #ifdef WBFMM_CHECK_ISNAN
 #include <stdlib.h>
 
-static gint check_isnan(gchar *name, WBFMM_REAL *f, gint n)
+static gint check_isnan(char *name, WBFMM_REAL *f, gint n)
 
 {
   gint i ;
