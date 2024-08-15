@@ -65,7 +65,8 @@ gint wbfmm_tree_add_level(wbfmm_tree_t *t)
 
   t->depth ++ ;
   nb = 1 << (3*(t->depth)) ;
-  t->boxes[t->depth] = (wbfmm_box_t *)g_malloc0(nb*sizeof(wbfmm_box_t)) ;
+  if ( t->boxes[t->depth] == NULL ) 
+    t->boxes[t->depth] = (wbfmm_box_t *)g_malloc0(nb*sizeof(wbfmm_box_t)) ;
 
   return 0 ;
 }
