@@ -17450,7 +17450,7 @@ LIBS="$GLIB_LIBS $blaswrap_libs $LAPACK_LIBS $LIBS $FLIBS"
 
 ##LIBS="$glib_libs $blaswrap_libs $LIBS $FLIBS"
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/wbfmm-config tests/Makefile"
+ac_config_files="$ac_config_files Makefile wbfmm.pc src/Makefile src/wbfmm-config tests/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -18542,6 +18542,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "wbfmm.pc") CONFIG_FILES="$CONFIG_FILES wbfmm.pc" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/wbfmm-config") CONFIG_FILES="$CONFIG_FILES src/wbfmm-config" ;;
     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;

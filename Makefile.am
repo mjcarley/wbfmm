@@ -8,4 +8,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = src tests
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = wbfmm.pc
+
 ##@DX_RULES@

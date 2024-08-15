@@ -138,6 +138,7 @@ AC_SUBST(LDFLAGS)
 
 AC_CONFIG_FILES([
 Makefile
+wbfmm.pc
 src/Makefile
 src/wbfmm-config
 tests/Makefile
