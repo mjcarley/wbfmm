@@ -1742,10 +1742,25 @@ gint wbfmm_tree_laplace_leaf_expansions_FLOAT(wbfmm_tree_t *t,
 					      gboolean zero_expansions,
 					      WBFMM_REAL *work) {}
 
+/**
+ *
+ * @ingroup laplace
+ *
+ * @brief Initialize expansion coefficient data for the Laplace problem 
+ * in an octree 
+ *
+ * @param t octree for problem;
+ * @param l level to initialize data for;
+ * @param nr order of regular expansions at level \a l;
+ * @param ns order of singular expansions at level \a l.
+ *
+ * @return 0 on success
+ */
+
 gint wbfmm_tree_laplace_coefficient_init_FLOAT(wbfmm_tree_t *t,
-							      guint l, 
-							      guint nr,
-							      guint ns) {}
+					       guint l, 
+					       guint nr,
+					       guint ns) {}
 
 /**
  * 
