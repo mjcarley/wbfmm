@@ -210,7 +210,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 {
   guint level = wbfmm_tree_depth(t) ;
   wbfmm_box_t *parents, *children ;
-  guint np, j, n ;
+  guint np, nc, j, n ;
   guint64 idx, child, xi, box ;
   WBFMM_REAL *x ;
 
@@ -223,9 +223,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
   parents  = t->boxes[level  ] ;
   children = t->boxes[level+1] ;
 
+  /*number of child boxes*/
+  nc = 1 << 3*(level + 1) ;
+  for ( idx = 0 ; idx < nc ; idx ++ ) {
+    children[idx].i = 0 ;
+    children[idx].n = 0 ;
+  }
+  
   /*this could probably be done with binary searches*/
   for ( idx = 0 ; idx < np ; idx ++ ) {
-    /*initialize the first child box*/
+    /*initialize the child boxes*/
     child = wbfmm_box_first_child(idx) ;
     children[child].i = parents[idx].i ;
     children[child].n = 0 ;
@@ -240,6 +247,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_refine)(wbfmm_tree_t *t)
 					       wbfmm_tree_width(t)) ;
       box = wbfmm_point_locate_box(xi, level+1) ;
       /* g_assert(box >= child && box < child+8) ; */
+      /* if ( box < child || box > child + 7 ) { */
+      /* 	g_error("%s: box allocation error\n" */
+      /* 		"  x            = %lg %lg %lg\n" */
+      /* 		"  level        = %u\n" */
+      /* 		"  parent index = %lu\n" */
+      /* 		"  child index  = %lu\n" */
+      /* 		"  box index    = %lu\n", */
+      /* 		__FUNCTION__, x[0], x[1], x[2], level, idx, */
+      /* 		child, box) ; */
+      /* } */
       if ( box == child ) {
 	/* parents[idx].n -- ; */
 	n -- ;
