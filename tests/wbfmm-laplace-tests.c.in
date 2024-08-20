@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2024 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ char *tests[] = {"expansion",
 		  "expansion_gradient",
 		  "local_gradient",
 		  "expansion_normal",
+		  "local_laplacian",
 		  ""} ;
 
 #define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
@@ -83,6 +84,9 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 gint local_gradient_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 			 gint xstride, WBFMM_REAL *src, gint sstride,
 			 gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t) ;
+gint local_laplacian_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+			  gint xstride, WBFMM_REAL *src, gint sstride,
+			  gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t) ;
 
 static gint parse_test(char *arg)
 
@@ -1186,6 +1190,104 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   return 0 ;
 }
 
+gint local_laplacian_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
+			  gint xstride, WBFMM_REAL *src, gint sstride,
+			  gint nsrc, WBFMM_REAL *xf, gint nfld, WBFMM_REAL t)
+
+{
+  gint i, nq, cstr, Ns, Nr, fstr ;
+  WBFMM_REAL Ci[BUFSIZE]={0.0}, work[8192]={0.0}, Co[BUFSIZE]={0.0} ;
+  WBFMM_REAL fc[32]={0.0}, ft[32]={0.0} ;
+  
+  nq = 1 ; fstr = 6 ;
+  Ns = N ; Nr = Ns ;
+  
+  xf[0] = x0[0] + 0.35 ;
+  xf[1] = x0[1] - 0.31 ;
+  xf[2] = x0[2] + t + 0.5 ; 
+  
+  fprintf(stderr, "local Laplacian test\n") ;
+  fprintf(stderr, "====================\n") ;
+  fprintf(stderr,
+	  "Ns = %d\n"
+	  "Nr = %d\n"
+	  "x0 = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
+	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
+	  "t  = %FLOATFMT\n"
+	  "nsrc = %d\n",
+	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
+
+  /*reference calculation*/
+  wbfmm_laplace_field_laplacian_FLOAT(xs, xstride, src, sstride, nq,
+				      NULL, 0, NULL, 0, nsrc, xf, fc, fstr) ;
+
+  cstr = 4 ;
+  /*multipole expansion*/
+  for ( i = 0 ; i < nsrc ; i ++ ) 
+    wbfmm_laplace_expansion_cfft_FLOAT(Ns, x0, &(xs[i*xstride]),
+				      &(src[i*sstride]), nq, Ci, cstr,
+				      work) ;
+
+  /* /\*translate the expansion*\/ */
+  wbfmm_laplace_coaxial_translate_SR_FLOAT(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
+					  0.0) ;
+
+  x0[2] += t ;
+  wbfmm_laplace_expansion_local_laplacian_evaluate_FLOAT(x0, Co, cstr, Nr, nq,
+							 xf, ft, fstr, work) ;
+
+  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; */
+  /* wbfmm_laplace_local_coefficients_FLOAT(xf, N, field, eval, work) ; */
+  /* wbfmm_laplace_expansion_apply_FLOAT(Co, cstr, nq, eval, N, field, fe, fstr) ; */
+
+  fprintf(stderr, "exact:       ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT "
+	    "%FLOATFMT %FLOATFMT %FLOATFMT\n", 
+	    fc[fstr*i+0], fc[fstr*i+1], fc[fstr*i+2],
+	    fc[fstr*i+3], fc[fstr*i+4], fc[fstr*i+5]) ;
+
+  fprintf(stderr, "expansion:   ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT "
+	    "%FLOATFMT %FLOATFMT %FLOATFMT\n", 
+	    ft[fstr*i+0], ft[fstr*i+1], ft[fstr*i+2],
+	    ft[fstr*i+3], ft[fstr*i+4], ft[fstr*i+5]) ;
+
+  fprintf(stderr, "error: ") ;
+  for ( i = 0 ; i < nq ; i ++ )
+    fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT "
+	    "%FLOATFMT %FLOATFMT %FLOATFMT\n",	    
+	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+	    fabs(ft[fstr*i+2]-fc[fstr*i+2]),
+	    fabs(ft[fstr*i+3]-fc[fstr*i+3]),
+	    fabs(ft[fstr*i+4]-fc[fstr*i+4]),
+	    fabs(ft[fstr*i+5]-fc[fstr*i+5])) ;
+  fprintf(stderr, "\n") ;
+
+  /* fprintf(stderr, "precomputed: ") ; */
+  /* for ( i = 0 ; i < nq ; i ++ ) */
+  /*   fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ", */
+  /* 	    fe[fstr*i+0], fe[fstr*i+1], fe[fstr*i+2]) ; */
+  /* fprintf(stderr, "\n") ; */
+  
+  /* fprintf(stderr, "translated:  ") ; */
+  /* for ( i = 0 ; i < nq ; i ++ ) */
+  /*   fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ", */
+  /* 	    ft[fstr*i+0], ft[fstr*i+1], ft[fstr*i+2]) ; */
+  /* fprintf(stderr, "\n") ; */
+
+  /* fprintf(stderr, "error: ") ; */
+  /* for ( i = 0 ; i < nq ; i ++ ) */
+  /*   fprintf(stderr, "%FLOATFMT %FLOATFMT %FLOATFMT, ", */
+  /* 	    fabs(ft[fstr*i+0]-fc[fstr*i+0]), */
+  /* 	    fabs(ft[fstr*i+1]-fc[fstr*i+1]), */
+  /* 	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ; */
+  /* fprintf(stderr, "\n") ; */
+  
+  return 0 ;
+}
 
 gint main(gint argc, char **argv)
 
@@ -1321,6 +1423,12 @@ gint main(gint argc, char **argv)
 
   if ( test == 10 ) {
     expansion_normal_test(N, x0, xs, xstride, src, sstride, nsrc, xf, nfld) ;
+
+    return 0 ;
+  }
+
+  if ( test == 11 ) {
+    local_laplacian_test(N, x0, xs, xstride, src, sstride, nsrc, xf, nfld, x) ;
 
     return 0 ;
   }

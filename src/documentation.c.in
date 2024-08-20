@@ -2098,6 +2098,50 @@ wbfmm_laplace_expansion_local_curl_evaluate_FLOAT(WBFMM_REAL *x0,
 						  gint fstr,
 						  WBFMM_REAL *work) {} ;
 
+/** 
+ * @ingroup laplace
+ *
+ * Evaluate curl of field for Laplace problem for point in a specified
+ * box.
+ * 
+ * @param t octree for problem;
+ * @param level box level in tree;
+ * @param b index of box containing expansion;
+ * @param x evaluation point;
+ * @param f on output contains evaluated field;
+ * @param fstr stride in \a f;
+ * @param src input source terms;
+ * @param sstr stride in \a src;
+ * @param normals normals for direction of vector sources;
+ * @param nstr stride in \a normals;
+ * @param d dipole strengths for vector sources;
+ * @param dstr stride in \a d;
+ * @param eval_neighbours if TRUE, add direct contribution from sources
+ * in neighbour boxes;
+ * @param work workspace.
+ * 
+ * @return 0 on success.
+ */
+
+gint
+wbfmm_tree_laplace_box_local_curl_FLOAT(wbfmm_tree_t *t,
+					guint level,
+					guint b,
+					WBFMM_REAL *x,
+					WBFMM_REAL *f,
+					gint fstr,
+					WBFMM_REAL *src,
+					gint sstr,
+					WBFMM_REAL
+					*normals,
+					gint nstr,
+					WBFMM_REAL *d,
+					gint dstr,
+					gboolean
+					eval_neighbours,
+					WBFMM_REAL *work) {}
+
+
 /**
  * @ingroup rotations
  * @brief Apply rotation \f$(\theta,\phi\,\chi)\f$ to multipole

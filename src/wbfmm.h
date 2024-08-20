@@ -97,9 +97,11 @@ typedef enum
 
 typedef enum
   {
-   WBFMM_FIELD_SCALAR   = 1 << 0, /**< scalar field */
-   WBFMM_FIELD_GRADIENT = 1 << 1, /**< gradient of scalar field */
-   WBFMM_FIELD_CURL     = 1 << 2  /**< curl of vector field */
+   WBFMM_FIELD_SCALAR        = 1 << 0, /**< scalar field */
+   WBFMM_FIELD_GRADIENT      = 1 << 1, /**< gradient of scalar field */
+   WBFMM_FIELD_CURL          = 1 << 2,  /**< curl of vector field */
+   WBFMM_FIELD_CURL_GRADIENT = 1 << 3  /**< curl of vector field and its 
+					  gradient */
   } wbfmm_field_t ;
 
 /**
@@ -433,6 +435,20 @@ gint wbfmm_laplace_field_grad(gdouble *xs, gint xstride,
 			      gdouble *dipoles, gint dstr,
 			      gint nsrc,
 			      gdouble *xf, gdouble *field, gint fstr) ;
+gint wbfmm_laplace_field_laplacian(gdouble *xs,
+				   gint xstride,
+				   gdouble *src,
+				   gint sstride,
+				   gint nq,
+				   gdouble *normals,
+				   gint nstr,
+				   gdouble *dipoles,
+				   gint dstr,
+				   gint nsrc,
+				   gdouble *xf,
+				   gdouble *field,
+				   gint fstr) ;
+
 gint wbfmm_laplace_field_curl(gdouble *xs, gint xstride,
 			      gdouble *src, gint sstride,
 			      gint nq,
@@ -461,6 +477,19 @@ gint wbfmm_laplace_field_grad_f(gfloat *xs, gint xstride,
 				gfloat *dipoles, gint dstr,
 				gint nsrc,
 				gfloat *xf, gfloat *field, gint fstr) ;
+gint wbfmm_laplace_field_laplacian_f(gfloat *xs,
+				     gint xstride,
+				     gfloat *src,
+				     gint sstride,
+				     gint nq,
+				     gfloat *normals,
+				     gint nstr,
+				     gfloat *dipoles,
+				     gint dstr,
+				     gint nsrc,
+				     gfloat *xf,
+				     gfloat *field,
+				     gint fstr) ;
 gint wbfmm_laplace_field_curl_f(gfloat *xs, gint xstride,
 				gfloat *src, gint sstride,
 				gint nq,
@@ -499,6 +528,24 @@ gint wbfmm_laplace_expansion_local_grad_evaluate_f(gfloat *x0, gfloat *cfft,
 						   gint nq, gfloat *xf,
 						   gfloat *field,
 						   gint fstr, gfloat *work) ;
+gint wbfmm_laplace_expansion_local_laplacian_evaluate(gdouble *x0,
+						      gdouble *cfft,
+						      gint cstr, 
+						      gint N,
+						      gint nq,
+						      gdouble *xf,
+						      gdouble *field,
+						      gint fstr,
+						      gdouble *work) ;
+gint wbfmm_laplace_expansion_local_laplacian_evaluate_f(gfloat *x0,
+							gfloat *cfft,
+							gint cstr, 
+							gint N,
+							gint nq,
+							gfloat *xf,
+							gfloat *field,
+							gint fstr,
+							gfloat *work) ;
 gint wbfmm_laplace_expansion_local_curl_evaluate(gdouble *x0, gdouble *cfft,
 						 gint cstr, gint N,
 						 gint nq, gdouble *xf,
@@ -743,6 +790,35 @@ gint wbfmm_tree_laplace_box_local_curl_f(wbfmm_tree_t *t,
 					 gfloat *d, gint dstr,
 					 gboolean eval_neighbours,
 					 gfloat *work) ;
+gint wbfmm_tree_laplace_box_local_curl_grad(wbfmm_tree_t *t,
+					    guint level,
+					    guint b,
+					    gdouble *x,
+					    gdouble *f,
+					    gint fstr,
+					    gdouble *src,
+					    gint sstr,
+					    gdouble *normals,
+					    gint nstr,
+					    gdouble *d,
+					    gint dstr,
+					    gboolean eval_neighbours,
+					    gdouble *work) ;
+gint wbfmm_tree_laplace_box_local_curl_grad_f(wbfmm_tree_t *t,
+					      guint level,
+					      guint b,
+					      gfloat *x,
+					      gfloat *f,
+					      gint fstr,
+					      gfloat *src,
+					      gint sstr,
+					      gfloat *normals,
+					      gint nstr,
+					      gfloat *d,
+					      gint dstr,
+					      gboolean eval_neighbours,
+					      gfloat *work) ;
+
 
 gint wbfmm_laplace_local_coefficients(gdouble *x, gint N,
 				      guint field, gdouble *cfft,

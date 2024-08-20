@@ -1,7 +1,7 @@
 #!/bin/sh
 # src/wbfmm-config.  Generated from wbfmm-config.in by configure.
 
-wbfmm_cflags="-O3 -g -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/home/michael/Codes/include"
+wbfmm_cflags="-O0 -g -Wall -Werror-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fopenmp  -mavx -mfma -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/home/michael/Codes/include"
 wbfmm_cppflags="-I/home/michael/Codes/include"
 openmp_cflags="-fopenmp"
 
