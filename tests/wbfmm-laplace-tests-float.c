@@ -608,7 +608,7 @@ gint local_gradient_test(gint N, gfloat *x0, gfloat *xs,
   gfloat fc[32]={0.0}, ff[32]={0.0}, ft[32]={0.0}, fe[32] = {0.0} ;
   guint field ;
   
-  nq = 1 ; fstr = 4 ;
+  nq = 2 ; fstr = 4 ;
   Ns = N ; Nr = Ns ;
 
   field = WBFMM_FIELD_GRADIENT ;

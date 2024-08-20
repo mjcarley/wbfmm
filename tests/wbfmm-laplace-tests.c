@@ -608,7 +608,7 @@ gint local_gradient_test(gint N, gdouble *x0, gdouble *xs,
   gdouble fc[32]={0.0}, ff[32]={0.0}, ft[32]={0.0}, fe[32] = {0.0} ;
   guint field ;
   
-  nq = 1 ; fstr = 4 ;
+  nq = 2 ; fstr = 4 ;
   Ns = N ; Nr = Ns ;
 
   field = WBFMM_FIELD_GRADIENT ;
@@ -1202,9 +1202,9 @@ gint local_laplacian_test(gint N, gdouble *x0, gdouble *xs,
   nq = 1 ; fstr = 6 ;
   Ns = N ; Nr = Ns ;
   
-  /* xf[0] = x0[0] + 0.35 ; */
-  /* xf[1] = x0[1] - 0.31 ; */
-  /* xf[2] = x0[2] + t + 0.5 ;  */
+  xf[0] = x0[0] + 0.35 ;
+  xf[1] = x0[1] - 0.31 ;
+  xf[2] = x0[2] + t + 0.5 ; 
   
   fprintf(stderr, "local Laplacian test\n") ;
   fprintf(stderr, "====================\n") ;

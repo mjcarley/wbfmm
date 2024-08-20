@@ -30,12 +30,12 @@
 
 #define WBFMM_DERIVATIVE_0_R    0 
 #define WBFMM_DERIVATIVE_0_I    1 
-#define WBFMM_DERIVATIVE_X_R    2
-#define WBFMM_DERIVATIVE_X_I    3
-#define WBFMM_DERIVATIVE_Y_R    4
-#define WBFMM_DERIVATIVE_Y_I    5
-#define WBFMM_DERIVATIVE_Z_R    6
-#define WBFMM_DERIVATIVE_Z_I    7
+#define WBFMM_DERIVATIVE_X_R    0
+#define WBFMM_DERIVATIVE_X_I    1
+#define WBFMM_DERIVATIVE_Y_R    2
+#define WBFMM_DERIVATIVE_Y_I    3
+#define WBFMM_DERIVATIVE_Z_R    4
+#define WBFMM_DERIVATIVE_Z_I    5
 
 #define WBFMM_DERIVATIVE_XX_R   0
 #define WBFMM_DERIVATIVE_XX_I   1
@@ -238,6 +238,70 @@ static void Rnm_derivatives_2m0(gint n, gint m, WBFMM_REAL rnm2,
   return ;
 }
 
+static void Rnm_derivatives_1(gint n, gint m, WBFMM_REAL rnm1,
+			      WBFMM_REAL *Pnm1,
+			      WBFMM_REAL Cmph[], WBFMM_REAL Smph[],
+			      WBFMM_REAL *dRnm)
+/*
+ * partial derivatives of Rnm, for m >= 1
+ *
+ * where appropriate, derivatives are multiplied by two to account for 
+ * symmetry in Fourier coefficients
+ */
+  
+{
+  WBFMM_REAL anmm1, anm, anmp1 ;
+  WBFMM_REAL Rnmm1, Rnm, Rnmp1 ;
+  
+  g_assert(m >= 1) ;
+
+  anm   = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  anmp1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+  anmm1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
+  Rnmm1 = rnm1*Pnm1[m-1]*anmm1 ;
+  Rnm   = rnm1*Pnm1[m+0]*anm*2.0 ;
+  Rnmp1 = rnm1*Pnm1[m+1]*anmp1 ;
+
+  dRnm[WBFMM_DERIVATIVE_X_R] = -Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
+  dRnm[WBFMM_DERIVATIVE_X_I] = -Rnmp1*Smph[m+1] + Rnmm1*Smph[m-1] ;
+  
+  dRnm[WBFMM_DERIVATIVE_Y_R] = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
+  dRnm[WBFMM_DERIVATIVE_Y_I] = +Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
+  
+  dRnm[WBFMM_DERIVATIVE_Z_R] = +Rnm*Cmph[m+0] ;
+  dRnm[WBFMM_DERIVATIVE_Z_I] = +Rnm*Smph[m+0] ;
+  
+  return ;
+}
+
+static void Rnm_derivatives_1m0(gint n, gint m, WBFMM_REAL rnm1,
+				WBFMM_REAL *Pnm1,
+				WBFMM_REAL Cmph[], WBFMM_REAL Smph[],
+				WBFMM_REAL *dRnm)
+/*
+ * partial derivatives of Rnm, for m == 0
+ *
+ * where appropriate, derivatives are multiplied by two to account for 
+ * symmetry in Fourier coefficients
+ */
+  
+{
+  WBFMM_REAL anm, anmp1 ;
+  WBFMM_REAL Rnm, Rnmp1 ;
+
+  g_assert(m == 0) ;
+
+  anm   = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
+  anmp1 = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
+  Rnm   = rnm1*Pnm1[m]*anm ;
+  Rnmp1 = rnm1*Pnm1[m+1]*anmp1 ;
+  dRnm[WBFMM_DERIVATIVE_X_R] = -Rnmp1*Cmph[m+1] ;
+  dRnm[WBFMM_DERIVATIVE_Y_R] = -Rnmp1*Smph[m+1] ;
+  dRnm[WBFMM_DERIVATIVE_Z_R] = Rnm ;
+  
+  return ;
+}
+
 gint
 WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 								 WBFMM_REAL
@@ -253,11 +317,13 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 								 *work)
 
 {
-  WBFMM_REAL r, th, ph, rn, anm, b1, b2, cr, ci ;
+  WBFMM_REAL r, th, ph, rnm1, cr, ci ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
-  WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
-  WBFMM_REAL ddxr, ddxi, ddyr, ddyi, ddzr, ddzi ;
+  WBFMM_REAL *Cmph, *Smph ;
+  WBFMM_REAL dRnm[6] ;
   gint n, m, idx, i ;
+
+  fprintf(stderr, "Hello\n") ;
   
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
@@ -280,48 +346,36 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
   /*first two terms by hand; gradient of zero order term is zero*/  
   n = 1 ; 
   m = 0 ; 
-  rn = 1.0 ;
+  rnm1 = 1.0 ;
   idx = n*n ;
   Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
   Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
 
-  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
-  Rnm = rn*Pnm1[m]*anm ;
-  ddzr = Rnm ;
+  Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+  
   for ( i = 0 ; i < nq ; i ++ ) {
     cr = cfft[cstr*idx+i] ;
     
-    field[fstr*i+2] += cr*ddzr ;
+    field[fstr*i+2] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
   }
 
   m = 1 ; 
   idx = wbfmm_index_laplace_nm(n,m) ;
-  anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
-  b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
-  b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
-  Rnmm1 = rn*Pnm1[m-1]*b2 ;
-  Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
-  Rnmp1 = rn*Pnm1[m+1]*b1 ;
 
-  ddxr = -Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
-  ddxi = +Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
-
-  ddyr = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
-  ddyi = -Rnmp1*Cmph[m+1] - Rnmm1*Cmph[m-1] ;
-
-  ddzr = +Rnm*Cmph[m+0] ;
-  ddzi = -Rnm*Smph[m+0] ;
-
+  Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
   for ( i = 0 ; i < nq ; i ++ ) {
     cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
 
-    field[fstr*i+0] += ddxr*cr + ddxi*ci ;
-    field[fstr*i+1] += ddyr*cr + ddyi*ci ;
-    field[fstr*i+2] += ddzr*cr + ddzi*ci ;
+    field[fstr*i+0] +=
+      dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+    field[fstr*i+1] +=
+      dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+    field[fstr*i+2] +=
+      dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
   }
   
   for ( n = 2 ; n <= N ; n ++ ) {
-    rn *= r ;
+    rnm1 *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
     Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
@@ -329,48 +383,32 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 
     m = 0 ; 
     idx = n*n ;
-    anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
-    b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
-    b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
-    Rnmm1 = rn*Pnm1[m+1]*b2 ;
-    Rnm = rn*Pnm1[m]*anm ;
-    Rnmp1 = rn*Pnm1[m+1]*b1 ;
-    ddxr = -Rnmp1*Cmph[m+1] ;
-    ddyr = -Rnmp1*Smph[m+1] ;
-    ddzr = Rnm ;
 
+    Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
     for ( i = 0 ; i < nq ; i ++ ) {
       cr = cfft[cstr*idx+i] ;
 
-      field[fstr*i+0] += ddxr*cr ;
-      field[fstr*i+1] += ddyr*cr ;
-      field[fstr*i+2] += ddzr*cr ;
+      field[fstr*i+0] += dRnm[WBFMM_DERIVATIVE_X_R]*cr ;
+      field[fstr*i+1] += dRnm[WBFMM_DERIVATIVE_Y_R]*cr ;
+      field[fstr*i+2] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
+      /* field[fstr*i+0] += ddxr*cr ; */
+      /* field[fstr*i+1] += ddyr*cr ; */
+      /* field[fstr*i+2] += ddzr*cr ; */
     }
 
     for ( m = 1 ; m <= n ; m ++ ) {
       idx = wbfmm_index_laplace_nm(n,m) ;
-      anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
-      b1  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n-m-1)) ;
-      b2  = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n+m)*(n+m-1)) ;
-      Rnmm1 = rn*Pnm1[m-1]*b2 ;
-      Rnm   = rn*Pnm1[m+0]*anm*2.0 ;
-      Rnmp1 = rn*Pnm1[m+1]*b1 ;
 
-      ddxr = -Rnmp1*Cmph[m+1] + Rnmm1*Cmph[m-1] ;
-      ddxi = +Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
-      
-      ddyr = -Rnmp1*Smph[m+1] - Rnmm1*Smph[m-1] ;
-      ddyi = -Rnmp1*Cmph[m+1] - Rnmm1*Cmph[m-1] ;
-      
-      ddzr = +Rnm*Cmph[m+0] ;
-      ddzi = -Rnm*Smph[m+0] ;
-      
+      Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
       for ( i = 0 ; i < nq ; i ++ ) {
 	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
 
-	field[fstr*i+0] += ddxr*cr + ddxi*ci ;
-	field[fstr*i+1] += ddyr*cr + ddyi*ci ;
-	field[fstr*i+2] += ddzr*cr + ddzi*ci ;
+	field[fstr*i+0] +=
+	  dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+	field[fstr*i+1] +=
+	  dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+	field[fstr*i+2] +=
+	  dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
       }
     }
   }
