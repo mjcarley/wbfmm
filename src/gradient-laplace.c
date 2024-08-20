@@ -24,6 +24,8 @@
 
 #include <glib.h>
 
+#include <blaswrap.h>
+
 #include <wbfmm.h>
 
 #include "wbfmm-private.h"
@@ -53,7 +55,7 @@
 static void Rnm_derivatives_2(gint n, gint m, WBFMM_REAL rnm2,
 			      WBFMM_REAL *Pnm2,
 			      WBFMM_REAL Cmph[], WBFMM_REAL Smph[],
-			      WBFMM_REAL *Rnm)
+			      WBFMM_REAL *dRnm)
 /*
  * second partial derivatives of Rnm, for m >= 2
  *
@@ -80,34 +82,34 @@ static void Rnm_derivatives_2(gint n, gint m, WBFMM_REAL rnm2,
   Rnm2mp1 = rnm2*Pnm2[m+1] ;
   Rnm2mp2 = rnm2*Pnm2[m+2] ;
 
-  Rnm[WBFMM_DERIVATIVE_XX_R] = 2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XX_R] = 2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] -
 				   2.0*anm2m*Rnm2m*Cmph[m+0] +
 				   anm2mm2*Rnm2mm2*Cmph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_XX_I] = 2.0*(anm2mp2*Rnm2mp2*Smph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XX_I] = 2.0*(anm2mp2*Rnm2mp2*Smph[m+2] -
 				    2.0*anm2m*Rnm2m*Smph[m+0] +
 				    anm2mm2*Rnm2mm2*Smph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YY_R] = -2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_YY_R] = -2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] +
 				     2.0*anm2m*Rnm2m*Cmph[m+0] +
 				     anm2mm2*Rnm2mm2*Cmph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YY_I]   = -2.0*(anm2mp2*Rnm2mp2*Smph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_YY_I]   = -2.0*(anm2mp2*Rnm2mp2*Smph[m+2] +
 				       2.0*anm2m*Rnm2m*Smph[m+0] +
 				       anm2mm2*Rnm2mm2*Smph[m-2])*0.25 ;
   
-  Rnm[WBFMM_DERIVATIVE_ZZ_R] = anm2m*Rnm2m*Cmph[m+0]*2 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_I] = anm2m*Rnm2m*Smph[m+0]*2 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_R] = anm2m*Rnm2m*Cmph[m+0]*2 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_I] = anm2m*Rnm2m*Smph[m+0]*2 ;
   
-  Rnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
 				     anm2mm2*Rnm2mm2*Smph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] +
 				    anm2mm2*Rnm2mm2*Cmph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] -
+  dRnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] -
     anm2mm1*Rnm2mm1*Smph[m-1] ;
-  Rnm[WBFMM_DERIVATIVE_YZ_I] =  anm2mp1*Rnm2mp1*Cmph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_YZ_I] =  anm2mp1*Rnm2mp1*Cmph[m+1] +
     anm2mm1*Rnm2mm1*Cmph[m-1] ;
   
-  Rnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] +
     anm2mm1*Rnm2mm1*Cmph[m-1] ;
-  Rnm[WBFMM_DERIVATIVE_ZX_I] = -anm2mp1*Rnm2mp1*Smph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_ZX_I] = -anm2mp1*Rnm2mp1*Smph[m+1] +
     anm2mm1*Rnm2mm1*Smph[m-1] ;
   
   return ;
@@ -116,7 +118,7 @@ static void Rnm_derivatives_2(gint n, gint m, WBFMM_REAL rnm2,
 static void Rnm_derivatives_2m1(gint n, gint m, WBFMM_REAL rnm2,
 				WBFMM_REAL *Pnm2,
 				WBFMM_REAL Cmph[], WBFMM_REAL Smph[],
-				WBFMM_REAL *Rnm)
+				WBFMM_REAL *dRnm)
 
 /*
  * second partial derivatives of Rnm, for m == 1 (this requires
@@ -149,35 +151,35 @@ static void Rnm_derivatives_2m1(gint n, gint m, WBFMM_REAL rnm2,
   Rnm2mp2 = rnm2*Pnm2[m+2] ;
 
   /*OR THIS (note sign of third terms in brackets)*/
-  Rnm[WBFMM_DERIVATIVE_XX_R] = 2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XX_R] = 2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] -
 				    2.0*anm2m*Rnm2m*Cmph[m+0] -
 				    anm2mm2*Rnm2mm2*Cmph[1])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_XX_I] = 2.0*(anm2mp2*Rnm2mp2*Smph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XX_I] = 2.0*(anm2mp2*Rnm2mp2*Smph[m+2] -
 				    2.0*anm2m*Rnm2m*Smph[m+0] +
 				    anm2mm2*Rnm2mm2*Smph[1])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YY_R] = -2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_YY_R] = -2.0*(anm2mp2*Rnm2mp2*Cmph[m+2] +
 				     2.0*anm2m*Rnm2m*Cmph[m+0] -
 				     anm2mm2*Rnm2mm2*Cmph[1])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YY_I] = -2.0*(anm2mp2*Rnm2mp2*Smph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_YY_I] = -2.0*(anm2mp2*Rnm2mp2*Smph[m+2] +
 				     2.0*anm2m*Rnm2m*Smph[m+0] +
 				     anm2mm2*Rnm2mm2*Smph[1])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_R] = anm2m*Rnm2m*Cmph[m+0]*2 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_I] = anm2m*Rnm2m*Smph[m+0]*2 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_R] = anm2m*Rnm2m*Cmph[m+0]*2 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_I] = anm2m*Rnm2m*Smph[m+0]*2 ;
   
   /*LEAVE THIS ALONE TOO (note the signs on the nm2mm2 terms)*/
-  Rnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
 				     anm2mm2*Rnm2mm2*Smph[1])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] -
 				    anm2mm2*Rnm2mm2*Cmph[1])*0.25 ;
   
-  Rnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] -
+  dRnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] -
     anm2mm1*Rnm2mm1*Smph[m-1] ;
-  Rnm[WBFMM_DERIVATIVE_YZ_I] =  anm2mp1*Rnm2mp1*Cmph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_YZ_I] =  anm2mp1*Rnm2mp1*Cmph[m+1] +
     anm2mm1*Rnm2mm1*Cmph[m-1] ;
   
-  Rnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] +
     anm2mm1*Rnm2mm1*Cmph[m-1] ;
-  Rnm[WBFMM_DERIVATIVE_ZX_I] = -anm2mp1*Rnm2mp1*Smph[m+1] +
+  dRnm[WBFMM_DERIVATIVE_ZX_I] = -anm2mp1*Rnm2mp1*Smph[m+1] +
     anm2mm1*Rnm2mm1*Smph[m-1] ;
     
   return ;
@@ -186,7 +188,7 @@ static void Rnm_derivatives_2m1(gint n, gint m, WBFMM_REAL rnm2,
 static void Rnm_derivatives_2m0(gint n, gint m, WBFMM_REAL rnm2,
 				WBFMM_REAL *Pnm2,
 				WBFMM_REAL Cmph[], WBFMM_REAL Smph[],
-				WBFMM_REAL *Rnm)
+				WBFMM_REAL *dRnm)
 /*
  * second partial derivatives of Rnm, for m == 0 (this requires
  * dealing with special cases arising from negative m)
@@ -212,28 +214,28 @@ static void Rnm_derivatives_2m0(gint n, gint m, WBFMM_REAL rnm2,
   Rnm2m   = rnm2*Pnm2[m+0] ;
   Rnm2mp1 = rnm2*Pnm2[m+1] ;
   Rnm2mp2 = rnm2*Pnm2[m+2] ;
-  Rnm[WBFMM_DERIVATIVE_XX_I] = 0.0 ;
-  Rnm[WBFMM_DERIVATIVE_YY_I] = 0.0 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_I] = 0.0 ;
-  Rnm[WBFMM_DERIVATIVE_XY_I] = 0.0 ;
-  Rnm[WBFMM_DERIVATIVE_YZ_I] = 0.0 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_XX_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_YY_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_XY_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_YZ_I] = 0.0 ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_I] = 0.0 ;
   
-  Rnm[WBFMM_DERIVATIVE_XX_R] = (anm2mp2*Rnm2mp2*Cmph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XX_R] = (anm2mp2*Rnm2mp2*Cmph[m+2] -
 				2.0*anm2m*Rnm2m*Cmph[m+0] +
 				anm2mm2*Rnm2mm2*Cmph[2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_YY_R] = -(anm2mp2*Rnm2mp2*Cmph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_YY_R] = -(anm2mp2*Rnm2mp2*Cmph[m+2] +
 				 2.0*anm2m*Rnm2m*Cmph[m+0] +
 				 anm2mm2*Rnm2mm2*Cmph[2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_ZZ_R] =  anm2m*Rnm2m*Cmph[m+0] ;
+  dRnm[WBFMM_DERIVATIVE_ZZ_R] =  anm2m*Rnm2m*Cmph[m+0] ;
 
-  Rnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
+  dRnm[WBFMM_DERIVATIVE_XY_R] = 2.0*( anm2mp2*Rnm2mp2*Smph[m+2] -
 				     anm2mm2*Rnm2mm2*Smph[m-2])*0.25 ;
-  Rnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] +
+  dRnm[WBFMM_DERIVATIVE_XY_I] = 2.0*(-anm2mp2*Rnm2mp2*Cmph[m+2] +
 				    anm2mm2*Rnm2mm2*Cmph[m-2])*0.25 ;
     
-  Rnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] ;
-  Rnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] ;
+  dRnm[WBFMM_DERIVATIVE_YZ_R] = -anm2mp1*Rnm2mp1*Smph[m+1] ;
+  dRnm[WBFMM_DERIVATIVE_ZX_R] = -anm2mp1*Rnm2mp1*Cmph[m+1] ;
   
   return ;
 }
@@ -323,8 +325,6 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL dRnm[6] ;
   gint n, m, idx, i ;
 
-  fprintf(stderr, "Hello\n") ;
-  
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
@@ -831,7 +831,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, *Pnm2 ;
   WBFMM_REAL *Cmph, *Smph ;
   WBFMM_REAL dRnm[12] ;
-  gint n, m, idx, i ;
+  gint n, m, idx, i, i6 = 6, i1 = 1, i2 = 2 ;
   
   if ( fstr < 6 )
     g_error("%s: field data stride (%d) must be greater than five",
@@ -864,12 +864,8 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
     memcpy(Pnm2, Pnm1, (N+2)*sizeof(WBFMM_REAL)) ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n  ]*Cmph[1] - Smph[n  ]*Smph[1] ;
-    Smph[n+1] = Smph[n  ]*Cmph[1] + Cmph[n  ]*Smph[1] ;
-    Cmph[n+2] = Cmph[n+1]*Cmph[1] - Smph[n+1]*Smph[1] ;
-    Smph[n+2] = Smph[n+1]*Cmph[1] + Cmph[n+1]*Smph[1] ;
-    Cmph[n+3] = Cmph[n+2]*Cmph[1] - Smph[n+2]*Smph[1] ;
-    Smph[n+3] = Smph[n+2]*Cmph[1] + Cmph[n+2]*Smph[1] ;
+    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
 
     m = 0 ; 
     idx = n*n ;
@@ -877,13 +873,11 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
 
     for ( i = 0 ; i < nq ; i ++ ) {
       cr = cfft[cstr*idx+i] ;
-
-      field[fstr*i+0] += dRnm[WBFMM_DERIVATIVE_XX_R]*cr ;
-      field[fstr*i+1] += dRnm[WBFMM_DERIVATIVE_YY_R]*cr ;
-      field[fstr*i+2] += dRnm[WBFMM_DERIVATIVE_ZZ_R]*cr ;
-      field[fstr*i+3] += dRnm[WBFMM_DERIVATIVE_XY_R]*cr ;
-      field[fstr*i+4] += dRnm[WBFMM_DERIVATIVE_YZ_R]*cr ;
-      field[fstr*i+5] += dRnm[WBFMM_DERIVATIVE_ZX_R]*cr ;
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i6, cr, dRnm, i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i6, cr, dRnm, i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
     }
 
     m = 1 ;
@@ -891,19 +885,14 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
     Rnm_derivatives_2m1(n, m, rnm2, Pnm2, Cmph, Smph, dRnm) ;
     
     for ( i = 0 ; i < nq ; i ++ ) {
-      cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
-      field[fstr*i+0] +=
-	dRnm[WBFMM_DERIVATIVE_XX_R]*cr - dRnm[WBFMM_DERIVATIVE_XX_I]*ci ; 
-      field[fstr*i+1] +=
-	dRnm[WBFMM_DERIVATIVE_YY_R]*cr - dRnm[WBFMM_DERIVATIVE_YY_I]*ci ; 
-      field[fstr*i+2] +=
-	dRnm[WBFMM_DERIVATIVE_ZZ_R]*cr - dRnm[WBFMM_DERIVATIVE_ZZ_I]*ci ; 
-      field[fstr*i+3] +=
-	dRnm[WBFMM_DERIVATIVE_XY_R]*cr - dRnm[WBFMM_DERIVATIVE_XY_I]*ci ; 
-      field[fstr*i+4] +=
-	dRnm[WBFMM_DERIVATIVE_YZ_R]*cr - dRnm[WBFMM_DERIVATIVE_YZ_I]*ci ; 
-      field[fstr*i+5] +=
-	dRnm[WBFMM_DERIVATIVE_ZX_R]*cr - dRnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+      cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i6, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_saxpy(i6, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i6, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_daxpy(i6, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
     }
 
     for ( m = 2 ; m <= n ; m ++ ) {
@@ -912,19 +901,14 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
       Rnm_derivatives_2(n, m, rnm2, Pnm2, Cmph, Smph, dRnm) ;
       
       for ( i = 0 ; i < nq ; i ++ ) {
-	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
-	field[fstr*i+0] +=
-	  dRnm[WBFMM_DERIVATIVE_XX_R]*cr - dRnm[WBFMM_DERIVATIVE_XX_I]*ci ; 
-	field[fstr*i+1] +=
-	  dRnm[WBFMM_DERIVATIVE_YY_R]*cr - dRnm[WBFMM_DERIVATIVE_YY_I]*ci ; 
-	field[fstr*i+2] +=
-	  dRnm[WBFMM_DERIVATIVE_ZZ_R]*cr - dRnm[WBFMM_DERIVATIVE_ZZ_I]*ci ; 
-	field[fstr*i+3] +=
-	  dRnm[WBFMM_DERIVATIVE_XY_R]*cr - dRnm[WBFMM_DERIVATIVE_XY_I]*ci ; 
-	field[fstr*i+4] +=
-	  dRnm[WBFMM_DERIVATIVE_YZ_R]*cr - dRnm[WBFMM_DERIVATIVE_YZ_I]*ci ; 
-	field[fstr*i+5] +=
-	  dRnm[WBFMM_DERIVATIVE_ZX_R]*cr - dRnm[WBFMM_DERIVATIVE_ZX_I]*ci ; 
+	cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
+#ifdef WBFMM_SINGLE_PRECISION
+	blaswrap_saxpy(i6, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+	blaswrap_saxpy(i6, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+	blaswrap_daxpy(i6, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+	blaswrap_daxpy(i6, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
       }
     }
     

@@ -26,9 +26,9 @@
 
 #include <glib.h>
 
-#include <blaswrap.h>
-
 #include <wbfmm.h>
+
+#include <blaswrap.h>
 
 #include "wbfmm-private.h"
 #include "wbfmm-avx.h"
