@@ -675,8 +675,6 @@ gint wbfmm_tree_laplace_coefficient_init_f(wbfmm_tree_t *t,
 gint wbfmm_tree_laplace_leaf_expansions(wbfmm_tree_t *t,
 					gdouble *src,
 					gint sstr,
-					/* gdouble *normals, */
-					/* gint nstr, */
 					gdouble *dipoles,
 					gint dstr,
 					gboolean zero_expansions,
@@ -684,8 +682,6 @@ gint wbfmm_tree_laplace_leaf_expansions(wbfmm_tree_t *t,
 gint wbfmm_tree_laplace_leaf_expansions_f(wbfmm_tree_t *t,
 					  gfloat *src,
 					  gint sstr,
-					  /* gfloat *normals, */
-					  /* gint nstr, */
 					  gfloat *dipoles,
 					  gint dstr,
 					  gboolean zero_expansions,
@@ -904,7 +900,7 @@ gint wbfmm_tree_box_local_field(wbfmm_tree_t *t, guint level,
 				guint b, gdouble k,
 				gdouble *x, gdouble *f, gint fstr,
 				gdouble *src, gint sstr,
-				gdouble *normals, gint nstr,
+				/* gdouble *normals, gint nstr, */
 				gdouble *d, gint dstr,
 				gboolean eval_neighbours,
 				guint field,
@@ -932,7 +928,6 @@ gint wbfmm_tree_coefficient_init(wbfmm_tree_t *t,
 gint wbfmm_tree_coefficient_clear(wbfmm_tree_t *t, guint l) ;
 gint wbfmm_tree_leaf_expansions(wbfmm_tree_t *t, gdouble k,
 				gdouble *src, gint sstr,
-				gdouble *normals, gint nstr,
 				gdouble *dipoles, gint dstr,
 				gboolean zero_expansions,
 				gdouble *work) ;
@@ -1094,7 +1089,6 @@ gint wbfmm_tree_coefficient_init_f(wbfmm_tree_t *t,
 gint wbfmm_tree_coefficient_clear_f(wbfmm_tree_t *t, guint l) ;
 gint wbfmm_tree_leaf_expansions_f(wbfmm_tree_t *t, gfloat k,
 				  gfloat *src, gint sstr,
-				  gfloat *normals, gint nstr,
 				  gfloat *dipoles, gint dstr,
 				  gboolean zero_expansions,
 				  gfloat *work) ;
@@ -1171,7 +1165,7 @@ gint wbfmm_tree_box_local_field_f(wbfmm_tree_t *t, guint level,
 				  guint b, gfloat k,
 				  gfloat *x, gfloat *f, gint fstr,
 				  gfloat *src, gint sstr,
-				  gfloat *normals, gint nstr,
+				  /* gfloat *normals, gint nstr, */
 				  gfloat *d, gint dstr,
 				  gboolean eval_neighbours,
 				  guint field,

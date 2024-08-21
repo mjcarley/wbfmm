@@ -338,7 +338,6 @@ gint main(gint argc, char **argv)
 
   wbfmm_tree_add_points_f(tree, (gpointer)xs, pstr,
 			      (gpointer)normals, nstr*sizeof(gfloat),
-			      /* NULL, 0, */
 			      nsrc,
 			      sort_points) ;
 
@@ -368,8 +367,9 @@ gint main(gint argc, char **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;
   
   wbfmm_tree_leaf_expansions_f(tree, k,
-				  q, qstr, normals, nstr, dipoles, dstr,
-				  TRUE, work) ;
+				   q, qstr,
+				   dipoles, dstr,
+				   TRUE, work) ;
   
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -408,7 +408,9 @@ gint main(gint argc, char **argv)
     guint b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ;
     wbfmm_tree_box_local_field_f(tree, level, b, k,
 				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr,
-				    q, qstr, normals, nstr, dipoles, dstr,
+				    q, qstr,
+				     /* normals, nstr, */
+				     dipoles, dstr,
 				    TRUE, field, work) ;
   }
 

@@ -274,8 +274,6 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
 				       WBFMM_REAL k,
 				       WBFMM_REAL *src,
 				       gint sstr, 
-				       WBFMM_REAL *normals,
-				       gint nstr,
 				       WBFMM_REAL *dipoles,
 				       gint dstr,
 				       gboolean zero_expansions,
@@ -320,6 +318,8 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  * @param fstr stride of data in \a f;
  * @param src source strengths;
  * @param sstr stride of data in \a src;
+ * @param d dipole strengths for vector sources;
+ * @param dstr stride in \a d;
  * @param eval_neighbours if TRUE compute contributions from sources 
  * in box \a b and neighbours; 
  * @param field XOR combination of ::wbfmm_field_t to select output 
@@ -337,6 +337,7 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
 				       gint fstr,
 				       WBFMM_REAL *src,
 				       gint sstr,
+				       WBFMM_REAL *d, gint dstr,
 				       gboolean eval_neighbours,
 				       guint field,
 				       WBFMM_REAL *work) {}

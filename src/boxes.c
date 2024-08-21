@@ -342,8 +342,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 						     WBFMM_REAL k,
 						     WBFMM_REAL *src,
 						     gint sstr,
-						     WBFMM_REAL *normals,
-						     gint nstr,
 						     WBFMM_REAL *dipoles,
 						     gint dstr,
 						     gboolean zero_expansions,
@@ -373,14 +371,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 
   boxes = t->boxes[d] ;
 
-  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
+  if ( src == NULL && dipoles == NULL ) return 0 ;
 
-  if ( normals != NULL && dipoles == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
+  if ( t->normals == NULL && dipoles != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(dipoles != NULL)",
 	    __FUNCTION__) ;
   }
 
-  if ( normals == NULL && dipoles == NULL ) {
+  if ( dipoles == NULL ) {
     /* monopoles only */
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
@@ -406,7 +405,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  if ( src != NULL && normals != NULL ) {
+  if ( src != NULL && dipoles != NULL ) {
     /*mixed sources, dipoles specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
@@ -421,7 +420,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t,idx) ;
 	q = &(src[idx*sstr]) ;
 	fd = &(dipoles[idx*dstr]) ;
-	n  = &(normals[idx*nstr]) ;
+	n = wbfmm_tree_normal_index(t,idx) ;
+	/* n  = &(normals[idx*nstr]) ; */
 	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs,
 							   n, fd, nq,
 							   boxes[i].mps, 8,
@@ -436,7 +436,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 
   /* g_assert_not_reached() ; /\*following code needs modification*\/ */
   
-  if ( src == NULL && normals != NULL ) {
+  if ( src == NULL && dipoles != NULL ) {
     /*dipoles only, specified as normals and strengths*/
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
@@ -451,7 +451,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 	xs = wbfmm_tree_point_index(t,idx) ;
 	/* q = &(src[idx*sstr]) ; */
 	fd = &(dipoles[idx*dstr]) ;
-	n  = &(normals[idx*nstr]) ;
+	/* n  = &(normals[idx*nstr]) ; */
+	n = wbfmm_tree_normal_index(t,idx) ;
 	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs,
 							   n, fd, nq,
 							   boxes[i].mps, 8,

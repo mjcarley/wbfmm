@@ -36,8 +36,6 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 					       WBFMM_REAL *f,
 					       gint fstr,
 					       WBFMM_REAL *src, gint sstr,
-					       WBFMM_REAL *normals,
-					       gint nstr,
 					       WBFMM_REAL *d, gint dstr,
 					       gboolean eval_neighbours,
 					       guint field,
@@ -67,10 +65,10 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 
   if ( !eval_neighbours ) return 0 ;
 
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
-  
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+  if ( src == NULL && d == NULL ) return 0 ;
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
 	    __FUNCTION__) ;
   }
 
@@ -78,7 +76,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
 
-  if ( normals == NULL && d == NULL ) {
+  if ( d == NULL ) {
     /* monopoles only */
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
@@ -105,13 +103,15 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
   }
 
   /* return 0 ; */
-  if ( src == NULL && normals != NULL ) {
+  if ( src == NULL && d != NULL ) {
     /* dipoles only, specified as normals and strengths */
+    WBFMM_REAL *normal ;
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
       for ( j = 0 ; j < box.n ; j ++ ) {
 	idx = t->ip[box.i+j] ;
 	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
@@ -119,15 +119,16 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
-	  fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) +
-		   normals[idx*nstr+1]*(x[1] - xs[1]) +
-		   normals[idx*nstr+2]*(x[2] - xs[2]))/r ;
+	  /* fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) + */
+	  /* 	   normals[idx*nstr+1]*(x[1] - xs[1]) + */
+	  /* 	   normals[idx*nstr+2]*(x[2] - xs[2]))/r ; */
+	  fR[0] = (normal[0]*(x[0] - xs[0]) +
+		   normal[1]*(x[1] - xs[1]) +
+		   normal[2]*(x[2] - xs[2]))/r ;
 	  fR[1] = d[idx*dstr+1]*fR[0] ; fR[0] *= d[idx*dstr+0] ;
 
 	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
 	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
-	  /* f[0] += k*(h1[0]*fR[0] - h1[1]*fR[1]) ; */
-	  /* f[1] += k*(h1[0]*fR[1] + h1[1]*fR[0]) ; */
 	}
       }
     }
@@ -135,13 +136,15 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  if ( src != NULL && normals != NULL ) {
+  if ( src != NULL && d != NULL ) {
     /* mixed monopoles and dipoles specified as normals and strengths */
+    WBFMM_REAL *normal ;
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
       for ( j = 0 ; j < box.n ; j ++ ) {
 	idx = t->ip[box.i+j] ;
 	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
 	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
 	  (xs[2]-x[2])*(xs[2]-x[2]) ;
 	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
@@ -150,9 +153,12 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
-	  fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) +
-		   normals[idx*nstr+1]*(x[1] - xs[1]) +
-		   normals[idx*nstr+2]*(x[2] - xs[2]))/r ;
+	  fR[0] = (normal[0]*(x[0] - xs[0]) +
+		   normal[1]*(x[1] - xs[1]) +
+		   normal[2]*(x[2] - xs[2]))/r ;
+	  /* fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) + */
+	  /* 	   normals[idx*nstr+1]*(x[1] - xs[1]) + */
+	  /* 	   normals[idx*nstr+2]*(x[2] - xs[2]))/r ; */
 	  fR[1] = d[idx*dstr+1]*fR[0] ; fR[0] *= d[idx*dstr+0] ;
 	  
 	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
@@ -181,8 +187,6 @@ static gint _wbfmm_tree_box_local_field_gradient(wbfmm_tree_t *t,
 						 WBFMM_REAL *f,
 						 gint fstr,
 						 WBFMM_REAL *src, gint sstr,
-						 WBFMM_REAL *normals,
-						 gint nstr,
 						 WBFMM_REAL *d, gint dstr,
 						 gboolean eval_neighbours,
 						 guint field,
@@ -212,10 +216,10 @@ static gint _wbfmm_tree_box_local_field_gradient(wbfmm_tree_t *t,
 
   if ( !eval_neighbours ) return 0 ;
 
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
-  
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+  if ( src == NULL && d == NULL ) return 0 ;
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
 	    __FUNCTION__) ;
   }
 
@@ -223,7 +227,7 @@ static gint _wbfmm_tree_box_local_field_gradient(wbfmm_tree_t *t,
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
 
-  if ( normals == NULL && d == NULL ) {
+  if ( d == NULL ) {
     /* monopoles only */
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
@@ -271,8 +275,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 						     WBFMM_REAL *f,
 						     gint fstr,
 						     WBFMM_REAL *src, gint sstr,
-						     WBFMM_REAL *normals,
-						     gint nstr,
 						     WBFMM_REAL *d, gint dstr,
 						     gboolean eval_neighbours,
 						     guint field,
@@ -285,12 +287,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
   gint nnbr, i, j, jj, idx, nq ;
 
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
-  /* nq = wbfmm_tree_source_size(t) ; */
-  
-  /* boxes = t->boxes[level] ; */
-  /* C = boxes[b].mpr ; */
-
-  /* WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ; */
 
   switch ( field ) {
   default:
@@ -302,8 +298,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
       g_error("%s: field stride (%d) too small for field calculation",
 	      __FUNCTION__, fstr) ;
     return _wbfmm_tree_box_local_field_scalar(t, level, b, k, x, f, fstr,
-					      src, sstr, normals, nstr, d,
-					      dstr, eval_neighbours, field,
+					      src, sstr, d, dstr,
+					      eval_neighbours, field,
 					      work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
@@ -311,8 +307,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
       g_error("%s: field stride (%d) too small for gradient calculation",
 	      __FUNCTION__, fstr) ;
     return _wbfmm_tree_box_local_field_gradient(t, level, b, k, x, f, fstr,
-						src, sstr, normals, nstr, d,
-						dstr, eval_neighbours, field,
+						src, sstr, d, dstr,
+						eval_neighbours, field,
 						work) ;
     break ;
   case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT :
@@ -321,117 +317,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
   }
 
   g_assert_not_reached() ;
-
-  return 0 ;
-  
-  WBFMM_FUNCTION_NAME(wbfmm_expansion_j_evaluate)(k, xb, C, 8*nq,  
-						  t->order_r[level],
-						  wbfmm_tree_source_size(t),
-						  x, f, fstr,
-						  work) ;
-
-
-  if ( !eval_neighbours ) return 0 ;
-
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
-  
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
-	    __FUNCTION__) ;
-  }
-
-  /*add the contribution from sources in neighbour boxes*/
-  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
-  g_assert(nnbr >= 0 && nnbr < 28) ;
-
-  if ( normals == NULL && d == NULL ) {
-    /* monopoles only */
-    for ( i = 0 ; i < nnbr ; i ++ ) {
-      box = boxes[neighbours[i]] ;
-      for ( j = 0 ; j < box.n ; j ++ ) {
-	idx = t->ip[box.i+j] ;
-	xs = wbfmm_tree_point_index(t, idx) ;
-	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
-	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	  r = SQRT(r) ;
-	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
-	  for ( jj = 0 ; jj < nq ; jj ++ ) {
-	    f[fstr*jj+0] +=
-	      h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ;
-	    f[fstr*jj+1] +=
-	      h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ;
-	  }
-	}
-      }
-    }
-
-    return 0 ;
-  }
-
-  /* return 0 ; */
-  if ( src == NULL && normals != NULL ) {
-    /* dipoles only, specified as normals and strengths */
-    for ( i = 0 ; i < nnbr ; i ++ ) {
-      box = boxes[neighbours[i]] ;
-      for ( j = 0 ; j < box.n ; j ++ ) {
-	idx = t->ip[box.i+j] ;
-	xs = wbfmm_tree_point_index(t, idx) ;
-	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
-	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	  r = SQRT(r) ;
-	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
-
-	  fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) +
-		   normals[idx*nstr+1]*(x[1] - xs[1]) +
-		   normals[idx*nstr+2]*(x[2] - xs[2]))/r ;
-	  fR[1] = d[idx*dstr+1]*fR[0] ; fR[0] *= d[idx*dstr+0] ;
-
-	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
-	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
-	}
-      }
-    }
-    
-    return 0 ;
-  }
-
-  if ( src != NULL && normals != NULL ) {
-    /* mixed monopoles and dipoles specified as normals and strengths */
-    for ( i = 0 ; i < nnbr ; i ++ ) {
-      box = boxes[neighbours[i]] ;
-      for ( j = 0 ; j < box.n ; j ++ ) {
-	idx = t->ip[box.i+j] ;
-	xs = wbfmm_tree_point_index(t, idx) ;
-	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
-	  (xs[2]-x[2])*(xs[2]-x[2]) ;
-	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	  r = SQRT(r) ;
-	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
-	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
-	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
-
-	  fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) +
-		   normals[idx*nstr+1]*(x[1] - xs[1]) +
-		   normals[idx*nstr+2]*(x[2] - xs[2]))/r ;
-	  fR[1] = d[idx*dstr+1]*fR[0] ; fR[0] *= d[idx*dstr+0] ;
-	  
-	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
-	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
-
-	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
-	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
-	}
-      }
-    }
-    
-    return 0 ;
-  }
-  
-  g_assert_not_reached() ; 
   
   return 0 ;
 }
