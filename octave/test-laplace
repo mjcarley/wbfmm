@@ -3,8 +3,8 @@
 BIN=../tests
 
 ##sfile=monopoles.dat
-sfile=curl.dat
-##sfile=dipoles.dat
+##sfile=curl.dat
+sfile=dipoles.dat
 ffile=field.dat
 dfile=direct.dat
 fmmfile=fmm.dat
@@ -13,22 +13,24 @@ swfile=swfmm.dat
 bw=-B
 depth=4
 nthread=1
-order_r=8
-order_s=8
+order_r=16
+order_s=16
 targets=
 #-l
-curl=-c
-sort=-p
+curl=
+##-c
+sort=
+#-p
 
-${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
-
-${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
-      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
-      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+##${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
 
 ${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
       -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
+
+${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
+      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
 
 ##${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \

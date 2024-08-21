@@ -261,10 +261,7 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
  * @param k wavenumber;
  * @param src monopole source strengths;
  * @param sstr stride of data in \a src;
- * @param normals dipole normals;
- * @param nstr stride of data in \a normals;
- * @param dipoles dipole source strengths (if \a normals is not NULL), or 
- * moment vectors (if \a normals is NULL);
+ * @param dipoles dipole source strengths;
  * @param dstr stride of data in \a dipoles;
  * @param zero_expansions if TRUE, set expansion coefficients to zero
  * before adding source terms;
@@ -277,8 +274,6 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
 				       WBFMM_REAL k,
 				       WBFMM_REAL *src,
 				       gint sstr, 
-				       WBFMM_REAL *normals,
-				       gint nstr,
 				       WBFMM_REAL *dipoles,
 				       gint dstr,
 				       gboolean zero_expansions,
@@ -1637,9 +1632,7 @@ gint wbfmm_laplace_local_coefficients_FLOAT(WBFMM_REAL *x,
  * @param f on output, field value (not zeroed before evaluation);
  * @param src source strengths;
  * @param sstr stride of data in \a src;
- * @param normals normals for dipole sources;
- * @param nstr stride in \a normals;
- * @param d dipole source strengths, or dipole vectors;
+ * @param d dipole source strengths; 
  * @param dstr stride in \a d;
  * @param eval_neighbours if TRUE compute contributions from sources 
  * in box \a b and neighbours; 
@@ -1655,8 +1648,6 @@ gint wbfmm_tree_laplace_box_local_field_FLOAT(wbfmm_tree_t *t,
 					      WBFMM_REAL *f,
 					      WBFMM_REAL *src,
 					      gint sstr,
-					      WBFMM_REAL *normals,
-					      gint nstr,
 					      WBFMM_REAL *d,
 					      gint dstr,
 					      gboolean eval_neighbours,

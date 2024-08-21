@@ -1,0 +1,810 @@
+tests/wbfmm-direct-calc-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-direct-calc-float.c:	      "  -f (field point name)\n"
+tests/wbfmm-direct-calc-float.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-direct-calc-float.c:	      "  -k # wavenumber (%g)\n"
+tests/wbfmm-direct-calc-float.c:	      "  -s (source file name)\n",
+tests/wbfmm-direct-calc-float.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-direct-calc-float.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-direct-calc.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-direct-calc.c:	      "  -f (field point name)\n"
+tests/wbfmm-direct-calc.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-direct-calc.c:	      "  -k # wavenumber (%lg)\n"
+tests/wbfmm-direct-calc.c:	      "  -s (source file name)\n",
+tests/wbfmm-direct-calc.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-direct-calc.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-laplace-direct-calc-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-direct-calc-float.c:	      "  -c calculate curl of field\n"
+tests/wbfmm-laplace-direct-calc-float.c:	      "  -f (field point name)\n"
+tests/wbfmm-laplace-direct-calc-float.c:	      "  -g calculate field gradient\n"
+tests/wbfmm-laplace-direct-calc-float.c:	      "  -s (source file name)\n",
+tests/wbfmm-laplace-direct-calc-float.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-laplace-direct-calc-float.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-laplace-direct-calc.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-direct-calc.c:	      "  -c calculate curl of field\n"
+tests/wbfmm-laplace-direct-calc.c:	      "  -f (field point name)\n"
+tests/wbfmm-laplace-direct-calc.c:	      "  -g calculate field gradient\n"
+tests/wbfmm-laplace-direct-calc.c:	      "  -s (source file name)\n",
+tests/wbfmm-laplace-direct-calc.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-laplace-direct-calc.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-laplace-tests-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-tests-float.c:#define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
+tests/wbfmm-laplace-tests-float.c:  return -1 ;
+tests/wbfmm-laplace-tests-float.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests-float.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ;
+tests/wbfmm-laplace-tests-float.c:  n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.6 ;
+tests/wbfmm-laplace-tests-float.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests-float.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:  /*   fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ; */
+tests/wbfmm-laplace-tests-float.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests-float.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests-float.c:  xf[1] = x0[1] - 0.01 ; 
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests-float.c:  xf[2] = x0[2] + t - 0.05 ; 
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Cr[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests-float.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ;
+tests/wbfmm-laplace-tests-float.c:  xf[1] = x0[1] - 0.31 ; 
+tests/wbfmm-laplace-tests-float.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests-float.c:  /*fill Co with rubbish to check pre-scaling*/
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  t0 = g_timer_elapsed(timer, NULL) - t0 ;
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  t0 = g_timer_elapsed(timer, NULL) - t0 ;
+tests/wbfmm-laplace-tests-float.c:  /* 	    Ci[cstri*i], Cc[cstro*i], fabs(Ci[cstri*i]-Cc[cstro*i])) ; */
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests-float.c:  fprintf(stderr, "child-parent shift test\n") ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests-float.c:  /*rotations and translations for child-parent shift*/
+tests/wbfmm-laplace-tests-float.c:  th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ;
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Cp[i] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) work[8*nq*(Np+1)*(Np+1)] = -13.0 ;
+tests/wbfmm-laplace-tests-float.c:  fprintf(stderr, "shift completed (%lg);\n", t1 - t0) ;
+tests/wbfmm-laplace-tests-float.c:  fprintf(stderr, "bw shift completed (%lg);\n", t1 - t0) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fp[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fb[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fs[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:  fprintf(stderr, "parent-child shift test\n") ;
+tests/wbfmm-laplace-tests-float.c:  th47 = acos(sqrt(1.0/3.0)) ; th03 = M_PI - th47 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests-float.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests-float.c:  xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.05*wb ; xe[2] = xc[2] + 0.1*wb ;
+tests/wbfmm-laplace-tests-float.c:  /* 	    fabs(check[i*nq+0]-Cc[8*nq*i+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests-float.c:  /* 	      fabs(check[(i+0)*nq+0]-Cc[8*nq*(i+0)+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests-float.c:  /* 	      fabs(check[(i+1)*nq+0]-Cc[8*nq*(i+1)+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fp[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:    fprintf(stderr, "%1.16e ", fabs(fs[i]-fr[i])) ;
+tests/wbfmm-laplace-tests-float.c:  xf[1] = x0[1] - 0.31 ;
+tests/wbfmm-laplace-tests-float.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; */
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+2]-fc[fstr*i+2]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+3]-fc[fstr*i+3]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+4]-fc[fstr*i+4]),
+tests/wbfmm-laplace-tests-float.c:	    fabs(ft[fstr*i+5]-fc[fstr*i+5])) ;
+tests/wbfmm-laplace-tests-float.c:  /* 	    fabs(ft[fstr*i+0]-fc[fstr*i+0]), */
+tests/wbfmm-laplace-tests-float.c:  /* 	    fabs(ft[fstr*i+1]-fc[fstr*i+1]), */
+tests/wbfmm-laplace-tests-float.c:  /* 	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ; */
+tests/wbfmm-laplace-tests-float.c:  test = -1 ;
+tests/wbfmm-laplace-tests-float.c:	      "  -h print this message and exit\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -i <input file name>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -n <number of sources>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -N <expansion order>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -q <test quadrant>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -t <test name>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -w <box width>\n"
+tests/wbfmm-laplace-tests-float.c:	      "  -x <distance, e.g. for translation tests>\n",
+tests/wbfmm-laplace-tests-float.c:    xs[0] = 0.1 ; xs[1] = 0.2 ; xs[2] = -0.05 ;
+tests/wbfmm-laplace-tests-float.c:    src[0] = 0.5 ; src[1] = -0.9 ;
+tests/wbfmm-laplace-tests-float.c:    xf[0] = 1.5 ; xf[1] = 2.5 ; xf[2] = -1.3 ;
+tests/wbfmm-laplace-tests-float.c:    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+tests/wbfmm-laplace-tests.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-tests.c:#define wbfmm_index_laplace_nm(_n,_m) ((_n)*(_n)+(2*(_m))-1)
+tests/wbfmm-laplace-tests.c:  return -1 ;
+tests/wbfmm-laplace-tests.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ;
+tests/wbfmm-laplace-tests.c:  n[0] = 0.3 ; n[1] = -0.2 ; n[2] = 0.6 ;
+tests/wbfmm-laplace-tests.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:  /*   fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ; */
+tests/wbfmm-laplace-tests.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ;  */
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests.c:  xf[1] = x0[1] - 0.01 ; 
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests.c:  xf[2] = x0[2] + t - 0.05 ; 
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Cr[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-laplace-tests.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fe[i])) ;
+tests/wbfmm-laplace-tests.c:  xf[1] = x0[1] - 0.31 ; 
+tests/wbfmm-laplace-tests.c:  xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests.c:	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ;
+tests/wbfmm-laplace-tests.c:  /*fill Co with rubbish to check pre-scaling*/
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  t0 = g_timer_elapsed(timer, NULL) - t0 ;
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  t0 = g_timer_elapsed(timer, NULL) - t0 ;
+tests/wbfmm-laplace-tests.c:  /* 	    Ci[cstri*i], Cc[cstro*i], fabs(Ci[cstri*i]-Cc[cstro*i])) ; */
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ff[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-ft[i])) ;
+tests/wbfmm-laplace-tests.c:  fprintf(stderr, "child-parent shift test\n") ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] - wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] + wb/2 ; xc[1] = x0[1] - wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = x0[0] - wb/2 ; xc[1] = x0[1] + wb/2 ; xc[2] = x0[2] + wb/2 ;
+tests/wbfmm-laplace-tests.c:  /*rotations and translations for child-parent shift*/
+tests/wbfmm-laplace-tests.c:  th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ;
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Cp[i] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) work[8*nq*(Np+1)*(Np+1)] = -13.0 ;
+tests/wbfmm-laplace-tests.c:  fprintf(stderr, "shift completed (%lg);\n", t1 - t0) ;
+tests/wbfmm-laplace-tests.c:  fprintf(stderr, "bw shift completed (%lg);\n", t1 - t0) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fp[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fb[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fs[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:  fprintf(stderr, "parent-child shift test\n") ;
+tests/wbfmm-laplace-tests.c:  th47 = acos(sqrt(1.0/3.0)) ; th03 = M_PI - th47 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] - wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] + wb/4 ; xc[1] = xp[1] - wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests.c:    xc[0] = xp[0] - wb/4 ; xc[1] = xp[1] + wb/4 ; xc[2] = xp[2] + wb/4 ;
+tests/wbfmm-laplace-tests.c:  xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.05*wb ; xe[2] = xc[2] + 0.1*wb ;
+tests/wbfmm-laplace-tests.c:  /* 	    fabs(check[i*nq+0]-Cc[8*nq*i+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests.c:  /* 	      fabs(check[(i+0)*nq+0]-Cc[8*nq*(i+0)+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests.c:  /* 	      fabs(check[(i+1)*nq+0]-Cc[8*nq*(i+1)+nq*quad+0])) ; */
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fc[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fp[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:    fprintf(stderr, "%1.16e ", fabs(fs[i]-fr[i])) ;
+tests/wbfmm-laplace-tests.c:  xf[1] = x0[1] - 0.31 ;
+tests/wbfmm-laplace-tests.c:  /* xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; */
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+2]-fc[fstr*i+2]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+3]-fc[fstr*i+3]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+4]-fc[fstr*i+4]),
+tests/wbfmm-laplace-tests.c:	    fabs(ft[fstr*i+5]-fc[fstr*i+5])) ;
+tests/wbfmm-laplace-tests.c:  /* 	    fabs(ft[fstr*i+0]-fc[fstr*i+0]), */
+tests/wbfmm-laplace-tests.c:  /* 	    fabs(ft[fstr*i+1]-fc[fstr*i+1]), */
+tests/wbfmm-laplace-tests.c:  /* 	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ; */
+tests/wbfmm-laplace-tests.c:  test = -1 ;
+tests/wbfmm-laplace-tests.c:	      "  -h print this message and exit\n"
+tests/wbfmm-laplace-tests.c:	      "  -i <input file name>\n"
+tests/wbfmm-laplace-tests.c:	      "  -n <number of sources>\n"
+tests/wbfmm-laplace-tests.c:	      "  -N <expansion order>\n"
+tests/wbfmm-laplace-tests.c:	      "  -q <test quadrant>\n"
+tests/wbfmm-laplace-tests.c:	      "  -t <test name>\n"
+tests/wbfmm-laplace-tests.c:	      "  -w <box width>\n"
+tests/wbfmm-laplace-tests.c:	      "  -x <distance, e.g. for translation tests>\n",
+tests/wbfmm-laplace-tests.c:    xs[0] = 0.1 ; xs[1] = 0.2 ; xs[2] = -0.05 ;
+tests/wbfmm-laplace-tests.c:    src[0] = 0.5 ; src[1] = -0.9 ;
+tests/wbfmm-laplace-tests.c:    xf[0] = 1.5 ; xf[1] = 2.5 ; xf[2] = -1.3 ;
+tests/wbfmm-laplace-tests.c:    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+tests/wbfmm-laplace-tree-calc-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-tree-calc-float.c:  D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -h print this message and exit\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -H print some more detailed information and exit\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -B use backward shift algorithm\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -b fit octree box to sources\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -c calculate curl of vector field\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -d # depth of octree (%d)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -D # width of octree (%g)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -f (field point name)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -i increment of order with level (%d)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -l use target lists to calculate field at points\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -O #,#,# origin of octree (%g,%g,%g)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -p sort source points before generating tree\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -R # order of regular expansions at leaf level (%u)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -S # order of singular expansions at leaf level (%u)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -s (source file name)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -T # (number of threads)\n"
+tests/wbfmm-laplace-tree-calc-float.c:	      "  -t # tolerance (%g)\n",
+tests/wbfmm-laplace-tree-calc-float.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-laplace-tree-calc-float.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-laplace-tree-calc-float.c:    xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
+tests/wbfmm-laplace-tree-calc-float.c:    for ( i = depth-1 ; i > 0 ; i -- ) {
+tests/wbfmm-laplace-tree-calc-float.c:  for ( level = depth ; level >= 3 ; level -- ) {
+tests/wbfmm-laplace-tree-calc-float.c:	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc-float.c:	wbfmm_tree_laplace_box_local_field_f(tree, tree->depth, box,
+tests/wbfmm-laplace-tree-calc-float.c:	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc-float.c:	wbfmm_tree_laplace_box_local_grad_f(tree, tree->depth, box,
+tests/wbfmm-laplace-tree-calc-float.c:	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc-float.c:	wbfmm_tree_laplace_box_local_curl_f(tree, tree->depth, box,
+tests/wbfmm-laplace-tree-calc.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-laplace-tree-calc.c:  D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+tests/wbfmm-laplace-tree-calc.c:	      "  -h print this message and exit\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -H print some more detailed information and exit\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -B use backward shift algorithm\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -b fit octree box to sources\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -c calculate curl of vector field\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -d # depth of octree (%d)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -D # width of octree (%lg)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -f (field point name)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -i increment of order with level (%d)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -l use target lists to calculate field at points\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -O #,#,# origin of octree (%lg,%lg,%lg)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -p sort source points before generating tree\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -R # order of regular expansions at leaf level (%u)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -S # order of singular expansions at leaf level (%u)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -s (source file name)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -T # (number of threads)\n"
+tests/wbfmm-laplace-tree-calc.c:	      "  -t # tolerance (%lg)\n",
+tests/wbfmm-laplace-tree-calc.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-laplace-tree-calc.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-laplace-tree-calc.c:    xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
+tests/wbfmm-laplace-tree-calc.c:    for ( i = depth-1 ; i > 0 ; i -- ) {
+tests/wbfmm-laplace-tree-calc.c:  for ( level = depth ; level >= 3 ; level -- ) {
+tests/wbfmm-laplace-tree-calc.c:	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc.c:	wbfmm_tree_laplace_box_local_field(tree, tree->depth, box,
+tests/wbfmm-laplace-tree-calc.c:	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc.c:	wbfmm_tree_laplace_box_local_grad(tree, tree->depth, box,
+tests/wbfmm-laplace-tree-calc.c:	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
+tests/wbfmm-laplace-tree-calc.c:	wbfmm_tree_laplace_box_local_curl(tree, tree->depth, box,
+tests/wbfmm-tests-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-tests-float.c:#include "wbfmm-private.h"
+tests/wbfmm-tests-float.c:  return -1 ;
+tests/wbfmm-tests-float.c:  S = sqrt(1-C*C) ;
+tests/wbfmm-tests-float.c:    wbfmm_legendre_recursion_array_f(&Pnm1, &Pn, n-1, C, S) ;
+tests/wbfmm-tests-float.c:    wbfmm_bessel_j_recursion_f(&jnm1, &jn, x, n-1) ;
+tests/wbfmm-tests-float.c:    wbfmm_bessel_h_recursion_f(hnm1, hn, x, n-1) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	    sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) +
+tests/wbfmm-tests-float.c:		 (fc[1]-fe[1])*(fc[1]-fe[1])),
+tests/wbfmm-tests-float.c:	    sqrt((fc[2]-fe[2])*(fc[2]-fe[2]) +
+tests/wbfmm-tests-float.c:		 (fc[3]-fe[3])*(fc[3]-fe[3])),
+tests/wbfmm-tests-float.c:	    sqrt((fc[4]-fe[4])*(fc[4]-fe[4]) +
+tests/wbfmm-tests-float.c:		 (fc[5]-fe[5])*(fc[5]-fe[5]))) ;  
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:    fx[6*i+0] = 1.3 ; fx[6*i+1] = -0.9 ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+tests/wbfmm-tests-float.c:		 (fe[1]-fc[1])*(fe[1]-fc[1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  n[0] = 0.1 ; n[1] = -0.3 ; n[2] = 1.0 ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+tests/wbfmm-tests-float.c:		 (fe[1]-fc[1])*(fe[1]-fc[1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	      sqrt((fs[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fs[j*fcstr+0]-fc[j*fcstr+0])+
+tests/wbfmm-tests-float.c:		   (fs[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fs[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  singular-regular coaxial translation from x0 to x0 + (0,0,t) and
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-tests-float.c:  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+tests/wbfmm-tests-float.c:	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	    sqrt((ft[j*fcstr+0]-fc[j*fcstr+0])*(ft[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		 (ft[j*fcstr+1]-fc[j*fcstr+1])*(ft[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	    sqrt((fe[j*fcstr+0]-fc[j*fcstr+0])*(fe[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		 (fe[j*fcstr+1]-fc[j*fcstr+1])*(fe[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+tests/wbfmm-tests-float.c:	    sqrt((fe[i*fstr+0]-fc[i*fstr+0])*(fe[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests-float.c:		 (fe[i*fstr+1]-fc[i*fstr+1])*(fe[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests-float.c:	    sqrt((fe[i*fstr+2]-fc[i*fstr+2])*(fe[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests-float.c:		 (fe[i*fstr+3]-fc[i*fstr+3])*(fe[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests-float.c:	    sqrt((fe[i*fstr+4]-fc[i*fstr+4])*(fe[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests-float.c:		 (fe[i*fstr+5]-fc[i*fstr+5])*(fe[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests-float.c:	    sqrt((fl[i*fstr+0]-fc[i*fstr+0])*(fl[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests-float.c:		 (fl[i*fstr+1]-fc[i*fstr+1])*(fl[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests-float.c:	    sqrt((fl[i*fstr+2]-fc[i*fstr+2])*(fl[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests-float.c:		 (fl[i*fstr+3]-fc[i*fstr+3])*(fl[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests-float.c:	    sqrt((fl[i*fstr+4]-fc[i*fstr+4])*(fl[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests-float.c:		 (fl[i*fstr+5]-fc[i*fstr+5])*(fl[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests-float.c:    fprintf(stdout, "pre-computed: %g+j*%g "
+tests/wbfmm-tests-float.c:	    sqrt((fp[i*fstr+0]-fc[i*fstr+0])*(fp[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests-float.c:		 (fp[i*fstr+1]-fc[i*fstr+1])*(fp[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests-float.c:	    sqrt((fp[i*fstr+2]-fc[i*fstr+2])*(fp[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests-float.c:		 (fp[i*fstr+3]-fc[i*fstr+3])*(fp[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests-float.c:	    sqrt((fp[i*fstr+4]-fc[i*fstr+4])*(fp[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests-float.c:		 (fp[i*fstr+5]-fc[i*fstr+5])*(fp[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  /* Ci = (gfloat *)g_malloc0(2*cstri*wbfmm_coefficient_index_nm(N+1,-N-1)* */
+tests/wbfmm-tests-float.c:  /* Co = (gfloat *)g_malloc0(2*cstro*wbfmm_coefficient_index_nm(N+1,-N-1)* */
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-tests-float.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests-float.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests-float.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests-float.c:	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests-float.c:	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests-float.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests-float.c:	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests-float.c:	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	      sqrt((f0[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests-float.c:		   (f0[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests-float.c:		   (f0[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests-float.c:		   (f0[fcstr*j+1]-fc[fcstr*j+1])),
+tests/wbfmm-tests-float.c:	      sqrt((f1[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests-float.c:		   (f1[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests-float.c:		   (f1[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests-float.c:		   (f1[fcstr*j+1]-fc[fcstr*j+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	wbfmm_box_location_from_index_f(p, level-1, x0, D, x, &w) ;
+tests/wbfmm-tests-float.c:  th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests-float.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests-float.c:    src[j*qstr+0] = 0.5*(j+1) ; src[j*qstr+1] = -0.3*(j+1) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  wbfmm_coefficients_RR_coaxial_f(shiftb, Np, -kr, work) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,
+tests/wbfmm-tests-float.c:	  g_timer_elapsed(timer, NULL) - t1) ;
+tests/wbfmm-tests-float.c:  /* 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,  */
+tests/wbfmm-tests-float.c:  /* 	  g_timer_elapsed(timer, NULL) - t1) ; */
+tests/wbfmm-tests-float.c:	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])),
+tests/wbfmm-tests-float.c:	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:  /*other way round to child-parent shift rotations because the shifts
+tests/wbfmm-tests-float.c:  xs[2] = x0[2] - len ;
+tests/wbfmm-tests-float.c:  xb[0*3+0] = x0[0] - dx ; xb[0*3+1] = x0[1] - dx ; xb[0*3+2] = x0[2] - dx ;
+tests/wbfmm-tests-float.c:  xb[1*3+0] = x0[0] + dx ; xb[1*3+1] = x0[1] - dx ; xb[1*3+2] = x0[2] - dx ;
+tests/wbfmm-tests-float.c:  xb[2*3+0] = x0[0] - dx ; xb[2*3+1] = x0[1] + dx ; xb[2*3+2] = x0[2] - dx ;
+tests/wbfmm-tests-float.c:  xb[3*3+0] = x0[0] + dx ; xb[3*3+1] = x0[1] + dx ; xb[3*3+2] = x0[2] - dx ;
+tests/wbfmm-tests-float.c:  xb[4*3+0] = x0[0] - dx ; xb[4*3+1] = x0[1] - dx ; xb[4*3+2] = x0[2] + dx ;
+tests/wbfmm-tests-float.c:  xb[5*3+0] = x0[0] + dx ; xb[5*3+1] = x0[1] - dx ; xb[5*3+2] = x0[2] + dx ;
+tests/wbfmm-tests-float.c:  xb[6*3+0] = x0[0] - dx ; xb[6*3+1] = x0[1] + dx ; xb[6*3+2] = x0[2] + dx ;
+tests/wbfmm-tests-float.c:    src[2*j+0] = 0.5*(j+2) ; src[2*j+1] = -0.3*(j+1) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:    xf[1] = xb[3*i+1] - wb*0.05 ; 
+tests/wbfmm-tests-float.c:	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])),
+tests/wbfmm-tests-float.c:	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests-float.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests-float.c:	    sqrt((f1[j*fcstr+0]-fc[j*fcstr+0])*(f1[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests-float.c:		 (f1[j*fcstr+1]-fc[j*fcstr+1])*(f1[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:    if ( i >= in ) di = i-in ; else di = in-i ; g_assert(di <= 1) ;
+tests/wbfmm-tests-float.c:    if ( j >= jn ) dj = j-jn ; else dj = jn-j ; g_assert(dj <= 1) ;
+tests/wbfmm-tests-float.c:    if ( k >= kn ) dk = k-kn ; else dk = kn-k ; g_assert(dk <= 1) ;
+tests/wbfmm-tests-float.c:    /* if ( i >= in ) di = i-in ; else di = -(gint)(in-i) ; */
+tests/wbfmm-tests-float.c:    /* if ( j >= jn ) dj = j-jn ; else dj = -(gint)(jn-j) ; */
+tests/wbfmm-tests-float.c:    /* if ( k >= kn ) dk = k-kn ; else dk = -(gint)(kn-k) ; */
+tests/wbfmm-tests-float.c:    di = (gint)in - (gint)i ;
+tests/wbfmm-tests-float.c:    dj = (gint)jn - (gint)j ;
+tests/wbfmm-tests-float.c:    dk = (gint)kn - (gint)k ;
+tests/wbfmm-tests-float.c:    if ( ip >= in ) di = ip-in ; else di = in-ip ; g_assert(di <= 1) ;
+tests/wbfmm-tests-float.c:    if ( jp >= jn ) dj = jp-jn ; else dj = jn-jp ; g_assert(dj <= 1) ;
+tests/wbfmm-tests-float.c:    if ( kp >= kn ) dk = kp-kn ; else dk = kn-kp ; g_assert(dk <= 1) ;
+tests/wbfmm-tests-float.c:  for ( di = -3 ; di <= 3 ; di ++ ) {
+tests/wbfmm-tests-float.c:    for ( dj = -3 ; dj <= 3 ; dj ++ ) {
+tests/wbfmm-tests-float.c:      for ( dk = -3 ; dk <= 3 ; dk ++ ) {
+tests/wbfmm-tests-float.c:	  pn = grid[ii] - 1 ;
+tests/wbfmm-tests-float.c:  for ( i = -3 ; i <= 3 ; i ++ ) {
+tests/wbfmm-tests-float.c:    for ( j = -3 ; j <= 3 ; j ++ ) {
+tests/wbfmm-tests-float.c:      for ( k = -3 ; k <= 3 ; k ++ ) {
+tests/wbfmm-tests-float.c:	  emax = MAX(emax, fabs(th1-th0)) ;
+tests/wbfmm-tests-float.c:	  emax = MAX(emax, fabs(ch1-ch0)) ;
+tests/wbfmm-tests-float.c:	  emax = MAX(emax, fabs(ph1-ph0)) ;
+tests/wbfmm-tests-float.c:	  emax = MAX(emax, fabs(r - rs*wb)) ;
+tests/wbfmm-tests-float.c:	  if ( emax > 1e-4 ) {
+tests/wbfmm-tests-float.c:	    return -1 ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:	      sqrt((fe[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests-float.c:		   (fe[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests-float.c:		   (fe[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests-float.c:		   (fe[fcstr*j+1]-fc[fcstr*j+1]))) ;
+tests/wbfmm-tests-float.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests-float.c:  test = -1 ;
+tests/wbfmm-tests-float.c:      xs[i*sstr+0] = x0[0] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests-float.c:      xs[i*sstr+1] = x0[1] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests-float.c:      xs[i*sstr+2] = x0[2] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests-float.c:	q [i*qstr+j] = g_random_double_range(-1, 1) ;
+tests/wbfmm-tests-float.c:    xf[1*fstr+0] = x0[0] - 3.0 ;
+tests/wbfmm-tests-float.c:    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+tests/wbfmm-tests.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-tests.c:#include "wbfmm-private.h"
+tests/wbfmm-tests.c:  return -1 ;
+tests/wbfmm-tests.c:  S = sqrt(1-C*C) ;
+tests/wbfmm-tests.c:    wbfmm_legendre_recursion_array(&Pnm1, &Pn, n-1, C, S) ;
+tests/wbfmm-tests.c:    wbfmm_bessel_j_recursion(&jnm1, &jn, x, n-1) ;
+tests/wbfmm-tests.c:    wbfmm_bessel_h_recursion(hnm1, hn, x, n-1) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	    sqrt((fc[0]-fe[0])*(fc[0]-fe[0]) +
+tests/wbfmm-tests.c:		 (fc[1]-fe[1])*(fc[1]-fe[1])),
+tests/wbfmm-tests.c:	    sqrt((fc[2]-fe[2])*(fc[2]-fe[2]) +
+tests/wbfmm-tests.c:		 (fc[3]-fe[3])*(fc[3]-fe[3])),
+tests/wbfmm-tests.c:	    sqrt((fc[4]-fe[4])*(fc[4]-fe[4]) +
+tests/wbfmm-tests.c:		 (fc[5]-fe[5])*(fc[5]-fe[5]))) ;  
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:    fx[6*i+0] = 1.3 ; fx[6*i+1] = -0.9 ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+tests/wbfmm-tests.c:		 (fe[1]-fc[1])*(fe[1]-fc[1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  n[0] = 0.1 ; n[1] = -0.3 ; n[2] = 1.0 ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	    sqrt((fe[0]-fc[0])*(fe[0]-fc[0]) +
+tests/wbfmm-tests.c:		 (fe[1]-fc[1])*(fe[1]-fc[1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	      sqrt((fs[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fs[j*fcstr+0]-fc[j*fcstr+0])+
+tests/wbfmm-tests.c:		   (fs[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fs[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  singular-regular coaxial translation from x0 to x0 + (0,0,t) and
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  /*check pre-computed evaluation method*/
+tests/wbfmm-tests.c:  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+tests/wbfmm-tests.c:	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	    sqrt((ft[j*fcstr+0]-fc[j*fcstr+0])*(ft[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		 (ft[j*fcstr+1]-fc[j*fcstr+1])*(ft[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	    sqrt((fe[j*fcstr+0]-fc[j*fcstr+0])*(fe[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		 (fe[j*fcstr+1]-fc[j*fcstr+1])*(fe[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  if ( N > 12 ) Ni = N - 3 ; 
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  xr[0] -= xt[0] ; xr[1] -= xt[1] ; xr[2] -= xt[2] ; 
+tests/wbfmm-tests.c:	    sqrt((fe[i*fstr+0]-fc[i*fstr+0])*(fe[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests.c:		 (fe[i*fstr+1]-fc[i*fstr+1])*(fe[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests.c:	    sqrt((fe[i*fstr+2]-fc[i*fstr+2])*(fe[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests.c:		 (fe[i*fstr+3]-fc[i*fstr+3])*(fe[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests.c:	    sqrt((fe[i*fstr+4]-fc[i*fstr+4])*(fe[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests.c:		 (fe[i*fstr+5]-fc[i*fstr+5])*(fe[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests.c:	    sqrt((fl[i*fstr+0]-fc[i*fstr+0])*(fl[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests.c:		 (fl[i*fstr+1]-fc[i*fstr+1])*(fl[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests.c:	    sqrt((fl[i*fstr+2]-fc[i*fstr+2])*(fl[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests.c:		 (fl[i*fstr+3]-fc[i*fstr+3])*(fl[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests.c:	    sqrt((fl[i*fstr+4]-fc[i*fstr+4])*(fl[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests.c:		 (fl[i*fstr+5]-fc[i*fstr+5])*(fl[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests.c:    fprintf(stdout, "pre-computed: %lg+j*%lg "
+tests/wbfmm-tests.c:	    sqrt((fp[i*fstr+0]-fc[i*fstr+0])*(fp[i*fstr+0]-fc[i*fstr+0]) +
+tests/wbfmm-tests.c:		 (fp[i*fstr+1]-fc[i*fstr+1])*(fp[i*fstr+1]-fc[i*fstr+1])),
+tests/wbfmm-tests.c:	    sqrt((fp[i*fstr+2]-fc[i*fstr+2])*(fp[i*fstr+2]-fc[i*fstr+2]) +
+tests/wbfmm-tests.c:		 (fp[i*fstr+3]-fc[i*fstr+3])*(fp[i*fstr+3]-fc[i*fstr+3])),
+tests/wbfmm-tests.c:	    sqrt((fp[i*fstr+4]-fc[i*fstr+4])*(fp[i*fstr+4]-fc[i*fstr+4]) +
+tests/wbfmm-tests.c:		 (fp[i*fstr+5]-fc[i*fstr+5])*(fp[i*fstr+5]-fc[i*fstr+5]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  /* Ci = (gdouble *)g_malloc0(2*cstri*wbfmm_coefficient_index_nm(N+1,-N-1)* */
+tests/wbfmm-tests.c:  /* Co = (gdouble *)g_malloc0(2*cstro*wbfmm_coefficient_index_nm(N+1,-N-1)* */
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-tests.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests.c:  for ( i = 0 ; i < 1024 ; i ++ ) Co[i] = -13.0 ;
+tests/wbfmm-tests.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests.c:	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests.c:	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, (dt = g_timer_elapsed(timer, NULL)) - t0) ;
+tests/wbfmm-tests.c:  dt = g_timer_elapsed(timer, NULL) - dt ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0, dt) ;
+tests/wbfmm-tests.c:	      sqrt((fu[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fu[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fu[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests.c:	      sqrt((fr[j*fcstr+0]-fc[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fr[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fr[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	      sqrt((f0[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests.c:		   (f0[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests.c:		   (f0[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests.c:		   (f0[fcstr*j+1]-fc[fcstr*j+1])),
+tests/wbfmm-tests.c:	      sqrt((f1[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests.c:		   (f1[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests.c:		   (f1[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests.c:		   (f1[fcstr*j+1]-fc[fcstr*j+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	wbfmm_box_location_from_index(p, level-1, x0, D, x, &w) ;
+tests/wbfmm-tests.c:  th03 = acos(sqrt(1.0/3.0)) ; th47 = M_PI - th03 ; 
+tests/wbfmm-tests.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] - wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] + wb/2 ; xb[1] = x0[1] - wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests.c:    xb[0] = x0[0] - wb/2 ; xb[1] = x0[1] + wb/2 ; xb[2] = x0[2] + wb/2 ;
+tests/wbfmm-tests.c:    src[j*qstr+0] = 0.5*(j+1) ; src[j*qstr+1] = -0.3*(j+1) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  wbfmm_coefficients_RR_coaxial(shiftb, Np, -kr, work) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,
+tests/wbfmm-tests.c:	  g_timer_elapsed(timer, NULL) - t1) ;
+tests/wbfmm-tests.c:  /* 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0,  */
+tests/wbfmm-tests.c:  /* 	  g_timer_elapsed(timer, NULL) - t1) ; */
+tests/wbfmm-tests.c:	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])),
+tests/wbfmm-tests.c:	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:  /*other way round to child-parent shift rotations because the shifts
+tests/wbfmm-tests.c:  xs[2] = x0[2] - len ;
+tests/wbfmm-tests.c:  xb[0*3+0] = x0[0] - dx ; xb[0*3+1] = x0[1] - dx ; xb[0*3+2] = x0[2] - dx ;
+tests/wbfmm-tests.c:  xb[1*3+0] = x0[0] + dx ; xb[1*3+1] = x0[1] - dx ; xb[1*3+2] = x0[2] - dx ;
+tests/wbfmm-tests.c:  xb[2*3+0] = x0[0] - dx ; xb[2*3+1] = x0[1] + dx ; xb[2*3+2] = x0[2] - dx ;
+tests/wbfmm-tests.c:  xb[3*3+0] = x0[0] + dx ; xb[3*3+1] = x0[1] + dx ; xb[3*3+2] = x0[2] - dx ;
+tests/wbfmm-tests.c:  xb[4*3+0] = x0[0] - dx ; xb[4*3+1] = x0[1] - dx ; xb[4*3+2] = x0[2] + dx ;
+tests/wbfmm-tests.c:  xb[5*3+0] = x0[0] + dx ; xb[5*3+1] = x0[1] - dx ; xb[5*3+2] = x0[2] + dx ;
+tests/wbfmm-tests.c:  xb[6*3+0] = x0[0] - dx ; xb[6*3+1] = x0[1] + dx ; xb[6*3+2] = x0[2] + dx ;
+tests/wbfmm-tests.c:    src[2*j+0] = 0.5*(j+2) ; src[2*j+1] = -0.3*(j+1) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:    xf[1] = xb[3*i+1] - wb*0.05 ; 
+tests/wbfmm-tests.c:	      sqrt((fp[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fp[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fp[j*fcstr+1]-fe[j*fcstr+1])),
+tests/wbfmm-tests.c:	      sqrt((fc[j*fcstr+0]-fe[j*fcstr+0])*
+tests/wbfmm-tests.c:		   (fc[j*fcstr+0]-fe[j*fcstr+0]) +
+tests/wbfmm-tests.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1])*
+tests/wbfmm-tests.c:		   (fc[j*fcstr+1]-fe[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	    sqrt((f0[j*fcstr+0]-fc[j*fcstr+0])*(f0[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		 (f0[j*fcstr+1]-fc[j*fcstr+1])*(f0[j*fcstr+1]-fc[j*fcstr+1])),
+tests/wbfmm-tests.c:	    sqrt((f1[j*fcstr+0]-fc[j*fcstr+0])*(f1[j*fcstr+0]-fc[j*fcstr+0]) +
+tests/wbfmm-tests.c:		 (f1[j*fcstr+1]-fc[j*fcstr+1])*(f1[j*fcstr+1]-fc[j*fcstr+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:    if ( i >= in ) di = i-in ; else di = in-i ; g_assert(di <= 1) ;
+tests/wbfmm-tests.c:    if ( j >= jn ) dj = j-jn ; else dj = jn-j ; g_assert(dj <= 1) ;
+tests/wbfmm-tests.c:    if ( k >= kn ) dk = k-kn ; else dk = kn-k ; g_assert(dk <= 1) ;
+tests/wbfmm-tests.c:    /* if ( i >= in ) di = i-in ; else di = -(gint)(in-i) ; */
+tests/wbfmm-tests.c:    /* if ( j >= jn ) dj = j-jn ; else dj = -(gint)(jn-j) ; */
+tests/wbfmm-tests.c:    /* if ( k >= kn ) dk = k-kn ; else dk = -(gint)(kn-k) ; */
+tests/wbfmm-tests.c:    di = (gint)in - (gint)i ;
+tests/wbfmm-tests.c:    dj = (gint)jn - (gint)j ;
+tests/wbfmm-tests.c:    dk = (gint)kn - (gint)k ;
+tests/wbfmm-tests.c:    if ( ip >= in ) di = ip-in ; else di = in-ip ; g_assert(di <= 1) ;
+tests/wbfmm-tests.c:    if ( jp >= jn ) dj = jp-jn ; else dj = jn-jp ; g_assert(dj <= 1) ;
+tests/wbfmm-tests.c:    if ( kp >= kn ) dk = kp-kn ; else dk = kn-kp ; g_assert(dk <= 1) ;
+tests/wbfmm-tests.c:  for ( di = -3 ; di <= 3 ; di ++ ) {
+tests/wbfmm-tests.c:    for ( dj = -3 ; dj <= 3 ; dj ++ ) {
+tests/wbfmm-tests.c:      for ( dk = -3 ; dk <= 3 ; dk ++ ) {
+tests/wbfmm-tests.c:	  pn = grid[ii] - 1 ;
+tests/wbfmm-tests.c:  for ( i = -3 ; i <= 3 ; i ++ ) {
+tests/wbfmm-tests.c:    for ( j = -3 ; j <= 3 ; j ++ ) {
+tests/wbfmm-tests.c:      for ( k = -3 ; k <= 3 ; k ++ ) {
+tests/wbfmm-tests.c:	  emax = MAX(emax, fabs(th1-th0)) ;
+tests/wbfmm-tests.c:	  emax = MAX(emax, fabs(ch1-ch0)) ;
+tests/wbfmm-tests.c:	  emax = MAX(emax, fabs(ph1-ph0)) ;
+tests/wbfmm-tests.c:	  emax = MAX(emax, fabs(r - rs*wb)) ;
+tests/wbfmm-tests.c:	  if ( emax > 1e-4 ) {
+tests/wbfmm-tests.c:	    return -1 ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:	      sqrt((fe[fcstr*j+0]-fc[fcstr*j+0])*
+tests/wbfmm-tests.c:		   (fe[fcstr*j+0]-fc[fcstr*j+0]) +
+tests/wbfmm-tests.c:		   (fe[fcstr*j+1]-fc[fcstr*j+1])*
+tests/wbfmm-tests.c:		   (fe[fcstr*j+1]-fc[fcstr*j+1]))) ;
+tests/wbfmm-tests.c:	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
+tests/wbfmm-tests.c:  test = -1 ;
+tests/wbfmm-tests.c:      xs[i*sstr+0] = x0[0] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests.c:      xs[i*sstr+1] = x0[1] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests.c:      xs[i*sstr+2] = x0[2] + g_random_double_range(-r, r) ;
+tests/wbfmm-tests.c:	q [i*qstr+j] = g_random_double_range(-1, 1) ;
+tests/wbfmm-tests.c:    xf[1*fstr+0] = x0[0] - 3.0 ;
+tests/wbfmm-tests.c:    iy[0] = 0.0 ; iy[1] = -1.0/sqrt(2.0) ; iy[2] = 1.0/sqrt(2.0) ;
+tests/wbfmm-tree-calc-float.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-tree-calc-float.c:  k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+tests/wbfmm-tree-calc-float.c:	      "  -B use backward shift algorithm\n"
+tests/wbfmm-tree-calc-float.c:	      "  -b fit octree box to sources\n"
+tests/wbfmm-tree-calc-float.c:	      "  -c write the library configuration to stderr and exit\n"
+tests/wbfmm-tree-calc-float.c:	      "  -d # depth of octree (%d)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -D # width of octree (%g)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -f (field point name)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-tree-calc-float.c:	      "  -i increment of order with level (%d)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -k # wavenumber (%g)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -O #,#,# origin of octree (%g,%g,%g)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -R # order of regular expansions at leaf level (%u)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -S # order of singular expansions at leaf level (%u)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -s (source file name)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -T # (number of threads)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -t # tolerance (%g)\n"
+tests/wbfmm-tree-calc-float.c:	      "  -w write source data to stdout\n",
+tests/wbfmm-tree-calc-float.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-tree-calc-float.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-tree-calc-float.c:    xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
+tests/wbfmm-tree-calc-float.c:    for ( i = depth-1 ; i > 0 ; i -- ) {
+tests/wbfmm-tree-calc-float.c:					       order[2*(level-1)+0], 
+tests/wbfmm-tree-calc-float.c:  for ( level = depth ; level >= 3 ; level -- ) 
+tests/wbfmm-tree-calc.c:/* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
+tests/wbfmm-tree-calc.c:  k = 1.0 ; D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
+tests/wbfmm-tree-calc.c:	      "  -B use backward shift algorithm\n"
+tests/wbfmm-tree-calc.c:	      "  -b fit octree box to sources\n"
+tests/wbfmm-tree-calc.c:	      "  -c write the library configuration to stderr and exit\n"
+tests/wbfmm-tree-calc.c:	      "  -d # depth of octree (%d)\n"
+tests/wbfmm-tree-calc.c:	      "  -D # width of octree (%lg)\n"
+tests/wbfmm-tree-calc.c:	      "  -f (field point name)\n"
+tests/wbfmm-tree-calc.c:	      "  -g calculate gradient of field\n"
+tests/wbfmm-tree-calc.c:	      "  -i increment of order with level (%d)\n"
+tests/wbfmm-tree-calc.c:	      "  -k # wavenumber (%lg)\n"
+tests/wbfmm-tree-calc.c:	      "  -O #,#,# origin of octree (%lg,%lg,%lg)\n"
+tests/wbfmm-tree-calc.c:	      "  -R # order of regular expansions at leaf level (%u)\n"
+tests/wbfmm-tree-calc.c:	      "  -S # order of singular expansions at leaf level (%u)\n"
+tests/wbfmm-tree-calc.c:	      "  -s (source file name)\n"
+tests/wbfmm-tree-calc.c:	      "  -T # (number of threads)\n"
+tests/wbfmm-tree-calc.c:	      "  -t # tolerance (%lg)\n"
+tests/wbfmm-tree-calc.c:	      "  -w write source data to stdout\n",
+tests/wbfmm-tree-calc.c:    fprintf(stderr, "%s: source list must be specified (-s)\n",
+tests/wbfmm-tree-calc.c:    fprintf(stderr, "%s: field point list must be specified (-f)\n",
+tests/wbfmm-tree-calc.c:    xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
+tests/wbfmm-tree-calc.c:    for ( i = depth-1 ; i > 0 ; i -- ) {
+tests/wbfmm-tree-calc.c:					       order[2*(level-1)+0], 
+tests/wbfmm-tree-calc.c:  for ( level = depth ; level >= 3 ; level -- ) 

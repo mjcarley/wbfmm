@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019 Michael Carley
+ * Copyright (C) 2019, 2024 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -27,11 +27,6 @@
 #include <wbfmm.h>
 
 #include "wbfmm-private.h"
-
-/* WBFMM_REAL *_wbfmm_SS_coefficients_laplace = NULL, */
-/*   *_wbfmm_RR_coefficients_laplace = NULL, */
-/*   *_wbfmm_SR_coefficients_laplace = NULL ; */
-/* gint _wbfmm_translation_Nmax = 0 ; */
 
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
 						       WBFMM_REAL *x0,
@@ -1000,9 +995,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 							     WBFMM_REAL *src,
 							     gint sstr,
 							     WBFMM_REAL
-							     *normals,
-							     gint nstr,
-							     WBFMM_REAL
 							     *dipoles,
 							     gint dstr,
 							     gboolean
@@ -1037,14 +1029,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
 
   boxes = t->boxes[d] ;
 
-  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
-
-  if ( normals != NULL && dipoles == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
+  if ( src == NULL && dipoles == NULL ) return 0 ;
+  if ( t->normals == NULL && dipoles != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(dipoles != NULL)",
 	    __FUNCTION__) ;
   }
 
-  if ( normals == NULL && dipoles == NULL ) {
+  /* if ( normals == NULL && dipoles == NULL ) { */
+  if ( dipoles == NULL ) {
     /* monopoles only */
     for ( i = 0 ; i < nb ; i ++ ) {
       im = (guint64)i ;
@@ -1067,7 +1060,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  if ( src == NULL && normals != NULL ) {
+  if ( src == NULL && dipoles != NULL ) {
     /* dipoles only */
     WBFMM_REAL *normal ;
     for ( i = 0 ; i < nb ; i ++ ) {
@@ -1081,7 +1074,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
       for ( j = 0 ; j < boxes[i].n ; j ++ ) {
 	idx = t->ip[boxes[i].i+j] ;
 	xs = wbfmm_tree_point_index(t,idx) ;
-	normal = &(normals[nstr*idx]) ;
+	/* normal = &(normals[nstr*idx]) ; */
+	normal = wbfmm_tree_normal_index(t,idx) ;
 	q = &(dipoles[idx*dstr]) ;
 	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(ns, xb, xs,
 								 normal, q,
@@ -1095,7 +1089,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
     return 0 ;
   }  
 
-  if ( src != NULL && normals != NULL ) {
+  if ( src != NULL && dipoles != NULL ) {
     /* sources and dipoles */
     WBFMM_REAL *normal ;
     for ( i = 0 ; i < nb ; i ++ ) {
@@ -1109,7 +1103,8 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
       for ( j = 0 ; j < boxes[i].n ; j ++ ) {
 	idx = t->ip[boxes[i].i+j] ;
 	xs = wbfmm_tree_point_index(t,idx) ;
-	normal = &(normals[nstr*idx]) ;
+	/* normal = &(normals[nstr*idx]) ; */
+	normal = wbfmm_tree_normal_index(t,idx) ;
 	q = &(dipoles[idx*dstr]) ;
 	WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(ns, xb, xs,
 								 normal, q,
@@ -1133,34 +1128,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_leaf_expansions)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_fields)(wbfmm_tree_t *t,
-						   gint level,
-						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field,
-						   WBFMM_REAL *work)
-
-{
-  gint nbox, i, nq ;
-  WBFMM_REAL xb[3], wb ;
-  wbfmm_box_t *boxes ;
-
-  nq = wbfmm_tree_source_size(t) ;
-  nbox = 1 << 3*level ;
-  
-  boxes = t->boxes[level  ] ;
-  memset(field, 0, nq*sizeof(WBFMM_REAL)) ;
-  
-  for ( i = 0 ; i < nbox ; i ++ ) {
-    WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, i, xb, &wb) ;
-    WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(xb, boxes[i].mps,
-							  8*nq,
-							  t->order_s[level],
-							  nq, xf, field, work) ;
-  }
-  
- return 0 ;
-}
-
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 							     guint level,
 							     guint b,
@@ -1168,9 +1135,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 							     WBFMM_REAL *f,
 							     WBFMM_REAL *src,
 							     gint sstr,
-							     WBFMM_REAL
-							     *normals,
-							     gint nstr,
 							     WBFMM_REAL *d,
 							     gint dstr,
 							     gboolean
@@ -1198,10 +1162,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 
   if ( !eval_neighbours ) return 0 ;
 
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
-  
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+  if ( src == NULL && d == NULL ) return 0 ;
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
 	    __FUNCTION__) ;
   }
 
@@ -1209,7 +1173,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
 
-  if ( normals == NULL && d == NULL ) {
+  if ( t->normals == NULL && d == NULL ) {
     /* monopoles only */
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
@@ -1230,23 +1194,23 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  if ( src == NULL && normals != NULL ) {
+  if ( src == NULL && t->normals != NULL ) {
     /*dipoles only*/
-    /* g_assert_not_reached() ; */
-    WBFMM_REAL th, ph, nr ;
+    WBFMM_REAL th, ph, nr, *normal ;
     
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
       for ( j = 0 ; j < box.n ; j ++ ) {
 	idx = t->ip[box.i+j] ;
 	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
 
 	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
 	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  nr =
-	    (x[0] - xs[0])*normals[idx*nstr+0] +
-	    (x[1] - xs[1])*normals[idx*nstr+1] + 
-	    (x[2] - xs[2])*normals[idx*nstr+2] ;
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
 	  nr /= 4.0*M_PI*r*r*r ;
 	  for ( k = 0 ; k < nq ; k ++ ) f[k] += d[idx*dstr+k]*nr ;
 	}
@@ -1257,18 +1221,17 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
     return 0 ;
   }
   
-  if ( src != NULL && normals != NULL ) {
+  if ( src != NULL && t->normals != NULL ) {
     /*sources and dipoles*/
-    /* WBFMM_REAL th, ph, nr, g ; */
-    WBFMM_REAL rr[3], nr, g ;
+    WBFMM_REAL rr[3], nr, g, *normal ;
     
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
       for ( j = 0 ; j < box.n ; j ++ ) {
 	idx = t->ip[box.i+j] ;
 	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
 
-	/* WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ; */
 	rr[0] = x[0] - xs[0] ; 
 	rr[1] = x[1] - xs[1] ; 
 	rr[2] = x[2] - xs[2] ;
@@ -1276,15 +1239,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r) ;
 	  nr =
-	    rr[0]*normals[idx*nstr+0] + 
-	    rr[1]*normals[idx*nstr+1] + 
-	    rr[2]*normals[idx*nstr+2] ;
-	    /* (x[0] - xs[0])*normals[idx*nstr+0] + */
-	    /* (x[1] - xs[1])*normals[idx*nstr+1] +  */
-	    /* (x[2] - xs[2])*normals[idx*nstr+2] ; */
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
 	  g = 0.25*M_1_PI/r ;
-	  /* nr /= 4.0*M_PI*r*r*r ; */
-	  /* nr *= g/r/r ; /\* 4.0*M_PI*r*r*r ; *\/ */
 	  for ( k = 0 ; k < nq ; k ++ ) {
 	    f[k] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
 	  }
@@ -1684,3 +1642,53 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_apply)(WBFMM_REAL *C,
   return 0 ;
 }
 
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
+						  guint level, guint b,
+						  WBFMM_REAL *src, gint sstr,
+						  WBFMM_REAL *d, gint dstr,
+						  wbfmm_field_t field,
+						  gboolean eval_neighbours,
+						  WBFMM_REAL *x,
+						  WBFMM_REAL *f,
+						  WBFMM_REAL *work)
+
+{
+  WBFMM_REAL xb[3], wb, *C, *xs, r, nR[3] ;
+  wbfmm_box_t *boxes, box ;
+  guint64 neighbours[27] ;
+  gint nnbr, i, j, k, idx, nq ;
+
+  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+
+  nq = wbfmm_tree_source_size(t) ;
+
+  boxes = t->boxes[level] ;
+  C = boxes[b].mpr ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(t, level, b,
+							    x, f,
+							    src, sstr,
+							    d, dstr,
+							    eval_neighbours,
+							    work) ;
+    break ;
+  case WBFMM_FIELD_GRADIENT:
+    g_assert_not_reached() ;
+    break ;
+  case WBFMM_FIELD_CURL:
+    g_assert_not_reached() ;
+    break ;
+  case WBFMM_FIELD_CURL_GRADIENT:
+    g_assert_not_reached() ;
+    break ;    
+  }
+  
+  return 0 ;
+}

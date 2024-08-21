@@ -675,8 +675,8 @@ gint wbfmm_tree_laplace_coefficient_init_f(wbfmm_tree_t *t,
 gint wbfmm_tree_laplace_leaf_expansions(wbfmm_tree_t *t,
 					gdouble *src,
 					gint sstr,
-					gdouble *normals,
-					gint nstr,
+					/* gdouble *normals, */
+					/* gint nstr, */
 					gdouble *dipoles,
 					gint dstr,
 					gboolean zero_expansions,
@@ -684,8 +684,8 @@ gint wbfmm_tree_laplace_leaf_expansions(wbfmm_tree_t *t,
 gint wbfmm_tree_laplace_leaf_expansions_f(wbfmm_tree_t *t,
 					  gfloat *src,
 					  gint sstr,
-					  gfloat *normals,
-					  gint nstr,
+					  /* gfloat *normals, */
+					  /* gint nstr, */
 					  gfloat *dipoles,
 					  gint dstr,
 					  gboolean zero_expansions,
@@ -726,8 +726,8 @@ gint wbfmm_tree_laplace_box_local_field(wbfmm_tree_t *t,
 					gdouble *x,
 					gdouble *f,
 					gdouble *src, gint sstr,
-					gdouble *normals,
-					gint nstr,
+					/* gdouble *normals, */
+					/* gint nstr, */
 					gdouble *d, gint dstr,
 					gboolean eval_neighbours,
 					gdouble *work) ;
@@ -737,8 +737,8 @@ gint wbfmm_tree_laplace_box_local_field_f(wbfmm_tree_t *t,
 					  gfloat *x,
 					  gfloat *f,
 					  gfloat *src, gint sstr,
-					  gfloat *normals,
-					  gint nstr,
+					  /* gfloat *normals, */
+					  /* gint nstr, */
 					  gfloat *d, gint dstr,
 					  gboolean eval_neighbours,
 					  gfloat *work) ;
@@ -819,6 +819,18 @@ gint wbfmm_tree_laplace_box_local_curl_grad_f(wbfmm_tree_t *t,
 					      gboolean eval_neighbours,
 					      gfloat *work) ;
 
+gint wbfmm_laplace_box_field(wbfmm_tree_t *t, guint level, guint b,
+			     gdouble *src, gint sstr,
+			     gdouble *d, gint dstr,
+			     wbfmm_field_t field,
+			     gboolean eval_neighbours,
+			     gdouble *x, gdouble *f, gdouble *work) ;
+gint wbfmm_laplace_box_field_f(wbfmm_tree_t *t, guint level, guint b,
+			       gfloat *src, gint sstr,
+			       gfloat *d, gint dstr,
+			       wbfmm_field_t field,
+			       gboolean eval_neighbours,
+			       gfloat *x, gfloat *f, gfloat *work) ;
 
 gint wbfmm_laplace_local_coefficients(gdouble *x, gint N,
 				      guint field, gdouble *cfft,

@@ -412,8 +412,10 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;  
   wbfmm_tree_laplace_leaf_expansions_FLOAT(tree,
-					  q, qstr, normals, nstr, dipoles, dstr,
-					  TRUE, work) ;  
+					   q, qstr,
+					   /* normals, nstr, */
+					   dipoles, dstr,
+					   TRUE, work) ;  
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
@@ -448,7 +450,7 @@ gint main(gint argc, char **argv)
 	wbfmm_tree_laplace_box_local_field_FLOAT(tree, tree->depth, box,
 						&(xf[i*strf]),
 						&(f[i*fcstr]), q, qstr,
-						normals, nstr,
+						/* normals, nstr, */
 						dipoles, dstr, TRUE, work) ;
       }
       break ;

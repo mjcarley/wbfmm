@@ -681,4 +681,5 @@ gint WBFMM_FUNCTION_NAME(wbfmm_rotate_T)(WBFMM_REAL *Co, gint cstro,
 
   return 0 ;
 }
+
 /* @} */
