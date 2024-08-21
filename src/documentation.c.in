@@ -274,6 +274,8 @@ gint wbfmm_coefficients_SR_coaxial_FLOAT(WBFMM_REAL *cfftSR,
 				       WBFMM_REAL k,
 				       WBFMM_REAL *src,
 				       gint sstr, 
+				       WBFMM_REAL *normals,
+				       gint nstr,
 				       WBFMM_REAL *dipoles,
 				       gint dstr,
 				       gboolean zero_expansions,
@@ -1711,10 +1713,7 @@ gint wbfmm_box_fields_laplace_FLOAT(wbfmm_tree_t *t,
  * @param t octree for problem;
  * @param src monopole source strengths;
  * @param sstr stride of data in \a src;
- * @param normals dipole normals;
- * @param nstr stride of data in \a normals;
- * @param dipoles dipole source strengths (if \a normals is not NULL), or 
- * moment vectors (if \a normals is NULL);
+ * @param dipoles dipole source strengths;
  * @param dstr stride of data in \a dipoles;
  * @param zero_expansions if TRUE, set expansion coefficients to zero
  * before adding source terms;
@@ -1726,8 +1725,6 @@ gint wbfmm_box_fields_laplace_FLOAT(wbfmm_tree_t *t,
 gint wbfmm_tree_laplace_leaf_expansions_FLOAT(wbfmm_tree_t *t,
 					      WBFMM_REAL *src,
 					      gint sstr,
-					      WBFMM_REAL *normals,
-					      gint nstr,
 					      WBFMM_REAL *dipoles,
 					      gint dstr,
 					      gboolean zero_expansions,

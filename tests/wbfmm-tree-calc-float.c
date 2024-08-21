@@ -336,8 +336,11 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: upward pass translation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  wbfmm_tree_add_points_f(tree, (gpointer)xs, pstr, NULL, 0, nsrc,
-			     sort_points) ;
+  wbfmm_tree_add_points_f(tree, (gpointer)xs, pstr,
+			      (gpointer)normals, nstr*sizeof(gfloat),
+			      /* NULL, 0, */
+			      nsrc,
+			      sort_points) ;
 
   for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_f(tree) ;
 
@@ -392,25 +395,25 @@ gint main(gint argc, char **argv)
 
   level = depth ;
 
-  fprintf(stderr, "%s: computing fmm field; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_target_list_local_field_f(targets, q, qstr, NULL, 0, f, fcstr) ;
-  fprintf(stderr, "%s: fmm field computed; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-
-  fprintf(stderr, "%s: computing fmm field; %lg\n",
-	  progname, g_timer_elapsed(timer, NULL)) ;
-
-  /* for ( i = 0 ; i < nf ; i ++ ) { */
-  /*   guint b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ; */
-  /*   wbfmm_tree_box_local_field_f(tree, level, b, k,  */
-  /* 				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr, */
-  /* 				    q, qstr, normals, nstr, dipoles, dstr, */
-  /* 				    TRUE, field, work) ; */
-  /* } */
-
+  /* fprintf(stderr, "%s: computing fmm field; %lg\n", */
+  /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
+  /* wbfmm_target_list_local_field_f(targets, q, qstr, NULL, 0, f, fcstr) ; */
   /* fprintf(stderr, "%s: fmm field computed; %lg\n", */
   /* 	  progname, g_timer_elapsed(timer, NULL)) ; */
+
+  fprintf(stderr, "%s: computing fmm field; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
+
+  for ( i = 0 ; i < nf ; i ++ ) {
+    guint b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ;
+    wbfmm_tree_box_local_field_f(tree, level, b, k,
+				    &(xf[i*fstr]), &(f[fcstr*i]), fcstr,
+				    q, qstr, normals, nstr, dipoles, dstr,
+				    TRUE, field, work) ;
+  }
+
+  fprintf(stderr, "%s: fmm field computed; %lg\n",
+	  progname, g_timer_elapsed(timer, NULL)) ;
 
   for ( i = 0 ; i < nf ; i ++ ) {
     fprintf(stdout, 
