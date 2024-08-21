@@ -106,6 +106,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
   if ( src == NULL && d != NULL ) {
     /* dipoles only, specified as normals and strengths */
     WBFMM_REAL *normal ;
+    g_assert_not_reached() ; /*needs modification for nq > 1*/
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
       for ( j = 0 ; j < box.n ; j ++ ) {
@@ -138,6 +139,8 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 
   if ( src != NULL && d != NULL ) {
     /* mixed monopoles and dipoles specified as normals and strengths */
+    g_assert(sstr >= 2*nq) ; 
+    g_assert(dstr >= 2*nq) ; 
     WBFMM_REAL *normal ;
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = boxes[neighbours[i]] ;
@@ -153,21 +156,18 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	  h0[0] /= 4.0*M_PI ; h0[1] /= 4.0*M_PI ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
-	  fR[0] = (normal[0]*(x[0] - xs[0]) +
-		   normal[1]*(x[1] - xs[1]) +
-		   normal[2]*(x[2] - xs[2]))/r ;
-	  /* fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) + */
-	  /* 	   normals[idx*nstr+1]*(x[1] - xs[1]) + */
-	  /* 	   normals[idx*nstr+2]*(x[2] - xs[2]))/r ; */
-	  fR[1] = d[idx*dstr+1]*fR[0] ; fR[0] *= d[idx*dstr+0] ;
-	  
-	  f[0] += h0[0]*src[idx*sstr+0] - h0[1]*src[idx*sstr+1] ;
-	  f[1] += h0[1]*src[idx*sstr+0] + h0[0]*src[idx*sstr+1] ;
-
-	  /* f[0] += k*(h1[0]*fR[0] - h1[1]*fR[1]) ; */
-	  /* f[1] += k*(h1[0]*fR[1] + h1[1]*fR[0]) ; */
-	  f[0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
-	  f[1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+	  for ( jj = 0 ; jj < nq ; jj ++ ) {
+	    fR[0] = (normal[0]*(x[0] - xs[0]) +
+		     normal[1]*(x[1] - xs[1]) +
+		     normal[2]*(x[2] - xs[2]))/r ;
+	    fR[1] = d[idx*dstr+2*jj+1]*fR[0] ; fR[0] *= d[idx*dstr+2*jj+0] ;
+	    
+	    f[fstr*jj+0] += h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ;
+	    f[fstr*jj+1] += h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ;
+	    
+	    f[fstr*jj+0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
+	    f[fstr*jj+1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
+	  }
 	}
       }
     }

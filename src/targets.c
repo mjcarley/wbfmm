@@ -31,7 +31,6 @@
 
 wbfmm_target_list_t *WBFMM_FUNCTION_NAME(wbfmm_target_list_new)(wbfmm_tree_t *t,
 								guint npts)
-  
 
 {
   wbfmm_target_list_t *l ;

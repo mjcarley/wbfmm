@@ -351,12 +351,14 @@ static gint expansion_dipole_h_increment_cfft(gint N, gint n, gint m, gint sgn,
 					      WBFMM_REAL *Smph,
 					      WBFMM_REAL *fm,
 					      WBFMM_REAL *fp,
-					      WBFMM_REAL *fz)
+					      WBFMM_REAL *fz,
+					      gint nq)
   
 {
   gint idx ;
   WBFMM_REAL Rnm, ab ;
-
+  gint j ;
+  
   if ( n >= N ) return 0 ;
   
   Rnm = jn*Pn[m] ;
@@ -364,38 +366,98 @@ static gint expansion_dipole_h_increment_cfft(gint N, gint n, gint m, gint sgn,
   /*S_{n-1}^{m+1}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m+1) ;
   ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, sgn*m) ;
-  cfft[2*idx*cstr+0] -= ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] -= ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ;
-
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] -= ab*Rnm*(fm[2*j+0]*Cmph[m] +
+				      sgn*fm[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] -= ab*Rnm*(fm[2*j+1]*Cmph[m] -
+				      sgn*fm[2*j+0]*Smph[m]) ;
+  }
+  
   /*S_{n-1}^{m-1}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m-1) ;
   ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, -sgn*m) ;
-  cfft[2*idx*cstr+0] -= ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] -= ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ;
-
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] -= ab*Rnm*(fp[2*j+0]*Cmph[m] +
+				      sgn*fp[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] -= ab*Rnm*(fp[2*j+1]*Cmph[m] -
+				      sgn*fp[2*j+0]*Smph[m]) ;
+  }
+  
   /*S_{n-1}^{m}*/
   idx = wbfmm_coefficient_index_nm(n-1,sgn*m) ;
   ab = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, sgn*m) ;
-  cfft[2*idx*cstr+0] += ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] += ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ;
-
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] += ab*Rnm*(fz[2*j+0]*Cmph[m] +
+				      sgn*fz[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] += ab*Rnm*(fz[2*j+1]*Cmph[m] -
+				      sgn*fz[2*j+0]*Smph[m]) ;
+  }
+  
   /*S_{n+1}^{m+1}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m+1) ;
   ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1) ;
-  cfft[2*idx*cstr+0] += ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] += ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ;
-
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] += ab*Rnm*(fm[2*j+0]*Cmph[m] +
+				      sgn*fm[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] += ab*Rnm*(fm[2*j+1]*Cmph[m] -
+				      sgn*fm[2*j+0]*Smph[m]) ;
+  }
+  
   /*S_{n+1}^{m-1}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m-1) ;
   ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, sgn*m-1) ;
-  cfft[2*idx*cstr+0] += ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] += ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ;
-
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] += ab*Rnm*(fp[2*j+0]*Cmph[m] +
+				      sgn*fp[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] += ab*Rnm*(fp[2*j+1]*Cmph[m] -
+				      sgn*fp[2*j+0]*Smph[m]) ;
+  }
+  
   /*S_{n+1}^{m}*/
   idx = wbfmm_coefficient_index_nm(n+1,sgn*m) ;
   ab = WBFMM_FUNCTION_NAME(recursion_anm)(n, sgn*m) ;
-  cfft[2*idx*cstr+0] -= ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ;
-  cfft[2*idx*cstr+1] -= ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ;
+  for ( j = 0 ; j < nq ; j ++ ) {
+    cfft[2*idx*cstr+2*j+0] -= ab*Rnm*(fz[2*j+0]*Cmph[m] +
+				      sgn*fz[2*j+1]*Smph[m]) ;
+    cfft[2*idx*cstr+2*j+1] -= ab*Rnm*(fz[2*j+1]*Cmph[m] -
+				      sgn*fz[2*j+0]*Smph[m]) ;
+  }
+  
+  /* /\*S_{n-1}^{m+1}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n-1,sgn*m+1) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, sgn*m) ; */
+  /* cfft[2*idx*cstr+0] -= ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] -= ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ; */
+
+  /* /\*S_{n-1}^{m-1}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n-1,sgn*m-1) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n, -sgn*m) ; */
+  /* cfft[2*idx*cstr+0] -= ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] -= ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ; */
+
+  /* /\*S_{n-1}^{m}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n-1,sgn*m) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_anm)(n-1, sgn*m) ; */
+  /* cfft[2*idx*cstr+0] += ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] += ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ; */
+
+  /* /\*S_{n+1}^{m+1}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n+1,sgn*m+1) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, -sgn*m-1) ; */
+  /* cfft[2*idx*cstr+0] += ab*Rnm*(fm[0]*Cmph[m] + sgn*fm[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] += ab*Rnm*(fm[1]*Cmph[m] - sgn*fm[0]*Smph[m]) ; */
+
+  /* /\*S_{n+1}^{m-1}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n+1,sgn*m-1) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_bnm)(n+1, sgn*m-1) ; */
+  /* cfft[2*idx*cstr+0] += ab*Rnm*(fp[0]*Cmph[m] + sgn*fp[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] += ab*Rnm*(fp[1]*Cmph[m] - sgn*fp[0]*Smph[m]) ; */
+
+  /* /\*S_{n+1}^{m}*\/ */
+  /* idx = wbfmm_coefficient_index_nm(n+1,sgn*m) ; */
+  /* ab = WBFMM_FUNCTION_NAME(recursion_anm)(n, sgn*m) ; */
+  /* cfft[2*idx*cstr+0] -= ab*Rnm*(fz[0]*Cmph[m] + sgn*fz[1]*Smph[m]) ; */
+  /* cfft[2*idx*cstr+1] -= ab*Rnm*(fz[1]*Cmph[m] - sgn*fz[0]*Smph[m]) ; */
   
   return 0 ;
 }
@@ -445,18 +507,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
   n = 0 ; 
   m = 0 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jnm1, cfft, cstr, Pnm1,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   n = 1 ; 
   m = 0 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   m = 1 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   expansion_dipole_h_increment_cfft(N, n, m, -1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
@@ -467,13 +529,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_dipole_h_cfft)(WBFMM_REAL k, gint N,
     
     m = 0 ; 
     expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				      Cmph, Smph, fm, fp, fz) ;
+				      Cmph, Smph, fm, fp, fz, nq) ;
     
     for ( m = 1 ; m <= n ; m ++ ) {
       expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-					Cmph, Smph, fm, fp, fz) ;
+					Cmph, Smph, fm, fp, fz, nq) ;
       expansion_dipole_h_increment_cfft(N, n, m, -1, jn, cfft, cstr, Pn,
-					Cmph, Smph, fm, fp, fz) ;
+					Cmph, Smph, fm, fp, fz, nq) ;
     }
   }
 
@@ -495,19 +557,27 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
 */
 
 {
-  WBFMM_REAL jn, jnm1, r, th, ph, kr, fm[2], fp[2], fz[2] ;
+  WBFMM_REAL jn, jnm1, r, th, ph, kr, fm[32], fp[32], fz[32] ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, Cmph[64], Smph[64] ;
-  gint n, m ;
+  gint n, m, j ;
 
-  g_assert(nq == 1) ;
+  /* g_assert(nq == 1) ; */
   /*G&D (2.17) combined with derivatives (3.2)--(3.7)*/
-
+  g_assert(nq < 16) ;
+  
   /*f_{\pm} = (k/2) \mathbf{f}.(i_{x} \pm j i_{y})*/
-  fm[0] = 0.5*k*(q[0]*normal[0] + q[1]*normal[1]) ;
-  fm[1] = 0.5*k*(q[1]*normal[0] - q[0]*normal[1]) ;
-  fp[0] = 0.5*k*(q[0]*normal[0] - q[1]*normal[1]) ;
-  fp[1] = 0.5*k*(q[1]*normal[0] + q[0]*normal[1]) ;
-  fz[0] = k*q[0]*normal[2] ; fz[1] = k*q[1]*normal[2] ;
+  /* fm[0] = 0.5*k*(q[0]*normal[0] + q[1]*normal[1]) ; */
+  /* fm[1] = 0.5*k*(q[1]*normal[0] - q[0]*normal[1]) ; */
+  /* fp[0] = 0.5*k*(q[0]*normal[0] - q[1]*normal[1]) ; */
+  /* fp[1] = 0.5*k*(q[1]*normal[0] + q[0]*normal[1]) ; */
+  /* fz[0] = k*q[0]*normal[2] ; fz[1] = k*q[1]*normal[2] ; */
+  for ( j = 0 ; j < nq ; j ++ ) {
+    fm[2*j+0] = 0.5*k*(q[2*j+0]*normal[0] + q[2*j+1]*normal[1]) ;
+    fm[2*j+1] = 0.5*k*(q[2*j+1]*normal[0] - q[2*j+0]*normal[1]) ;
+    fp[2*j+0] = 0.5*k*(q[2*j+0]*normal[0] - q[2*j+1]*normal[1]) ;
+    fp[2*j+1] = 0.5*k*(q[2*j+1]*normal[0] + q[2*j+0]*normal[1]) ;
+    fz[2*j+0] = k*q[2*j+0]*normal[2] ; fz[2*j+1] = k*q[2*j+1]*normal[2] ;
+  }
   
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[2*(2*N+1)]) ;
 
@@ -525,18 +595,18 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
   n = 0 ; 
   m = 0 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jnm1, cfft, cstr, Pnm1,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   n = 1 ; 
   m = 0 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   m = 1 ; 
   expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   expansion_dipole_h_increment_cfft(N, n, m, -1, jn, cfft, cstr, Pn,
-				    Cmph, Smph, fm, fp, fz) ;
+				    Cmph, Smph, fm, fp, fz, nq) ;
   
   for ( n = 2 ; n <= N ; n ++ ) {
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn, n-1,
@@ -547,13 +617,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(WBFMM_REAL k, gint N,
     
     m = 0 ; 
     expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-				      Cmph, Smph, fm, fp, fz) ;
+				      Cmph, Smph, fm, fp, fz, nq) ;
     
     for ( m = 1 ; m <= n ; m ++ ) {
       expansion_dipole_h_increment_cfft(N, n, m,  1, jn, cfft, cstr, Pn,
-					Cmph, Smph, fm, fp, fz) ;
+					Cmph, Smph, fm, fp, fz, nq) ;
       expansion_dipole_h_increment_cfft(N, n, m, -1, jn, cfft, cstr, Pn,
-					Cmph, Smph, fm, fp, fz) ;
+					Cmph, Smph, fm, fp, fz, nq) ;
     }
   }
 

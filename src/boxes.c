@@ -424,10 +424,10 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_leaf_expansions)(wbfmm_tree_t *t,
 	/* n  = &(normals[idx*nstr]) ; */
 	WBFMM_FUNCTION_NAME(wbfmm_expansion_normal_h_cfft)(k, ns, xb, xs,
 							   n, fd, nq,
-							   boxes[i].mps, 8,
+							   boxes[i].mps, 8*nq,
 							   work) ;
 	WBFMM_FUNCTION_NAME(wbfmm_expansion_h_cfft)(k, ns, xb, xs, q, nq,
-						    boxes[i].mps, 8, work) ;
+						    boxes[i].mps, 8*nq, work) ;
       }
     }
 
