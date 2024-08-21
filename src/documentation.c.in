@@ -2103,8 +2103,6 @@ wbfmm_laplace_expansion_local_curl_evaluate_FLOAT(WBFMM_REAL *x0,
  * @param fstr stride in \a f;
  * @param src input source terms;
  * @param sstr stride in \a src;
- * @param normals normals for direction of vector sources;
- * @param nstr stride in \a normals;
  * @param d dipole strengths for vector sources;
  * @param dstr stride in \a d;
  * @param eval_neighbours if TRUE, add direct contribution from sources
@@ -2123,9 +2121,6 @@ wbfmm_tree_laplace_box_local_curl_FLOAT(wbfmm_tree_t *t,
 					gint fstr,
 					WBFMM_REAL *src,
 					gint sstr,
-					WBFMM_REAL
-					*normals,
-					gint nstr,
 					WBFMM_REAL *d,
 					gint dstr,
 					gboolean

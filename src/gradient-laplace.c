@@ -623,9 +623,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_grad)(wbfmm_tree_t *t,
 							    gint fstr,
 							    WBFMM_REAL *src,
 							    gint sstr,
-							    /* WBFMM_REAL */
-							    /* *normals, */
-							    /* gint nstr, */
 							    WBFMM_REAL *d,
 							    gint dstr,
 							    gboolean
