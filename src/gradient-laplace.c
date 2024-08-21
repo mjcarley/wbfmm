@@ -323,7 +323,7 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
   WBFMM_REAL *Cmph, *Smph ;
   WBFMM_REAL dRnm[6] ;
-  gint n, m, idx, i ;
+  gint n, m, idx, i, i1 = 1, i2 = 2, i3 = 3 ;
 
   if ( fstr < 3 )
     g_error("%s: field data stride (%d) must be greater than two",
@@ -364,14 +364,15 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 
   Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
   for ( i = 0 ; i < nq ; i ++ ) {
-    cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
+    cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
 
-    field[fstr*i+0] +=
-      dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
-    field[fstr*i+1] +=
-      dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
-    field[fstr*i+2] +=
-      dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_saxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_daxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
   }
   
   for ( n = 2 ; n <= N ; n ++ ) {
@@ -388,12 +389,11 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
     for ( i = 0 ; i < nq ; i ++ ) {
       cr = cfft[cstr*idx+i] ;
 
-      field[fstr*i+0] += dRnm[WBFMM_DERIVATIVE_X_R]*cr ;
-      field[fstr*i+1] += dRnm[WBFMM_DERIVATIVE_Y_R]*cr ;
-      field[fstr*i+2] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
-      /* field[fstr*i+0] += ddxr*cr ; */
-      /* field[fstr*i+1] += ddyr*cr ; */
-      /* field[fstr*i+2] += ddzr*cr ; */
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
     }
 
     for ( m = 1 ; m <= n ; m ++ ) {
@@ -401,14 +401,15 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad_evaluate)(WBFMM_REAL *x0,
 
       Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
       for ( i = 0 ; i < nq ; i ++ ) {
-	cr = cfft[cstr*(idx+0)+i] ; ci = cfft[cstr*(idx+1)+i] ;
+	cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
 
-	field[fstr*i+0] +=
-	  dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
-	field[fstr*i+1] +=
-	  dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
-	field[fstr*i+2] +=
-	  dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_saxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_daxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
       }
     }
   }

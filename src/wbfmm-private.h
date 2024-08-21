@@ -72,29 +72,43 @@
 #define _wbfmm_SS_coefficient_index_nmnu(_n,_m,_nu)	\
   ((_n)*((_n)+2)*((_n)+1)/6 + (_m)*(2*(_n)-(_m)+1)/2 + (_nu))
 
+/*
+ * translation coefficients are packed in arrays with
+ * precision-dependent names so the corresponding macros need slightly
+ * different definitions
+ * 
+*/
+#ifdef WBFMM_SINGLE_PRECISION
 #define wbfmm_coaxial_translation_SS_cfft(_n, _nd, _m)	\
-  (_wbfmm_SS_coefficients_laplace[_wbfmm_SS_coefficient_index_nmnu((_n),(_m),(_nd))])
+  (_wbfmm_SS_coefficients_laplace_f			\
+   [_wbfmm_SS_coefficient_index_nmnu((_n),(_m),(_nd))])
+#define wbfmm_coaxial_translation_RR_cfft(_n, _nd, _m)	\
+  (_wbfmm_RR_coefficients_laplace_f			\
+   [_wbfmm_RR_coefficient_index_nmnu((_n),(_m),(_nd))])
+#define wbfmm_coaxial_translation_SR_cfft(_n, _nd, _m)	\
+  (_wbfmm_SR_coefficients_laplace_f			\
+   [_wbfmm_SR_coefficient_index_nmnu((_n),(_m),(_nd))])
+#else  /*WBFMM_SINGLE_PRECISION*/
+#define wbfmm_coaxial_translation_SS_cfft(_n, _nd, _m)	\
+  (_wbfmm_SS_coefficients_laplace			\
+   [_wbfmm_SS_coefficient_index_nmnu((_n),(_m),(_nd))])
+#define wbfmm_coaxial_translation_RR_cfft(_n, _nd, _m)	\
+  (_wbfmm_RR_coefficients_laplace			\
+   [_wbfmm_RR_coefficient_index_nmnu((_n),(_m),(_nd))])
+#define wbfmm_coaxial_translation_SR_cfft(_n, _nd, _m)	\
+  (_wbfmm_SR_coefficients_laplace			\
+   [_wbfmm_SR_coefficient_index_nmnu((_n),(_m),(_nd))])
+#endif /*WBFMM_SINGLE_PRECISION*/
 
 #define _wbfmm_RR_coefficient_index_nmnu(_n,_m,_nu)		    \
   ((_wbfmm_translation_Nmax+1)*(_wbfmm_translation_Nmax+2)/2*(_m) + \
    (_nu)*((_nu)+1)/2 + (_n))
-
-#define wbfmm_coaxial_translation_RR_cfft(_n, _nd, _m)	\
-  (_wbfmm_RR_coefficients_laplace[_wbfmm_RR_coefficient_index_nmnu((_n),(_m),(_nd))])
 
 #define _wbfmm_SR_coefficient_index_nmnu(_n,_m,_nu)			\
   ((6*(_wbfmm_translation_Nmax+1)*					\
     (_wbfmm_translation_Nmax+2)+1-2*(_m)*(2*_wbfmm_translation_Nmax+3)+	\
     2*(_m)*(_m))*(_m)/6 +						\
    ((_n)-(_m))*(_wbfmm_translation_Nmax+1-(_m)) - (_m) + (_nu))
-#define wbfmm_coaxial_translation_SR_cfft(_n, _nd, _m)	\
-  (_wbfmm_SR_coefficients_laplace[_wbfmm_SR_coefficient_index_nmnu((_n),(_m),(_nd))])
-  
-/* extern WBFMM_REAL *_wbfmm_SS_coefficients_laplace, */
-/*   *_wbfmm_RR_coefficients_laplace, *_wbfmm_SR_coefficients_laplace ; */
-/* extern gint _wbfmm_translation_Nmax ; */
-/* extern gint _wbfmm_shift_angles[] ; */
-/* extern WBFMM_REAL _wbfmm_shifts_ph[], _wbfmm_shifts_ch[], _wbfmm_shifts_r[] ; */
 
 #define WBFMM_SHIFTS_R_NUMBER 15
 
