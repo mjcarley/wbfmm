@@ -7,6 +7,7 @@
 *.o
 *.lo
 *.so
+.libs
 
 ## don't include emacs backups
 *~
