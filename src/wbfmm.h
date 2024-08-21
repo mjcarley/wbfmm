@@ -749,8 +749,8 @@ gint wbfmm_tree_laplace_box_local_grad(wbfmm_tree_t *t,
 				       gdouble *f,
 				       gint fstr,
 				       gdouble *src, gint sstr,
-				       gdouble *normals,
-				       gint nstr,
+				       /* gdouble *normals, */
+				       /* gint nstr, */
 				       gdouble *d, gint dstr,
 				       gboolean eval_neighbours,
 				       gdouble *work) ;
@@ -761,8 +761,8 @@ gint wbfmm_tree_laplace_box_local_grad_f(wbfmm_tree_t *t,
 					 gfloat *f,
 					 gint fstr,
 					 gfloat *src, gint sstr,
-					 gfloat *normals,
-					 gint nstr,
+					 /* gfloat *normals, */
+					 /* gint nstr, */
 					 gfloat *d, gint dstr,
 					 gboolean eval_neighbours,
 					 gfloat *work) ;
@@ -773,8 +773,8 @@ gint wbfmm_tree_laplace_box_local_curl(wbfmm_tree_t *t,
 				       gdouble *f,
 				       gint fstr,
 				       gdouble *src, gint sstr,
-				       gdouble *normals,
-				       gint nstr,
+				       /* gdouble *normals, */
+				       /* gint nstr, */
 				       gdouble *d, gint dstr,
 				       gboolean eval_neighbours,
 				       gdouble *work) ;
@@ -785,8 +785,8 @@ gint wbfmm_tree_laplace_box_local_curl_f(wbfmm_tree_t *t,
 					 gfloat *f,
 					 gint fstr,
 					 gfloat *src, gint sstr,
-					 gfloat *normals,
-					 gint nstr,
+					 /* gfloat *normals, */
+					 /* gint nstr, */
 					 gfloat *d, gint dstr,
 					 gboolean eval_neighbours,
 					 gfloat *work) ;

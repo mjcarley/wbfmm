@@ -461,7 +461,7 @@ gint main(gint argc, char **argv)
 	wbfmm_tree_laplace_box_local_grad_FLOAT(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
-					       normals, nstr,
+					       /* normals, nstr, */
 					       dipoles, dstr, TRUE, work) ;
       }
       break ;
@@ -472,7 +472,7 @@ gint main(gint argc, char **argv)
 	wbfmm_tree_laplace_box_local_curl_FLOAT(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
-					       normals, nstr,
+					       /* normals, nstr, */
 					       dipoles, dstr, TRUE, work) ;
       }
       break ;

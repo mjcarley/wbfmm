@@ -3,8 +3,8 @@
 BIN=../tests
 
 ##sfile=monopoles.dat
-##sfile=curl.dat
-sfile=dipoles.dat
+sfile=curl.dat
+##sfile=dipoles.dat
 ffile=field.dat
 dfile=direct.dat
 fmmfile=fmm.dat
@@ -17,12 +17,11 @@ order_r=16
 order_s=16
 targets=
 #-l
-curl=
-##-c
+curl=-c
 sort=
 #-p
 
-##${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
+${BIN}/wbfmm-laplace-direct-calc ${curl} -f ${ffile} -s ${sfile} > ${dfile}
 
 ${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \

@@ -576,9 +576,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
 							    gint fstr,
 							    WBFMM_REAL *src,
 							    gint sstr,
-							    WBFMM_REAL
-							    *normals,
-							    gint nstr,
+							    /* WBFMM_REAL */
+							    /* *normals, */
+							    /* gint nstr, */
 							    WBFMM_REAL *d,
 							    gint dstr,
 							    gboolean
@@ -608,10 +608,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
   
   if ( !eval_neighbours ) return 0 ;
 
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
+  if ( src == NULL && d == NULL ) return 0 ;
   
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
 	    __FUNCTION__) ;
   }
 
@@ -619,7 +620,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
   g_assert(nnbr >= 0 && nnbr < 28) ;
 
-  if ( normals == NULL && d == NULL ) {
+  if ( d == NULL ) {
     /* monopoles only */
     if ( t->sorted ) {
       for ( i = 0 ; i < nnbr ; i ++ ) {
@@ -652,87 +653,87 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(wbfmm_tree_t *t,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl_grad)(wbfmm_tree_t *t,
-							    guint level,
-							    guint b,
-							    WBFMM_REAL *x,
-							    WBFMM_REAL *f,
-							    gint fstr,
-							    WBFMM_REAL *src,
-							    gint sstr,
-							    WBFMM_REAL
-							    *normals,
-							    gint nstr,
-							    WBFMM_REAL *d,
-							    gint dstr,
-							    gboolean
-							    eval_neighbours,
-							    WBFMM_REAL *work)
+/* gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl_grad)(wbfmm_tree_t *t, */
+/* 							    guint level, */
+/* 							    guint b, */
+/* 							    WBFMM_REAL *x, */
+/* 							    WBFMM_REAL *f, */
+/* 							    gint fstr, */
+/* 							    WBFMM_REAL *src, */
+/* 							    gint sstr, */
+/* 							    /\* WBFMM_REAL *\/ */
+/* 							    /\* *normals, *\/ */
+/* 							    /\* gint nstr, *\/ */
+/* 							    WBFMM_REAL *d, */
+/* 							    gint dstr, */
+/* 							    gboolean */
+/* 							    eval_neighbours, */
+/* 							    WBFMM_REAL *work) */
 
-{
-  WBFMM_REAL xb[3], wb, *C ;
-  wbfmm_box_t *boxes, *box ;
-  guint64 neighbours[27] ;
-  gint nnbr, i, j, nq ;
+/* { */
+/*   WBFMM_REAL xb[3], wb, *C ; */
+/*   wbfmm_box_t *boxes, *box ; */
+/*   guint64 neighbours[27] ; */
+/*   gint nnbr, i, j, nq ; */
 
-  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+/*   g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ; */
 
-  nq = wbfmm_tree_source_size(t) ;
+/*   nq = wbfmm_tree_source_size(t) ; */
 
-  boxes = t->boxes[level] ;
-  C = boxes[b].mpr ;
+/*   boxes = t->boxes[level] ; */
+/*   C = boxes[b].mpr ; */
 
-  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+/*   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ; */
   
-  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(xb, C, 8*nq,
-  								   t->order_r[level],
-  								   nq, x, f,
-  								   fstr,
-  								   work) ;
+/*   WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_curl_evaluate)(xb, C, 8*nq, */
+/*   								   t->order_r[level], */
+/*   								   nq, x, f, */
+/*   								   fstr, */
+/*   								   work) ; */
   
-  if ( !eval_neighbours ) return 0 ;
+/*   if ( !eval_neighbours ) return 0 ; */
 
-  if ( src == NULL && normals == NULL && d == NULL ) return 0 ;
+/*   if ( src == NULL && normals == NULL && d == NULL ) return 0 ; */
   
-  if ( normals != NULL && d == NULL ) {
-    g_error("%s: normals specified but no dipole strengths (d == NULL)",
-	    __FUNCTION__) ;
-  }
+/*   if ( normals != NULL && d == NULL ) { */
+/*     g_error("%s: normals specified but no dipole strengths (d == NULL)", */
+/* 	    __FUNCTION__) ; */
+/*   } */
 
-  /*add the contribution from sources in neighbour boxes*/
-  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
-  g_assert(nnbr >= 0 && nnbr < 28) ;
+/*   /\*add the contribution from sources in neighbour boxes*\/ */
+/*   nnbr = wbfmm_box_neighbours(level, b, neighbours) ; */
+/*   g_assert(nnbr >= 0 && nnbr < 28) ; */
 
-  if ( normals == NULL && d == NULL ) {
-    /* monopoles only */
-    if ( t->sorted ) {
-      for ( i = 0 ; i < nnbr ; i ++ ) {
-	char *y ;
-	gsize ysize = t->pstr ;
-	WBFMM_REAL *sy ;
-	box = &(boxes[neighbours[i]]) ;
-	y = &(t->points[(box->i)*ysize]) ;
-	sy = &(src[(box->i)*sstr]) ;
-	for ( j = 0 ; j < (gint)(box->n)-4 ; j += 4 )
-	  box_curl_evaluate4_sorted(&(y[j*ysize]), ysize,
-				    &(sy[j*sstr]), sstr, x, f) ;
+/*   if ( normals == NULL && d == NULL ) { */
+/*     /\* monopoles only *\/ */
+/*     if ( t->sorted ) { */
+/*       for ( i = 0 ; i < nnbr ; i ++ ) { */
+/* 	char *y ; */
+/* 	gsize ysize = t->pstr ; */
+/* 	WBFMM_REAL *sy ; */
+/* 	box = &(boxes[neighbours[i]]) ; */
+/* 	y = &(t->points[(box->i)*ysize]) ; */
+/* 	sy = &(src[(box->i)*sstr]) ; */
+/* 	for ( j = 0 ; j < (gint)(box->n)-4 ; j += 4 ) */
+/* 	  box_curl_evaluate4_sorted(&(y[j*ysize]), ysize, */
+/* 				    &(sy[j*sstr]), sstr, x, f) ; */
 
-	box_curl_evaluate(t, box->i+j, box->i+box->n, src, sstr, x, f) ;
-      }
-    } else {
-      for ( i = 0 ; i < nnbr ; i ++ ) {
-	box = &(boxes[neighbours[i]]) ;
-	for ( j = 0 ; j < (gint)(box->n)-4 ; j += 4 ) 
-	  box_curl_evaluate4(t, box->i+j, src, sstr, x, f) ;
-	box_curl_evaluate(t, box->i+j, box->i+box->n, src, sstr, x, f) ;      
-      }
-    }
+/* 	box_curl_evaluate(t, box->i+j, box->i+box->n, src, sstr, x, f) ; */
+/*       } */
+/*     } else { */
+/*       for ( i = 0 ; i < nnbr ; i ++ ) { */
+/* 	box = &(boxes[neighbours[i]]) ; */
+/* 	for ( j = 0 ; j < (gint)(box->n)-4 ; j += 4 )  */
+/* 	  box_curl_evaluate4(t, box->i+j, src, sstr, x, f) ; */
+/* 	box_curl_evaluate(t, box->i+j, box->i+box->n, src, sstr, x, f) ;       */
+/*       } */
+/*     } */
 
-    return 0 ;
-  }
+/*     return 0 ; */
+/*   } */
 
-  g_assert_not_reached() ;
+/*   g_assert_not_reached() ; */
   
-  return 0 ;
-}
+/*   return 0 ; */
+/* } */
 
