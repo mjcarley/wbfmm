@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=../tests
+BIN=../tools
 
 ##sfile=monopoles-hh.dat
 ##sfile=curl.dat

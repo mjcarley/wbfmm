@@ -1,10 +1,10 @@
 #!/bin/bash
 
-BIN=../tests
+BIN=../tools
 
 ##sfile=monopoles.dat
 ##sfile=curl.dat
-sfile=dipoles.dat
+sfile=dipoles-hh.dat
 ffile=field.dat
 dfile=direct.dat
 fmmfile=fmm.dat
@@ -28,9 +28,9 @@ ${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
       -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
 
-${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
-      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
-      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+#${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
+#      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
+#      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
 
 ##${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \
