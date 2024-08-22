@@ -19,15 +19,15 @@ targets=
 curl=
 k=1.3
 
-${BIN}/wbfmm-direct-calc ${curl} -k ${k} -f ${ffile} -s ${sfile} > ${dfile}
+##${BIN}/wbfmm-direct-calc ${curl} -k ${k} -f ${ffile} -s ${sfile} > ${dfile}
 
-##${BIN}/wbfmm-tree-calc-avx ${curl}  -k ${k} -b ${bw} -d ${depth} \
-##      -R ${order_r} -S ${order_s} -T ${nthread} \
-##      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
-
-${BIN}/wbfmm-tree-calc ${curl}  -k ${k} -b ${bw} -d ${depth} \
+${BIN}/wbfmm-tree-calc-avx ${curl}  -k ${k} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} \
-      -f ${ffile} -s ${sfile} ${targets} -i 2 > ${fmmfile}
+      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+
+##${BIN}/wbfmm-tree-calc ${curl}  -k ${k} -b ${bw} -d ${depth} \
+##      -R ${order_r} -S ${order_s} -T ${nthread} \
+##      -f ${ffile} -s ${sfile} ${targets} -i 2 > ${fmmfile}
 
 ##${BIN}/wbfmm-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \

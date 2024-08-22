@@ -141,7 +141,7 @@ Makefile
 wbfmm.pc
 src/Makefile
 src/wbfmm-config
-tests/Makefile
+tools/Makefile
 ])
 
 AC_OUTPUT

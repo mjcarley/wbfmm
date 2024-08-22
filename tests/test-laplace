@@ -3,8 +3,8 @@
 BIN=../tests
 
 ##sfile=monopoles.dat
-sfile=curl.dat
-##sfile=dipoles.dat
+##sfile=curl.dat
+sfile=dipoles.dat
 ffile=field.dat
 dfile=direct.dat
 fmmfile=fmm.dat
@@ -17,7 +17,8 @@ order_r=16
 order_s=16
 targets=
 #-l
-curl=-c
+curl=
+#-c
 sort=
 #-p
 

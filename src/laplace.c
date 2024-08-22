@@ -1133,6 +1133,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 							     guint b,
 							     WBFMM_REAL *x,
 							     WBFMM_REAL *f,
+							     gint fstr,
 							     WBFMM_REAL *src,
 							     gint sstr,
 							     WBFMM_REAL *d,
@@ -1185,7 +1186,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
 	  r = SQRT(r)*4.0*M_PI ;
 	  for ( k = 0 ; k < nq ; k ++ ) {
-	    f[k] += src[idx*sstr+k]/r ;
+	    f[k*fstr] += src[idx*sstr+k]/r ;
 	  }
 	}
       }
@@ -1212,7 +1213,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	    (x[1] - xs[1])*normal[1] + 
 	    (x[2] - xs[2])*normal[2] ;
 	  nr /= 4.0*M_PI*r*r*r ;
-	  for ( k = 0 ; k < nq ; k ++ ) f[k] += d[idx*dstr+k]*nr ;
+	  for ( k = 0 ; k < nq ; k ++ ) f[k*fstr] += d[idx*dstr+k]*nr ;
 	}
       }
       
@@ -1244,7 +1245,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(wbfmm_tree_t *t,
 	    (x[2] - xs[2])*normal[2] ;
 	  g = 0.25*M_1_PI/r ;
 	  for ( k = 0 ; k < nq ; k ++ ) {
-	    f[k] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
+	    f[k*fstr] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
 	  }
 	}
       }
@@ -1649,7 +1650,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 						  wbfmm_field_t field,
 						  gboolean eval_neighbours,
 						  WBFMM_REAL *x,
-						  WBFMM_REAL *f,
+						  WBFMM_REAL *f, gint fstr,
 						  WBFMM_REAL *work)
 
 {
@@ -1673,17 +1674,27 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
     break ;
   case WBFMM_FIELD_SCALAR:
     WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(t, level, b,
-							    x, f,
+							    x, f, fstr,
 							    src, sstr,
 							    d, dstr,
 							    eval_neighbours,
 							    work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
-    g_assert_not_reached() ;
+    WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_grad)(t, level, b,
+							   x, f, fstr,
+							   src, sstr,
+							   d, dstr,
+							   eval_neighbours,
+							   work) ;
     break ;
   case WBFMM_FIELD_CURL:
-    g_assert_not_reached() ;
+    WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_curl)(t, level, b,
+							   x, f, fstr,
+							   src, sstr,
+							   d, dstr,
+							   eval_neighbours,
+							   work) ;
     break ;
   case WBFMM_FIELD_CURL_GRADIENT:
     g_assert_not_reached() ;

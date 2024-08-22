@@ -308,8 +308,8 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   guint idx4, idx4f[2], idx4b[2] ;
   guint64 grid[343] = {0} ;
 
-  if ( nq != 1 )
-    g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ;
+  /* if ( nq != 1 ) */
+  /*   g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ; */
   
   /*locate boxes in interaction list*/
   wbfmm_box_interaction_grid_4(level, ip, grid) ;

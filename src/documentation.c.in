@@ -1633,6 +1633,7 @@ gint wbfmm_laplace_local_coefficients_FLOAT(WBFMM_REAL *x,
  * @param b box index at level \a level of \a t;
  * @param x location of evaluation point;
  * @param f on output, field value (not zeroed before evaluation);
+ * @param fstr stride in \a f;
  * @param src source strengths;
  * @param sstr stride of data in \a src;
  * @param d dipole source strengths; 
@@ -1648,7 +1649,7 @@ gint wbfmm_tree_laplace_box_local_field_FLOAT(wbfmm_tree_t *t,
 					      guint level,
 					      guint b,
 					      WBFMM_REAL *x,
-					      WBFMM_REAL *f,
+					      WBFMM_REAL *f, gint fstr,
 					      WBFMM_REAL *src,
 					      gint sstr,
 					      WBFMM_REAL *d,

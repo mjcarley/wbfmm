@@ -6,7 +6,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src tests
+SUBDIRS = src tools
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = wbfmm.pc

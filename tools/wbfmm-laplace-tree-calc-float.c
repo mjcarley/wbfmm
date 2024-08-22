@@ -37,12 +37,12 @@
 GTimer *timer ;
 char *progname ;
 
-gint parse_origin(WBFMM_REAL *x, char *str) ;
+gint parse_origin(gfloat *x, char *str) ;
 gint read_points(char *file,
-		 WBFMM_REAL **xs, gint *xstr,
-		 WBFMM_REAL **q,  gint *qstr, gint *nq,
-		 WBFMM_REAL **n,  gint *nstr, 
-		 WBFMM_REAL **f,  gint *fstr,
+		 gfloat **xs, gint *xstr,
+		 gfloat **q,  gint *qstr, gint *nq,
+		 gfloat **n,  gint *nstr, 
+		 gfloat **f,  gint *fstr,
 		 gint *nsrc) ;
 
 static gint print_longer_help(char *progname)
@@ -66,15 +66,15 @@ static gint print_longer_help(char *progname)
 }
 
 gint read_points(char *file,
-		 WBFMM_REAL **xs, gint *xstr,
-		 WBFMM_REAL **q,  gint *qstr, gint *nq,
-		 WBFMM_REAL **n,  gint *nstr, 
-		 WBFMM_REAL **f,  gint *fstr,
+		 gfloat **xs, gint *xstr,
+		 gfloat **q,  gint *qstr, gint *nq,
+		 gfloat **n,  gint *nstr, 
+		 gfloat **f,  gint *fstr,
 		 gint *nsrc)
 
 {
   FILE *input = stdin ;
-  WBFMM_REAL *s ;
+  gfloat *s ;
   char code[8] ;
   gint i, j, nqt ;
 
@@ -96,11 +96,11 @@ gint read_points(char *file,
 
     *nq = nqt ;
     *xstr = 3 + *nq ;
-    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
 
     for ( i = 0 ; i < *nsrc ; i ++ ) {
       for ( j = 0 ; j < *xstr ; j ++ )
-	fscanf(input, "%FLOATFMT", &(s[(*xstr)*i+j])) ;
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
     }
 
     *q = &(s[3]) ; *qstr = *xstr ;
@@ -116,19 +116,19 @@ gint read_points(char *file,
     *nq = nqt ;
     *xstr = 3 + *nq ;
     *nstr = 3 ;
-    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
-    *n = (WBFMM_REAL *)g_malloc0(3*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
+    *n = (gfloat *)g_malloc0(3*(*nsrc)*sizeof(gfloat)) ;
     *f = &(s[3]) ; *fstr = *xstr ;
 
     for ( i = 0 ; i < *nsrc ; i ++ ) {
       for ( j = 0 ; j < 3 ; j ++ ) {
-	fscanf(input, "%FLOATFMT", &((*xs)[(*xstr)*i+j])) ;
+	fscanf(input, "%g", &((*xs)[(*xstr)*i+j])) ;
       }
       for ( j = 0 ; j < 3 ; j ++ ) {
-	fscanf(input, "%FLOATFMT", &((*n)[(*nstr)*i+j])) ;
+	fscanf(input, "%g", &((*n)[(*nstr)*i+j])) ;
       }
       for ( j = 0 ; j < (*nq) ; j ++ ) {
-	fscanf(input, "%FLOATFMT", &((*f)[(*fstr)*i+j])) ;
+	fscanf(input, "%g", &((*f)[(*fstr)*i+j])) ;
       }
     }
     
@@ -139,11 +139,11 @@ gint read_points(char *file,
 
   if ( strcmp(code, "F") == 0) {
     *xstr = 3 ;
-    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
 
     for ( i = 0 ; i < *nsrc ; i ++ ) {
       for ( j = 0 ; j < *xstr ; j ++ )
-	fscanf(input, "%FLOATFMT", &(s[(*xstr)*i+j])) ;
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
     }
 
     if ( file != NULL ) fclose(input) ;
@@ -160,11 +160,11 @@ gint read_points(char *file,
 
     *nq = nqt ;
     *xstr = 3 + 3 + 2*(*nq) ;
-    s = *xs = (WBFMM_REAL *)g_malloc0((*xstr)*(*nsrc)*sizeof(WBFMM_REAL)) ;
+    s = *xs = (gfloat *)g_malloc0((*xstr)*(*nsrc)*sizeof(gfloat)) ;
 
     for ( i = 0 ; i < *nsrc ; i ++ ) {
       for ( j = 0 ; j < *xstr ; j ++ )
-	fscanf(input, "%FLOATFMT", &(s[(*xstr)*i+j])) ;
+	fscanf(input, "%g", &(s[(*xstr)*i+j])) ;
     }
 
     *q = &(s[3])         ; *qstr = *xstr ;
@@ -181,10 +181,10 @@ gint read_points(char *file,
   return 0 ;
 }
 
-gint parse_origin(WBFMM_REAL *x, char *str)
+gint parse_origin(gfloat *x, char *str)
 
 {
-  sscanf(str, "%FLOATFMT,%FLOATFMT,%FLOATFMT", &(x[0]), &(x[1]), &(x[2])) ;
+  sscanf(str, "%g,%g,%g", &(x[0]), &(x[1]), &(x[2])) ;
   
   return 0 ;
 }
@@ -195,8 +195,8 @@ gint main(gint argc, char **argv)
   wbfmm_tree_t *tree ;
   wbfmm_target_list_t *targets ;
   wbfmm_shift_operators_t *shifts ;
-  WBFMM_REAL D, xtree[3] = {0.0}, xtmax[3], *xs ;
-  WBFMM_REAL del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
+  gfloat D, xtree[3] = {0.0}, xtmax[3], *xs ;
+  gfloat del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr ;
   gint order_inc ;
   gsize pstr, pnstr ;
@@ -245,18 +245,18 @@ gint main(gint argc, char **argv)
 	      "  -b fit octree box to sources\n"
 	      "  -c calculate curl of vector field\n"
 	      "  -d # depth of octree (%d)\n"
-	      "  -D # width of octree (%FLOATFMT)\n"
+	      "  -D # width of octree (%g)\n"
 	      "  -f (field point name)\n"
 	      "  -g calculate gradient of field\n"
 	      "  -i increment of order with level (%d)\n"
 	      "  -l use target lists to calculate field at points\n"
-	      "  -O #,#,# origin of octree (%FLOATFMT,%FLOATFMT,%FLOATFMT)\n"
+	      "  -O #,#,# origin of octree (%g,%g,%g)\n"
 	      "  -p sort source points before generating tree\n"
 	      "  -R # order of regular expansions at leaf level (%u)\n"
 	      "  -S # order of singular expansions at leaf level (%u)\n"
 	      "  -s (source file name)\n"
 	      "  -T # (number of threads)\n"
-	      "  -t # tolerance (%FLOATFMT)\n",
+	      "  -t # tolerance (%g)\n",
 	      progname, depth, D, order_inc, xtree[0], xtree[1], xtree[2],
 	      order_r, order_s, tol) ;
       return 0 ;
@@ -309,25 +309,25 @@ gint main(gint argc, char **argv)
   fcstr = nq ;
   if ( field == WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
   
-  f = (WBFMM_REAL *)g_malloc0(nf*fcstr*sizeof(WBFMM_REAL)) ;
+  f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
   /*fitting the bounding box to the field and source points*/
   if ( fit_box ) {
-    wbfmm_points_origin_width_FLOAT(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
-    wbfmm_points_origin_width_FLOAT(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
+    wbfmm_points_origin_width_f(xs, xstr, nsrc, xtree, xtmax, &D, TRUE) ;
+    wbfmm_points_origin_width_f(xf, strf, nf, xtree, xtmax, &D, FALSE) ;
 
     xtree[0] -= del ; xtree[1] -= del ; xtree[2] -= del ;
     D += 2.0*del ;
   }
 
   /*data strides and tree allocation*/
-  pstr  = xstr*sizeof(WBFMM_REAL) ;
-  pnstr = nstr*sizeof(WBFMM_REAL) ;
-  fstr  = strf*sizeof(WBFMM_REAL) ;
-  tree  = wbfmm_tree_new_FLOAT(xtree, D, 2*nsrc) ;
+  pstr  = xstr*sizeof(gfloat) ;
+  pnstr = nstr*sizeof(gfloat) ;
+  fstr  = strf*sizeof(gfloat) ;
+  tree  = wbfmm_tree_new_f(xtree, D, 2*nsrc) ;
 
   if ( sort_sources ) 
-    wbfmm_tree_sort_points_FLOAT(tree, xs, pstr, nsrc) ;
+    wbfmm_tree_sort_points_f(tree, xs, pstr, nsrc) ;
   
   /*set expansion orders at each level of the tree*/
   if ( order_s != 0 && order_r != 0 ) {
@@ -353,15 +353,15 @@ gint main(gint argc, char **argv)
     Laplace case*/
   sizew = wbfmm_element_number_rotation(2*order_max) ;
   sizew = MAX(sizew, (order_max+1)*(order_max+1)*nq*16) ;
-  work = (WBFMM_REAL *)g_malloc0(2*sizew*sizeof(WBFMM_REAL)) ;
+  work = (gfloat *)g_malloc0(2*sizew*sizeof(gfloat)) ;
 
   fprintf(stderr, "%s: %d elements allocated for workspace\n",
 	  progname, sizew) ;
   
   x = wbfmm_tree_origin(tree) ;
-  fprintf(stderr, "%s: box origin: %FLOATFMT %FLOATFMT %FLOATFMT\n",
+  fprintf(stderr, "%s: box origin: %g %g %g\n",
 	  progname, x[0], x[1], x[2]) ;
-  fprintf(stderr, "%s: box width: %FLOATFMT\n",
+  fprintf(stderr, "%s: box width: %g\n",
 	  progname, wbfmm_tree_width(tree)) ;
   for ( i = 1 ; i <= depth ; i ++ ) {
     fprintf(stderr, "%s: expansion order, level %d: singular %u; regular %u\n",
@@ -370,28 +370,28 @@ gint main(gint argc, char **argv)
   
   fprintf(stderr, "%s: initializing shift rotation operators; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_shift_angle_table_init_FLOAT() ;
-  shifts = wbfmm_shift_operators_new_FLOAT(order_max, shift_bw, work) ;
+  wbfmm_shift_angle_table_init_f() ;
+  shifts = wbfmm_shift_operators_new_f(order_max, shift_bw, work) ;
   fprintf(stderr, "%s: shift rotation operators initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   fprintf(stderr, "%s: initializing coaxial translation coefficients; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
-  wbfmm_laplace_coaxial_translate_init_FLOAT(order_max+2) ;
+  wbfmm_laplace_coaxial_translate_init_f(order_max+2) ;
   fprintf(stderr, "%s: coaxial translation coefficients initialized; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
   /*add source points to the tree and refine to allocate sources to
     leaf boxes*/
-  wbfmm_tree_add_points_FLOAT(tree, (gpointer)xs, pstr, normals, pnstr,
+  wbfmm_tree_add_points_f(tree, (gpointer)xs, pstr, normals, pnstr,
 			     nsrc, sort_sources) ;
-  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_FLOAT(tree) ;
+  for ( i = 0 ; i < depth ; i ++ ) wbfmm_tree_refine_f(tree) ;
   
   /*initialize memory for box coefficients at each level*/
   wbfmm_tree_problem(tree) = WBFMM_PROBLEM_LAPLACE ;
   wbfmm_tree_source_size(tree) = nq ;
   for ( i = 1 ; i <= depth ; i ++ ) {
-    wbfmm_tree_laplace_coefficient_init_FLOAT(tree, i,
+    wbfmm_tree_laplace_coefficient_init_f(tree, i,
 					     order[2*i+1], order[2*i+0]) ;
   }
 
@@ -401,17 +401,17 @@ gint main(gint argc, char **argv)
 	    progname, g_timer_elapsed(timer, NULL)) ;
     if ( q != NULL ) source |= WBFMM_SOURCE_MONOPOLE ;
     if ( normals != NULL ) source |= WBFMM_SOURCE_DIPOLE ;
-    targets = wbfmm_target_list_new_FLOAT(tree, nf) ;
-    wbfmm_target_list_add_points_FLOAT(targets, xf, fstr, nf) ;
+    targets = wbfmm_target_list_new_f(tree, nf) ;
+    wbfmm_target_list_add_points_f(targets, xf, fstr, nf) ;
     wbfmm_target_list_coefficients_init(targets, field) ;
-    wbfmm_laplace_target_list_local_coefficients_FLOAT(targets, source, work) ;
+    wbfmm_laplace_target_list_local_coefficients_f(targets, source, work) ;
     fprintf(stderr, "%s: target point list initialized; %lg\n",
 	    progname, g_timer_elapsed(timer, NULL)) ;
   }
   
   fprintf(stderr, "%s: initializing leaf expansions; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;  
-  wbfmm_tree_laplace_leaf_expansions_FLOAT(tree,
+  wbfmm_tree_laplace_leaf_expansions_f(tree,
 					   q, qstr,
 					   /* normals, nstr, */
 					   dipoles, dstr,
@@ -422,7 +422,7 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: upward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   for ( level = depth ; level >= 3 ; level -- ) {
-    wbfmm_laplace_upward_pass_FLOAT(tree, shifts, level, work) ;
+    wbfmm_laplace_upward_pass_f(tree, shifts, level, work) ;
   }  
   fprintf(stderr, "%s: upward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -430,7 +430,7 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: downward pass; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
   for ( level = 2 ; level <= depth ; level ++ ) {
-    wbfmm_laplace_downward_pass_FLOAT(tree, shifts, level, work, nthreads) ;
+    wbfmm_laplace_downward_pass_f(tree, shifts, level, work, nthreads) ;
   }
   fprintf(stderr, "%s: downward pass completed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -438,7 +438,7 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: computing fmm field; %lg\n",
   	  progname, g_timer_elapsed(timer, NULL)) ;
   if ( target_list ) {
-    wbfmm_target_list_local_field_FLOAT(targets, q, qstr, dipoles, dstr,
+    wbfmm_target_list_local_field_f(targets, q, qstr, dipoles, dstr,
 				       f, fcstr) ;
   } else {
     switch ( field ) {
@@ -446,19 +446,19 @@ gint main(gint argc, char **argv)
     case WBFMM_FIELD_SCALAR:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_field_FLOAT(tree, tree->depth, box,
+	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_field_f(tree, tree->depth, box,
 						&(xf[i*strf]),
-						&(f[i*fcstr]), q, qstr,
-						/* normals, nstr, */
-						dipoles, dstr, TRUE, work) ;
+						 &(f[i*fcstr]), 1,
+						 q, qstr,
+						 dipoles, dstr, TRUE, work) ;
       }
       break ;
     case WBFMM_FIELD_GRADIENT:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_grad_FLOAT(tree, tree->depth, box,
+	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_grad_f(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
 					       /* normals, nstr, */
@@ -468,8 +468,8 @@ gint main(gint argc, char **argv)
     case WBFMM_FIELD_CURL:
       for ( i = 0 ; i < nf ; i ++ ) {
 	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_curl_FLOAT(tree, tree->depth, box,
+	box = wbfmm_point_box_f(tree, tree->depth, &(xf[i*strf])) ;
+	wbfmm_tree_laplace_box_local_curl_f(tree, tree->depth, box,
 					       &(xf[i*strf]),
 					       &(f[i*fcstr]), 3, q, qstr,
 					       /* normals, nstr, */
@@ -485,20 +485,20 @@ gint main(gint argc, char **argv)
   if ( field != WBFMM_FIELD_CURL ) {
     for ( i = 0 ; i < nf ; i ++ ) {
       fprintf(stdout, 
-	      "%FLOATEXP %FLOATEXP %FLOATEXP",
+	      "%1.16e %1.16e %1.16e",
 	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
       for ( j = 0 ; j < fcstr ; j ++ ) {
-	fprintf(stdout, " %FLOATEXP", f[i*fcstr+j]) ;
+	fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
       }
       fprintf(stdout, "\n") ;
     }
   } else {
     for ( i = 0 ; i < nf ; i ++ ) {
       fprintf(stdout, 
-	      "%FLOATEXP %FLOATEXP %FLOATEXP",
+	      "%1.16e %1.16e %1.16e",
 	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
       for ( j = 0 ; j < 3 ; j ++ ) {
-	fprintf(stdout, " %FLOATEXP", f[i*fcstr+j]) ;
+	fprintf(stdout, " %1.16e", f[i*fcstr+j]) ;
       }
       fprintf(stdout, "\n") ;
     }
