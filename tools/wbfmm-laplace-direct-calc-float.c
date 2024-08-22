@@ -157,14 +157,14 @@ gint main(gint argc, char **argv)
 {
   gfloat *xs ;
   gfloat *xf, *f, *q, *normals, *dipoles ;
-  gint nsrc, i, j, xstr, strf, nf, qstr, nq, nstr, dstr, fcstr, nfc ;
+  gint nsrc, i, j, xstr, strf, nf, qstr, nq, nstr, dstr, fcstr, nfc, cstr ;
   char ch, *sfile = NULL, *ffile = NULL ;
-  gboolean gradient, curl ;
+  guint field ;
   
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  nq = 1 ; gradient = FALSE ; curl = FALSE ;
+  nq = 1 ; field = WBFMM_FIELD_SCALAR ;
   
   while ( (ch = getopt(argc, argv, "hcf:gk:s:")) != EOF ) {
     switch ( ch ) {
@@ -177,19 +177,23 @@ gint main(gint argc, char **argv)
 	      "direct evaluation method\n"
 	      "Options:\n\n"
 	      "  -c calculate curl of field\n"
-	      "  -f (field point name)\n"
+	      "  -f (field point file name)\n"
 	      "  -g calculate field gradient\n"
 	      "  -s (source file name)\n",
 	      progname) ;
       return 0 ;
       break ;
-    case 'c': curl = TRUE ; break ;
+    case 'c':
+      field |= WBFMM_FIELD_CURL ;
+      break ;
     case 'f': ffile = g_strdup(optarg) ; break ;
-    case 'g': gradient = TRUE ; break ;
+    case 'g':
+      field |= WBFMM_FIELD_GRADIENT ;
+      break ;
     case 's': sfile = g_strdup(optarg) ; break ;
     }
   }
-
+  
   if ( sfile != NULL ) {
     read_points(sfile,
 		&xs, &xstr,
@@ -212,17 +216,20 @@ gint main(gint argc, char **argv)
     return 1 ;
   }
 
-  if ( gradient && curl ) {
-    fprintf(stderr, "%s: cannot compute curl and gradient\n", progname) ;
-    return 1 ;
+  /* if ( gradient && curl ) { */
+  /*   fprintf(stderr, "%s: cannot compute curl and gradient\n", progname) ; */
+  /*   return 1 ; */
+  /* } */
+  
+  nfc = nq ; fcstr = nq ; cstr = 1 ;
+  if ( field & WBFMM_FIELD_GRADIENT ) {
+    nfc = 3*nq ; fcstr = 3*nq ; cstr = 3 ;
+  }
+  if ( field & WBFMM_FIELD_CURL ) {
+    nfc = 3 ; fcstr = 3 ; cstr = 3 ;
   }
   
-  nfc = nq ; fcstr = nq ;
-  if ( gradient ) {
-    nfc *= 3 ; fcstr *= 3 ;
-  }
-
-  if ( curl && nq < 3  ) {
+  if ( (field & WBFMM_FIELD_CURL) && nq < 3  ) {
     fprintf(stderr, "%s: not enough source terms (%d) for curl calculation\n",
 	    progname, nq) ;
     return 1 ;
@@ -233,28 +240,13 @@ gint main(gint argc, char **argv)
 
   f = (gfloat *)g_malloc0(nf*fcstr*sizeof(gfloat)) ;
 
-  if ( gradient ) {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_grad_f(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
-				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
-    }
+  for ( i = 0 ; i < nf ; i ++ ) {
+    wbfmm_laplace_field_direct_f(xs, xstr, normals, nstr, nsrc,
+				     q, qstr, dipoles, dstr, nq,
+				     field,
+				     &(xf[i*strf]), &(f[fcstr*i]), cstr) ;
   }
-
-  if ( curl ) {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_curl_f(xs, xstr, q, qstr, nq, NULL, 0, NULL, 0,
-				    nsrc, &(xf[i*strf]), &(f[fcstr*i]), 3) ;
-    }
-  }
-
-  if ( !gradient && !curl ) {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      wbfmm_laplace_field_f(xs, xstr, q, qstr, nq,
-			       normals, nstr, dipoles, dstr,
-			       nsrc, &(xf[i*strf]), &(f[nq*i])) ;
-    }
-  }
-  
+    
   fprintf(stderr, "%s: direct field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 

@@ -198,7 +198,7 @@ gint main(gint argc, char **argv)
   gdouble D, xtree[3] = {0.0}, xtmax[3], *xs ;
   gdouble del, *x, *work, *xf, *f, tol, *q, *normals, *dipoles ;
   gint nsrc, nq, i, j, xstr, strf, nf, fstr, qstr, nstr, dstr, fcstr ;
-  gint order_inc ;
+  gint order_inc, cstr ;
   gsize pstr, pnstr ;
   guint depth, order[48] = {0}, order_s, order_r, order_max, level ;
   guint sizew, field, source ;
@@ -306,9 +306,9 @@ gint main(gint argc, char **argv)
     return 1 ;
   }
 
-  fcstr = nq ;
+  fcstr = nq ; cstr = 1 ;
   if ( field == WBFMM_FIELD_GRADIENT ) {
-    fcstr *= 3 ;
+    fcstr *= 3 ; cstr = 3 ;
   }
   
   f = (gdouble *)g_malloc0(nf*fcstr*sizeof(gdouble)) ;
@@ -447,51 +447,10 @@ gint main(gint argc, char **argv)
       guint64 box ;
       box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ;
       wbfmm_laplace_box_field(tree, tree->depth, box,
-			      q, qstr, dipoles, dstr, field,
-			      TRUE,
-			      &(xf[i*strf]), &(f[i*fcstr]), fstr, work) ;
+				    q, qstr, dipoles, dstr, field,
+				    TRUE,
+				    &(xf[i*strf]), &(f[i*fcstr]), cstr, work) ;
     }
-    /* switch ( field ) { */
-    /* default: g_assert_not_reached() ; break ; */
-    /* case WBFMM_FIELD_SCALAR: */
-    /*   for ( i = 0 ; i < nf ; i ++ ) { */
-    /* 	guint64 box ; */
-    /* 	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ; */
-    /* 	wbfmm_laplace_box_field(tree, tree->depth, box, */
-    /* 				q, qstr, dipoles, dstr, field, */
-    /* 				TRUE, */
-    /* 				&(xf[i*strf]), &(f[i*fcstr]), 1, work) ; */
-				
-    /* 	/\* wbfmm_tree_laplace_box_local_field(tree, tree->depth, box, *\/ */
-    /* 	/\* 					&(xf[i*strf]), *\/ */
-    /* 	/\* 					 &(f[i*fcstr]), 1, *\/ */
-    /* 	/\* 					 q, qstr, *\/ */
-    /* 	/\* 					 dipoles, dstr, TRUE, work) ; *\/ */
-    /*   } */
-    /*   break ; */
-    /* case WBFMM_FIELD_GRADIENT: */
-    /*   for ( i = 0 ; i < nf ; i ++ ) { */
-    /* 	guint64 box ; */
-    /* 	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ; */
-    /* 	wbfmm_tree_laplace_box_local_grad(tree, tree->depth, box, */
-    /* 					       &(xf[i*strf]), */
-    /* 					       &(f[i*fcstr]), 3, q, qstr, */
-    /* 					       /\* normals, nstr, *\/ */
-    /* 					       dipoles, dstr, TRUE, work) ; */
-    /*   } */
-    /*   break ; */
-    /* case WBFMM_FIELD_CURL: */
-    /*   for ( i = 0 ; i < nf ; i ++ ) { */
-    /* 	guint64 box ; */
-    /* 	box = wbfmm_point_box(tree, tree->depth, &(xf[i*strf])) ; */
-    /* 	wbfmm_tree_laplace_box_local_curl(tree, tree->depth, box, */
-    /* 					       &(xf[i*strf]), */
-    /* 					       &(f[i*fcstr]), 3, q, qstr, */
-    /* 					       /\* normals, nstr, *\/ */
-    /* 					       dipoles, dstr, TRUE, work) ; */
-    /*   } */
-    /*   break ; */
-    /* } */
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",

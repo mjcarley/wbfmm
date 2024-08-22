@@ -583,7 +583,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
-  if ( fstr < 3 )
+  if ( fstr < 3 && nq > 1 )
     g_error("%s: field data stride (%d) must be greater than two",
 	    __FUNCTION__, fstr) ;
 

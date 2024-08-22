@@ -8,7 +8,7 @@
 file1=$1
 file2=$2
 
-paste ${file1} ${file2} |\
+paste ${file1} ${file2} | \
     awk 'function abs(x){return ((x < 0.0) ? -x : x)}
     BEGIN { ncol=NF/2 ; {max[ncol] = -inf; fmax[ncol] = -inf } } {
       ncol=NF/2 ;

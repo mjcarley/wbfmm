@@ -420,6 +420,23 @@ gint wbfmm_laplace_expansion_dipole_cfft(gint N,
 					 gdouble *cfft,
 					 gint cstr,
 					 gdouble *work) ;
+gint wbfmm_laplace_field_direct(gdouble *xs, gint xstride,
+				gdouble *n, gint nstr,
+				gint nsrc,
+				gdouble *src, gint sstr,
+				gdouble *d, gint dstr,
+				gint nq,
+				guint field,
+				gdouble *xf, gdouble *f, gint fstr) ;
+gint wbfmm_laplace_field_direct_f(gfloat *xs, gint xstride,
+				  gfloat *n, gint nstr,
+				  gint nsrc,
+				  gfloat *src, gint sstr,
+				  gfloat *d, gint dstr,
+				  gint nq,
+				  guint field,
+				  gfloat *xf, gfloat *f, gint fstr) ;
+
 
 gint wbfmm_laplace_field(gdouble *xs, gint xstride,
 			 gdouble *src, gint sstride,
@@ -427,7 +444,9 @@ gint wbfmm_laplace_field(gdouble *xs, gint xstride,
 			 gdouble *normals, gint nstr,
 			 gdouble *dipoles, gint dstr,
 			 gint nsrc,
-			 gdouble *xf, gdouble *field) ;
+			 gdouble *xf, gdouble *field,
+			 gint fstr) ;
+
 gint wbfmm_laplace_field_grad(gdouble *xs, gint xstride,
 			      gdouble *src, gint sstride,
 			      gint nq,
@@ -588,7 +607,9 @@ gint wbfmm_laplace_field_f(gfloat *xs, gint xstride,
 			   gfloat *normals, gint nstr,
 			   gfloat *dipoles, gint dstr,
 			   gint nsrc,
-			   gfloat *xf, gfloat *field) ;
+			   gfloat *xf, gfloat *field,
+			   gint fstr) ;
+			   
 gint wbfmm_laplace_coaxial_translate_SS(gdouble *Co, gint cstro, gint No,
 					gdouble *Ci, gint cstri, gint Ni,
 					gint nq, gdouble t, gdouble sc) ;
@@ -778,13 +799,13 @@ gint wbfmm_tree_laplace_box_local_curl_f(wbfmm_tree_t *t,
 gint wbfmm_laplace_box_field(wbfmm_tree_t *t, guint level, guint b,
 			     gdouble *src, gint sstr,
 			     gdouble *d, gint dstr,
-			     wbfmm_field_t field,
+			     guint field,
 			     gboolean eval_neighbours,
 			     gdouble *x, gdouble *f, gint fstr, gdouble *work) ;
 gint wbfmm_laplace_box_field_f(wbfmm_tree_t *t, guint level, guint b,
 			       gfloat *src, gint sstr,
 			       gfloat *d, gint dstr,
-			       wbfmm_field_t field,
+			       guint field,
 			       gboolean eval_neighbours,
 			       gfloat *x, gfloat *f, gint fstr, gfloat *work) ;
 

@@ -179,7 +179,7 @@ gint main(gint argc, char **argv)
   }
 
   nq /= 2 ;
-  fcstr = 2*nq ;
+  fcstr = nq ;
   if ( gradient ) fcstr *= 3 ;
   
   if ( ffile != NULL ) {
@@ -202,7 +202,7 @@ gint main(gint argc, char **argv)
       wbfmm_total_field_grad_FLOAT(k, xs, xstr,
 				  q, qstr, normals, nstr, dipoles, dstr,
 				  nq, nsrc,
-				  &(xf[i*fstr]), &(f[fcstr*i]), 6) ;
+				  &(xf[i*fstr]), &(f[fcstr*i]), 3*nq) ;
     }
   else
     for ( i = 0 ; i < nf ; i ++ ) {

@@ -558,14 +558,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
   return 0 ;
 }
 
-
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 					      WBFMM_REAL *src, gint sstride,
 					      gint nq,
 					      WBFMM_REAL *normals, gint nstr,
 					      WBFMM_REAL *dipoles, gint dstr,
 					      gint nsrc,
-					      WBFMM_REAL *xf, WBFMM_REAL *field)
+					      WBFMM_REAL *xf, WBFMM_REAL *field,
+					      gint fstr)
 
 {
   gint i, j ;
@@ -583,10 +583,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
     for ( i = 0 ; i < nsrc ; i ++ ) {
       WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
 							&r, &th, &ph) ;
-      for ( j = 0 ; j < nq ; j ++ ) field[j] += src[i*sstride+j]/r ;
+      for ( j = 0 ; j < nq ; j ++ )
+	field[j*fstr] += src[i*sstride+j]/r/4.0/M_PI ;
     }
     
-    for ( j = 0 ; j < nq ; j ++ ) field[j] /= 4.0*M_PI ;
+    /* for ( j = 0 ; j < nq ; j ++ ) field[j*fstr] /= 4.0*M_PI ; */
 
     return 0 ;
   }
@@ -601,10 +602,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 	(xf[1] - xs[i*xstride+1])*normals[i*nstr+1] + 
 	(xf[2] - xs[i*xstride+2])*normals[i*nstr+2] ;
       nr /= r*r*r ;
-      for ( j = 0 ; j < nq ; j ++ ) field[j] += dipoles[i*dstr+j]*nr ;
+      for ( j = 0 ; j < nq ; j ++ )
+	field[j*fstr] += dipoles[i*dstr+j]*nr/4.0/M_PI ;
     }
     
-    for ( j = 0 ; j < nq ; j ++ ) field[j] /= 4.0*M_PI ;
+    /* for ( j = 0 ; j < nq ; j ++ ) field[j*fstr] /= 4.0*M_PI ; */
 
     return 0 ;
   }
@@ -620,10 +622,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 	(xf[2] - xs[i*xstride+2])*normals[i*nstr+2] ;
       nr /= r*r*r ;
       for ( j = 0 ; j < nq ; j ++ )
-	field[j] += dipoles[i*dstr+j]*nr + src[i*sstride+j]/r ;
+	field[j*fstr] +=
+	  dipoles[i*dstr+j]*nr + src[i*sstride+j]/r/4.0/M_PI ;
     }
     
-    for ( j = 0 ; j < nq ; j ++ ) field[j] /= 4.0*M_PI ;
+    /* for ( j = 0 ; j < nq ; j ++ ) field[j*fstr] /= 4.0*M_PI ; */
 
     return 0 ;
   }
@@ -1647,7 +1650,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 						  guint level, guint b,
 						  WBFMM_REAL *src, gint sstr,
 						  WBFMM_REAL *d, gint dstr,
-						  wbfmm_field_t field,
+						  guint field,
 						  gboolean eval_neighbours,
 						  WBFMM_REAL *x,
 						  WBFMM_REAL *f, gint fstr,
@@ -1681,6 +1684,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 							    work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
+  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
     WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_grad)(t, level, b,
 							   x, f, fstr,
 							   src, sstr,
@@ -1696,9 +1700,54 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 							   eval_neighbours,
 							   work) ;
     break ;
-  case WBFMM_FIELD_CURL_GRADIENT:
+  case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT:
     g_assert_not_reached() ;
     break ;    
+  }
+  
+  return 0 ;
+}
+
+gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_direct)(WBFMM_REAL *xs,
+						     gint xstr,
+						     WBFMM_REAL *n,
+						     gint nstr,
+						     gint nsrc,
+						     WBFMM_REAL *src,
+						     gint sstr,
+						     WBFMM_REAL *d,
+						     gint dstr,
+						     gint nq,
+						     guint field,
+						     WBFMM_REAL *xf,
+						     WBFMM_REAL *f,
+						     gint fstr)
+
+{  
+  switch ( field ) {
+  default:
+    g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
+    break ;
+  case WBFMM_FIELD_SCALAR:
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(xs, xstr, src, sstr, nq,
+					     n, nstr, d, dstr, nsrc,
+					     xf, f, fstr) ;
+    break ;
+  case WBFMM_FIELD_GRADIENT:
+  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(xs, xstr, src, sstr, nq,
+						  n, nstr, d, dstr, nsrc,
+						  xf, f, fstr) ;
+    break ;
+  case WBFMM_FIELD_CURL:
+  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_CURL:
+    WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(xs, xstr, src, sstr, nq,
+						  n, nstr, d, dstr, nsrc,
+						  xf, f, fstr) ;
+    break ;
+  /* case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT: */
+  /*   g_assert_not_reached() ; */
+  /*   break ;     */
   }
   
   return 0 ;

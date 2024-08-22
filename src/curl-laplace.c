@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019, 2021 Michael Carley
+ * Copyright (C) 2019, 2021, 2024 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -366,10 +366,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_curl)(WBFMM_REAL *xs,
   if ( nq < 3 )
     g_error("%s: not enough source components (%d) for curl calculation",
 	    __FUNCTION__, nq) ;
-  
-  if ( fstr < 3 )
-    g_error("%s: field data stride (%d) must be greater than two",
-	    __FUNCTION__, fstr) ;
 
   g_assert(sstride >= nq) ;
   

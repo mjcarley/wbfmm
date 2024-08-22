@@ -2,8 +2,8 @@
 
 BIN=../tools
 
-sfile=monopoles.dat
-##sfile=curl.dat
+##sfile=monopoles.dat
+sfile=curl.dat
 ##sfile=dipoles-hh.dat
 ffile=field.dat
 dfile=direct.dat
@@ -17,9 +17,9 @@ order_r=16
 order_s=16
 targets=
 #-l
-curl=
-#-c
-gradient=-g
+curl=-c
+gradient=
+##-g
 sort=-p
 
 ${BIN}/wbfmm-laplace-direct-calc ${gradient} ${curl} -f ${ffile} -s ${sfile} > ${dfile}
