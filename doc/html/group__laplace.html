@@ -113,6 +113,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga04d62f413683de32fd7dd319120df790"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga04d62f413683de32fd7dd319120df790">wbfmm_laplace_expansion_local_curl_evaluate</a> (gdouble *x0, gdouble *cfft, gint cstr, gint N, gint nq, gdouble *xf, gdouble *field, gint fstr, gdouble *work)</td></tr>
 <tr class="memdesc:ga04d62f413683de32fd7dd319120df790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate curl of local Laplace expansion.  <a href="group__laplace.html#ga04d62f413683de32fd7dd319120df790">More...</a><br /></td></tr>
 <tr class="separator:ga04d62f413683de32fd7dd319120df790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6e595f41838924e402e0160a60ca4def"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga6e595f41838924e402e0160a60ca4def">wbfmm_tree_laplace_box_local_curl</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gdouble *x, gdouble *f, gint fstr, gdouble *src, gint sstr, gdouble *d, gint dstr, gboolean eval_neighbours, gdouble *work)</td></tr>
+<tr class="separator:ga6e595f41838924e402e0160a60ca4def"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad2f28f1b407481b0f9c21e3893b75ef8"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#gad2f28f1b407481b0f9c21e3893b75ef8">wbfmm_laplace_expansion_cfft_f</a> (gint N, gfloat *x0, gfloat *xs, gfloat *q, gint nq, gfloat *cfft, gint cstr, gfloat *work)</td></tr>
 <tr class="memdesc:gad2f28f1b407481b0f9c21e3893b75ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generation of singular expansion coefficients for point source in Laplace problem.  <a href="group__laplace.html#gad2f28f1b407481b0f9c21e3893b75ef8">More...</a><br /></td></tr>
 <tr class="separator:gad2f28f1b407481b0f9c21e3893b75ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,6 +178,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8068bcf3fa004efd750d25e962bf9248"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga8068bcf3fa004efd750d25e962bf9248">wbfmm_laplace_expansion_local_curl_evaluate_f</a> (gfloat *x0, gfloat *cfft, gint cstr, gint N, gint nq, gfloat *xf, gfloat *field, gint fstr, gfloat *work)</td></tr>
 <tr class="memdesc:ga8068bcf3fa004efd750d25e962bf9248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate curl of local Laplace expansion.  <a href="group__laplace.html#ga8068bcf3fa004efd750d25e962bf9248">More...</a><br /></td></tr>
 <tr class="separator:ga8068bcf3fa004efd750d25e962bf9248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fe1a719b99d1a47a88517f3d6827332"><td class="memItemLeft" align="right" valign="top">gint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__laplace.html#ga8fe1a719b99d1a47a88517f3d6827332">wbfmm_tree_laplace_box_local_curl_f</a> (<a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *t, guint level, guint b, gfloat *x, gfloat *f, gint fstr, gfloat *src, gint sstr, gfloat *d, gint dstr, gboolean eval_neighbours, gfloat *work)</td></tr>
+<tr class="separator:ga8fe1a719b99d1a47a88517f3d6827332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Variants on standard functions to allow WBFMM to be used for the Laplace equation. </p>
@@ -3504,6 +3508,220 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga6e595f41838924e402e0160a60ca4def" name="ga6e595f41838924e402e0160a60ca4def"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6e595f41838924e402e0160a60ca4def">&#9670;&nbsp;</a></span>wbfmm_tree_laplace_box_local_curl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_tree_laplace_box_local_curl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>sstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>dstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gboolean&#160;</td>
+          <td class="paramname"><em>eval_neighbours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gdouble *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Evaluate curl of field for Laplace problem for point in a specified box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>octree for problem; </td></tr>
+    <tr><td class="paramname">level</td><td>box level in tree; </td></tr>
+    <tr><td class="paramname">b</td><td>index of box containing expansion; </td></tr>
+    <tr><td class="paramname">x</td><td>evaluation point; </td></tr>
+    <tr><td class="paramname">f</td><td>on output contains evaluated field; </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride in <em>f</em>; </td></tr>
+    <tr><td class="paramname">src</td><td>input source terms; </td></tr>
+    <tr><td class="paramname">sstr</td><td>stride in <em>src</em>; </td></tr>
+    <tr><td class="paramname">d</td><td>dipole strengths for vector sources; </td></tr>
+    <tr><td class="paramname">dstr</td><td>stride in <em>d</em>; </td></tr>
+    <tr><td class="paramname">eval_neighbours</td><td>if TRUE, add direct contribution from sources in neighbour boxes; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success. </dd></dl>
+
+</div>
+</div>
+<a id="ga8fe1a719b99d1a47a88517f3d6827332" name="ga8fe1a719b99d1a47a88517f3d6827332"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fe1a719b99d1a47a88517f3d6827332">&#9670;&nbsp;</a></span>wbfmm_tree_laplace_box_local_curl_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gint wbfmm_tree_laplace_box_local_curl_f </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwbfmm__tree__t.html">wbfmm_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">guint&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>fstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>sstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gint&#160;</td>
+          <td class="paramname"><em>dstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gboolean&#160;</td>
+          <td class="paramname"><em>eval_neighbours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfloat *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Evaluate curl of field for Laplace problem for point in a specified box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>octree for problem; </td></tr>
+    <tr><td class="paramname">level</td><td>box level in tree; </td></tr>
+    <tr><td class="paramname">b</td><td>index of box containing expansion; </td></tr>
+    <tr><td class="paramname">x</td><td>evaluation point; </td></tr>
+    <tr><td class="paramname">f</td><td>on output contains evaluated field; </td></tr>
+    <tr><td class="paramname">fstr</td><td>stride in <em>f</em>; </td></tr>
+    <tr><td class="paramname">src</td><td>input source terms; </td></tr>
+    <tr><td class="paramname">sstr</td><td>stride in <em>src</em>; </td></tr>
+    <tr><td class="paramname">d</td><td>dipole strengths for vector sources; </td></tr>
+    <tr><td class="paramname">dstr</td><td>stride in <em>d</em>; </td></tr>
+    <tr><td class="paramname">eval_neighbours</td><td>if TRUE, add direct contribution from sources in neighbour boxes; </td></tr>
+    <tr><td class="paramname">work</td><td>workspace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success. </dd></dl>
+
+</div>
+</div>
 <a id="ga5939a220e43e5d3e30433c3541cc4683" name="ga5939a220e43e5d3e30433c3541cc4683"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5939a220e43e5d3e30433c3541cc4683">&#9670;&nbsp;</a></span>wbfmm_tree_laplace_coefficient_init()</h2>
 
@@ -3611,7 +3829,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 15 2024 10:55:21 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Thu Aug 22 2024 10:18:44 for WBFMM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

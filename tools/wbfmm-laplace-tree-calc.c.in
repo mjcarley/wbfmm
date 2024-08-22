@@ -1,6 +1,6 @@
 /* This file is part of WBFMM, a Wide-Band Fast Multipole Method code
  *
- * Copyright (C) 2019, 2021 Michael Carley
+ * Copyright (C) 2019, 2021, 2024 Michael Carley
  *
  * WBFMM is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -307,7 +307,9 @@ gint main(gint argc, char **argv)
   }
 
   fcstr = nq ;
-  if ( field == WBFMM_FIELD_GRADIENT ) fcstr *= 3 ;
+  if ( field == WBFMM_FIELD_GRADIENT ) {
+    fcstr *= 3 ;
+  }
   
   f = (WBFMM_REAL *)g_malloc0(nf*fcstr*sizeof(WBFMM_REAL)) ;
 
@@ -441,42 +443,55 @@ gint main(gint argc, char **argv)
     wbfmm_target_list_local_field_FLOAT(targets, q, qstr, dipoles, dstr,
 				       f, fcstr) ;
   } else {
-    switch ( field ) {
-    default: g_assert_not_reached() ; break ;
-    case WBFMM_FIELD_SCALAR:
-      for ( i = 0 ; i < nf ; i ++ ) {
-	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_field_FLOAT(tree, tree->depth, box,
-						&(xf[i*strf]),
-						 &(f[i*fcstr]), 1,
-						 q, qstr,
-						 dipoles, dstr, TRUE, work) ;
-      }
-      break ;
-    case WBFMM_FIELD_GRADIENT:
-      for ( i = 0 ; i < nf ; i ++ ) {
-	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_grad_FLOAT(tree, tree->depth, box,
-					       &(xf[i*strf]),
-					       &(f[i*fcstr]), 3, q, qstr,
-					       /* normals, nstr, */
-					       dipoles, dstr, TRUE, work) ;
-      }
-      break ;
-    case WBFMM_FIELD_CURL:
-      for ( i = 0 ; i < nf ; i ++ ) {
-	guint64 box ;
-	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
-	wbfmm_tree_laplace_box_local_curl_FLOAT(tree, tree->depth, box,
-					       &(xf[i*strf]),
-					       &(f[i*fcstr]), 3, q, qstr,
-					       /* normals, nstr, */
-					       dipoles, dstr, TRUE, work) ;
-      }
-      break ;
+    for ( i = 0 ; i < nf ; i ++ ) {
+      guint64 box ;
+      box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ;
+      wbfmm_laplace_box_field(tree, tree->depth, box,
+			      q, qstr, dipoles, dstr, field,
+			      TRUE,
+			      &(xf[i*strf]), &(f[i*fcstr]), fstr, work) ;
     }
+    /* switch ( field ) { */
+    /* default: g_assert_not_reached() ; break ; */
+    /* case WBFMM_FIELD_SCALAR: */
+    /*   for ( i = 0 ; i < nf ; i ++ ) { */
+    /* 	guint64 box ; */
+    /* 	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ; */
+    /* 	wbfmm_laplace_box_field(tree, tree->depth, box, */
+    /* 				q, qstr, dipoles, dstr, field, */
+    /* 				TRUE, */
+    /* 				&(xf[i*strf]), &(f[i*fcstr]), 1, work) ; */
+				
+    /* 	/\* wbfmm_tree_laplace_box_local_field_FLOAT(tree, tree->depth, box, *\/ */
+    /* 	/\* 					&(xf[i*strf]), *\/ */
+    /* 	/\* 					 &(f[i*fcstr]), 1, *\/ */
+    /* 	/\* 					 q, qstr, *\/ */
+    /* 	/\* 					 dipoles, dstr, TRUE, work) ; *\/ */
+    /*   } */
+    /*   break ; */
+    /* case WBFMM_FIELD_GRADIENT: */
+    /*   for ( i = 0 ; i < nf ; i ++ ) { */
+    /* 	guint64 box ; */
+    /* 	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ; */
+    /* 	wbfmm_tree_laplace_box_local_grad_FLOAT(tree, tree->depth, box, */
+    /* 					       &(xf[i*strf]), */
+    /* 					       &(f[i*fcstr]), 3, q, qstr, */
+    /* 					       /\* normals, nstr, *\/ */
+    /* 					       dipoles, dstr, TRUE, work) ; */
+    /*   } */
+    /*   break ; */
+    /* case WBFMM_FIELD_CURL: */
+    /*   for ( i = 0 ; i < nf ; i ++ ) { */
+    /* 	guint64 box ; */
+    /* 	box = wbfmm_point_box_FLOAT(tree, tree->depth, &(xf[i*strf])) ; */
+    /* 	wbfmm_tree_laplace_box_local_curl_FLOAT(tree, tree->depth, box, */
+    /* 					       &(xf[i*strf]), */
+    /* 					       &(f[i*fcstr]), 3, q, qstr, */
+    /* 					       /\* normals, nstr, *\/ */
+    /* 					       dipoles, dstr, TRUE, work) ; */
+    /*   } */
+    /*   break ; */
+    /* } */
   }
 
   fprintf(stderr, "%s: fmm field computed; %lg\n",
