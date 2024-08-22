@@ -130,7 +130,90 @@ laplace.lo: laplace.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
  /usr/include/bits/setjmp.h \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
- /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm.h wbfmm-private.h
+ /usr/include/glib-2.0/glib/glib-autocleanups.h wbfmm.h wbfmm-private.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/immintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/x86gprintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/ia32intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/adxintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/bmiintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/bmi2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/cetintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/cldemoteintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clflushoptintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clwbintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clzerointrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/enqcmdintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/fxsrintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/lzcntintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/lwpintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/movdirintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mwaitxintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pconfigintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/popcntintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pkuintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/rdseedintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/rtmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/serializeintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/sgxintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tbmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tsxldtrkintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/uintrintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/waitpkgintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/wbnoinvdintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsaveintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsavecintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsaveoptintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsavesintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xtestintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/hresetintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mm_malloc.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/emmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/smmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/wmmintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avxintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avxvnniintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512fintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512erintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512pfintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512cdintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512dqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vlbwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vldqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512ifmaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512ifmavlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmiintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmivlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx5124fmapsintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx5124vnniwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vpopcntdqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmi2intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmi2vlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vnniintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vnnivlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vpopcntdqvlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bitalgintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vp2intersectintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vp2intersectvlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/shaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/fmaintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/f16cintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/gfniintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/vaesintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/vpclmulqdqintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bf16vlintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bf16intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxtileintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxint8intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxbf16intrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/prfchwintrin.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/keylockerintrin.h
 /usr/include/stdc-predef.h:
 ../config.h:
 /usr/include/math.h:
@@ -332,3 +415,86 @@ laplace.lo: laplace.c /usr/include/stdc-predef.h ../config.h \
 /usr/include/glib-2.0/glib/glib-autocleanups.h:
 wbfmm.h:
 wbfmm-private.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/immintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/x86gprintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/ia32intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/adxintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/bmiintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/bmi2intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/cetintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/cldemoteintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clflushoptintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clwbintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/clzerointrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/enqcmdintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/fxsrintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/lzcntintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/lwpintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/movdirintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mwaitxintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pconfigintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/popcntintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pkuintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/rdseedintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/rtmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/serializeintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/sgxintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tbmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tsxldtrkintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/uintrintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/waitpkgintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/wbnoinvdintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsaveintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsavecintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsaveoptintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xsavesintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xtestintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/hresetintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/xmmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/mm_malloc.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/emmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/pmmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/tmmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/smmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/wmmintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avxintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avxvnniintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx2intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512fintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512erintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512pfintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512cdintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bwintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512dqintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vlbwintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vldqintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512ifmaintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512ifmavlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmiintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmivlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx5124fmapsintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx5124vnniwintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vpopcntdqintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmi2intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vbmi2vlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vnniintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vnnivlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vpopcntdqvlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bitalgintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vp2intersectintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512vp2intersectvlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/shaintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/fmaintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/f16cintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/gfniintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/vaesintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/vpclmulqdqintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bf16vlintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/avx512bf16intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxtileintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxint8intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/amxbf16intrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/prfchwintrin.h:
+/usr/lib64/gcc/x86_64-slackware-linux/11.2.0/include/keylockerintrin.h:

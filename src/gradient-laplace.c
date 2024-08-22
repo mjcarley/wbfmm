@@ -563,58 +563,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_grad_evaluate)(WBFMM_REAL *x0,
   return 0 ;
 }
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(WBFMM_REAL *xs,
-						   gint xstride,
-						   WBFMM_REAL *src,
-						   gint sstride,
-						   gint nq,
-						   WBFMM_REAL *normals,
-						   gint nstr,
-						   WBFMM_REAL *dipoles,
-						   gint dstr,
-						   gint nsrc,
-						   WBFMM_REAL *xf,
-						   WBFMM_REAL *field,
-						   gint fstr)
-
-{
-  gint i, j ;
-  WBFMM_REAL r, th, ph, nR[3] ;
-
-  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
-
-  if ( fstr < 3 && nq > 1 )
-    g_error("%s: field data stride (%d) must be greater than two",
-	    __FUNCTION__, fstr) ;
-
-  g_assert(sstride >= nq) ;
-  
-  if ( normals != NULL && dipoles == NULL )
-    g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",
-	    __FUNCTION__) ;
-
-  if ( normals == NULL && dipoles == NULL ) {
-    for ( i = 0 ; i < nsrc ; i ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
-							&r, &th, &ph) ;
-      nR[0] = (xf[0] - xs[i*xstride+0])/r*0.25*M_1_PI ;
-      nR[1] = (xf[1] - xs[i*xstride+1])/r*0.25*M_1_PI ;
-      nR[2] = (xf[2] - xs[i*xstride+2])/r*0.25*M_1_PI ;
-      for ( j = 0 ; j < nq ; j ++ ) {
-	field[fstr*j+0] -= src[i*sstride+j]/r/r*nR[0] ;
-	field[fstr*j+1] -= src[i*sstride+j]/r/r*nR[1] ;
-	field[fstr*j+2] -= src[i*sstride+j]/r/r*nR[2] ;
-      }
-    }
-
-    return 0 ;
-  }
-
-  g_assert_not_reached() ;
-  
-  return 0 ;
-}
-
 gint WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_grad)(wbfmm_tree_t *t,
 							    guint level,
 							    guint b,

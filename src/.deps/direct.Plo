@@ -1,4 +1,4 @@
-libsub_la-laplace.lo: laplace.c /usr/include/stdc-predef.h ../config.h \
+direct.lo: direct.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/math.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \

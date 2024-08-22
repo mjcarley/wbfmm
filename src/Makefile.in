@@ -142,8 +142,8 @@ am_libsub_la_OBJECTS = libsub_la-expansions.lo \
 	libsub_la-shift-laplace.lo libsub_la-shiftbw-laplace.lo \
 	libsub_la-pass-laplace.lo libsub_la-rotations-laplace.lo \
 	libsub_la-targets.lo libsub_la-gradient.lo \
-	libsub_la-gradient-laplace.lo libsub_la-curl-laplace.lo \
-	libsub_la-local.lo
+	libsub_la-gradient-laplace.lo libsub_la-local.lo \
+	libsub_la-direct.lo
 libsub_la_OBJECTS = $(am_libsub_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -158,8 +158,8 @@ am_libwbfmm_la_OBJECTS = wbfmm-logging.lo indexing.lo shifts.lo \
 	factorial.lo boxes.lo shift.lo shiftbw.lo pass.lo pass-avx.lo \
 	laplace.lo shift-laplace.lo shiftbw-laplace.lo pass-laplace.lo \
 	pass-laplace-avx.lo rotations-laplace.lo targets.lo \
-	gradient.lo gradient-laplace.lo curl-laplace.lo local.lo \
-	constants.lo config.lo
+	gradient.lo gradient-laplace.lo local.lo constants.lo \
+	config.lo direct.lo
 libwbfmm_la_OBJECTS = $(am_libwbfmm_la_OBJECTS)
 libwbfmm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -181,12 +181,12 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/boxes.Plo ./$(DEPDIR)/config.Plo \
-	./$(DEPDIR)/constants.Plo ./$(DEPDIR)/curl-laplace.Plo \
+	./$(DEPDIR)/constants.Plo ./$(DEPDIR)/direct.Plo \
 	./$(DEPDIR)/expansions.Plo ./$(DEPDIR)/factorial.Plo \
 	./$(DEPDIR)/gradient-laplace.Plo ./$(DEPDIR)/gradient.Plo \
 	./$(DEPDIR)/indexing.Plo ./$(DEPDIR)/laplace.Plo \
 	./$(DEPDIR)/libsub_la-boxes.Plo \
-	./$(DEPDIR)/libsub_la-curl-laplace.Plo \
+	./$(DEPDIR)/libsub_la-direct.Plo \
 	./$(DEPDIR)/libsub_la-expansions.Plo \
 	./$(DEPDIR)/libsub_la-gradient-laplace.Plo \
 	./$(DEPDIR)/libsub_la-gradient.Plo \
@@ -433,10 +433,10 @@ libwbfmm_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
-	curl-laplace.c \
 	local.c \
 	constants.c \
-	config.c
+	config.c \
+	direct.c
 
 libwbfmm_la_LIBADD = libsub.la
 noinst_LTLIBRARIES = libsub.la
@@ -458,8 +458,8 @@ libsub_la_SOURCES = \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
-	curl-laplace.c \
-	local.c
+	local.c \
+	direct.c
 
 libsub_la_CFLAGS = -DWBFMM_SINGLE_PRECISION
 include_HEADERS = \
@@ -599,7 +599,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/boxes.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/constants.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/curl-laplace.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/expansions.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/factorial.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gradient-laplace.Plo@am__quote@ # am--include-marker
@@ -607,7 +607,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/indexing.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/laplace.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-boxes.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-curl-laplace.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-direct.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-expansions.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-gradient-laplace.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsub_la-gradient.Plo@am__quote@ # am--include-marker
@@ -784,19 +784,19 @@ libsub_la-gradient-laplace.lo: gradient-laplace.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-gradient-laplace.lo `test -f 'gradient-laplace.c' || echo '$(srcdir)/'`gradient-laplace.c
 
-libsub_la-curl-laplace.lo: curl-laplace.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-curl-laplace.lo -MD -MP -MF $(DEPDIR)/libsub_la-curl-laplace.Tpo -c -o libsub_la-curl-laplace.lo `test -f 'curl-laplace.c' || echo '$(srcdir)/'`curl-laplace.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-curl-laplace.Tpo $(DEPDIR)/libsub_la-curl-laplace.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='curl-laplace.c' object='libsub_la-curl-laplace.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-curl-laplace.lo `test -f 'curl-laplace.c' || echo '$(srcdir)/'`curl-laplace.c
-
 libsub_la-local.lo: local.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-local.lo -MD -MP -MF $(DEPDIR)/libsub_la-local.Tpo -c -o libsub_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-local.Tpo $(DEPDIR)/libsub_la-local.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='local.c' object='libsub_la-local.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-local.lo `test -f 'local.c' || echo '$(srcdir)/'`local.c
+
+libsub_la-direct.lo: direct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -MT libsub_la-direct.lo -MD -MP -MF $(DEPDIR)/libsub_la-direct.Tpo -c -o libsub_la-direct.lo `test -f 'direct.c' || echo '$(srcdir)/'`direct.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsub_la-direct.Tpo $(DEPDIR)/libsub_la-direct.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='direct.c' object='libsub_la-direct.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsub_la_CFLAGS) $(CFLAGS) -c -o libsub_la-direct.lo `test -f 'direct.c' || echo '$(srcdir)/'`direct.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -960,7 +960,7 @@ distclean: distclean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/constants.Plo
-	-rm -f ./$(DEPDIR)/curl-laplace.Plo
+	-rm -f ./$(DEPDIR)/direct.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/gradient-laplace.Plo
@@ -968,7 +968,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/indexing.Plo
 	-rm -f ./$(DEPDIR)/laplace.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-boxes.Plo
-	-rm -f ./$(DEPDIR)/libsub_la-curl-laplace.Plo
+	-rm -f ./$(DEPDIR)/libsub_la-direct.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-expansions.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-gradient-laplace.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-gradient.Plo
@@ -1050,7 +1050,7 @@ maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/boxes.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/constants.Plo
-	-rm -f ./$(DEPDIR)/curl-laplace.Plo
+	-rm -f ./$(DEPDIR)/direct.Plo
 	-rm -f ./$(DEPDIR)/expansions.Plo
 	-rm -f ./$(DEPDIR)/factorial.Plo
 	-rm -f ./$(DEPDIR)/gradient-laplace.Plo
@@ -1058,7 +1058,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/indexing.Plo
 	-rm -f ./$(DEPDIR)/laplace.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-boxes.Plo
-	-rm -f ./$(DEPDIR)/libsub_la-curl-laplace.Plo
+	-rm -f ./$(DEPDIR)/libsub_la-direct.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-expansions.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-gradient-laplace.Plo
 	-rm -f ./$(DEPDIR)/libsub_la-gradient.Plo
