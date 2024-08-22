@@ -647,7 +647,7 @@ gint local_gradient_test(gint N, gfloat *x0, gfloat *xs,
 					  0.0) ;
 
   x0[2] += t ;
-  wbfmm_laplace_expansion_local_grad_evaluate_f(x0, Co, cstr, Nr, nq,
+  wbfmm_laplace_expansion_local_grad_f(x0, Co, cstr, Nr, nq,
   						   xf, ft, fstr, work) ;
 
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 

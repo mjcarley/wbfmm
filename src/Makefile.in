@@ -409,11 +409,11 @@ libwbfmm_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)\
 libwbfmm_la_SOURCES = \
 	wbfmm-logging.c \
 	wbfmm-private.h \
+	wbfmm-derivatives.h \
 	wbfmm-avx.h \
 	indexing.c \
 	shifts.c \
 	tree.c \
-	wbfmm-private.h \
 	expansions.c \
 	translations.c \
 	rotations.c \
@@ -442,6 +442,7 @@ libwbfmm_la_LIBADD = libsub.la
 noinst_LTLIBRARIES = libsub.la
 libsub_la_SOURCES = \
 	wbfmm-private.h \
+	wbfmm-derivatives.h \
 	expansions.c \
 	translations.c \
 	rotations.c \

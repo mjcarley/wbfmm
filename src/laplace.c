@@ -1976,6 +1976,145 @@ static gint tree_laplace_box_local_curl(wbfmm_tree_t *t,
   return 0 ;
 }
 
+static gint tree_laplace_box_local_grad(wbfmm_tree_t *t,
+					guint level,
+					guint b,
+					WBFMM_REAL *x,
+					WBFMM_REAL *f,
+					gint fstr,
+					WBFMM_REAL *src,
+					gint sstr,
+					WBFMM_REAL *d,
+					gint dstr,
+					gboolean
+					eval_neighbours,
+					WBFMM_REAL *work)
+
+{
+  WBFMM_REAL xb[3], wb, *C, *xs, r, nR[3] ;
+  wbfmm_box_t *boxes, box ;
+  guint64 neighbours[27] ;
+  gint nnbr, i, j, k, idx, nq ;
+
+  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+
+  nq = wbfmm_tree_source_size(t) ;
+
+  boxes = t->boxes[level] ;
+  C = boxes[b].mpr ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  
+  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad)(xb, C, 8*nq, t->order_r[level],
+					nq, x, f, fstr, work) ;
+  
+  if ( !eval_neighbours ) return 0 ;
+
+  if ( src == NULL && d == NULL ) return 0 ;
+
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
+	    __FUNCTION__) ;
+  }
+
+  /*add the contribution from sources in neighbour boxes*/
+  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
+  g_assert(nnbr >= 0 && nnbr < 28) ;
+
+  if ( d == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nR[0] = (x[0] - xs[0])/r ;
+	  nR[1] = (x[1] - xs[1])/r ;
+	  nR[2] = (x[2] - xs[2])/r ;
+	  r = SQRT(r)*4.0*M_PI ;
+	  nR[0] /= r ; nR[1] /= r ; nR[2] /= r ; 
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k*fstr+0] -= src[idx*sstr+k]*nR[0] ;
+	    f[k*fstr+1] -= src[idx*sstr+k]*nR[1] ;
+	    f[k*fstr+2] -= src[idx*sstr+k]*nR[2] ;
+	  }
+	}
+      }
+    }
+    
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
+  if ( src == NULL && d != NULL ) {
+    /*dipoles only*/
+    /* g_assert_not_reached() ; */
+    WBFMM_REAL th, ph, nr ;
+    WBFMM_REAL *normal ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nr =
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
+	  nr /= 4.0*M_PI*r*r*r ;
+	  for ( k = 0 ; k < nq ; k ++ ) f[k] += d[idx*dstr+k]*nr ;
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+  
+  if ( src != NULL && d != NULL ) {
+    /*sources and dipoles*/
+    WBFMM_REAL th, ph, nr, g ;
+    WBFMM_REAL *normal ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nr =
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
+	  g = 0.25*M_1_PI/r ;
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
+	  }
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ; 
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 						  guint level, guint b,
 						  WBFMM_REAL *src, gint sstr,
@@ -2015,12 +2154,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
     break ;
   case WBFMM_FIELD_GRADIENT:
   case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
-    WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_grad)(t, level, b,
-							   x, f, fstr,
-							   src, sstr,
-							   d, dstr,
-							   eval_neighbours,
-							   work) ;
+    tree_laplace_box_local_grad(t, level, b, x, f, fstr,
+				src, sstr, d, dstr,
+				eval_neighbours, work) ;
     break ;
   case WBFMM_FIELD_CURL:
     tree_laplace_box_local_curl(t, level, b, x, f, fstr,
