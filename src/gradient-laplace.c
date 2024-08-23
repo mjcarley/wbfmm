@@ -367,19 +367,19 @@ WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_laplacian_evaluate)(WBFMM_REAL
   WBFMM_REAL dRnm[12] ;
   gint n, m, idx, i, i6 = 6, i1 = 1, i2 = 2 ;
   
-  if ( fstr < 6 )
+  if ( fstr < 6 && nq != 1 )
     g_error("%s: field data stride (%d) must be greater than five",
 	    __FUNCTION__, fstr) ;
 
   if ( N == 0 ) return 0 ;
 
-  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+4]) ; Pnm2 = &(Pn[N+4]) ;
-  memset(Pnm1, 0, (N+4)*sizeof(gdouble)) ;
-  memset(Pn  , 0, (N+4)*sizeof(gdouble)) ;
-  memset(Pnm2, 0, (N+4)*sizeof(gdouble)) ;
-  Cmph = &(Pnm2[N+4]) ; Smph = &(Cmph[N+4]) ;
-  memset(Cmph, 0, (N+4)*sizeof(gdouble)) ;
-  memset(Smph, 0, (N+4)*sizeof(gdouble)) ;
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ; Pnm2 = &(Pn[N+2]) ;
+  memset(Pnm1, 0, (N+2)*sizeof(gdouble)) ;
+  memset(Pn  , 0, (N+2)*sizeof(gdouble)) ;
+  memset(Pnm2, 0, (N+2)*sizeof(gdouble)) ;
+  Cmph = &(Pnm2[N+2]) ; Smph = &(Cmph[N+2]) ;
+  memset(Cmph, 0, (N+2)*sizeof(gdouble)) ;
+  memset(Smph, 0, (N+2)*sizeof(gdouble)) ;
   
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 

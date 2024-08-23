@@ -108,14 +108,14 @@ static gint parse_test(char *arg)
     i ++ ;
   }
 
-  return -1 ;
+  return -2 ;
 }
 
 static gint read_data(char *ipfile, gfloat *xc, gfloat *x0, 
 		      gfloat **xs, gfloat **src, 
 		      gint *nsrc, gint *xstride, gint *sstride,
 		      gfloat **xf, gint *fstride, gint *nfld,
-		      gfloat *ix,gfloat *iy, gfloat *iz)
+		      gfloat *ix, gfloat *iy, gfloat *iz)
 
 {
   FILE *f ;
@@ -731,17 +731,22 @@ gint local_curl_gradient_test(gint N, gfloat *x0, gfloat *xs,
   xf[0] = x0[0] + 0.35 ; 
   xf[1] = x0[1] - 0.31 ; 
   xf[2] = x0[2] + t + 0.5 ; 
+  src[2] = 0.3 ;
   
-  fprintf(stderr, "singular to regular translation gradient test\n") ;
-  fprintf(stderr, "=============================================\n") ;
+  fprintf(stderr, "gradient of curl of vector field test\n") ;
+  fprintf(stderr, "=====================================\n") ;
   fprintf(stderr,
 	  "Ns = %d\n"
 	  "Nr = %d\n"
 	  "x0 = (%g, %g, %g)\n"
+	  "src = (%g, %g, %g)\n"
 	  "xf = (%g, %g, %g)\n"
 	  "t  = %g\n"
 	  "nsrc = %d\n",
-	  Ns, Nr, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], t, nsrc) ;
+	  Ns, Nr,
+	  x0[0], x0[1], x0[2],
+	  src[0], src[1], src[2],
+	  xf[0], xf[1], xf[2], t, nsrc) ;
 
   /*reference calculation*/
   wbfmm_laplace_field_direct_f(xs, xstride, NULL, 0, nsrc,
@@ -755,52 +760,29 @@ gint local_curl_gradient_test(gint N, gfloat *x0, gfloat *xs,
 				      &(src[i*sstride]), nq, Ci, cstr,
 				      work) ;
 
-  wbfmm_laplace_expansion_grad_evaluate_f(x0, Ci, cstr, Ns, nq, xf,
-					     ff, fstr, work) ;
-
   /*translate the expansion*/
   wbfmm_laplace_coaxial_translate_SR_f(Co, cstr, Nr, Ci, cstr, Ns, nq, t,
 					  0.0) ;
 
   x0[2] += t ;
-  wbfmm_laplace_expansion_local_grad_f(x0, Co, cstr, Nr, nq,
-  						   xf, ft, fstr, work) ;
+  wbfmm_laplace_expansion_local_eval_f(x0, Co, cstr, Nr, nq,
+					   field, xf, ft, fstr, work) ;
 
   fprintf(stderr, "exact:       ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%g %g %g, ",
-	    fc[fstr*i+0], fc[fstr*i+1], fc[fstr*i+2]) ;
-  fprintf(stderr, "\n") ;
-
-  fprintf(stderr, "expansion:   ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%g %g %g, ",
-	    ff[fstr*i+0], ff[fstr*i+1], ff[fstr*i+2]) ;
-  fprintf(stderr, "\n") ;
-
-  fprintf(stderr, "error: ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%g %g %g, ",
-	    fabs(ff[fstr*i+0]-fc[fstr*i+0]),
-	    fabs(ff[fstr*i+1]-fc[fstr*i+1]),
-	    fabs(ff[fstr*i+2]-fc[fstr*i+2])) ;
+  for ( i = 0 ; i < 12 ; i ++ ) 
+    fprintf(stderr, "%g ", fc[i]) ;
   fprintf(stderr, "\n") ;
   
   fprintf(stderr, "translated:  ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%g %g %g, ",
-	    ft[fstr*i+0], ft[fstr*i+1], ft[fstr*i+2]) ;
+  for ( i = 0 ; i < 12 ; i ++ ) 
+    fprintf(stderr, "%g ", ft[i]) ;
   fprintf(stderr, "\n") ;
 
   fprintf(stderr, "error: ") ;
-  for ( i = 0 ; i < nq ; i ++ )
-    fprintf(stderr, "%g %g %g, ",
-	    fabs(ft[fstr*i+0]-fc[fstr*i+0]),
-	    fabs(ft[fstr*i+1]-fc[fstr*i+1]),
-	    fabs(ft[fstr*i+2]-fc[fstr*i+2])) ;
+  for ( i = 0 ; i < 12 ; i ++ ) 
+    fprintf(stderr, "%g ", fabs(ft[i]-fc[i])) ;
   fprintf(stderr, "\n") ;
 
-  
   return 0 ;
 }
 
@@ -1541,6 +1523,10 @@ gint main(gint argc, char **argv)
     }
   }
 
+  if ( test == -1 ) {
+    fprintf(stderr, "%s: no test specified\n", argv[0]) ;
+  }
+  
   timer = g_timer_new() ;
 
   wbfmm_laplace_coaxial_translate_init_f(N+2) ;
@@ -1647,6 +1633,8 @@ gint main(gint argc, char **argv)
     
     return 0 ;
   }
+
+  fprintf(stderr, "%s: test not recognised\n", argv[0]) ;
   
   return 0 ;
 }

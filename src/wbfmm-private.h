@@ -197,4 +197,42 @@ extern gint _wbfmm_shift_angles[] ;
 #define sin_n_PI_2(_n) (CnPI_2[((_n)+3)%4])
 #endif
 
+#define wbfmm_vector_scalar(WBFMM_A,WBFMM_B)				\
+  (((WBFMM_A)[0])*((WBFMM_B)[0])+					\
+   ((WBFMM_A)[1])*((WBFMM_B)[1])+					\
+   ((WBFMM_A)[2])*((WBFMM_B)[2]))
+#define wbfmm_vector_length2(WBFMM_A)					\
+  (((WBFMM_A)[0])*((WBFMM_A)[0]) +					\
+   ((WBFMM_A)[1])*((WBFMM_A)[1]) +					\
+   ((WBFMM_A)[2])*((WBFMM_A)[2]))
+#define wbfmm_vector_length(WBFMM_A) (SQRT(wbfmm_vector_length2(WBFMM_A)))
+#define wbfmm_vector_cross(WBFMM_C,WBFMM_A,WBFMM_B)			\
+  ((WBFMM_C)[0] = (WBFMM_A)[1]*(WBFMM_B)[2] - (WBFMM_A)[2]*(WBFMM_B)[1], \
+   (WBFMM_C)[1] = (WBFMM_A)[2]*(WBFMM_B)[0] - (WBFMM_A)[0]*(WBFMM_B)[2], \
+   (WBFMM_C)[2] = (WBFMM_A)[0]*(WBFMM_B)[1] - (WBFMM_A)[1]*(WBFMM_B)[0])
+#define wbfmm_vector_distance2(WBFMM_A,WBFMM_B)			\
+  ( ((WBFMM_A)[0]-(WBFMM_B)[0])*((WBFMM_A)[0]-(WBFMM_B)[0]) +	\
+    ((WBFMM_A)[1]-(WBFMM_B)[1])*((WBFMM_A)[1]-(WBFMM_B)[1]) +	\
+    ((WBFMM_A)[2]-(WBFMM_B)[2])*((WBFMM_A)[2]-(WBFMM_B)[2]) )
+
+#define wbfmm_vector_distance(WBFMM_A,WBFMM_B)		\
+  (SQRT((wbfmm_vector_distance2(WBFMM_A,WBFMM_B))))
+#define wbfmm_vector_diff_scalar(WBFMM_A,WBFMM_B,WBFMM_C)		\
+  (((WBFMM_A)[0]-(WBFMM_B)[0])*((WBFMM_C)[0]) +				\
+   ((WBFMM_A)[1]-(WBFMM_B)[1])*((WBFMM_C)[1]) +				\
+   ((WBFMM_A)[2]-(WBFMM_B)[2])*((WBFMM_C)[2]))
+
+#define wbfmm_vector_diff(WBFMM_A,WBFMM_B,WBFMM_C)		\
+  do {								\
+    (WBFMM_A)[0] = (WBFMM_B)[0] - (WBFMM_C)[0] ;		\
+    (WBFMM_A)[1] = (WBFMM_B)[1] - (WBFMM_C)[1] ;		\
+    (WBFMM_A)[2] = (WBFMM_B)[2] - (WBFMM_C)[2] ;		\
+  } while (0)
+#define wbfmm_vector_int(WBFMM_A,WBFMM_B)			\
+  do {								\
+  (WBFMM_A)[0] += (WBFMM_B)[0] ;				\
+  (WBFMM_A)[1] += (WBFMM_B)[1] ;				\
+  (WBFMM_A)[2] += (WBFMM_B)[2] ;				\
+  } while (0)
+
 #endif /*WBFMM_PRIVATE_H_INCLUDED*/

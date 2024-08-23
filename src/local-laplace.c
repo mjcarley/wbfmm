@@ -295,7 +295,7 @@ static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
   if ( nq < 3 )
     g_error("%s: not enough source components (%d) for curl calculation",
 	    __FUNCTION__, nq) ;
-  fprintf(stderr, "Hello\n") ;
+
   if ( N == 0 ) return 0 ;
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ;
@@ -387,6 +387,267 @@ static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
       field[2] -=
 	dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
     }
+  }
+  
+  return 0 ;
+}
+
+static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
+					 gint cstr, gint N, gint nq,
+					 WBFMM_REAL *xf, WBFMM_REAL *field,
+					 gint fstr, WBFMM_REAL *work)
+
+{
+  WBFMM_REAL r, th, ph, cr, ci ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnm1, *Pnm2 ;
+  WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
+  WBFMM_REAL dRnm[6], d2Rnm[12], rnm1, rnm2 ;
+  gint n, m, idx ;
+
+  /*
+    fstr is ignored: the curl based on the first three components of
+    the source is placed into the first three components of f,
+    followed by the nine components of the gradient
+   */
+  
+  if ( nq < 3 )
+    g_error("%s: not enough source components (%d) for curl calculation",
+	    __FUNCTION__, nq) ;
+  fprintf(stderr, "Hello\n") ;
+  if ( N == 0 ) return 0 ;
+
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ; Pnm2 = &(Pn[N+2]) ;
+  memset(Pnm1, 0, (N+2)*sizeof(gdouble)) ;
+  memset(Pn  , 0, (N+2)*sizeof(gdouble)) ;
+  memset(Pnm2, 0, (N+2)*sizeof(gdouble)) ;
+  Cmph = &(Pnm2[N+2]) ; Smph = &(Cmph[N+2]) ;
+  memset(Cmph, 0, (N+2)*sizeof(gdouble)) ;
+  memset(Smph, 0, (N+2)*sizeof(gdouble)) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
+
+  /*first two terms by hand; curl of zero order term is zero*/  
+  n = 1 ; 
+  m = 0 ; 
+  rnm1 = 1.0 ;
+  idx = n*n ;
+  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+  Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+  
+  cr = cfft[cstr*idx+1] ;
+  field[0] -= dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
+  cr = cfft[cstr*idx+0] ;
+  field[1] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
+  
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  Rnm_derivatives_1(n,m,rnm1,Pnm1,Cmph,Smph,dRnm) ;
+  
+  cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
+  field[0] += dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+  field[1] -= dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+
+  cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
+  field[0] -= dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+  field[2] += dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+
+  cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
+  field[1] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+  field[2] -= dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+
+  rnm2 = 1.0 ;
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rnm1 *= r ;
+
+    memcpy(Pnm2, Pnm1, (N+2)*sizeof(WBFMM_REAL)) ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+    Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+    Rnm_derivatives_2m0(n, m, rnm2, Pnm2, Cmph, Smph, d2Rnm) ;
+
+    cr = cfft[cstr*idx+2] ;
+    field[ 0] += dRnm[WBFMM_DERIVATIVE_Y_R]*cr ;
+
+    field[ 3] += d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr ;
+    field[ 6] += d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr ;
+    field[ 9] += d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr ;
+    
+    field[ 1] -= dRnm[WBFMM_DERIVATIVE_X_R]*cr ;
+
+    field[ 4] -= d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr ;
+    field[ 7] -= d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr ;
+    field[10] -= d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr ;
+
+    cr = cfft[cstr*idx+1] ;
+    field[ 0] -= dRnm [WBFMM_DERIVATIVE_Z_R]*cr ;
+    field[ 3] -= d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr ;
+    field[ 6] -= d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr ;
+    field[ 9] -= d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr ;
+
+    field[ 2] += dRnm[WBFMM_DERIVATIVE_X_R]*cr ;
+
+    field[ 5] += d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr ;
+    field[ 8] += d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr ;
+    field[11] += d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr ;
+
+    cr = cfft[cstr*idx+0] ;
+    field[ 1] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
+
+    field[ 4] += d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr ;
+    field[ 7] += d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr ;
+    field[10] += d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr ;
+
+    field[ 2] -= dRnm[WBFMM_DERIVATIVE_Y_R]*cr ;
+
+    field[ 5] -= d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr ;
+    field[ 8] -= d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr ;
+    field[11] -= d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr ;
+
+    m = 1 ;
+    idx = wbfmm_index_laplace_nm(n,m) ;
+
+    Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+    Rnm_derivatives_2m1(n, m, rnm2, Pnm2, Cmph, Smph, d2Rnm) ;
+    
+    cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
+    field[ 0] +=
+      dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+    field[ 3] +=
+      d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+    field[ 6] +=
+      d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YY_I]*ci ;
+    field[ 9] +=
+      d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+
+    field[ 1] -=
+      dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+
+    field[ 4] -=
+      d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XX_I]*ci ;
+    field[ 7] -=
+      d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+    field[10] -=
+      d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+    
+    cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
+    field[ 0] -=
+      dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+    field[ 3] -=
+      d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+    field[ 6] -=
+      d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+    field[ 9] -=
+      d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZZ_I]*ci ;
+
+    field[ 2] +=
+      dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+    field[ 5] +=
+      d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XX_I]*ci ;
+    field[ 8] +=
+      d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+    field[11] +=
+      d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+    
+    cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
+    field[ 1] +=
+      dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+
+    field[ 4] +=
+      d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+    field[ 7] +=
+      d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+    field[10] +=
+      d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZZ_I]*ci ;
+
+    field[ 2] -=
+      dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+    field[ 5] -=
+      d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+    field[ 8] -=
+      d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YY_I]*ci ;
+    field[11] -=
+      d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+    
+    for ( m = 2 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+
+      Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+      Rnm_derivatives_2(n, m, rnm2, Pnm2, Cmph, Smph, d2Rnm) ;
+  
+      cr = cfft[cstr*(idx+0)+2] ; ci = cfft[cstr*(idx+1)+2] ;
+      field[ 0] +=
+	dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+      field[ 3] +=
+	d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+      field[ 6] +=
+	d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YY_I]*ci ;
+      field[ 9] +=
+	d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+
+      field[ 1] -=
+	dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+
+      field[ 4] -=
+	d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XX_I]*ci ;
+      field[ 7] -=
+	d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+      field[10] -=
+	d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+
+      cr = cfft[cstr*(idx+0)+1] ; ci = cfft[cstr*(idx+1)+1] ;
+      field[ 0] -=
+	dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+      field[ 3] -=
+	d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+      field[ 6] -=
+	d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+      field[ 9] -=
+	d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZZ_I]*ci ;
+
+      field[ 2] +=
+	dRnm[WBFMM_DERIVATIVE_X_R]*cr - dRnm[WBFMM_DERIVATIVE_X_I]*ci ;
+      field[ 5] +=
+	d2Rnm[WBFMM_DERIVATIVE_XX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XX_I]*ci ;
+      field[ 8] +=
+	d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+      field[11] +=
+	d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+
+      cr = cfft[cstr*(idx+0)+0] ; ci = cfft[cstr*(idx+1)+0] ;
+      field[ 1] +=
+	dRnm[WBFMM_DERIVATIVE_Z_R]*cr - dRnm[WBFMM_DERIVATIVE_Z_I]*ci ;
+      field[ 4] +=
+	d2Rnm[WBFMM_DERIVATIVE_ZX_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZX_I]*ci ;
+      field[ 7] +=
+	d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+      field[10] +=
+	d2Rnm[WBFMM_DERIVATIVE_ZZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_ZZ_I]*ci ;
+
+      field[ 2] -=
+	dRnm[WBFMM_DERIVATIVE_Y_R]*cr - dRnm[WBFMM_DERIVATIVE_Y_I]*ci ;
+      field[ 5] -=
+	d2Rnm[WBFMM_DERIVATIVE_XY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_XY_I]*ci ;
+      field[ 8] -=
+	d2Rnm[WBFMM_DERIVATIVE_YY_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YY_I]*ci ;
+      field[11] -=
+	d2Rnm[WBFMM_DERIVATIVE_YZ_R]*cr - d2Rnm[WBFMM_DERIVATIVE_YZ_I]*ci ;
+    }
+
+    rnm2 *= r ;
   }
   
   return 0 ;
@@ -697,9 +958,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_eval)(WBFMM_REAL *x0,
   case WBFMM_FIELD_CURL:
     local_curl_evaluate(x0, cfft, cstr, N, nq, xf, f, fstr, work) ;
     break ;
-  /* case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT: */
-  /*   local_curl_gradient_evaluate(x0, cfft, cstr, N, nq, xf, f, fstr, work) ; */
-  /*   break ; */
+  case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT:
+    local_curl_gradient_evaluate(x0, cfft, cstr, N, nq, xf, f, fstr, work) ;
+    break ;
   }
   
   return 0 ;

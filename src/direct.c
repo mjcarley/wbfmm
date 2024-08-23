@@ -100,22 +100,24 @@ static gint laplace_field_curl(WBFMM_REAL *xs,
 
 {
   gint i ;
-  WBFMM_REAL r, th, ph, nR[3] ;
+  WBFMM_REAL r, r3, nR[3], dr[3], df[3], *s ;
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
   if ( normals == NULL && dipoles == NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
-							&r, &th, &ph) ;
+      wbfmm_vector_diff(dr,xf,&(xs[i*xstride])) ;
+      r = wbfmm_vector_length(dr) ;
       if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	nR[0] = (xf[0] - xs[i*xstride+0])/r/r/r*0.25*M_1_PI ;
-	nR[1] = (xf[1] - xs[i*xstride+1])/r/r/r*0.25*M_1_PI ;
-	nR[2] = (xf[2] - xs[i*xstride+2])/r/r/r*0.25*M_1_PI ;
+	s = &(src[i*sstride]) ;
+	r3 = r*r*r*4.0*M_PI ;
+	/*\nabla(1/R)*/
+	nR[0] = -dr[0]/r3 ;
+	nR[1] = -dr[1]/r3 ;
+	nR[2] = -dr[2]/r3 ;
 
-	field[0] -= src[i*sstride+2]*nR[1] - src[i*sstride+1]*nR[2] ;
-	field[1] -= src[i*sstride+0]*nR[2] - src[i*sstride+2]*nR[0] ;
-	field[2] -= src[i*sstride+1]*nR[0] - src[i*sstride+0]*nR[1] ;
+	wbfmm_vector_cross(df,nR,s) ;
+	wbfmm_vector_int(field,df) ;
       }
     }
 
@@ -143,22 +145,47 @@ static gint laplace_field_curl_gradient(WBFMM_REAL *xs,
 
 {
   gint i ;
-  WBFMM_REAL r, th, ph, nR[3] ;
+  WBFMM_REAL r, nR[12], dr[3], r3, r5, *s, df[3] ;
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
   if ( normals == NULL && dipoles == NULL ) {
     for ( i = 0 ; i < nsrc ; i ++ ) {
-      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
-							&r, &th, &ph) ;
+      wbfmm_vector_diff(dr,xf,&(xs[i*xstride])) ;
+      r = wbfmm_vector_length(dr) ;
       if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
-	nR[0] = (xf[0] - xs[i*xstride+0])/r/r/r*0.25*M_1_PI ;
-	nR[1] = (xf[1] - xs[i*xstride+1])/r/r/r*0.25*M_1_PI ;
-	nR[2] = (xf[2] - xs[i*xstride+2])/r/r/r*0.25*M_1_PI ;
+	s = &(src[i*sstride]) ;
+	r3 = r*r*r*4.0*M_PI ; r5 = r3*r*r ;
+	/*\nabla(1/R)*/
+	nR[0] = -dr[0]/r3 ;
+	nR[1] = -dr[1]/r3 ;
+	nR[2] = -dr[2]/r3 ;
+	
+	nR[ 3] = 3*dr[0]*dr[0]/r5 - 1.0/r3 ;
+	nR[ 4] = 3*dr[0]*dr[1]/r5 ;
+	nR[ 5] = 3*dr[0]*dr[2]/r5 ;
+	nR[ 6] = 3*dr[1]*dr[0]/r5 ;
+	nR[ 7] = 3*dr[1]*dr[1]/r5 - 1.0/r3 ;
+	nR[ 8] = 3*dr[1]*dr[2]/r5 ;
+	nR[ 9] = 3*dr[2]*dr[0]/r5 ;
+	nR[10] = 3*dr[2]*dr[1]/r5 ;
+	nR[11] = 3*dr[2]*dr[2]/r5 - 1.0/r3 ;
 
-	field[0] -= src[i*sstride+2]*nR[1] - src[i*sstride+1]*nR[2] ;
-	field[1] -= src[i*sstride+0]*nR[2] - src[i*sstride+2]*nR[0] ;
-	field[2] -= src[i*sstride+1]*nR[0] - src[i*sstride+0]*nR[1] ;
+	/*\nabla(1/R)\times\omega*/
+	wbfmm_vector_cross(df,nR,s) ;
+	wbfmm_vector_int(field,df) ;
+
+	/*d/dx field[0,1,2]*/
+	wbfmm_vector_cross(df,&(nR[3]),s) ;
+	wbfmm_vector_int(&(field[3]),df) ;
+
+	/*d/dy field[0,1,2]*/
+	wbfmm_vector_cross(df,&(nR[6]),s) ;
+	wbfmm_vector_int(&(field[6]),df) ;
+	
+	/*d/dz field[0,1,2]*/
+	wbfmm_vector_cross(df,&(nR[9]),s) ;
+	wbfmm_vector_int(&(field[9]),df) ;
       }
     }
 
