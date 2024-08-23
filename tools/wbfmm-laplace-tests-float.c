@@ -564,8 +564,9 @@ gint translation_RR_test(gint N, gfloat *x0, gfloat *xs,
 					  t*0.1, 0.0) ;  
 
   x0[2] += t ;  
-  wbfmm_laplace_expansion_local_evaluate_f(x0, Cr, cstr, N1, nq,
-					      xf, ft, work) ;
+  wbfmm_laplace_expansion_local_eval_f(x0, Cr, cstr, N1, nq,
+					   WBFMM_FIELD_SCALAR,
+					   xf, ft, 1, work) ;
 
   /*check pre-computed evaluation method*/
   xf[0] -= x0[0] ; xf[1] -= x0[1] ; xf[2] -= x0[2] ; 
@@ -659,8 +660,6 @@ gint local_gradient_test(gint N, gfloat *x0, gfloat *xs,
 					  0.0) ;
 
   x0[2] += t ;
-  /* wbfmm_laplace_expansion_local_grad_f(x0, Co, cstr, Nr, nq, */
-  /* 						   xf, ft, fstr, work) ; */
   wbfmm_laplace_expansion_local_eval_f(x0, Co, cstr, Nr, nq,
 					   field, xf, ft, fstr, work) ;
 

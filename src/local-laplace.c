@@ -24,6 +24,8 @@
 
 #include <glib.h>
 
+#include <blaswrap.h>
+
 #include <wbfmm.h>
 
 #include "wbfmm-private.h"
@@ -105,7 +107,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
   
   return 0 ;
 }
-
 
 static void box_curl_evaluate(wbfmm_tree_t *t,
 			      gint i0, gint i1,
@@ -275,6 +276,308 @@ static void box_curl_evaluate4_sorted(char *y, gsize ysize,
   return ;
 }
 
+static gint local_field_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
+				 gint cstr, gint N, gint nq,
+				 WBFMM_REAL *xf, WBFMM_REAL *field,
+				 WBFMM_REAL *work)
+
+{
+  WBFMM_REAL r, th, ph, rn ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
+  WBFMM_REAL *Cmph, *Smph ;
+  gint n, m, idx, i ;
+  
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
+  Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Cmph[1] = COS(ph) ; 
+  Smph[0] = 0.0 ; Smph[1] = SIN(ph) ;
+
+  /*first two terms by hand*/
+  n = 0 ; 
+  m = 0 ;
+  rn = 1.0 ;
+  idx = n*n ;
+  for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pnm1[m] ;
+  
+  n = 1 ; 
+  m = 0 ; 
+  rn *= r ;
+  idx = n*n ;
+  for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[m] ;
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+			      cfft[cstr*(idx+1)+i]*Smph[m]) ;
+  }
+
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rn *= r ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
+    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+    for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[0] ;
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
+				  cfft[cstr*(idx+1)+i]*Smph[m]) ;
+      }
+    }
+  }
+  
+  return 0 ;
+}
+
+static gint box_local_field(wbfmm_tree_t *t,
+							     guint level,
+							     guint b,
+							     WBFMM_REAL *x,
+							     WBFMM_REAL *f,
+							     gint fstr,
+							     WBFMM_REAL *src,
+							     gint sstr,
+							     WBFMM_REAL *d,
+							     gint dstr,
+							     gboolean
+							     eval_neighbours,
+							     WBFMM_REAL *work)
+
+{
+  WBFMM_REAL xb[3], wb, *C, *xs, r ;
+  wbfmm_box_t *boxes, box ;
+  guint64 neighbours[27] ;
+  gint nnbr, i, j, k, idx, nq ;
+
+  g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
+
+  nq = wbfmm_tree_source_size(t) ;
+
+  boxes = t->boxes[level] ;
+  C = boxes[b].mpr ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+  
+  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(xb, C, 8*nq,
+  							      t->order_r[level],
+  							      nq, x, f, work) ;
+
+  if ( !eval_neighbours ) return 0 ;
+
+  if ( src == NULL && d == NULL ) return 0 ;
+  if ( t->normals == NULL && d != NULL ) {
+    g_error("%s: no normals in tree but dipole strengths specified "
+	    "(d != NULL)",
+	    __FUNCTION__) ;
+  }
+
+  /*add the contribution from sources in neighbour boxes*/
+  nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
+  g_assert(nnbr >= 0 && nnbr < 28) ;
+
+  if ( t->normals == NULL && d == NULL ) {
+    /* monopoles only */
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	r = (xs[0]-x[0])*(xs[0]-x[0]) + (xs[1]-x[1])*(xs[1]-x[1]) +
+	  (xs[2]-x[2])*(xs[2]-x[2]) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  r = SQRT(r)*4.0*M_PI ;
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k*fstr] += src[idx*sstr+k]/r ;
+	  }
+	}
+      }
+    }
+    
+    return 0 ;
+  }
+
+  if ( src == NULL && t->normals != NULL ) {
+    /*dipoles only*/
+    WBFMM_REAL th, ph, nr, *normal ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
+
+	WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(xs, x, &r, &th, &ph) ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  nr =
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
+	  nr /= 4.0*M_PI*r*r*r ;
+	  for ( k = 0 ; k < nq ; k ++ ) f[k*fstr] += d[idx*dstr+k]*nr ;
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+  
+  if ( src != NULL && t->normals != NULL ) {
+    /*sources and dipoles*/
+    WBFMM_REAL rr[3], nr, g, *normal ;
+    
+    for ( i = 0 ; i < nnbr ; i ++ ) {
+      box = boxes[neighbours[i]] ;
+      for ( j = 0 ; j < box.n ; j ++ ) {
+	idx = t->ip[box.i+j] ;
+	xs = wbfmm_tree_point_index(t, idx) ;
+	normal = wbfmm_tree_normal_index(t,idx) ;
+
+	rr[0] = x[0] - xs[0] ; 
+	rr[1] = x[1] - xs[1] ; 
+	rr[2] = x[2] - xs[2] ;
+	r = rr[0]*rr[0] + rr[1]*rr[1] + rr[2]*rr[2] ;
+	if ( r > WBFMM_LOCAL_CUTOFF_RADIUS*WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	  r = SQRT(r) ;
+	  nr =
+	    (x[0] - xs[0])*normal[0] +
+	    (x[1] - xs[1])*normal[1] + 
+	    (x[2] - xs[2])*normal[2] ;
+	  g = 0.25*M_1_PI/r ;
+	  for ( k = 0 ; k < nq ; k ++ ) {
+	    f[k*fstr] += (d[idx*dstr+k]*nr/r/r + src[idx*sstr+k])*g ;
+	  }
+	}
+      }
+      
+    } 
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ; 
+  
+  return 0 ;
+}
+
+static gint local_grad_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
+				gint cstr, gint N, gint nq,
+				WBFMM_REAL *xf, WBFMM_REAL *field,
+				gint fstr, WBFMM_REAL *work)
+
+{
+  WBFMM_REAL r, th, ph, rnm1, cr, ci ;
+  WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
+  WBFMM_REAL *Cmph, *Smph ;
+  WBFMM_REAL dRnm[6] ;
+  gint n, m, idx, i, i1 = 1, i2 = 2, i3 = 3 ;
+
+  if ( fstr < 3 && nq != 1 )
+    g_error("%s: field data stride (%d) must be greater than two",
+	    __FUNCTION__, fstr) ;
+
+  if ( N == 0 ) return 0 ;
+
+  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ;
+  Cmph = &(Pn[N+2]) ; Smph = &(Cmph[N+2]) ;
+
+  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
+  Cth = COS(th) ; Sth = SIN(th) ; 
+
+  /*initialize recursions*/
+  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
+					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
+  Cmph[0] = 1.0 ; Smph[0] = 0.0 ;
+  Cmph[1] = COS(ph) ; Smph[1] = SIN(ph) ;
+
+  /*first two terms by hand; gradient of zero order term is zero*/  
+  n = 1 ; 
+  m = 0 ; 
+  rnm1 = 1.0 ;
+  idx = n*n ;
+  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+  Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+  
+  for ( i = 0 ; i < nq ; i ++ ) {
+    cr = cfft[cstr*idx+i] ;
+    
+    field[fstr*i+2] += dRnm[WBFMM_DERIVATIVE_Z_R]*cr ;
+  }
+
+  m = 1 ; 
+  idx = wbfmm_index_laplace_nm(n,m) ;
+
+  Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+  for ( i = 0 ; i < nq ; i ++ ) {
+    cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_saxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_daxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
+  }
+  
+  for ( n = 2 ; n <= N ; n ++ ) {
+    rnm1 *= r ;
+    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
+							n-1, Cth, Sth) ;
+    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
+    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+
+    m = 0 ; 
+    idx = n*n ;
+
+    Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+    for ( i = 0 ; i < nq ; i ++ ) {
+      cr = cfft[cstr*idx+i] ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
+    }
+
+    for ( m = 1 ; m <= n ; m ++ ) {
+      idx = wbfmm_index_laplace_nm(n,m) ;
+
+      Rnm_derivatives_1(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
+      for ( i = 0 ; i < nq ; i ++ ) {
+	cr = cfft[cstr*(idx+0)+i] ; ci = -cfft[cstr*(idx+1)+i] ;
+
+#ifdef WBFMM_SINGLE_PRECISION
+      blaswrap_saxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_saxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#else /*WBFMM_SINGLE_PRECISION*/
+      blaswrap_daxpy(i3, cr, &(dRnm[0]), i2, &(field[i*fstr]), i1) ;
+      blaswrap_daxpy(i3, ci, &(dRnm[1]), i2, &(field[i*fstr]), i1) ;
+#endif /*WBFMM_SINGLE_PRECISION*/
+      }
+    }
+  }
+  
+  return 0 ;
+}
+
 static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
 				gint N,	gint nq,
 				WBFMM_REAL *xf,	WBFMM_REAL *field, gint fstr,
@@ -283,7 +586,7 @@ static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
 {
   WBFMM_REAL r, th, ph, cr, ci ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
-  WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
+  WBFMM_REAL *Cmph, *Smph ;
   WBFMM_REAL dRnm[6], rnm1 ;
   gint n, m, idx ;
 
@@ -400,7 +703,7 @@ static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
 {
   WBFMM_REAL r, th, ph, cr, ci ;
   WBFMM_REAL Cth, Sth, *Pn, *Pnm1, *Pnm2 ;
-  WBFMM_REAL *Cmph, *Smph, Rnmm1, Rnm, Rnmp1 ;
+  WBFMM_REAL *Cmph, *Smph ;
   WBFMM_REAL dRnm[6], d2Rnm[12], rnm1, rnm2 ;
   gint n, m, idx ;
 
@@ -759,9 +1062,11 @@ static gint tree_laplace_box_local_grad(wbfmm_tree_t *t,
   C = boxes[b].mpr ;
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
+
+  local_grad_evaluate(xb, C, 8*nq, t->order_r[level], nq, x, f, fstr, work) ;
   
-  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad)(xb, C, 8*nq, t->order_r[level],
-					nq, x, f, fstr, work) ;
+  /* WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad)(xb, C, 8*nq, t->order_r[level], */
+  /* 					nq, x, f, fstr, work) ; */
   
   if ( !eval_neighbours ) return 0 ;
 
@@ -881,26 +1186,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
 						  WBFMM_REAL *work)
 
 {
-  WBFMM_REAL xb[3], wb, *C, *xs, r, nR[3] ;
-  wbfmm_box_t *boxes, box ;
-  guint64 neighbours[27] ;
-  gint nnbr, i, j, k, idx, nq ;
-
   g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
 
-  nq = wbfmm_tree_source_size(t) ;
-
-  boxes = t->boxes[level] ;
-  C = boxes[b].mpr ;
-
-  WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
-  
   switch ( field ) {
   default:
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
   case WBFMM_FIELD_SCALAR:
-    WBFMM_FUNCTION_NAME(wbfmm_tree_laplace_box_local_field)(t, level, b,
+    box_local_field(t, level, b,
 							    x, f, fstr,
 							    src, sstr,
 							    d, dstr,
@@ -945,15 +1238,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_eval)(WBFMM_REAL *x0,
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
   case WBFMM_FIELD_SCALAR:
-    WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(x0, cfft,
-								cstr, N, nq,
-								xf, f, work) ;
+    local_field_evaluate(x0, cfft, cstr, N, nq,	xf, f, work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
   case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
-    WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad)(x0, cfft, cstr,
-							    N, nq,
-							    xf, f, fstr, work) ;
+    local_grad_evaluate(x0, cfft, cstr, N, nq,	xf, f, fstr, work) ;
     break ;
   case WBFMM_FIELD_CURL:
     local_curl_evaluate(x0, cfft, cstr, N, nq, xf, f, fstr, work) ;

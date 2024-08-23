@@ -13,13 +13,14 @@ swfile=swfmm.dat
 bw=-B
 depth=4
 nthread=1
-order_r=16
-order_s=16
+order_r=24
+order_s=24
 targets=
 #-l
 curl=
 #-c
-gradient=-g
+gradient=
+#-g
 sort=-p
 
 ${BIN}/wbfmm-laplace-direct-calc ${gradient} ${curl} -f ${ffile} -s ${sfile} > ${dfile}
