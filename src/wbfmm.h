@@ -529,6 +529,21 @@ gint wbfmm_laplace_expansion_evaluate_f(gfloat *x0, gfloat *cfft,
 					gint cstr, gint N, gint nq,
 					gfloat *xf, gfloat *field,
 					gfloat *work) ;
+gint wbfmm_laplace_expansion_local_eval(gdouble *x0,
+					gdouble *cfft, gint cstr, 
+					gint N,	gint nq,
+					guint field,
+					gdouble *xf,
+					gdouble *f,gint fstr,
+					gdouble *work) ;
+gint wbfmm_laplace_expansion_local_eval_f(gfloat *x0,
+					  gfloat *cfft, gint cstr, 
+					  gint N, gint nq,
+					  guint field,
+					  gfloat *xf,
+					  gfloat *f,gint fstr,
+					  gfloat *work) ;
+
 gint wbfmm_laplace_expansion_local_evaluate(gdouble *x0, gdouble *cfft,
 					    gint cstr, gint N, gint nq,
 					    gdouble *xf, gdouble *field,

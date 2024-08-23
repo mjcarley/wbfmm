@@ -297,6 +297,9 @@
     									\
     g_assert((_m) == 0) ;						\
     									\
+    (_dRnm)[WBFMM_DERIVATIVE_X_I] = 0.0 ;				\
+    (_dRnm)[WBFMM_DERIVATIVE_Y_I] = 0.0 ;				\
+    (_dRnm)[WBFMM_DERIVATIVE_Z_I] = 0.0 ;				\
     _anm[_off+0] = SQRT((WBFMM_REAL)(2*(_n)+1)/(2*(_n)-1)*		\
 			((_n)-(_m))*((_n)+(_m))) ;			\
     _anm[_off+1] = SQRT((WBFMM_REAL)(2*(_n)+1)/(2*(_n)-1)*		\

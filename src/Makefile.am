@@ -27,23 +27,24 @@ libwbfmm_la_SOURCES = \
 	expansions.c \
 	translations.c \
 	rotations.c \
+	rotations-laplace.c \
 	util.c \
 	factorial.c \
 	boxes.c \
 	shift.c \
+	shift-laplace.c \
 	shiftbw.c \
+	shiftbw-laplace.c \
 	pass.c \
 	pass-avx.c \
-	laplace.c \
-	shift-laplace.c \
-	shiftbw-laplace.c \
 	pass-laplace.c \
 	pass-laplace-avx.c \
-	rotations-laplace.c \
+	laplace.c \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
 	local.c \
+	local-laplace.c \
 	constants.c \
 	config.c \
 	direct.c
@@ -69,20 +70,21 @@ libsub_la_SOURCES = \
 	expansions.c \
 	translations.c \
 	rotations.c \
+	rotations-laplace.c \
 	util.c \
 	boxes.c \
 	shift.c \
-	shiftbw.c \
-	pass.c \
-	laplace.c \
 	shift-laplace.c \
+	shiftbw.c \
 	shiftbw-laplace.c \
+	pass.c \
 	pass-laplace.c \
-	rotations-laplace.c \
+	laplace.c \
 	targets.c \
 	gradient.c \
 	gradient-laplace.c \
 	local.c \
+	local-laplace.c \
 	direct.c
 
 libsub_la_CFLAGS = -DWBFMM_SINGLE_PRECISION

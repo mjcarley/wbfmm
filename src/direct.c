@@ -127,6 +127,49 @@ static gint laplace_field_curl(WBFMM_REAL *xs,
   return 0 ;
 }
 
+static gint laplace_field_curl_gradient(WBFMM_REAL *xs,
+					gint xstride,
+					WBFMM_REAL *src,
+					gint sstride,
+					gint nq,
+					WBFMM_REAL *normals,
+					gint nstr,
+					WBFMM_REAL *dipoles,
+					gint dstr,
+					gint nsrc,
+					WBFMM_REAL *xf,
+					WBFMM_REAL *field,
+					gint fstr)
+
+{
+  gint i ;
+  WBFMM_REAL r, th, ph, nR[3] ;
+
+  if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
+
+  if ( normals == NULL && dipoles == NULL ) {
+    for ( i = 0 ; i < nsrc ; i ++ ) {
+      WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(&(xs[i*xstride]), xf, 
+							&r, &th, &ph) ;
+      if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+	nR[0] = (xf[0] - xs[i*xstride+0])/r/r/r*0.25*M_1_PI ;
+	nR[1] = (xf[1] - xs[i*xstride+1])/r/r/r*0.25*M_1_PI ;
+	nR[2] = (xf[2] - xs[i*xstride+2])/r/r/r*0.25*M_1_PI ;
+
+	field[0] -= src[i*sstride+2]*nR[1] - src[i*sstride+1]*nR[2] ;
+	field[1] -= src[i*sstride+0]*nR[2] - src[i*sstride+2]*nR[0] ;
+	field[2] -= src[i*sstride+1]*nR[0] - src[i*sstride+0]*nR[1] ;
+      }
+    }
+
+    return 0 ;
+  }
+
+  g_assert_not_reached() ;
+  
+  return 0 ;
+}
+
 gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 					      WBFMM_REAL *src, gint sstride,
 					      gint nq,
@@ -249,9 +292,16 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_direct)(WBFMM_REAL *xs,
 		       n, nstr, d, dstr, nsrc,
 		       xf, f, fstr) ;
     break ;
-  /* case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT: */
-  /*   g_assert_not_reached() ; */
-  /*   break ;     */
+  case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT:
+    if ( nq < 3 ) {
+      g_error("%s: not enough source components (%d) for curl calculation",
+	      __FUNCTION__, nq) ;
+    }
+    
+    laplace_field_curl_gradient(xs, xstr, src, sstr, nq,
+				n, nstr, d, dstr, nsrc,
+				xf, f, fstr) ;
+    break ;
   }
   
   return 0 ;
