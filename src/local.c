@@ -281,11 +281,6 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 						     WBFMM_REAL *work)
 
 {
-  WBFMM_REAL xb[3], *C, *xs, r, h0[2], h1[2], fR[2] ;
-  wbfmm_box_t *boxes, box ;
-  guint64 neighbours[27] ;
-  gint nnbr, i, j, jj, idx, nq ;
-
   g_assert(t->problem == WBFMM_PROBLEM_HELMHOLTZ ) ;
 
   switch ( field ) {

@@ -35,79 +35,6 @@
 #include <immintrin.h>
 #endif /*HAVE_AVX_INSTRUCTIONS*/
 
-gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(WBFMM_REAL *x0,
-								 WBFMM_REAL
-								 *cfft,
-								 gint cstr, 
-								 gint N,
-								 gint nq,
-								 WBFMM_REAL *xf,
-								 WBFMM_REAL
-								 *field,
-								 WBFMM_REAL
-								 *work)
-
-{
-  WBFMM_REAL r, th, ph, rn ;
-  WBFMM_REAL Cth, Sth, *Pn, *Pnm1 ;
-  WBFMM_REAL *Cmph, *Smph ;
-  gint n, m, idx, i ;
-  
-  Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
-  Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
-
-  WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, xf, &r, &th, &ph) ;
-  Cth = COS(th) ; Sth = SIN(th) ; 
-
-  /*initialize recursions*/
-  WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
-					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
-  Cmph[0] = 1.0 ; Cmph[1] = COS(ph) ; 
-  Smph[0] = 0.0 ; Smph[1] = SIN(ph) ;
-
-  /*first two terms by hand*/
-  n = 0 ; 
-  m = 0 ;
-  rn = 1.0 ;
-  idx = n*n ;
-  for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pnm1[m] ;
-  
-  n = 1 ; 
-  m = 0 ; 
-  rn *= r ;
-  idx = n*n ;
-  for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[m] ;
-
-  m = 1 ; 
-  idx = wbfmm_index_laplace_nm(n,m) ;
-  for ( i = 0 ; i < nq ; i ++ ) {
-    field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
-			      cfft[cstr*(idx+1)+i]*Smph[m]) ;
-  }
-
-  for ( n = 2 ; n <= N ; n ++ ) {
-    rn *= r ;
-    WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
-							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
-    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
-
-    m = 0 ; 
-    idx = n*n ;
-    for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[0] ;
-
-    for ( m = 1 ; m <= n ; m ++ ) {
-      idx = wbfmm_index_laplace_nm(n,m) ;
-      for ( i = 0 ; i < nq ; i ++ ) {
-	field[i] += 2.0*Pn[m]*rn*(cfft[cstr*(idx+0)+i]*Cmph[m] -
-				  cfft[cstr*(idx+1)+i]*Smph[m]) ;
-      }
-    }
-  }
-  
-  return 0 ;
-}
-
 static void box_curl_evaluate(wbfmm_tree_t *t,
 			      gint i0, gint i1,
 			      WBFMM_REAL *src, gint sstr,
@@ -342,19 +269,12 @@ static gint local_field_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
   return 0 ;
 }
 
-static gint box_local_field(wbfmm_tree_t *t,
-							     guint level,
-							     guint b,
-							     WBFMM_REAL *x,
-							     WBFMM_REAL *f,
-							     gint fstr,
-							     WBFMM_REAL *src,
-							     gint sstr,
-							     WBFMM_REAL *d,
-							     gint dstr,
-							     gboolean
-							     eval_neighbours,
-							     WBFMM_REAL *work)
+static gint box_local_field(wbfmm_tree_t *t, guint level, guint b,
+			    WBFMM_REAL *x, WBFMM_REAL *f, gint fstr,
+			    WBFMM_REAL *src, gint sstr,
+			    WBFMM_REAL *d, gint dstr,
+			    gboolean eval_neighbours,
+			    WBFMM_REAL *work)
 
 {
   WBFMM_REAL xb[3], wb, *C, *xs, r ;
@@ -371,10 +291,10 @@ static gint box_local_field(wbfmm_tree_t *t,
 
   WBFMM_FUNCTION_NAME(wbfmm_tree_box_centre)(t, level, b, xb, &wb) ;
   
-  WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(xb, C, 8*nq,
-  							      t->order_r[level],
-  							      nq, x, f, work) ;
-
+  /* WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_evaluate)(xb, C, 8*nq, */
+  /* 							      t->order_r[level], */
+  /* 							      nq, x, f, work) ; */
+  local_field_evaluate(xb, C, 8*nq, t->order_r[level], nq, x, f, work) ;
   if ( !eval_neighbours ) return 0 ;
 
   if ( src == NULL && d == NULL ) return 0 ;
@@ -1065,9 +985,6 @@ static gint tree_laplace_box_local_grad(wbfmm_tree_t *t,
 
   local_grad_evaluate(xb, C, 8*nq, t->order_r[level], nq, x, f, fstr, work) ;
   
-  /* WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_grad)(xb, C, 8*nq, t->order_r[level], */
-  /* 					nq, x, f, fstr, work) ; */
-  
   if ( !eval_neighbours ) return 0 ;
 
   if ( src == NULL && d == NULL ) return 0 ;
@@ -1193,12 +1110,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
   case WBFMM_FIELD_SCALAR:
-    box_local_field(t, level, b,
-							    x, f, fstr,
-							    src, sstr,
-							    d, dstr,
-							    eval_neighbours,
-							    work) ;
+    box_local_field(t, level, b, x, f, fstr,
+		    src, sstr, d, dstr,
+		    eval_neighbours, work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
   case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
