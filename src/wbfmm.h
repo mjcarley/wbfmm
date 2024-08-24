@@ -544,14 +544,6 @@ gint wbfmm_laplace_expansion_local_eval_f(gfloat *x0,
 					  gfloat *f,gint fstr,
 					  gfloat *work) ;
 
-/* gint wbfmm_laplace_expansion_local_evaluate(gdouble *x0, gdouble *cfft, */
-/* 					    gint cstr, gint N, gint nq, */
-/* 					    gdouble *xf, gdouble *field, */
-/* 					    gdouble *work) ; */
-/* gint wbfmm_laplace_expansion_local_evaluate_f(gfloat *x0, gfloat *cfft, */
-/* 					      gint cstr, gint N, gint nq, */
-/* 					      gfloat *xf, gfloat *field, */
-/* 					      gfloat *work) ; */
 gint wbfmm_laplace_expansion_local_laplacian_evaluate(gdouble *x0,
 						      gdouble *cfft,
 						      gint cstr, 
@@ -732,56 +724,6 @@ gint wbfmm_laplace_upward_pass_f(wbfmm_tree_t *t,
 				   wbfmm_shift_operators_t *op,
 				   guint level,
 				   gfloat *work) ;
-gint wbfmm_laplace_box_fields(wbfmm_tree_t *t,
-			      gint level,
-			      gdouble *xf,
-			      gdouble *field,
-			      gdouble *work) ;
-gint wbfmm_laplace_box_fields_f(wbfmm_tree_t *t,
-				gint level,
-				gfloat *xf,
-				gfloat *field,
-				gfloat *work) ;
-gint wbfmm_tree_laplace_box_local_grad(wbfmm_tree_t *t,
-				       guint level,
-				       guint b,
-				       gdouble *x,
-				       gdouble *f,
-				       gint fstr,
-				       gdouble *src, gint sstr,
-				       gdouble *d, gint dstr,
-				       gboolean eval_neighbours,
-				       gdouble *work) ;
-gint wbfmm_tree_laplace_box_local_grad_f(wbfmm_tree_t *t,
-					 guint level,
-					 guint b,
-					 gfloat *x,
-					 gfloat *f,
-					 gint fstr,
-					 gfloat *src, gint sstr,
-					 gfloat *d, gint dstr,
-					 gboolean eval_neighbours,
-					 gfloat *work) ;
-gint wbfmm_tree_laplace_box_local_curl(wbfmm_tree_t *t,
-				       guint level,
-				       guint b,
-				       gdouble *x,
-				       gdouble *f,
-				       gint fstr,
-				       gdouble *src, gint sstr,
-				       gdouble *d, gint dstr,
-				       gboolean eval_neighbours,
-				       gdouble *work) ;
-gint wbfmm_tree_laplace_box_local_curl_f(wbfmm_tree_t *t,
-					 guint level,
-					 guint b,
-					 gfloat *x,
-					 gfloat *f,
-					 gint fstr,
-					 gfloat *src, gint sstr,
-					 gfloat *d, gint dstr,
-					 gboolean eval_neighbours,
-					 gfloat *work) ;
 
 gint wbfmm_laplace_box_field(wbfmm_tree_t *t, guint level, guint b,
 			     gdouble *src, gint sstr,

@@ -76,6 +76,10 @@
  *
  * @brief Operations on octree boxes and trees
  *
+ * These functions apply to the Helmholtz problem: there are
+ * equivalent functions which apply to the solution of Laplace
+ *  problems (@ref laplace).
+ *
  */
 
 /**
