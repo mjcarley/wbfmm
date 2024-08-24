@@ -214,7 +214,7 @@ gint expansion_test(gint N, gdouble *x0, gdouble *xs,
   
   /*reference calculation*/
   wbfmm_laplace_field(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
-			    nsrc, xf, fc, nq) ;
+			    nsrc, xf, fc, 1) ;
 
   cstr = 2 ;
   /*multipole expansion*/
@@ -284,7 +284,7 @@ gint expansion_normal_test(gint N, gdouble *x0, gdouble *xs,
   
   /*reference calculation*/
   wbfmm_laplace_field(xs, xstride, NULL, sstride, nq, n, 3, src, nq,
-			    nsrc, xf, fc, nq) ;
+			    nsrc, xf, fc, 1) ;
 
   cstr = 2 ;
   /*multipole expansion*/
@@ -409,7 +409,7 @@ gint translation_test(gint N, gdouble *x0, gdouble *xs,
 
   /*reference calculation*/
   wbfmm_laplace_field(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
-			    nsrc, xf, fc, nq) ;
+			    nsrc, xf, fc, 1) ;
 
   cstr = 4 ;
   /*multipole expansion*/
@@ -543,7 +543,7 @@ gint translation_RR_test(gint N, gdouble *x0, gdouble *xs,
 
   /*reference calculation*/
   wbfmm_laplace_field(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
-			    nsrc, xf, fc, nq) ;
+			    nsrc, xf, fc, 1) ;
 
   cstr = 4 ;
   /*multipole expansion*/

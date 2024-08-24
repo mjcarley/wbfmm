@@ -51,6 +51,12 @@
 
 #endif /*WBFMM_SINGLE_PRECISION*/
 
+#define wbfmm_cos_sin_nph(_Cnph,_Snph,_Cph,_Sph,_n)			\
+  do {									\
+  (_Cnph)[(_n)+1] = (_Cnph)[(_n)]*(_Cph) - (_Snph)[(_n)]*(_Sph) ;	\
+  (_Snph)[(_n)+1] = (_Snph)[(_n)]*(_Cph) + (_Cnph)[(_n)]*(_Sph) ;	\
+  } while (0)
+
 #define wbfmm_cos_sin_recursion(_Cn,_Sn,_C,_S)	\
   do { WBFMM_REAL _tmp = (_Cn) ;		\
   (_Cn) = (_Cn)*(_C) - (_Sn)*(_S) ;		\

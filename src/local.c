@@ -120,9 +120,6 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 	  WBFMM_FUNCTION_NAME(wbfmm_bessel_h_init)(k*r, h0, h1) ;
 	  h1[0] /= 4.0*M_PI ; h1[1] /= 4.0*M_PI ;
 
-	  /* fR[0] = (normals[idx*nstr+0]*(x[0] - xs[0]) + */
-	  /* 	   normals[idx*nstr+1]*(x[1] - xs[1]) + */
-	  /* 	   normals[idx*nstr+2]*(x[2] - xs[2]))/r ; */
 	  fR[0] = (normal[0]*(x[0] - xs[0]) +
 		   normal[1]*(x[1] - xs[1]) +
 		   normal[2]*(x[2] - xs[2]))/r ;
@@ -162,8 +159,10 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 		     normal[2]*(x[2] - xs[2]))/r ;
 	    fR[1] = d[idx*dstr+2*jj+1]*fR[0] ; fR[0] *= d[idx*dstr+2*jj+0] ;
 	    
-	    f[fstr*jj+0] += h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ;
-	    f[fstr*jj+1] += h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ;
+	    f[fstr*jj+0] +=
+	      h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ;
+	    f[fstr*jj+1] +=
+	      h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ;
 	    
 	    f[fstr*jj+0] -= k*(h1[0]*fR[0] - h1[1]*fR[1]) ;
 	    f[fstr*jj+1] -= k*(h1[0]*fR[1] + h1[1]*fR[0]) ;
@@ -251,10 +250,6 @@ static gint _wbfmm_tree_box_local_field_gradient(wbfmm_tree_t *t,
 	    f[jj*fstr+3] -= k*fi*nR[1] ;
 	    f[jj*fstr+4] -= k*fr*nR[2] ;
 	    f[jj*fstr+5] -= k*fi*nR[2] ;
-	    /* f[fstr*jj+0] += */
-	    /*   h0[0]*src[idx*sstr+2*jj+0] - h0[1]*src[idx*sstr+2*jj+1] ; */
-	    /* f[fstr*jj+1] += */
-	    /*   h0[1]*src[idx*sstr+2*jj+0] + h0[0]*src[idx*sstr+2*jj+1] ; */
 	  }
 	}
       }

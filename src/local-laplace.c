@@ -250,9 +250,10 @@ static gint local_field_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
-    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
-
+    /* Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ; */
+    /* Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n-1) ;
+    
     m = 0 ; 
     idx = n*n ;
     for ( i = 0 ; i < nq ; i ++ ) field[i] += cfft[cstr*idx+i]*rn*Pn[0] ;
@@ -429,9 +430,11 @@ static gint local_grad_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
   m = 0 ; 
   rnm1 = 1.0 ;
   idx = n*n ;
-  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
-
+  /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+  /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+  /* fprintf(stderr, "Hello\n") ; */
+  wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
+    
   Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
   
   for ( i = 0 ; i < nq ; i ++ ) {
@@ -460,8 +463,9 @@ static gint local_grad_evaluate(WBFMM_REAL *x0, WBFMM_REAL *cfft,
     rnm1 *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
     m = 0 ; 
     idx = n*n ;
@@ -538,8 +542,10 @@ static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
   m = 0 ; 
   rnm1 = 1.0 ;
   idx = n*n ;
-  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+  /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+  /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+  /* fprintf(stderr, "Hello\n") ; */
+  wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
   Rnm_derivatives_1m0(n,m,rnm1,Pnm1,Cmph,Smph,dRnm) ;
   
@@ -568,8 +574,9 @@ static gint local_curl_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft, gint cstr,
     rnm1 *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
     m = 0 ; 
     idx = n*n ;
@@ -636,7 +643,7 @@ static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
   if ( nq < 3 )
     g_error("%s: not enough source components (%d) for curl calculation",
 	    __FUNCTION__, nq) ;
-  fprintf(stderr, "Hello\n") ;
+
   if ( N == 0 ) return 0 ;
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+2]) ; Pnm2 = &(Pn[N+2]) ;
@@ -661,8 +668,9 @@ static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
   m = 0 ; 
   rnm1 = 1.0 ;
   idx = n*n ;
-  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+  /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+  /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+  wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
   Rnm_derivatives_1m0(n, m, rnm1, Pnm1, Cmph, Smph, dRnm) ;
   
@@ -694,8 +702,9 @@ static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
     memcpy(Pnm2, Pnm1, (N+2)*sizeof(WBFMM_REAL)) ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
     m = 0 ; 
     idx = n*n ;

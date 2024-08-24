@@ -408,9 +408,7 @@ gint main(gint argc, char **argv)
     guint b = wbfmm_point_box_f(tree, level, &(xf[i*fstr])) ;
     wbfmm_tree_box_local_field_f(tree, level, b, k,
 				     &(xf[i*fstr]), &(f[fcstr*i]), 2,
-				     /* fcstr, */
 				    q, qstr,
-				     /* normals, nstr, */
 				     dipoles, dstr,
 				    TRUE, field, work) ;
   }

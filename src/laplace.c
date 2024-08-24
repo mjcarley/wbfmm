@@ -107,8 +107,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_cfft)(gint N,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
-    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
+    /* Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ; */
+    /* Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n-1) ;
     
     m = 0 ; 
     idx = n*n ;
@@ -378,13 +379,15 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
 				     fx, fy, fz, nq) ;
   
   if ( N == 1 ) return 0 ;
-
+  fprintf(stderr, "Hello\n") ;
+  
   n = 1 ; 
   m = 0 ;
   rn *= r ;
-  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
-
+  /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+  /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+  wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
+    
   expansion_dipole_increment_cfft_m0(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
 				     fx, fy, fz, nq) ;
   
@@ -399,8 +402,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
   							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
     
     m = 0 ;
     expansion_dipole_increment_cfft_m0(N, n, rn, cfft, cstr, Pn, Cmph, Smph,
@@ -469,8 +473,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_evaluate)(WBFMM_REAL *x0,
     rn /= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ;
-    Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ;
+    /* Cmph[n] = Cmph[n-1]*Cmph[1] - Smph[n-1]*Smph[1] ; */
+    /* Smph[n] = Smph[n-1]*Cmph[1] + Cmph[n-1]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n-1) ;
 
     m = 0 ; 
     idx = n*n ;
@@ -1000,7 +1005,7 @@ static gint _wbfmm_laplace_local_coefficients_scalar(WBFMM_REAL *cfft,
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
   Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
-    
+
   /*initialize recursions*/
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
@@ -1029,8 +1034,9 @@ static gint _wbfmm_laplace_local_coefficients_scalar(WBFMM_REAL *cfft,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
-    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+    /* Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ; */
+    /* Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n-1) ;
 
     m = 0 ; 
     idx = n*n ;
@@ -1061,7 +1067,7 @@ static gint _wbfmm_laplace_local_coefficients_gradient(WBFMM_REAL *cfft,
 
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
   Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
-    
+
   /*initialize recursions*/
   WBFMM_FUNCTION_NAME(wbfmm_legendre_init)(Cth, Sth,
 					   &(Pnm1[0]), &(Pn[0]), &(Pn[1])) ;
@@ -1079,8 +1085,10 @@ static gint _wbfmm_laplace_local_coefficients_gradient(WBFMM_REAL *cfft,
   m = 0 ;
   rn = 1.0 ;
   idx = n*n ;
-  Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-  Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+  /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+  /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+  wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
+
   anm = SQRT((WBFMM_REAL)(2*n+1)/(2*n-1)*(n-m)*(n+m)) ;
   Rnm = rn*Pnm1[m]*anm ;
   cfft[3*idx+0] = cfft[3*idx+1] = 0.0 ;
@@ -1105,8 +1113,9 @@ static gint _wbfmm_laplace_local_coefficients_gradient(WBFMM_REAL *cfft,
     rn *= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ;
-    Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ;
+    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
+    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
     m = 0 ; 
     idx = n*n ;
@@ -1186,7 +1195,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
   
   Pnm1 = &(work[0]) ; Pn = &(Pnm1[N+1]) ;
   Cmph = &(Pn[N+1]) ; Smph = &(Cmph[N+1]) ;
-  
+
   WBFMM_FUNCTION_NAME(wbfmm_cartesian_to_spherical)(x0, x, &r, &th, &ph) ;
   Cth = COS(th) ; Sth = SIN(th) ; 
   Cph = COS(ph) ; Sph = SIN(ph) ; 
@@ -1219,8 +1228,9 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_coefficients)(WBFMM_REAL *x,
     rn /= r ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ;
-    Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ;
+    /* Cmph[n] = Cmph[n-1]*Cph - Smph[n-1]*Sph ; */
+    /* Smph[n] = Smph[n-1]*Cph + Cmph[n-1]*Sph ; */
+    wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n-1) ;
 
     m = 0 ; 
     idx = n*n ;
