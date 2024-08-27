@@ -215,7 +215,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_target_list_local_coefficients)(wbfmm_tar
   l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
 
   /* fprintf(stderr, "ns = %lu; npts = %d\n", ns, npts) ; */
-  if ( l->field == WBFMM_FIELD_SCALAR ) {
+  if ( l->field == WBFMM_FIELD_POTENTIAL ) {
     l->csrc =         g_malloc0(tstr*ns*sizeof(WBFMM_REAL)) ;
 
     ns = 0 ;
@@ -350,7 +350,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_coefficients)(wbfmm_target_list
   }
   l->ics  = (gint *)g_malloc0(npts*sizeof(WBFMM_REAL)) ;
 
-  if ( l->field == WBFMM_FIELD_SCALAR ) {
+  if ( l->field == WBFMM_FIELD_POTENTIAL ) {
     l->csrc =         g_malloc0(2*ns*sizeof(WBFMM_REAL)) ;
 
     ns = 0 ;
@@ -445,7 +445,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   boxes = t->boxes[level] ;
 
   if ( l->t->problem == WBFMM_PROBLEM_LAPLACE ) {
-    if ( !( l->field  == WBFMM_FIELD_SCALAR ||
+    if ( !( l->field  == WBFMM_FIELD_POTENTIAL ||
 	    l->field  == WBFMM_FIELD_GRADIENT ||
 	    l->field  == WBFMM_FIELD_CURL ) ) {
       g_error("%s: field type %d not implemented for Laplace problem",
@@ -453,7 +453,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
     }
     
     switch ( l->field ) {
-    case WBFMM_FIELD_SCALAR:
+    case WBFMM_FIELD_POTENTIAL:
       nf = 1 ;
       if ( l->source == WBFMM_SOURCE_MONOPOLE ) {
 	tstr = 1 ;
@@ -533,14 +533,14 @@ gint WBFMM_FUNCTION_NAME(wbfmm_target_list_local_field)(wbfmm_target_list_t *l,
   }
   
   if ( l->t->problem == WBFMM_PROBLEM_HELMHOLTZ ) {
-    if ( !( l->field  == WBFMM_FIELD_SCALAR ||
+    if ( !( l->field  == WBFMM_FIELD_POTENTIAL ||
 	    l->field  == WBFMM_FIELD_GRADIENT ) ) {
       g_error("%s: field type %d not implemented for Helmholtz problem",
 	      __FUNCTION__, l->field) ;
     }
     
     switch ( l->field ) {
-    case WBFMM_FIELD_SCALAR:
+    case WBFMM_FIELD_POTENTIAL:
       nf = 2 ;
       for ( ib = 0 ; ib < wbfmm_target_list_point_number(l) ; ib ++ ) {
 	b = l->boxes[ib] ;

@@ -210,7 +210,7 @@ gint expansion_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 	  "xf = (%FLOATFMT, %FLOATFMT, %FLOATFMT)\n"
 	  "nsrc = %d\n",
 	  N, x0[0], x0[1], x0[2], xf[0], xf[1], xf[2], nsrc) ;
-  field = WBFMM_FIELD_SCALAR ;
+  field = WBFMM_FIELD_POTENTIAL ;
   
   /*reference calculation*/
   wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
@@ -474,7 +474,7 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   /*reference calculation*/
   wbfmm_laplace_field_direct_FLOAT(xs, xstride, NULL, 0, nsrc,
 				   src, sstride, NULL, 0, nq,
-				   WBFMM_FIELD_SCALAR, xf, fc, 1) ;
+				   WBFMM_FIELD_POTENTIAL, xf, fc, 1) ;
 
   cstr = 4 ;
   /*multipole expansion*/
@@ -492,7 +492,7 @@ gint translation_SR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   x0[2] += t ;  
   wbfmm_laplace_expansion_local_eval_FLOAT(x0, Co, cstr, Nr, nq,
-					   WBFMM_FIELD_SCALAR,
+					   WBFMM_FIELD_POTENTIAL,
 					   xf, ft, 1, work) ;
   
   for ( i = 0 ; i < nq ; i ++ ) fprintf(stderr, "%FLOATFMT ", fc[i]) ;
@@ -528,7 +528,7 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
   xf[1] = x0[1] + 0.01 ; 
   xf[2] = x0[2] + t - 0.05 ; 
 
-  field = WBFMM_FIELD_SCALAR ;
+  field = WBFMM_FIELD_POTENTIAL ;
   
   fprintf(stderr, "regular to regular translation test\n") ;
   fprintf(stderr, "====================================\n") ;
@@ -565,7 +565,7 @@ gint translation_RR_test(gint N, WBFMM_REAL *x0, WBFMM_REAL *xs,
 
   x0[2] += t ;  
   wbfmm_laplace_expansion_local_eval_FLOAT(x0, Cr, cstr, N1, nq,
-					   WBFMM_FIELD_SCALAR,
+					   WBFMM_FIELD_POTENTIAL,
 					   xf, ft, 1, work) ;
 
   /*check pre-computed evaluation method*/
@@ -1306,7 +1306,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   
   xe[0] = xc[0]+0.1*wb ; xe[1] = xc[1]-0.05*wb ; xe[2] = xc[2] + 0.1*wb ;
   wbfmm_laplace_expansion_local_eval_FLOAT(xp, Cp, 8*nq, Np, nq,
-					   WBFMM_FIELD_SCALAR,
+					   WBFMM_FIELD_POTENTIAL,
 					   xe, fp, 1, work) ;
 
   /*rotation checks*/
@@ -1318,7 +1318,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   wbfmm_laplace_rotate_H_FLOAT(crr, nq, ct, nq, Nc, nq, H03, ch, ph, 0.0) ;
 
   wbfmm_laplace_expansion_local_eval_FLOAT(xc, crr, nq, Nc, nq,
-					   WBFMM_FIELD_SCALAR,
+					   WBFMM_FIELD_POTENTIAL,
 					   xe, fs, 1, work) ;
     
   /* check = crr ; */
@@ -1340,7 +1340,7 @@ gint parent_child_test(gint N, WBFMM_REAL *x0, WBFMM_REAL wb, gint quad,
   
   wbfmm_laplace_expansion_local_eval_FLOAT(xc, &(Cc[quad*nq]), 8*nq,
 					   Nc, nq,
-					   WBFMM_FIELD_SCALAR,
+					   WBFMM_FIELD_POTENTIAL,
 					   xe, fc, 1, work) ;
   wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
 			    nsrc, xe, fr, nq) ;

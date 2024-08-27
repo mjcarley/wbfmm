@@ -9,6 +9,35 @@
 *.so
 .libs
 
+## don't include executables or built sources (to avoid clashes updating
+## modules on other libraries)
+tools/wbfmm-direct-calc.c
+tools/wbfmm-laplace-tree-calc.c
+tools/wbfmm-laplace-direct-calc.c
+tools/wbfmm-tests.c
+tools/wbfmm-laplace-tests.c
+tools/wbfmm-tree-calc.c
+tools/wbfmm-direct-calc-float.c
+tools/wbfmm-laplace-tree-calc-float.c
+tools/wbfmm-laplace-direct-calc-float.c
+tools/wbfmm-tests-float.c
+tools/wbfmm-laplace-tests-float.c
+tools/wbfmm-tree-calc-float.c
+tools/wbfmm-direct-calc
+tools/wbfmm-laplace-tree-calc
+tools/wbfmm-laplace-direct-calc
+tools/wbfmm-tests
+tools/wbfmm-laplace-tests
+tools/wbfmm-tree-calc
+tools/wbfmm-direct-calc-float
+tools/wbfmm-laplace-tree-calc-float
+tools/wbfmm-laplace-direct-calc-float
+tools/wbfmm-tests-float
+tools/wbfmm-laplace-tests-float
+tools/wbfmm-tree-calc-float
+wbfmm.pc
+src/wbfmm-config
+
 ## don't include emacs backups
 *~
 

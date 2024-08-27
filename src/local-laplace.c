@@ -1118,13 +1118,13 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_box_field)(wbfmm_tree_t *t,
   default:
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     box_local_field(t, level, b, x, f, fstr,
 		    src, sstr, d, dstr,
 		    eval_neighbours, work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
-  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_GRADIENT:
     tree_laplace_box_local_grad(t, level, b, x, f, fstr,
 				src, sstr, d, dstr,
 				eval_neighbours, work) ;
@@ -1160,11 +1160,11 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_local_eval)(WBFMM_REAL *x0,
   default:
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     local_field_evaluate(x0, cfft, cstr, N, nq,	xf, f, work) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
-  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_GRADIENT:
     local_grad_evaluate(x0, cfft, cstr, N, nq,	xf, f, fstr, work) ;
     break ;
   case WBFMM_FIELD_CURL:

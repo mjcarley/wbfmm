@@ -164,7 +164,7 @@ gint main(gint argc, char **argv)
   progname = g_strdup(g_path_get_basename(argv[0])) ;
   timer = g_timer_new() ;
 
-  nq = 1 ; field = WBFMM_FIELD_SCALAR ;
+  nq = 1 ; field = WBFMM_FIELD_POTENTIAL ;
   
   while ( (ch = getopt(argc, argv, "hcf:gk:s:")) != EOF ) {
     switch ( ch ) {

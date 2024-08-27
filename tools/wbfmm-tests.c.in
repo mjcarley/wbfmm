@@ -710,7 +710,7 @@ gint translation_local_test(WBFMM_REAL *x0, WBFMM_REAL *x1, WBFMM_REAL *x2,
   fprintf(stderr, "%s start: %lg\n",
 	  __FUNCTION__, g_timer_elapsed(timer, NULL) - t0) ;
 
-  field = WBFMM_FIELD_SCALAR ;
+  field = WBFMM_FIELD_POTENTIAL ;
   
   Ni = No = N ;
   if ( N > 12 ) Ni = N - 3 ; 

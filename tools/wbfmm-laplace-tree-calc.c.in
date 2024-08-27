@@ -217,7 +217,7 @@ gint main(gint argc, char **argv)
   shift_bw = FALSE ;
   target_list = FALSE ;
   sort_sources = FALSE ;
-  field = WBFMM_FIELD_SCALAR ;
+  field = WBFMM_FIELD_POTENTIAL ;
   source = 0 ;
   targets = NULL ;
   

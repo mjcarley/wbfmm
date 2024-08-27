@@ -47,7 +47,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
   guint64 neighbours[27] ;
   gint nnbr, i, j, jj, idx, nq ;
 
-  g_assert(field == WBFMM_FIELD_SCALAR ) ;
+  g_assert(field == WBFMM_FIELD_POTENTIAL ) ;
   
   nq = wbfmm_tree_source_size(t) ;
   
@@ -283,7 +283,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
     g_error("%s: unrecognized field identifier (%u)",
 	    __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     if ( fstr < 2 )
       g_error("%s: field stride (%d) too small for field calculation",
 	      __FUNCTION__, fstr) ;
@@ -301,7 +301,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_tree_box_local_field)(wbfmm_tree_t *t,
 						eval_neighbours, field,
 						work) ;
     break ;
-  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT :
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_GRADIENT :
     g_assert_not_reached() ;
     break ;
   }

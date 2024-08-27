@@ -862,7 +862,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_local_coefficients)(WBFMM_REAL k,
   default:
     g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     return _wbfmm_local_coefficients_scalar(k*r, cfft, N, Cth, Sth,
 					    Cph, Sph, work) ;
     break ;
@@ -988,7 +988,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_expansion_apply)(WBFMM_REAL *C,
   default:
     g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     return _wbfmm_expansion_apply_scalar(C, cstr, nq, ec, N, f, fstr) ;
     break ;
   case WBFMM_FIELD_GRADIENT:

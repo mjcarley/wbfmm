@@ -111,7 +111,7 @@ gint wbfmm_target_list_coefficients_init(wbfmm_target_list_t *l,
   default:
     g_error("%s: unrecognized field definition (%u)", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:   nc *= 1 ; break ;
+  case WBFMM_FIELD_POTENTIAL:   nc *= 1 ; break ;
   case WBFMM_FIELD_GRADIENT: nc *= 3 ; break ; 
   }
   

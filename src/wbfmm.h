@@ -97,7 +97,7 @@ typedef enum
 
 typedef enum
   {
-   WBFMM_FIELD_SCALAR        = 1 << 0, /**< scalar field */
+   WBFMM_FIELD_POTENTIAL     = 1 << 0, /**< scalar field */
    WBFMM_FIELD_GRADIENT      = 1 << 1, /**< gradient of scalar field */
    WBFMM_FIELD_CURL          = 1 << 2,  /**< curl of vector field */
    WBFMM_FIELD_CURL_GRADIENT = 1 << 3  /**< curl of vector field and its 

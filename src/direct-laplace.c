@@ -297,19 +297,19 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_direct)(WBFMM_REAL *xs,
   default:
     g_error("%s: unrecognized field type %u\n", __FUNCTION__, field) ;
     break ;
-  case WBFMM_FIELD_SCALAR:
+  case WBFMM_FIELD_POTENTIAL:
     WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(xs, xstr, src, sstr, nq,
 					     n, nstr, d, dstr, nsrc,
 					     xf, f, fstr) ;
     break ;
   case WBFMM_FIELD_GRADIENT:
-  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_GRADIENT:
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_GRADIENT:
     WBFMM_FUNCTION_NAME(wbfmm_laplace_field_grad)(xs, xstr, src, sstr, nq,
 						  n, nstr, d, dstr, nsrc,
 						  xf, f, fstr) ;
     break ;
   case WBFMM_FIELD_CURL:
-  case WBFMM_FIELD_SCALAR | WBFMM_FIELD_CURL:
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_CURL:
     if ( nq < 3 ) {
       g_error("%s: not enough source components (%d) for curl calculation",
 	      __FUNCTION__, nq) ;
