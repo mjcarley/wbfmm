@@ -234,7 +234,7 @@ extern gint _wbfmm_shift_angles[] ;
     (WBFMM_A)[1] = (WBFMM_B)[1] - (WBFMM_C)[1] ;		\
     (WBFMM_A)[2] = (WBFMM_B)[2] - (WBFMM_C)[2] ;		\
   } while (0)
-#define wbfmm_vector_int(WBFMM_A,WBFMM_B)			\
+#define wbfmm_vector_inc(WBFMM_A,WBFMM_B)			\
   do {								\
   (WBFMM_A)[0] += (WBFMM_B)[0] ;				\
   (WBFMM_A)[1] += (WBFMM_B)[1] ;				\

@@ -204,7 +204,7 @@ gint main(gint argc, char **argv)
   guint sizew, field, source ;
   char ch, *sfile = NULL, *ffile = NULL ;
   gboolean fit_box, shift_bw, target_list, sort_sources ;
-  gint nthreads, nproc ;
+  gint nthreads, nproc, nfc ;
   
   D = 1.0 ; nsrc = 1 ; del = 1e-2 ; tol = 1e-6 ;
   depth = 2 ;
@@ -264,11 +264,11 @@ gint main(gint argc, char **argv)
     case 'H': print_longer_help(progname) ;  return 0 ; break ;
     case 'B': shift_bw = TRUE ; break ;
     case 'b': fit_box = TRUE ; break ;
-    case 'c': field = WBFMM_FIELD_CURL ; break ;
+    case 'c': field |= WBFMM_FIELD_CURL ; break ;
     case 'd': depth = atoi(optarg) ; break ;
     case 'D': D = atof(optarg) ; break ;
     case 'f': ffile = g_strdup(optarg) ; break ;      
-    case 'g': field = WBFMM_FIELD_GRADIENT ; break ;
+    case 'g': field |= WBFMM_FIELD_GRADIENT ; break ;
     case 'i': order_inc = atoi(optarg) ; break ;
     case 'l': target_list = TRUE ; break ;
     case 'O': parse_origin(xtree, optarg) ; break ;
@@ -306,9 +306,16 @@ gint main(gint argc, char **argv)
     return 1 ;
   }
 
-  fcstr = nq ; cstr = 1 ;
-  if ( field == WBFMM_FIELD_GRADIENT ) {
-    fcstr *= 3 ; cstr = 3 ;
+  fcstr = nq ; cstr = 1 ; nfc = nq ;
+  if ( field == (WBFMM_FIELD_GRADIENT | WBFMM_FIELD_POTENTIAL) ) {
+    fcstr = 3*nq ; cstr = 1 ; nfc = 3*nq ;
+  }
+  if ( field == (WBFMM_FIELD_CURL | WBFMM_FIELD_POTENTIAL) ) {
+    fcstr = 3 ; cstr = 1 ; nfc = 3 ;
+  }
+  if ( field == (WBFMM_FIELD_GRADIENT | WBFMM_FIELD_CURL |
+		 WBFMM_FIELD_POTENTIAL) ) {
+    fcstr = 12 ; cstr = 1 ; nfc = 12 ;
   }
   
   f = (WBFMM_REAL *)g_malloc0(nf*fcstr*sizeof(WBFMM_REAL)) ;
@@ -456,26 +463,14 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: fmm field computed; %lg\n",
   	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  if ( field != WBFMM_FIELD_CURL ) {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      fprintf(stdout, 
-	      "%FLOATEXP %FLOATEXP %FLOATEXP",
-	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
-      for ( j = 0 ; j < fcstr ; j ++ ) {
-	fprintf(stdout, " %FLOATEXP", f[i*fcstr+j]) ;
-      }
-      fprintf(stdout, "\n") ;
+  for ( i = 0 ; i < nf ; i ++ ) {
+    fprintf(stdout, 
+	    "%FLOATEXP %FLOATEXP %FLOATEXP",
+	    xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
+    for ( j = 0 ; j < nfc ; j ++ ) {
+      fprintf(stdout, " %FLOATEXP", f[i*fcstr+j]) ;
     }
-  } else {
-    for ( i = 0 ; i < nf ; i ++ ) {
-      fprintf(stdout, 
-	      "%FLOATEXP %FLOATEXP %FLOATEXP",
-	      xf[i*strf+0], xf[i*strf+1], xf[i*strf+2]) ;
-      for ( j = 0 ; j < 3 ; j ++ ) {
-	fprintf(stdout, " %FLOATEXP", f[i*fcstr+j]) ;
-      }
-      fprintf(stdout, "\n") ;
-    }
+    fprintf(stdout, "\n") ;
   }
 
   g_free(ffile) ; g_free(sfile) ; g_free(progname) ;

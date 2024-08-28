@@ -228,6 +228,9 @@ gint main(gint argc, char **argv)
   if ( field & WBFMM_FIELD_CURL ) {
     nfc = 3 ; fcstr = 3 ; cstr = 3 ;
   }
+  if ( field & (WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT) ) {
+    nfc = 12 ; fcstr = 12 ; cstr = 3 ;
+  }
   
   if ( (field & WBFMM_FIELD_CURL) && nq < 3  ) {
     fprintf(stderr, "%s: not enough source terms (%d) for curl calculation\n",
@@ -257,9 +260,6 @@ gint main(gint argc, char **argv)
     for ( j = 0 ; j < nfc ; j ++ ) {
       fprintf(stdout, " %FLOATEXP", f[fcstr*i+j]) ;
     }
-    /* for ( j = 0 ; j < nq ; j ++ ) { */
-    /*   fprintf(stdout, " %FLOATEXP", f[nq*i+j]) ; */
-    /* } */
     fprintf(stdout, "\n") ;
   }
 

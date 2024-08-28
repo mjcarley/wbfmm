@@ -117,7 +117,7 @@ static gint laplace_field_curl(WBFMM_REAL *xs,
 	nR[2] = -dr[2]/r3 ;
 
 	wbfmm_vector_cross(df,nR,s) ;
-	wbfmm_vector_int(field,df) ;
+	wbfmm_vector_inc(field,df) ;
       }
     }
 
@@ -173,19 +173,19 @@ static gint laplace_field_curl_gradient(WBFMM_REAL *xs,
 
 	/*\nabla(1/R)\times\omega*/
 	wbfmm_vector_cross(df,nR,s) ;
-	wbfmm_vector_int(field,df) ;
+	wbfmm_vector_inc(field,df) ;
 
 	/*d/dx field[0,1,2]*/
 	wbfmm_vector_cross(df,&(nR[3]),s) ;
-	wbfmm_vector_int(&(field[3]),df) ;
+	wbfmm_vector_inc(&(field[3]),df) ;
 
 	/*d/dy field[0,1,2]*/
 	wbfmm_vector_cross(df,&(nR[6]),s) ;
-	wbfmm_vector_int(&(field[6]),df) ;
+	wbfmm_vector_inc(&(field[6]),df) ;
 	
 	/*d/dz field[0,1,2]*/
 	wbfmm_vector_cross(df,&(nR[9]),s) ;
-	wbfmm_vector_int(&(field[9]),df) ;
+	wbfmm_vector_inc(&(field[9]),df) ;
       }
     }
 
@@ -319,6 +319,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field_direct)(WBFMM_REAL *xs,
 		       n, nstr, d, dstr, nsrc,
 		       xf, f, fstr) ;
     break ;
+  case WBFMM_FIELD_POTENTIAL | WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT:
   case WBFMM_FIELD_CURL | WBFMM_FIELD_GRADIENT:
     if ( nq < 3 ) {
       g_error("%s: not enough source components (%d) for curl calculation",
