@@ -35,8 +35,15 @@ tools/wbfmm-laplace-direct-calc-float
 tools/wbfmm-tests-float
 tools/wbfmm-laplace-tests-float
 tools/wbfmm-tree-calc-float
+tools/wbfmm-direct-calc-avx
+tools/wbfmm-laplace-tree-calc-avx
+tools/wbfmm-laplace-direct-calc-avx
+tools/wbfmm-tests-avx
+tools/wbfmm-laplace-tests-avx
+tools/wbfmm-tree-calc-avx
 wbfmm.pc
 src/wbfmm-config
+src/documentation.c
 
 ## don't include emacs backups
 *~
