@@ -61,66 +61,6 @@ static void box_curl_evaluate(wbfmm_tree_t *t,
   return ;
 }
 
-static void box_curl_gradient_evaluate(wbfmm_tree_t *t,
-				       gint i0, gint i1,
-				       WBFMM_REAL *src, gint sstr,
-				       WBFMM_REAL *x, WBFMM_REAL *f)
-
-{
-  gint idx, j ;
-  WBFMM_REAL *xs, dr[3], r, r3, r5, nR[12], *s, df[3] ;
-
-  for ( j = i0 ; j < i1 ; j ++ ) {
-    idx = t->ip[j] ;
-    xs = wbfmm_tree_point_index(t, idx) ;
-    wbfmm_vector_diff(dr,x,xs) ;
-    r = wbfmm_vector_length(dr) ;
-    /* r[0] = x[0] - xs[0] ; r[1] = x[1] - xs[1] ; r[2] = x[2] - xs[2] ; */
-    /* R = r[0]*r[0] + r[1]*r[1] + r[2]*r[2] ; */
-    if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
-      s = &(src[idx*sstr]) ;
-      r3 = r*r*r*4.0*M_PI ; r5 = r3*r*r ;
-      nR[0] = -dr[0]/r3 ;
-      nR[1] = -dr[1]/r3 ;
-      nR[2] = -dr[2]/r3 ;
-      
-      nR[ 3] = 3*dr[0]*dr[0]/r5 - 1.0/r3 ;
-      nR[ 4] = 3*dr[0]*dr[1]/r5 ;
-      nR[ 5] = 3*dr[0]*dr[2]/r5 ;
-      nR[ 6] = 3*dr[1]*dr[0]/r5 ;
-      nR[ 7] = 3*dr[1]*dr[1]/r5 - 1.0/r3 ;
-      nR[ 8] = 3*dr[1]*dr[2]/r5 ;
-      nR[ 9] = 3*dr[2]*dr[0]/r5 ;
-      nR[10] = 3*dr[2]*dr[1]/r5 ;
-      nR[11] = 3*dr[2]*dr[2]/r5 - 1.0/r3 ;
-
-      /*\nabla(1/R)\times\omega*/
-      wbfmm_vector_cross(df,nR,s) ;
-      wbfmm_vector_inc(f,df) ;
-
-      /*d/dx field[0,1,2]*/
-      wbfmm_vector_cross(df,&(nR[3]),s) ;
-      wbfmm_vector_inc(&(f[3]),df) ;
-
-      /*d/dy field[0,1,2]*/
-      wbfmm_vector_cross(df,&(nR[6]),s) ;
-      wbfmm_vector_inc(&(f[6]),df) ;
-      
-      /*d/dz field[0,1,2]*/
-      wbfmm_vector_cross(df,&(nR[9]),s) ;
-      wbfmm_vector_inc(&(f[9]),df) ;
-      
-      /* R *= SQRT(R)*4.0*M_PI ; */
-      /* r[0] /= R ; r[1] /= R ; r[2] /= R ;  */
-      /* f[0] -= src[idx*sstr+2]*r[1] - src[idx*sstr+1]*r[2] ; */
-      /* f[1] -= src[idx*sstr+0]*r[2] - src[idx*sstr+2]*r[0] ; */
-      /* f[2] -= src[idx*sstr+1]*r[0] - src[idx*sstr+0]*r[1] ; */
-    }
-  }
-
-  return ;
-}
-
 static void gradient_evaluate4(WBFMM_REAL r[12])
 
 /*
@@ -203,6 +143,133 @@ static void gradient_evaluate4(WBFMM_REAL r[12])
 
   return ;
 }
+
+static void box_curl_gradient_evaluate(wbfmm_tree_t *t,
+				       gint i0, gint i1,
+				       WBFMM_REAL *src, gint sstr,
+				       WBFMM_REAL *x, WBFMM_REAL *f)
+
+{
+  gint idx, j ;
+  WBFMM_REAL *xs, dr[3], r, r3, r5, nR[12], *s, df[3] ;
+
+  for ( j = i0 ; j < i1 ; j ++ ) {
+    idx = t->ip[j] ;
+    xs = wbfmm_tree_point_index(t, idx) ;
+    wbfmm_vector_diff(dr,x,xs) ;
+    r = wbfmm_vector_length(dr) ;
+    if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) {
+      s = &(src[idx*sstr]) ;
+      r3 = r*r*r*4.0*M_PI ; r5 = r3*r*r ;
+      nR[0] = -dr[0]/r3 ;
+      nR[1] = -dr[1]/r3 ;
+      nR[2] = -dr[2]/r3 ;
+      
+      nR[ 3] = 3*dr[0]*dr[0]/r5 - 1.0/r3 ;
+      nR[ 4] = 3*dr[0]*dr[1]/r5 ;
+      nR[ 5] = 3*dr[0]*dr[2]/r5 ;
+      nR[ 6] = 3*dr[1]*dr[0]/r5 ;
+      nR[ 7] = 3*dr[1]*dr[1]/r5 - 1.0/r3 ;
+      nR[ 8] = 3*dr[1]*dr[2]/r5 ;
+      nR[ 9] = 3*dr[2]*dr[0]/r5 ;
+      nR[10] = 3*dr[2]*dr[1]/r5 ;
+      nR[11] = 3*dr[2]*dr[2]/r5 - 1.0/r3 ;
+
+      /*\nabla(1/R)\times\omega*/
+      wbfmm_vector_cross(df,nR,s) ;
+      wbfmm_vector_inc(f,df) ;
+
+      /*d/dx field[0,1,2]*/
+      wbfmm_vector_cross(df,&(nR[3]),s) ;
+      wbfmm_vector_inc(&(f[3]),df) ;
+
+      /*d/dy field[0,1,2]*/
+      wbfmm_vector_cross(df,&(nR[6]),s) ;
+      wbfmm_vector_inc(&(f[6]),df) ;
+      
+      /*d/dz field[0,1,2]*/
+      wbfmm_vector_cross(df,&(nR[9]),s) ;
+      wbfmm_vector_inc(&(f[9]),df) ;
+    }
+  }
+
+  return ;
+}
+
+/* static void box_curl_gradient_evaluate4(wbfmm_tree_t *t, */
+/* 					gint i, */
+/* 					WBFMM_REAL *src, gint sstr, */
+/* 					WBFMM_REAL *x, WBFMM_REAL *f) */
+
+/* { */
+/*   /\* gint idx, j ; *\/ */
+/*   /\* WBFMM_REAL *xs, dr[3], r, r3, r5, nR[12], *s, df[3] ; *\/ */
+
+/*   gint idx[4], j ; */
+/*   WBFMM_REAL *xs[4] ; */
+/*   __attribute__ ((aligned (32))) WBFMM_REAL r[12] ; */
+
+/*   for ( j = 0 ; j < 4 ; j ++ ) { */
+/*     idx[j] = t->ip[i+j] ; */
+/*     xs [j] = wbfmm_tree_point_index(t, idx[j]) ; */
+/*     r[4*0+j] = x[0] - xs[j][0] ;  */
+/*     r[4*1+j] = x[1] - xs[j][1] ;  */
+/*     r[4*2+j] = x[2] - xs[j][2] ;  */
+/*   } */
+
+/*   gradient_evaluate4(r) ; */
+
+/*   for ( j = 0 ; j < 4 ; j ++ ) { */
+/*     f[0] -= (src[idx[j]*sstr+2]*r[4*1+j] - */
+/* 	     src[idx[j]*sstr+1]*r[4*2+j])*0.25*M_1_PI ; */
+/*     f[1] -= (src[idx[j]*sstr+0]*r[4*2+j] - */
+/* 	     src[idx[j]*sstr+2]*r[4*0+j])*0.25*M_1_PI ; */
+/*     f[2] -= (src[idx[j]*sstr+1]*r[4*0+j] - */
+/* 	     src[idx[j]*sstr+0]*r[4*1+j])*0.25*M_1_PI ; */
+/*   } */
+  
+/*   /\* for ( j = i0 ; j < i1 ; j ++ ) { *\/ */
+/*   /\*   idx = t->ip[j] ; *\/ */
+/*   /\*   xs = wbfmm_tree_point_index(t, idx) ; *\/ */
+/*   /\*   wbfmm_vector_diff(dr,x,xs) ; *\/ */
+/*   /\*   r = wbfmm_vector_length(dr) ; *\/ */
+/*   /\*   if ( r > WBFMM_LOCAL_CUTOFF_RADIUS ) { *\/ */
+/*   /\*     s = &(src[idx*sstr]) ; *\/ */
+/*   /\*     r3 = r*r*r*4.0*M_PI ; r5 = r3*r*r ; *\/ */
+/*   /\*     nR[0] = -dr[0]/r3 ; *\/ */
+/*   /\*     nR[1] = -dr[1]/r3 ; *\/ */
+/*   /\*     nR[2] = -dr[2]/r3 ; *\/ */
+      
+/*   /\*     nR[ 3] = 3*dr[0]*dr[0]/r5 - 1.0/r3 ; *\/ */
+/*   /\*     nR[ 4] = 3*dr[0]*dr[1]/r5 ; *\/ */
+/*   /\*     nR[ 5] = 3*dr[0]*dr[2]/r5 ; *\/ */
+/*   /\*     nR[ 6] = 3*dr[1]*dr[0]/r5 ; *\/ */
+/*   /\*     nR[ 7] = 3*dr[1]*dr[1]/r5 - 1.0/r3 ; *\/ */
+/*   /\*     nR[ 8] = 3*dr[1]*dr[2]/r5 ; *\/ */
+/*   /\*     nR[ 9] = 3*dr[2]*dr[0]/r5 ; *\/ */
+/*   /\*     nR[10] = 3*dr[2]*dr[1]/r5 ; *\/ */
+/*   /\*     nR[11] = 3*dr[2]*dr[2]/r5 - 1.0/r3 ; *\/ */
+
+/*   /\*     /\\*\nabla(1/R)\times\omega*\\/ *\/ */
+/*   /\*     wbfmm_vector_cross(df,nR,s) ; *\/ */
+/*   /\*     wbfmm_vector_inc(f,df) ; *\/ */
+
+/*   /\*     /\\*d/dx field[0,1,2]*\\/ *\/ */
+/*   /\*     wbfmm_vector_cross(df,&(nR[3]),s) ; *\/ */
+/*   /\*     wbfmm_vector_inc(&(f[3]),df) ; *\/ */
+
+/*   /\*     /\\*d/dy field[0,1,2]*\\/ *\/ */
+/*   /\*     wbfmm_vector_cross(df,&(nR[6]),s) ; *\/ */
+/*   /\*     wbfmm_vector_inc(&(f[6]),df) ; *\/ */
+      
+/*   /\*     /\\*d/dz field[0,1,2]*\\/ *\/ */
+/*   /\*     wbfmm_vector_cross(df,&(nR[9]),s) ; *\/ */
+/*   /\*     wbfmm_vector_inc(&(f[9]),df) ; *\/ */
+/*   /\*   } *\/ */
+/*   /\* } *\/ */
+
+/*   return ; */
+/* } */
 
 static void box_curl_evaluate4(wbfmm_tree_t *t,
 			       gint i,
@@ -1197,28 +1264,30 @@ static gint tree_laplace_box_local_curl_gradient(wbfmm_tree_t *t,
 
   if ( src == NULL && d == NULL ) return 0 ;
   
-  if ( t->normals == NULL && d != NULL ) {
-    g_error("%s: no normals in tree but dipole strengths specified "
-	    "(d != NULL)",
-	    __FUNCTION__) ;
-  }
+  /* if ( t->normals == NULL && d != NULL ) { */
+  /*   g_error("%s: no normals in tree but dipole strengths specified " */
+  /* 	    "(d != NULL)", */
+  /* 	    __FUNCTION__) ; */
+  /* } */
 
   /*add the contribution from sources in neighbour boxes*/
   nnbr = wbfmm_box_neighbours(level, b, neighbours) ;
-  g_assert(nnbr >= 0 && nnbr < 28) ;
+  /* g_assert(nnbr >= 0 && nnbr < 28) ; */
 
-  if ( d == NULL ) {
+  /* if ( d == NULL ) { */
     /* monopoles only */
     for ( i = 0 ; i < nnbr ; i ++ ) {
       box = &(boxes[neighbours[i]]) ;
+      /* for ( j = 0 ; j < (gint)(box->n)-4 ; j += 4 )  */
+      /* 	box_curl_gradient_evaluate4(t, box->i+j, src, sstr, x, f) ;       */
       box_curl_gradient_evaluate(t, box->i, box->i+box->n,
 				 src, sstr, x, f) ;      
     }
 
     return 0 ;
-  }
+  /* } */
 
-  g_assert_not_reached() ;
+  /* g_assert_not_reached() ; */
   
   return 0 ;
 }

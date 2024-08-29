@@ -9,3 +9,6 @@ Field evaluation outside source domain
 Test BLAS implementation of rotation operators
 
 Ignore empty boxes (correctly)
+
+vectorized curl and curl/gradient operators, with portable use of SIMD
+extensions

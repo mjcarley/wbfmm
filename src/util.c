@@ -385,7 +385,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_points_origin_width)(WBFMM_REAL *x,
 
   if ( init_limits ) {
     xmin[0] =  G_MAXFLOAT ; xmin[1] =  G_MAXFLOAT ; xmin[2] =  G_MAXFLOAT ;
-    xmax[0] = -G_MAXFLOAT ; xmax[0] = -G_MAXFLOAT ; xmax[0] = -G_MAXFLOAT ;
+    xmax[0] = -G_MAXFLOAT ; xmax[1] = -G_MAXFLOAT ; xmax[2] = -G_MAXFLOAT ;
   }
   
   for ( i = 0 ; i < n ; i ++ ) {
