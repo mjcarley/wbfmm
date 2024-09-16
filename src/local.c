@@ -47,7 +47,7 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
   guint64 neighbours[27] ;
   gint nnbr, i, j, jj, idx, nq ;
 
-  g_assert(field == WBFMM_FIELD_POTENTIAL ) ;
+  g_assert(field == WBFMM_FIELD_POTENTIAL) ;
   
   nq = wbfmm_tree_source_size(t) ;
   
@@ -61,7 +61,6 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
 						  wbfmm_tree_source_size(t),
 						  x, f, fstr,
 						  work) ;
-
 
   if ( !eval_neighbours ) return 0 ;
 
@@ -102,7 +101,6 @@ static gint _wbfmm_tree_box_local_field_scalar(wbfmm_tree_t *t,
     return 0 ;
   }
 
-  /* return 0 ; */
   if ( src == NULL && d != NULL ) {
     /* dipoles only, specified as normals and strengths */
     WBFMM_REAL *normal ;

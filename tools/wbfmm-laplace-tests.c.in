@@ -918,7 +918,7 @@ gint rotation_test(gint N,
 
   /*reference calculation*/
   wbfmm_laplace_field_FLOAT(xs, xstride, src, sstride, nq, NULL, 0, NULL, 0,
-			    nsrc, xf, fc, nq) ;
+			    nsrc, xf, fc, 1) ;
 
   /*multipole expansion*/
   for ( i = 0 ; i < nsrc ; i ++ ) 
@@ -1539,8 +1539,9 @@ gint main(gint argc, char **argv)
     xs[0] = 0.1 ; xs[1] = 0.2 ; xs[2] = -0.05 ;
     xstride = 3*sizeof(WBFMM_REAL) ;
     src = &(xs[3]) ; nsrc = 1 ;
-    src[0] = 0.5 ; src[1] = -0.9 ;
-    xf = &(src[2]) ;
+    src[0] = 0.5 ; src[1] = -0.9 ; src[2] = 4.3 ;
+    sstride = 1 ;
+    xf = &(src[4]) ;
     xf[0] = 1.5 ; xf[1] = 2.5 ; xf[2] = -1.3 ;
 
     ix[0] = 0.0 ; ix[1] =  1.0/sqrt(2.0) ; ix[2] = 1.0/sqrt(2.0) ;

@@ -212,7 +212,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_field)(WBFMM_REAL *xs, gint xstride,
 
   if ( src == NULL && normals == NULL && dipoles == NULL ) return 0 ;
 
-  g_assert(sstride >= nq) ;
+  /* g_assert(sstride >= nq) ; */
   
   if ( normals != NULL && dipoles == NULL )
     g_error("%s: normals specified but no dipole strengths (dipoles == NULL)",

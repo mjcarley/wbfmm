@@ -234,7 +234,7 @@ static gint wbfmm_laplace_rotate_H3_avx(WBFMM_REAL *Co, gint cstro,
   __attribute__ ((aligned (32))) WBFMM_REAL ti[4] ;
   WBFMM_REAL Hp, Hm ;
   __m256d rCch, rSch, rCmch, rSmch, rHm, rHp, rtr, rti, rC, op1 ;
-  __m256d rCph, rSph, rCnph, rSnph, op2 ; 
+  __m256d rCph, rSph, rCnph, rSnph ; 
   
   g_assert(nq <= cstri) ;
   g_assert(nq <= cstro) ;
@@ -306,27 +306,55 @@ static gint wbfmm_laplace_rotate_H3_avx(WBFMM_REAL *Co, gint cstro,
 
 	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+1)])) ;
 	op1 = _mm256_mul_pd(rCmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	rti = _mm256_fmadd_pd(op1, rHm, rti) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
 	op1 = _mm256_mul_pd(op1, rHm) ;
 	rti = _mm256_add_pd(rti, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+	
 	op1 = _mm256_mul_pd(rSmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	rtr = _mm256_fmsub_pd(op1, rHp, rtr) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/	
 	op1 = _mm256_mul_pd(op1, rHp) ;
 	rtr = _mm256_sub_pd(rtr, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
 
 	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+0)])) ;
 	op1 = _mm256_mul_pd(rCmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	rtr = _mm256_fmsub_pd(op1, rHp, rtr) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/	
 	op1 = _mm256_mul_pd(op1, rHp) ;
 	rtr = _mm256_add_pd(rtr, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
+
 	op1 = _mm256_mul_pd(rSmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	rti = _mm256_fmadd_pd(op1, rHm, rti) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
 	op1 = _mm256_mul_pd(op1, rHm) ;
 	rti = _mm256_add_pd(rti, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
       }
 
+#ifdef HAVE_FMA_INSTRUCTIONS
+      op1 = _mm256_mul_pd(rtr,rCnph) ;
+      op1 = _mm256_fmadd_pd(rti,rSnph,op1) ;
+      _mm256_store_pd(tr, op1) ;
+      op1 = _mm256_mul_pd(rtr,rSnph) ;
+      op1 = _mm256_fmsub_pd(rti,rCnph,op1) ;
+      _mm256_store_pd(ti, op1) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
+      _m256d op2 ;
       op1 = _mm256_mul_pd(rtr,rCnph) ; op2 = _mm256_mul_pd(rti,rSnph) ;
       op1 = _mm256_add_pd(op1,op2) ;
       _mm256_store_pd(tr, op1) ;
       op1 = _mm256_mul_pd(rti,rCnph) ; op2 = _mm256_mul_pd(rtr,rSnph) ;
       op1 = _mm256_sub_pd(op1,op2) ;
       _mm256_store_pd(ti, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
       Co[cstro*(idxo+0)+0] = sc*Co[cstro*(idxo+0)+0] + tr[0] ;
       Co[cstro*(idxo+1)+0] = sc*Co[cstro*(idxo+1)+0] + ti[0] ;
       Co[cstro*(idxo+0)+1] = sc*Co[cstro*(idxo+0)+1] + tr[1] ;
@@ -354,7 +382,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
   __attribute__ ((aligned (32))) WBFMM_REAL ti[4] ;
   WBFMM_REAL Hp, Hm ;
   __m256d rCch, rSch, rCmch, rSmch, rHm, rHp, rtr, rti, rC, op1 ;
-  __m256d rCph, rSph, rCnph, rSnph, op2 ; 
+  __m256d rCph, rSph, rCnph, rSnph ;
 
   if ( nq == 3 ) return wbfmm_laplace_rotate_H3_avx(Co, cstro, Ci, cstri,
 						    N, nq, H, ph, ch, sc) ;
@@ -429,27 +457,52 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H_avx)(WBFMM_REAL *Co, gint cstro,
 
 	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+1)])) ;
 	op1 = _mm256_mul_pd(rCmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	rti = _mm256_fmadd_pd(op1, rHm, rti) ;
+	op1 = _mm256_mul_pd(rSmch, rC) ;
+	/*NOTE the fused SUBTRACTION here, which is balanced by a
+	  subtraction further down (not the same in the unfused version)*/
+	rtr = _mm256_fmsub_pd(op1, rHp, rtr) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
 	op1 = _mm256_mul_pd(op1, rHm) ;
 	rti = _mm256_add_pd(rti, op1) ;
 	op1 = _mm256_mul_pd(rSmch, rC) ;
 	op1 = _mm256_mul_pd(op1, rHp) ;
 	rtr = _mm256_sub_pd(rtr, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
 
 	rC  = _mm256_loadu_pd(&(Ci[cstri*(idxi+0)])) ;
 	op1 = _mm256_mul_pd(rCmch, rC) ;
+#ifdef HAVE_FMA_INSTRUCTIONS
+	/*see NOTE above*/
+	rtr = _mm256_fmsub_pd(op1, rHp, rtr) ;
+	op1 = _mm256_mul_pd(rSmch, rC) ;
+	rti = _mm256_fmadd_pd(op1, rHm, rti) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
 	op1 = _mm256_mul_pd(op1, rHp) ;
 	rtr = _mm256_add_pd(rtr, op1) ;
 	op1 = _mm256_mul_pd(rSmch, rC) ;
 	op1 = _mm256_mul_pd(op1, rHm) ;
 	rti = _mm256_add_pd(rti, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
       }
 
+#ifdef HAVE_FMA_INSTRUCTIONS
+      op1 = _mm256_mul_pd(rtr,rCnph) ;
+      op1 = _mm256_fmadd_pd(rti,rSnph,op1) ;
+      _mm256_store_pd(tr, op1) ;
+      op1 = _mm256_mul_pd(rtr,rSnph) ;
+      op1 = _mm256_fmsub_pd(rti,rCnph,op1) ;
+      _mm256_store_pd(ti, op1) ;
+#else /*HAVE_FMA_INSTRUCTIONS*/
+      _m256d op2 ;
       op1 = _mm256_mul_pd(rtr,rCnph) ; op2 = _mm256_mul_pd(rti,rSnph) ;
       op1 = _mm256_add_pd(op1,op2) ;
       _mm256_store_pd(tr, op1) ;
       op1 = _mm256_mul_pd(rti,rCnph) ; op2 = _mm256_mul_pd(rtr,rSnph) ;
       op1 = _mm256_sub_pd(op1,op2) ;
       _mm256_store_pd(ti, op1) ;
+#endif /*HAVE_FMA_INSTRUCTIONS*/
       for ( i = 0 ; i < nq ; i ++ ) {
       	Co[cstro*(idxo+0)+i] = sc*Co[cstro*(idxo+0)+i] + tr[i] ;
       	Co[cstro*(idxo+1)+i] = sc*Co[cstro*(idxo+1)+i] + ti[i] ;
