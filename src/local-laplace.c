@@ -829,8 +829,6 @@ static gint local_curl_gradient_evaluate(WBFMM_REAL *x0, WBFMM_REAL*cfft,
     memcpy(Pnm2, Pnm1, (N+2)*sizeof(WBFMM_REAL)) ;
     WBFMM_FUNCTION_NAME(wbfmm_legendre_recursion_array)(&Pnm1, &Pn,
 							n-1, Cth, Sth) ;
-    /* Cmph[n+1] = Cmph[n]*Cmph[1] - Smph[n]*Smph[1] ; */
-    /* Smph[n+1] = Smph[n]*Cmph[1] + Cmph[n]*Smph[1] ; */
     wbfmm_cos_sin_nph(Cmph,Smph,Cmph[1],Smph[1],n) ;
 
     m = 0 ; 

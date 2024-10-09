@@ -13,8 +13,8 @@ swfile=swfmm.dat
 bw=-B
 depth=4
 nthread=2
-order_r=24
-order_s=24
+order_r=16
+order_s=16
 targets=
 #-l
 curl=-c
@@ -27,9 +27,9 @@ ${BIN}/wbfmm-laplace-tree-calc ${gradient} ${curl} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
       -f ${ffile} -s ${sfile} ${targets} > ${fmmfile}
 
-#${BIN}/wbfmm-laplace-tree-calc-avx ${curl} -b ${bw} -d ${depth} \
-#      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
-#      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
+${BIN}/wbfmm-laplace-tree-calc-avx ${gradient} ${curl} -b ${bw} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} ${sort} \
+      -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
 
 ##${BIN}/wbfmm-laplace-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \

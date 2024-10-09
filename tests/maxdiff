@@ -3,7 +3,7 @@
 ## find the maximum difference between columns of two files and the maximum
 ## absolute value of each column of the first one
 
-## pipe through awk '{ r=$1/$2 ; print r; } to get the relative errors
+## pipe through awk '{ r=$1/$2 ; print r; }' to get the relative errors
 
 file1=$1
 file2=$2

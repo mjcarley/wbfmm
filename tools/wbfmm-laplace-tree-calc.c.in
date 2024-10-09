@@ -422,7 +422,6 @@ gint main(gint argc, char **argv)
 	  progname, g_timer_elapsed(timer, NULL)) ;  
   wbfmm_tree_laplace_leaf_expansions_FLOAT(tree,
 					   q, qstr,
-					   /* normals, nstr, */
 					   dipoles, dstr,
 					   TRUE, work) ;  
   fprintf(stderr, "%s: leaf expansions initialized; %lg\n",

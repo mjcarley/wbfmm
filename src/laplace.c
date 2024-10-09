@@ -379,7 +379,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_laplace_expansion_normal_cfft)(gint N,
 				     fx, fy, fz, nq) ;
   
   if ( N == 1 ) return 0 ;
-  fprintf(stderr, "Hello\n") ;
+  /* fprintf(stderr, "Hello\n") ; */
   
   n = 1 ; 
   m = 0 ;
