@@ -1244,7 +1244,7 @@ static gint tree_laplace_box_local_curl_gradient(wbfmm_tree_t *t,
   WBFMM_REAL xb[3], wb, *C ;
   wbfmm_box_t *boxes, *box ;
   guint64 neighbours[27] ;
-  gint nnbr, i, j, nq ;
+  gint nnbr, i, nq ;
 
   g_assert(t->problem == WBFMM_PROBLEM_LAPLACE ) ;
 
