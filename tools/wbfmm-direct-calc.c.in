@@ -179,7 +179,7 @@ gint main(gint argc, char **argv)
   }
 
   nq /= 2 ;
-  fcstr = nq ;
+  fcstr = 2*nq ;
   if ( gradient ) fcstr *= 3 ;
   
   if ( ffile != NULL ) {
@@ -197,20 +197,21 @@ gint main(gint argc, char **argv)
   fprintf(stderr, "%s: computing direct field; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
 
-  if ( gradient )
+  if ( gradient ) {
     for ( i = 0 ; i < nf ; i ++ ) {
       wbfmm_total_field_grad_FLOAT(k, xs, xstr,
-				  q, qstr, normals, nstr, dipoles, dstr,
-				  nq, nsrc,
-				  &(xf[i*fstr]), &(f[fcstr*i]), 3*nq) ;
+				   q, qstr, normals, nstr, dipoles, dstr,
+				   nq, nsrc,
+				   &(xf[i*fstr]), &(f[fcstr*i]), 3*nq) ;
     }
-  else
+  } else {
     for ( i = 0 ; i < nf ; i ++ ) {
       wbfmm_total_field_FLOAT(k, xs, xstr,
 			     q, qstr, normals, nstr, dipoles, dstr, nq,
 			     nsrc,
 			     &(xf[i*fstr]), &(f[fcstr*i]), nq) ;
     }
+  }
 
   fprintf(stderr, "%s: direct field computed; %lg\n",
 	  progname, g_timer_elapsed(timer, NULL)) ;
@@ -219,7 +220,7 @@ gint main(gint argc, char **argv)
     fprintf(stdout, 
 	    "%FLOATEXP %FLOATEXP %FLOATEXP ",
 	    xf[i*fstr+0], xf[i*fstr+1], xf[i*fstr+2]) ;
-    for ( j = 0 ; j < fcstr/2 ; j ++ ) {
+    for ( j = 0 ; j < nq ; j ++ ) {
       fprintf(stdout, 
 	      " %FLOATEXP %FLOATEXP", f[fcstr*i+2*j+0], f[fcstr*i+2*j+1]) ;
     }

@@ -32,8 +32,6 @@
 
 #include "wbfmm-private.h"
 
-/* #define IGNORE_EMPTY_BOXES */
-
 #ifdef HAVE_AVX_INSTRUCTIONS
 static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
 					    wbfmm_box_t *b,
@@ -72,9 +70,6 @@ static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
     iph =  _wbfmm_shift_angles[4*idx4+2] ;
     ch = (iph >= 0 ? _wbfmm_shifts_ph[iph-1] : -_wbfmm_shifts_ph[-1-iph]) ;
 
-#ifdef IGNORE_EMPTY_BOXES
-    if ( b[ilist[2*j+0]].n != 0 ) {
-#endif /*IGNORE_EMPTY_BOXES*/
     /*rotate singular coefficients into wks*/
     WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, nq, b[ilist[2*j+0]].mps, 8*nq,
 					    Ns, nq, H, ph, ch, 0.0) ;
@@ -84,9 +79,6 @@ static inline void _wbfmm_downward_pass_box(guint level, guint64 ip,
     /*rotate regular coefficients into mpr*/
     WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(b[ip].mpr, 8*nq, wkr, nq, Nr, nq,
 					    H, ch, ph, 1.0) ;
-#ifdef IGNORE_EMPTY_BOXES
-    }
-#endif /*IGNORE_EMPTY_BOXES*/
   }
   
   return ;
@@ -104,17 +96,15 @@ static inline void _wbfmm_shift_up(guint64 grid[], gint idx4,
   if ( grid[idx4] == 0 ) return ;
   
   ic = grid[idx4] - 1 ;
-#ifdef IGNORE_EMPTY_BOXES
+  grid[idx4] = 0 ;
+
   if ( bp[ic].n == 0 ) return ;
-#endif /*IGNORE_EMPTY_BOXES*/
   
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   Cx = &(shifts[(ith*2+0)*necx]) ;
   WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
 					       bp[ic].mps, 8, Ns, nq,
 					       Cx, Nr, TRUE, 1.0) ;
-  grid[idx4] = 0 ;
-
   return ;
 }
 
@@ -130,16 +120,15 @@ static inline void _wbfmm_shift_down(guint64 grid[], gint idx4,
   if ( grid[idx4] == 0 ) return ;
   
   ic = grid[idx4] - 1 ;
-#ifdef IGNORE_EMPTY_BOXES
+  grid[idx4] = 0 ;
+
   if ( bp[ic].n == 0 ) return ;
-#endif /*IGNORE_EMPTY_BOXES*/
   
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   Cx = &(shifts[(ith*2+1)*necx]) ;
   WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(target, 8, Nr,
 					       bp[ic].mps, 8, Ns, nq,
 					       Cx, Nr, TRUE, 1.0) ;
-  grid[idx4] = 0 ;
 
   return ;
 }
@@ -154,7 +143,7 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
 					 gint nq)
 
 {
-  WBFMM_REAL *H, *Cx, ch, ph ;
+  WBFMM_REAL *H, *Cx, ch, ph, wt ;
   gint ith, ic, ix ;
 
   if ( grid[idx4] == 0 ) return ;
@@ -179,35 +168,34 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
   ith =  _wbfmm_shift_angles[4*idx4+2] ;
   ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
 
-#ifdef IGNORE_EMPTY_BOXES
+  wt = 0.0 ;
   if ( bp[ic].n != 0 ) {
-#endif /*IGNORE_EMPTY_BOXES*/
   /*rotate singular coefficients into wks*/
-  WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8, Ns, nq,
-					  H, ph, ch, 0.0) ;
-  /*translate into wkr*/
-  WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-					       Cx, Nr, TRUE, 0.0) ;
-#ifdef IGNORE_EMPTY_BOXES
+    WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8, Ns, nq,
+					    H, ph, ch, 0.0) ;
+    /*translate into wkr*/
+    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
+						 Cx, Nr, TRUE, wt) ;
+						 /* Cx, Nr, TRUE, 0.0) ; */
+    wt = 1.0 ;
   }
-#endif /*IGNORE_EMPTY_BOXES*/
   
   if ( grid[342-idx4] != 0 ) {
     ic = grid[342-idx4] - 1 ;
-#ifdef IGNORE_EMPTY_BOXES
-    if ( bp[ic].n != 0 ) {
-#endif /*IGNORE_EMPTY_BOXES*/
-    
-    WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8, Ns, nq,
-					    H, ph, ch, 0.0) ;
-    Cx = &(shifts[(2*ix+1)*necx]) ;
-    WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
-						 Cx, Nr, TRUE, 1.0) ;
     grid[342-idx4] = 0 ;
-#ifdef IGNORE_EMPTY_BOXES
+    if ( bp[ic].n != 0 ) {    
+      WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8, Ns, nq,
+					      H, ph, ch, 0.0) ;
+      Cx = &(shifts[(2*ix+1)*necx]) ;
+      WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
+						   Cx, Nr, TRUE, wt) ;
+						 /* Cx, Nr, TRUE, 1.0) ; */
+      wt = 1.0 ;
     }
-#endif /*IGNORE_EMPTY_BOXES*/    
   }
+
+  if ( wt == 0.0 ) return ;
+  
   /*rotate regular coefficients into mpr*/
   WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
 					  1.0) ;
@@ -246,46 +234,40 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
   for ( i = 0 ; i < 2 ; i ++ ) {
     if ( grid[idx4f[i]] != 0 ) {
       ic = grid[idx4f[i]] - 1 ;
+      grid[idx4f[i]] = 0 ;
       /*index of translation operator*/
       ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
       Cx = &(shifts[(2*ix+0)*necx]) ;
       /*rotate singular coefficients into wks*/
-#ifdef IGNORE_EMPTY_BOXES
       if ( bp[ic].n != 0 ) {
-#endif /*IGNORE_EMPTY_BOXES*/
 	WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8,
 						Ns, nq, H, ph, ch, 0.0) ;
 	/*translate into wkr*/
 	WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1,
 						     Ns, nq, Cx, Nr, TRUE, sc) ;
-#ifdef IGNORE_EMPTY_BOXES
+	sc = 1.0 ;
       }
-#endif /*IGNORE_EMPTY_BOXES*/
-      sc = 1.0 ;
-      grid[idx4f[i]] = 0 ;
     }
     if ( grid[idx4b[i]] != 0 ) {
       ic = grid[idx4b[i]] - 1 ;
+      grid[idx4b[i]] = 0 ;
       /*index of translation operator*/
       ix = _wbfmm_shift_angles[4*idx4f[i]+3] ;
       Cx = &(shifts[(2*ix+1)*necx]) ;
       /*rotate singular coefficients into wks*/
-#ifdef IGNORE_EMPTY_BOXES
       if ( bp[ic].n != 0 ) {
-#endif /*IGNORE_EMPTY_BOXES*/
 	WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(wks, 1, bp[ic].mps, 8,
 						Ns, nq, H, ph, ch, 0.0) ;
 	/*translate into wkr*/
 	WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
 						     Cx, Nr, TRUE, sc) ;
-#ifdef IGNORE_EMPTY_BOXES
+	sc = 1.0 ;
       }
-#endif /*IGNORE_EMPTY_BOXES*/
-      sc = 1.0 ;
-      grid[idx4b[i]] = 0 ;
     }
   }
 
+  if ( sc == 0.0 ) return ;
+  
   /*rotate regular coefficients into mpr*/
   WBFMM_FUNCTION_NAME(wbfmm_rotate_H_avx)(target, 8, wkr, 1, Nr, nq, H, ch, ph,
 					  1.0) ;

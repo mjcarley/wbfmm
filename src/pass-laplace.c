@@ -99,7 +99,7 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
 					 gint nq)
 
 {
-  WBFMM_REAL *H, ch, ph, r ;
+  WBFMM_REAL *H, ch, ph, r, wt ;
   gint ith, ic, ix ;
 
   if ( grid[idx4] == 0 ) return ;
@@ -108,7 +108,7 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
   ic = grid[idx4] - 1 ;
   /*mark box as processed*/
   grid[idx4] = 0 ;
-  
+
   /*index of rotation operator*/
   ith = _wbfmm_shift_angles[4*idx4+0] ;
   H = &(rotations[ith*nerot]) ;
@@ -122,25 +122,38 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
   ph = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
   ith =  _wbfmm_shift_angles[4*idx4+2] ;
   ch = (ith >= 0 ? _wbfmm_shifts_ph[ith-1] : -_wbfmm_shifts_ph[-1-ith]) ;
-      
-  /*rotate singular coefficients into wks*/
-  WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
-					      bp[ic].mps, 8*nq,
-					      Ns, nq, H, ph, ch, 0.0) ;
-  /*translate into wkr*/
-  WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
-							  wks, nq, Ns,
-							  nq, r, 0.0) ;
-  if ( grid[342-idx4] != 0 ) {
-    ic = grid[342-idx4] - 1 ;
+
+  wt = 0.0 ;
+  if ( bp[ic].n != 0 ) {  
+    /*rotate singular coefficients into wks*/
     WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
 						bp[ic].mps, 8*nq,
 						Ns, nq, H, ph, ch, 0.0) ;
+    /*translate into wkr*/
     WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
 							    wks, nq, Ns,
-							    nq, -r, 1.0) ;
+							    nq, r, wt) ;
+							    /* nq, r, 0.0) ; */
+    wt = 1.0 ;
+  } 
+
+  if ( grid[342-idx4] != 0 ) {
+    ic = grid[342-idx4] - 1 ;
     grid[342-idx4] = 0 ;
+    if ( bp[ic].n != 0 ) {  
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
+						  bp[ic].mps, 8*nq,
+						  Ns, nq, H, ph, ch, 0.0) ;
+      WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
+							      wks, nq, Ns,
+							      nq, -r, wt) ;
+							      /* nq, -r, 1.0) ; */
+      wt = 1.0 ;
+    }
   }
+
+  if ( wt == 0.0 ) return ;
+  
   /*rotate regular coefficients into target*/
   WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(target, 8*nq,
 					      wkr, nq, Nr, nq, H, ch, ph, 1.0) ;
@@ -159,12 +172,16 @@ static inline void _wbfmm_shift_up(guint64 grid[], gint idx4,
   if ( grid[idx4] == 0 ) return ;
   
   ic = grid[idx4] - 1 ;
+
+  grid[idx4] = 0 ;
+
+  if ( bp[ic].n == 0 ) return ;
+  
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   r = wb*_wbfmm_shifts_r[ith] ;
   WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(target, 8*nq, Nr,
 							  bp[ic].mps, 8*nq, Ns, 
 							  nq, r, 1.0) ;
-  grid[idx4] = 0 ;
 
   return ;
 }
@@ -180,12 +197,15 @@ static inline void _wbfmm_shift_down(guint64 grid[], gint idx4,
   if ( grid[idx4] == 0 ) return ;
   
   ic = grid[idx4] - 1 ;
+  grid[idx4] = 0 ;
+
+  if ( bp[ic].n == 0 ) return ;
+
   ith = _wbfmm_shift_angles[4*idx4+3] ;
   r = wb*_wbfmm_shifts_r[ith] ;
   WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(target, 8*nq, Nr,
 							  bp[ic].mps, 8*nq, Ns, 
 							  nq, -r, 1.0) ;
-  grid[idx4] = 0 ;
 
   return ;
 }
@@ -222,33 +242,38 @@ static inline void _wbfmm_diagonal_shift_3(guint64 grid[],
     r = wb*_wbfmm_shifts_r[ix] ;
     if ( grid[idx4f[i]] != 0 ) {
       ic = grid[idx4f[i]] - 1 ;
-
-      /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
-						  bp[ic].mps, 8*nq,
-						  Ns, nq, H, ph, ch, 0.0) ;
-      /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
-							      wks, nq, Ns,
-							      nq, r, sc) ;
-      sc = 1.0 ;
       grid[idx4f[i]] = 0 ;
+      if ( bp[ic].n != 0 ) {
+	/*rotate singular coefficients into wks*/
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
+						    bp[ic].mps, 8*nq,
+						    Ns, nq, H, ph, ch, 0.0) ;
+	/*translate into wkr*/
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
+								wks, nq, Ns,
+								nq, r, sc) ;
+	sc = 1.0 ;
+      }
     }
     if ( grid[idx4b[i]] != 0 ) {
       ic = grid[idx4b[i]] - 1 ;
-      /*rotate singular coefficients into wks*/
-      WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
-						  bp[ic].mps, 8*nq,
-						  Ns, nq, H, ph, ch, 0.0) ;
-      /*translate into wkr*/
-      WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
-							      wks, nq, Ns,
-							      nq, -r, sc) ;
-      sc = 1.0 ;
       grid[idx4b[i]] = 0 ;
+      if ( bp[ic].n != 0 ) {
+      /*rotate singular coefficients into wks*/
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(wks, nq,
+						    bp[ic].mps, 8*nq,
+						    Ns, nq, H, ph, ch, 0.0) ;
+	/*translate into wkr*/
+	WBFMM_FUNCTION_NAME(wbfmm_laplace_coaxial_translate_SR)(wkr, nq, Nr,
+								wks, nq, Ns,
+								nq, -r, sc) ;
+	sc = 1.0 ;
+      }
     }
   }
 
+  if ( sc == 0.0 ) return ;
+  
   /*rotate regular coefficients into mpr*/
   WBFMM_FUNCTION_NAME(wbfmm_laplace_rotate_H)(target, 8*nq,
 					      wkr, nq, Nr, nq, H, ch, ph, 1.0) ;

@@ -2,9 +2,9 @@
 
 BIN=../tools
 
-##sfile=monopoles-hh.dat
+sfile=monopoles-hh.dat
 ##sfile=curl.dat
-sfile=dipoles-hh.dat
+##sfile=dipoles-hh.dat
 ffile=field.dat
 dfile=direct.dat
 fmmfile=fmm.dat
@@ -25,9 +25,9 @@ ${BIN}/wbfmm-tree-calc-avx ${curl}  -k ${k} -b ${bw} -d ${depth} \
       -R ${order_r} -S ${order_s} -T ${nthread} \
       -f ${ffile} -s ${sfile} ${targets} > ${avxfile}
 
-##${BIN}/wbfmm-tree-calc ${curl}  -k ${k} -b ${bw} -d ${depth} \
-##      -R ${order_r} -S ${order_s} -T ${nthread} \
-##      -f ${ffile} -s ${sfile} ${targets} -i 2 > ${fmmfile}
+${BIN}/wbfmm-tree-calc ${curl}  -k ${k} -b ${bw} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} \
+      -f ${ffile} -s ${sfile} ${targets} -i 2 > ${fmmfile}
 
 ##${BIN}/wbfmm-tree-calc ${curl} -b ${bw} -d ${depth} \
 ##      -R ${order_r} -S ${order_s} -T ${nthread} \

@@ -6,6 +6,10 @@ opfile=$1
 #    -e s/FLOATEXP/1.16e/g \
 #    ${opfile}.c.in > ${opfile}.c
 
+rm -f ${opfile}-float.c
+
 sed -e s/WBFMM_REAL/gfloat/g -e s/_FLOAT/_f/g -e s/FLOATFMT/g/g \
     -e s/FLOATEXP/1.16e/g \
     ${opfile}.c.in > ${opfile}-float.c
+
+chmod a-w ${opfile}-float.c
