@@ -12,3 +12,5 @@ Ignore empty boxes (correctly)
 
 vectorized curl and curl/gradient operators, with portable use of SIMD
 extensions
+
+AVX vectorisation of single-precision operations
