@@ -638,7 +638,8 @@ ac_ct_F77
 FFLAGS
 F77
 OPENMP_CFLAGS
-BLASWRAP
+BLASWRAP_LIBS
+BLASWRAP_CFLAGS
 GLIB_LIBS
 GLIB_CFLAGS
 PKG_CONFIG_LIBDIR
@@ -795,6 +796,8 @@ PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
 GLIB_CFLAGS
 GLIB_LIBS
+BLASWRAP_CFLAGS
+BLASWRAP_LIBS
 F77
 FFLAGS'
 
@@ -1458,6 +1461,10 @@ Some influential environment variables:
               path overriding pkg-config's built-in search path
   GLIB_CFLAGS C compiler flags for GLIB, overriding pkg-config
   GLIB_LIBS   linker flags for GLIB, overriding pkg-config
+  BLASWRAP_CFLAGS
+              C compiler flags for BLASWRAP, overriding pkg-config
+  BLASWRAP_LIBS
+              linker flags for BLASWRAP, overriding pkg-config
   F77         Fortran 77 compiler command
   FFLAGS      Fortran 77 compiler flags
 
@@ -13179,60 +13186,96 @@ $as_echo "yes" >&6; }
 
 fi
 
-# Extract the first word of "blaswrap-config", so it can be a program name with args.
-set dummy blaswrap-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_BLASWRAP+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$BLASWRAP"; then
-  ac_cv_prog_BLASWRAP="$BLASWRAP" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_BLASWRAP="yes"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
 
-  test -z "$ac_cv_prog_BLASWRAP" && ac_cv_prog_BLASWRAP="no"
-fi
-fi
-BLASWRAP=$ac_cv_prog_BLASWRAP
-if test -n "$BLASWRAP"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $BLASWRAP" >&5
-$as_echo "$BLASWRAP" >&6; }
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for blaswrap" >&5
+$as_echo_n "checking for blaswrap... " >&6; }
+
+if test -n "$BLASWRAP_CFLAGS"; then
+    pkg_cv_BLASWRAP_CFLAGS="$BLASWRAP_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"blaswrap\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "blaswrap") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_BLASWRAP_CFLAGS=`$PKG_CONFIG --cflags "blaswrap" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$BLASWRAP_LIBS"; then
+    pkg_cv_BLASWRAP_LIBS="$BLASWRAP_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"blaswrap\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "blaswrap") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_BLASWRAP_LIBS=`$PKG_CONFIG --libs "blaswrap" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-fi
 
-
-if test x$BLASWRAP = xyes ; then
-
-$as_echo "#define HAVE_BLASWRAP 1" >>confdefs.h
-
-   blaswrap_cflags=`blaswrap-config --cflags`
-   blaswrap_libs=`blaswrap-config --libs`
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
 else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        BLASWRAP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "blaswrap" 2>&1`
+        else
+	        BLASWRAP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "blaswrap" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$BLASWRAP_PKG_ERRORS" >&5
+
+
   echo \#################################################################
   echo \#
-  echo \# BLAS wrapper library not installed or not properly installed.
-  echo \# You can get it from
+  echo \# BLASWRAP not installed. You can install it using your
+  echo \# distribution's package manager or from:
   echo \#
   echo \# https://github.com/mjcarley/blaswrap
   echo \#
   echo \#################################################################
   exit
+
+elif test $pkg_failed = untried; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+  echo \#################################################################
+  echo \#
+  echo \# BLASWRAP not installed. You can install it using your
+  echo \# distribution's package manager or from:
+  echo \#
+  echo \# https://github.com/mjcarley/blaswrap
+  echo \#
+  echo \#################################################################
+  exit
+
+else
+	BLASWRAP_CFLAGS=$pkg_cv_BLASWRAP_CFLAGS
+	BLASWRAP_LIBS=$pkg_cv_BLASWRAP_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
 fi
 
 ac_ext=c
@@ -17439,18 +17482,15 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 #DX_PDF_FEATURE(OFF)
 #DX_PS_FEATURE(OFF)
 
-CFLAGS="$CFLAGS $OPENMP_CFLAGS $SIMD_FLAGS $GLIB_CFLAGS $blaswrap_cflags"
-LIBS="$GLIB_LIBS $blaswrap_libs $LAPACK_LIBS $LIBS $FLIBS"
-##LDFLAGS="$LDFLAGS $glib_libs"
+CFLAGS="$CFLAGS $OPENMP_CFLAGS $SIMD_FLAGS $GLIB_CFLAGS $BLASWRAP_CFLAGS"
+LIBS="$GLIB_LIBS $BLASWRAP_LIBS $LAPACK_LIBS $LIBS $FLIBS"
 
 
 
 
 #AC_SUBST(DX_RULES)
 
-##LIBS="$glib_libs $blaswrap_libs $LIBS $FLIBS"
-
-ac_config_files="$ac_config_files Makefile wbfmm.pc src/Makefile src/wbfmm-config tools/Makefile"
+ac_config_files="$ac_config_files Makefile wbfmm.pc src/Makefile tools/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -18544,7 +18584,6 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "wbfmm.pc") CONFIG_FILES="$CONFIG_FILES wbfmm.pc" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
-    "src/wbfmm-config") CONFIG_FILES="$CONFIG_FILES src/wbfmm-config" ;;
     "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

@@ -34,8 +34,9 @@
 #define WBFMM_INDEX_SHIFT (1U << 20)
 
 #define WBFMM_LOCAL_CUTOFF_RADIUS 1e-6
-
+#ifndef WBFMM_THREAD_NUMBER_MAX
 #define WBFMM_THREAD_NUMBER_MAX 16
+#endif /*WBFMM_THREAD_NUMBER_MAX*/
 
 /**
  * @struct wbfmm_library_config_t

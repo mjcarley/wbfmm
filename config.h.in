@@ -20,9 +20,6 @@
 /* Define if avx instructions are supported */
 #undef HAVE_AVX_INSTRUCTIONS
 
-/* BLAS wrapper header available */
-#undef HAVE_BLASWRAP
-
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 

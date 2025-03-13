@@ -485,7 +485,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx)(wbfmm_tree_t *t,
     gpointer data[WBFMM_DOWNWARD_PASS_DATA_SIZE],
       main_data[2*WBFMM_THREAD_NUMBER_MAX] ;
 
-    g_assert(nthreads < WBFMM_THREAD_NUMBER_MAX) ;
+    g_assert(nthreads <= WBFMM_THREAD_NUMBER_MAX) ;
     data[WBFMM_DOWNWARD_PASS_WORK] = work ;
     data[WBFMM_DOWNWARD_PASS_LEVEL] = &level ;
     data[WBFMM_DOWNWARD_PASS_NQ] = &nq ;
