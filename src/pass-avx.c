@@ -176,7 +176,6 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
     /*translate into wkr*/
     WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
 						 Cx, Nr, TRUE, wt) ;
-						 /* Cx, Nr, TRUE, 0.0) ; */
     wt = 1.0 ;
   }
   
@@ -189,7 +188,6 @@ static inline void _wbfmm_diagonal_shift(guint64 grid[], gint idx4,
       Cx = &(shifts[(2*ix+1)*necx]) ;
       WBFMM_FUNCTION_NAME(wbfmm_coaxial_translate)(wkr, 1, Nr, wks, 1, Ns, nq,
 						   Cx, Nr, TRUE, wt) ;
-						 /* Cx, Nr, TRUE, 1.0) ; */
       wt = 1.0 ;
     }
   }
@@ -290,9 +288,6 @@ static inline void _wbfmm_downward_pass_box_bw(guint level, guint64 ip,
   guint idx4, idx4f[2], idx4b[2] ;
   guint64 grid[343] = {0} ;
 
-  /* if ( nq != 1 ) */
-  /*   g_error("%s: not checked for nq (%d) > 1", __FUNCTION__, nq) ; */
-  
   /*locate boxes in interaction list*/
   wbfmm_box_interaction_grid_4(level, ip, grid) ;
   /*deal with special cases combining rotations*/
@@ -604,7 +599,7 @@ gint WBFMM_FUNCTION_NAME(wbfmm_downward_pass_avx)(wbfmm_tree_t *t,
 						  WBFMM_REAL *work,
 						  gint nthreads)
 {
-  return WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(t, op, level, work) ;
+  return WBFMM_FUNCTION_NAME(wbfmm_downward_pass_ref)(t, op, level, work, nthreads) ;
 }
 
 #endif /*HAVE_AVX_INSTRUCTIONS*/

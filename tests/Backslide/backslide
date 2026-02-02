@@ -1,0 +1,40 @@
+#!/bin/bash
+
+BIN=../../tools
+
+sfile=monopoles.dat
+ffile=field.dat
+bwfile=backslide.dat
+nobwfile=standard.dat
+depth=4
+nthread=1
+order_r=16
+order_s=16
+targets=
+curl=
+k=1.3
+opfile=perf.dat
+
+${BIN}/wbfmm-tree-calc-avx ${curl} -b -B -k ${k} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} \
+      -f ${ffile} -s ${sfile} > ${bwfile} 2> bw.log
+
+ustart=`grep "upward pass;" bw.log | cut -d \; -f 2`
+uend=`grep "upward pass completed" bw.log | cut -d \; -f 2`
+upbw=`echo ${uend}-${ustart} | bc -l`
+ustart=`grep "downward pass;" bw.log | cut -d \; -f 2`
+uend=`grep "downward pass completed" bw.log | cut -d \; -f 2`
+downbw=`echo ${uend}-${ustart} | bc -l`
+
+${BIN}/wbfmm-tree-calc-avx ${curl} -b -k ${k} -d ${depth} \
+      -R ${order_r} -S ${order_s} -T ${nthread} \
+      -f ${ffile} -s ${sfile} > ${nobwfile} 2> nobw.log
+
+ustart=`grep "upward pass;" nobw.log | cut -d \; -f 2`
+uend=`grep "upward pass completed" nobw.log | cut -d \; -f 2`
+upnm=`echo ${uend}-${ustart} | bc -l`
+ustart=`grep "downward pass;" nobw.log | cut -d \; -f 2`
+uend=`grep "downward pass completed" nobw.log | cut -d \; -f 2`
+downnm=`echo ${uend}-${ustart} | bc -l`
+
+echo ${depth} ${upbw} ${upnm} ${downbw} ${downnm} >> ${opfile}
